@@ -1,0 +1,11 @@
+import Mathlib.Algebra.Ring.Defs
+import ShielddGnarkFormal.StructuredLC
+
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 50000000
+
+namespace Shieldd.GnarkFormal.Deployed.Templates.Relations.TGadgetPoseidonEncryptionDetection_0a6a5e4c12f0e8b1d9f23e22029e1017258442dced1d768cadd8656136bd44ea
+
+variable {F : Type} [CommRing F]
+
+end Shieldd.GnarkFormal.Deployed.Templates.Relations.TGadgetPoseidonEncryptionDetection_0a6a5e4c12f0e8b1d9f23e22029e1017258442dced1d768cadd8656136bd44ea

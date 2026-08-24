@@ -1,0 +1,78 @@
+name: formal
+
+on:
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+concurrency:
+  group: formal-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - run: python -m json.tool shieldd.lock >/dev/null
+      - run: python -m json.tool formal-files.json >/dev/null
+
+  soundness:
+    needs: policy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    container:
+      image: ghcr.io/mizufinance/shieldd-fv-toolchain@sha256:29488637fce71c867d9f6ffd8c5bdc825c80f55d675238bcdfbfe878be11d96c
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .cache/cargo-target
+            .cache/go-build
+            .cache/go-mod
+            .cache/shieldd.git
+            .work/composed
+            .work/composed.sha
+          key: formal-soundness-${{ runner.os }}-${{ hashFiles('shieldd.lock', 'tools/gnark/lean/lean-toolchain', 'tools/gnark/lean/lake-manifest.json') }}
+          restore-keys: formal-soundness-${{ runner.os }}-
+      - run: python3 formal.py gate soundness --mode affected
+
+  snarkpack:
+    needs: policy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    container:
+      image: ghcr.io/mizufinance/shieldd-snarkpack-fv-toolchain@sha256:63fb57a0c07de6c4a3ded67410b26a2804d090a3ae51929708c8e4650a686282
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .cache/cargo-target
+            .cache/go-build
+            .cache/go-mod
+            .cache/shieldd.git
+            .work/composed
+            .work/composed.sha
+          key: formal-snarkpack-${{ runner.os }}-${{ hashFiles('shieldd.lock', 'crates/crypto/proof-aggregation/formal/**') }}
+          restore-keys: formal-snarkpack-${{ runner.os }}-
+      - run: python3 formal.py gate snarkpack --mode static

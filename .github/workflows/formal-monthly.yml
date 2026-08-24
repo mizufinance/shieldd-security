@@ -1,0 +1,64 @@
+name: formal-monthly
+
+on:
+  schedule:
+    - cron: "17 4 1 * *"
+  workflow_dispatch:
+
+concurrency:
+  group: formal-monthly
+  cancel-in-progress: false
+
+jobs:
+  soundness-release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    container:
+      image: ghcr.io/mizufinance/shieldd-fv-toolchain@sha256:29488637fce71c867d9f6ffd8c5bdc825c80f55d675238bcdfbfe878be11d96c
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .cache/cargo-target
+            .cache/go-build
+            .cache/go-mod
+            .cache/shieldd.git
+            .work/composed
+            .work/composed.sha
+          key: formal-monthly-${{ runner.os }}-${{ hashFiles('shieldd.lock', 'tools/gnark/lean/lean-toolchain', 'tools/gnark/lean/lake-manifest.json') }}
+          restore-keys: formal-monthly-${{ runner.os }}-
+      - run: python3 formal.py evidence refresh --check --all
+      - run: python3 formal.py gate soundness --mode release
+
+  snarkpack-full:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    container:
+      image: ghcr.io/mizufinance/shieldd-snarkpack-fv-toolchain@sha256:63fb57a0c07de6c4a3ded67410b26a2804d090a3ae51929708c8e4650a686282
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .cache/cargo-target
+            .cache/go-build
+            .cache/go-mod
+            .cache/shieldd.git
+            .work/composed
+            .work/composed.sha
+          key: formal-snarkpack-monthly-${{ runner.os }}-${{ hashFiles('shieldd.lock', 'crates/crypto/proof-aggregation/formal/**') }}
+          restore-keys: formal-snarkpack-monthly-${{ runner.os }}-
+      - run: python3 formal.py gate snarkpack --mode full

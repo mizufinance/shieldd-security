@@ -1,0 +1,11 @@
+import Mathlib.Algebra.Ring.Defs
+import ShielddGnarkFormal.StructuredLC
+
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 50000000
+
+namespace Shieldd.GnarkFormal.Deployed.Templates.Relations.TGadgetAssetRegistryParamsHash_1963568e22e00f1c7a0d3c2b2896d3035d4eb4397880f0d3207d9ac83743b64e
+
+variable {F : Type} [CommRing F]
+
+end Shieldd.GnarkFormal.Deployed.Templates.Relations.TGadgetAssetRegistryParamsHash_1963568e22e00f1c7a0d3c2b2896d3035d4eb4397880f0d3207d9ac83743b64e
