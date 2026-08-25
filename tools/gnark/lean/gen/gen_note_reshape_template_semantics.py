@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import pickle
 import re
 import subprocess
@@ -289,7 +290,14 @@ def isolated_generated_files(module: str, function: str) -> dict[Path, str]:
     Serial process isolation releases those arenas before the orchestrator
     retains the next operation's rendered sources.
     """
-    with tempfile.NamedTemporaryFile(suffix=".pickle", delete=False) as handle:
+    configured_tmp = os.environ.get("FV_GATE_TMP_ROOT")
+    if configured_tmp is not None and not Path(configured_tmp).is_dir():
+        raise SystemExit("configured formal gate temporary root is missing")
+    with tempfile.NamedTemporaryFile(
+        suffix=".pickle",
+        delete=False,
+        dir=configured_tmp,
+    ) as handle:
         output_path = Path(handle.name)
     code = (
         "import importlib,pickle,sys; "

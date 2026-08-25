@@ -71,6 +71,8 @@ run_fv_python() {
   for arg in "$@"; do
     if [[ "$arg" == /* ]]; then
       converted+=("$(wslpath -w "$arg")")
+    elif [[ "$arg" == *=/* ]]; then
+      converted+=("${arg%%=*}=$(wslpath -w "${arg#*=}")")
     else
       converted+=("$arg")
     fi
@@ -184,7 +186,13 @@ sha256_file() {
   fi
 }
 
-tmp_dir="$(mktemp -d)"
+if [[ -n "${FV_GATE_TMP_ROOT:-}" ]]; then
+  [[ -d "$FV_GATE_TMP_ROOT" ]] \
+    || fail "native gate temporary root is missing"
+  tmp_dir="$(mktemp -d "$FV_GATE_TMP_ROOT/check.XXXXXX")"
+else
+  tmp_dir="$(mktemp -d)"
+fi
 cleanup() {
   rm -rf "$tmp_dir"
 }
@@ -271,7 +279,7 @@ for circuit in "${FAMILIES[@]}"; do
     --manifest "$circuit=$fresh_dir/$circuit-manifest.json"
   )
 done
-python3 "$ROOT/scripts/check-fv-specification-completeness.py" \
+run_fv_python "$ROOT/scripts/check-fv-specification-completeness.py" \
   --require-relation-evidence \
   "${specification_manifest_args[@]}" \
   || fail "fresh manifests do not implement the closed predicate matrix"
@@ -309,11 +317,26 @@ python3 "$ROOT/scripts/check-certified-circuit-impact.py" \
   --template-inventory "$fresh_dir/certified-template-inventory.json" \
   --policy clean
 
-echo "==> generator unit, drift, and mtime tests"
-(
-  cd "$ROOT/tools/gnark/lean/gen"
-  python3 -m unittest discover -p 'test_*.py'
-)
+gate_test_scope="${FV_GATE_TEST_SCOPE:-full}"
+case "$gate_test_scope" in
+  full)
+    echo "==> exhaustive generator unit, drift, and mtime tests"
+    (
+      cd "$ROOT/tools/gnark/lean/gen"
+      python3 -m unittest discover -p 'test_*.py'
+    )
+    ;;
+  refresh)
+    echo "==> generator mtime smoke test"
+    (
+      cd "$ROOT/tools/gnark/lean/gen"
+      python3 -m unittest test_generator_mtime.py
+    )
+    ;;
+  *)
+    fail "unsupported formal gate test scope: $gate_test_scope"
+    ;;
+esac
 run_fv_python "$ROOT/tools/gnark/lean/gen/gen_template_ownership.py" --check
 generation_backends="$(
   for circuit in "${FAMILIES[@]}"; do
@@ -362,7 +385,7 @@ python3 "$ROOT/tools/gnark/lean/gen/check_lean_import_closure.py" \
   "${import_closure_args[@]}"
 
 echo "==> formal gate self-tests"
-"$ROOT/scripts/check-formal-gate-self-tests.sh"
+"$ROOT/scripts/check-formal-gate-self-tests.sh" "$gate_test_scope"
 
 poseidon_parity_mode=vectors
 if [[ "$MODE" == "release" ]]; then

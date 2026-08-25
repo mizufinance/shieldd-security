@@ -49,7 +49,14 @@ run_constraint_coverage() {
 }
 
 certified_profiles() {
-  if [[ "$refresh" -eq 1 ]]; then
+  if [[ -n "${FV_GATE_CATALOG_FILE:-}" ]]; then
+    [[ "$FV_GATE_CATALOG_FILE" == ".formal-gate-catalog.tsv" ]] \
+      || fail "unsupported prevalidated FV catalog path"
+    [[ -f "$ROOT/$FV_GATE_CATALOG_FILE" ]] \
+      || fail "prevalidated FV catalog is missing"
+    awk -F '\t' '$1 == "profile" { print $2 }' \
+      "$ROOT/$FV_GATE_CATALOG_FILE" | tr -d '\r'
+  elif [[ "$refresh" -eq 1 ]]; then
     jq -er '
       if .schema != "shieldd.gnark.fv_profiles.v2" then
         error("unsupported FV profile schema")

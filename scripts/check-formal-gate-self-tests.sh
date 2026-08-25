@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$ROOT/scripts/lib/fail-closed-rg.sh"
+test_scope="${1:-full}"
 
 fail() {
   echo "formal gate self-test failed: $*" >&2
@@ -73,10 +74,20 @@ rg -F -- "--proof-case is required for proof validation" \
   "$tmp_dir/key-case.log" >/dev/null \
   || fail "check-key-coherence did not fail closed on a missing proof case"
 
-python3 -m unittest discover \
-  -s "$ROOT/scripts/tests" -p 'test_*.py'
-python3 -m unittest discover \
-  -s "$ROOT/scripts/ci" -p 'test_*.py'
+case "$test_scope" in
+  full)
+    python3 -m unittest discover \
+      -s "$ROOT/scripts/tests" -p 'test_*.py'
+    python3 -m unittest discover \
+      -s "$ROOT/scripts/ci" -p 'test_*.py'
+    ;;
+  refresh)
+    echo "formal mutation self-tests deferred to the soundness gate"
+    ;;
+  *)
+    fail "unsupported formal gate test scope: $test_scope"
+    ;;
+esac
 bash "$ROOT/scripts/compliance-symbolic.sh" self-test
 bash "$ROOT/scripts/check-gadget-model-fidelity.sh" all
 

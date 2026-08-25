@@ -27,6 +27,16 @@ caches survive later gates. A refresh runs in a disposable writable checkout,
 verifies the regenerated closure, and only then promotes changed formal-owned
 evidence. Failed generation leaves the repository untouched.
 
+Refresh validation reruns every generated-output drift check plus the generator
+mtime smoke test. Formal soundness gates retain the exhaustive generator
+mutation suite; the monthly release gate therefore independently rechecks a
+refreshed evidence tree before accepting it.
+
+On Windows, the runner keeps shell orchestration in WSL but runs the coverage
+extractor and filesystem-heavy Python catalog/completeness checks natively.
+Temporary compiled manifests and isolated semantic payloads live under
+`.work/gate-tmp` and are removed when the gate exits.
+
 Only the four certified SR1CS inputs declared in `formal-files.json` are
 materialized. A local Shieldd checkout supplies independent copies after their
 size and SHA-256 match the locked commit's LFS pointers; remote runs use one

@@ -96,6 +96,18 @@ python3 "$GNARK/lean/gen/gen_note_reshape_canonical_address.py"
 python3 "$GNARK/lean/gen/gen_note_reshape_balance_seating.py"
 python3 "$GNARK/lean/gen/gen_note_reshape_1x8_statement_seating.py"
 run_fv_python "$GNARK/lean/gen/gen_template_ownership.py"
+
+semantic_digest="$(
+  run_fv_python \
+    "$ROOT/scripts/fv_specification_completeness.py" \
+    --emit-semantic-digest \
+    | tr -d '\r'
+)"
+[[ "$semantic_digest" =~ ^[0-9a-f]{64}$ ]] \
+  || { echo "formal refresh produced an invalid semantic digest" >&2; exit 1; }
+printf '%s\n' "$semantic_digest" \
+  > "$GNARK/lean/certified-protocol-semantics.sha256"
+
 run_fv_python "$ROOT/scripts/gen-certified-circuit-artifacts.py"
 
 echo "formal evidence refresh staged: circuits=${circuits[*]}"

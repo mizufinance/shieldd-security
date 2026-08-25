@@ -627,18 +627,13 @@ FAMILIES = {
 }
 
 
-@cache
-def source_bytes(path: Path) -> bytes:
-    return path.read_bytes()
-
-
 def aggregate(paths: list[Path], root: Path = ROOT) -> str:
     digest = hashlib.sha256()
     resolved_root = Path(root).resolve()
     for path in canonical_source_paths(paths, root):
-        digest.update(str(path.relative_to(resolved_root)).encode())
+        digest.update(path.relative_to(resolved_root).as_posix().encode())
         digest.update(b"\0")
-        digest.update(source_bytes(path))
+        digest.update(path.read_bytes())
         digest.update(b"\0")
     return digest.hexdigest()
 

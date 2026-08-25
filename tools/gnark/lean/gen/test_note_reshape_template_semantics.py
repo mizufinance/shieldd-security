@@ -3,11 +3,28 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
+from pathlib import Path
 import re
+import tempfile
 import unittest
+from unittest.mock import patch
 
 import gen_note_reshape_template_semantics as gen
 import manifest_discovery as discovery
+
+
+class IsolatedGeneratorTempTests(unittest.TestCase):
+    def test_large_isolated_result_uses_managed_gate_temp_root(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.dict(os.environ, {"FV_GATE_TMP_ROOT": directory}):
+                outputs = gen.isolated_generated_files(
+                    "gen_prime_certificate_facts",
+                    "expected_files",
+                )
+
+            self.assertTrue(outputs)
+            self.assertEqual(list(Path(directory).iterdir()), [])
 
 
 class NoteReshapeTemplateSemanticsTest(unittest.TestCase):

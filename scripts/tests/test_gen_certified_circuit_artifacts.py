@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 import os
@@ -63,12 +64,22 @@ class CertifiedCircuitArtifactTests(unittest.TestCase):
             first = root / "A.lean"
             second = root / "Nested" / "B.lean"
             second.parent.mkdir()
-            first.write_text("import Nested.B\n", encoding="utf-8")
-            second.write_text("", encoding="utf-8")
+            first.write_bytes(b"import Nested.B\n")
+            second.write_bytes(b"")
 
-            self.assertRegex(
+            digest = hashlib.sha256()
+            for relative, contents in (
+                ("A.lean", b"import Nested.B\n"),
+                ("Nested/B.lean", b""),
+            ):
+                digest.update(relative.encode())
+                digest.update(b"\0")
+                digest.update(contents)
+                digest.update(b"\0")
+
+            self.assertEqual(
                 GEN.aggregate([first, second], root),
-                r"^[0-9a-f]{64}$",
+                digest.hexdigest(),
             )
 
     def test_local_python_closure_rejects_generator_symlink_and_alias(

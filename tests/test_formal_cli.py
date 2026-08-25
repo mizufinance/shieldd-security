@@ -28,6 +28,64 @@ class FormalCliTests(unittest.TestCase):
         env = FORMAL.command_environment()
         self.assertEqual(env["FV_WINDOWS_PYTHON"], FORMAL.sys.executable)
         self.assertIn("FV_WINDOWS_PYTHON/p", env["WSLENV"].split(":"))
+        self.assertTrue(Path(env["FV_GATE_TMP_ROOT"]).is_dir())
+        self.assertIn("FV_GATE_TMP_ROOT/p", env["WSLENV"].split(":"))
+        self.assertEqual(env["FV_GATE_TEST_SCOPE"], "full")
+        self.assertIn("FV_GATE_TEST_SCOPE", env["WSLENV"].split(":"))
+
+    def test_windows_gate_catalog_is_generated_natively_once(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            checkout = Path(directory)
+            env: dict[str, str] = {}
+            with (
+                patch.object(FORMAL.os, "name", "nt"),
+                patch.object(FORMAL, "run", return_value="profile\ttransfer") as run,
+            ):
+                FORMAL.prepare_windows_gate_catalog(checkout, env)
+
+            run.assert_called_once_with(
+                [
+                    FORMAL.sys.executable,
+                    str(checkout / "scripts/check-fv-profiles.py"),
+                    "--emit-gate-catalog-tsv",
+                    "--status",
+                    "certified",
+                ],
+                cwd=checkout,
+                capture=True,
+            )
+            self.assertEqual(
+                (checkout / ".formal-gate-catalog.tsv").read_bytes(),
+                b"profile\ttransfer\n",
+            )
+            self.assertEqual(env["FV_GATE_CATALOG_FILE"], ".formal-gate-catalog.tsv")
+            self.assertIn("FV_GATE_CATALOG_FILE", env["WSLENV"].split(":"))
+
+    def test_refresh_validation_uses_focused_generator_tests(self) -> None:
+        env: dict[str, str] = {}
+        with patch.object(FORMAL.os, "name", "nt"):
+            FORMAL.use_refresh_validation_scope(env)
+
+        self.assertEqual(env["FV_GATE_TEST_SCOPE"], "refresh")
+        self.assertIn("FV_GATE_TEST_SCOPE", env["WSLENV"].split(":"))
+
+        source = (ROOT / "scripts/check-lean-circuit-fv.sh").read_text()
+        self.assertIn('gate_test_scope="${FV_GATE_TEST_SCOPE:-full}"', source)
+        self.assertIn("python3 -m unittest test_generator_mtime.py", source)
+        self.assertIn("python3 -m unittest discover -p 'test_*.py'", source)
+        self.assertIn(
+            'check-formal-gate-self-tests.sh" "$gate_test_scope"', source
+        )
+
+    def test_refresh_pins_complete_semantic_bundle_before_certification(self) -> None:
+        source = (ROOT / "scripts/refresh-formal-evidence.sh").read_text()
+        ownership = source.index("gen_template_ownership.py")
+        semantic_pin = source.index("--emit-semantic-digest")
+        certification = source.index("gen-certified-circuit-artifacts.py")
+
+        self.assertLess(ownership, semantic_pin)
+        self.assertLess(semantic_pin, certification)
+        self.assertIn("certified-protocol-semantics.sha256", source)
 
     def test_parser_requires_exact_gate_kind(self) -> None:
         args = FORMAL.parser().parse_args(["gate", "soundness", "--mode", "drift"])

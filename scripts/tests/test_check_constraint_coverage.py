@@ -15,11 +15,15 @@ def bridge_import_function() -> str:
     return "\n".join(lines[start : end + 1])
 
 
-def shell_function(name: str) -> str:
-    lines = CHECK.read_text().splitlines()
+def shell_function_from(path: Path, name: str) -> str:
+    lines = path.read_text().splitlines()
     start = lines.index(f"{name}() {{")
     end = next(i for i in range(start + 1, len(lines)) if lines[i] == "}")
     return "\n".join(lines[start : end + 1])
+
+
+def shell_function(name: str) -> str:
+    return shell_function_from(CHECK, name)
 
 
 class BridgeImportTests(unittest.TestCase):
@@ -65,6 +69,76 @@ class BridgeImportTests(unittest.TestCase):
 
 
 class SemanticGenerationTests(unittest.TestCase):
+    def test_native_python_bridge_converts_bound_manifest_paths(self) -> None:
+        check = ROOT / "scripts/check-lean-circuit-fv.sh"
+        function = shell_function_from(check, "run_fv_python")
+        script = "\n".join(
+            (
+                "fail() { printf '%s\\n' \"$*\" >&2; exit 1; }",
+                "wslpath() { shift; printf 'WIN[%s]\\n' \"$1\"; }",
+                "capture() { printf '%s\\n' \"$@\"; }",
+                function,
+                "FV_WINDOWS_PYTHON=capture",
+                "run_fv_python /mnt/c/root.py --manifest "
+                "transfer=/mnt/c/tmp/manifest.json",
+            )
+        )
+        shell = ["bash"]
+        if os.name == "nt":
+            shell = ["wsl.exe", "-e", "bash"]
+        result = subprocess.run(
+            [*shell, "-c", script],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(
+            result.stdout.splitlines(),
+            [
+                "WIN[/mnt/c/root.py]",
+                "--manifest",
+                "transfer=WIN[/mnt/c/tmp/manifest.json]",
+            ],
+        )
+        source = check.read_text()
+        self.assertIn(
+            'run_fv_python "$ROOT/scripts/check-fv-specification-completeness.py"',
+            source,
+        )
+        self.assertIn('mktemp -d "$FV_GATE_TMP_ROOT/check.XXXXXX"', source)
+
+    def test_constraint_check_reuses_prevalidated_profile_catalog(self) -> None:
+        function = shell_function("certified_profiles")
+        script = "\n".join(
+            (
+                "fail() { printf '%s\\n' \"$*\" >&2; exit 1; }",
+                "python3() { exit 99; }",
+                function,
+                "work=$(mktemp -d)",
+                "trap 'rm -rf \"$work\"' EXIT",
+                "ROOT=$work",
+                "GNARK=$work/tools/gnark",
+                "refresh=0",
+                "FV_GATE_CATALOG_FILE=.formal-gate-catalog.tsv",
+                "printf 'profile\\tnote_reshape8x1\\nprofile\\ttransfer\\n' "
+                '> "$work/.formal-gate-catalog.tsv"',
+                "certified_profiles",
+            )
+        )
+        shell = ["bash"]
+        if os.name == "nt":
+            shell = ["wsl.exe", "-e", "bash"]
+        result = subprocess.run(
+            [*shell, "-c", script],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(
+            result.stdout.splitlines(),
+            ["note_reshape8x1", "transfer"],
+        )
+
     def test_shared_generator_runs_once_after_backend_discovery(self) -> None:
         source = CHECK.read_text()
         command = '"$ROOT/tools/gnark/lean/gen/gen_note_reshape_template_semantics.py"'

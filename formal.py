@@ -401,12 +401,18 @@ def command_environment() -> dict[str, str]:
         path.mkdir(parents=True, exist_ok=True)
         env.setdefault(name, str(path.resolve()))
     env["LEAN_NUM_THREADS"] = "1"
+    env["FV_GATE_TEST_SCOPE"] = "full"
     if os.name == "nt":
+        gate_tmp_root = WORK / "gate-tmp"
+        gate_tmp_root.mkdir(parents=True, exist_ok=True)
         env["FV_WINDOWS_PYTHON"] = sys.executable
+        env["FV_GATE_TMP_ROOT"] = str(gate_tmp_root.resolve())
         for name in cache_paths:
             expose_to_wsl(env, name, path=True)
         expose_to_wsl(env, "FV_WINDOWS_PYTHON", path=True)
+        expose_to_wsl(env, "FV_GATE_TMP_ROOT", path=True)
         expose_to_wsl(env, "LEAN_NUM_THREADS")
+        expose_to_wsl(env, "FV_GATE_TEST_SCOPE")
     return env
 
 
@@ -432,6 +438,35 @@ def prepare_windows_coverage_extractor(
         raise FormalError(f"coverage extractor was not built: {binary}")
     env["FV_WINDOWS_CONSTRAINT_COVERAGE_BIN"] = str(binary.resolve())
     expose_to_wsl(env, "FV_WINDOWS_CONSTRAINT_COVERAGE_BIN", path=True)
+
+
+def prepare_windows_gate_catalog(
+    checkout: Path, env: dict[str, str]
+) -> None:
+    if os.name != "nt":
+        return
+    catalog = run(
+        [
+            sys.executable,
+            str(checkout / "scripts/check-fv-profiles.py"),
+            "--emit-gate-catalog-tsv",
+            "--status",
+            "certified",
+        ],
+        cwd=checkout,
+        capture=True,
+    )
+    catalog_path = checkout / ".formal-gate-catalog.tsv"
+    catalog_path.write_text(f"{catalog}\n", encoding="utf-8", newline="\n")
+    env["FV_GATE_CATALOG_FILE"] = catalog_path.name
+    expose_to_wsl(env, "FV_GATE_CATALOG_FILE")
+
+
+def use_refresh_validation_scope(env: dict[str, str]) -> None:
+    """Keep evidence refresh validation focused on generated-output drift."""
+    env["FV_GATE_TEST_SCOPE"] = "refresh"
+    if os.name == "nt":
+        expose_to_wsl(env, "FV_GATE_TEST_SCOPE")
 
 
 def file_digest(path: Path) -> str:
@@ -518,22 +553,7 @@ def run_gate(args: argparse.Namespace) -> None:
         env = command_environment()
         if args.gate == "soundness":
             prepare_windows_coverage_extractor(checkout, env)
-            if os.name == "nt":
-                catalog = run(
-                    [
-                        sys.executable,
-                        str(checkout / "scripts/check-fv-profiles.py"),
-                        "--emit-gate-catalog-tsv",
-                        "--status",
-                        "certified",
-                    ],
-                    cwd=checkout,
-                    capture=True,
-                )
-                catalog_path = checkout / ".formal-gate-catalog.tsv"
-                catalog_path.write_text(f"{catalog}\n", encoding="utf-8", newline="\n")
-                env["FV_GATE_CATALOG_FILE"] = catalog_path.name
-                expose_to_wsl(env, "FV_GATE_CATALOG_FILE")
+            prepare_windows_gate_catalog(checkout, env)
             command = ["bash", "scripts/check-lean-circuit-fv.sh", args.mode, "all"]
         else:
             env["SNARKPACK_FV_MODE"] = "publication" if args.mode == "full" else "lean-cache"
@@ -552,6 +572,8 @@ def refresh_evidence(args: argparse.Namespace) -> None:
         env = command_environment()
         if args.check:
             checkout = cached_composed_checkout(source, ref, sha)
+            use_refresh_validation_scope(env)
+            prepare_windows_gate_catalog(checkout, env)
             run(
                 ["bash", "scripts/check-lean-circuit-fv.sh", "drift", "all"],
                 cwd=checkout,
@@ -570,8 +592,10 @@ def refresh_evidence(args: argparse.Namespace) -> None:
             )
             validation_env = env.copy()
             validation_env["FV_SEMANTICS_CURRENT"] = "1"
+            use_refresh_validation_scope(validation_env)
             if os.name == "nt":
                 expose_to_wsl(validation_env, "FV_SEMANTICS_CURRENT")
+            prepare_windows_gate_catalog(checkout, validation_env)
             run(
                 ["bash", "scripts/check-lean-circuit-fv.sh", "drift", selection],
                 cwd=checkout,
