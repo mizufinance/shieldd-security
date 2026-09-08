@@ -1,0 +1,46 @@
+name: decoder-fuzz
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 3 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: decoder-fuzz-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  decoder:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install native dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang libclang-dev libssl-dev pkg-config
+      - name: Install pinned fuzz tools
+        run: |
+          rustup toolchain install nightly-2025-09-30 --profile minimal
+          cargo +nightly-2025-09-30 install cargo-fuzz --version 0.13.1 --locked
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .cache/fuzz-target
+            .cache/decoder-corpus
+            .cache/shieldd.git
+          key: decoder-${{ runner.os }}-${{ hashFiles('shieldd.lock', 'security.py') }}-${{ github.run_id }}
+          restore-keys: decoder-${{ runner.os }}-
+      - name: Replay corpus and fuzz the exact candidate
+        env:
+          CAMPAIGN_SECONDS: ${{ github.event_name == 'pull_request' && '60' || '1800' }}
+        run: python3 security.py fuzz --seconds "$CAMPAIGN_SECONDS"
+      - name: Upload bounded verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: decoder-fuzz-report
+          path: .work/fuzz-report/
+          retention-days: 30
+          if-no-files-found: error
