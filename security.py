@@ -100,13 +100,13 @@ def fuzz_locked(args):
                 shutil.copyfile(path, corpus / path.name)
         if size(corpus) > BYTE_LIMIT:
             raise RuntimeError("cached corpus exceeds 100 MiB")
-        command = ["cargo", f"+{NIGHTLY}", "fuzz", "run", "--fuzz-dir", FUZZ_DIR, "--sanitizer", "address", TARGET, "--"]
+        command = ["cargo", f"+{NIGHTLY}", "fuzz", "run", "--fuzz-dir", FUZZ_DIR, "--sanitizer", "address", TARGET]
         limits = ["-max_len=131073", "-rss_limit_mb=2048", "-timeout=15",
                   f"-artifact_prefix={findings}/"]
         # Explicit files replay every curated case, including oversized boundaries.
-        bounded_run(command + [str(path) for path in sorted(seeds.iterdir()) if path.is_file()] + limits,
+        bounded_run(command + [str(path) for path in sorted(seeds.iterdir()) if path.is_file()] + ["--", *limits],
                     checkout, env, reports / "replay.log", corpus, reports, 1800)
-        bounded_run(command + [str(corpus), *limits, f"-max_total_time={args.seconds}"],
+        bounded_run(command + [str(corpus), "--", *limits, f"-max_total_time={args.seconds}"],
                     checkout, env, reports / "campaign.log", corpus, reports, args.seconds + 180)
         report["status"] = "passed"
     except Exception as error:

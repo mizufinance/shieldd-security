@@ -59,7 +59,7 @@ def check(crate, report_dir, env):
             path.write_text(text)
     formal.run(["python3", str(formal.ROOT / "scripts/prepare_snarkpack_fstar_support.py"), str(support)], cwd=formal.ROOT, env=env)
     (support / "FStar.Mul.fst").write_text("module FStar.Mul\n")
-    flags = ["--cache_off"]
+    flags = ["--cache_off", "--z3exe", shutil.which("z3")]
     for directory in (support, support / "core", support / "rust_primitives", support / "hax-lib", crate / "proofs/fstar/extraction", formal.ROOT / PROOFS / "fstar", formal.ROOT / "decoder"):
         flags += ["--include", str(directory)]
     for proof in (formal.ROOT / PROOFS / "fstar/WrapperProofs.fst", formal.ROOT / "decoder/CanonicalEncodingProofs.fst", formal.ROOT / "decoder/WrapperBoundaryProofs.fst"):
