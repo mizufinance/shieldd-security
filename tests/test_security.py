@@ -26,6 +26,19 @@ class DecoderToolingTests(unittest.TestCase):
                 self.assertEqual((root / "source" / path).read_bytes(), (crate / "src" / Path(path).name).read_bytes())
                 self.assertEqual(checksum, security.formal.file_digest(crate / "src" / Path(path).name))
 
+    def test_bootstrap_failure_writes_failed_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            with patch.object(security.formal, "WORK", root / "work"), \
+                 patch.object(security.formal, "CACHE", root / "cache"), \
+                 patch.object(security.formal, "resolve_inputs", side_effect=RuntimeError("missing candidate")):
+                with self.assertRaisesRegex(RuntimeError, "missing candidate"):
+                    security.fuzz_locked(argparse.Namespace(seconds=1))
+            report = json.loads((root / "work/fuzz-report/report.json").read_text())
+            self.assertEqual(report["status"], "failed")
+            self.assertFalse(report["full_certification"])
+            self.assertIsNone(report["candidate_revision"])
+
     def test_nonzero_fuzzer_exit_is_a_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

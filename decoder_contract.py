@@ -10,6 +10,7 @@ import subprocess
 import tomllib
 
 import formal
+from security import bounded_run
 
 BOUNDARY = Path("crates/crypto/proof-aggregation/src")
 PROOFS = Path("crates/crypto/proof-aggregation/formal/snarkpack")
@@ -42,8 +43,8 @@ def check(crate, report_dir, env):
         if pin not in versions[name]:
             raise RuntimeError(f"{name} version does not match {pin}")
     (report_dir / "tool-versions.json").write_text(json.dumps(versions, indent=2) + "\n")
-    with (report_dir / "extraction.log").open("w") as log:
-        subprocess.run(["cargo", "hax", "into", "-i", "-** +shieldd_sdk_proof_aggregation::aggregate_proof_wrapper::encode_wrapped_aggregate_proof +shieldd_sdk_proof_aggregation::aggregate_proof_wrapper::decode_wrapped_aggregate_proof +shieldd_sdk_proof_aggregation::aggregate_proof_wrapper::decode_wrapped_aggregate_proof_inner_range +shieldd_sdk_proof_aggregation::canonical_encoding::canonical_encoding_matches", "fstar"], cwd=crate, env=env, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=900)
+    bounded_run(["cargo", "hax", "into", "-i", "-** +shieldd_sdk_proof_aggregation::aggregate_proof_wrapper::encode_wrapped_aggregate_proof +shieldd_sdk_proof_aggregation::aggregate_proof_wrapper::decode_wrapped_aggregate_proof +shieldd_sdk_proof_aggregation::aggregate_proof_wrapper::decode_wrapped_aggregate_proof_inner_range +shieldd_sdk_proof_aggregation::canonical_encoding::canonical_encoding_matches", "fstar"], crate, env, report_dir / "extraction.log",
+                crate / "unused-corpus", report_dir, 900)
     libs = Path(os.environ.get("HAX_PROOF_LIBS_HOME", str(Path.home() / f'.local/opt/hax-{pins["hax_fstar"].lstrip("v")}/hax-lib/proof-libs/fstar')))
     support = crate / "support"
     support.mkdir()
@@ -61,9 +62,9 @@ def check(crate, report_dir, env):
     flags = ["--cache_off"]
     for directory in (support, support / "core", support / "rust_primitives", support / "hax-lib", crate / "proofs/fstar/extraction", formal.ROOT / PROOFS / "fstar", formal.ROOT / "decoder"):
         flags += ["--include", str(directory)]
-    for proof in (formal.ROOT / PROOFS / "fstar/WrapperProofs.fst", formal.ROOT / "decoder/CanonicalEncodingProofs.fst"):
-        with (report_dir / f"{proof.stem}.log").open("w") as log:
-            subprocess.run([fstar, *flags, str(proof)], cwd=crate, env=env, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=900)
+    for proof in (formal.ROOT / PROOFS / "fstar/WrapperProofs.fst", formal.ROOT / "decoder/CanonicalEncodingProofs.fst", formal.ROOT / "decoder/WrapperBoundaryProofs.fst"):
+        bounded_run([fstar, *flags, str(proof)], crate, env, report_dir / f"{proof.stem}.log",
+                    crate / "unused-corpus", report_dir, 900)
     shutil.copytree(crate / "proofs/fstar/extraction", report_dir / "extraction")
 
 
@@ -71,7 +72,6 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     formal.add_source_arguments(parser)
     args = parser.parse_args()
-    source, ref, sha = formal.resolve_inputs(args)
     with formal.exclusive_lock():
         reports = formal.WORK / "decoder-contract-report"
         if reports.exists():
@@ -81,13 +81,18 @@ def main():
         crate = formal.WORK / "decoder-contract"
         if crate.exists():
             shutil.rmtree(crate)
-        mirror = formal.prepare_mirror(source, ref)
-        formal.remove_registered_worktree(mirror, checkout)
-        report = {"candidate_revision": sha, "status": "running", "full_certification": False,
+        mirror = None
+        report = {"candidate_revision": None, "status": "running", "full_certification": False,
                   "scope": ["wrapper parsing and exact inner-byte exposure", "canonical byte equality"],
                   "excluded": ["Arkworks deserialization", "curve/subgroup validity", "allocator behavior", "circuit soundness"]}
         env = dict(os.environ, GIT_LFS_SKIP_SMUDGE="1", CARGO_BUILD_JOBS="2", RAYON_NUM_THREADS="2", LEAN_NUM_THREADS="1")
         try:
+            source, ref, sha = formal.resolve_inputs(args)
+            report["candidate_revision"] = sha
+            report["security_revision"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=formal.ROOT, text=True).strip()
+            report["proof_hashes"] = {str(path.relative_to(formal.ROOT)): formal.file_digest(path) for path in [formal.ROOT / PROOFS / "fstar/WrapperProofs.fst", *sorted((formal.ROOT / "decoder").glob("*.fst"))]}
+            mirror = formal.prepare_mirror(source, ref)
+            formal.remove_registered_worktree(mirror, checkout)
             formal.run(["git", "--git-dir", str(mirror), "worktree", "add", "--detach", str(checkout), sha], cwd=formal.ROOT, env=env)
             report["source_hashes"] = prepare(checkout, crate)
             check(crate, reports, env)
@@ -98,7 +103,8 @@ def main():
             raise
         finally:
             (reports / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
-            formal.remove_registered_worktree(mirror, checkout)
+            if mirror is not None:
+                formal.remove_registered_worktree(mirror, checkout)
 
 
 if __name__ == "__main__":

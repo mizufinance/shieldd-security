@@ -65,8 +65,8 @@ candidate, tool versions, lockfile hash, seed hashes, limits, and outcome.
 
 The focused F* job copies the exact wrapper and canonical comparison modules
 from the locked candidate into a dependency-free extraction crate, recording
-source hashes. It checks the existing wrapper proofs and canonical equality
-lemmas against fresh hax output. This covers parsing and byte comparison, not
+source hashes. It checks wrapper roundtrip, digest/cap rejection, truncated-header and
+unsupported-domain rejection, plus canonical equality lemmas against fresh hax output. This covers parsing and byte comparison, not
 Arkworks decoding, group/subgroup validity, allocation, or circuit soundness.
 Native fuzzing remains necessary for those implementation boundaries.
 

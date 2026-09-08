@@ -242,7 +242,7 @@ class FormalCliTests(unittest.TestCase):
             ):
                 FORMAL.remove_orphan_runs(root / "mirror.git")
 
-            remove.assert_called_once_with(root / "mirror.git", active)
+            remove.assert_called_once_with(root / "mirror.git", active.resolve())
             self.assertFalse(orphan.exists())
 
     def test_promotion_rolls_back_all_applied_files_on_failure(self) -> None:

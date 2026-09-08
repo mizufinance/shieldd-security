@@ -35,18 +35,24 @@ def bounded_run(command, cwd, env, log, corpus, reports, timeout):
                 if size(corpus) + size(reports) > BYTE_LIMIT:
                     raise RuntimeError("fuzz corpus and reports exceeded 100 MiB")
                 if time.monotonic() - started > timeout:
-                    raise RuntimeError("fuzz process exceeded its wall-clock budget")
+                    raise RuntimeError("verification process exceeded its wall-clock budget")
                 time.sleep(1)
         finally:
-            if process.poll() is None:
+            try:
                 os.killpg(process.pid, signal.SIGTERM)
-                try:
-                    process.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    os.killpg(process.pid, signal.SIGKILL)
-                    process.wait()
+            except ProcessLookupError:
+                pass
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                pass
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            process.wait()
     if process.returncode:
-        raise RuntimeError(f"fuzz process failed ({process.returncode}); see {log}")
+        raise RuntimeError(f"verification process failed ({process.returncode}); see {log}")
     if size(corpus) + size(reports) > BYTE_LIMIT:
         raise RuntimeError("fuzz outputs exceeded 100 MiB")
 
@@ -57,7 +63,6 @@ def fuzz(args):
 
 
 def fuzz_locked(args):
-    source, ref, sha = formal.resolve_inputs(args)
     reports = formal.WORK / "fuzz-report"
     corpus = formal.CACHE / "decoder-corpus"
     if reports.exists():
@@ -67,22 +72,25 @@ def fuzz_locked(args):
     findings = reports / "findings"
     findings.mkdir()
     report = {
-        "candidate_revision": sha,
-        "security_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=formal.ROOT, text=True).strip(),
+        "candidate_revision": None,
         "target": TARGET, "toolchain": NIGHTLY, "status": "running",
         "limits": {"seconds": args.seconds, "workers": 1, "input_bytes": 131073,
                    "rss_mib": 2048, "input_seconds": 15, "output_bytes": BYTE_LIMIT},
         "full_certification": False,
-        "cargo_fuzz_version": subprocess.check_output(["cargo", f"+{NIGHTLY}", "fuzz", "--version"], text=True).strip(),
-        "rustc_version": subprocess.check_output(["rustc", f"+{NIGHTLY}", "--version"], text=True).strip(),
     }
     checkout = formal.WORK / "fuzz-source"
-    mirror = formal.prepare_mirror(source, ref)
-    formal.remove_registered_worktree(mirror, checkout)
+    mirror = None
     env = dict(os.environ, GIT_LFS_SKIP_SMUDGE="1", CARGO_BUILD_JOBS="2",
                RAYON_NUM_THREADS="2", GOMAXPROCS="2",
                CARGO_TARGET_DIR=str(formal.CACHE / "fuzz-target"))
     try:
+        source, ref, sha = formal.resolve_inputs(args)
+        report["candidate_revision"] = sha
+        report["security_revision"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=formal.ROOT, text=True).strip()
+        report["cargo_fuzz_version"] = subprocess.check_output(["cargo", f"+{NIGHTLY}", "fuzz", "--version"], text=True).strip()
+        report["rustc_version"] = subprocess.check_output(["rustc", f"+{NIGHTLY}", "--version"], text=True).strip()
+        mirror = formal.prepare_mirror(source, ref)
+        formal.remove_registered_worktree(mirror, checkout)
         formal.run(["git", "--git-dir", str(mirror), "worktree", "add", "--detach", str(checkout), sha], cwd=formal.ROOT, env=env)
         report["cargo_lock_sha256"] = formal.file_digest(checkout / "Cargo.lock")
         seeds = checkout / FUZZ_DIR / "corpus" / TARGET
@@ -109,7 +117,8 @@ def fuzz_locked(args):
         report["corpus"] = inventory(corpus)
         report["findings"] = inventory(findings)
         (reports / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
-        formal.remove_registered_worktree(mirror, checkout)
+        if mirror is not None:
+            formal.remove_registered_worktree(mirror, checkout)
 
 
 def main():

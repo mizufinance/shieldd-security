@@ -11,7 +11,7 @@ concurrency:
 jobs:
   focused-proofs:
     runs-on: ubuntu-24.04
-    timeout-minutes: 50
+    timeout-minutes: 120
     container:
       image: ghcr.io/mizufinance/shieldd-snarkpack-fv-toolchain@sha256:63fb57a0c07de6c4a3ded67410b26a2804d090a3ae51929708c8e4650a686282
       credentials:
@@ -19,6 +19,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install pinned F* boundary tools
+        run: bash decoder/install-tools.sh
       - run: python3 decoder_contract.py
       - uses: actions/upload-artifact@v4
         if: always()
