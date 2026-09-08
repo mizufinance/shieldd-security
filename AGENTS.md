@@ -1,7 +1,7 @@
-# Shieldd formal engineering instructions
+# Shieldd security engineering instructions
 
 This repository owns formal specifications, generators, generated evidence, and
-formal CI. Runtime Shieldd changes belong in the Shieldd repository and must be
+formal CI, and security campaigns. Runtime Shieldd changes belong in the Shieldd repository and must be
 referenced by an exact `shieldd.lock` commit.
 
 - Never hand-edit generated Lean or evidence to clear a gate. Fix the source,

@@ -1,0 +1,53 @@
+name: decoder-contract
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: decoder-contract-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  focused-proofs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore pinned boundary tools
+        id: tools
+        uses: actions/cache/restore@v4
+        with:
+          key: decoder-tools-${{ runner.os }}-${{ hashFiles('decoder/install-tools.sh') }}
+          path: |
+            ~/.opam
+            ~/.cargo/bin/cargo-hax
+            ~/.cargo/bin/driver-hax-frontend-exporter
+            ~/.cargo/bin/hax-*
+            .cache/decoder-tools
+            !.cache/decoder-tools/hax/target
+            !.cache/decoder-tools/fstar.tar.gz
+            !~/.opam/hax/.opam-switch/build
+      - name: Install pinned F* boundary tools
+        run: bash decoder/install-tools.sh
+      - name: Save installed boundary tools
+        if: steps.tools.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ steps.tools.outputs.cache-primary-key }}
+          path: |
+            ~/.opam
+            ~/.cargo/bin/cargo-hax
+            ~/.cargo/bin/driver-hax-frontend-exporter
+            ~/.cargo/bin/hax-*
+            .cache/decoder-tools
+            !.cache/decoder-tools/hax/target
+            !.cache/decoder-tools/fstar.tar.gz
+            !~/.opam/hax/.opam-switch/build
+      - run: python3 decoder_contract.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: decoder-contract-report
+          path: .work/decoder-contract-report/
+          if-no-files-found: error
+          retention-days: 30

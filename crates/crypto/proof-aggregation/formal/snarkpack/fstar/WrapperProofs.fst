@@ -1,5 +1,5 @@
 module WrapperProofs
-#set-options "--fuel 1 --ifuel 1 --z3rlimit 100"
+#set-options "--fuel 8 --ifuel 2 --z3rlimit 100"
 
 module W = Shieldd_sdk_proof_aggregation.Aggregate_proof_wrapper
 module V = Alloc.Vec
