@@ -48,11 +48,11 @@ def shift_mutation(source):
 def main():
     with formal.exclusive_lock():
         work = formal.WORK / "decaf-proof"
-        if work.exists():
-            shutil.rmtree(work)
-        work.mkdir(parents=True)
+        work.mkdir(parents=True, exist_ok=True)
         report = {"status": "failed", "completed": False, "full_certification": False,
                   "scope": "Rust Fq32 addcarry only", "theorem_roots": ROOTS, "commands": []}
+        report_path = work / "report.json"
+        report_path.write_text(json.dumps(report, indent=2) + "\n")
         env = dict(os.environ, CARGO_BUILD_JOBS="2", RAYON_NUM_THREADS="2",
                    CARGO_TARGET_DIR=str(formal.CACHE / "decaf-proof-target"))
 
@@ -72,6 +72,13 @@ def main():
             return log.read_text()
 
         try:
+            for child in work.iterdir():
+                if child == report_path:
+                    continue
+                if child.is_dir() and not child.is_symlink():
+                    shutil.rmtree(child)
+                else:
+                    child.unlink()
             config = json.loads(CONFIG.read_text())
             report["toolchain"] = config
             report["runner_sha256"] = formal.file_digest(Path(__file__))
@@ -100,8 +107,9 @@ def main():
             source_path.write_text(source)
             report["source_sha256"] = formal.file_digest(source_path)
             support = work / "support"
-            shutil.copytree(ROOT / "decaf/proofs/rocq", support,
-                            ignore=shutil.ignore_patterns("*.vo", "*.vos", "*.vok", "*.glob", ".*.aux"))
+            support.mkdir()
+            for name in ("Core.v", "Carry.v"):
+                shutil.copyfile(ROOT / "decaf/proofs/rocq" / name, support / name)
             report["support_hashes"] = {p.name: formal.file_digest(p) for p in support.glob("*.v")}
             records = formal.CACHE / "record-update/src"
             if command(["git", "rev-parse", "HEAD"], records.parent).strip() != config["record_update"]["revision"]:
@@ -109,7 +117,10 @@ def main():
             command(["git", "diff", "--exit-code", "HEAD", "--", "src"], records.parent)
             rocq = ["opam", "exec", "--switch=decaf-fv", "--", "rocq"]
             version = command([*rocq, "--version"])
-            if "version " + config["rocq-runtime"] not in version:
+            reported = re.search(r"version (\S+)", version)
+            installed = command(["opam", "list", "--switch=decaf-fv", "--installed",
+                                 "--columns=version", "--short", "rocq-runtime"]).strip()
+            if not reported or config["rocq-runtime"] not in (reported[1], reported[1] + ".0") or installed != config["rocq-runtime"]:
                 raise ValueError("unexpected Rocq version")
             command([*rocq, "compile", "-Q", records, "RecordUpdate", records / "RecordEta.v"])
             command([*rocq, "compile", "-Q", records, "RecordUpdate", records / "RecordSet.v"])

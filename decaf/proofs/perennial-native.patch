@@ -1,0 +1,106 @@
+diff --git a/goose/goose.go b/goose/goose.go
+index 3489102..a384a2e 100644
+--- a/goose/goose.go
++++ b/goose/goose.go
+@@ -1460,9 +1460,22 @@ func (ctx *Ctx) exprAddr(e ast.Expr) glang.Expr {
+ 		}
+ 	case *ast.IndexExpr:
+ 		targetTy := ctx.typeOf(e.X)
++		var target glang.Expr
++		switch ty := targetTy.Underlying().(type) {
++		case *types.Array:
++			target = ctx.exprAddr(e.X)
++		case *types.Pointer:
++			if _, ok := ty.Elem().Underlying().(*types.Array); !ok {
++				ctx.unsupported(e, "indexing pointer to non-array")
++			}
++			targetTy = ty.Elem()
++			target = ctx.expr(e.X)
++		default:
++			target = ctx.expr(e.X)
++		}
+ 		return glang.NewCallExpr(glang.VerbatimExpr("IndexRef"),
+ 			ctx.glangType(e, targetTy),
+-			glang.TupleExpr{ctx.expr(e.X),
++			glang.TupleExpr{target,
+ 				ctx.exprIntoType(e.Index, ctx.getIndexType(e.Index, targetTy))})
+ 	case *ast.StarExpr:
+ 		return ctx.expr(e.X)
+diff --git a/new/golang/defn/array.v b/new/golang/defn/array.v
+index 65a53e9..57a21f4 100644
+--- a/new/golang/defn/array.v
++++ b/new/golang/defn/array.v
+@@ -42,21 +42,23 @@ Class ArraySemantics `{!GoSemanticsFunctions} :=
+     (foldl (λ str_so_far j,
+                 str_so_far;;
+                 let elem_addr := IndexRef (go.ArrayType n elem_type) (l, #(W64 j)) in
+-                let elem_val := Index (go.ArrayType n elem_type) (v, #(W64 n)) in
++                let elem_val := Index (go.ArrayType n elem_type) (v, #(W64 j)) in
+                 GoStore elem_type (elem_addr, elem_val))
+              (#()) (seqZ 0 n)
+     )%E;
+ 
+   #[global] index_ref_array n elem_type (i : w64) l `{!ZeroVal V} `{!TypeRepr elem_type V} ::
+     ⟦IndexRef (go.ArrayType n elem_type), (#l, #i)⟧ ⤳[under]
+-      (if decide (sint.Z i < n) then #(array_index_ref V (sint.Z i) l) else Panic "index out of range");
++      (if decide (0 ≤ sint.Z i < n) then #(array_index_ref V (sint.Z i) l) else Panic "index out of range");
+ 
+   #[global] index_array n elem_type (i : w64) V (a : array.t V n) ::
+     ⟦Index (go.ArrayType n elem_type), (#a, #i)⟧ ⤳[under]
+-      (match (array.arr a) !! (sint.nat i) with
++      (if decide (0 ≤ sint.Z i < n) then
++       match (array.arr a) !! (sint.nat i) with
+        | Some v => #v
+        | None => Panic "index out of range"
+-       end);
++       end
++     else Panic "index out of range");
+ 
+   #[global] composite_literal_array n elem_type kvs ::
+     ⟦CompositeLiteral (go.ArrayType n elem_type), (LiteralValueV kvs)⟧ ⤳[under]
+diff --git a/new/golang/defn/predeclared.v b/new/golang/defn/predeclared.v
+index ec6fa10..fb2cb31 100644
+--- a/new/golang/defn/predeclared.v
++++ b/new/golang/defn/predeclared.v
+@@ -380,6 +380,7 @@ Class Uint64Semantics `{!GoSemanticsFunctions} :=
+   #[global] div_uint64 (v1 v2 : w64) :: ⟦GoOp GoDiv go.uint64, (#v1, #v2)⟧ ⤳[under] #(word.divu v1 v2);
+   #[global] remainder_uint64 (v1 v2 : w64) :: ⟦GoOp GoRemainder go.uint64, (#v1, #v2)⟧ ⤳[under] #(word.modu v1 v2);
+   #[global] and_uint64 (v1 v2 : w64) :: ⟦GoOp GoAnd go.uint64, (#v1, #v2)⟧ ⤳[under] #(word.and v1 v2);
++  #[global] bitclear_uint64 (v1 v2 : w64) :: ⟦GoOp GoBitClear go.uint64, (#v1, #v2)⟧ ⤳[under] #(word.and v1 (word.not v2));
+   #[global] or_uint64 (v1 v2 : w64) :: ⟦GoOp GoOr go.uint64, (#v1, #v2)⟧ ⤳[under] #(word.or v1 v2);
+   #[global] xor_uint64 (v1 v2 : w64) :: ⟦GoOp GoXor go.uint64, (#v1, #v2)⟧ ⤳[under] #(word.xor v1 v2);
+   #[global] shiftl_uint64 (v1 v2 : w64) :: ⟦GoOp GoShiftl go.uint64, (#v1, #v2)⟧ ⤳[under] #(word.slu v1 v2);
+diff --git a/new/golang/defn/prelang.v b/new/golang/defn/prelang.v
+index 7c42f1d..900a555 100644
+--- a/new/golang/defn/prelang.v
++++ b/new/golang/defn/prelang.v
+@@ -58,11 +58,24 @@ with interface_elem :=
+ 
+ with type_term := | TypeTerm (type : type) | TypeTermUnderlying (type : type).
+ 
+-Global Instance signature_eq_dec : EqDecision signature.
+-Proof. Admitted.
+-
+-Global Instance type_eq_dec : EqDecision type.
+-Proof. Admitted.
++Fixpoint type_dec (x y : type) {struct x} : {x = y} + {x <> y}
++with field_dec (x y : field_decl) {struct x} : {x = y} + {x <> y}
++with sig_dec (x y : signature) {struct x} : {x = y} + {x <> y}
++with elem_dec (x y : interface_elem) {struct x} : {x = y} + {x <> y}
++with term_dec (x y : type_term) {struct x} : {x = y} + {x <> y}.
++Proof.
++  all: decide equality; try apply type_dec; try apply field_dec;
++    try apply sig_dec; try apply elem_dec; try apply term_dec;
++    try apply list_eq_dec; try apply type_dec; try apply field_dec;
++    try apply elem_dec; try apply term_dec; try apply decide;
++    try decide equality.
++  all: try (intros; apply Integers.w8_eq_dec).
++  all: try apply Z.eq_dec; try apply Bool.bool_dec.
++  unfold Decision. decide equality.
++Defined.
++
++Global Instance signature_eq_dec : EqDecision signature := sig_dec.
++Global Instance type_eq_dec : EqDecision type := type_dec.
+ 
+ Global Instance type_countable : Countable type.
+ Proof. Admitted.

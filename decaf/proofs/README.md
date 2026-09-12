@@ -41,7 +41,7 @@ group, encoding, Go, and consumer theorem closure are separate requirements.
 `toolchain.json` pins the source/tool identities and selected representations.
 The current carry replay uses native ARM64 macOS extraction artifacts, the
 `hax-0.3.7` opam switch, Rust 1.89.0 for its executable witness, and a `decaf-fv`
-opam switch with OCaml 5.3.0, Rocq runtime 9.1.1 and standard library 9.1.0.
+opam switch with OCaml 5.3.0, Rocq runtime 9.2.0 and standard library 9.1.0.
 It requires the pinned `record_update` checkout at `.cache/record-update`.
 Other host artifacts need their own reviewed identities before use.
 
@@ -81,3 +81,31 @@ postconditions. Go theorem acceptance therefore also requires return/progress
 evidence excluding reachable placeholder exits. A closed axiom audit alone is
 insufficient. The pinned array load/store proof instance also contains admissions
 and must be completed before it can enter the theorem closure.
+
+## Go carry proof
+
+```sh
+python3 decaf_go_proof.py
+python3 -m unittest discover -s tests -p test_decaf_go_proof.py
+```
+
+The runner extracts the installed, pinned Go `math/bits.Add64` body with Goose,
+then checks its execution and universal carry equation with Rocq. The output
+limbs reconstruct the integer sum, the low limb is canonical, and the carry is
+0 or 1 for carry-in 0 or 1. The theorem roots require no global axioms.
+They are parameterized by Perennial's Go semantics, heap and FFI contracts;
+extraction and compiler correspondence, including compiler intrinsics, remain
+explicit trusted boundaries. Goose selects Linux/AMD64 word semantics; the
+source witness runs on the native host with caller intrinsics disabled.
+
+Apply `perennial-native.patch` to the pinned Perennial checkout and build Goose
+with the pinned Go toolchain. The patch provides uint64 bit-clear semantics,
+checked type/signature equality, and the fixed-array indexing/store repairs.
+The runner verifies the patch and executable identities and rebuilds the model
+support. It requires a wrong-shift source mutation to fail both its native
+witness and its freshly extracted execution theorem. Reports are written under
+`.work/decaf-go-proof-replay`.
+
+This is partial functional correctness. Termination, array allocation,
+field/group/consumer refinement, and compiled leakage traces remain separate
+obligations; `full_certification` stays false.
