@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the extracted Go carry/borrow implementations and source-level shift mutants."""
+"""Check the extracted Go carry, borrow and multiply implementations and source-level shift mutants."""
 import json
 import os
 from pathlib import Path
@@ -13,20 +13,24 @@ ROOT = formal.ROOT
 PROOFS = ROOT / "decaf/proofs"
 ROOTS = ("CarryArithmetic.carry_bit", "GoCarryArithmetic.addcarry_words",
          "GoCarry.addcarry_correct", "BorrowArithmetic.borrow_bit",
-         "GoBorrowArithmetic.subborrow_words", "GoBorrow.subborrow_correct")
+         "GoBorrowArithmetic.subborrow_words", "GoBorrow.subborrow_correct",
+         "MultiplyArithmetic.split_product", "GoMultiplyArithmetic.multiply_words",
+         "GoMultiply.multiply_correct")
 MODULES = ("CarryArithmetic.v", "GoCarryArithmetic.v", "GoCarry.v",
-           "BorrowArithmetic.v", "GoBorrowArithmetic.v", "GoBorrow.v")
+           "BorrowArithmetic.v", "GoBorrowArithmetic.v", "GoBorrow.v",
+           "MultiplyArithmetic.v", "GoMultiplyArithmetic.v", "GoMultiply.v")
 
 
 def shift_mutation(source, function="Add64"):
-    if function not in ("Add64", "Sub64"):
+    if function not in ("Add64", "Sub64", "Mul64"):
         raise ValueError("unsupported mutation target")
     start = source.index("func " + function + "(")
     end = source.index("\n}", start) + 2
     body = source[start:end]
-    if body.count(">> 63") != 1:
+    old, new = ("w1>>32", "w1>>31") if function == "Mul64" else (">> 63", ">> 62")
+    if body.count(old) != 1:
         raise ValueError(function + " mutation no longer matches the source")
-    return source[:start] + body.replace(">> 63", ">> 62") + source[end:]
+    return source[:start] + body.replace(old, new) + source[end:]
 
 
 def validate_assumptions(text):
@@ -36,7 +40,8 @@ def validate_assumptions(text):
 
 
 def validate_rejection(text, module="GoCarry"):
-    theorem = {"GoCarry": "addcarry_execution", "GoBorrow": "subborrow_execution"}[module]
+    theorem = {"GoCarry": "addcarry_execution", "GoBorrow": "subborrow_execution",
+               "GoMultiply": "multiply_execution"}[module]
     if module + ".v" not in text or not re.search(
             r"Error:\s+(\(in proof " + theorem +
             r"\): Attempt to save an incomplete proof)", text):
@@ -64,7 +69,7 @@ def main():
         work = formal.WORK / "decaf-go-proof-replay"
         work.mkdir(parents=True, exist_ok=True)
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "Go Add64/Sub64 functional partial correctness",
+                  "scope": "Go Add64/Sub64/Mul64 functional partial correctness",
                   "theorem_roots": ROOTS, "extraction_target": "linux/amd64", "cases": {}, "commands": []}
         report_path = work / "report.json"
         report_path.write_text(json.dumps(report, indent=2) + "\n")
@@ -127,7 +132,7 @@ def main():
             report["proof_hashes"] = {name: formal.file_digest(PROOFS / "rocq" / name)
                                       for name in MODULES}
             for case_name, target in (("original", None), ("wrong-carry", "Add64"),
-                                      ("wrong-borrow", "Sub64")):
+                                      ("wrong-borrow", "Sub64"), ("wrong-multiply", "Mul64")):
                 mutation = target is not None
                 case = work / case_name
                 case.mkdir()
@@ -142,6 +147,10 @@ func TestBorrowWitness(t *testing.T) {
     lo, hi := bits.Sub64(0, 0, 1)
     if lo != ^uint64(0) || hi != 1 { t.Fatalf("borrow witness: %d %d", lo, hi) }
 }
+func TestMultiplyWitness(t *testing.T) {
+    hi, lo := bits.Mul64(^uint64(0), ^uint64(0))
+    if lo != 1 || hi != ^uint64(1) { t.Fatalf("multiply witness: %d %d", lo, hi) }
+}
 ''')
                 case_env = {}
                 if mutation:
@@ -154,7 +163,8 @@ func TestBorrowWitness(t *testing.T) {
                 # Disable compiler intrinsics so this witness executes the source body.
                 witness = command(["go", "test", "-p", "2", "-gcflags=mizufinance.local/decaf/carrycheck=-d=ssa/intrinsics/off", "./..."],
                                   case, mutation, case_env)
-                if mutation and ("carry witness:" if target == "Add64" else "borrow witness:") not in witness:
+                witness_label = {"Add64": "carry", "Sub64": "borrow", "Mul64": "multiply"}
+                if mutation and witness_label[target] + " witness:" not in witness:
                     raise ValueError("mutant did not fail the executable arithmetic witness")
                 extraction = case / "extraction"
                 command([goose, "-dir", case, "-out", extraction, "math/bits"], case, extra_env=case_env)
@@ -170,20 +180,20 @@ func TestBorrowWitness(t *testing.T) {
                     raise ValueError("mutation did not reach the extracted source")
                 command([*rocq, "compile", *flags, extracted])
                 for name in MODULES:
-                    reject = (target == "Add64" and name == "GoCarry.v") or (
-                        target == "Sub64" and name == "GoBorrow.v")
+                    reject = name == {"Add64": "GoCarry.v", "Sub64": "GoBorrow.v",
+                                      "Mul64": "GoMultiply.v"}.get(target)
                     checked = command([*rocq, "compile", *flags, support / name], expect_failure=reject)
                     if reject:
                         validate_rejection(checked, Path(name).stem)
                         break
                 if not mutation:
                     audit = support / "Audit.v"
-                    audit.write_text("Require Import GoCarry GoBorrow.\n" + "\n".join(
+                    audit.write_text("Require Import GoCarry GoBorrow GoMultiply.\n" + "\n".join(
                         "Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(command([*rocq, "compile", *flags, audit]))
                     original_flags = flags
                     report["extraction_sha256"] = formal.file_digest(extracted)
-            command([*rocq, "check", "-silent", *original_flags, "GoCarry", "GoBorrow"])
+            command([*rocq, "check", "-silent", *original_flags, "GoCarry", "GoBorrow", "GoMultiply"])
             report.update(status="passed", completed=True)
         except Exception as error:
             report["detail"] = str(error)

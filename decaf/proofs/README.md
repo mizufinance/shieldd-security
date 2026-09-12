@@ -82,17 +82,19 @@ evidence excluding reachable placeholder exits. A closed axiom audit alone is
 insufficient. The pinned array load/store proof instance also contains admissions
 and must be completed before it can enter the theorem closure.
 
-## Go carry and borrow proofs
+## Go native arithmetic proofs
 
 ```sh
 python3 decaf_go_proof.py
 python3 -m unittest discover -s tests -p test_decaf_go_proof.py
 ```
 
-The runner extracts the installed, pinned Go `math/bits.Add64` and `Sub64` bodies with Goose,
-then checks their execution and universal carry/borrow equations with Rocq. The output
-limbs reconstruct the integer sum or difference, the low limb is canonical, and the carry or borrow is
-0 or 1 for carry/borrow-in 0 or 1. The theorem roots require no global axioms.
+The runner extracts the installed, pinned Go `math/bits.Add64`, `Sub64` and `Mul64` bodies with Goose,
+then checks their execution and universal arithmetic equations with Rocq. The output
+limbs reconstruct the integer sum, difference or full product, the low limb is canonical, and the carry or borrow is
+0 or 1 for carry/borrow-in 0 or 1. Multiplication preserves Go’s high/low
+return order and proves each intermediate fits its word. The nine theorem
+roots require no global axioms.
 They are parameterized by Perennial's Go semantics, heap and FFI contracts;
 extraction and compiler correspondence, including compiler intrinsics, remain
 explicit trusted boundaries. Goose selects Linux/AMD64 word semantics; the
@@ -103,7 +105,7 @@ with the pinned Go toolchain. The patch provides uint64 bit-clear semantics,
 typed integer-complement extraction, checked type/signature equality, and the
 fixed-array indexing/store repairs.
 The runner verifies the patch and executable identities and rebuilds the model
-support. It requires separate carry and borrow shift mutations to fail their native
+support. It requires separate carry, borrow and multiplication shift mutations to fail their native
 witnesses and freshly extracted execution theorems. Reports are written under
 `.work/decaf-go-proof-replay`.
 

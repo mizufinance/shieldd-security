@@ -45,6 +45,14 @@ class GoCarryProofTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 proof.validate_rejection(text, "GoBorrow")
 
+    def test_multiply_mutation_targets_high_word_carry(self):
+        source = "func Mul64() {\nhi = x1*y1 + w2 + w1>>32\nlo = x*y\n}\n"
+        self.assertEqual(proof.shift_mutation(source, "Mul64"), source.replace("w1>>32", "w1>>31"))
+        for body in ("return x", "w1>>32 + w1>>32"):
+            with self.assertRaises(ValueError):
+                proof.shift_mutation("func Mul64() {\n" + body + "\n}", "Mul64")
+        proof.validate_rejection('File "GoMultiply.v":\nError: (in proof multiply_execution): Attempt to save an incomplete proof', "GoMultiply")
+
     def test_mutation_rejects_missing_or_ambiguous_shift(self):
         for body in ("return x", "return x >> 63 >> 63"):
             with self.assertRaises(ValueError):
