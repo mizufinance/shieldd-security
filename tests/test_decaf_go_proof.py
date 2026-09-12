@@ -30,6 +30,21 @@ class GoCarryProofTests(unittest.TestCase):
         mutated = proof.shift_mutation(source)
         self.assertEqual(mutated, source.replace("return x >> 63", "return x >> 62"))
 
+    def test_borrow_mutation_is_confined_to_sub64(self):
+        source = "func Add64() { return x >> 63 }\nfunc Sub64() {\nreturn x >> 63\n}\n"
+        mutated = proof.shift_mutation(source, "Sub64")
+        self.assertEqual(mutated, source.replace("\nreturn x >> 63", "\nreturn x >> 62"))
+        with self.assertRaises(ValueError):
+            proof.shift_mutation(source, "Other")
+
+    def test_borrow_rejection_requires_its_execution_theorem(self):
+        proof.validate_rejection('File "GoBorrow.v":\nError: (in proof subborrow_execution): Attempt to save an incomplete proof', "GoBorrow")
+        for text in ('File "GoCarry.v":\nError: Tactic failure',
+                     'File "GoBorrow.v":\nError: Cannot find a physical path',
+                     'File "GoBorrow.v":\nError: (in proof other): Attempt to save an incomplete proof'):
+            with self.assertRaises(ValueError):
+                proof.validate_rejection(text, "GoBorrow")
+
     def test_mutation_rejects_missing_or_ambiguous_shift(self):
         for body in ("return x", "return x >> 63 >> 63"):
             with self.assertRaises(ValueError):
@@ -43,9 +58,9 @@ class GoCarryProofTests(unittest.TestCase):
                 proof.validate_assumptions(text)
 
     def test_mutation_rejects_infrastructure_failures(self):
-        proof.validate_rejection('File "GoCarry.v", line 12:\nError: Tactic failure: iApply failed')
         proof.validate_rejection('File "GoCarry.v":\nError:  (in proof addcarry_execution): Attempt to save an incomplete proof')
-        for text in ('File "GoCarry.v":\nError: Cannot find a physical path',
+        for text in ('File "GoCarry.v":\nError: Tactic failure: iApply failed',
+                     'File "GoCarry.v":\nError: Cannot find a physical path',
                      'File "bits.v":\nError: Tactic failure: wrong model',
                      'killed', ''):
             with self.assertRaises(ValueError):

@@ -82,17 +82,17 @@ evidence excluding reachable placeholder exits. A closed axiom audit alone is
 insufficient. The pinned array load/store proof instance also contains admissions
 and must be completed before it can enter the theorem closure.
 
-## Go carry proof
+## Go carry and borrow proofs
 
 ```sh
 python3 decaf_go_proof.py
 python3 -m unittest discover -s tests -p test_decaf_go_proof.py
 ```
 
-The runner extracts the installed, pinned Go `math/bits.Add64` body with Goose,
-then checks its execution and universal carry equation with Rocq. The output
-limbs reconstruct the integer sum, the low limb is canonical, and the carry is
-0 or 1 for carry-in 0 or 1. The theorem roots require no global axioms.
+The runner extracts the installed, pinned Go `math/bits.Add64` and `Sub64` bodies with Goose,
+then checks their execution and universal carry/borrow equations with Rocq. The output
+limbs reconstruct the integer sum or difference, the low limb is canonical, and the carry or borrow is
+0 or 1 for carry/borrow-in 0 or 1. The theorem roots require no global axioms.
 They are parameterized by Perennial's Go semantics, heap and FFI contracts;
 extraction and compiler correspondence, including compiler intrinsics, remain
 explicit trusted boundaries. Goose selects Linux/AMD64 word semantics; the
@@ -100,10 +100,11 @@ source witness runs on the native host with caller intrinsics disabled.
 
 Apply `perennial-native.patch` to the pinned Perennial checkout and build Goose
 with the pinned Go toolchain. The patch provides uint64 bit-clear semantics,
-checked type/signature equality, and the fixed-array indexing/store repairs.
+typed integer-complement extraction, checked type/signature equality, and the
+fixed-array indexing/store repairs.
 The runner verifies the patch and executable identities and rebuilds the model
-support. It requires a wrong-shift source mutation to fail both its native
-witness and its freshly extracted execution theorem. Reports are written under
+support. It requires separate carry and borrow shift mutations to fail their native
+witnesses and freshly extracted execution theorems. Reports are written under
 `.work/decaf-go-proof-replay`.
 
 This is partial functional correctness. Termination, array allocation,

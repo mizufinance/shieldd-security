@@ -1,8 +1,18 @@
 diff --git a/goose/goose.go b/goose/goose.go
-index 3489102..a384a2e 100644
+index 3489102..35be7db 100644
 --- a/goose/goose.go
 +++ b/goose/goose.go
-@@ -1460,9 +1460,22 @@ func (ctx *Ctx) exprAddr(e ast.Expr) glang.Expr {
+@@ -728,9 +728,6 @@ func (ctx *Ctx) unaryExpr(e *ast.UnaryExpr, multipleBindings bool) glang.Expr {
+ 	if e.Op == token.NOT {
+ 		return glang.NotExpr{X: ctx.expr(e.X)}
+ 	}
+-	if e.Op == token.XOR {
+-		return glang.NotExpr{X: ctx.expr(e.X)}
+-	}
+ 	if e.Op == token.AND {
+ 		if cl, ok := e.X.(*ast.CompositeLit); ok {
+ 			// e is &T{...} (a composite literal)
+@@ -1460,9 +1457,22 @@ func (ctx *Ctx) exprAddr(e ast.Expr) glang.Expr {
  		}
  	case *ast.IndexExpr:
  		targetTy := ctx.typeOf(e.X)
