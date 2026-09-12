@@ -37,10 +37,35 @@ index 3489102..35be7db 100644
  	case *ast.StarExpr:
  		return ctx.expr(e.X)
 diff --git a/new/golang/defn/array.v b/new/golang/defn/array.v
-index 65a53e9..57a21f4 100644
+index 65a53e9..3697618 100644
 --- a/new/golang/defn/array.v
 +++ b/new/golang/defn/array.v
-@@ -42,21 +42,23 @@ Class ArraySemantics `{!GoSemanticsFunctions} :=
+@@ -5,6 +5,9 @@ Section defs.
+ Context {ext : ffi_syntax}.
+ Context {go_lctx : GoLocalContext} {go_gctx : GoGlobalContext}.
+ 
++Definition array_offset (l : loc) (i : Z) : loc :=
++  if decide (addr_base l = null) then l else loc_add l i.
++
+ Class ArraySemantics `{!GoSemanticsFunctions} :=
+ {
+   #[global] array_set_step V n (vs : array.t V n) (i : w64) (v : V) ::
+@@ -21,8 +24,12 @@ Class ArraySemantics `{!GoSemanticsFunctions} :=
+   #[global] type_repr_array ty V n `{!ZeroVal V} `{!TypeRepr ty V} ::
+     go.TypeReprUnderlying (go.ArrayType n ty) (array.t V n);
+ 
+-  (* TODO: implement alloc_array *)
+-  #[global] alloc_array n elem v :: ⟦GoAlloc (go.ArrayType n elem), v⟧ ⤳[internal_under] AngelicExit #();
++  #[global] alloc_uint64_array n (vs : array.t w64 n)
++    (Hlen : Z.of_nat (length (array.arr vs)) = n) (Hpos : 0 < n) ::
++    ⟦GoAlloc (go.ArrayType n go.uint64), #vs⟧ ⤳[internal_under]
++      AllocArray (Val (ArrayV ((λ v, #v)%V <$> array.arr vs)));
++
++  array_index_ref_uint64 i l : array_index_ref w64 i l = array_offset l i;
+ 
+   #[global] load_array n elem_type l ::
+     ⟦GoLoad (go.ArrayType n elem_type), l⟧ ⤳[internal_under]
+@@ -42,21 +49,26 @@ Class ArraySemantics `{!GoSemanticsFunctions} :=
      (foldl (λ str_so_far j,
                  str_so_far;;
                  let elem_addr := IndexRef (go.ArrayType n elem_type) (l, #(W64 j)) in
@@ -53,7 +78,10 @@ index 65a53e9..57a21f4 100644
    #[global] index_ref_array n elem_type (i : w64) l `{!ZeroVal V} `{!TypeRepr elem_type V} ::
      ⟦IndexRef (go.ArrayType n elem_type), (#l, #i)⟧ ⤳[under]
 -      (if decide (sint.Z i < n) then #(array_index_ref V (sint.Z i) l) else Panic "index out of range");
-+      (if decide (0 ≤ sint.Z i < n) then #(array_index_ref V (sint.Z i) l) else Panic "index out of range");
++      (if decide (0 ≤ sint.Z i < n) then
++         if decide (l = null) then Panic "nil array pointer"
++         else #(array_index_ref V (sint.Z i) l)
++       else Panic "index out of range");
  
    #[global] index_array n elem_type (i : w64) V (a : array.t V n) ::
      ⟦Index (go.ArrayType n elem_type), (#a, #i)⟧ ⤳[under]
@@ -68,6 +96,25 @@ index 65a53e9..57a21f4 100644
  
    #[global] composite_literal_array n elem_type kvs ::
      ⟦CompositeLiteral (go.ArrayType n elem_type), (LiteralValueV kvs)⟧ ⤳[under]
+@@ -91,9 +103,6 @@ Class ArraySemantics `{!GoSemanticsFunctions} :=
+            (word.sub high low) (word.sub max low))
+      else Panic "slice bounds out of range");
+ 
+-  (* This requires that array_index_ref does not ever end up becoming null due
+-     to a negative Z offset. Instead, negative offsets should be thought of as
+-     clamped to 0. *)
+   array_index_ref_null_inv t i l :
+     array_index_ref t i l = null → l = null;
+ 
+@@ -102,7 +111,7 @@ Class ArraySemantics `{!GoSemanticsFunctions} :=
+ 
+   (* For disk FFI proof. *)
+   array_index_ref_add_loc_add i l :
+-    array_index_ref w8 i l = loc_add l i;
++    array_index_ref w8 i l = array_offset l i;
+ 
+   #[global] into_val_inj_array V n {inj_V : go.IntoValInj V} ::
+     go.IntoValInj (array.t V n);
 diff --git a/new/golang/defn/predeclared.v b/new/golang/defn/predeclared.v
 index ec6fa10..fb2cb31 100644
 --- a/new/golang/defn/predeclared.v
@@ -114,3 +161,148 @@ index 7c42f1d..900a555 100644
  
  Global Instance type_countable : Countable type.
  Proof. Admitted.
+diff --git a/new/golang/theory/array.v b/new/golang/theory/array.v
+index 2d238bc..806a7b6 100644
+--- a/new/golang/theory/array.v
++++ b/new/golang/theory/array.v
+@@ -54,50 +54,6 @@ Proof.
+   rewrite seq_S fmap_app /=. f_equal. f_equal. lia.
+ Qed.
+ 
+-Global Instance into_val_typed_array n : IntoValTypedUnderlying (array.t V n) (go.ArrayType n t).
+-Proof using IntoValTyped0.
+-  pose proof go.tagged_steps internal.
+-  split.
+-  - admit.
+-  - iIntros "* %Hu * Hl HΦ".
+-    wp_pures. case_decide.
+-    { wp_pures. wp_apply wp_AngelicExit. }
+-    wp_pure.
+-    assert (∃ m, n = m ∧ 0 ≤ m ≤ n) as (m & Heq & Hm) by (exists n; lia).
+-    rewrite [in #(W64 n)]Heq.
+-    simpl. destruct v as [vs]. simpl in *.
+-    iDestruct (array_len with "Hl") as "%Hlen".
+-    iApply (wp_wand _ _ _
+-                    (λ v, ∃ vs' ,
+-                        "Hl" ∷ l ↦{dq} array.mk n vs ∗
+-                        "->" ∷ ⌜ v = #(array.mk n vs') ⌝ ∗
+-                        "%Hagree" ∷ ⌜ take (Z.to_nat m) vs = take (Z.to_nat m) vs' ⌝ ∗
+-                        "%Hlen'" ∷ ⌜ length vs = length vs' ⌝
+-                    )%I
+-             with "[-HΦ] [HΦ]").
+-    2:{ iIntros "% H". iNamed "H". subst.
+-        rewrite !take_ge in Hagree; [|len..]. subst.
+-        by iApply "HΦ". }
+-    clear Heq Φ.
+-    set (f := #(func.mk _ _ _)).
+-    iLöb as "IH" forall (m Hm).
+-    wp_pures.
+-    case_bool_decide as Heq.
+-    { wp_pures. iFrame. iPureIntro.
+-      replace m with 0 by word. setoid_rewrite take_0. eexists _; split; first done.
+-      split; [done|len]. }
+-    wp_pure. wp_pure. wp_pure. set (m':=m-1).
+-    replace (word.sub _ _) with (W64 m') by word.
+-    progress replace (Z.to_nat m) with (S (Z.to_nat m'))%nat by word.
+-    pose proof (list_lookup_lt vs (Z.to_nat m')) as [ve Hlookup]; first word.
+-    erewrite take_S_r; last done.
+-    iSpecialize ("IH" with "[] Hl"); last wp_apply (wp_wand with "IH"); first word.
+-    iIntros "% H". iNamed "H". wp_pures. rewrite -> decide_True; last word. wp_pures.
+-    admit.
+-  - admit.
+-    Unshelve. Fail idtac.
+-Admitted.
+-
+ Lemma array_empty ptr dq :
+   ptr ≠ null → ⊢ ptr ↦{dq} (array.mk 0 []).
+ Proof.
+diff --git a/src/goose_lang/lang.v b/src/goose_lang/lang.v
+index da8669d..8f1f3fa 100644
+--- a/src/goose_lang/lang.v
++++ b/src/goose_lang/lang.v
+@@ -96,6 +96,7 @@ Inductive prim_op1 : Set :=
+ (* atomic loads (which still conflict with non-atomic stores) *)
+ | LoadOp
+ | AllocOp (* initial value *)
++| AllocArrayOp (* nonempty list of initial cell values *)
+ .
+ 
+ Inductive prim_op2 : Set :=
+@@ -301,6 +302,7 @@ Bind Scope val_scope with val.
+ Notation Panic s := (Primitive0 (PanicOp s)).
+ Notation ArbitraryInt := (Primitive0 ArbitraryIntOp).
+ Notation Alloc := (Primitive1 AllocOp).
++Notation AllocArray := (Primitive1 AllocArrayOp).
+ Notation PrepareWrite := (Primitive1 PrepareWriteOp).
+ Notation FinishStore := (Primitive2 FinishStoreOp).
+ Notation AtomicSwap := (Primitive2 AtomicSwapOp).
+@@ -1188,6 +1190,9 @@ End instances.
+ Definition state_init_heap (l : loc) (v : val) (σ : state) : state :=
+   set heap (λ h, {[ l := Free v ]} ∪ h) σ.
+ 
++Definition state_init_heap_array (l : loc) (vs : list val) (σ : state) : state :=
++  set heap (λ h, heap_array l (Free <$> vs) ∪ h) σ.
++
+ Definition is_Free {A} (mna: option (nonAtomic A)) := exists x, mna = Some (Free x).
+ Global Instance is_Free_dec A (x: option (nonAtomic A)) : Decision (is_Free x).
+ Proof.
+@@ -1349,6 +1354,11 @@ Definition base_trans (e : expr) :
+       (l ← allocate;
+        modifyσ (state_init_heap l v);;
+        ret #l)
++  | AllocArray (Val (ArrayV (v :: vs))) =>
++    atomically
++      (l ← allocate;
++       modifyσ (state_init_heap_array l (v :: vs));;
++       ret #l)
+    | StartRead (Val v) => (* non-atomic load part 1 (used for map accesses) *)
+      atomically
+        (l ← suchThat (λ _ (l : loc), v = #l) (gen:=fallback_genPred _);
+diff --git a/src/goose_lang/lifting.v b/src/goose_lang/lifting.v
+index 41bec0b..6a0f96d 100644
+--- a/src/goose_lang/lifting.v
++++ b/src/goose_lang/lifting.v
+@@ -814,6 +814,43 @@ Proof.
+   iPureIntro; split; eauto using isFresh_not_null. destruct H. naive_solver.
+ Qed.
+ 
++Lemma wp_alloc_array s E vs :
++  vs ≠ [] →
++  {{{ True }}} AllocArray (Val (ArrayV vs)) @ s; E
++  {{{ l, RET #l; ⌜ l ≠ null ∧ addr_offset l = 0%Z ⌝ ∗
++      na_block_size l (length vs) ∗ pointsto_vals_toks l (DfracOwn 1) vs }}}.
++Proof.
++  intros Hnonempty. destruct vs as [|v vs]; first done.
++  iIntros (Φ) "_ HΦ". iApply wp_lift_atomic_base_step_no_fork; auto.
++  iIntros (σ1 g1 ns mj D κ κs k) "[Hσ ?] Hg !>"; iSplit.
++  { iPureIntro. do 8 eexists.
++    { apply fresh_locs_isFresh. }
++    all: repeat eexists. }
++  iNext; iIntros (v2 σ2 g2 efs Hstep); inv_base_step.
++  iMod (na_heap_alloc_list tls (heap σ1) l (v :: vs) (Reading O) with "Hσ")
++    as "(Hσ & Hblock & Hl)".
++  { simpl. lia. }
++  { destruct H as (?&?). eauto. }
++  { destruct H as (Hfresh&?). eapply Hfresh. }
++  { destruct H as (Hfresh&?). destruct (Hfresh 0) as (?&Hfresh0).
++    by rewrite loc_add_0 in Hfresh0. }
++  { eauto. }
++  iMod (global_state_interp_le _ _ _ _ _ κs with "[$]") as "$".
++  { rewrite /step_count_next/=. lia. }
++  iModIntro; iSplit; first done. unfold state_init_heap_array. simpl.
++  rewrite /RecordSet.set /=. iFrame.
++  iApply "HΦ". iFrame "Hblock". iSplit.
++  { iPureIntro. split; eauto using isFresh_not_null. destruct H; naive_solver. }
++  rewrite /pointsto_vals_toks.
++  iApply (big_sepL_mono
++    (λ i w, na_heap_pointsto (l +ₗ i) (DfracOwn 1) w ∗ meta_token (l +ₗ i) ⊤)%I
++    (λ i w, (l +ₗ i) ↦ w ∗ meta_token (l +ₗ i) ⊤)%I
++    (v :: vs) with "Hl").
++  iIntros (i w Hi) "[Hw Hmeta]".
++  iFrame "Hmeta". iApply (na_pointsto_to_heap with "Hw").
++  destruct H as (Hfresh&_). apply Hfresh.
++Qed.
++
+ (* Most proofs of program correctness do not need the block size information,
+    so they can use this lemma, which removes the assumption about the struct being non zero
+    sized *)

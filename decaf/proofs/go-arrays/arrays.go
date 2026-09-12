@@ -20,3 +20,7 @@ func Alias(a, b *[4]uint64) uint64 {
 	b[1] = 9
 	return a[1]
 }
+
+func Address(a *[4]uint64, i int) *uint64 {
+	return &a[i]
+}

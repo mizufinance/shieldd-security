@@ -72,15 +72,20 @@ conversion. These checks establish executable regression coverage.
 
 ## Go model obligations
 
-The pinned Perennial/Goose revision needs fixed-array repairs before consumer
-refinement: pointer-array indexing must preserve addresses, array stores must
-read the corresponding element, signed bounds must reject negative indices,
-and array allocation needs executable semantics. Its current array-allocation
-rule uses `AngelicExit`, which admits arbitrary partial-correctness
-postconditions. Go theorem acceptance therefore also requires return/progress
-evidence excluding reachable placeholder exits. A closed axiom audit alone is
-insufficient. The pinned array load/store proof instance also contains admissions
-and must be completed before it can enter the theorem closure.
+The patch gives nonempty uint64 arrays executable fresh-block allocation and
+checked ownership lifting. Four-word read/write, local allocation, disjoint
+copy, self-copy and same-array aliasing are proved over freshly extracted Go.
+Allocation has separate return and progress theorems. Generic array typing is
+not assumed: allocation requires the backing list to match the array length.
+
+Concrete byte/word offsets preserve non-null allocated bases; null-base
+addresses remain unchanged. The four address algebra laws are proved without
+`PreSemantics`, and the runner rejects a proof exploiting the unguarded-offset
+contradiction. Indexing checks nil pointers and signed bounds before returning
+an address, with native address-only panic witnesses and semantic step lemmas.
+These checks establish consistency of the concrete address-law subset, not a
+model of all `PreSemantics` contracts. Unsupported array sizes and other types
+remain outside this four-word proof boundary.
 
 ## Go native arithmetic proofs
 
@@ -109,8 +114,7 @@ support. It requires separate carry, borrow and multiplication shift mutations t
 witnesses and freshly extracted execution theorems. Reports are written under
 `.work/decaf-go-proof-replay`.
 
-This is partial functional correctness. Termination, array allocation,
-field/group/consumer refinement, and compiled leakage traces remain separate
+This is partial functional correctness. Full termination, field/group/consumer refinement, and compiled leakage traces remain separate
 obligations; `full_certification` stays false.
 
 ## Rust field addition

@@ -16,6 +16,12 @@ ROOTS = ("CarryArithmetic.carry_bit", "GoCarryArithmetic.addcarry_words",
          "GoBorrowArithmetic.subborrow_words", "GoBorrow.subborrow_correct",
          "MultiplyArithmetic.split_product", "GoMultiplyArithmetic.multiply_words",
          "GoMultiply.multiply_correct")
+ARRAY_ROOTS = tuple("GoArray." + name for name in (
+    "offset_base", "offset_zero", "offset_add", "offset_null_inv",
+    "allocation_returns", "allocation_progress", "allocate_uint64_array",
+    "load_four", "store_four", "nil_index_panics", "invalid_index_panics")) + tuple(
+    "GoArraySource." + name for name in ("local_correct", "read_write_correct",
+        "copy_correct", "copy_same_correct", "alias_same_correct"))
 MODULES = ("CarryArithmetic.v", "GoCarryArithmetic.v", "GoCarry.v",
            "BorrowArithmetic.v", "GoBorrowArithmetic.v", "GoBorrow.v",
            "MultiplyArithmetic.v", "GoMultiplyArithmetic.v", "GoMultiply.v")
@@ -33,9 +39,9 @@ def shift_mutation(source, function="Add64"):
     return source[:start] + body.replace(old, new) + source[end:]
 
 
-def validate_assumptions(text):
+def validate_assumptions(text, roots=ROOTS):
     if [s.strip() for s in text.splitlines() if s.strip()] != [
-            "Closed under the global context"] * len(ROOTS):
+            "Closed under the global context"] * len(roots):
         raise ValueError("Go carry theorem assumptions are not closed")
 
 
@@ -121,7 +127,8 @@ def main():
             if installed != config["rocq-runtime"]:
                 raise ValueError("unexpected Rocq version")
             command(["opam", "exec", "--switch=decaf-fv", "--", "gmake", "-j2", "TIMED=false",
-                     "new/golang/theory/auto.vo", "new/golang/defn.vo", "new/code/unsafe.vo"], perennial)
+                     "new/golang/theory/auto.vo", "new/golang/theory/array.vo",
+                     "new/golang/defn.vo", "new/code/unsafe.vo"], perennial)
             goroot = Path(command(["go", "env", "GOROOT"]).strip())
             env.update(GOROOT=str(goroot), GOTOOLCHAIN="local",
                        GOMODCACHE=str(formal.CACHE / "decaf-go-modcache"),
@@ -194,6 +201,42 @@ func TestMultiplyWitness(t *testing.T) {
                     original_flags = flags
                     report["extraction_sha256"] = formal.file_digest(extracted)
             command([*rocq, "check", "-silent", *original_flags, "GoCarry", "GoBorrow", "GoMultiply"])
+            array_case = work / "arrays"
+            shutil.copytree(PROOFS / "go-arrays", array_case)
+            command(["go", "test", "-p", "2", "./..."], array_case)
+            extraction = array_case / "extraction"
+            command([goose, "-dir", array_case, "-out", extraction, "."], array_case)
+            support = array_case / "support"
+            support.mkdir()
+            flags = ["-Q", perennial / "src", "Perennial", "-Q", perennial / "new", "New",
+                     "-Q", extraction, "New.code", "-Q", support, ""]
+            extracted = extraction / "mizufinance_local/decaf/arrays.v"
+            command([*rocq, "compile", *flags, extracted])
+            for name in ("GoArray.v", "GoArraySource.v", "GoArrayContradiction.v"):
+                shutil.copyfile(PROOFS / "rocq" / name, support / name)
+            command([*rocq, "compile", *flags, support / "GoArray.v"])
+            command([*rocq, "compile", *flags, support / "GoArraySource.v"])
+            rejection = command([*rocq, "compile", *flags, support / "GoArrayContradiction.v"],
+                                expect_failure=True)
+            if not all(fragment in rejection for fragment in (
+                    'The term "eq_refl"', 'go.array_offset (Loc 0 1) (-1)',
+                    'cannot unify', '"null"')):
+                raise ValueError("address contradiction control failed outside its false premise")
+            audit = support / "ArrayAudit.v"
+            audit.write_text("Require Import GoArray GoArraySource.\n" + "\n".join(
+                "Print Assumptions " + root + "." for root in ARRAY_ROOTS) + "\n")
+            validate_assumptions(command([*rocq, "compile", *flags, audit]), ARRAY_ROOTS)
+            command([*rocq, "check", "-silent", *flags, "GoArray", "GoArraySource"])
+            report["arrays"] = {
+                "theorem_roots": ARRAY_ROOTS,
+                "extraction_sha256": formal.file_digest(extracted),
+                "source_hashes": {p.name: formal.file_digest(p) for p in
+                                  sorted((PROOFS / "go-arrays").iterdir()) if p.is_file()},
+                "proof_hashes": {name: formal.file_digest(support / name) for name in
+                                 ("GoArray.v", "GoArraySource.v", "GoArrayContradiction.v")},
+                "old_contradiction_rejected": True,
+                "native_address_panics_checked": True,
+                "scope": "four-word array allocation, indexing, copies, and same-array aliasing"}
             report.update(status="passed", completed=True)
         except Exception as error:
             report["detail"] = str(error)

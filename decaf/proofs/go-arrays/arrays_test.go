@@ -27,3 +27,24 @@ func TestArrayBehavior(t *testing.T) {
 		})
 	}
 }
+
+func TestAddressPanic(t *testing.T) {
+	for _, test := range []struct {
+		name string
+		a    *[4]uint64
+		i    int
+	}{
+		{"nil", nil, 1},
+		{"negative", new([4]uint64), -1},
+		{"length", new([4]uint64), 4},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			defer func() {
+				if recover() == nil {
+					t.Fatal("invalid address did not panic")
+				}
+			}()
+			_ = Address(test.a, test.i)
+		})
+	}
+}
