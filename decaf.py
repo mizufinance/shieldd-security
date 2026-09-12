@@ -107,7 +107,7 @@ class Pilot:
         self.env = dict(os.environ, CARGO_BUILD_JOBS="2", RAYON_NUM_THREADS="2",
                         GOMAXPROCS="2", GOFLAGS="-p=2", CARGO_INCREMENTAL="0",
                         GIT_LFS_SKIP_SMUDGE="1", CARGO_TARGET_DIR=str(formal.CACHE / "decaf-rust-target"))
-        self.report = {"status": "running", "full_certification": False,
+        self.report = {"status": "blocked", "completed": False, "full_certification": False,
                        "security_revision": formal.run(["git", "rev-parse", "HEAD"], cwd=formal.ROOT, capture=True).strip(),
                        "inputs": self.inputs, "harness_hashes": digest_tree(formal.ROOT / "decaf"),
                        "runner_sha256": formal.file_digest(Path(__file__)),
@@ -168,12 +168,15 @@ class Pilot:
         except Exception as error:
             case.update(status="failed", detail=str(error))
         finally:
+            if case["status"] == "running":
+                case.update(status="blocked", detail="check interrupted before completion")
             self.save()
             print(f"{name}: {case['status']}: {case['detail']}", flush=True)
 
     def save(self):
         states = [c["status"] for c in self.report["checks"]]
-        self.report["status"] = ("failed" if "failed" in states else "blocked" if "blocked" in states else "passed")
+        self.report["status"] = ("passed" if self.report["completed"] and states and all(state == "passed" for state in states)
+                                 else "failed" if "failed" in states else "blocked")
         (self.reports / "report.json").write_text(json.dumps(self.report, indent=2, sort_keys=True) + "\n")
 
     def functional(self, language, case):
@@ -232,7 +235,13 @@ class Pilot:
         snapshot_dir.mkdir()
         core = snapshot_dir / "core"
         gdb = self.reports / f"{case['id']}.gdb"
-        gdb.write_text(f"set pagination off\nset confirm off\nset env LD_BIND_NOW=1\nset disable-randomization on\nbreak *0x{addresses[entry]:x}\nrun\ninfo proc mappings\ngenerate-core-file {core}\nkill\nquit\n")
+        case["runtime_configuration"] = {"LD_BIND_NOW": "1"}
+        if language == "go":
+            # A fixed single-threaded pilot state, not a claim about arbitrary
+            # collector/profiler scheduling. All arithmetic remains executable.
+            case["runtime_configuration"].update(GOGC="off", GODEBUG="memprofilerate=0", GOMAXPROCS="1")
+        runtime_env = "".join(f"set env {key}={value}\n" for key, value in case["runtime_configuration"].items())
+        gdb.write_text(f"set pagination off\nset confirm off\n{runtime_env}set disable-randomization on\nbreak *0x{addresses[entry]:x}\nrun\ninfo proc mappings\ngenerate-core-file {core}\nkill\nquit\n")
         try:
             case["snapshot_method"] = "native GDB"
             snapshot_log = self.command(["gdb", "--batch", "-x", gdb, binary], binary.parent, case, timeout=120, snapshots=snapshot_dir)
@@ -281,7 +290,7 @@ class Pilot:
             log = self.command(["binsec", "-sse", "-checkct", "-checkct-leak-info", "halt",
                                 "-checkct-stats-file", self.reports / f"{case['id']}.toml", "-sse-script", cfg,
                                 "-sse-sysroot", sysroot,
-                                "-sse-depth", "10000000", "-sse-timeout", str(ANALYSIS_LIMIT), core], binary.parent, case,
+                                "-sse-depth", "100000000", "-sse-timeout", str(ANALYSIS_LIMIT), core], binary.parent, case,
                                timeout=ANALYSIS_LIMIT + 30)
         except RuntimeError as error:
             raise Blocked(f"binary-analysis execution did not complete: {error}") from error
@@ -343,7 +352,7 @@ def main():
         except Exception as error:
             reports.mkdir(parents=True, exist_ok=True)
             (reports / "report.json").write_text(json.dumps({
-                "status": "failed", "full_certification": False,
+                "status": "failed", "completed": False, "full_certification": False,
                 "checks": [{"id": "bootstrap", "evidence_kind": "tooling", "status": "failed", "detail": str(error)}],
             }, indent=2) + "\n")
             return 1
@@ -353,6 +362,8 @@ def main():
             for language in ("rust", "go"):
                 if args.language in (language, "all"):
                     pilot.check(language + "-functional", "functional_test", lambda case, language=language: pilot.functional(language, case))
+        pilot.report["completed"] = True
+        pilot.save()
         print(json.dumps({"status": pilot.report["status"], "report": str(pilot.reports / "report.json")}))
         return 0 if pilot.report["status"] == "passed" else 1
 

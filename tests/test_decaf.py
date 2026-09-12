@@ -88,6 +88,32 @@ class DecafPilotTests(unittest.TestCase):
                 self.assertFalse(report["full_certification"])
                 self.assertEqual(report["checks"][0]["evidence_kind"], "relational_analysis")
 
+    def test_success_requires_explicit_run_completion(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)):
+                pilot = decaf.Pilot("leakage", "all")
+                pilot.check("first", "relational_analysis", lambda case: None)
+                report = json.loads((pilot.reports / "report.json").read_text())
+                self.assertEqual(report["status"], "blocked")
+                self.assertFalse(report["completed"])
+                pilot.report["completed"] = True
+                pilot.save()
+                report = json.loads((pilot.reports / "report.json").read_text())
+                self.assertEqual(report["status"], "passed")
+                self.assertTrue(report["completed"])
+
+    def test_interruption_is_not_a_pass(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)):
+                pilot = decaf.Pilot("leakage", "all")
+                def interrupted(case):
+                    raise KeyboardInterrupt()
+                with self.assertRaises(KeyboardInterrupt):
+                    pilot.check("interrupted", "relational_analysis", interrupted)
+                report = json.loads((pilot.reports / "report.json").read_text())
+                self.assertEqual(report["status"], "blocked")
+                self.assertEqual(report["checks"][0]["status"], "blocked")
+
     def test_mutation_requires_exact_operator(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

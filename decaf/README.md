@@ -50,6 +50,11 @@ canonical parsing, secret input points, scheduling, and arbitrary allocator
 states require additional analysis. One public snapshot is not a proof for every
 deployment, public base, or runtime state.
 
+The Go snapshot uses `GOMAXPROCS=1`, `GOGC=off`, and
+`GODEBUG=memprofilerate=0` to avoid unrelated concurrent collection and sampling
+in the pilot. These are recorded public runtime settings, not substituted code.
+Production collector/profiler configurations remain uncovered.
+
 Instruction latency, speculative execution, power/EM, faults, and secret erasure
 are outside this branch/address model. Output disclosure is permitted only at
 the named final boundary; it does not excuse leaks during computation.
@@ -58,7 +63,8 @@ the named final boundary; it does not excuse leaks during computation.
 
 Functional tests and relational analysis are different evidence kinds. Checks
 have `passed`, `failed`, or `blocked` outcomes; every report has
-`full_certification: false`. BINSEC's `secure` verdict is accepted only with a
+`full_certification: false`. Aggregate success also requires `completed: true`;
+interrupted or partially executed runs cannot pass. BINSEC's `secure` verdict is accepted only with a
 reached output boundary and no incomplete-analysis diagnostic. Its `unknown`,
 unsupported operations, missing tools, and exhausted bounds cannot establish a
 proof. Helper results never promote unexamined caller paths.
@@ -77,7 +83,7 @@ proof verdicts. Snapshot and binary hashes describe the artifact actually checke
 not another compiler build of the same source. Each analyzed case retains a
 compressed binary/core/configuration reproducer, including hashed file-backed
 mappings. After unpacking, replay with
-`binsec -sse -checkct -checkct-leak-info halt -sse-script analysis.cfg -sse-sysroot mapped-files -sse-depth 10000000 -sse-timeout 300 core`.
+`binsec -sse -checkct -checkct-leak-info halt -sse-script analysis.cfg -sse-sysroot mapped-files -sse-depth 100000000 -sse-timeout 300 core`.
 
 See [coverage](coverage.md) for consumer joins and remaining obligations.
 BINSEC's [relational analysis](https://github.com/binsec/binsec/blob/dfe4739f03a474cf2ebc5ae419760e57ce0050c3/doc/sse/relse.md)
