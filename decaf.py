@@ -69,8 +69,10 @@ def classify_analysis(log, expected, endpoint):
 
 def validate_analysis_config(text):
     # No reached dependency may be replaced by an assumed-safe summary or cut.
-    if re.search(r"\b(replace|hook|cut)\b", text):
+    if re.search(r"\b(replace|hook|cut)\b", text, re.I):
         raise ValueError("analysis may not omit or summarize transitive dependencies")
+    if len(re.findall(r"^halt at 0x[0-9a-f]+$", text, re.M)) != 1:
+        raise ValueError("analysis requires exactly one output boundary")
 
 
 def routing_mutation(source):
@@ -152,6 +154,7 @@ class Pilot:
         return checkout
 
     def check(self, name, kind, operation):
+        print(f"{name}: running ({kind})", flush=True)
         case = {"id": name, "evidence_kind": kind, "status": "running"}
         self.report["checks"].append(case)
         try:
@@ -165,6 +168,7 @@ class Pilot:
             case.update(status="failed", detail=str(error))
         finally:
             self.save()
+            print(f"{name}: {case['status']}: {case['detail']}", flush=True)
 
     def save(self):
         states = [c["status"] for c in self.report["checks"]]
@@ -251,7 +255,8 @@ class Pilot:
             archive.add(gdb, arcname="snapshot.gdb")
         case["reproducer_sha256"] = formal.file_digest(replay)
         try:
-            log = self.command(["binsec", "-sse", "-checkct", "-sse-script", cfg,
+            log = self.command(["binsec", "-sse", "-checkct", "-checkct-leak-info", "halt",
+                                "-checkct-stats-file", self.reports / f"{case['id']}.toml", "-sse-script", cfg,
                                 "-sse-depth", "10000000", "-sse-timeout", str(LIMIT - 10), core], binary.parent, case)
         except RuntimeError as error:
             raise Blocked(f"binary-analysis execution did not complete: {error}") from error
@@ -308,7 +313,15 @@ def main():
         reports = formal.WORK / "decaf" / f"{args.mode}-report"
         if reports.exists():
             shutil.rmtree(reports)
-        pilot = Pilot(args.mode, args.language)
+        try:
+            pilot = Pilot(args.mode, args.language)
+        except Exception as error:
+            reports.mkdir(parents=True, exist_ok=True)
+            (reports / "report.json").write_text(json.dumps({
+                "status": "failed", "full_certification": False,
+                "checks": [{"id": "bootstrap", "evidence_kind": "tooling", "status": "failed", "detail": str(error)}],
+            }, indent=2) + "\n")
+            return 1
         if args.mode == "leakage":
             pilot.leakage()
         else:

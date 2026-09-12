@@ -75,7 +75,7 @@ commands and analysis configuration. CI regenerates results rather than reusing
 proof verdicts. Snapshot and binary hashes describe the artifact actually checked,
 not another compiler build of the same source. Each analyzed case retains a
 compressed binary/core/configuration reproducer. After unpacking, replay with
-`binsec -sse -checkct -sse-script analysis.cfg -sse-depth 10000000 -sse-timeout 1790 core`.
+`binsec -sse -checkct -checkct-leak-info halt -sse-script analysis.cfg -sse-depth 10000000 -sse-timeout 1790 core`.
 
 See [coverage](coverage.md) for consumer joins and remaining obligations.
 BINSEC's [relational analysis](https://github.com/binsec/binsec/blob/dfe4739f03a474cf2ebc5ae419760e57ce0050c3/doc/sse/relse.md)

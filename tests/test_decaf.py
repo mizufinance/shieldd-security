@@ -48,6 +48,22 @@ class DecafPilotTests(unittest.TestCase):
         config = "starting from core\nreplace <ark_ff_multiply> by\n return\nend\nexplore all\n"
         with self.assertRaisesRegex(ValueError, "transitive dependencies"):
             decaf.validate_analysis_config(config)
+        with self.assertRaisesRegex(ValueError, "transitive dependencies"):
+            decaf.validate_analysis_config(config.upper())
+
+    def test_extra_dependency_halt_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "one output boundary"):
+            decaf.validate_analysis_config("halt at 0x1234\nhalt at 0x5678\n")
+
+    def test_bootstrap_failure_still_writes_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)), \
+                 patch.object(sys, "argv", ["decaf.py", "leakage"]), \
+                 patch.object(decaf, "Pilot", side_effect=RuntimeError("missing source identity")):
+                self.assertEqual(decaf.main(), 1)
+                report = json.loads((Path(directory) / "decaf/leakage-report/report.json").read_text())
+                self.assertEqual(report["status"], "failed")
+                self.assertFalse(report["full_certification"])
 
     def test_undetected_negative_control_fails(self):
         self.assertEqual(decaf.classify_analysis("Program status is : secure", "insecure", 0x1234)[0], "failed")
