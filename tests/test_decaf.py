@@ -1,0 +1,129 @@
+import json
+from pathlib import Path
+import sys
+import tempfile
+import unittest
+from unittest.mock import patch
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import decaf
+
+
+class DecafPilotTests(unittest.TestCase):
+    def test_real_binsec_verdicts(self):
+        fixtures = decaf.formal.ROOT / "decaf/fixtures"
+        for filename, expected, status in (("secure.txt", "secure", "passed"),
+                                            ("branch-leak.txt", "insecure", "passed"),
+                                            ("depth-limit.txt", "secure", "blocked")):
+            with self.subTest(filename=filename):
+                self.assertEqual(decaf.classify_analysis((fixtures / filename).read_text(), expected, 0x401106)[0], status)
+
+    def test_missing_dependency_is_rejected(self):
+        inputs = json.loads(decaf.INPUTS.read_text())
+        del inputs["libraries"]["go"]["candidate"]
+        with self.assertRaisesRegex(ValueError, "dependency identity"):
+            decaf.validate_inputs(inputs)
+
+    def test_branch_name_cannot_replace_revision(self):
+        inputs = json.loads(decaf.INPUTS.read_text())
+        inputs["libraries"]["rust"]["candidate"] = "main"
+        with self.assertRaisesRegex(ValueError, "full commit"):
+            decaf.validate_inputs(inputs)
+
+    def test_negative_control_requires_leak_diagnostic(self):
+        for text in ("compile failed", "Program status is : unknown", "Program status is : insecure"):
+            self.assertEqual(decaf.classify_analysis(text, "insecure", 0x1234)[0], "blocked")
+        for kind in ("control flow", "memory access"):
+            text = f"Instruction 0x42 has {kind} leak\nProgram status is : insecure"
+            self.assertEqual(decaf.classify_analysis(text, "insecure", 0x1234)[0], "passed")
+            self.assertEqual(decaf.classify_analysis(text, "secure", 0x1234)[0], "failed")
+
+    def test_vacuous_and_incomplete_secure_results_are_blocked(self):
+        secure = "Program status is : secure"
+        self.assertEqual(decaf.classify_analysis(secure, "secure", 0x1234)[0], "blocked")
+        text = secure + "\n[sse:result] Path 1 reached address 0x00001234"
+        self.assertEqual(decaf.classify_analysis(text, "secure", 0x1234)[0], "passed")
+        for extra in ("Exploration is incomplete", "unsupported instruction", secure):
+            self.assertEqual(decaf.classify_analysis(text + "\n" + extra, "secure", 0x1234)[0], "blocked")
+
+    def test_endpoint_must_match_positive_event_exactly(self):
+        for event in ("[sse:result] Path 1 reached address 0xdead1234", "never reached address 0x1234"):
+            self.assertEqual(decaf.classify_analysis("Program status is : secure\n" + event, "secure", 0x1234)[0], "blocked")
+
+    def test_unsafe_arithmetic_dependency_cannot_be_assumed(self):
+        # A trusted return replacing arkworks field arithmetic must be rejected,
+        # even if the remaining caller trace would look constant-time.
+        config = "starting from core\nreplace <ark_ff_multiply> by\n return\nend\nexplore all\n"
+        with self.assertRaisesRegex(ValueError, "transitive dependencies"):
+            decaf.validate_analysis_config(config)
+        with self.assertRaisesRegex(ValueError, "transitive dependencies"):
+            decaf.validate_analysis_config(config.upper())
+
+    def test_extra_dependency_halt_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "one output boundary"):
+            decaf.validate_analysis_config("halt at 0x1234\nhalt at 0x5678\n")
+
+    def test_bootstrap_failure_still_writes_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)), \
+                 patch.object(sys, "argv", ["decaf.py", "leakage"]), \
+                 patch.object(decaf, "Pilot", side_effect=RuntimeError("missing source identity")):
+                self.assertEqual(decaf.main(), 1)
+                report = json.loads((Path(directory) / "decaf/leakage-report/report.json").read_text())
+                self.assertEqual(report["status"], "failed")
+                self.assertFalse(report["full_certification"])
+
+    def test_undetected_negative_control_fails(self):
+        self.assertEqual(decaf.classify_analysis("Program status is : secure", "insecure", 0x1234)[0], "failed")
+
+    def test_blocker_report_never_certifies(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)):
+                pilot = decaf.Pilot("leakage", "all")
+                def unavailable(case):
+                    raise decaf.Blocked("missing tool")
+                pilot.check("example", "relational_analysis", unavailable)
+                report = json.loads((pilot.reports / "report.json").read_text())
+                self.assertEqual(report["status"], "blocked")
+                self.assertFalse(report["full_certification"])
+                self.assertEqual(report["checks"][0]["evidence_kind"], "relational_analysis")
+
+    def test_success_requires_explicit_run_completion(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)):
+                pilot = decaf.Pilot("leakage", "all")
+                pilot.check("first", "relational_analysis", lambda case: None)
+                report = json.loads((pilot.reports / "report.json").read_text())
+                self.assertEqual(report["status"], "blocked")
+                self.assertFalse(report["completed"])
+                pilot.report["completed"] = True
+                pilot.save()
+                report = json.loads((pilot.reports / "report.json").read_text())
+                self.assertEqual(report["status"], "passed")
+                self.assertTrue(report["completed"])
+
+    def test_interruption_is_not_a_pass(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)):
+                pilot = decaf.Pilot("leakage", "all")
+                def interrupted(case):
+                    raise KeyboardInterrupt()
+                with self.assertRaises(KeyboardInterrupt):
+                    pilot.check("interrupted", "relational_analysis", interrupted)
+                report = json.loads((pilot.reports / "report.json").read_text())
+                self.assertEqual(report["status"], "blocked")
+                self.assertEqual(report["checks"][0]["status"], "blocked")
+
+    def test_mutation_requires_exact_operator(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "src/ark_curve/ops/projective.rs"
+            source.parent.mkdir(parents=True)
+            source.write_text("unrelated implementation")
+            with self.assertRaisesRegex(decaf.Blocked, "no longer matches"):
+                decaf.routing_mutation(root)
+            self.assertEqual(source.read_text(), "unrelated implementation")
+
+
+if __name__ == "__main__":
+    unittest.main()

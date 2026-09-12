@@ -1,5 +1,8 @@
 # Shieldd security
 
+Native Decaf implementation-security checks and their independent coverage
+boundary are documented in [decaf/README.md](decaf/README.md).
+
 This repository owns Shieldd's formal specifications, generated Lean evidence,
 formal CI, and bounded decoder fuzz campaigns. Shieldd itself owns runtime code,
 circuits, witnesses, proving material, and ordinary compile/prove/verify smoke
