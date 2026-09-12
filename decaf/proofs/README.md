@@ -1,7 +1,8 @@
 # Source-linked Decaf proofs
 
 The shared specification uses Rocq. Native field generation uses the pinned
-Fiat-Crypto source; Rust and Go retain native implementations. Proof extraction
+Fiat-Crypto source with the checked-in array-index printer patch; Rust and Go
+retain native implementations. Proof extraction
 is a trusted translation boundary, with the exact executable identity recorded.
 The implementation program is tracked by issues #2 and #4–#6.
 
@@ -48,3 +49,35 @@ For full field extraction, generate arrays without field-element typedefs.
 Unsupported extraction and unproved primitive semantics must be resolved in the
 source/generator or the dedicated semantic support, never by editing generated
 proof output or importing hax's dummy core library.
+
+## Native field generation
+
+Check out the pinned Fiat revision at `.cache/fiat-crypto`, initialize its
+recursive submodules, and apply `fiat-array-index.patch` there. Install the
+pinned `coq-core` compatibility commands alongside Rocq in `decaf-fv`, then run:
+
+```sh
+opam exec --switch=decaf-fv -- gmake -C .cache/fiat-crypto -j2 SKIP_BEDROCK2=1 standalone-unified-ocaml
+python3 decaf_generate.py
+```
+
+The patch makes `--no-field-element-typedefs` emit direct Rust array access and
+keeps `const fn`. It changes the printer, whose correspondence to the arithmetic
+IR remains a proof obligation. The runner checks the exact source patch and
+submodules, enforces the reviewed native generator and printer-patch hashes in
+`toolchain.json`, and generates Fq/Fr Rust32 and
+Go64 candidates under `.work/decaf-fields`. Both languages run 216 arithmetic
+checks against integer-reference results, including encoding and Montgomery
+conversion. These checks establish executable regression coverage.
+
+## Go model obligations
+
+The pinned Perennial/Goose revision needs fixed-array repairs before consumer
+refinement: pointer-array indexing must preserve addresses, array stores must
+read the corresponding element, signed bounds must reject negative indices,
+and array allocation needs executable semantics. Its current array-allocation
+rule uses `AngelicExit`, which admits arbitrary partial-correctness
+postconditions. Go theorem acceptance therefore also requires return/progress
+evidence excluding reachable placeholder exits. A closed axiom audit alone is
+insufficient. The pinned array load/store proof instance also contains admissions
+and must be completed before it can enter the theorem closure.

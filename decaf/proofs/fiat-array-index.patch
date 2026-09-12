@@ -1,0 +1,73 @@
+diff --git a/src/Stringification/Rust.v b/src/Stringification/Rust.v
+index 4dcc3a3..5b4212b 100644
+--- a/src/Stringification/Rust.v
++++ b/src/Stringification/Rust.v
+@@ -121,7 +121,7 @@ Module Rust.
+        (["";
+         "#![allow(unused_parens)]";
+         "#![allow(non_camel_case_types)]";
+-        "";
++        ""]%string ++ (if skip_typedefs then [] else [
+         "/// Since `Index` and `IndexMut` aren't callable in `const` contexts yet, this helper type helps unify";
+         "/// arrays and user-defined array-wrapper types into a single type which can be indexed in `const`";
+         "/// contexts. Once `const trait`s are stabilized this type can go away";
+@@ -141,7 +141,7 @@ Module Rust.
+         "        &mut self.0[i]";
+         "    }";
+         "}";
+-        ""]%string
++        ""]%string)
+            ++ (List.flat_map
+                  (fun bw
+                   => let type_suffix (b : bool) := (int.of_bitwidth b bw) in
+@@ -218,6 +218,7 @@ Module Rust.
+   Import IR.Notations.
+ 
+   Fixpoint arith_to_string
++           {skip_typedefs : skip_typedefs_opt}
+            {language_naming_conventions : language_naming_conventions_opt} (internal_private : bool)
+            (prefix : string) {t} (e : IR.arith_expr t) : string
+     := let special_name_ty name ty := ToString.format_special_function_name_ty internal_private prefix name ty in
+@@ -226,7 +227,9 @@ Module Rust.
+        (* integer literals *)
+        | (IR.literal v @@@ _) => int_literal_to_string prefix IR.type.Z v
+        (* array dereference *)
+-       | (IR.List_nth n @@@ IR.Var _ v) => "(*IndexConst(" ++ v ++ ").index(" ++ Decimal.Z.to_string (Z.of_nat n) ++ "))"
++       | (IR.List_nth n @@@ IR.Var _ v) =>
++         if skip_typedefs then v ++ "[" ++ Decimal.Z.to_string (Z.of_nat n) ++ "]"
++         else "(*IndexConst(" ++ v ++ ").index(" ++ Decimal.Z.to_string (Z.of_nat n) ++ "))"
+        (* (de)referencing *)
+        | (IR.Addr @@@ IR.Var _ v) => "&mut " ++ v (* borrow a mutable ref to v *)
+        | (IR.Dereference @@@ e) => "( *" ++ arith_to_string internal_private prefix e ++ " )"
+@@ -279,6 +282,7 @@ Module Rust.
+        end%string%Cexpr.
+ 
+   Definition stmt_to_string
++             {skip_typedefs : skip_typedefs_opt}
+              {language_naming_conventions : language_naming_conventions_opt} (internal_private : bool)
+              (prefix : string) (e : IR.stmt) : string :=
+     match e with
+@@ -305,10 +309,12 @@ Module Rust.
+     | IR.Comment lines _ =>
+       String.concat String.NewLine (comment_block (ToString.preprocess_comment_block lines))
+     | IR.AssignNth name n val =>
+-      "*IndexConst(&mut " ++ name ++ ").index_mut(" ++ Decimal.Z.to_string (Z.of_nat n) ++ ") = " ++ arith_to_string internal_private prefix val ++ ";"
++      (if skip_typedefs then name ++ "[" ++ Decimal.Z.to_string (Z.of_nat n) ++ "]"
++       else "*IndexConst(&mut " ++ name ++ ").index_mut(" ++ Decimal.Z.to_string (Z.of_nat n) ++ ")")
++      ++ " = " ++ arith_to_string internal_private prefix val ++ ";"
+     end.
+ 
+-  Definition to_strings {language_naming_conventions : language_naming_conventions_opt} (internal_private : bool) (prefix : string) (e : IR.expr) : list string :=
++  Definition to_strings {skip_typedefs : skip_typedefs_opt} {language_naming_conventions : language_naming_conventions_opt} (internal_private : bool) (prefix : string) (e : IR.expr) : list string :=
+     List.map (stmt_to_string internal_private prefix) e.
+ 
+   Import Rewriter.Language.Language.Compilers Crypto.Language.API.Compilers IR.OfPHOAS.
+@@ -331,7 +337,7 @@ Module Rust.
+       fun '(n, r, len, typedef) =>
+         let (modifier1, modifier2) := match mode with
+                         | In => (* arrays for inputs are immutable *) ("", "&")
+-                        | Out => (* arrays for outputs are mutable *) ("mut ", "&mut ")
++                        | Out => (* arrays for outputs are mutable *) ((if skip_typedefs then "" else "mut "), "&mut ")
+                         end in
+         [modifier1 ++ n ++ ": " ++ modifier2 ++ primitive_array_type_to_string internal_private all_private prefix IR.type.Z r len typedef]
+     | base.type.list _ => fun _ => ["#error ""complex list"";"]
