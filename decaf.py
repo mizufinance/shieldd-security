@@ -176,7 +176,8 @@ class Pilot:
         source = self.checkout(language, "candidate", case)
         if language == "rust":
             for features in ([], ["--no-default-features"], ["--features", "r1cs,u32_backend"]):
-                self.command(["cargo", "test", "--locked", "--release", *features, "--lib", "--tests", "--", "--test-threads=2"], source, case)
+                threads = "1" if features == ["--features", "r1cs,u32_backend"] else "2"
+                self.command(["cargo", "test", "--locked", "--release", *features, "--lib", "--tests", "--", f"--test-threads={threads}"], source, case)
         else:
             for flags in ([], ["-tags", "purego"]):
                 self.command(["go", "test", "-mod=readonly", "-p", "2", *flags, "./..."], source, case)

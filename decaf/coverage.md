@@ -41,3 +41,9 @@ Each closure requires evidence for exact source/build identities.
 
 Runtime dependency migrations belong in owning repositories. Circuit pin refresh,
 complete proofs for every gap, and full-system certification are separate work.
+
+High-priority follow-ups:
+
+- [#4: consumer and compiled-configuration coverage](https://github.com/mizufinance/shieldd-security/issues/4)
+- [#5: native field, group, and encoding correctness](https://github.com/mizufinance/shieldd-security/issues/5)
+- [#6: signing nonce lifecycle and construction bindings](https://github.com/mizufinance/shieldd-security/issues/6)
