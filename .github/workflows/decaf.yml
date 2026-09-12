@@ -1,0 +1,39 @@
+name: decaf-native
+on:
+  pull_request:
+    paths: ['decaf/**', 'decaf.py', 'tests/test_decaf.py', 'formal.py', 'security.py', '.github/workflows/decaf.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: decaf-native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  pilot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tests -p test_decaf.py
+      - run: docker build --platform linux/amd64 -f decaf/Dockerfile -t decaf-fv .
+      - name: Functional matrix
+        id: functional
+        continue-on-error: true
+        run: docker run --rm --cpus 2 --memory 4g --memory-swap 4g -v "$PWD:/workspace" decaf-fv python3 decaf.py functional
+      - name: Binary leakage pilot and controls
+        id: leakage
+        continue-on-error: true
+        run: docker run --rm --cpus 2 --memory 4g --memory-swap 4g --cap-add SYS_PTRACE --security-opt seccomp=unconfined -v "$PWD:/workspace" decaf-fv python3 decaf.py leakage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: decaf-native-evidence
+          path: .work/decaf/*-report/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Require both focused checks
+        if: always()
+        env:
+          FUNCTIONAL: ${{ steps.functional.outcome }}
+          LEAKAGE: ${{ steps.leakage.outcome }}
+        run: test "$FUNCTIONAL" = success && test "$LEAKAGE" = success
