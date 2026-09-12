@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+import decaf_field_proof
 import decaf_go_proof
 import decaf_proof
 
@@ -13,7 +14,8 @@ import decaf_proof
 class ProofReportTests(unittest.TestCase):
     def test_cleanup_failure_invalidates_previous_success(self):
         for module, directory in ((decaf_proof, "decaf-proof"),
-                                  (decaf_go_proof, "decaf-go-proof-replay")):
+                                  (decaf_go_proof, "decaf-go-proof-replay"),
+                                  (decaf_field_proof, "decaf-field-proof-replay")):
             for error in (RuntimeError("cleanup failed"), KeyboardInterrupt()):
                 with self.subTest(module=module.__name__, error=type(error).__name__), tempfile.TemporaryDirectory() as tmp:
                     root = Path(tmp)

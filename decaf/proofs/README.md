@@ -109,3 +109,30 @@ witness and its freshly extracted execution theorem. Reports are written under
 This is partial functional correctness. Termination, array allocation,
 field/group/consumer refinement, and compiled leakage traces remain separate
 obligations; `full_certification` stays false.
+
+## Rust field addition
+
+```sh
+python3 decaf_generate.py
+python3 decaf_field_proof.py
+```
+
+The field runner consumes the source bound to the generation receipt and
+extracts Fq addition with its native helpers. `RustFieldAdd.v` proves canonical
+output limbs, output length, and addition modulo Fq for every canonical input.
+`RustMultiply.v`, `RustBorrow.v`, `Carry.v` and `RustSelect.v` prove the helper
+arithmetic and its operation bounds. The finite-word model includes signed
+casts and arithmetic shifts; `usize` is 64 bits.
+
+The extracted body must match the proved sequence of 16 array reads and eight
+writes and the reviewed helper-call inventory. `RustArray.v` proves bounds and
+length preservation across writes. Safe Rust borrowing supplies distinct output
+and input references. Changed operation structure requires renewing the safety
+composition, even if an output-equality theorem still checks.
+
+The original and wrong-modulus source cases are extracted and compiled
+independently. The mutant must fail the native boundary witness and the field
+arithmetic theorem. All 14 theorem roots require a closed global assumption set
+and a kernel recheck. Evidence is under `.work/decaf-field-proof-replay`.
+The generated full multiplication body is typechecked; its field arithmetic
+correctness remains a separate theorem obligation.
