@@ -22,7 +22,8 @@ docker run --rm --platform linux/amd64 --cpus 2 --memory 4g --memory-swap 4g \
 ```
 
 Run jobs serially. The runner shares the repository's exclusive verification
-lock. Each analysis has a 30-minute limit. Reports and logs are in
+lock. The feasibility pilot gives each analysis five minutes; build/test steps
+have a 30-minute limit. Reports and logs are in
 `.work/decaf/{functional,leakage}-report/`; build inputs are disposable copies.
 The container needs debugger permissions to snapshot its own harness process.
 On ARM64 hosts, use the native Linux CI job: emulation may run BINSEC but cannot
@@ -74,8 +75,9 @@ Reports bind source trees, dependency locks, harnesses, binaries, snapshots, bui
 commands and analysis configuration. CI regenerates results rather than reusing
 proof verdicts. Snapshot and binary hashes describe the artifact actually checked,
 not another compiler build of the same source. Each analyzed case retains a
-compressed binary/core/configuration reproducer. After unpacking, replay with
-`binsec -sse -checkct -checkct-leak-info halt -sse-script analysis.cfg -sse-depth 10000000 -sse-timeout 1790 core`.
+compressed binary/core/configuration reproducer, including hashed file-backed
+mappings. After unpacking, replay with
+`binsec -sse -checkct -checkct-leak-info halt -sse-script analysis.cfg -sse-sysroot mapped-files -sse-depth 10000000 -sse-timeout 300 core`.
 
 See [coverage](coverage.md) for consumer joins and remaining obligations.
 BINSEC's [relational analysis](https://github.com/binsec/binsec/blob/dfe4739f03a474cf2ebc5ae419760e57ce0050c3/doc/sse/relse.md)

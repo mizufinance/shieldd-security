@@ -10,6 +10,14 @@ import decaf
 
 
 class DecafPilotTests(unittest.TestCase):
+    def test_real_binsec_verdicts(self):
+        fixtures = decaf.formal.ROOT / "decaf/fixtures"
+        for filename, expected, status in (("secure.txt", "secure", "passed"),
+                                            ("branch-leak.txt", "insecure", "passed"),
+                                            ("depth-limit.txt", "secure", "blocked")):
+            with self.subTest(filename=filename):
+                self.assertEqual(decaf.classify_analysis((fixtures / filename).read_text(), expected, 0x401106)[0], status)
+
     def test_missing_dependency_is_rejected(self):
         inputs = json.loads(decaf.INPUTS.read_text())
         del inputs["libraries"]["go"]["candidate"]

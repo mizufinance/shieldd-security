@@ -17,6 +17,7 @@ from security import bounded_run
 
 INPUTS = formal.ROOT / "decaf/inputs.json"
 LIMIT = 1800
+ANALYSIS_LIMIT = 300
 SCALAR_ORDER = sum(n << (64 * i) for i, n in enumerate([
     13356249993388743167, 5950279507993463550,
     10965441865914903552, 336320092672043349,
@@ -196,9 +197,10 @@ class Pilot:
                 case["mutation_sha256"] = formal.file_digest(source / "src/ark_curve/ops/projective.rs")
             (source / "examples").mkdir(exist_ok=True)
             shutil.copyfile(formal.ROOT / "decaf/rust.rs", source / "examples/ct_pilot.rs")
-            env = dict(self.env, RUSTFLAGS="-C debuginfo=2 -C relocation-model=static -C link-arg=-no-pie")
+            env = dict(self.env, RUSTFLAGS="-C debuginfo=2")
             case["build_environment"] = {"RUSTFLAGS": env["RUSTFLAGS"]}
-            self.command(["cargo", "build", "--locked", "--release", "--example", "ct_pilot"], source, case, env=env)
+            self.command(["cargo", "rustc", "--locked", "--release", "--example", "ct_pilot", "--",
+                          "-C", "relocation-model=static", "-C", "link-arg=-no-pie"], source, case, env=env)
             binary = Path(self.env["CARGO_TARGET_DIR"]) / "release/examples/ct_pilot"
         else:
             directory = source / "cmd/ct-pilot"
@@ -230,13 +232,33 @@ class Pilot:
         snapshot_dir.mkdir()
         core = snapshot_dir / "core"
         gdb = self.reports / f"{case['id']}.gdb"
-        gdb.write_text(f"set pagination off\nset confirm off\nset env LD_BIND_NOW=1\nset disable-randomization on\nbreak *0x{addresses[entry]:x}\nrun\ngenerate-core-file {core}\nkill\nquit\n")
+        gdb.write_text(f"set pagination off\nset confirm off\nset env LD_BIND_NOW=1\nset disable-randomization on\nbreak *0x{addresses[entry]:x}\nrun\ninfo proc mappings\ngenerate-core-file {core}\nkill\nquit\n")
         try:
             case["snapshot_method"] = "native GDB"
-            self.command(["gdb", "--batch", "-x", gdb, binary], binary.parent, case, timeout=120, snapshots=snapshot_dir)
+            snapshot_log = self.command(["gdb", "--batch", "-x", gdb, binary], binary.parent, case, timeout=120, snapshots=snapshot_dir)
         except (OSError, RuntimeError) as error:
             raise Blocked(f"initialized snapshot unavailable: {error}") from error
         case["snapshot_sha256"] = formal.file_digest(core)
+        # Core files may omit file-backed pages. Preserve the exact mapped files
+        # as a sysroot so analysis and replay cannot silently load another libc.
+        sysroot = snapshot_dir / "mapped-files"
+        case["mapped_files"] = {}
+        for line in snapshot_log.splitlines():
+            if not re.match(r"\s*0x[0-9a-f]+\s+0x[0-9a-f]+", line):
+                continue
+            match = re.search(r"(/[^\n]+)$", line)
+            if not match:
+                continue
+            mapped = Path(match[1].strip())
+            if not mapped.is_file():
+                raise Blocked(f"file-backed snapshot mapping is unavailable: {mapped}")
+            relative = str(mapped).lstrip("/")
+            destination = sysroot / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(mapped, destination)
+            case["mapped_files"][str(mapped)] = formal.file_digest(mapped)
+        if not case["mapped_files"]:
+            raise Blocked("debugger provided no file-backed mapping inventory")
         address = addresses[secret]
         cfg = self.reports / f"{case['id']}.cfg"
         text = f"starting from core with\n  @[0x{address:x}, 32] := secret\nend\n"
@@ -253,11 +275,14 @@ class Pilot:
             archive.add(core, arcname="core")
             archive.add(cfg, arcname="analysis.cfg")
             archive.add(gdb, arcname="snapshot.gdb")
+            archive.add(sysroot, arcname="mapped-files")
         case["reproducer_sha256"] = formal.file_digest(replay)
         try:
             log = self.command(["binsec", "-sse", "-checkct", "-checkct-leak-info", "halt",
                                 "-checkct-stats-file", self.reports / f"{case['id']}.toml", "-sse-script", cfg,
-                                "-sse-depth", "10000000", "-sse-timeout", str(LIMIT - 10), core], binary.parent, case)
+                                "-sse-sysroot", sysroot,
+                                "-sse-depth", "10000000", "-sse-timeout", str(ANALYSIS_LIMIT), core], binary.parent, case,
+                               timeout=ANALYSIS_LIMIT + 30)
         except RuntimeError as error:
             raise Blocked(f"binary-analysis execution did not complete: {error}") from error
         case["status"], case["detail"] = classify_analysis(log, expected, addresses[done])
