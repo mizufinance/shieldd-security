@@ -163,3 +163,11 @@ arithmetic theorem. All 14 theorem roots require a closed global assumption set
 and a kernel recheck. Evidence is under `.work/decaf-field-proof-replay`.
 The generated full multiplication body is typechecked; its field arithmetic
 correctness remains a separate theorem obligation.
+
+## Orbis nonce refinement
+
+[`nonce-contracts.md`](nonce-contracts.md) records the exact-source obligations
+for the responder's stored nonces and the initiator's local nonces. It covers
+consumption, cancellation, context checks, request-ID reuse and the distinction
+between insertion identity and scalar freshness. These are source-reviewed
+contracts; native refinement and protocol security proofs remain open.
