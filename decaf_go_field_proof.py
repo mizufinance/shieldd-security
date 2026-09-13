@@ -8,17 +8,20 @@ import shutil
 
 import formal
 from decaf_go_proof import validate_assumptions
+from decaf_inventory import atomic_json
 from decaf_toolchain import native_artifact
 from security import bounded_run
 
 PROOFS = formal.ROOT / "decaf/proofs"
 MODULES = ("CarryArithmetic", "GoCarryArithmetic", "GoCarry", "BorrowArithmetic",
            "GoBorrowArithmetic", "GoBorrow", "GoArray", "GoSelect", "GoFieldAdd", "GoFieldAliases",
-           "GoFrSelect", "GoFrFieldAdd")
+           "GoFrSelect", "GoFrFieldAdd", "GoFrFieldAliases")
 ROOTS = ("GoSelect.select_execution", "GoSelect.select_correct", "GoFieldAdd.add_correct") + tuple(
     "GoFieldAliases." + name for name in
     ("add_disjoint", "add_left", "add_right", "add_equal_inputs", "add_all_equal")) + (
-    "GoFrSelect.select_execution", "GoFrSelect.select_correct", "GoFrFieldAdd.add_correct")
+    "GoFrSelect.select_execution", "GoFrSelect.select_correct", "GoFrFieldAdd.add_correct") + tuple(
+    "GoFrFieldAliases." + name for name in
+    ("add_disjoint", "add_left", "add_right", "add_equal_inputs", "add_all_equal"))
 
 
 def modulus_mutation(source, field="fq"):
@@ -75,14 +78,14 @@ def main():
         work = formal.WORK / "decaf-go-field-proof-replay"
         work.mkdir(parents=True, exist_ok=True)
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "Go Fq/Fr addition functional partial correctness; Fq alias corollaries",
+                  "scope": "Go Fq/Fr addition functional partial correctness and same-array alias corollaries",
                   "theorem_roots": ROOTS, "commands": [], "cases": {},
                   "open_obligations": ["concrete Go semantics and resolver interpretation",
-                      "general offset-overlap refinement", "termination", "Fr alias corollaries",
+                      "general offset-overlap refinement", "termination",
                       "field multiplication", "group and encoding refinement",
                       "compiled constant-time traces", "consumer and protocol refinement"]}
         report_path = work / "report.json"
-        report_path.write_text(json.dumps(report, indent=2) + "\n")
+        atomic_json(report_path, report)
         env = dict(os.environ, GOMAXPROCS="2", GOTOOLCHAIN="go1.26.4", GOFLAGS="", GOWORK="off")
 
         def command(args, cwd=work, reject=False):
@@ -112,6 +115,7 @@ def main():
             report["runner_sha256"] = formal.file_digest(Path(__file__))
             report["toolchain_selector_sha256"] = formal.file_digest(formal.ROOT / "decaf_toolchain.py")
             report["assumption_validator_sha256"] = formal.file_digest(formal.ROOT / "decaf_go_proof.py")
+            report["report_writer_sha256"] = formal.file_digest(formal.ROOT / "decaf_inventory.py")
             generated = formal.WORK / "decaf-fields"
             receipt_path = generated / "report.json"
             receipt = json.loads(receipt_path.read_text())
@@ -185,17 +189,17 @@ def main():
                         break
                 if not mutation:
                     audit = support / "Audit.v"
-                    audit.write_text("Require Import GoSelect GoFieldAdd GoFieldAliases GoFrSelect GoFrFieldAdd.\n" + "\n".join(
+                    audit.write_text("Require Import GoSelect GoFieldAdd GoFieldAliases GoFrSelect GoFrFieldAdd GoFrFieldAliases.\n" + "\n".join(
                         "Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(command([*rocq, "compile", *flags, audit]), ROOTS)
                     command([*rocq, "check", "-silent", *flags,
-                             "GoSelect", "GoFieldAdd", "GoFieldAliases", "GoFrSelect", "GoFrFieldAdd"])
+                             "GoSelect", "GoFieldAdd", "GoFieldAliases", "GoFrSelect", "GoFrFieldAdd", "GoFrFieldAliases"])
                     evidence["proof_status"] = "compiled, closed global assumptions, kernel rechecked"
             report.update(status="passed", completed=True)
         except Exception as error:
             report["detail"] = str(error)
         finally:
-            report_path.write_text(json.dumps(report, indent=2) + "\n")
+            atomic_json(report_path, report)
         print(json.dumps({"status": report["status"], "report": str(report_path)}))
         return 0 if report["status"] == "passed" else 1
 

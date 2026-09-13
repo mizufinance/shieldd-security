@@ -154,10 +154,10 @@ The field replay binds Fq/Fr Go64 sources to the generation receipt, freshly
 extracts the package and pinned `math/bits`, and checks `GoFieldAdd.add_correct`
 and `GoFrFieldAdd.add_correct`. For every canonical input pair, the result is
 canonical and equals addition modulo the respective Fq or Fr modulus.
-`GoFieldAliases` supplies Fq disjoint-output, left-output, right-output,
+`GoFieldAliases` and `GoFrFieldAliases` supply Fq and Fr disjoint-output, left-output, right-output,
 equal-input and all-equal corollaries. Inputs are read before exclusive output
 ownership is recovered for the writes; the applicable corollaries preserve the
-other input. Eleven theorem roots require closed global assumptions and a kernel
+other input. Sixteen theorem roots require closed global assumptions and a kernel
 recheck.
 
 Each theorem explicitly exposes three helper resolver equations and the
@@ -171,7 +171,7 @@ Separate Fq and Fr modulus mutations must each fail their named native boundary
 witness and arithmetic proof after fresh successful extraction and helper compilation. Native tests
 also cover same-array aliases and a one-word offset overlap in a larger backing
 array for both fields, preserving untouched cells. General offset-overlap
-refinement and Fr alias corollaries remain open. Evidence is generated under
+refinement remains open. Evidence is generated atomically under
 `.work/decaf-go-field-proof-replay`; `full_certification` remains false.
 
 ## Rust field addition
