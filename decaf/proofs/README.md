@@ -135,7 +135,38 @@ obligations; `full_certification` stays false.
 `FieldAddArithmetic.reduced_add` supplies a shared pure integer reduction lemma.
 It requires the input bounds and three carry/borrow reconstruction equations
 as premises. Its closed proof and kernel check do not establish those equations
-for a native field body; that execution bridge remains to be proved.
+for a native field body by itself.
+
+## Go field addition
+
+```sh
+python3 decaf_generate.py
+python3 decaf_go_field_proof.py
+python3 -m unittest discover -s tests -p test_decaf_go_field_proof.py
+```
+
+The field replay binds Fq/Fr Go64 sources to the generation receipt, freshly
+extracts the package and pinned `math/bits`, and checks `GoFieldAdd.add_correct`.
+For every canonical Fq input pair, the result is canonical and equals addition
+modulo Fq. `GoFieldAliases` supplies disjoint-output, left-output, right-output,
+equal-input and all-equal corollaries. Inputs are read before exclusive output
+ownership is recovered for the writes; the applicable corollaries preserve the
+other input. Eight theorem roots require closed global assumptions and a kernel
+recheck.
+
+The theorem explicitly exposes three helper resolver equations and the
+`FqUint1` underlying-type contract, in addition to Perennial's semantics, heap
+and FFI contracts. Empty global assumptions do not establish a concrete
+interpretation satisfying these premises. The native entry-point resolver,
+full semantics consistency and compiler/extraction correspondence remain
+separate obligations.
+
+A changed modulus must fail the named native boundary witness and the arithmetic
+proof after fresh successful extraction and helper compilation. Native tests
+also cover same-array aliases and a one-word offset overlap in a larger backing
+array for both fields, preserving untouched cells. General offset-overlap
+refinement and Fr arithmetic proofs remain open. Evidence is generated under
+`.work/decaf-go-field-proof-replay`; `full_certification` remains false.
 
 ## Rust field addition
 
