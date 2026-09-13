@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "claim": "Decaf native libraries and exact consumer integrations; not deployment or Shieldd circuit certification",
+  "closure": "open",
+  "targets": ["x86_64-unknown-linux-gnu", "aarch64-unknown-linux-gnu"],
+  "sources": {
+    "rust": {"repository": "https://github.com/mizufinance/decaf377.git", "revision": "19256cdc72d7b12b468fcc97023165d50d35a82b", "role": "candidate"},
+    "go": {"repository": "https://github.com/mizufinance/decaf377-go.git", "revision": "429cc97bc6df78d5dc2ac5e792e39fec90cfd31c", "role": "candidate"},
+    "shieldd": {"repository": "https://github.com/mizufinance/shieldd.git", "revision": "778ce3c85819e952af25bb5f1a40d6a0e4d02038", "role": "inspection"},
+    "rdsa": {"repository": "https://github.com/mizufinance/decaf377-rdsa.git", "revision": "504c04391d871bad8c667a475983696cd24d2cee", "role": "inspection"},
+    "orbis": {"repository": "https://github.com/sourcenetwork/orbis-rs.git", "revision": "95bf179e8073f6decbe346a10984f23870c3d2d0", "role": "inspection"}
+  },
+  "profiles": {
+    "rust-default": {"source": "rust", "default_features": true, "features": [], "tags": []},
+    "rust-minimal": {"source": "rust", "default_features": false, "features": [], "tags": []},
+    "go-normal": {"source": "go", "default_features": null, "features": [], "tags": []},
+    "go-purego": {"source": "go", "default_features": null, "features": [], "tags": ["purego"]},
+    "shieldd-consumer": {"source": "shieldd", "default_features": null, "features": null, "tags": null},
+    "rdsa-consumer": {"source": "rdsa", "default_features": null, "features": null, "tags": null},
+    "orbis-consumer": {"source": "orbis", "default_features": null, "features": null, "tags": null}
+  },
+  "assumptions": {
+    "kernel": "Rocq kernel and foundational logic are trusted; no arithmetic axioms or dummy semantics.",
+    "extraction": "Exact reviewed extraction tools and binary lifting are trusted translations, not proved by regression tests.",
+    "analysis": "Exact binary analyzer and SMT solver correctness are trusted; complete exploration and nonvacuity remain checked obligations.",
+    "compiler": "Functional compiler correspondence is trusted; compiled trace properties require separate evidence for exact binaries.",
+    "environment": "Explicit public scheduling and OS entry-state model; reached secret-sensitive runtime operations cannot be omitted.",
+    "randomness": "Named entropy, independence, and distribution assumptions must be instantiated for each protocol.",
+    "cryptography": "Exact computational and hash-model assumptions must be bound to each protocol reduction.",
+    "physical": "Instruction latency, speculation, power/EM, faults, physical erasure, and restored/forked process snapshots are outside the certificate."
+  },
+  "families": [
+    {"id": "build-closure", "profiles": "all", "properties": ["source-locks", "resolved-features", "compiler-flags", "runtime-settings", "native-call-closure", "public-secret-classification"], "depends_on": [], "assumptions": ["extraction"]},
+    {"id": "binary-qualification", "profiles": "all", "properties": ["instruction-coverage", "relocations-calls", "observer", "nonvacuity", "negative-controls"], "depends_on": ["build-closure"], "assumptions": ["extraction", "environment"]},
+    {"id": "semantics", "profiles": "libraries", "properties": ["primitive-meaning", "concrete-interpretation", "memory-safety", "panic-safety", "termination"], "depends_on": ["build-closure"], "assumptions": ["kernel", "extraction"]},
+    {"id": "field", "profiles": "libraries", "fields": ["fq", "fr"], "properties": ["constants-primality", "add", "sub", "neg", "mul", "square", "select", "equality", "inverse", "sqrt-invsqrt", "montgomery", "parse", "serialize", "wide-reduction", "aliasing", "wrapper-conversions", "zero-heap-allocation"], "depends_on": ["semantics"], "assumptions": ["kernel", "extraction", "compiler"]},
+    {"id": "group", "profiles": "libraries", "properties": ["curve-invariants", "quotient-prime-order", "complete-formulas", "identity-exceptions", "scalar-action", "fixed-base", "variable-base", "multiscalar", "operator-routing", "encoding-canonicality", "encoding-roundtrip", "malformed-rejection", "map-hash-to-group", "extra-reachable-fields"], "depends_on": ["field"], "assumptions": ["kernel", "extraction", "compiler"]},
+    {"id": "compiled-traces", "profiles": "all", "properties": ["branch-address-termination", "arbitrary-permitted-points", "conversion-through-encoding", "runtime-closure", "noncircular-composition", "negative-controls"], "depends_on": ["binary-qualification", "group"], "assumptions": ["kernel", "extraction", "analysis", "environment", "physical"]},
+    {"id": "consumer", "profiles": "consumers", "properties": ["immutable-adoption", "actual-route-refinement", "key-validation", "transcript-domains", "rng-distribution", "protocol-reduction", "nonce-lifecycle", "adversarial-regressions"], "depends_on": ["group", "compiled-traces"], "assumptions": ["kernel", "extraction", "compiler", "environment", "randomness", "cryptography", "physical"]},
+    {"id": "release", "profiles": "all", "properties": ["baseline-benchmarks", "clean-replay", "independent-correctness-review", "independent-simplicity-review"], "depends_on": ["consumer"], "assumptions": ["kernel", "extraction", "compiler", "environment", "randomness", "cryptography", "physical"]}
+  ],
+  "contracts": ["decaf/proofs/protocol-contracts.md", "decaf/proofs/nonce-contracts.md"],
+  "replays": {
+    "rust-carry": {"runner": "decaf_proof.py", "scope": "Rust32 carry helper; not complete field, default backend, or binary coverage"},
+    "rust-fq-add": {"runner": "decaf_field_proof.py", "scope": "Rust32 Fq addition and helpers; native multiplication remains open"},
+    "go-helpers": {"runner": "decaf_go_proof.py", "scope": "Go word and array support under explicit semantics contracts"},
+    "go-field-add": {"runner": "decaf_go_field_proof.py", "scope": "Go Fq/Fr addition and Fq aliases under explicit semantics contracts"}
+  }
+}

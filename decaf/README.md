@@ -6,6 +6,34 @@ libraries are not necessarily selected by a Shieldd or Orbis deployment.
 
 ## Run
 
+The end-to-end scope is now enumerated by `obligations.json`. Inspect it with:
+
+```sh
+python3 decaf_inventory.py list-replays
+python3 decaf_inventory.py status
+```
+
+`status` atomically writes `.work/decaf-inventory/report.json` and returns 1
+while the inventory is open. Every expanded obligation remains blocked: this
+first inventory implementation does not accept proof receipts or certify builds.
+It reads immutable Git objects from isolated caches, ignoring replacement refs
+and dirty checkout files. Source inspection is not resolved feature/build closure.
+The report binds the matrix, runner and protocol/nonce contract content hashes.
+Existing partial replays are listed with their narrow scopes; none is promoted
+to default-backend, consumer, ARM64 or compiled-trace coverage.
+
+Required architecture/profile/family/property minima are enforced by the schema.
+The current consumer profiles have unresolved feature/tag selections and must be
+split or extended after actual build closure, without dropping the minima.
+Consumer revisions are inspection baselines, not adopted or deployed candidates.
+`shieldd.lock` is independent and unchanged.
+
+Declaration discovery is incomplete: Cargo patches/replacements and inherited
+workspace aliases still require actual resolver closure; Go records are matching
+source lines, not parsed resolved identities. Cargo default-feature enablement is
+explicit. Rows distinguish direct assumptions from their conservative transitive
+family closure. Neither declaration discovery nor that closure is a proof audit.
+
 ```sh
 python3 -m unittest discover -s tests -p test_decaf.py
 python3 decaf.py functional
