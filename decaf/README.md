@@ -34,6 +34,17 @@ source lines, not parsed resolved identities. Cargo default-feature enablement i
 explicit. Rows distinguish direct assumptions from their conservative transitive
 family closure. Neither declaration discovery nor that closure is a proof audit.
 
+`python3 decaf_qualify.py --switch binsec-fv` exercises a candidate BINSEC/Z3
+installation with six C controls: safe, branch leak and address leak for x86-64
+and ARM64. It requires GCC, the ARM64 cross compiler and matching `nm` tools.
+It records candidate tool/component identities, source/binary/config hashes and
+logs, requiring the specific intended leak or a complete secure result reaching
+the output boundary. Reports are atomic under `.work/decaf-tool-qualification`.
+Passing these controls leaves `qualification_complete` and `full_certification`
+false. Installed component hashes do not attest to actual dynamic loading.
+Actual Rust/Go binaries, consumer runtime closure and native ARM64 release replay
+remain required; a cross-compiled C control does not discharge those obligations.
+
 ```sh
 python3 -m unittest discover -s tests -p test_decaf.py
 python3 decaf.py functional
