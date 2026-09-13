@@ -105,3 +105,38 @@ Proof.
   - apply split_words_value.
   - apply join_split_words.
 Qed.
+
+Theorem canonical_digits_unique radix xs ys :
+  1 < radix -> length xs = length ys ->
+  Forall (fun x => 0 <= x < radix) xs ->
+  Forall (fun y => 0 <= y < radix) ys ->
+  value radix xs = value radix ys -> xs = ys.
+Proof.
+  intros Hr Hlen Hxs Hys Hvalue.
+  revert ys Hlen Hys Hvalue.
+  induction Hxs as [|x xs Hx Hxs IH]; intros ys Hlen Hys Hvalue.
+  - destruct ys; [reflexivity | cbn in Hlen; discriminate].
+  - destruct ys as [|y ys]; [cbn in Hlen; discriminate|].
+    inversion Hys as [|? ? Hy Hys']; subst; clear Hys.
+    cbn [value] in Hvalue.
+    assert (Hhead : x = y).
+    { pose proof (f_equal (fun z => z mod radix) Hvalue) as Hmod.
+      replace (radix * value radix xs) with (value radix xs * radix) in Hmod by ring.
+      replace (radix * value radix ys) with (value radix ys * radix) in Hmod by ring.
+      rewrite !Z.mod_add in Hmod by lia.
+      rewrite (Z.mod_small x radix), (Z.mod_small y radix) in Hmod by assumption.
+      exact Hmod. }
+    subst y. f_equal. apply IH; [cbn in Hlen; lia | exact Hys' | nia].
+Qed.
+
+Theorem canonical_residue_digits_unique radix modulus xs ys :
+  1 < radix -> length xs = length ys ->
+  Forall (fun x => 0 <= x < radix) xs ->
+  Forall (fun y => 0 <= y < radix) ys ->
+  0 <= value radix xs < modulus -> 0 <= value radix ys < modulus ->
+  value radix xs mod modulus = value radix ys mod modulus -> xs = ys.
+Proof.
+  intros Hr Hlen Hxs Hys Hx Hy Heq.
+  apply canonical_digits_unique with (radix := radix); try assumption.
+  now rewrite !Z.mod_small in Heq by assumption.
+Qed.

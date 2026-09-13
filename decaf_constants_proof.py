@@ -18,7 +18,8 @@ ROOTS = tuple("FieldConstants." + name for name in
               "LimbRepresentation." + name for name in
               ("split_reconstruct", "split_canonical", "split_words_value", "split_words_canonical",
                "split_words_length", "montgomery_radix_agreement", "canonical_residue_preserved",
-               "join_canonical", "join_split", "split_join", "join_split_words", "four_word_conversion"))
+               "join_canonical", "join_split", "split_join", "join_split_words", "four_word_conversion",
+               "canonical_digits_unique", "canonical_residue_digits_unique"))
 
 
 def validate_fields(config):
@@ -98,7 +99,8 @@ def main():
             audit += "\n".join("Print Assumptions " + root + "." for root in ROOTS) + "\n"
             (work / "Audit.v").write_text(audit)
             validate_assumptions(command([*prefix, "compile", *flags, "Audit.v"]), ROOTS)
-            command([*prefix, "check", "-silent", *flags, "FieldConstants", "LimbRepresentation", "Audit"])
+            command([*prefix, "check", "-bytecode-compiler", "no", "-silent", *flags,
+                     "FieldConstants", "LimbRepresentation", "Audit"])
             for field, modulus in config["fields"].items():
                 # Replace both the claimed constant and its certificate number.
                 # Keeping the predecessor witness makes the checker reject n+2.

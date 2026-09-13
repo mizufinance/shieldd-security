@@ -129,10 +129,12 @@ Fq and Fr moduli in `toolchain.json`. Explicit Pocklington certificates establis
 primality; separate roots establish the 253-bit and 251-bit representation bounds.
 `LimbRepresentation.v` additionally proves canonical limb splitting/joining,
 round trips, preservation of the represented integer, four-word to eight-word
-lengths and the shared Montgomery radix. These facts do not yet prove native
+lengths, the shared Montgomery radix, and uniqueness of canonical radix digits
+from integer or canonical-residue equality. These facts do not yet prove native
 cast, shift, bitwise-OR or array execution.
-The runner requires the fresh source-bound Fiat/Coqprime build, checks all sixteen
-roots and their transitive assumptions, and kernel-rechecks the resulting modules.
+The runner requires the fresh source-bound Fiat/Coqprime build, checks all eighteen
+roots and their transitive assumptions, and recursively kernel-rechecks the
+resulting modules with VM conversion disabled.
 Both altered-modulus certificates must fail the certificate checker in fresh
 modules. Arithmetic factor searches supply witnesses only; they are not trusted
 primality oracles. Reports remain scoped to these shared mathematical facts and
