@@ -24,11 +24,13 @@ def classify_control(output, number, endpoint):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--switch", default="binsec-fv")
+    parser.add_argument("--dune-root", type=Path,
+                        help="exercise the separately built, pinned demand-decoding candidate")
     parser.add_argument("--rust-fq-add", action="store_true",
                         help="also exercise the pinned Rust32 FqAdd body in a no_std harness")
     args = parser.parse_args()
     with formal.exclusive_lock():
-        work = formal.WORK / "decaf-tool-qualification"
+        work = formal.WORK / ("decaf-tool-qualification-demand" if args.dune_root else "decaf-tool-qualification")
         work.mkdir(parents=True, exist_ok=True)
         report_path = work / "report.json"
         report = {"status": "blocked", "completed": False, "full_certification": False,
@@ -59,6 +61,24 @@ def main():
             report["process_runner_sha256"] = formal.file_digest(formal.ROOT / "security.py")
             report["source_sha256"] = formal.file_digest(formal.ROOT / "decaf/controls.c")
             prefix = ["opam", "exec", "--switch=" + args.switch, "--"]
+            if args.dune_root:
+                source_root = args.dune_root.resolve(strict=True)
+                base = json.loads((formal.ROOT / "decaf/inputs.json").read_text())["binsec"]["revision"]
+                git = ["git", "-C", source_root]
+                if command([*git, "rev-parse", "HEAD"]).strip() != base:
+                    raise ValueError("unexpected candidate analyzer source revision")
+                name = "src/sse/exec.ml"
+                original = command([*git, "show", "HEAD:" + name])
+                old = "let fiber = Disassembly.disassemble_from code addr in"
+                new = "let fiber = Disassembly.fetch_no_link code addr in"
+                if (original.count(old) != 1 or
+                        (source_root / name).read_text() != original.replace(old, new) or
+                        command([*git, "diff", "--name-only", "HEAD"]).splitlines() != [name]):
+                    raise ValueError("candidate analyzer differs from the reviewed single-site patch")
+                report["candidate_source"] = {"revision": base, "path": str(source_root),
+                    "patch_sha256": formal.file_digest(formal.ROOT / "decaf/proofs/binsec-demand-decoding.patch"),
+                    "modified_source_sha256": formal.file_digest(source_root / name)}
+                prefix += ["dune", "exec", "--profile", "release", "--root", source_root, "--"]
             tool = Path(command([*prefix, "which", "binsec"]).strip()).resolve(strict=True)
             solver = Path(command([*prefix, "which", "z3"]).strip()).resolve(strict=True)
             report["candidate_tools"] = {
@@ -68,9 +88,11 @@ def main():
                        "version": command([*prefix, solver, "--version"]).strip()}}
             installation = Path(command(["opam", "var", "--switch=" + args.switch, "prefix"]).strip())
             report["candidate_components"] = {
-                str(path.relative_to(installation)): formal.file_digest(path)
+                str(path): formal.file_digest(path)
                 for package in ("binsec", "unisim_archisec")
-                for path in sorted((installation / "lib" / package).rglob("*"))
+                for component_root in ([source_root / "_build/install/default"]
+                                       if args.dune_root and package == "binsec" else [installation])
+                for path in sorted((component_root / "lib" / package).rglob("*"))
                 if path.is_file() and path.suffix in {".cmxs", ".so"}}
             report["component_note"] = "candidate installed components, not an attestation of actual dynamic loading"
             for target in matrix["targets"]:
