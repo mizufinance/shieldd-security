@@ -7,6 +7,7 @@ import shutil
 import subprocess
 
 import formal
+from decaf_toolchain import native_artifact
 from security import bounded_run
 
 
@@ -64,17 +65,18 @@ def main():
             if revision != config["fiat"]["revision"]:
                 raise ValueError("unexpected Fiat revision")
             patch = formal.ROOT / "decaf/proofs/fiat-array-index.patch"
-            actual_patch = subprocess.check_output(["git", "diff", "HEAD", "--"], cwd=checkout)
+            actual_patch = subprocess.check_output(["git", "diff", "--abbrev=7", "HEAD", "--"], cwd=checkout)
             if actual_patch != patch.read_bytes():
                 raise ValueError("Fiat source differs from the pinned array-index printer patch")
             submodules = subprocess.check_output(["git", "submodule", "status", "--recursive"], cwd=checkout, text=True)
             if any(line[0] != " " for line in submodules.splitlines()):
                 raise ValueError("Fiat submodules do not match the pinned source")
             binary = checkout / "src/ExtractionOCaml/fiat_crypto"
-            build = config["fiat"]["native_build"]
+            build = native_artifact(config, "fiat")
             if formal.file_digest(binary) != build["binary_sha256"] or formal.file_digest(patch) != build["printer_patch_sha256"]:
                 raise ValueError("unrecognized Fiat build or printer patch")
-            report.update(fiat_revision=revision, submodules=submodules.splitlines(),
+            report.update(native_host=build["host"], fiat_revision=revision, submodules=submodules.splitlines(),
+                          toolchain_selector_sha256=formal.file_digest(formal.ROOT / "decaf_toolchain.py"),
                           generator_patch_sha256=formal.file_digest(patch),
                           generator_sha256=formal.file_digest(binary),
                           runner_sha256=formal.file_digest(Path(__file__)))

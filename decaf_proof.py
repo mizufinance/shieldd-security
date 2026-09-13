@@ -7,6 +7,7 @@ import re
 import shutil
 
 import formal
+from decaf_toolchain import native_artifact
 from security import bounded_run
 
 ROOT = formal.ROOT
@@ -82,16 +83,19 @@ def main():
             config = json.loads(CONFIG.read_text())
             report["toolchain"] = config
             report["runner_sha256"] = formal.file_digest(Path(__file__))
+            report["toolchain_selector_sha256"] = formal.file_digest(ROOT / "decaf_toolchain.py")
             hax_prefix = ["opam", "exec", "--switch=hax-0.3.7", "--"]
             hax_version = command([*hax_prefix, "cargo", "hax", "--version"])
             if "version=" + config["hax"]["version"] not in hax_version:
                 raise ValueError("unexpected hax version")
-            for tool, digest in config["hax"]["binary_sha256"].items():
+            build = native_artifact(config, "hax")
+            report["native_host"] = build["host"]
+            for tool, digest in build["binary_sha256"].items():
                 path = Path(command([*hax_prefix, "which", tool]).strip())
                 if formal.file_digest(path) != digest:
                     raise ValueError(f"unrecognized hax artifact: {tool}")
             rust_version = command(["rustup", "run", config["hax"]["rust"], "rustc", "-Vv"])
-            if config["hax"]["rust_commit"] not in rust_version or config["hax"]["binary_host"] not in rust_version:
+            if config["hax"]["rust_commit"] not in rust_version or build["host"] not in rust_version:
                 raise ValueError("unexpected hax Rust compiler")
             report["rust_test_version"] = command(["rustup", "run", config["rust_test"], "rustc", "-Vv"])
             inputs = json.loads((ROOT / "decaf/inputs.json").read_text())

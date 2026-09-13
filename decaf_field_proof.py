@@ -7,6 +7,7 @@ import re
 import shutil
 
 import formal
+from decaf_toolchain import native_artifact
 from security import bounded_run
 
 ROOT = formal.ROOT
@@ -105,12 +106,16 @@ def main():
             config = json.loads((PROOFS / "toolchain.json").read_text())
             report["toolchain"] = config
             report["runner_sha256"] = formal.file_digest(Path(__file__))
+            report["toolchain_selector_sha256"] = formal.file_digest(ROOT / "decaf_toolchain.py")
             generated = formal.WORK / "decaf-fields"
             receipt_path = generated / "report.json"
             receipt = json.loads(receipt_path.read_text())
             if receipt.get("status") != "generated" or receipt.get("completed") is not True:
                 raise ValueError("native generation is incomplete")
-            if receipt["fiat_revision"] != config["fiat"]["revision"] or receipt["generator_sha256"] != config["fiat"]["native_build"]["binary_sha256"]:
+            generator = native_artifact(config, "fiat")
+            if receipt.get("native_host", "aarch64-apple-darwin") != generator["host"]:
+                raise ValueError("native generation host does not match the selected artifact")
+            if receipt["fiat_revision"] != config["fiat"]["revision"] or receipt["generator_sha256"] != generator["binary_sha256"]:
                 raise ValueError("native generation uses an unrecognized toolchain")
             entry, = [e for e in receipt["outputs"] if e["path"] == "rust/fq.rs"]
             source_path = generated / "rust/fq.rs"
@@ -119,14 +124,16 @@ def main():
             report["generation_receipt_sha256"] = formal.file_digest(receipt_path)
             source = source_path.read_text()
             hax = ["opam", "exec", "--switch=hax-0.3.7", "--"]
-            for tool, digest in config["hax"]["binary_sha256"].items():
+            build = native_artifact(config, "hax")
+            report["native_host"] = build["host"]
+            for tool, digest in build["binary_sha256"].items():
                 executable = Path(command([*hax, "which", tool]).strip())
                 if formal.file_digest(executable) != digest:
                     raise ValueError("unrecognized hax artifact: " + tool)
             version = command(["rustup", "run", config["hax"]["rust"], "rustc", "-Vv"])
-            if config["hax"]["rust_commit"] not in version or config["hax"]["binary_host"] not in version:
+            if config["hax"]["rust_commit"] not in version or build["host"] not in version:
                 raise ValueError("unexpected extraction compiler")
-            env["CARGO_BUILD_TARGET"] = config["hax"]["binary_host"]
+            env["CARGO_BUILD_TARGET"] = build["host"]
             report["rust_test_version"] = command(["rustup", "run", config["rust_test"], "rustc", "-Vv"])
             rocq = ["opam", "exec", "--switch=decaf-fv", "--", "rocq"]
             installed = command(["opam", "list", "--switch=decaf-fv", "--installed", "--columns=version", "--short", "rocq-runtime"]).strip()

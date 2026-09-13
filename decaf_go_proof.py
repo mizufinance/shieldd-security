@@ -7,6 +7,7 @@ import re
 import shutil
 
 import formal
+from decaf_toolchain import native_artifact
 from security import bounded_run
 
 ROOT = formal.ROOT
@@ -108,16 +109,19 @@ def main():
             config = json.loads((PROOFS / "toolchain.json").read_text())
             report["toolchain"] = config
             report["runner_sha256"] = formal.file_digest(Path(__file__))
+            report["toolchain_selector_sha256"] = formal.file_digest(ROOT / "decaf_toolchain.py")
             perennial = formal.CACHE / "perennial"
             if command(["git", "rev-parse", "HEAD"], perennial).strip() != config["perennial"]["revision"]:
                 raise ValueError("unexpected Perennial revision")
             patch = PROOFS / "perennial-native.patch"
             if formal.file_digest(patch) != config["perennial"]["patch_sha256"]:
                 raise ValueError("unrecognized Perennial patch")
-            if command(["git", "diff", "--binary", "HEAD"], perennial) != patch.read_text():
+            if command(["git", "diff", "--binary", "--abbrev=7", "HEAD"], perennial) != patch.read_text():
                 raise ValueError("Perennial source does not match the reviewed patch")
             goose = formal.CACHE / "goose"
-            if formal.file_digest(goose) != config["perennial"]["goose_sha256"]:
+            build = native_artifact(config, "goose")
+            report["native_host"] = build["host"]
+            if formal.file_digest(goose) != build["binary_sha256"]:
                 raise ValueError("unrecognized Goose executable")
             if config["goose_go"] not in command(["go", "version"]):
                 raise ValueError("unexpected Go toolchain")

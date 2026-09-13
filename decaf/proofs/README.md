@@ -45,6 +45,21 @@ opam switch with OCaml 5.3.0, Rocq runtime 9.2.0 and standard library 9.1.0.
 It requires the pinned `record_update` checkout at `.cache/record-update`.
 Other host artifacts need their own reviewed identities before use.
 
+Native runners select artifacts by host (`aarch64-apple-darwin` or
+`x86_64-unknown-linux-gnu`). Additional identities belong in
+`toolchain.json` under `native_builds.<host>.<fiat|hax|goose>`; each entry
+requires `binary_sha256`, with the three named executable hashes for hax.
+Fiat entries also require the printer patch hash. Existing Mac identities
+remain supported. An unregistered host/tool pair fails closed; a local build
+does not register or approve its own hash. Record exact source, patch, build
+command and package versions when reviewing a new identity. Reports record
+the selected host and the native-selector source hash as well as the runner
+hash. Native functional replay does not prove compiled constant-time behavior.
+
+Patch comparisons request seven-digit Git blob-ID abbreviations to match the
+committed patches instead of relying on the configured/default abbreviation.
+Git may still extend ambiguous prefixes; such a mismatch fails closed.
+
 For full field extraction, generate arrays without field-element typedefs.
 Unsupported extraction and unproved primitive semantics must be resolved in the
 source/generator or the dedicated semantic support, never by editing generated
@@ -116,6 +131,11 @@ witnesses and freshly extracted execution theorems. Reports are written under
 
 This is partial functional correctness. Full termination, field/group/consumer refinement, and compiled leakage traces remain separate
 obligations; `full_certification` stays false.
+
+`FieldAddArithmetic.reduced_add` supplies a shared pure integer reduction lemma.
+It requires the input bounds and three carry/borrow reconstruction equations
+as premises. Its closed proof and kernel check do not establish those equations
+for a native field body; that execution bridge remains to be proved.
 
 ## Rust field addition
 
