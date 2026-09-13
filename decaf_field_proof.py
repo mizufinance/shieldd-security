@@ -7,7 +7,7 @@ import re
 import shutil
 
 import formal
-from decaf_toolchain import native_artifact
+from decaf_toolchain import hax_tool_paths, native_artifact
 from security import bounded_run
 
 ROOT = formal.ROOT
@@ -126,10 +126,13 @@ def main():
             hax = ["opam", "exec", "--switch=hax-0.3.7", "--"]
             build = native_artifact(config, "hax")
             report["native_host"] = build["host"]
+            paths = hax_tool_paths(command, hax)
             for tool, digest in build["binary_sha256"].items():
-                executable = Path(command([*hax, "which", tool]).strip())
-                if formal.file_digest(executable) != digest:
+                if formal.file_digest(paths[tool]) != digest:
                     raise ValueError("unrecognized hax artifact: " + tool)
+            env["HAX_ENGINE_BINARY"] = str(paths["hax-engine"])
+            report["hax_tool_paths"] = {tool: str(path) for tool, path in paths.items()}
+            hax_cli = [*hax, str(paths["cargo-hax"]), "hax"]
             version = command(["rustup", "run", config["hax"]["rust"], "rustc", "-Vv"])
             if config["hax"]["rust_commit"] not in version or build["host"] not in version:
                 raise ValueError("unexpected extraction compiler")
@@ -158,7 +161,7 @@ def main():
                 witness = command(["cargo", "+" + config["rust_test"], "test", "--release", "--", "--test-threads=2"], case, mutation)
                 if mutation and "modulus_witness ... FAILED" not in witness:
                     raise ValueError("mutant did not fail its native arithmetic witness")
-                command([*hax, "cargo", "hax", "into", "-i", "-** +decaf_proof_slice::fiat::fq_mul +decaf_proof_slice::fiat::fq_add", "coq"], case)
+                command([*hax_cli, "into", "-i", "-** +decaf_proof_slice::fiat::fq_mul +decaf_proof_slice::fiat::fq_add", "coq"], case)
                 extraction = case / "proofs/coq/extraction"
                 extracted = extraction / "Decaf_proof_slice_Fiat.v"
                 validate_accesses(extracted.read_text())

@@ -1,6 +1,7 @@
 """Select reviewed native artifacts without treating hashes as portable."""
 import platform
 import re
+from pathlib import Path
 
 
 def native_host():
@@ -43,3 +44,12 @@ def native_artifact(config, name):
            for value in values):
         raise ValueError("invalid native executable identity")
     return dict(build, host=host)
+
+
+def hax_tool_paths(command, prefix):
+    """Match pinned hax's dispatch: driver beside CLI, explicit OCaml engine."""
+    cli = Path(command([*prefix, "which", "cargo-hax"]).strip()).resolve(strict=True)
+    engine = Path(command([*prefix, "which", "hax-engine"]).strip()).resolve(strict=True)
+    return {"cargo-hax": cli,
+            "driver-hax-frontend-exporter": cli.with_name("driver-hax-frontend-exporter").resolve(strict=True),
+            "hax-engine": engine}

@@ -56,6 +56,11 @@ command and package versions when reviewing a new identity. Reports record
 the selected host and the native-selector source hash as well as the runner
 hash. Native functional replay does not prove compiled constant-time behavior.
 
+Rust runners invoke the verified CLI by its resolved path, verify the driver
+beside that CLI (where pinned hax actually loads it), and set
+`HAX_ENGINE_BINARY` to the verified engine path. An inherited engine override
+cannot select an unchecked executable.
+
 Patch comparisons request seven-digit Git blob-ID abbreviations to match the
 committed patches instead of relying on the configured/default abbreviation.
 Git may still extend ambiguous prefixes; such a mismatch fails closed.

@@ -2,12 +2,33 @@ import copy
 import json
 from pathlib import Path
 import unittest
+import tempfile
 from unittest.mock import patch
 
-from decaf_toolchain import native_artifact, native_host
+from decaf_toolchain import hax_tool_paths, native_artifact, native_host
 
 
 class NativeToolchainTests(unittest.TestCase):
+    def test_hax_hashes_the_driver_beside_the_selected_cli(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            for name in ("cargo-hax", "hax-engine", "driver-hax-frontend-exporter"):
+                (directory / name).write_bytes(name.encode())
+            calls = []
+
+            def command(args):
+                calls.append(args)
+                self.assertIn(args[-1], ("cargo-hax", "hax-engine"))
+                return str(directory / args[-1]) + "\n"
+
+            paths = hax_tool_paths(command, ["opam", "exec", "--"])
+            self.assertEqual(paths["driver-hax-frontend-exporter"],
+                             (directory / "driver-hax-frontend-exporter").resolve())
+            self.assertEqual(len(calls), 2)
+            (directory / "driver-hax-frontend-exporter").unlink()
+            with self.assertRaises(FileNotFoundError):
+                hax_tool_paths(command, ["opam", "exec", "--"])
+
     def setUp(self):
         self.config = json.loads((Path(__file__).resolve().parents[1] /
                                   "decaf/proofs/toolchain.json").read_text())

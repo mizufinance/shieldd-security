@@ -7,7 +7,7 @@ import re
 import shutil
 
 import formal
-from decaf_toolchain import native_artifact
+from decaf_toolchain import hax_tool_paths, native_artifact
 from security import bounded_run
 
 ROOT = formal.ROOT
@@ -85,15 +85,18 @@ def main():
             report["runner_sha256"] = formal.file_digest(Path(__file__))
             report["toolchain_selector_sha256"] = formal.file_digest(ROOT / "decaf_toolchain.py")
             hax_prefix = ["opam", "exec", "--switch=hax-0.3.7", "--"]
-            hax_version = command([*hax_prefix, "cargo", "hax", "--version"])
-            if "version=" + config["hax"]["version"] not in hax_version:
-                raise ValueError("unexpected hax version")
             build = native_artifact(config, "hax")
             report["native_host"] = build["host"]
+            paths = hax_tool_paths(command, hax_prefix)
             for tool, digest in build["binary_sha256"].items():
-                path = Path(command([*hax_prefix, "which", tool]).strip())
-                if formal.file_digest(path) != digest:
+                if formal.file_digest(paths[tool]) != digest:
                     raise ValueError(f"unrecognized hax artifact: {tool}")
+            env["HAX_ENGINE_BINARY"] = str(paths["hax-engine"])
+            report["hax_tool_paths"] = {tool: str(path) for tool, path in paths.items()}
+            hax_cli = [*hax_prefix, str(paths["cargo-hax"]), "hax"]
+            hax_version = command([*hax_cli, "--version"])
+            if "version=" + config["hax"]["version"] not in hax_version:
+                raise ValueError("unexpected hax version")
             rust_version = command(["rustup", "run", config["hax"]["rust"], "rustc", "-Vv"])
             if config["hax"]["rust_commit"] not in rust_version or build["host"] not in rust_version:
                 raise ValueError("unexpected hax Rust compiler")
@@ -150,7 +153,7 @@ pub mod fiat;
                 witness = command(["cargo", "+" + config["rust_test"], "test", "--release", "--", "--test-threads=2"], case, expect_failure=mutation)
                 if mutation and "tests::carry_witness ... FAILED" not in witness:
                     raise ValueError("mutation did not fail its arithmetic witness")
-                command(["opam", "exec", "--switch=hax-0.3.7", "--", "cargo", "hax", "into", "-i",
+                command([*hax_cli, "into", "-i",
                          "-** +decaf_proof_slice::fiat::fq_addcarryx_u32", "coq"], case)
                 extraction = case / "proofs/coq/extraction"
                 extracted = extraction / "Decaf_proof_slice_Fiat.v"
