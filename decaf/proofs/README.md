@@ -253,7 +253,7 @@ and the concrete Rocq `multiply_zero_witness`; this control does not replace
 the universal multiplication-helper theorem. The row-carry mutant rewires one
 operand while preserving the helper/read inventory; it must fail a native
 Montgomery-product witness and the universal first-row arithmetic theorem.
-All 33 theorem roots require a
+All 49 theorem roots require a
 closed global assumption set and a recursive VM-free kernel recheck. Evidence is generated atomically under
 `.work/decaf-field-proof-replay`.
 The replay binds resolved hax, Rust compiler/Cargo/rustdoc/driver and Rocq
@@ -284,7 +284,15 @@ to the remaining native body and proves its integer recurrence, including the
 reduction coefficient and discarded low word. The generated checkpoint sources
 and their compiled imports are included in replay freshness checks.
 
-These prefix results leave seven multiplication/reduction rounds and final
+`RustMultiplyRound.v` decomposes one repeated round into the first-row product,
+a nine-word sum and Montgomery reduction. It proves the complete round's integer
+recurrence with both top carries retained, output length and canonical words,
+and preservation of the bound below twice the modulus for reduced operands.
+The reduction and round bounds force the ninth word to zero. The generator checks
+that all seven repeated source rounds share this shape; that inventory check is
+not a kernel proof linking the complete multiplication to seven round calls.
+
+These results leave whole-body composition through all seven rounds and final
 canonical reduction open. The intended full Fiat bridge is semantic equality of
 the complete canonical output lists: independently prove native and exact-option
 Fiat correctness, then use canonical radix-digit uniqueness. This avoids requiring

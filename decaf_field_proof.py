@@ -10,13 +10,13 @@ import formal
 from decaf_toolchain import hax_tool_paths, native_artifact
 from decaf_fiat_proof import validate_generation, validate_proof_build
 from decaf_inventory import atomic_json, CACHES, MATRIX, validate
-from decaf_native_prefix import multiplication_prefix
+from decaf_native_prefix import multiplication_prefix, multiplication_rounds
 from security import bounded_run
 
 ROOT = formal.ROOT
 PROOFS = ROOT / "decaf/proofs"
 MODULES = ("Core", "Carry", "RustBorrow", "RustMultiplyZero", "RustMultiply", "RustSelect", "RustFiatPrimitives",
-           "RustArray", "RustMultiplyWords", "RustFieldAdd", "RustMultiplyRow", "RustFirstReduction")
+           "RustArray", "RustMultiplyWords", "RustFieldAdd", "RustMultiplyRow", "RustFirstReduction", "RustMultiplyRound")
 ROOTS = tuple("Core." + name for name in (
     "Carry.addcarry_exact", "Carry.addcarry_safety", "Carry.addcarry_reconstruction",
     "RustBorrow.borrow_exact", "RustBorrow.borrow_safety", "RustBorrow.borrow_reconstruction",
@@ -29,7 +29,12 @@ ROOTS = tuple("Core." + name for name in (
             "multiply_high_room", "carry_high_add", "carry_carry_add")) + tuple(
         "Core.RustMultiplyWords." + name for name in ("mul_output_words", "mul_output_length", "mul_accesses")) + tuple(
         "Core.RustMultiplyRow." + name for name in ("first_row_correct", "first_row_decomposition", "first_row_length", "first_row_words")) + tuple(
-        "Core.RustFirstReduction." + name for name in ("first_redc_decomposition", "first_redc_correct"))
+        "Core.RustFirstReduction." + name for name in (
+            "first_redc_decomposition", "first_redc_correct", "first_redc_length", "first_redc_words",
+            "first_redc_bound", "nine_words_top_zero", "first_redc_top_zero", "redc_state_length", "redc_state_carry")) + tuple(
+        "Core.RustMultiplyRound." + name for name in (
+            "add9_correct", "round_product_decomposition", "round_sum_decomposition", "round_redc_decomposition",
+            "finish_value", "round_correct", "round_shape", "round_bound", "round_top_zero"))
 
 
 def definition(text, name):
@@ -347,7 +352,7 @@ def main():
                 validate_mul_accesses(extracted.read_text())
                 report["cases"][case.name]["extraction_sha256"] = formal.file_digest(extracted)
                 derived = extraction / "NativeMultiplyPrefix.v"
-                derived.write_text(multiplication_prefix(extracted.read_text()))
+                derived.write_text(multiplication_prefix(extracted.read_text()) + multiplication_rounds(extracted.read_text()))
                 report["cases"][case.name]["derived_sources"] = {derived.name: formal.file_digest(derived)}
                 support = case / "support"
                 support.mkdir()
@@ -375,15 +380,15 @@ def main():
                     report["compiled_artifacts"][str(artifact.resolve(strict=True))] = formal.file_digest(artifact)
                 if not mutation:
                     audit = support / "Audit.v"
-                    audit.write_text("From Core Require Import RustFieldAdd RustMultiply RustMultiplyZero RustFiatPrimitives RustMultiplyWords RustMultiplyRow RustFirstReduction.\n" + "\n".join(
+                    audit.write_text("From Core Require Import " + " ".join(MODULES) + ".\n" + "\n".join(
                         "Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(command([*compile_rocq, *flags, audit]))
+                    report["compiled_artifacts"][str(audit.with_suffix(".vo").resolve(strict=True))] = formal.file_digest(audit.with_suffix(".vo"))
                     original_flags = flags
             validate_artifact_hashes(report["compiled_artifacts"])
             validate_artifact_hashes(report["execution_artifacts"])
             command([*check_rocq, "-bytecode-compiler", "no", "-silent", *original_flags,
-                     "Core.RustFieldAdd", "Core.RustMultiply", "Core.RustMultiplyZero", "Core.RustFiatPrimitives", "Core.RustMultiplyWords",
-                     "Core.RustMultiplyRow", "Core.RustFirstReduction"])
+                     *("Core." + name for name in MODULES), "Core.Audit"])
             validate_proof_build(PROOFS / "toolchain.json", fiat_build, PROOFS / "fiat-array-index.patch")
             if formal.file_digest(fiat_build_path) != report["fiat_proof_build_receipt_sha256"]:
                 raise ValueError("Fiat build receipt changed during replay")

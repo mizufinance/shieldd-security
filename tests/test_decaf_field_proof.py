@@ -180,6 +180,28 @@ class NativeFieldProofTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 proof.validate_rejection(text)
 
+    def test_round_generator_rejects_changed_boundaries_and_later_rounds(self):
+        source = "Definition fq_mul :=\n"
+        for index, start in enumerate(range(87, 670, 97)):
+            source += f"  let x{start} : t_u32 := (0 : t_u32) in\n"
+            source += f"  let digit := x{index + 1} in\n"
+            source += f"  let low := x{71 if index == 0 else start - 17} in\n"
+            carry = "(cast (x86))" if index == 0 else f"(x{start - 1})"
+            source += f"  let top := {carry} in\n"
+            for offset in (31, 49):
+                source += f"  let x{start + offset} : t_u32 := (0 : t_u32) in\n"
+        source += "  let x766 : t_u32 := (0 : t_u32) in\n  out1.\n"
+        generated = proof.multiplication_rounds(source)
+        for name in ("native_round", "native_add9", "round_after_product", "round_after_sum", "round_finish"):
+            self.assertIn("Definition " + name, generated)
+        for changed in (source.replace("(x183)", "(0 : t_u32)"),
+                        source.replace("let x118", "let x119"),
+                        source.replace("let x766", "let x767"),
+                        source.replace("(cast (x86))", "(x86)"),
+                        source.replace("  let x87 : t_u32 := (0 : t_u32) in\n", "")):
+            with self.subTest(source=changed), self.assertRaises(ValueError):
+                proof.multiplication_rounds(changed)
+
     def test_rejection_exit_codes_are_tool_specific(self):
         self.assertTrue(proof.expected_failure('verification process failed (1); see proof.log', 1))
         self.assertTrue(proof.expected_failure('verification process failed (101); see cargo.log', 101))

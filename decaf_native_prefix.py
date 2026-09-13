@@ -40,3 +40,59 @@ Definition native_after_redc (out1 arg1 arg2 : list t_u32) (state : list t_u32 *
     generated += reads + "let x86 := snd state in match fst state with [" + ";".join(reduced_names) + "] =>\n"
     generated += second + tail.removesuffix("out1.") + "out1\n| _ => [] end.\n"
     return generated
+
+
+def multiplication_rounds(extraction):
+    """Derive the repeated-round stages; their equations are proved in Rocq."""
+    match = re.search(r"^Definition fq_mul\b.*? :=\n(.*?)(?=^Definition |\Z)", extraction, re.M | re.S)
+    if match is None:
+        raise ValueError("missing native multiplication body")
+    body = match[1]
+
+    def segment(first, last):
+        begin = f"  let x{first} : t_u32 := (0 : t_u32) in\n"
+        end = f"  let x{last} : t_u32 := (0 : t_u32) in\n"
+        if body.count(begin) != 1 or body.count(end) != 1:
+            raise ValueError("native round boundaries changed")
+        return begin + body.split(begin)[1].split(end)[0]
+
+    baseline = None
+    for index, start in enumerate(range(87, 670, 97)):
+        current = segment(start, start + 97)
+        mapping = {i: i - start + 87 for i in range(start, start + 97)}
+        mapping[index + 1] = 1
+        if index == 0:
+            if current.count("(cast (x86))") != 1:
+                raise ValueError("first repeated round carry interface changed")
+            current = current.replace("(cast (x86))", "(acc_top)")
+        else:
+            mapping.update(zip(range(start - 17, start - 2, 2), range(71, 86, 2)))
+            current = re.sub(r"\bx" + str(start - 1) + r"\b", "acc_top", current)
+        current = re.sub(r"\bx(\d+)\b", lambda m: "x" + str(mapping.get(int(m[1]), int(m[1]))), current)
+        if baseline is None:
+            baseline = current
+        elif current != baseline:
+            raise ValueError("native repeated rounds no longer share the reviewed shape")
+    # Shape equality is a fail-closed inventory check, not whole-body refinement.
+    acc = ";".join([f"x{i}" for i in range(71, 86, 2)] + ["acc_top"])
+    product = ";".join(f"x{i}" for i in range(101, 118, 2))
+    summed = ";".join(f"x{i}" for i in range(118, 135, 2))
+    output = "[" + ";".join([f"x{i}" for i in range(167, 182, 2)] + ["x183"]) + "]\n"
+    sum_tail = segment(118, 184).replace("(cast (x86))", "(acc_top)")
+    add = segment(118, 136).replace("(cast (x86))", "(acc_top)")
+    reduction = segment(136, 184)
+    generated = "Definition native_round (digit : t_u32) (arg2 acc : list t_u32) : list t_u32 :=\n"
+    generated += "let x1 := digit in match acc with [" + acc + "] =>\n" + baseline + output + "| _ => [] end.\n"
+    generated += "Definition native_add9 (a b : list t_u32) : list t_u32 * t_u8 :=\n"
+    generated += "match a, b with [" + acc + "], [" + product + "] =>\n" + add
+    generated += "([" + summed + "], x135)\n| _, _ => ([], (0 : t_u8)) end.\n"
+    generated += "Definition round_after_product (acc row : list t_u32) : list t_u32 :=\n"
+    generated += "match acc, row with [" + acc + "], [" + product + "] =>\n" + sum_tail + output + "| _, _ => [] end.\n"
+    generated += "Definition round_after_sum (state : list t_u32 * t_u8) : list t_u32 :=\n"
+    generated += "let x135 := snd state in match fst state with [" + summed + "] =>\n" + reduction + output + "| _ => [] end.\n"
+    generated += """Definition round_finish (state : list t_u32 * t_u8) (carry : t_u8) :=
+  fst state ++ [f_add (cast (snd state) : t_u32) (cast carry : t_u32)].
+Definition digit_input (digit : t_u32) : list t_u32 :=
+  [digit; (0:t_u32); (0:t_u32); (0:t_u32); (0:t_u32); (0:t_u32); (0:t_u32); (0:t_u32)].
+"""
+    return generated

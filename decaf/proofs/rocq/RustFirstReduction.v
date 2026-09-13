@@ -79,3 +79,98 @@ Proof.
   lia.
 Qed.
 
+Theorem first_redc_length row : length row = 9%nat ->
+  length (redc_words row) = 9%nat.
+Proof.
+  intros Hlen.
+  do 9 (let w := fresh "word" in destruct row as [|w row]; [cbn in Hlen; discriminate|]).
+  destruct row; [|cbn in Hlen; discriminate].
+  unfold redc_words, native_redc_state.
+  do 8 (match goal with |- context[fq_mulx_u32 ?o1 ?o2 ?x ?y] =>
+    destruct (fq_mulx_u32 o1 o2 x y); cbn beta iota zeta end).
+  do 15 (match goal with |- context[fq_addcarryx_u32 ?o1 ?o2 ?c ?x ?y] =>
+    destruct (fq_addcarryx_u32 o1 o2 c x y); cbn beta iota zeta end).
+  reflexivity.
+Qed.
+
+Theorem first_redc_words row : length row = 9%nat ->
+  Forall U32.canonical row -> Forall U32.canonical (redc_words row).
+Proof.
+  intros Hlen Hcan.
+  do 9 (let w := fresh "word" in destruct row as [|w row]; [cbn in Hlen; discriminate|]).
+  destruct row; [|cbn in Hlen; discriminate].
+  repeat match goal with H : Forall _ (_::_) |- _ => inversion H; subst; clear H end.
+  unfold redc_words, native_redc_state.
+  do 8 row_product.
+  do 6 row_carry.
+  match goal with |- context[f_add (cast ?c) ?hi] =>
+    remember (f_add (cast c : t_u32) hi) as top eqn:Etop;
+    assert (Htop : U32.canonical top) by (subst top; apply add_word_canonical)
+  end.
+  do 9 row_carry.
+  cbn [fst snd app].
+  repeat (apply Forall_cons; [first [assumption | apply cast_carry_canonical] |]).
+  apply Forall_nil.
+Qed.
+
+Theorem first_redc_bound row : length row = 9%nat ->
+  Forall U32.canonical row ->
+  0 <= limbs_value row < (4294967296 + 1) * fq_modulus ->
+  0 <= limbs_value (redc_words row) < 2 * fq_modulus.
+Proof.
+  intros Hlen Hcan Hbound.
+  pose proof (first_redc_correct row Hlen Hcan) as Heq.
+  pose proof (Z.mod_pos_bound (- U32.raw (nth 0 row (0 : t_u32)))
+    4294967296 ltac:(lia)) as Hm.
+  unfold fq_modulus in *. lia.
+Qed.
+
+Theorem nine_words_top_zero xs : length xs = 9%nat ->
+  Forall U32.canonical xs ->
+  0 <= limbs_value xs < 2 * fq_modulus ->
+  U32.raw (nth 8 xs (0 : t_u32)) = 0.
+Proof.
+  intros Hlen Hcan Hbound.
+  do 9 (let w := fresh "word" in destruct xs as [|w xs]; [cbn in Hlen; discriminate|]).
+  destruct xs; [|cbn in Hlen; discriminate].
+  repeat match goal with H : Forall _ (_::_) |- _ => inversion H; subst; clear H end.
+  cbn [nth]. cbn [limbs_value] in Hbound.
+  unfold U32.canonical, F32.width in *.
+  unfold fq_modulus in Hbound.
+  lia.
+Qed.
+
+Theorem first_redc_top_zero row : length row = 9%nat ->
+  Forall U32.canonical row ->
+  0 <= limbs_value row < (4294967296 + 1) * fq_modulus ->
+  U32.raw (nth 8 (redc_words row) (0 : t_u32)) = 0.
+Proof.
+  intros Hlen Hcan Hbound.
+  apply nine_words_top_zero.
+  - now apply first_redc_length.
+  - now apply first_redc_words.
+  - now apply first_redc_bound.
+Qed.
+
+Theorem redc_state_length row : length row = 9%nat ->
+  length (fst (native_redc_state row)) = 8%nat.
+Proof.
+  intros Hlen. pose proof (first_redc_length row Hlen) as H.
+  unfold redc_words in H. rewrite app_length in H. cbn in H. lia.
+Qed.
+
+Theorem redc_state_carry row : length row = 9%nat -> Forall U32.canonical row ->
+  0 <= U8.raw (snd (native_redc_state row)) <= 1.
+Proof.
+  intros Hlen Hcan.
+  do 9 (let w := fresh "word" in destruct row as [|w row]; [cbn in Hlen; discriminate|]).
+  destruct row; [|cbn in Hlen; discriminate].
+  repeat match goal with H : Forall _ (_::_) |- _ => inversion H; subst; clear H end.
+  unfold native_redc_state.
+  do 8 row_product. do 6 row_carry.
+  match goal with |- context[f_add (cast ?c) ?hi] =>
+    remember (f_add (cast c : t_u32) hi) as top eqn:Etop;
+    assert (Htop : U32.canonical top) by (subst top; apply add_word_canonical)
+  end.
+  do 9 row_carry. cbn [snd]. assumption.
+Qed.
