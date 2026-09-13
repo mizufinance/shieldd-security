@@ -1,4 +1,6 @@
 import unittest
+from pathlib import Path
+import tempfile
 
 import decaf_field_proof as proof
 
@@ -26,6 +28,77 @@ def multiplication_extraction():
 
 
 class NativeFieldProofTests(unittest.TestCase):
+    def test_rust_binding_requires_compiler_cargo_rustdoc_and_driver(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            (root / "bin").mkdir()
+            (root / "lib").mkdir()
+            for name in ("rustc", "cargo", "rustdoc"):
+                (root / "bin" / name).write_bytes(name.encode())
+            driver = root / "lib/librustc_driver-test.so"
+            driver.write_bytes(b"driver")
+
+            def command(args):
+                if args[:4] == ["rustup", "which", "--toolchain", "pinned"]:
+                    self.assertIn(args[-1], ("rustc", "cargo", "rustdoc"))
+                    return str(root / "bin" / args[-1]) + "\n"
+                self.assertEqual(args, [root / "bin/rustc", "--print", "sysroot"])
+                return str(root) + "\n"
+
+            for host, suffix in (("x86_64-unknown-linux-gnu", "so"), ("aarch64-apple-darwin", "dylib")):
+                driver.unlink(missing_ok=True)
+                driver = root / ("lib/librustc_driver-test." + suffix)
+                driver.write_bytes(b"driver")
+                with self.subTest(host=host):
+                    executables, hashes, library = proof.rust_toolchain(command, "pinned", host)
+                    self.assertEqual(library, root / "lib")
+                    self.assertEqual(set(executables), {"rustc", "cargo", "rustdoc"})
+                    self.assertEqual(set(hashes), {str(path) for path in [*executables.values(), driver]})
+                    proof.validate_artifact_hashes(hashes)
+                    driver.unlink()
+                    with self.assertRaises(ValueError):
+                        proof.rust_toolchain(command, "pinned", host)
+            with self.assertRaises(ValueError):
+                proof.rust_toolchain(command, "pinned", "unsupported")
+
+    def test_execution_and_import_artifacts_must_stay_bound(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = (Path(directory) / "compiler-or-proof.vo").resolve()
+            path.write_bytes(b"original")
+            hashes = {str(path): proof.formal.file_digest(path)}
+            proof.validate_artifact_hashes(hashes)
+            path.write_bytes(b"changed")
+            with self.assertRaises(ValueError):
+                proof.validate_artifact_hashes(hashes)
+            path.unlink()
+            with self.assertRaises(FileNotFoundError):
+                proof.validate_artifact_hashes(hashes)
+        with self.assertRaises(ValueError):
+            proof.validate_artifact_hashes({})
+
+    def test_changed_or_missing_replay_inputs_are_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            case = work / "original"
+            paths = [case / name for name in ("Cargo.toml", "lib.rs", "fiat.rs",
+                "proofs/coq/extraction/Decaf_proof_slice_Fiat.v", "support/Core.v")]
+            for path in paths:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("source\n")
+            cases = {"original": {
+                "input_hashes": {path.name: proof.formal.file_digest(path) for path in paths[:3]},
+                "extraction_sha256": proof.formal.file_digest(paths[3])}}
+            hashes = {"Core": proof.formal.file_digest(paths[4])}
+            proof.validate_case_files(work, cases, hashes)
+            for path in paths:
+                path.write_text("changed\n")
+                with self.subTest(path=path), self.assertRaises(ValueError):
+                    proof.validate_case_files(work, cases, hashes)
+                path.write_text("source\n")
+            paths[4].unlink()
+            with self.assertRaises(FileNotFoundError):
+                proof.validate_case_files(work, cases, hashes)
+
     def test_mul_access_and_operation_mutations(self):
         original = multiplication_extraction()
         proof.validate_mul_accesses(original)
@@ -58,6 +131,16 @@ class NativeFieldProofTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             proof.modulus_mutation("pub const fn fq_add() {\n}\n")
 
+    def test_multiplication_mutation_is_confined(self):
+        line = "let x1: u64 = ((arg1 as u64) * (arg2 as u64));"
+        source = line + "\npub const fn fq_mulx_u32() {\n" + line + "\n}\n" + line
+        changed = proof.multiplication_mutation(source)
+        self.assertEqual(changed.count("+ 1"), 1)
+        self.assertTrue(changed.startswith(line))
+        self.assertTrue(changed.endswith(line))
+        with self.assertRaises(ValueError):
+            proof.multiplication_mutation("pub const fn fq_mulx_u32() {\n}\n")
+
     def test_field_rejection_requires_arithmetic_failure(self):
         good = 'File "RustFieldAdd.v", line 10, characters 2-5:\nError: Tactic failure: Cannot find witness.\n'
         proof.validate_rejection(good)
@@ -66,6 +149,8 @@ class NativeFieldProofTests(unittest.TestCase):
                      good.replace('RustFieldAdd.v', 'Core.v'),
                      good.replace('Error:', 'Warning:'),
                      'File "RustFieldAdd.v", line 1, characters 2-3:\nWarning: unused.\n' + good.replace('RustFieldAdd.v', 'Core.v'),
+                     'Error: Unrelated compiler failure.\n' + good,
+                     good + 'Error: Unrelated compiler failure.\n',
                      good + good):
             with self.assertRaises(ValueError):
                 proof.validate_rejection(text)

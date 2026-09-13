@@ -243,11 +243,17 @@ length preservation across writes. Safe Rust borrowing supplies distinct output
 and input references. Changed operation structure requires renewing the safety
 composition, even if an output-equality theorem still checks.
 
-The original and wrong-modulus source cases are extracted and compiled
-independently. The mutant must fail the native boundary witness and the field
-arithmetic theorem. All 26 theorem roots require a closed global assumption set
-and a recursive VM-free kernel recheck. Evidence is generated atomically under
+The original, wrong-modulus and wrong-multiplication source cases are extracted
+and compiled independently. The modulus mutant must fail the native boundary
+witness and the field arithmetic theorem. The multiplication mutant adds one
+to the native helper's product and must fail both the Rust zero-product test
+and the concrete Rocq `multiply_zero_witness`; this control does not replace
+the universal multiplication-helper theorem. All 27 theorem roots require a
+closed global assumption set and a recursive VM-free kernel recheck. Evidence is generated atomically under
 `.work/decaf-field-proof-replay`.
+The replay binds resolved hax, Rust compiler/Cargo/rustdoc/driver and Rocq
+compiler/checker artifacts. It rechecks those artifacts, compiled proof imports,
+source copies, extraction bytes and build receipts before accepting the result.
 `RustMultiplyWords.v` checks the full multiplication body's output-word
 canonicality, output length and bounded array-access interface. The runner binds
 that interface to all 72 reads, eight writes and the exact operation inventory.
