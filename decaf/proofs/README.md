@@ -243,12 +243,15 @@ length preservation across writes. Safe Rust borrowing supplies distinct output
 and input references. Changed operation structure requires renewing the safety
 composition, even if an output-equality theorem still checks.
 
-The original, wrong-modulus and wrong-multiplication source cases are extracted
+The original, wrong-modulus, wrong-multiplication and wrong-row-carry cases are extracted
 and compiled independently. The modulus mutant must fail the native boundary
 witness and the field arithmetic theorem. The multiplication mutant adds one
 to the native helper's product and must fail both the Rust zero-product test
 and the concrete Rocq `multiply_zero_witness`; this control does not replace
-the universal multiplication-helper theorem. All 27 theorem roots require a
+the universal multiplication-helper theorem. The row-carry mutant rewires one
+operand while preserving the helper/read inventory; it must fail a native
+Montgomery-product witness and the universal first-row arithmetic theorem.
+All 33 theorem roots require a
 closed global assumption set and a recursive VM-free kernel recheck. Evidence is generated atomically under
 `.work/decaf-field-proof-replay`.
 The replay binds resolved hax, Rust compiler/Cargo/rustdoc/driver and Rocq
@@ -270,6 +273,22 @@ carry without u32 overflow; the two-carry inline addition is covered separately.
 These lemmas concern the extracted helpers under the supplied `Core` semantics.
 They do not yet compose the complete multiplication body, establish its array
 access safety, or discharge extraction/native-semantics correspondence.
+
+`decaf_native_prefix.py` derives multiplication checkpoints from the actual Hax
+body. `RustMultiplyRow.v` proves the first schoolbook row's integer value, length,
+canonical words and decomposition of the native multiplication into that row
+and its remainder. `RustFirstReduction.v` connects the first Montgomery reduction
+to the remaining native body and proves its integer recurrence, including the
+reduction coefficient and discarded low word. The generated checkpoint sources
+and their compiled imports are included in replay freshness checks.
+
+These prefix results leave seven multiplication/reduction rounds and final
+canonical reduction open. The intended full Fiat bridge is semantic equality of
+the complete canonical output lists: independently prove native and exact-option
+Fiat correctness, then use canonical radix-digit uniqueness. This avoids requiring
+syntactically matching intermediate programs; it does not replace native safety,
+termination, compiler or trace proofs. The earlier experimental row-to-Fiat
+equality did not complete kernel checking and is not evidence.
 
 ## Orbis nonce refinement
 

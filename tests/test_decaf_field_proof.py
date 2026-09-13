@@ -81,13 +81,15 @@ class NativeFieldProofTests(unittest.TestCase):
             work = Path(directory)
             case = work / "original"
             paths = [case / name for name in ("Cargo.toml", "lib.rs", "fiat.rs",
-                "proofs/coq/extraction/Decaf_proof_slice_Fiat.v", "support/Core.v")]
+                "proofs/coq/extraction/Decaf_proof_slice_Fiat.v", "support/Core.v",
+                "proofs/coq/extraction/NativeMultiplyPrefix.v")]
             for path in paths:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("source\n")
             cases = {"original": {
                 "input_hashes": {path.name: proof.formal.file_digest(path) for path in paths[:3]},
-                "extraction_sha256": proof.formal.file_digest(paths[3])}}
+                "extraction_sha256": proof.formal.file_digest(paths[3]),
+                "derived_sources": {paths[5].name: proof.formal.file_digest(paths[5])}}}
             hashes = {"Core": proof.formal.file_digest(paths[4])}
             proof.validate_case_files(work, cases, hashes)
             for path in paths:
@@ -140,6 +142,29 @@ class NativeFieldProofTests(unittest.TestCase):
         self.assertTrue(changed.endswith(line))
         with self.assertRaises(ValueError):
             proof.multiplication_mutation("pub const fn fq_mulx_u32() {\n}\n")
+
+    def test_row_carry_mutation_preserves_helper_and_read_inventory(self):
+        line = "fq_addcarryx_u32(&mut x25, &mut x26, 0x0, x24, x21);"
+        source = line + "\npub const fn fq_mul() {\n" + line + "\n}\n" + line
+        changed = proof.row_carry_mutation(source)
+        self.assertEqual(changed.count("x24, x22"), 1)
+        self.assertTrue(changed.startswith(line))
+        self.assertTrue(changed.endswith(line))
+        with self.assertRaises(ValueError):
+            proof.row_carry_mutation("pub const fn fq_mul() {\n}\n")
+
+    def test_checkpoint_generator_requires_reviewed_boundaries(self):
+        source = ("Definition fq_mul :=\n  let before := 1 in\n"
+                  "  let x40 : t_u32 := (0 : t_u32) in\n  let reduction := 2 in\n"
+                  "  let x87 : t_u32 := (0 : t_u32) in\n  let after := 3 in\n  out1.\n")
+        generated = proof.multiplication_prefix(source)
+        self.assertIn("Definition native_first_row", generated)
+        self.assertIn("Definition native_after_redc", generated)
+        self.assertIn("let reduction := 2 in", generated)
+        for changed in (source.replace("x40", "x41"), source.replace("x87", "x88"),
+                        source.replace("out1.", "out2."), "Definition fq_add := 0."):
+            with self.subTest(source=changed), self.assertRaises(ValueError):
+                proof.multiplication_prefix(changed)
 
     def test_field_rejection_requires_arithmetic_failure(self):
         good = 'File "RustFieldAdd.v", line 10, characters 2-5:\nError: Tactic failure: Cannot find witness.\n'

@@ -10,12 +10,13 @@ import formal
 from decaf_toolchain import hax_tool_paths, native_artifact
 from decaf_fiat_proof import validate_generation, validate_proof_build
 from decaf_inventory import atomic_json, CACHES, MATRIX, validate
+from decaf_native_prefix import multiplication_prefix
 from security import bounded_run
 
 ROOT = formal.ROOT
 PROOFS = ROOT / "decaf/proofs"
 MODULES = ("Core", "Carry", "RustBorrow", "RustMultiplyZero", "RustMultiply", "RustSelect", "RustFiatPrimitives",
-           "RustArray", "RustMultiplyWords", "RustFieldAdd")
+           "RustArray", "RustMultiplyWords", "RustFieldAdd", "RustMultiplyRow", "RustFirstReduction")
 ROOTS = tuple("Core." + name for name in (
     "Carry.addcarry_exact", "Carry.addcarry_safety", "Carry.addcarry_reconstruction",
     "RustBorrow.borrow_exact", "RustBorrow.borrow_safety", "RustBorrow.borrow_reconstruction",
@@ -26,7 +27,9 @@ ROOTS = tuple("Core." + name for name in (
         "Core.RustFiatPrimitives." + name for name in (
             "fiat_cast32", "fiat_cast_bit", "multiply_fiat", "addcarry_fiat", "select_fiat", "borrow_fiat",
             "multiply_high_room", "carry_high_add", "carry_carry_add")) + tuple(
-        "Core.RustMultiplyWords." + name for name in ("mul_output_words", "mul_output_length", "mul_accesses"))
+        "Core.RustMultiplyWords." + name for name in ("mul_output_words", "mul_output_length", "mul_accesses")) + tuple(
+        "Core.RustMultiplyRow." + name for name in ("first_row_correct", "first_row_decomposition", "first_row_length", "first_row_words")) + tuple(
+        "Core.RustFirstReduction." + name for name in ("first_redc_decomposition", "first_redc_correct"))
 
 
 def definition(text, name):
@@ -76,6 +79,16 @@ def multiplication_mutation(source):
     return source[:start] + body.replace(old, new) + source[end:]
 
 
+def row_carry_mutation(source):
+    start = source.index("pub const fn fq_mul(")
+    end = source.index("\n}", start) + 2
+    body = source[start:end]
+    old = "fq_addcarryx_u32(&mut x25, &mut x26, 0x0, x24, x21);"
+    if body.count(old) != 1:
+        raise ValueError("row-carry mutation no longer matches the source")
+    return source[:start] + body.replace(old, old.replace("x24, x21", "x24, x22")) + source[end:]
+
+
 def validate_mul_accesses(text):
     body = definition(text, "fq_mul")
     if body.count("t_Array (t_u32) ((8 : t_usize))") != 4:
@@ -121,6 +134,10 @@ def validate_case_files(work, cases, proof_hashes):
         if case_report["extraction_sha256"] != formal.file_digest(
                 case / "proofs/coq/extraction/Decaf_proof_slice_Fiat.v"):
             raise ValueError("native extraction changed during replay")
+        if set(case_report["derived_sources"]) != {"NativeMultiplyPrefix.v"} or case_report["derived_sources"] != {
+                name: formal.file_digest(case / "proofs/coq/extraction" / name)
+                for name in case_report["derived_sources"]}:
+            raise ValueError("derived native checkpoint sources changed during replay")
         if proof_hashes != {
                 name: formal.file_digest(case / "support" / (name + ".v")) for name in proof_hashes}:
             raise ValueError("compiled proof copies differ from the reviewed sources")
@@ -155,7 +172,7 @@ def main():
         work = formal.WORK / "decaf-field-proof-replay"
         work.mkdir(parents=True, exist_ok=True)
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "Rust32 Fq addition, native helpers and Fiat primitive correspondence on 64-bit targets; full multiplication remains open",
+                  "scope": "Rust32 Fq addition, native helpers, Fiat primitive correspondence and the first native multiplication/reduction prefixes on 64-bit targets; full multiplication remains open",
                   "theorem_roots": ROOTS, "commands": [], "cases": {}}
         report_path = work / "report.json"
         atomic_json(report_path, report)
@@ -195,7 +212,7 @@ def main():
             report["runner_sha256"] = formal.file_digest(Path(__file__))
             report["toolchain_selector_sha256"] = formal.file_digest(ROOT / "decaf_toolchain.py")
             helpers = ("decaf_fiat_proof.py", "decaf_fiat_build.py", "decaf_go_proof.py",
-                       "formal.py", "security.py", "decaf_inventory.py", "decaf_toolchain.py")
+                       "formal.py", "security.py", "decaf_inventory.py", "decaf_toolchain.py", "decaf_native_prefix.py")
             report["helper_hashes"] = {name: formal.file_digest(ROOT / name) for name in helpers}
             generated = formal.WORK / "decaf-fields"
             receipt_path = generated / "report.json"
@@ -295,16 +312,20 @@ def main():
             report["proof_hashes"] = {name: formal.file_digest(PROOFS / "rocq" / (name + ".v")) for name in MODULES}
             modulus = int(config["fields"]["fq"])
             limbs = [(modulus - 1 >> (32*i)) & ((1 << 32)-1) for i in range(8)]
-            for case_name in ("original", "wrong-modulus", "wrong-multiplication"):
+            product_witness = ((1 + (1 << 32)) * pow(1 << 256, -1, modulus)) % modulus
+            product_limbs = [(product_witness >> (32*i)) & ((1 << 32)-1) for i in range(8)]
+            for case_name in ("original", "wrong-modulus", "wrong-multiplication", "wrong-row-carry"):
                 mutation = case_name != "original"
                 case = work / case_name
                 case.mkdir()
                 (case / "Cargo.toml").write_text('[package]\nname="decaf_proof_slice"\nversion="0.0.0"\nedition="2021"\n[lib]\npath="lib.rs"\n[workspace]\n')
                 changed = (modulus_mutation(source) if case_name == "wrong-modulus" else
-                           multiplication_mutation(source) if case_name == "wrong-multiplication" else source)
+                           multiplication_mutation(source) if case_name == "wrong-multiplication" else
+                           row_carry_mutation(source) if case_name == "wrong-row-carry" else source)
                 (case / "fiat.rs").write_text(changed)
                 (case / "lib.rs").write_text('#![no_std]\npub mod fiat;\n#[test] fn modulus_witness() { let mut z=[0u32;8]; fiat::fq_add(&mut z,&' + str(limbs) + ',&[1,0,0,0,0,0,0,0]); assert_eq!(z,[0u32;8]); }\n'
-                    '#[test] fn multiplication_witness() { let (mut lo,mut hi)=(0u32,0u32); fiat::fq_mulx_u32(&mut lo,&mut hi,0,0); assert_eq!((lo,hi),(0,0)); }\n')
+                    '#[test] fn multiplication_witness() { let (mut lo,mut hi)=(0u32,0u32); fiat::fq_mulx_u32(&mut lo,&mut hi,0,0); assert_eq!((lo,hi),(0,0)); }\n'
+                    '#[test] fn row_carry_witness() { let mut z=[0u32;8]; fiat::fq_mul(&mut z,&[1,0,0,0,0,0,0,0],&[1,1,0,0,0,0,0,0]); assert_eq!(z,' + str(product_limbs) + '); }\n')
                 report["cases"][case.name] = {"source_sha256": formal.file_digest(case / "fiat.rs")}
                 report["cases"][case.name]["input_hashes"] = {
                     name: formal.file_digest(case / name) for name in ("Cargo.toml", "lib.rs", "fiat.rs")}
@@ -313,7 +334,8 @@ def main():
                 env[loader_variable] = str(test_lib)
                 witness = command([test_tools["cargo"], "test", "--release", "--", "--test-threads=1"],
                                   case, mutation, failure_code=101)
-                witness_name = "multiplication_witness" if case_name == "wrong-multiplication" else "modulus_witness"
+                witness_name = ("multiplication_witness" if case_name == "wrong-multiplication" else
+                                "row_carry_witness" if case_name == "wrong-row-carry" else "modulus_witness")
                 if mutation and witness_name + " ... FAILED" not in witness:
                     raise ValueError("mutant did not fail its native arithmetic witness")
                 env["RUSTC"] = str(extraction_tools["rustc"])
@@ -324,6 +346,9 @@ def main():
                 validate_accesses(extracted.read_text())
                 validate_mul_accesses(extracted.read_text())
                 report["cases"][case.name]["extraction_sha256"] = formal.file_digest(extracted)
+                derived = extraction / "NativeMultiplyPrefix.v"
+                derived.write_text(multiplication_prefix(extracted.read_text()))
+                report["cases"][case.name]["derived_sources"] = {derived.name: formal.file_digest(derived)}
                 support = case / "support"
                 support.mkdir()
                 flags = ["-Q", fiat_source / "src", "Crypto",
@@ -335,11 +360,13 @@ def main():
                     shutil.copyfile(PROOFS / "rocq" / (name + ".v"), support / (name + ".v"))
                 command([*compile_rocq, *flags, support / "Core.v"])
                 command([*compile_rocq, *flags, extracted])
-                for artifact in (support / "Core.vo", extracted.with_suffix(".vo")):
+                command([*compile_rocq, *flags, derived])
+                for artifact in (support / "Core.vo", extracted.with_suffix(".vo"), derived.with_suffix(".vo")):
                     report["compiled_artifacts"][str(artifact.resolve(strict=True))] = formal.file_digest(artifact)
                 for name in MODULES[1:]:
                     rejected = ((case_name == "wrong-modulus" and name == "RustFieldAdd") or
-                                (case_name == "wrong-multiplication" and name == "RustMultiplyZero"))
+                                (case_name == "wrong-multiplication" and name == "RustMultiplyZero") or
+                                (case_name == "wrong-row-carry" and name == "RustMultiplyRow"))
                     output = command([*compile_rocq, *flags, support / (name + ".v")], expect_failure=rejected)
                     if rejected:
                         validate_rejection(output, support / (name + ".v"))
@@ -348,14 +375,15 @@ def main():
                     report["compiled_artifacts"][str(artifact.resolve(strict=True))] = formal.file_digest(artifact)
                 if not mutation:
                     audit = support / "Audit.v"
-                    audit.write_text("From Core Require Import RustFieldAdd RustMultiply RustMultiplyZero RustFiatPrimitives RustMultiplyWords.\n" + "\n".join(
+                    audit.write_text("From Core Require Import RustFieldAdd RustMultiply RustMultiplyZero RustFiatPrimitives RustMultiplyWords RustMultiplyRow RustFirstReduction.\n" + "\n".join(
                         "Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(command([*compile_rocq, *flags, audit]))
                     original_flags = flags
             validate_artifact_hashes(report["compiled_artifacts"])
             validate_artifact_hashes(report["execution_artifacts"])
             command([*check_rocq, "-bytecode-compiler", "no", "-silent", *original_flags,
-                     "Core.RustFieldAdd", "Core.RustMultiply", "Core.RustMultiplyZero", "Core.RustFiatPrimitives", "Core.RustMultiplyWords"])
+                     "Core.RustFieldAdd", "Core.RustMultiply", "Core.RustMultiplyZero", "Core.RustFiatPrimitives", "Core.RustMultiplyWords",
+                     "Core.RustMultiplyRow", "Core.RustFirstReduction"])
             validate_proof_build(PROOFS / "toolchain.json", fiat_build, PROOFS / "fiat-array-index.patch")
             if formal.file_digest(fiat_build_path) != report["fiat_proof_build_receipt_sha256"]:
                 raise ValueError("Fiat build receipt changed during replay")
