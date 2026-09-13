@@ -2,8 +2,40 @@
 
 This records native tool provenance, not completed native proofs or a
 constant-time certification. Builds ran in Ubuntu WSL2 on the desktop.
-Only Goose is registered so far; Linux Fiat and hax identities remain absent
-and their runners reject this host until their builds are reviewed.
+Goose and Fiat have native Linux builds. Linux hax remains unregistered;
+its runners reject this host until that build is reviewed.
+
+## Fiat
+
+- Source: Fiat-Crypto `e0a0a97d201ec1709d9ac11f1dce47c19468bf9e`,
+  with recursive submodules at their recorded commits.
+- Applied patch: `fiat-array-index.patch`, SHA-256
+  `4fff2e3baaea03ea181cad9d825928493be5d67f6b08058879925c0e9faf0870`.
+- Build tools: OCaml 5.3.0, Rocq runtime 9.2.0, Rocq standard library
+  9.1.0, `coq-core` compatibility commands 9.2.0, ocamlfind 1.9.8,
+  Zarith 1.14 and Dune 3.23.1.
+- Build command:
+
+```sh
+opam exec --switch=decaf-fv -- \
+  make -C .cache/fiat-crypto -j1 SKIP_BEDROCK2=1 standalone-unified-ocaml
+sha256sum .cache/fiat-crypto/src/ExtractionOCaml/fiat_crypto
+```
+
+The resulting Linux x86-64 ELF executable SHA-256 is
+`f197dbebfefb1ff983aee468201b55c0395450fb97e7d08e33c7eb2cba6f94ef`.
+The successful serial build reused completed objects from the same source and
+toolchain. The preceding two-worker build exceeded its 4 GiB job limit; the
+serial build completed under that same limit. The source cache was on WSL's
+native filesystem, linked from `.cache/fiat-crypto`. An independent read-only
+review verified the live revision, exact source diff, all ten recursive
+submodule revisions and clean working trees, executable hash and ELF identity
+before registration. It inspected the successful build log and tool versions;
+it did not perform a second independent rebuild.
+
+The source-diff comparison and recursive submodule checks are also enforced by
+`decaf_generate.py`. A build identity establishes provenance, not the printer's
+semantic correspondence, native field correctness or compiled leakage bounds.
 
 ## Goose
 
