@@ -35,3 +35,32 @@ equivalence, a verified lifter, complete runtime coverage, native ARM64
 execution, or complete library/consumer constant-time properties. The strict
 pilot classifier continues to reject lifter errors, incomplete exploration,
 missing endpoints and ambiguous results.
+
+## Library and consumer snapshot intervals
+
+Run these commands in the qualified candidate's release Dune environment:
+
+```sh
+python3 decaf_go_binary.py --runtime go-default-gc
+python3 decaf_go_binary.py --purego --runtime go-default-gc
+python3 decaf_shieldd_binary.py
+python3 decaf_shieldd_binary.py --address-control
+```
+
+The Go intervals include scalar reduction, generator multiplication and
+compression. Normal GC/profiler settings are selected explicitly; each result
+still covers one initialized public process state and one permitted schedule.
+
+The Shieldd interval calls the actual `Secret::key_agreement_with` API, including
+public peer decoding, multiplication, compression and secret-wrapper destruction.
+Its scalar buffer varies independently between compared executions; its public
+peer is the generator initialized before the snapshot. The runner verifies the
+exact Git export, selected Decaf dependency, compiler artifacts and source state,
+and preserves the binary/core/configuration reproducer. It builds an explicit
+release harness in the owning package. This does not establish the closure of a
+production Shieldd executable or arbitrary peer/runtime states.
+The address-control build deliberately adds a secret-indexed volatile store in
+the formal harness. Its successful test result requires an **insecure** analyzer
+verdict and a memory-access leak inside the exact injected function's symbol
+range. An unrelated leak or a branch-only verdict cannot satisfy this control.
+It is negative-control evidence, never a constant-time result.
