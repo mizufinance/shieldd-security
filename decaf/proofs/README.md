@@ -6,6 +6,38 @@ retain native implementations. Proof extraction
 is a trusted translation boundary, with the exact executable identity recorded.
 The implementation program is tracked by issues #2 and #4–#6.
 
+## Exact-option Fiat multiplication pipeline
+
+```sh
+python3 decaf_fiat_build.py --build-parent /absolute/native/build/cache
+python3 decaf_fiat_proof.py
+python3 -m unittest discover -s tests -p 'test_decaf_fiat_*.py'
+```
+
+The first runner exports the pinned Fiat source and recursive committed
+dependencies into a fresh directory, applies the checked printer patch and
+rebuilds proof imports with one worker. No existing compiled proof objects are
+copied. It records source and artifact identities; the proof runner rejects
+stale, changed or additional local proof/plugin artifacts. Rocq, OCaml, their
+installed standard library and the OS build tools remain an explicit trusted
+toolchain boundary.
+
+`FiatMultiply.v` constructs Fq and Fr typed multiplication bodies under the
+Rust32 and Go64 pipeline options used by the generation recipe. The replay
+checks eight theorem roots, the configured numerical moduli, transitive global
+assumptions and recursive Rocq checking with VM reduction enabled. The latter
+explicitly trusts Rocq's bytecode compiler and VM in conversion checking; it
+does not skip checking imported dependencies. VM-free checking exceeded the
+bounded local memory budget. It binds the complete generation commands and
+output bytes, including the Go helper-selection flags.
+
+This proves typed-pipeline arithmetic only. The Go `cmovznz-by-mul` helper is
+outside that pipeline option record. Correspondence to printed source,
+emitted helpers, language execution, native safety/termination and compiled
+traces remains required. Neither a successful typed replay nor matching source
+hashes closes the native multiplication gate. Reports remain scoped with
+`full_certification: false`.
+
 ## Rust carry proof
 
 ```sh
@@ -89,6 +121,22 @@ submodules, enforces the reviewed native generator and printer-patch hashes in
 Go64 candidates under `.work/decaf-fields`. Both languages run 216 arithmetic
 checks against integer-reference results, including encoding and Montgomery
 conversion. These checks establish executable regression coverage.
+
+## Shared field constants
+
+`python3 decaf_constants_proof.py` checks `FieldConstants.v` against the exact
+Fq and Fr moduli in `toolchain.json`. Explicit Pocklington certificates establish
+primality; separate roots establish the 253-bit and 251-bit representation bounds.
+`LimbRepresentation.v` additionally proves canonical limb splitting/joining,
+round trips, preservation of the represented integer, four-word to eight-word
+lengths and the shared Montgomery radix. These facts do not yet prove native
+cast, shift, bitwise-OR or array execution.
+The runner requires the fresh source-bound Fiat/Coqprime build, checks all sixteen
+roots and their transitive assumptions, and kernel-rechecks the resulting modules.
+Both altered-modulus certificates must fail the certificate checker in fresh
+modules. Arithmetic factor searches supply witnesses only; they are not trusted
+primality oracles. Reports remain scoped to these shared mathematical facts and
+do not discharge native execution, curve order, or group refinement obligations.
 
 ## Go model obligations
 

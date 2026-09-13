@@ -4,11 +4,11 @@
   "closure": "open",
   "targets": ["x86_64-unknown-linux-gnu", "aarch64-unknown-linux-gnu"],
   "sources": {
-    "rust": {"repository": "https://github.com/mizufinance/decaf377.git", "revision": "19256cdc72d7b12b468fcc97023165d50d35a82b", "role": "candidate"},
-    "go": {"repository": "https://github.com/mizufinance/decaf377-go.git", "revision": "429cc97bc6df78d5dc2ac5e792e39fec90cfd31c", "role": "candidate"},
-    "shieldd": {"repository": "https://github.com/mizufinance/shieldd.git", "revision": "778ce3c85819e952af25bb5f1a40d6a0e4d02038", "role": "inspection"},
-    "rdsa": {"repository": "https://github.com/mizufinance/decaf377-rdsa.git", "revision": "504c04391d871bad8c667a475983696cd24d2cee", "role": "inspection"},
-    "orbis": {"repository": "https://github.com/sourcenetwork/orbis-rs.git", "revision": "95bf179e8073f6decbe346a10984f23870c3d2d0", "role": "inspection"}
+    "rust": {"repository": "https://github.com/mizufinance/decaf377.git", "revision": "5b11d98efd01fcea4b79362666ea2ad9c0441a4b", "role": "candidate"},
+    "go": {"repository": "https://github.com/mizufinance/decaf377-go.git", "revision": "736ded0a53a5b151ac2f1568249da7b3d9baca14", "role": "candidate"},
+    "shieldd": {"repository": "https://github.com/mizufinance/shieldd.git", "revision": "bf67fe61cd0ccf33ceaa6df2df03e51ce01cc729", "role": "candidate"},
+    "rdsa": {"repository": "https://github.com/mizufinance/decaf377-rdsa.git", "revision": "6578e48c78f061b67bbf7fc32b171268ec77acd9", "role": "candidate"},
+    "orbis": {"repository": "https://github.com/sourcenetwork/orbis-rs.git", "revision": "c50304283d3d8e8f01cce6a149a4b71842c0e584", "role": "candidate"}
   },
   "profiles": {
     "rust-default": {"source": "rust", "default_features": true, "features": [], "tags": []},
@@ -41,6 +41,9 @@
   ],
   "contracts": ["decaf/proofs/protocol-contracts.md", "decaf/proofs/nonce-contracts.md"],
   "replays": {
+    "field-constants": {"runner": "decaf_constants_proof.py", "scope": "Shared Fq/Fr primality, bounds and limb-conversion arithmetic with explicit Pocklington certificates; not native execution or curve/group refinement"},
+    "binary-flow-controls": {"runner": "decaf_flow_qualify.py", "scope": "Differential candidate decoder flow, leak, unsupported-instruction and incomplete-analysis controls; not full binary lifting qualification"},
+    "fiat-typed-multiplication": {"runner": "decaf_fiat_proof.py", "scope": "Exact-option typed Fiat multiplication after fresh source-bound import build; native execution and printer correspondence remain required"},
     "binary-controls": {"runner": "decaf_qualify.py", "scope": "Candidate BINSEC C controls for both instruction sets; not full tool, library, consumer or native ARM64 qualification"},
     "rust-carry": {"runner": "decaf_proof.py", "scope": "Rust32 carry helper; not complete field, default backend, or binary coverage"},
     "rust-fq-add": {"runner": "decaf_field_proof.py", "scope": "Rust32 Fq addition and helpers; native multiplication remains open"},

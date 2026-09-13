@@ -130,10 +130,10 @@ class Pilot:
         return log.read_text(errors="replace")
 
     def tool(self, command, version):
-        if not shutil.which(command):
+        if not shutil.which(command, path=self.env.get("PATH")):
             raise Blocked(f"required tool unavailable: {command} {version}")
         flag = "version" if command == "go" else "-version" if command == "binsec" else "--version"
-        text = subprocess.check_output([command, flag], text=True).strip()
+        text = subprocess.check_output([command, flag], text=True, env=self.env).strip()
         if not re.search(r"(?<![\d.])" + re.escape(version) + r"(?![\d.])", text):
             raise Blocked(f"expected {command} {version}; found {text}")
         self.report.setdefault("tools", {})[command] = text
@@ -229,7 +229,9 @@ class Pilot:
         case["binary_sha256"] = formal.file_digest(binary)
         return binary
 
-    def analyze(self, binary, case, expected="secure", language="rust", mutable=False):
+    def analyze(self, binary, case, expected="secure", language="rust", mutable=False, runtime_profile="pilot"):
+        if runtime_profile not in {"pilot", "go-default-gc"} or (runtime_profile != "pilot" and language != "go"):
+            raise Blocked("unsupported snapshot runtime profile")
         if language == "go":
             entry, done, secret = "main.decafEntry", "main.decafDone", "main.secret"
         else:
@@ -253,7 +255,11 @@ class Pilot:
         if language == "go":
             # A fixed single-threaded pilot state, not a claim about arbitrary
             # collector/profiler scheduling. All arithmetic remains executable.
-            case["runtime_configuration"].update(GOGC="off", GODEBUG="memprofilerate=0", GOMAXPROCS="1")
+            case["runtime_configuration"].update(
+                GOGC="100" if runtime_profile == "go-default-gc" else "off",
+                GODEBUG="" if runtime_profile == "go-default-gc" else "memprofilerate=0",
+                GOMEMLIMIT="off", GOMAXPROCS="1")
+        case["runtime_profile"] = runtime_profile
         runtime_env = "".join(f"set env {key}={value}\n" for key, value in case["runtime_configuration"].items())
         gdb.write_text(f"set pagination off\nset confirm off\n{runtime_env}set disable-randomization on\nbreak *0x{addresses[entry]:x}\nrun\ninfo proc mappings\ngenerate-core-file {core}\nkill\nquit\n")
         try:
@@ -302,6 +308,7 @@ class Pilot:
         case["reproducer_sha256"] = formal.file_digest(replay)
         try:
             log = self.command(["binsec", "-sse", "-checkct", "-checkct-leak-info", "instr",
+                                "-smt-solver", "z3",
                                 "-checkct-stats-file", self.reports / f"{case['id']}.toml", "-sse-script", cfg,
                                 "-sse-sysroot", sysroot,
                                 "-sse-depth", "100000000", "-sse-timeout", str(ANALYSIS_LIMIT), core], binary.parent, case,

@@ -33,12 +33,13 @@ Verification accepts the identity as a key, and field-to-signing-key conversion
 does not reject zero. The game must distinguish honest key generation from
 adversary-supplied keys and state what security can be claimed for each consumer's
 identity policy. Do not silently impose a nonzero precondition on these APIs.
-Secret-derived points reach `vartime_compress` in signing, key derivation and
-randomization; consumer adoption and compiled-trace obligations remain open for
-these routes. Public verification routes need separate public-input arguments.
-Under `std`, signing-key `Debug` implementations format the full secret-key
-bytes. Inventory actual consumer formatting/logging call sites and their output
-policy; the method's existence alone does not establish a reachable disclosure.
+The candidate selected by the matrix routes signing, key derivation and
+randomization through fixed-schedule compression and redacts signing-key
+`Debug`. Baseline deterministic signatures are preserved in both domains.
+Native refinement, actual consumer adoption and compiled-trace obligations
+remain open for these routes. Public verification needs separate public-input
+arguments. Explicit signing-key serialization still discloses key bytes and
+must remain part of each consumer's output policy.
 
 ## FROST
 
