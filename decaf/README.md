@@ -45,6 +45,15 @@ false. Installed component hashes do not attest to actual dynamic loading.
 Actual Rust/Go binaries, consumer runtime closure and native ARM64 release replay
 remain required; a cross-compiled C control does not discharge those obligations.
 
+Add `--rust-fq-add` to also compile the unmodified candidate Rust Fiat Fq addition
+module from its pinned Git object, using `proofs/binary/rust-fq-add.rs`. This
+requires the proof configuration's Rust compiler and both target libraries.
+The no_std harness exposes 512 independent secret input bits and retains the
+result through volatile accesses. Both compiled bodies must reach the output
+boundary without a branch/address leak under the fixed public stack model.
+It checks neither general public layouts nor default-backend/consumer wrappers,
+and it does not promote the separate source correctness proofs to new binaries.
+
 ```sh
 python3 -m unittest discover -s tests -p test_decaf.py
 python3 decaf.py functional
