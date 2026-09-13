@@ -47,6 +47,12 @@ def validate_inputs(inputs):
 
 def classify_analysis(log, expected, endpoint):
     """A tool error is never a successful negative control."""
+    # Some lifter failures fall back to instruction metadata and analysis may
+    # continue. Neither a later secure verdict nor a leak then proves the claim.
+    if re.search(r"\[[^\]\n]+:(?:error|fatal)\]|Probable parse error|Getting basic infos only", log, re.I):
+        return "blocked", "analyzer or lifter error; instruction semantics incomplete"
+    if re.search(r"Exploration is incomplete|unsupported|unknown instruction", log, re.I):
+        return "blocked", "incomplete analysis cannot establish the boundary"
     states = re.findall(r"Program status is\s*:\s*(secure|insecure|unknown)\b", log)
     if len(states) != 1:
         return "blocked", "missing or ambiguous BINSEC verdict"
@@ -59,8 +65,6 @@ def classify_analysis(log, expected, endpoint):
         return ("passed" if expected == "insecure" else "failed"), "leakage counterexample"
     if expected == "insecure":
         return "failed", "negative control did not expose the intended leak"
-    if re.search(r"Exploration is incomplete|unsupported|unknown instruction", log, re.I):
-        return "blocked", "incomplete analysis cannot establish the boundary"
     # A vacuous secure verdict (e.g. impossible input assumptions) is insufficient.
     reached = re.findall(r"^\[sse:result\] Path \d+ reached address (0x[0-9a-f]+)\b", log, re.M | re.I)
     if endpoint not in [int(address, 16) for address in reached]:
@@ -106,9 +110,11 @@ class Pilot:
         self.reports.mkdir(parents=True, exist_ok=True)
         self.env = dict(os.environ, CARGO_BUILD_JOBS="2", RAYON_NUM_THREADS="2",
                         GOMAXPROCS="2", GOFLAGS="-p=2", CARGO_INCREMENTAL="0",
-                        GIT_LFS_SKIP_SMUDGE="1", CARGO_TARGET_DIR=str(formal.CACHE / "decaf-rust-target"))
+                        GIT_LFS_SKIP_SMUDGE="1", GIT_NO_REPLACE_OBJECTS="1",
+                        CARGO_TARGET_DIR=str(formal.CACHE / "decaf-rust-target"))
         self.report = {"status": "blocked", "completed": False, "full_certification": False,
-                       "security_revision": formal.run(["git", "rev-parse", "HEAD"], cwd=formal.ROOT, capture=True).strip(),
+                       "security_revision": formal.run(["git", "rev-parse", "HEAD"], cwd=formal.ROOT,
+                                                       env=self.env, capture=True).strip(),
                        "inputs": self.inputs, "harness_hashes": digest_tree(formal.ROOT / "decaf"),
                        "runner_sha256": formal.file_digest(Path(__file__)),
                        "helper_hashes": {name: formal.file_digest(formal.ROOT / name) for name in ("formal.py", "security.py")},
@@ -141,14 +147,16 @@ class Pilot:
         if checkout.exists():
             shutil.rmtree(checkout)
         checkout.mkdir(parents=True)
-        archive = subprocess.check_output(["git", "--git-dir", str(mirror), "archive", "--format=zip", sha])
+        archive = subprocess.check_output(["git", "--git-dir", str(mirror), "archive", "--format=zip", sha],
+                                          env=self.env)
         with zipfile.ZipFile(io.BytesIO(archive)) as files:
             for member in files.namelist():
                 if Path(member).is_absolute() or ".." in Path(member).parts:
                     raise ValueError("unsafe source archive path")
             files.extractall(checkout)
         case.update(library=language, revision=sha, source_tree=formal.run(
-            ["git", "--git-dir", str(mirror), "rev-parse", sha + "^{tree}"], cwd=formal.ROOT, capture=True).strip())
+            ["git", "--git-dir", str(mirror), "rev-parse", sha + "^{tree}"], cwd=formal.ROOT,
+            env=self.env, capture=True).strip())
         if language == "rust":
             shutil.copyfile(formal.ROOT / "decaf/Cargo.lock", checkout / "Cargo.lock")
         case["lock_sha256"] = formal.file_digest(checkout / ("Cargo.lock" if language == "rust" else "go.sum"))
@@ -210,7 +218,10 @@ class Pilot:
             directory.mkdir(parents=True)
             shutil.copyfile(formal.ROOT / "decaf/go.go", directory / "main.go")
             binary = source / "ct-pilot"
-            self.command(["go", "build", "-mod=readonly", "-p", "2", "-o", binary, "./cmd/ct-pilot"], source, case)
+            # This is an exported library tree inside the formal workspace.
+            # Auto-stamping would inspect and identify the enclosing repository;
+            # exact library/source/lock/binary identities are recorded above.
+            self.command(["go", "build", "-buildvcs=false", "-mod=readonly", "-p", "2", "-o", binary, "./cmd/ct-pilot"], source, case)
         self.command([binary], source, case, timeout=60)
         case["binary_sha256"] = formal.file_digest(binary)
         return binary
@@ -287,7 +298,7 @@ class Pilot:
             archive.add(sysroot, arcname="mapped-files")
         case["reproducer_sha256"] = formal.file_digest(replay)
         try:
-            log = self.command(["binsec", "-sse", "-checkct", "-checkct-leak-info", "halt",
+            log = self.command(["binsec", "-sse", "-checkct", "-checkct-leak-info", "instr",
                                 "-checkct-stats-file", self.reports / f"{case['id']}.toml", "-sse-script", cfg,
                                 "-sse-sysroot", sysroot,
                                 "-sse-depth", "100000000", "-sse-timeout", str(ANALYSIS_LIMIT), core], binary.parent, case,

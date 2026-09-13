@@ -103,7 +103,9 @@ def main():
                     decaf.validate_analysis_config(text)
                     cfg.write_text(text)
                     case.update(binary_sha256=formal.file_digest(binary), config_sha256=formal.file_digest(cfg))
-                    output = command([*prefix, tool, "-sse", "-checkct", "-checkct-leak-info", "halt",
+                    # Keep exploring after a leak: even negative controls must
+                    # reject incomplete exploration and later lifter errors.
+                    output = command([*prefix, tool, "-sse", "-checkct", "-checkct-leak-info", "instr",
                                       "-smt-solver", "z3", "-sse-script", cfg, "-sse-depth", "100000",
                                       "-sse-timeout", "60", binary])
                     case["status"], case["detail"] = classify_control(output, number, endpoint)
@@ -155,7 +157,7 @@ def main():
                     decaf.validate_analysis_config(text)
                     cfg.write_text(text)
                     case.update(binary_sha256=formal.file_digest(binary), config_sha256=formal.file_digest(cfg))
-                    output = command([*prefix, tool, "-sse", "-checkct", "-checkct-leak-info", "halt",
+                    output = command([*prefix, tool, "-sse", "-checkct", "-checkct-leak-info", "instr",
                                       "-smt-solver", "z3", "-sse-script", cfg, "-sse-depth", "1000000",
                                       "-sse-timeout", "120", binary], 150)
                     case["status"], case["detail"] = classify_control(output, 0, endpoint)

@@ -54,6 +54,15 @@ boundary without a branch/address leak under the fixed public stack model.
 It checks neither general public layouts nor default-backend/consumer wrappers,
 and it does not promote the separate source correctness proofs to new binaries.
 
+The current Go candidate reaches `runtime.deductSweepCredit` during the x86-64
+generator pilot. The candidate lifter cannot interpret its `ucomisd` instruction:
+it reports a parse error and falls back to instruction metadata. This is a
+qualification blocker even with GC disabled in the pilot. Analyzer/lifter errors
+invalidate later verdicts, including negative-control leak verdicts. Runtime code
+must remain in the analysis; skipping it cannot close the obligation. Go builds
+disable automatic VCS stamping of the enclosing formal repository, and pilot
+source export and tree identities ignore Git replacement refs.
+
 ```sh
 python3 -m unittest discover -s tests -p test_decaf.py
 python3 decaf.py functional

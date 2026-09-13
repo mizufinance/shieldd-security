@@ -12,6 +12,34 @@ model, group hardness assumption, key generation distribution, nonce derivation,
 domain separation and accepted encodings. Bind every input to the actual
 transcript bytes. A vector match or valid-signature theorem is not unforgeability.
 
+At inspection revision `504c04391d871bad8c667a475983696cd24d2cee`,
+`src/signing_key.rs` and `src/verification_key.rs` expose SpendAuth key
+randomization: `sk' = sk + randomizer` and `A' = A + randomizer * B`.
+The game must cover the related-key signing/verification behavior selected by
+consumers, identifying who chooses and learns each randomizer, allowed signing
+queries, and the freshness relation for a winning key/message pair. An ordinary
+single-key theorem alone does not cover this API. Prove the native randomized
+key correspondence separately from its cryptographic reduction.
+
+The same revision derives the signing nonce by hashing secret-key bytes,
+48 bytes of bonus randomness, verification-key bytes and message bytes, in
+that order. Deterministic signing sets all bonus bytes to zero. Its reduction
+must cover both selected entry points and the actual hash domains; importing a
+reduction that assumes an independently uniform signing nonce is insufficient.
+Key generation reduces 64 random bytes modulo Fr, so bound the distribution
+distance instead of assuming an exactly uniform scalar.
+
+Verification accepts the identity as a key, and field-to-signing-key conversion
+does not reject zero. The game must distinguish honest key generation from
+adversary-supplied keys and state what security can be claimed for each consumer's
+identity policy. Do not silently impose a nonzero precondition on these APIs.
+Secret-derived points reach `vartime_compress` in signing, key derivation and
+randomization; consumer adoption and compiled-trace obligations remain open for
+these routes. Public verification routes need separate public-input arguments.
+Under `std`, signing-key `Debug` implementations format the full secret-key
+bytes. Inventory actual consumer formatting/logging call sites and their output
+policy; the method's existence alone does not establish a reachable disclosure.
+
 ## FROST
 
 Prove threshold unforgeability with up to threshold-minus-one statically corrupt

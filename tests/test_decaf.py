@@ -1,5 +1,7 @@
 import json
+import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -10,6 +12,42 @@ import decaf
 
 
 class DecafPilotTests(unittest.TestCase):
+    def test_checkout_ignores_replaced_commit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            repository, cache = root / "source", root / "cache"
+            repository.mkdir()
+            cache.mkdir()
+            env = dict(os.environ, GIT_AUTHOR_NAME="Fixture", GIT_AUTHOR_EMAIL="fixture@example.invalid",
+                       GIT_COMMITTER_NAME="Fixture", GIT_COMMITTER_EMAIL="fixture@example.invalid")
+            env.pop("GIT_NO_REPLACE_OBJECTS", None)
+            def git(*args, cwd=repository):
+                return subprocess.check_output(["git", *map(str, args)], cwd=cwd, env=env,
+                                               stderr=subprocess.PIPE, text=True).strip()
+            git("init")
+            git("config", "core.autocrlf", "false")
+            (repository / "go.sum").write_text("original\n")
+            git("add", "go.sum")
+            git("-c", "commit.gpgsign=false", "commit", "-m", "original")
+            original = git("rev-parse", "HEAD")
+            tree = git("rev-parse", "HEAD^{tree}")
+            (repository / "go.sum").write_text("replacement\n")
+            git("add", "go.sum")
+            git("-c", "commit.gpgsign=false", "commit", "-m", "replacement")
+            replacement = git("rev-parse", "HEAD")
+            mirror = cache / "decaf-go.git"
+            git("clone", "--bare", repository, mirror)
+            git("replace", original, replacement, cwd=mirror)
+            self.assertEqual(git("show", original + ":go.sum", cwd=mirror), "replacement")
+            with patch.object(decaf.formal, "WORK", root / "work"), \
+                 patch.object(decaf.formal, "CACHE", cache), patch.dict(os.environ, env, clear=True):
+                pilot = decaf.Pilot("replacement-control", "go")
+                pilot.inputs["libraries"]["go"].update(repository=str(repository), candidate=original)
+                case = {"id": "replacement-control"}
+                checkout = pilot.checkout("go", "candidate", case)
+                self.assertEqual((checkout / "go.sum").read_text(), "original\n")
+                self.assertEqual(case["source_tree"], tree)
+
     def test_real_binsec_verdicts(self):
         fixtures = decaf.formal.ROOT / "decaf/fixtures"
         for filename, expected, status in (("secure.txt", "secure", "passed"),
