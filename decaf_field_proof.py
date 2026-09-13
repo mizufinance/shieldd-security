@@ -8,17 +8,24 @@ import shutil
 
 import formal
 from decaf_toolchain import hax_tool_paths, native_artifact
+from decaf_fiat_proof import validate_generation, validate_proof_build
+from decaf_inventory import atomic_json, CACHES, MATRIX, validate
 from security import bounded_run
 
 ROOT = formal.ROOT
 PROOFS = ROOT / "decaf/proofs"
-MODULES = ("Core", "Carry", "RustBorrow", "RustMultiply", "RustSelect", "RustArray", "RustFieldAdd")
+MODULES = ("Core", "Carry", "RustBorrow", "RustMultiply", "RustSelect", "RustFiatPrimitives",
+           "RustArray", "RustMultiplyWords", "RustFieldAdd")
 ROOTS = tuple("Core." + name for name in (
     "Carry.addcarry_exact", "Carry.addcarry_safety", "Carry.addcarry_reconstruction",
     "RustBorrow.borrow_exact", "RustBorrow.borrow_safety", "RustBorrow.borrow_reconstruction",
     "RustMultiply.multiply_exact", "RustMultiply.multiply_safety", "RustMultiply.multiply_reconstruction",
     "RustSelect.select_exact", "RustSelect.select_safety", "RustArray.update_length",
-    "RustFieldAdd.add_correct", "RustFieldAdd.add_accesses"))
+    "RustFieldAdd.add_correct", "RustFieldAdd.add_accesses")) + tuple(
+        "Core.RustFiatPrimitives." + name for name in (
+            "fiat_cast32", "fiat_cast_bit", "multiply_fiat", "addcarry_fiat", "select_fiat", "borrow_fiat",
+            "multiply_high_room", "carry_high_add", "carry_carry_add")) + tuple(
+        "Core.RustMultiplyWords." + name for name in ("mul_output_words", "mul_output_length", "mul_accesses"))
 
 
 def definition(text, name):
@@ -57,15 +64,40 @@ def modulus_mutation(source):
     return source[:start] + body.replace(old, old.replace("0x1 as", "0x2 as")) + source[end:]
 
 
+def validate_mul_accesses(text):
+    body = definition(text, "fq_mul")
+    if body.count("t_Array (t_u32) ((8 : t_usize))") != 4:
+        raise ValueError("unexpected multiplication array representation")
+    reads = re.findall(r"f_index \((arg[12])\) \(\((\d+) : t_usize\)\)", body)
+    expected_reads = [("arg1", str(i)) for i in (*range(1, 8), 0)]
+    expected_reads += [("arg2", str(i)) for _ in range(8) for i in range(7, -1, -1)]
+    if reads != expected_reads:
+        raise ValueError("multiplication reads differ from the proved bounded schedule")
+    writes = re.findall(r"update_at_usize \(out1\) \(\((\d+) : t_usize\)\)", body)
+    if writes != list(map(str, range(8))):
+        raise ValueError("multiplication writes differ from the proved bounded schedule")
+    calls = re.findall(r"\b(?:fq_(?!mul\b)\w+|f_\w+|update_at_usize|cast)\b", body)
+    expected = {"fq_mulx_u32": 128, "fq_addcarryx_u32": 239, "fq_subborrowx_u32": 9,
+                "fq_cmovznz_u32": 8, "f_add": 23, "cast": 31, "f_index": 72, "update_at_usize": 8}
+    if {name: calls.count(name) for name in set(calls)} != expected:
+        raise ValueError("multiplication operation inventory changed")
+
+
 def validate_assumptions(text):
     if [s.strip() for s in text.splitlines() if s.strip()] != [
             "Closed under the global context"] * len(ROOTS):
         raise ValueError("native field theorem assumptions are not closed")
 
 
-def validate_rejection(text):
-    if "RustFieldAdd.v" not in text or not re.search(r"Error: Tactic failure:.*Cannot find witness", text, re.S):
+def validate_rejection(text, expected_path="RustFieldAdd.v"):
+    failures = re.findall(r'^File "([^"\n]+)", line \d+, characters \d+-\d+:\n'
+                          r'Error: Tactic failure:[ \t]+Cannot find witness\.(?:\n|$)', text, re.M)
+    if failures != [str(expected_path)]:
         raise ValueError("mutation failed outside field arithmetic checking")
+
+
+def expected_failure(error, code):
+    return code in (1, 101) and str(error).startswith(f"verification process failed ({code}); see ")
 
 
 def main():
@@ -73,22 +105,24 @@ def main():
         work = formal.WORK / "decaf-field-proof-replay"
         work.mkdir(parents=True, exist_ok=True)
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "Rust32 Fq addition and native arithmetic helpers on 64-bit targets",
+                  "scope": "Rust32 Fq addition, native helpers and Fiat primitive correspondence on 64-bit targets; full multiplication remains open",
                   "theorem_roots": ROOTS, "commands": [], "cases": {}}
         report_path = work / "report.json"
-        report_path.write_text(json.dumps(report, indent=2) + "\n")
-        env = dict(os.environ, CARGO_BUILD_JOBS="2", RAYON_NUM_THREADS="2",
+        atomic_json(report_path, report)
+        env = dict(os.environ, CARGO_BUILD_JOBS="1", RAYON_NUM_THREADS="1",
+                   GIT_NO_REPLACE_OBJECTS="1", COQPATH="", OCAMLPATH="",
                    CARGO_TARGET_DIR=str(formal.CACHE / "decaf-proof-target"))
 
-        def command(args, cwd=work, expect_failure=False):
+        def command(args, cwd=work, expect_failure=False, failure_code=1):
             index = len(report["commands"])
             report["commands"].append(list(map(str, args)))
+            atomic_json(report_path, report)
             log = work / f"{index:02}.log"
             failed = False
             try:
                 bounded_run(list(map(str, args)), cwd, env, log, work / "unused", work, 300)
             except RuntimeError as error:
-                if not expect_failure or not re.search(r"verification process failed \((1|101)\)", str(error)):
+                if not expect_failure or not expected_failure(error, failure_code):
                     raise
                 failed = True
             if failed != expect_failure:
@@ -107,9 +141,19 @@ def main():
             report["toolchain"] = config
             report["runner_sha256"] = formal.file_digest(Path(__file__))
             report["toolchain_selector_sha256"] = formal.file_digest(ROOT / "decaf_toolchain.py")
+            helpers = ("decaf_fiat_proof.py", "decaf_fiat_build.py", "decaf_go_proof.py",
+                       "formal.py", "security.py", "decaf_inventory.py", "decaf_toolchain.py")
+            report["helper_hashes"] = {name: formal.file_digest(ROOT / name) for name in helpers}
             generated = formal.WORK / "decaf-fields"
             receipt_path = generated / "report.json"
             receipt = json.loads(receipt_path.read_text())
+            validate_generation(config, receipt, generated)
+            fiat_build_path = formal.WORK / "decaf-fiat-build/report.json"
+            fiat_build = json.loads(fiat_build_path.read_text())
+            fiat_source = validate_proof_build(PROOFS / "toolchain.json", fiat_build,
+                                               PROOFS / "fiat-array-index.patch")
+            report["fiat_proof_build_receipt_sha256"] = formal.file_digest(fiat_build_path)
+            report["fiat_proof_build"] = fiat_build
             if receipt.get("status") != "generated" or receipt.get("completed") is not True:
                 raise ValueError("native generation is incomplete")
             generator = native_artifact(config, "fiat")
@@ -123,6 +167,19 @@ def main():
                 raise ValueError("native source does not match the shared field parameters")
             report["generation_receipt_sha256"] = formal.file_digest(receipt_path)
             source = source_path.read_text()
+            matrix = json.loads(MATRIX.read_text())
+            validate(matrix)
+            rust_source = matrix["sources"]["rust"]
+            cache, bare = CACHES["rust"]
+            if not bare or rust_source["role"] != "candidate":
+                raise ValueError("expected an immutable Rust candidate in the bare source cache")
+            source_log = work / f"{len(report['commands']):02}.log"
+            command(["git", "--git-dir", cache, "show",
+                     rust_source["revision"] + ":src/fields/fq/u32/generated.rs"])
+            if formal.file_digest(source_log) != entry["sha256"]:
+                raise ValueError("adopted Rust Fq bytes differ from the generated proof source")
+            report["adopted_rust_source"] = rust_source
+            report["matrix_sha256"] = formal.file_digest(MATRIX)
             hax = ["opam", "exec", "--switch=hax-0.3.7", "--"]
             build = native_artifact(config, "hax")
             report["native_host"] = build["host"]
@@ -139,6 +196,11 @@ def main():
             env["CARGO_BUILD_TARGET"] = build["host"]
             report["rust_test_version"] = command(["rustup", "run", config["rust_test"], "rustc", "-Vv"])
             rocq = ["opam", "exec", "--switch=decaf-fv", "--", "rocq"]
+            rocq_driver = Path(command(["opam", "exec", "--switch=decaf-fv", "--", "which", "rocq"]).strip()).resolve(strict=True)
+            if (str(rocq_driver) != fiat_build["compiler"]["path"] or
+                    formal.file_digest(rocq_driver) != fiat_build["compiler"]["sha256"] or
+                    command([*rocq, "-v"]) != fiat_build["rocq_version"]):
+                raise ValueError("Rocq differs from the source-bound Fiat proof build")
             installed = command(["opam", "list", "--switch=decaf-fv", "--installed", "--columns=version", "--short", "rocq-runtime"]).strip()
             if installed != config["rocq-runtime"]:
                 raise ValueError("unexpected Rocq version")
@@ -146,6 +208,8 @@ def main():
             if command(["git", "rev-parse", "HEAD"], records.parent).strip() != config["record_update"]["revision"]:
                 raise ValueError("unexpected record-update revision")
             command(["git", "diff", "--exit-code", "HEAD", "--", "src"], records.parent)
+            report["record_update_sources"] = {name: formal.file_digest(records / (name + ".v"))
+                                                for name in ("RecordEta", "RecordSet")}
             for name in ("RecordEta", "RecordSet"):
                 command([*rocq, "compile", "-Q", records, "RecordUpdate", records / (name + ".v")])
             report["proof_hashes"] = {name: formal.file_digest(PROOFS / "rocq" / (name + ".v")) for name in MODULES}
@@ -158,17 +222,23 @@ def main():
                 (case / "fiat.rs").write_text(modulus_mutation(source) if mutation else source)
                 (case / "lib.rs").write_text('#![no_std]\npub mod fiat;\n#[test] fn modulus_witness() { let mut z=[0u32;8]; fiat::fq_add(&mut z,&' + str(limbs) + ',&[1,0,0,0,0,0,0,0]); assert_eq!(z,[0u32;8]); }\n')
                 report["cases"][case.name] = {"source_sha256": formal.file_digest(case / "fiat.rs")}
-                witness = command(["cargo", "+" + config["rust_test"], "test", "--release", "--", "--test-threads=2"], case, mutation)
+                witness = command(["cargo", "+" + config["rust_test"], "test", "--release", "--", "--test-threads=1"],
+                                  case, mutation, failure_code=101)
                 if mutation and "modulus_witness ... FAILED" not in witness:
                     raise ValueError("mutant did not fail its native arithmetic witness")
                 command([*hax_cli, "into", "-i", "-** +decaf_proof_slice::fiat::fq_mul +decaf_proof_slice::fiat::fq_add", "coq"], case)
                 extraction = case / "proofs/coq/extraction"
                 extracted = extraction / "Decaf_proof_slice_Fiat.v"
                 validate_accesses(extracted.read_text())
+                validate_mul_accesses(extracted.read_text())
                 report["cases"][case.name]["extraction_sha256"] = formal.file_digest(extracted)
                 support = case / "support"
                 support.mkdir()
-                flags = ["-Q", support, "Core", "-Q", records, "RecordUpdate", "-Q", extraction, "Slice"]
+                flags = ["-Q", fiat_source / "src", "Crypto",
+                         "-Q", fiat_source / "rewriter/src/Rewriter", "Rewriter",
+                         "-Q", fiat_source / "coqprime/src/Coqprime", "Coqprime",
+                         "-Q", fiat_source / "rupicola/bedrock2/deps/coqutil/src/coqutil", "coqutil",
+                         "-Q", support, "Core", "-Q", records, "RecordUpdate", "-Q", extraction, "Slice"]
                 for name in MODULES:
                     shutil.copyfile(PROOFS / "rocq" / (name + ".v"), support / (name + ".v"))
                 command([*rocq, "compile", *flags, support / "Core.v"])
@@ -177,19 +247,34 @@ def main():
                     rejected = mutation and name == "RustFieldAdd"
                     output = command([*rocq, "compile", *flags, support / (name + ".v")], expect_failure=rejected)
                     if rejected:
-                        validate_rejection(output)
+                        validate_rejection(output, support / (name + ".v"))
                 if not mutation:
                     audit = support / "Audit.v"
-                    audit.write_text("From Core Require Import RustFieldAdd RustMultiply.\n" + "\n".join(
+                    audit.write_text("From Core Require Import RustFieldAdd RustMultiply RustFiatPrimitives RustMultiplyWords.\n" + "\n".join(
                         "Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(command([*rocq, "compile", *flags, audit]))
                     original_flags = flags
-            command([*rocq, "check", "-silent", *original_flags, "Core.RustFieldAdd", "Core.RustMultiply"])
+            command([*rocq, "check", "-bytecode-compiler", "no", "-silent", *original_flags,
+                     "Core.RustFieldAdd", "Core.RustMultiply", "Core.RustFiatPrimitives", "Core.RustMultiplyWords"])
+            validate_proof_build(PROOFS / "toolchain.json", fiat_build, PROOFS / "fiat-array-index.patch")
+            if formal.file_digest(rocq_driver) != fiat_build["compiler"]["sha256"]:
+                raise ValueError("Rocq driver changed during replay")
+            if report["proof_hashes"] != {name: formal.file_digest(PROOFS / "rocq" / (name + ".v")) for name in MODULES}:
+                raise ValueError("handwritten proofs changed during replay")
+            if report["record_update_sources"] != {name: formal.file_digest(records / (name + ".v")) for name in ("RecordEta", "RecordSet")}:
+                raise ValueError("record-update source changed during replay")
+            if report["generation_receipt_sha256"] != formal.file_digest(receipt_path):
+                raise ValueError("generation receipt changed during replay")
+            if report["matrix_sha256"] != formal.file_digest(MATRIX):
+                raise ValueError("adopted source inventory changed during replay")
+            validate_generation(config, receipt, generated)
+            if report["helper_hashes"] != {name: formal.file_digest(ROOT / name) for name in helpers}:
+                raise ValueError("replay helper changed during execution")
             report.update(status="passed", completed=True)
         except Exception as error:
             report["detail"] = str(error)
         finally:
-            report_path.write_text(json.dumps(report, indent=2) + "\n")
+            atomic_json(report_path, report)
         print(json.dumps({"status": report["status"], "report": str(report_path)}))
         return 0 if report["status"] == "passed" else 1
 

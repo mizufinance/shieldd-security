@@ -229,7 +229,8 @@ python3 decaf_generate.py
 python3 decaf_field_proof.py
 ```
 
-The field runner consumes the source bound to the generation receipt and
+The field runner requires the fresh source-bound Fiat import build described
+above. It consumes the source bound to the generation receipt and
 extracts Fq addition with its native helpers. `RustFieldAdd.v` proves canonical
 output limbs, output length, and addition modulo Fq for every canonical input.
 `RustMultiply.v`, `RustBorrow.v`, `Carry.v` and `RustSelect.v` prove the helper
@@ -244,10 +245,25 @@ composition, even if an output-equality theorem still checks.
 
 The original and wrong-modulus source cases are extracted and compiled
 independently. The mutant must fail the native boundary witness and the field
-arithmetic theorem. All 14 theorem roots require a closed global assumption set
-and a kernel recheck. Evidence is under `.work/decaf-field-proof-replay`.
-The generated full multiplication body is typechecked; its field arithmetic
-correctness remains a separate theorem obligation.
+arithmetic theorem. All 26 theorem roots require a closed global assumption set
+and a recursive VM-free kernel recheck. Evidence is generated atomically under
+`.work/decaf-field-proof-replay`.
+`RustMultiplyWords.v` checks the full multiplication body's output-word
+canonicality, output length and bounded array-access interface. The runner binds
+that interface to all 72 reads, eight writes and the exact operation inventory.
+The multiplication body's field arithmetic correctness remains a separate
+theorem obligation.
+Output-word canonicality uses the total modular `Core` model and does not prove
+absence of native overflow. The access connection is a checked source inventory,
+not yet a kernel theorem about the complete native operation/dependency graph.
+
+`RustFiatPrimitives.v` supplies the next bridge pieces: native Rust32 multiply,
+carry, borrow and selection helpers agree with Fiat's interpreted primitives and
+their output casts. Its additional product-high bound justifies adding a one-bit
+carry without u32 overflow; the two-carry inline addition is covered separately.
+These lemmas concern the extracted helpers under the supplied `Core` semantics.
+They do not yet compose the complete multiplication body, establish its array
+access safety, or discharge extraction/native-semantics correspondence.
 
 ## Orbis nonce refinement
 

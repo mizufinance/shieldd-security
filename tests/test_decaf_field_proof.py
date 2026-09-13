@@ -12,7 +12,32 @@ def extraction():
     return body
 
 
+def multiplication_extraction():
+    array = "t_Array (t_u32) ((8 : t_usize))"
+    body = f"Definition fq_mul (out1 : {array}) (arg1 : {array}) (arg2 : {array}) : {array} :=\n"
+    reads = [("arg1", i) for i in (*range(1, 8), 0)]
+    reads += [("arg2", i) for _ in range(8) for i in range(7, -1, -1)]
+    body += "\n".join(f"f_index ({name}) (({i} : t_usize))" for name, i in reads)
+    body += "\n" + "\n".join(f"update_at_usize (out1) (({i} : t_usize))" for i in range(8))
+    for name, count in {"fq_mulx_u32": 128, "fq_addcarryx_u32": 239, "fq_subborrowx_u32": 9,
+                        "fq_cmovznz_u32": 8, "f_add": 23, "cast": 31}.items():
+        body += "\n" + (name + " ") * count
+    return body + ".\n"
+
+
 class NativeFieldProofTests(unittest.TestCase):
+    def test_mul_access_and_operation_mutations(self):
+        original = multiplication_extraction()
+        proof.validate_mul_accesses(original)
+        for changed in (original.replace("f_index (arg2) ((7", "f_index (arg2) ((8", 1),
+                        original.replace("f_index (arg2) ((7", "f_index (arg2) ((6", 1),
+                        original.replace("update_at_usize (out1) ((7", "update_at_usize (out1) ((8", 1),
+                        original.replace("fq_mulx_u32", "fq_unknown", 1),
+                        original.replace("f_add", "f_sub", 1),
+                        original.replace("cast ", "", 1)):
+            with self.subTest(changed=changed[:80]), self.assertRaises(ValueError):
+                proof.validate_mul_accesses(changed)
+
     def test_access_schedule(self):
         proof.validate_accesses(extraction())
         for changed in (
@@ -34,11 +59,23 @@ class NativeFieldProofTests(unittest.TestCase):
             proof.modulus_mutation("pub const fn fq_add() {\n}\n")
 
     def test_field_rejection_requires_arithmetic_failure(self):
-        proof.validate_rejection('File "RustFieldAdd.v":\nError: Tactic failure: Cannot find witness.')
-        for text in ('File "RustFieldAdd.v":\nError: Cannot infer a type',
-                     'File "Core.v":\nError: Tactic failure: Cannot find witness.'):
+        good = 'File "RustFieldAdd.v", line 10, characters 2-5:\nError: Tactic failure: Cannot find witness.\n'
+        proof.validate_rejection(good)
+        proof.validate_rejection(good.replace('failure: ', 'failure:  '))
+        for text in (good.replace('Tactic failure: Cannot find witness.', 'Cannot infer a type'),
+                     good.replace('RustFieldAdd.v', 'Core.v'),
+                     good.replace('Error:', 'Warning:'),
+                     'File "RustFieldAdd.v", line 1, characters 2-3:\nWarning: unused.\n' + good.replace('RustFieldAdd.v', 'Core.v'),
+                     good + good):
             with self.assertRaises(ValueError):
                 proof.validate_rejection(text)
+
+    def test_rejection_exit_codes_are_tool_specific(self):
+        self.assertTrue(proof.expected_failure('verification process failed (1); see proof.log', 1))
+        self.assertTrue(proof.expected_failure('verification process failed (101); see cargo.log', 101))
+        for code in (101, 124, 137, -9):
+            self.assertFalse(proof.expected_failure(f'verification process failed ({code}); see proof.log', 1))
+        self.assertFalse(proof.expected_failure('timeout: verification process failed (1); see proof.log', 1))
 
     def test_assumptions_must_be_exactly_closed(self):
         proof.validate_assumptions("Closed under the global context\n" * len(proof.ROOTS))
