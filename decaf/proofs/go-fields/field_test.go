@@ -2,6 +2,16 @@ package fiat
 
 import "testing"
 
+func TestFrBoundary(t *testing.T) {
+	a := [4]uint64{0xb95aee9ac33fd9fe, 0x5293a3afc43c8afe, 0x982d1347970dec00, 0x4aad957a68b2955}
+	b := [4]uint64{1}
+	var out [4]uint64
+	FrAdd(&out, &a, &b)
+	if out != [4]uint64{} {
+		t.Fatalf("fr boundary witness: %v", out)
+	}
+}
+
 func TestFqBoundary(t *testing.T) {
 	a := [4]uint64{725501752471715840, 6461107452199829505, 6968279316240510977, 1345280370688173398}
 	b := [4]uint64{1}

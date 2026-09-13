@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replay Go Fq addition against fresh field extraction and a source mutant."""
+"""Replay Go Fq/Fr addition against fresh extraction and independent mutants."""
 import json
 import os
 from pathlib import Path
@@ -13,19 +13,23 @@ from security import bounded_run
 
 PROOFS = formal.ROOT / "decaf/proofs"
 MODULES = ("CarryArithmetic", "GoCarryArithmetic", "GoCarry", "BorrowArithmetic",
-           "GoBorrowArithmetic", "GoBorrow", "GoArray", "GoSelect", "GoFieldAdd", "GoFieldAliases")
+           "GoBorrowArithmetic", "GoBorrow", "GoArray", "GoSelect", "GoFieldAdd", "GoFieldAliases",
+           "GoFrSelect", "GoFrFieldAdd")
 ROOTS = ("GoSelect.select_execution", "GoSelect.select_correct", "GoFieldAdd.add_correct") + tuple(
     "GoFieldAliases." + name for name in
-    ("add_disjoint", "add_left", "add_right", "add_equal_inputs", "add_all_equal"))
+    ("add_disjoint", "add_left", "add_right", "add_equal_inputs", "add_all_equal")) + (
+    "GoFrSelect.select_execution", "GoFrSelect.select_correct", "GoFrFieldAdd.add_correct")
 
 
-def modulus_mutation(source):
-    start = source.index("func FqAdd(")
+def modulus_mutation(source, field="fq"):
+    old, new = {"fq": ("0xa11800000000001", "0xa11800000000002"),
+                "fr": ("0xb95aee9ac33fd9ff", "0xb95aee9ac33fda00")}[field]
+    start = source.index(f"func {field.capitalize()}Add(")
     end = source.index("\n}", start) + 2
     body = source[start:end]
-    if body.count("0xa11800000000001") != 1:
-        raise ValueError("FqAdd modulus mutation no longer matches")
-    return source[:start] + body.replace("0xa11800000000001", "0xa11800000000002") + source[end:]
+    if body.count(old) != 1:
+        raise ValueError(f"{field.capitalize()}Add modulus mutation no longer matches")
+    return source[:start] + body.replace(old, new) + source[end:]
 
 
 def validate_generation(config, receipt, directory):
@@ -48,19 +52,21 @@ def validate_generation(config, receipt, directory):
             raise ValueError("native source does not match the field parameters and receipt")
 
 
-def validate_field_rejection(output, proof):
+def validate_field_rejection(output, proof, field="fq"):
     # An infrastructure failure or an earlier execution failure is not evidence
     # that the arithmetic theorem detected the changed modulus.
     lines = [i for i, line in enumerate(proof.splitlines(), 1)
              if "split; [lia|apply Z.mod_unique" in line]
-    if not any(re.search(r'GoFieldAdd\.v", line ' + str(i) +
+    module = {"fq": "GoFieldAdd", "fr": "GoFrFieldAdd"}[field]
+    if not any(re.search(module + r'\.v", line ' + str(i) +
                          r', characters \d+-\d+:\s+Error: Tactic failure:  Cannot find witness\.', output)
                for i in lines):
         raise ValueError("mutation failed outside the field arithmetic proof")
 
 
-def validate_native_rejection(output):
-    if "--- FAIL: TestFqBoundary (" not in output or "fq boundary witness:" not in output:
+def validate_native_rejection(output, field="fq"):
+    if (f"--- FAIL: Test{field.capitalize()}Boundary (" not in output or
+            f"{field} boundary witness:" not in output):
         raise ValueError("mutation failed outside the native arithmetic witness")
 
 
@@ -69,10 +75,10 @@ def main():
         work = formal.WORK / "decaf-go-field-proof-replay"
         work.mkdir(parents=True, exist_ok=True)
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "Go Fq addition functional partial correctness",
+                  "scope": "Go Fq/Fr addition functional partial correctness; Fq alias corollaries",
                   "theorem_roots": ROOTS, "commands": [], "cases": {},
                   "open_obligations": ["concrete Go semantics and resolver interpretation",
-                      "general offset-overlap refinement", "termination", "Fr arithmetic proof",
+                      "general offset-overlap refinement", "termination", "Fr alias corollaries",
                       "field multiplication", "group and encoding refinement",
                       "compiled constant-time traces", "consumer and protocol refinement"]}
         report_path = work / "report.json"
@@ -138,21 +144,23 @@ def main():
                                       for name in MODULES}
             report["go_bits_source_sha256"] = formal.file_digest(
                 Path(command(["go", "env", "GOROOT"]).strip()) / "src/math/bits/bits.go")
-            for case_name in ("original", "wrong-modulus"):
-                mutation = case_name != "original"
+            for case_name, mutated_field in (("original", None), ("wrong-modulus", "fq"),
+                                             ("wrong-fr-modulus", "fr")):
+                mutation = mutated_field is not None
                 case = work / case_name
                 case.mkdir()
                 for name in ("fq.go", "fr.go"):
                     shutil.copyfile(generated / "go" / name, case / name)
                 if mutation:
-                    (case / "fq.go").write_text(modulus_mutation((case / "fq.go").read_text()))
+                    source = case / f"{mutated_field}.go"
+                    source.write_text(modulus_mutation(source.read_text(), mutated_field))
                 (case / "go.mod").write_text("module mizufinance.local/decaf/fiat\n\ngo 1.26.4\n")
                 shutil.copyfile(fixture, case / "field_test.go")
                 evidence = report["cases"][case_name] = {
                     "source_hashes": {name: formal.file_digest(case / name) for name in ("fq.go", "fr.go")}}
                 native = command(["go", "test", "-p", "2", "-count=1", "./..."], case, reject=mutation)
                 if mutation:
-                    validate_native_rejection(native)
+                    validate_native_rejection(native, mutated_field)
                 evidence["native_status"] = "expected arithmetic rejection" if mutation else "passed"
                 extraction, support = case / "extraction", case / "support"
                 support.mkdir()
@@ -169,18 +177,19 @@ def main():
                 for module in MODULES:
                     target = support / (module + ".v")
                     shutil.copyfile(PROOFS / "rocq" / target.name, target)
-                    reject = mutation and module == "GoFieldAdd"
+                    reject = mutation and module == {"fq": "GoFieldAdd", "fr": "GoFrFieldAdd"}[mutated_field]
                     checked = command([*rocq, "compile", *flags, target], reject=reject)
                     if reject:
-                        validate_field_rejection(checked, target.read_text())
+                        validate_field_rejection(checked, target.read_text(), mutated_field)
                         evidence["proof_status"] = "expected arithmetic rejection"
                         break
                 if not mutation:
                     audit = support / "Audit.v"
-                    audit.write_text("Require Import GoSelect GoFieldAdd GoFieldAliases.\n" + "\n".join(
+                    audit.write_text("Require Import GoSelect GoFieldAdd GoFieldAliases GoFrSelect GoFrFieldAdd.\n" + "\n".join(
                         "Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(command([*rocq, "compile", *flags, audit]), ROOTS)
-                    command([*rocq, "check", "-silent", *flags, "GoSelect", "GoFieldAdd", "GoFieldAliases"])
+                    command([*rocq, "check", "-silent", *flags,
+                             "GoSelect", "GoFieldAdd", "GoFieldAliases", "GoFrSelect", "GoFrFieldAdd"])
                     evidence["proof_status"] = "compiled, closed global assumptions, kernel rechecked"
             report.update(status="passed", completed=True)
         except Exception as error:

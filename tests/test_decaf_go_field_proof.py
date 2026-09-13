@@ -11,6 +11,27 @@ from decaf_go_field_proof import (
 
 
 class GoFieldProofGateTests(unittest.TestCase):
+    def test_fr_mutation_and_rejection_are_independent_of_fq(self):
+        source = "func FrAdd() {\n x := 0xb95aee9ac33fd9ff\n}\nfunc FrSub() {\n x := 0xb95aee9ac33fd9ff\n}\n"
+        mutated = modulus_mutation(source, "fr")
+        self.assertIn("func FrAdd() {\n x := 0xb95aee9ac33fda00", mutated)
+        self.assertEqual(mutated.split("func FrSub", 1)[1], source.split("func FrSub", 1)[1])
+        with self.assertRaises(ValueError):
+            modulus_mutation(mutated, "fr")
+        proof = "split; [lia|apply Z.mod_unique with (q := 1); lia]."
+        diagnostic = 'File "GoFrFieldAdd.v", line 1, characters 1-10:\nError: Tactic failure:  Cannot find witness.'
+        native = "--- FAIL: TestFrBoundary (0.00s)\nfr boundary witness: [1]"
+        validate_field_rejection(diagnostic, proof, "fr")
+        validate_native_rejection(native, "fr")
+        with self.assertRaises(ValueError):
+            validate_field_rejection(diagnostic, proof, "fq")
+        with self.assertRaises(ValueError):
+            validate_field_rejection(diagnostic.replace("GoFrFieldAdd", "GoFieldAdd"), proof, "fr")
+        with self.assertRaises(ValueError):
+            validate_native_rejection(native, "fq")
+        with self.assertRaises(ValueError):
+            validate_native_rejection(native.replace("Fr", "Fq").replace("fr", "fq"), "fr")
+
     def test_native_rejection_requires_the_named_arithmetic_witness(self):
         validate_native_rejection("--- FAIL: TestFqBoundary (0.00s)\nfield_test.go:7: fq boundary witness: [1]")
         for output in ("fq boundary witness:", "--- FAIL: TestFqBoundary (0.00s)\nbuild failed",
