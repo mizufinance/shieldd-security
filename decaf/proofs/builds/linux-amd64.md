@@ -2,8 +2,41 @@
 
 This records native tool provenance, not completed native proofs or a
 constant-time certification. Builds ran in Ubuntu WSL2 on the desktop.
-Goose and Fiat have native Linux builds. Linux hax remains unregistered;
-its runners reject this host until that build is reviewed.
+Goose, Fiat and hax have independently reviewed native Linux identities.
+
+## hax
+
+- Source: `d8b5b3d3b666fee8943a351445d2b680105e8ea3`, version 0.3.7,
+  with a clean working tree and no source patch.
+- Rust: `nightly-2025-11-08`, compiler commit
+  `843f8ce2ebc01d35a30484eadc8a84cdc6130844`, Linux x86-64.
+- OCaml build dependencies: OCaml 5.1.1, Dune 3.24.0, Base v0.17.3,
+  Core v0.17.2, Yojson 3.0.0 and ppxlib 0.35.0. These belong to the engine
+  build environment; the Rocq proof environment uses OCaml 5.3.0.
+
+Rust components `cli/driver`, `cli/subcommands`, `engine/names/extract` and
+`rust-engine` were installed with `cargo +nightly-2025-11-08 install --locked
+--debug --jobs 2 --root /root/.opam/hax-0.3.7 --path COMPONENT`. The source and
+Cargo target caches were on WSL's native filesystem.
+
+The engine reused installed OCaml dependencies from the existing `hax` switch
+read-only. It built with `OCAMLRUNPARAM=o=20 opam exec --switch=hax -- dune build
+-j 1`, then `dune install --profile dev --prefix /root/.opam/hax-0.3.7` under the
+same switch. Explicit paths selected the newly built names/schema exporters.
+The separate `hax-0.3.7` switch was created empty; the existing hax installation
+was not replaced. The serial engine build reused completed objects and stayed
+under the same 4 GiB cap that had stopped the initial build.
+
+| Executable | SHA-256 |
+| --- | --- |
+| cargo-hax | `51cee5c850edb342037ec950b4dfa44be555a78d30d50f22195e48a2f3697f35` |
+| driver-hax-frontend-exporter | `a5f45f5c0afe6b51942882a9bcf5f8b65c42b9c8a563e97fb6405bfb50271858` |
+| hax-engine | `2da24f073f5888e8151313061bb067626f36c69ec4288efeb721661607749eb8` |
+
+An independent read-only review verified the live hashes, clean pinned source,
+Linux ELF identities, isolated executable resolution, CLI version/commit,
+compiler identity and build log. It did not perform a separate rebuild or
+establish extraction correctness.
 
 ## Fiat
 
