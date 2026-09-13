@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import decaf_inventory as inventory
 
@@ -86,6 +87,17 @@ class InventoryTests(unittest.TestCase):
             inventory.atomic_json(path, {"status": "blocked", "full_certification": False})
             inventory.atomic_json(path, {"status": "blocked", "completed": False})
             self.assertEqual(json.loads(path.read_text()), {"status": "blocked", "completed": False})
+            self.assertEqual(list(path.parent.iterdir()), [path])
+
+    def test_interrupted_publication_preserves_complete_previous_report(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "report.json"
+            previous = {"status": "blocked", "completed": False, "full_certification": False}
+            inventory.atomic_json(path, previous)
+            with patch.object(inventory.os, "replace", side_effect=OSError("publication interrupted")):
+                with self.assertRaisesRegex(OSError, "publication interrupted"):
+                    inventory.atomic_json(path, {"status": "running", "completed": False})
+            self.assertEqual(json.loads(path.read_text()), previous)
             self.assertEqual(list(path.parent.iterdir()), [path])
 
     def test_workspace_target_aliases_and_lock_identity_remain_distinct(self):

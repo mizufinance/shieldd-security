@@ -140,6 +140,23 @@ class DecafPilotTests(unittest.TestCase):
                 self.assertEqual(report["status"], "passed")
                 self.assertTrue(report["completed"])
 
+    def test_new_run_invalidates_old_success_before_operation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(decaf.formal, "WORK", Path(directory)):
+                path = Path(directory) / "decaf/leakage-report/report.json"
+                path.parent.mkdir(parents=True)
+                path.write_text(json.dumps({"status": "passed", "completed": True}))
+                pilot = decaf.Pilot("leakage", "go")
+                self.assertEqual(json.loads(path.read_text())["status"], "blocked")
+                def inspect_running(case):
+                    published = json.loads(path.read_text())
+                    self.assertEqual(published["status"], "blocked")
+                    self.assertFalse(published["completed"])
+                    self.assertFalse(published["full_certification"])
+                    self.assertEqual(published["checks"][0]["status"], "running")
+                pilot.check("fresh", "relational_analysis", inspect_running)
+                self.assertEqual(pilot.report["checks"][0]["status"], "passed")
+
     def test_interruption_is_not_a_pass(self):
         with tempfile.TemporaryDirectory() as directory:
             with patch.object(decaf.formal, "WORK", Path(directory)):

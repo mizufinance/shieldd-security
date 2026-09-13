@@ -13,6 +13,7 @@ import tarfile
 import zipfile
 
 import formal
+from decaf_inventory import atomic_json
 from security import bounded_run
 
 INPUTS = formal.ROOT / "decaf/inputs.json"
@@ -117,8 +118,9 @@ class Pilot:
                                                        env=self.env, capture=True).strip(),
                        "inputs": self.inputs, "harness_hashes": digest_tree(formal.ROOT / "decaf"),
                        "runner_sha256": formal.file_digest(Path(__file__)),
-                       "helper_hashes": {name: formal.file_digest(formal.ROOT / name) for name in ("formal.py", "security.py")},
+                       "helper_hashes": {name: formal.file_digest(formal.ROOT / name) for name in ("formal.py", "security.py", "decaf_inventory.py")},
                        "host": platform.platform(), "checks": []}
+        self.save()
 
     def command(self, args, cwd, case, timeout=LIMIT, env=None, snapshots=None):
         case.setdefault("commands", []).append({"argv": list(map(str, args)), "cwd": str(cwd)})
@@ -166,6 +168,7 @@ class Pilot:
         print(f"{name}: running ({kind})", flush=True)
         case = {"id": name, "evidence_kind": kind, "status": "running"}
         self.report["checks"].append(case)
+        self.save()
         try:
             operation(case)
             case.setdefault("detail", "completed")
@@ -185,7 +188,7 @@ class Pilot:
         states = [c["status"] for c in self.report["checks"]]
         self.report["status"] = ("passed" if self.report["completed"] and states and all(state == "passed" for state in states)
                                  else "failed" if "failed" in states else "blocked")
-        (self.reports / "report.json").write_text(json.dumps(self.report, indent=2, sort_keys=True) + "\n")
+        atomic_json(self.reports / "report.json", self.report)
 
     def functional(self, language, case):
         self.tool("rustc" if language == "rust" else "go", self.inputs["rustc" if language == "rust" else "go"])
@@ -362,10 +365,10 @@ def main():
             pilot = Pilot(args.mode, args.language)
         except Exception as error:
             reports.mkdir(parents=True, exist_ok=True)
-            (reports / "report.json").write_text(json.dumps({
+            atomic_json(reports / "report.json", {
                 "status": "failed", "completed": False, "full_certification": False,
                 "checks": [{"id": "bootstrap", "evidence_kind": "tooling", "status": "failed", "detail": str(error)}],
-            }, indent=2) + "\n")
+            })
             return 1
         if args.mode == "leakage":
             pilot.leakage()
