@@ -1,6 +1,7 @@
 import unittest
 from pathlib import Path
 import tempfile
+from unittest.mock import patch
 
 import decaf_field_proof as proof
 
@@ -28,6 +29,34 @@ def multiplication_extraction():
 
 
 class NativeFieldProofTests(unittest.TestCase):
+    def test_compiled_artifact_budget_is_separate_and_bounded(self):
+        with patch.object(proof, "artifact_size", return_value=200 * 1024 * 1024):
+            proof.validate_evidence_size(Path("proof-workspace"))
+        with patch.object(proof, "artifact_size", return_value=proof.EVIDENCE_BYTE_LIMIT + 1):
+            with self.assertRaisesRegex(RuntimeError, "exceeded 1 GiB"):
+                proof.validate_evidence_size(Path("proof-workspace"))
+    def test_connection_control_requires_exact_proof_failure(self):
+        error = 'File "RustMultiplyTail.v", line 17, characters 2-14:\nError: Tactic failure: round tails differ syntactically.\n'
+        proof.validate_connection_rejection(error, "RustMultiplyTail.v")
+        for changed in (error.replace("RustMultiplyTail.v", "Core.v"),
+                        error.replace("round tails differ syntactically", "Cannot find witness"),
+                        error + "Error: interrupted\n", "timeout"):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                proof.validate_connection_rejection(changed, "RustMultiplyTail.v")
+
+    def test_suffix_generation_requires_every_source_boundary(self):
+        body = 'Definition fq_mul :=\nlet initial := 0 in\n' + ''.join(
+            f'  let x{i} : t_u32 := (0 : t_u32) in\n' + ('(cast (x86))\n' if i == 87 else '')
+            for i in range(87, 767, 97)) + 'out1.\n'
+        suffixes = proof.multiplication_suffixes(body)
+        self.assertEqual(set(suffixes), proof.DERIVED_SOURCES - {"NativeMultiplyPrefix.v"})
+        changed = proof.suffix_connection_mutation(suffixes)
+        self.assertEqual([name for name in suffixes if suffixes[name] != changed[name]],
+                         ["NativeSuffixDefinition7.v"])
+        for marker in ("let x87", "let x669", "let x766", "(cast (x86))", "out1."):
+            with self.subTest(marker=marker), self.assertRaises(ValueError):
+                proof.multiplication_suffixes(body.replace(marker, "changed", 1))
+
     def test_rust_binding_requires_compiler_cargo_rustdoc_and_driver(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
@@ -81,17 +110,22 @@ class NativeFieldProofTests(unittest.TestCase):
             work = Path(directory)
             case = work / "original"
             paths = [case / name for name in ("Cargo.toml", "lib.rs", "fiat.rs",
-                "proofs/coq/extraction/Decaf_proof_slice_Fiat.v", "support/Core.v",
-                "proofs/coq/extraction/NativeMultiplyPrefix.v")]
+                "proofs/coq/extraction/Decaf_proof_slice_Fiat.v", "support/Core.v")]
+            paths += [case / "proofs/coq/extraction" / name for name in sorted(proof.DERIVED_SOURCES)]
             for path in paths:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text("source\n")
             cases = {"original": {
                 "input_hashes": {path.name: proof.formal.file_digest(path) for path in paths[:3]},
                 "extraction_sha256": proof.formal.file_digest(paths[3]),
-                "derived_sources": {paths[5].name: proof.formal.file_digest(paths[5])}}}
+                "derived_sources": {path.name: proof.formal.file_digest(path) for path in paths[5:]}}}
             hashes = {"Core": proof.formal.file_digest(paths[4])}
             proof.validate_case_files(work, cases, hashes)
+            for name in ("Cargo.toml", "lib.rs", "fiat.rs"):
+                digest = cases["original"]["input_hashes"].pop(name)
+                with self.subTest(omission=name), self.assertRaisesRegex(ValueError, "input inventory"):
+                    proof.validate_case_files(work, cases, hashes)
+                cases["original"]["input_hashes"][name] = digest
             for path in paths:
                 path.write_text("changed\n")
                 with self.subTest(path=path), self.assertRaises(ValueError):

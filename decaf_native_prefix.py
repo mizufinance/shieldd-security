@@ -2,6 +2,47 @@
 import re
 
 
+SUFFIX_MODULES = tuple(f"NativeSuffixDefinition{i}" for i in range(1, 9))
+
+
+def multiplication_suffixes(extraction):
+    """Extract exact remaining bodies; separate Rocq equations check every link."""
+    match = re.search(r"^Definition fq_mul\b.*? :=\n(.*?)(?=^Definition |\Z)", extraction, re.M | re.S)
+    if match is None or not match[1].strip().endswith("out1."):
+        raise ValueError("missing native multiplication suffix body")
+    body = match[1].strip()
+    header = """(* Generated from the pinned Hax body. Do not edit.
+   RustMultiplyTail proves every connection to the extracted multiplication. *)
+From Stdlib Require Import ZArith List.
+From Core Require Import Core.
+From Slice Require Import Decaf_proof_slice_Fiat.
+Import ListNotations.
+Open Scope Z_scope.
+"""
+    reads = "".join(f"let x{i} := f_index arg1 (({i if i < 8 else 0} : t_usize)) in\n"
+                    for i in range(1, 9))
+    result = {}
+    for index, start in enumerate(range(87, 767, 97), 1):
+        marker = f"  let x{start} : t_u32 := (0 : t_u32) in\n"
+        if body.count(marker) != 1:
+            raise ValueError("native suffix boundary changed")
+        tail = (marker + body.split(marker)[1]).removesuffix("out1.") + "out1\n"
+        if index == 1:
+            acc = [f"x{i}" for i in range(71, 86, 2)] + ["acc_top"]
+            if tail.count("(cast (x86))") != 1:
+                raise ValueError("native suffix carry interface changed")
+            tail = tail.replace("(cast (x86))", "(acc_top)")
+        else:
+            acc = [f"x{i}" for i in range(start - 17, start - 2, 2)] + [f"x{start - 1}"]
+        name = "native_final" if index == 8 else f"native_suffix{index}"
+        args = "out1 acc" if index == 8 else "out1 arg1 arg2 acc"
+        source = header + f"Definition {name} ({args} : list t_u32) : list t_u32 :=\n"
+        source += reads if index != 8 else ""
+        source += "match acc with [" + ";".join(acc) + "] =>\n" + tail + "| _ => [] end.\n"
+        result[SUFFIX_MODULES[index - 1] + ".v"] = source
+    return result
+
+
 def multiplication_prefix(extraction):
     match = re.search(r"^Definition fq_mul\b.*? :=\n(.*?)(?=^Definition |\Z)", extraction, re.M | re.S)
     if match is None:

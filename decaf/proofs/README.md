@@ -253,7 +253,14 @@ and the concrete Rocq `multiply_zero_witness`; this control does not replace
 the universal multiplication-helper theorem. The row-carry mutant rewires one
 operand while preserving the helper/read inventory; it must fail a native
 Montgomery-product witness and the universal first-row arithmetic theorem.
-All 49 theorem roots require a
+Final-reduction controls change the last subtraction constant and swap one
+conditional-selection pair. Both must fail concrete native multiplication
+witnesses and the final-reduction arithmetic proof. A late-round operand fault
+must fail its native witness and the repeated-round shape inventory; this is
+reported as an inventory rejection, not a kernel arithmetic rejection. A separate
+fault changes only generated suffix 7's scalar digit while leaving the extracted
+Rust body unchanged, and must fail the source-decomposition proof.
+All 64 theorem roots require a
 closed global assumption set and a recursive VM-free kernel recheck. Evidence is generated atomically under
 `.work/decaf-field-proof-replay`.
 The replay binds resolved hax, Rust compiler/Cargo/rustdoc/driver and Rocq
@@ -262,8 +269,8 @@ source copies, extraction bytes and build receipts before accepting the result.
 `RustMultiplyWords.v` checks the full multiplication body's output-word
 canonicality, output length and bounded array-access interface. The runner binds
 that interface to all 72 reads, eight writes and the exact operation inventory.
-The multiplication body's field arithmetic correctness remains a separate
-theorem obligation.
+The multiplication body's arithmetic correctness is proved separately by
+`RustMultiplyComplete.v` under the supplied `Core` semantics.
 Output-word canonicality uses the total modular `Core` model and does not prove
 absence of native overflow. The access connection is a checked source inventory,
 not yet a kernel theorem about the complete native operation/dependency graph.
@@ -273,8 +280,8 @@ carry, borrow and selection helpers agree with Fiat's interpreted primitives and
 their output casts. Its additional product-high bound justifies adding a one-bit
 carry without u32 overflow; the two-carry inline addition is covered separately.
 These lemmas concern the extracted helpers under the supplied `Core` semantics.
-They do not yet compose the complete multiplication body, establish its array
-access safety, or discharge extraction/native-semantics correspondence.
+They do not establish its complete native array-access safety or discharge
+extraction/native-semantics correspondence.
 
 `decaf_native_prefix.py` derives multiplication checkpoints from the actual Hax
 body. `RustMultiplyRow.v` proves the first schoolbook row's integer value, length,
@@ -290,10 +297,21 @@ recurrence with both top carries retained, output length and canonical words,
 and preservation of the bound below twice the modulus for reduced operands.
 The reduction and round bounds force the ninth word to zero. The generator checks
 that all seven repeated source rounds share this shape; that inventory check is
-not a kernel proof linking the complete multiplication to seven round calls.
+not itself a kernel proof linking the complete multiplication to seven round calls.
 
-These results leave whole-body composition through all seven rounds and final
-canonical reduction open. The intended full Fiat bridge is semantic equality of
+`RustMultiplyTail.v` proves those links against eight independently generated
+source suffixes, including the first reduction's connection to the remaining
+body. `RustMultiplyChain.v` composes the integer recurrence through all eight
+digits and preserves the accumulator bound. `RustFinalReduction.v` proves the
+actual last subtraction and selection return the canonical residue, independent
+of the initial output buffer. `RustMultiplyComplete.v` connects the entire
+extracted `fq_mul` to these stages and proves an eight-word canonical output
+whose value satisfies `2^256 * out = a * b + q * k` for some integer `k`.
+Its domain requires eight canonical u32 words in each input and `0 <= b < q`;
+it permits any eight-word value for `a`. This is a theorem in the supplied total
+`Core` model, not permission to broaden the native library's input contract.
+
+The intended full Fiat bridge remains semantic equality of
 the complete canonical output lists: independently prove native and exact-option
 Fiat correctness, then use canonical radix-digit uniqueness. This avoids requiring
 syntactically matching intermediate programs; it does not replace native safety,

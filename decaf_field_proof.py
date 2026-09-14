@@ -10,13 +10,14 @@ import formal
 from decaf_toolchain import hax_tool_paths, native_artifact
 from decaf_fiat_proof import validate_generation, validate_proof_build
 from decaf_inventory import atomic_json, CACHES, MATRIX, validate
-from decaf_native_prefix import multiplication_prefix, multiplication_rounds
-from security import bounded_run
+from decaf_native_prefix import multiplication_prefix, multiplication_rounds, multiplication_suffixes, SUFFIX_MODULES
+from security import bounded_run, size as artifact_size
 
 ROOT = formal.ROOT
 PROOFS = ROOT / "decaf/proofs"
 MODULES = ("Core", "Carry", "RustBorrow", "RustMultiplyZero", "RustMultiply", "RustSelect", "RustFiatPrimitives",
-           "RustArray", "RustMultiplyWords", "RustFieldAdd", "RustMultiplyRow", "RustFirstReduction", "RustMultiplyRound")
+           "RustArray", "RustMultiplyWords", "RustFieldAdd", "RustMultiplyRow", "RustFirstReduction", "RustMultiplyRound",
+           "RustMultiplyTail", "RustFinalReduction", "RustMultiplyChain", "RustMultiplyComplete")
 ROOTS = tuple("Core." + name for name in (
     "Carry.addcarry_exact", "Carry.addcarry_safety", "Carry.addcarry_reconstruction",
     "RustBorrow.borrow_exact", "RustBorrow.borrow_safety", "RustBorrow.borrow_reconstruction",
@@ -34,7 +35,25 @@ ROOTS = tuple("Core." + name for name in (
             "first_redc_bound", "nine_words_top_zero", "first_redc_top_zero", "redc_state_length", "redc_state_carry")) + tuple(
         "Core.RustMultiplyRound." + name for name in (
             "add9_correct", "round_product_decomposition", "round_sum_decomposition", "round_redc_decomposition",
-            "finish_value", "round_correct", "round_shape", "round_bound", "round_top_zero"))
+            "finish_value", "round_correct", "round_shape", "round_bound", "round_top_zero")) + tuple(
+        "Core.RustMultiplyTail." + name for name in (
+            *(f"round{i}_decomposition" for i in range(1, 8)), "initial_tail_decomposition")) + tuple(
+        "Core.RustFinalReduction." + name for name in ("final_correct", "final_state_independent")) + tuple(
+        "Core.RustMultiplyChain." + name for name in ("rounds_correct", "accumulator_correct")) + tuple(
+        "Core.RustMultiplyComplete." + name for name in (
+            "body_decomposition", "multiplication_correct", "output_state_independent"))
+
+DERIVED_SOURCES = {"NativeMultiplyPrefix.v", *(name + ".v" for name in SUFFIX_MODULES)}
+EVIDENCE_BYTE_LIMIT = 1024 * 1024 * 1024
+
+
+def command_log(work, index):
+    return work / "logs" / f"{index:02}.log"
+
+
+def validate_evidence_size(work):
+    if artifact_size(work) > EVIDENCE_BYTE_LIMIT:
+        raise RuntimeError("native proof artifacts exceeded 1 GiB")
 
 
 def definition(text, name):
@@ -94,6 +113,38 @@ def row_carry_mutation(source):
     return source[:start] + body.replace(old, old.replace("x24, x21", "x24, x22")) + source[end:]
 
 
+def final_mutation(source, selection=False):
+    start = source.index("pub const fn fq_mul(")
+    end = source.index("\n}", start) + 2
+    body = source[start:end]
+    old = ("fq_cmovznz_u32(&mut x784, x783, x766, x749);" if selection else
+           "fq_subborrowx_u32(&mut x766, &mut x767, 0x0, x749, (0x1 as u32));")
+    new = old.replace("x766, x749", "x749, x766") if selection else old.replace("0x1 as", "0x2 as")
+    if body.count(old) != 1:
+        raise ValueError("final reduction mutation no longer matches the source")
+    return source[:start] + body.replace(old, new) + source[end:]
+
+
+def suffix_connection_mutation(suffixes):
+    changed = dict(suffixes)
+    name = "NativeSuffixDefinition7.v"
+    old = "let x7 := f_index arg1 ((7 : t_usize)) in"
+    if changed[name].count(old) != 1:
+        raise ValueError("suffix connection mutation no longer matches")
+    changed[name] = changed[name].replace(old, old.replace("((7 :", "((6 :"))
+    return changed
+
+
+def late_carry_mutation(source):
+    start = source.index("pub const fn fq_mul(")
+    end = source.index("\n}", start) + 2
+    body = source[start:end]
+    old = "fq_addcarryx_u32(&mut x716, &mut x717, x715, x668, x699);"
+    if body.count(old) != 1:
+        raise ValueError("late carry mutation no longer matches the source")
+    return source[:start] + body.replace(old, old.replace("x699", "x697")) + source[end:]
+
+
 def validate_mul_accesses(text):
     body = definition(text, "fq_mul")
     if body.count("t_Array (t_u32) ((8 : t_usize))") != 4:
@@ -126,6 +177,13 @@ def validate_rejection(text, expected_path="RustFieldAdd.v"):
         raise ValueError("mutation failed outside field arithmetic checking")
 
 
+def validate_connection_rejection(text, expected_path):
+    failures = re.findall(r'^File "([^"\n]+)", line \d+, characters \d+-\d+:\n'
+                          r'Error: Tactic failure: round tails differ syntactically\.(?:\n|$)', text, re.M)
+    if failures != [str(expected_path)] or len(re.findall(r'^Error:', text, re.M)) != 1:
+        raise ValueError("suffix fault failed outside source decomposition checking")
+
+
 def expected_failure(error, code):
     return code in (1, 101) and str(error).startswith(f"verification process failed ({code}); see ")
 
@@ -133,13 +191,18 @@ def expected_failure(error, code):
 def validate_case_files(work, cases, proof_hashes):
     for case_name, case_report in cases.items():
         case = work / case_name
+        if set(case_report["input_hashes"]) != {"Cargo.toml", "lib.rs", "fiat.rs"}:
+            raise ValueError("native case input inventory is incomplete")
         if case_report["input_hashes"] != {
                 name: formal.file_digest(case / name) for name in case_report["input_hashes"]}:
             raise ValueError("native case inputs changed during replay")
         if case_report["extraction_sha256"] != formal.file_digest(
                 case / "proofs/coq/extraction/Decaf_proof_slice_Fiat.v"):
             raise ValueError("native extraction changed during replay")
-        if set(case_report["derived_sources"]) != {"NativeMultiplyPrefix.v"} or case_report["derived_sources"] != {
+        expected_derived = set() if case_name == "wrong-late-carry" else DERIVED_SOURCES
+        if case_name == "wrong-late-carry" and case_report.get("rejection_stage") != "round-shape-inventory":
+            raise ValueError("missing late carry shape rejection")
+        if set(case_report["derived_sources"]) != expected_derived or case_report["derived_sources"] != {
                 name: formal.file_digest(case / "proofs/coq/extraction" / name)
                 for name in case_report["derived_sources"]}:
             raise ValueError("derived native checkpoint sources changed during replay")
@@ -177,11 +240,12 @@ def main():
         work = formal.WORK / "decaf-field-proof-replay"
         work.mkdir(parents=True, exist_ok=True)
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "Rust32 Fq addition, native helpers, Fiat primitive correspondence and the first native multiplication/reduction prefixes on 64-bit targets; full multiplication remains open",
+                  "scope": "Rust32 Fq addition and complete extracted Fq multiplication in the supplied Core semantics on 64-bit targets, with helper and Fiat primitive correspondence; native semantics/safety and exact Fiat multiplication endpoint correspondence remain open",
                   "theorem_roots": ROOTS, "commands": [], "cases": {}}
         report_path = work / "report.json"
         atomic_json(report_path, report)
         env = dict(os.environ, CARGO_BUILD_JOBS="1", RAYON_NUM_THREADS="1",
+                   OPAMROOTISOK="1",
                    GIT_NO_REPLACE_OBJECTS="1", COQPATH="", OCAMLPATH="",
                    CARGO_CACHE_RUSTC_INFO="0",
                    CARGO_TARGET_DIR=str(formal.CACHE / "decaf-proof-target"))
@@ -192,14 +256,18 @@ def main():
             index = len(report["commands"])
             report["commands"].append(list(map(str, args)))
             atomic_json(report_path, report)
-            log = work / f"{index:02}.log"
+            logs = work / "logs"
+            logs.mkdir(exist_ok=True)
+            log = command_log(work, index)
             failed = False
+            validate_evidence_size(work)
             try:
-                bounded_run(list(map(str, args)), cwd, env, log, work / "unused", work, 300)
+                bounded_run(list(map(str, args)), cwd, env, log, work / "unused", logs, 300)
             except RuntimeError as error:
                 if not expect_failure or not expected_failure(error, failure_code):
                     raise
                 failed = True
+            validate_evidence_size(work)
             if failed != expect_failure:
                 raise RuntimeError(f"unexpected command status; see {log.name}")
             return log.read_text()
@@ -248,7 +316,7 @@ def main():
             cache, bare = CACHES["rust"]
             if not bare or rust_source["role"] != "candidate":
                 raise ValueError("expected an immutable Rust candidate in the bare source cache")
-            source_log = work / f"{len(report['commands']):02}.log"
+            source_log = command_log(work, len(report["commands"]))
             command(["git", "--git-dir", cache, "show",
                      rust_source["revision"] + ":src/fields/fq/u32/generated.rs"])
             if formal.file_digest(source_log) != entry["sha256"]:
@@ -319,18 +387,27 @@ def main():
             limbs = [(modulus - 1 >> (32*i)) & ((1 << 32)-1) for i in range(8)]
             product_witness = ((1 + (1 << 32)) * pow(1 << 256, -1, modulus)) % modulus
             product_limbs = [(product_witness >> (32*i)) & ((1 << 32)-1) for i in range(8)]
-            for case_name in ("original", "wrong-modulus", "wrong-multiplication", "wrong-row-carry"):
+            final_witness = (((1 << 256) - 1) * (modulus - 1) * pow(1 << 256, -1, modulus)) % modulus
+            final_limbs = [(final_witness >> (32*i)) & ((1 << 32)-1) for i in range(8)]
+            for case_name in ("original", "wrong-modulus", "wrong-multiplication", "wrong-row-carry",
+                              "wrong-final-modulus", "wrong-final-selection", "wrong-late-carry", "wrong-suffix-connection"):
                 mutation = case_name != "original"
+                source_mutation = mutation and case_name != "wrong-suffix-connection"
                 case = work / case_name
                 case.mkdir()
                 (case / "Cargo.toml").write_text('[package]\nname="decaf_proof_slice"\nversion="0.0.0"\nedition="2021"\n[lib]\npath="lib.rs"\n[workspace]\n')
                 changed = (modulus_mutation(source) if case_name == "wrong-modulus" else
                            multiplication_mutation(source) if case_name == "wrong-multiplication" else
-                           row_carry_mutation(source) if case_name == "wrong-row-carry" else source)
+                           row_carry_mutation(source) if case_name == "wrong-row-carry" else
+                           final_mutation(source) if case_name == "wrong-final-modulus" else
+                           final_mutation(source, selection=True) if case_name == "wrong-final-selection" else
+                           late_carry_mutation(source) if case_name == "wrong-late-carry" else source)
                 (case / "fiat.rs").write_text(changed)
                 (case / "lib.rs").write_text('#![no_std]\npub mod fiat;\n#[test] fn modulus_witness() { let mut z=[0u32;8]; fiat::fq_add(&mut z,&' + str(limbs) + ',&[1,0,0,0,0,0,0,0]); assert_eq!(z,[0u32;8]); }\n'
                     '#[test] fn multiplication_witness() { let (mut lo,mut hi)=(0u32,0u32); fiat::fq_mulx_u32(&mut lo,&mut hi,0,0); assert_eq!((lo,hi),(0,0)); }\n'
-                    '#[test] fn row_carry_witness() { let mut z=[0u32;8]; fiat::fq_mul(&mut z,&[1,0,0,0,0,0,0,0],&[1,1,0,0,0,0,0,0]); assert_eq!(z,' + str(product_limbs) + '); }\n')
+                    '#[test] fn row_carry_witness() { let mut z=[0u32;8]; fiat::fq_mul(&mut z,&[1,0,0,0,0,0,0,0],&[1,1,0,0,0,0,0,0]); assert_eq!(z,' + str(product_limbs) + '); }\n'
+                    '#[test] fn final_boundary_witness() { let mut z=[0u32;8]; fiat::fq_mul(&mut z,&[4294967295u32;8],&' + str(limbs) + '); assert_eq!(z,' + str(final_limbs) + '); }\n'
+                    '#[test] fn final_selection_witness() { let mut z=[0u32;8]; fiat::fq_mul(&mut z,&[0u32;8],&[0u32;8]); assert_eq!(z,[0u32;8]); }\n')
                 report["cases"][case.name] = {"source_sha256": formal.file_digest(case / "fiat.rs")}
                 report["cases"][case.name]["input_hashes"] = {
                     name: formal.file_digest(case / name) for name in ("Cargo.toml", "lib.rs", "fiat.rs")}
@@ -338,10 +415,12 @@ def main():
                 env["RUSTDOC"] = str(test_tools["rustdoc"])
                 env[loader_variable] = str(test_lib)
                 witness = command([test_tools["cargo"], "test", "--release", "--", "--test-threads=1"],
-                                  case, mutation, failure_code=101)
+                                  case, source_mutation, failure_code=101)
                 witness_name = ("multiplication_witness" if case_name == "wrong-multiplication" else
+                                "final_boundary_witness" if case_name in ("wrong-final-modulus", "wrong-late-carry") else
+                                "final_selection_witness" if case_name == "wrong-final-selection" else
                                 "row_carry_witness" if case_name == "wrong-row-carry" else "modulus_witness")
-                if mutation and witness_name + " ... FAILED" not in witness:
+                if source_mutation and witness_name + " ... FAILED" not in witness:
                     raise ValueError("mutant did not fail its native arithmetic witness")
                 env["RUSTC"] = str(extraction_tools["rustc"])
                 env[loader_variable] = str(extraction_lib)
@@ -351,30 +430,58 @@ def main():
                 validate_accesses(extracted.read_text())
                 validate_mul_accesses(extracted.read_text())
                 report["cases"][case.name]["extraction_sha256"] = formal.file_digest(extracted)
-                derived = extraction / "NativeMultiplyPrefix.v"
-                derived.write_text(multiplication_prefix(extracted.read_text()) + multiplication_rounds(extracted.read_text()))
-                report["cases"][case.name]["derived_sources"] = {derived.name: formal.file_digest(derived)}
                 support = case / "support"
                 support.mkdir()
+                for name in MODULES:
+                    shutil.copyfile(PROOFS / "rocq" / (name + ".v"), support / (name + ".v"))
+                if case_name == "wrong-late-carry":
+                    try:
+                        multiplication_rounds(extracted.read_text())
+                    except ValueError as error:
+                        if str(error) != "native repeated rounds no longer share the reviewed shape":
+                            raise
+                    else:
+                        raise ValueError("late carry fault escaped round shape inventory")
+                    report["cases"][case.name].update(derived_sources={}, rejection_stage="round-shape-inventory")
+                    continue
+                derived = extraction / "NativeMultiplyPrefix.v"
+                derived.write_text(multiplication_prefix(extracted.read_text()) + multiplication_rounds(extracted.read_text()))
+                suffixes = multiplication_suffixes(extracted.read_text())
+                if case_name == "wrong-suffix-connection":
+                    suffixes = suffix_connection_mutation(suffixes)
+                for filename, content in suffixes.items():
+                    (extraction / filename).write_text(content)
+                report["cases"][case.name]["derived_sources"] = {
+                    filename: formal.file_digest(extraction / filename) for filename in sorted(DERIVED_SOURCES)}
                 flags = ["-Q", fiat_source / "src", "Crypto",
                          "-Q", fiat_source / "rewriter/src/Rewriter", "Rewriter",
                          "-Q", fiat_source / "coqprime/src/Coqprime", "Coqprime",
                          "-Q", fiat_source / "rupicola/bedrock2/deps/coqutil/src/coqutil", "coqutil",
                          "-Q", support, "Core", "-Q", records, "RecordUpdate", "-Q", extraction, "Slice"]
-                for name in MODULES:
-                    shutil.copyfile(PROOFS / "rocq" / (name + ".v"), support / (name + ".v"))
                 command([*compile_rocq, *flags, support / "Core.v"])
                 command([*compile_rocq, *flags, extracted])
                 command([*compile_rocq, *flags, derived])
                 for artifact in (support / "Core.vo", extracted.with_suffix(".vo"), derived.with_suffix(".vo")):
                     report["compiled_artifacts"][str(artifact.resolve(strict=True))] = formal.file_digest(artifact)
                 for name in MODULES[1:]:
+                    if name == "RustMultiplyTail":
+                        for suffix in SUFFIX_MODULES:
+                            command([*compile_rocq, *flags, extraction / (suffix + ".v")])
+                            artifact = extraction / (suffix + ".vo")
+                            report["compiled_artifacts"][str(artifact.resolve(strict=True))] = formal.file_digest(artifact)
                     rejected = ((case_name == "wrong-modulus" and name == "RustFieldAdd") or
                                 (case_name == "wrong-multiplication" and name == "RustMultiplyZero") or
-                                (case_name == "wrong-row-carry" and name == "RustMultiplyRow"))
+                                (case_name == "wrong-row-carry" and name == "RustMultiplyRow") or
+                                (case_name in ("wrong-final-modulus", "wrong-final-selection") and name == "RustFinalReduction") or
+                                (case_name == "wrong-suffix-connection" and name == "RustMultiplyTail"))
                     output = command([*compile_rocq, *flags, support / (name + ".v")], expect_failure=rejected)
                     if rejected:
-                        validate_rejection(output, support / (name + ".v"))
+                        if case_name == "wrong-suffix-connection":
+                            validate_connection_rejection(output, support / (name + ".v"))
+                            report["cases"][case.name]["rejection_stage"] = "source-decomposition"
+                        else:
+                            validate_rejection(output, support / (name + ".v"))
+                            report["cases"][case.name]["rejection_stage"] = "arithmetic-proof"
                         break
                     artifact = support / (name + ".vo")
                     report["compiled_artifacts"][str(artifact.resolve(strict=True))] = formal.file_digest(artifact)
