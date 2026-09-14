@@ -136,7 +136,7 @@ def main():
                 if not all(case["status"] == "passed" for case in report["cases"]):
                     raise ValueError("architecture controls must pass before Rust qualification")
                 source = matrix["sources"]["rust"]
-                source_path = "src/fields/fq/u32/fiat.rs"
+                source_path = "src/fields/fq/u32/generated.rs"
                 native = command(["git", "--git-dir=" + str(formal.CACHE / "decaf-rust.git"),
                                   "show", source["revision"] + ":" + source_path])
                 fiat = work / "fiat.rs"

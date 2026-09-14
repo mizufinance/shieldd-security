@@ -24,10 +24,9 @@ pub fn decaf_entry() {
         let mut b = [0u32; 8];
         a.copy_from_slice(&input[..8]);
         b.copy_from_slice(&input[8..]);
-        let mut out = fiat::FqMontgomeryDomainFieldElement([0u32; 8]);
-        fiat::fq_add(&mut out, &fiat::FqMontgomeryDomainFieldElement(a),
-                     &fiat::FqMontgomeryDomainFieldElement(b));
-        core::ptr::write_volatile(core::ptr::addr_of_mut!(decaf_output), out.0);
+        let mut out = [0u32; 8];
+        fiat::fq_add(&mut out, &a, &b);
+        core::ptr::write_volatile(core::ptr::addr_of_mut!(decaf_output), out);
     }
     decaf_done();
 }
