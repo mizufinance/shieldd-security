@@ -196,6 +196,7 @@ for a native field body by itself.
 
 ```sh
 python3 decaf_generate.py
+python3 decaf_perennial_build.py
 python3 decaf_go_field_proof.py
 python3 -m unittest discover -s tests -p test_decaf_go_field_proof.py
 ```
@@ -207,8 +208,9 @@ canonical and equals addition modulo the respective Fq or Fr modulus.
 `GoFieldAliases` and `GoFrFieldAliases` supply Fq and Fr disjoint-output, left-output, right-output,
 equal-input and all-equal corollaries. Inputs are read before exclusive output
 ownership is recovered for the writes; the applicable corollaries preserve the
-other input. Sixteen theorem roots require closed global assumptions and a kernel
-recheck.
+other input. The array-window and offset corollaries extend this to all five
+backing-storage sharing partitions. Twenty-seven theorem roots require closed
+global assumptions and a recursive kernel recheck.
 
 Each theorem explicitly exposes three helper resolver equations and the
 respective `FqUint1` or `FrUint1` underlying-type contract, in addition to Perennial's semantics, heap
@@ -218,11 +220,21 @@ full semantics consistency and compiler/extraction correspondence remain
 separate obligations.
 
 Separate Fq and Fr modulus mutations must each fail their named native boundary
-witness and arithmetic proof after fresh successful extraction and helper compilation. Native tests
-also cover same-array aliases and a one-word offset overlap in a larger backing
-array for both fields, preserving untouched cells. General offset-overlap
-refinement remains open. Evidence is generated atomically under
+witness and arithmetic proof after fresh successful extraction and helper compilation.
+Early-output-write mutations must each fail the offset/frame witness and the
+first-call execution-order proof. Native tests cover 2,058 offset cases and
+preserve untouched cells. The universal logical offset corollaries still need
+a concrete native allocation/pointer interpretation and termination proofs.
+See [go-field-offsets.md](go-field-offsets.md) for the exact scope and controls.
+
+The replay requires a fresh source build of reached Perennial imports, binds the
+consumer-selected Go runtime and package loader, and checks source, tool and
+artifact identities before and after kernel replay. Evidence is generated atomically under
 `.work/decaf-go-field-proof-replay`; `full_certification` remains false.
+
+[go-resolver.md](go-resolver.md) describes the subsequent construction of exact
+named-type and function-dispatch contracts and their conditional connection to
+the two addition theorems. It does not establish full Go model inhabitance.
 
 ## Rust field addition
 
