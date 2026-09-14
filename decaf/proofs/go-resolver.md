@@ -8,7 +8,7 @@ from its exact Goose extraction bytes. Run it after the field replay:
 python3 decaf_go_resolver_proof.py
 ```
 
-Its 182 audit roots cover:
+Its 317 audit roots cover:
 
 - One record containing the four generated named-type contracts and 35 function
   unfolding contracts: 32 generated field functions and `math/bits.Add64`,
@@ -94,3 +94,59 @@ original case and remain in the same evidence closure.
 
 Evidence is written under `.work/decaf-go-resolver-proof`.
 `full_certification` remains false.
+
+The explicit field-machine extension checks scalar representations and supported
+conversions, including constant representability and exact pointer-type guards.
+It supplies checked array references, a finite abstract block heap, an evaluator,
+fuel monotonicity, and soundness into a finite execution relation. The actual
+specialized Add64, Sub64, Mul64 and Fq conditional-move bodies have execution
+equations in this machine. Shared arithmetic lemmas establish carry/borrow
+correctness for one-bit carry inputs and the full 128-bit helper product.
+All 35 specialized bodies also have instruction/type-shape checks.
+
+These results do not establish Go/Goose adequacy or native execution correspondence.
+The shape check does not prove operand typing, constant ranges, shift counts,
+memory validity or field-body progress. The evaluator currently rejects unsupported
+operations and merges errors with fuel exhaustion as `None`; fuel bounds depth,
+not total steps. Successful helper equations project away the final heap except
+for the conditional-move write and the explicit pair-allocation-order equation.
+The block heap uses unbounded abstract addresses; native address bounds, allocation
+behavior, runtime concurrency and heap/pointer wellformedness remain obligations.
+No full Fq/Fr multiplication execution theorem is claimed by this extension.
+
+Four additional negative controls widen the byte-constant range, remove the
+pointer-type guard, reverse pair evaluation order, and replace word addition
+with subtraction. Each compiles fresh prerequisites and must fail its exact
+constant-rejection, pointer-rejection, effectful allocation-order or actual-helper
+execution proof. This extension is replayed from source alongside the dispatch
+proofs; copied experimental objects cannot satisfy its evidence closure.
+
+The framing extension proves prefix-preserving heap relocation, including
+pointer-valued scalar cells, checked array references, pure operations, and all
+35 dispatched function bodies. Successful execution preserves the supported
+expression/value fragment. Evaluation commutes with this relocation at the same
+fuel, including `None`; this is not a progress or failure-classification theorem.
+The fragment predicate admits unknown resolver names, which may fail to resolve.
+Arrays and sum payloads are not recursively relocated; tagged integer literals
+remain data rather than addresses.
+
+The actual Add64, Sub64 and Mul64 calls consequently execute in arbitrary existing
+abstract heaps, preserving the prefix and appending existential local blocks.
+No allocation count, reclamation, resource bound, native memory behavior or full
+Fq/Fr multiplication theorem follows from these corollaries. Two additional
+controls change the pointer-prefix displacement and incorrectly relocate tagged
+integer data; both must fail their exact control lemmas.
+
+Proof compilation disables only Rocq's `level-tolerance` notation-deprecation
+warning. Its repetition exceeded the bounded replay output budget; all other
+warnings, proof errors and the output cap remain enabled. The diagnostic flag is
+recorded in every compilation command, and a failed/interrupted replay remains
+incomplete regardless of earlier successful stages.
+
+The resolver replay retains fresh compiled objects for every control. It permits
+512 MiB for the entire run, including every log, and limits each command log to
+16 MiB. Both limits are checked before, during and after commands; a resource
+failure cannot count as an expected proof rejection, even if the process exits
+with status 1. Timeouts terminate the process group. The shared fuzz-runner
+100 MiB budget is unchanged. The earlier 317-root run that exceeded that aggregate
+budget remains failed; successful earlier stages do not complete its receipt.

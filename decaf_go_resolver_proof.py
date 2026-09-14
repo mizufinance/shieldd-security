@@ -5,6 +5,10 @@ from pathlib import Path
 import re
 import shutil
 import tempfile
+import os
+import signal
+import subprocess
+import time
 
 import formal
 import decaf_go_field_proof as field
@@ -16,7 +20,54 @@ from decaf_inventory import atomic_json
 from decaf_go_proof import validate_assumptions
 import decaf_go_resolver as resolver
 import decaf_go_specialization as specialization
-from security import bounded_run
+import decaf_go_execution as execution
+from security import size
+
+# A replay retains independently compiled objects for every negative control.
+# Its aggregate artifact budget is separate from the much smaller log budget.
+PROOF_BYTES = 512 * 1024 * 1024
+LOG_BYTES = 16 * 1024 * 1024
+
+
+def check_storage(run, log):
+    if size(run) > PROOF_BYTES:
+        raise RuntimeError("proof artifacts exceeded 512 MiB")
+    if log.exists() and log.stat().st_size > LOG_BYTES:
+        raise RuntimeError("proof command output exceeded 16 MiB")
+
+
+def bounded_proof_run(argv, run, env, log, timeout):
+    check_storage(run, log)
+    started = time.monotonic()
+    with log.open("w") as output:
+        process = subprocess.Popen(argv, cwd=run, env=env, stdout=output,
+                                   stderr=subprocess.STDOUT, start_new_session=True)
+        try:
+            while process.poll() is None:
+                check_storage(run, log)
+                if time.monotonic() - started > timeout:
+                    raise RuntimeError("proof process exceeded its wall-clock budget")
+                time.sleep(1)
+            if time.monotonic() - started > timeout:
+                raise RuntimeError("proof process exceeded its wall-clock budget")
+        finally:
+            try:
+                os.killpg(process.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                pass
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            process.wait()
+    # Resource exhaustion must never be mistaken for an expected proof rejection.
+    check_storage(run, log)
+    if process.returncode:
+        raise RuntimeError(f"verification process failed ({process.returncode}); see {log}")
 
 ROOTS = ("GoFieldResolver.constructed_contracts", "GoResolvedFieldAdd.resolved_fq_add",
          "GoResolvedFieldAdd.resolved_fr_add") + tuple("GoFieldEncoding." + name for name in (
@@ -24,11 +75,14 @@ ROOTS = ("GoFieldResolver.constructed_contracts", "GoResolvedFieldAdd.resolved_f
              "reject_empty_four", "replace_length", "replace_forall", "replace_here", "replace_elsewhere",
              "encoded_lookup", "bounded_lookup", "replace_wellformed", "call_roundtrip", "call_sound",
              "call_injective")) + tuple("GoFieldMemory." + name for name in (
-                 "address_one", "word_array_append", "word_array_window", "word_array_element", "native_four_view")) + specialization.ROOTS
+                 "address_one", "word_array_append", "word_array_window", "word_array_element", "native_four_view")) + specialization.ROOTS + execution.ROOTS
 FOUNDATIONS = ("GoFieldEncoding", "GoFieldMemory", *specialization.HANDWRITTEN)
 SPECIAL_CONTROLS = {"wrong-specialized-literal": "GoFullSpecialization",
                     "omitted-callee": "GoFieldCallRanks", "wrong-literal-dispatch": "GoLiteralDispatch"}
-CASES = ("original", "wrong-underlying", "wrong-dispatch", "wrong-array-length", "wrong-address", *SPECIAL_CONTROLS)
+CASES = ("original", "wrong-underlying", "wrong-dispatch", "wrong-array-length", "wrong-address", *SPECIAL_CONTROLS, *execution.CONTROLS)
+# Repeated legacy notation deprecations can exhaust the bounded output budget.
+# Keep every other warning and every proof error; record this exact choice in each argv.
+COMPILE_DIAGNOSTICS = ("-w", "-level-tolerance")
 PARENT_HELPERS = ("decaf_go_field_proof.py", "decaf_go_proof.py", "decaf_fiat_proof.py",
                   "decaf_fiat_build.py", "decaf_perennial_build.py", "decaf_toolchain.py",
                   "decaf_inventory.py", "formal.py", "security.py")
@@ -183,6 +237,8 @@ def validate_parent(report):
 
 
 def mutate(source, kind):
+    if kind in execution.CONTROLS:
+        return execution.mutate(source, kind)
     if kind == "wrong-specialized-literal":
         body = specialization.declaration(source, "FqAddⁱᵐᵖˡ")
         reads = [line for line in body.splitlines() if "IndexRef" in line and '"arg1"' in line]
@@ -213,9 +269,9 @@ def validate_rejection(output, source, path, kind):
     name = {"wrong-underlying": "underlying_FqUint1", "wrong-dispatch": "resolve_FqAdd",
             "wrong-array-length": "reject_empty_four", "wrong-address": "address_one",
             "wrong-specialized-literal": "specializes_FqAdd", "omitted-callee": "ranked_FqMul",
-            "wrong-literal-dispatch": "dispatch_FqAdd"}[kind]
+            "wrong-literal-dispatch": "dispatch_FqAdd", **{k: v[2] for k, v in execution.CONTROLS.items()}}[kind]
     lines = source.splitlines()
-    starts = [i for i, line in enumerate(lines) if line.startswith("Lemma " + name + " :")]
+    starts = [i for i, line in enumerate(lines) if re.match(r"^Lemma " + re.escape(name) + r"(?:\s|:)", line)]
     sites = []
     if len(starts) == 1:
         for i in range(starts[0] + 1, len(lines)):
@@ -236,13 +292,15 @@ def main():
         work.mkdir(parents=True, exist_ok=True)
         report_path = work / "report.json"
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "constructive field values, specialized syntax/dispatch, literal array ownership and conditional Fq/Fr addition",
+                  "scope": "constructive field values, specialized dispatch, explicit field-machine helper execution/correctness and heap framing, literal array ownership and conditional Fq/Fr addition",
                   "theorem_roots": list(ROOTS), "commands": [], "cases": {},
                   "inputs": {}, "artifacts": {}, "logs": {},
+                  "resource_limits": {"artifact_bytes": PROOF_BYTES, "command_log_bytes": LOG_BYTES},
                   "kernel_reduction": "recursive checking with bytecode reduction; Rocq VM/compiler correctness is trusted",
                   "open_obligations": ["GoGlobalContext and GoLocalContext construction",
                       "compatible PreSemantics for the modified dispatch instance", "native execution correspondence",
-                      "termination", "multiplication, group, encoding, compiled trace and consumer closure"]}
+                      "full field-body progress and arithmetic refinement", "native termination",
+                      "group, encoding, compiled trace and consumer closure"]}
         atomic_json(report_path, report)
         env = build_environment()
         env["OCAMLRUNPARAM"] = "s=2M,o=20,O=50"
@@ -262,7 +320,7 @@ def main():
             atomic_json(report_path, report)
             failed = False
             try:
-                bounded_run(argv, run, env, log, run / "unused", run, timeout)
+                bounded_proof_run(argv, run, env, log, timeout)
             except RuntimeError as error:
                 if not reject or "verification process failed (1)" not in str(error):
                     raise
@@ -284,8 +342,10 @@ def main():
             original, build = validate_parent(parent)
             handwritten = field.PROOFS / "rocq/GoResolvedFieldAdd.v"
             foundation_paths = {name: field.PROOFS / "rocq" / (name + ".v") for name in FOUNDATIONS}
+            model_paths = {name: field.PROOFS / "rocq" / (name + ".v") for name in execution.MODULES}
             for path in (formal.ROOT / "decaf_go_resolver.py", formal.ROOT / "decaf_go_resolver_proof.py",
-                         formal.ROOT / "decaf_go_specialization.py", handwritten, *foundation_paths.values()):
+                         formal.ROOT / "decaf_go_specialization.py", formal.ROOT / "decaf_go_execution.py",
+                         handwritten, *foundation_paths.values(), *model_paths.values()):
                 bind(path, "inputs")
             def parent_source(path):
                 data = path.read_bytes()
@@ -297,6 +357,7 @@ def main():
             bits_bytes = parent_source(original / "extraction/math/bits.v")
             generated = resolver.render(field_bytes, bits_bytes)
             specialized = specialization.render(field_bytes, bits_bytes)
+            instruction_shapes = execution.render_shapes(field_bytes, bits_bytes)
             perennial = Path(build["source_root"])
             library = Path(build["library_root"])
             worker = (library / "rocq-runtime/rocqworker").resolve(strict=True)
@@ -326,7 +387,7 @@ def main():
 
                 def compile_proof(path, reject=False):
                     bind(path)
-                    output = command([*prefix, worker, "--kind=compile", *flags, path], reject=reject)
+                    output = command([*prefix, worker, "--kind=compile", *COMPILE_DIAGNOSTICS, *flags, path], reject=reject)
                     if path.with_suffix(".vo").exists() == reject:
                         raise ValueError("unexpected compiled artifact at resolver proof stage")
                     for suffix in (".vo", ".vos", ".vok"):
@@ -346,7 +407,7 @@ def main():
                     current()
                     atomic_json(report_path, report)
                     continue
-                if name in ("original", "wrong-array-length", "wrong-address"):
+                if name in ("original", "wrong-array-length", "wrong-address", *execution.CONTROLS):
                     for module, original_proof in foundation_paths.items():
                         data = original_proof.read_bytes()
                         if hashlib.sha256(data).hexdigest() != report["inputs"][str(original_proof.resolve())]:
@@ -362,7 +423,7 @@ def main():
                             validate_rejection(output, source, proof, name)
                             evidence["status"] = "expected constructive foundation proof rejection"
                             break
-                    if name != "original":
+                    if name in ("wrong-array-length", "wrong-address"):
                         current()
                         atomic_json(report_path, report)
                         continue
@@ -370,6 +431,29 @@ def main():
                         proof = case / (module + ".v")
                         proof.write_text(text)
                         compile_proof(proof)
+                    for module, original_proof in model_paths.items():
+                        data = original_proof.read_bytes()
+                        if hashlib.sha256(data).hexdigest() != report["inputs"][str(original_proof.resolve())]:
+                            raise ValueError("field execution proof changed before copying")
+                        source = data.decode("utf-8")
+                        control = execution.CONTROLS.get(name)
+                        if control and module == control[0]:
+                            source = mutate(source, name)
+                        reject = bool(control and module == control[1])
+                        proof = case / (module + ".v")
+                        proof.write_text(source)
+                        output = compile_proof(proof, reject=reject)
+                        if reject:
+                            validate_rejection(output, source, proof, name)
+                            evidence["status"] = "expected field execution proof rejection"
+                            break
+                    if name in execution.CONTROLS:
+                        current()
+                        atomic_json(report_path, report)
+                        continue
+                    shapes = case / (execution.GENERATED + ".v")
+                    shapes.write_text(instruction_shapes)
+                    compile_proof(shapes)
                 source = generated if name == "original" else mutate(generated, name)
                 proof = case / "GoFieldResolver.v"
                 proof.write_text(source)
@@ -385,12 +469,13 @@ def main():
                     compile_proof(target)
                     audit = case / "ResolverAudit.v"
                     audit.write_text("Require Import GoFieldResolver GoResolvedFieldAdd " +
-                                     " ".join((*FOUNDATIONS, *specialization.GENERATED)) + ".\n" +
+                                     " ".join((*FOUNDATIONS, *specialization.GENERATED, *execution.MODULES, execution.GENERATED)) + ".\n" +
                                      "\n".join("Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(compile_proof(audit), ROOTS)
                     current()
                     command([*prefix, checker, "-bytecode-compiler", "yes", "-silent", *flags,
                              "GoFieldResolver", "GoResolvedFieldAdd", *FOUNDATIONS, *specialization.GENERATED,
+                             *execution.MODULES, execution.GENERATED,
                              "ResolverAudit"], timeout=2400)
                     current()
                     evidence["status"] = "compiled, closed global assumptions, recursively kernel rechecked"
