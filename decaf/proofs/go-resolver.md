@@ -8,7 +8,7 @@ from its exact Goose extraction bytes. Run it after the field replay:
 python3 decaf_go_resolver_proof.py
 ```
 
-Its 24 audit roots cover:
+Its 182 audit roots cover:
 
 - One record containing the four generated named-type contracts and 35 function
   unfolding contracts: 32 generated field functions and `math/bits.Add64`,
@@ -19,6 +19,11 @@ Its 24 audit roots cover:
   and frame preservation, and function/nested-tuple round trips.
 - Literal word-array ownership, window split/restore, single-element replacement,
   and the dynamic length invariant of `array.t w64 4`.
+- Specialization of all 32 extracted field bodies and three reached word helpers
+  to explicit literal and control-combinator encodings.
+- Syntactic inclusion and decreasing direct-call ranks for those 35 bodies.
+- A concrete dispatcher with unique names and exact body equations for all 35
+  entries, plus explicit control, integer-literal, and empty-FFI foundations.
 
 `GoFieldEncoding.v` and `GoFieldMemory.v` do not require `GoGlobalContext` or
 `PreSemantics`. The latter uses explicit literal encodings and the ordinary
@@ -34,6 +39,22 @@ not the Go indexing/panic semantics. Memory addresses count abstract heap cells,
 not native bytes. Each owned cell uses the ordinary non-null heap points-to
 predicate, while an empty array owns no cells. Allocation validity and the
 native pointer/address correspondence remain execution-bridge obligations.
+
+`decaf_go_specialization.py` generates four proof modules from the same exact
+extraction bytes as the resolver. The specialized bodies use a concrete empty
+external-interface syntax and do not require `GoGlobalContext`. Their equality
+to the old extracted bodies is conditional on explicit unit, string, boolean,
+word, byte, and untyped-integer encoding hypotheses. The equality proofs do not
+establish an inhabitant of that old universal interface.
+
+Untyped integers use an injective tagged syntax representation. Its
+location-shaped payload is data, not a heap address, and must never be accepted
+by the eventual pointer decoder. The syntax filter rejects unsupported
+constructors and checks named calls, but permits variables, applications and
+arbitrary operand types; it is not a typing or binding-closure proof. Call ranks
+and exact dispatch equations do not supply instruction semantics, safe memory
+access, progress, termination or native execution correspondence. Empty FFI
+supplies neither a language semantics nor adequacy.
 
 The function contracts identify the actual extracted bodies. They do not prove
 arithmetic correctness of all 32 functions. Nonempty type arguments and unknown
@@ -65,6 +86,11 @@ atomic passing receipt. Rocq VM/compiler trust is explicit.
 Two additional controls remove the array decoder's length check and double the
 word-address spacing. They must fail the empty-four-word-array rejection and
 one-word-address equations respectively, at their exact proof sites.
+Three specialization controls alter the first Fq addition input index, omit
+`bits.Add64` from the callee rank table, and map Fq addition to the subtraction
+body. They must fail the corresponding source-body equality, ranked-call check,
+and exact dispatch-body equation. Their dependencies are the freshly compiled
+original case and remain in the same evidence closure.
 
 Evidence is written under `.work/decaf-go-resolver-proof`.
 `full_certification` remains false.

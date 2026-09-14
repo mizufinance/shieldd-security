@@ -15,6 +15,7 @@ from decaf_fiat_build import build_environment
 from decaf_inventory import atomic_json
 from decaf_go_proof import validate_assumptions
 import decaf_go_resolver as resolver
+import decaf_go_specialization as specialization
 from security import bounded_run
 
 ROOTS = ("GoFieldResolver.constructed_contracts", "GoResolvedFieldAdd.resolved_fq_add",
@@ -23,9 +24,11 @@ ROOTS = ("GoFieldResolver.constructed_contracts", "GoResolvedFieldAdd.resolved_f
              "reject_empty_four", "replace_length", "replace_forall", "replace_here", "replace_elsewhere",
              "encoded_lookup", "bounded_lookup", "replace_wellformed", "call_roundtrip", "call_sound",
              "call_injective")) + tuple("GoFieldMemory." + name for name in (
-                 "address_one", "word_array_append", "word_array_window", "word_array_element", "native_four_view"))
-FOUNDATIONS = ("GoFieldEncoding", "GoFieldMemory")
-CASES = ("original", "wrong-underlying", "wrong-dispatch", "wrong-array-length", "wrong-address")
+                 "address_one", "word_array_append", "word_array_window", "word_array_element", "native_four_view")) + specialization.ROOTS
+FOUNDATIONS = ("GoFieldEncoding", "GoFieldMemory", *specialization.HANDWRITTEN)
+SPECIAL_CONTROLS = {"wrong-specialized-literal": "GoFullSpecialization",
+                    "omitted-callee": "GoFieldCallRanks", "wrong-literal-dispatch": "GoLiteralDispatch"}
+CASES = ("original", "wrong-underlying", "wrong-dispatch", "wrong-array-length", "wrong-address", *SPECIAL_CONTROLS)
 PARENT_HELPERS = ("decaf_go_field_proof.py", "decaf_go_proof.py", "decaf_fiat_proof.py",
                   "decaf_fiat_build.py", "decaf_perennial_build.py", "decaf_toolchain.py",
                   "decaf_inventory.py", "formal.py", "security.py")
@@ -180,6 +183,14 @@ def validate_parent(report):
 
 
 def mutate(source, kind):
+    if kind == "wrong-specialized-literal":
+        body = specialization.declaration(source, "FqAddⁱᵐᵖˡ")
+        reads = [line for line in body.splitlines() if "IndexRef" in line and '"arg1"' in line]
+        old = "(encode Uint64 (W64 0))"
+        if not reads or old not in reads[0]:
+            raise ValueError("specialized addition index control no longer matches")
+        changed = reads[0].replace(old, "(encode Uint64 (W64 1))", 1)
+        return source.replace(body, body.replace(reads[0], changed, 1), 1)
     old, new = {
         "wrong-underlying": ("if decide (t = fiat.FqUint1) then fiat.FqUint1ⁱᵐᵖˡ else",
                              "if decide (t = fiat.FqUint1) then fiat.FqInt1ⁱᵐᵖˡ else"),
@@ -189,16 +200,29 @@ def mutate(source, kind):
                                "if true then traverse (decode element) vs else None"),
         "wrong-address": ("Definition word_address l i := loc_add l (Z.of_nat i).",
                           "Definition word_address l i := loc_add l (2 * Z.of_nat i)."),
+        "omitted-callee": ("[literal_bits.Add64;", "["),
+        "wrong-literal-dispatch": ("| IdFqAdd => @literal_fiat.FqAddⁱᵐᵖˡ field_syntax",
+                                   "| IdFqAdd => @literal_fiat.FqSubⁱᵐᵖˡ field_syntax"),
     }[kind]
-    if source.count(old) != 1 or new in source:
+    if source.count(old) != 1 or (kind != "omitted-callee" and new in source):
         raise ValueError("resolver control no longer matches")
     return source.replace(old, new)
 
 
 def validate_rejection(output, source, path, kind):
     name = {"wrong-underlying": "underlying_FqUint1", "wrong-dispatch": "resolve_FqAdd",
-            "wrong-array-length": "reject_empty_four", "wrong-address": "address_one"}[kind]
-    sites = [i + 1 for i, line in enumerate(source.splitlines(), 1) if line.startswith("Lemma " + name + " :")]
+            "wrong-array-length": "reject_empty_four", "wrong-address": "address_one",
+            "wrong-specialized-literal": "specializes_FqAdd", "omitted-callee": "ranked_FqMul",
+            "wrong-literal-dispatch": "dispatch_FqAdd"}[kind]
+    lines = source.splitlines()
+    starts = [i for i, line in enumerate(lines) if line.startswith("Lemma " + name + " :")]
+    sites = []
+    if len(starts) == 1:
+        for i in range(starts[0] + 1, len(lines)):
+            if "reflexivity." in lines[i]:
+                sites.append(i + 1)
+            if "Qed." in lines[i]:
+                break
     errors = re.findall(r'^File "([^"\n]+)", line (\d+), characters \d+-\d+:\s*\nError:', output, re.M)
     if (len(sites) != 1 or len(errors) != 1 or len(re.findall(r'^Error:', output, re.M)) != 1 or
             errors[0][0] != str(path.resolve(strict=True)) or int(errors[0][1]) != sites[0] or
@@ -212,7 +236,7 @@ def main():
         work.mkdir(parents=True, exist_ok=True)
         report_path = work / "report.json"
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "constructive field values and literal array ownership; dispatch contracts and conditional Fq/Fr addition",
+                  "scope": "constructive field values, specialized syntax/dispatch, literal array ownership and conditional Fq/Fr addition",
                   "theorem_roots": list(ROOTS), "commands": [], "cases": {},
                   "inputs": {}, "artifacts": {}, "logs": {},
                   "kernel_reduction": "recursive checking with bytecode reduction; Rocq VM/compiler correctness is trusted",
@@ -261,7 +285,7 @@ def main():
             handwritten = field.PROOFS / "rocq/GoResolvedFieldAdd.v"
             foundation_paths = {name: field.PROOFS / "rocq" / (name + ".v") for name in FOUNDATIONS}
             for path in (formal.ROOT / "decaf_go_resolver.py", formal.ROOT / "decaf_go_resolver_proof.py",
-                         handwritten, *foundation_paths.values()):
+                         formal.ROOT / "decaf_go_specialization.py", handwritten, *foundation_paths.values()):
                 bind(path, "inputs")
             def parent_source(path):
                 data = path.read_bytes()
@@ -269,8 +293,10 @@ def main():
                     raise ValueError("resolver read source bytes outside the parent binding")
                 return data
 
-            generated = resolver.render(parent_source(original / "extraction/mizufinance_local/decaf/fiat.v"),
-                                        parent_source(original / "extraction/math/bits.v"))
+            field_bytes = parent_source(original / "extraction/mizufinance_local/decaf/fiat.v")
+            bits_bytes = parent_source(original / "extraction/math/bits.v")
+            generated = resolver.render(field_bytes, bits_bytes)
+            specialized = specialization.render(field_bytes, bits_bytes)
             perennial = Path(build["source_root"])
             library = Path(build["library_root"])
             worker = (library / "rocq-runtime/rocqworker").resolve(strict=True)
@@ -295,6 +321,8 @@ def main():
                 evidence = report["cases"][name] = {"directory": str(case), "status": "pending"}
                 flags = ["-Q", perennial / "src", "Perennial", "-Q", perennial / "new", "New",
                          "-Q", original / "extraction", "New.code", "-Q", original / "support", "", "-Q", case, ""]
+                if name in SPECIAL_CONTROLS:
+                    flags = flags[:-3] + ["-Q", run / "original", "", *flags[-3:]]
 
                 def compile_proof(path, reject=False):
                     bind(path)
@@ -306,6 +334,18 @@ def main():
                             bind(path.with_suffix(suffix))
                     return output
 
+                if name in SPECIAL_CONTROLS:
+                    current()
+                    module = SPECIAL_CONTROLS[name]
+                    source = mutate(specialized[module], name)
+                    proof = case / (module + ".v")
+                    proof.write_text(source)
+                    output = compile_proof(proof, reject=True)
+                    validate_rejection(output, source, proof, name)
+                    evidence["status"] = "expected specialization proof rejection"
+                    current()
+                    atomic_json(report_path, report)
+                    continue
                 if name in ("original", "wrong-array-length", "wrong-address"):
                     for module, original_proof in foundation_paths.items():
                         data = original_proof.read_bytes()
@@ -326,6 +366,10 @@ def main():
                         current()
                         atomic_json(report_path, report)
                         continue
+                    for module, text in specialized.items():
+                        proof = case / (module + ".v")
+                        proof.write_text(text)
+                        compile_proof(proof)
                 source = generated if name == "original" else mutate(generated, name)
                 proof = case / "GoFieldResolver.v"
                 proof.write_text(source)
@@ -340,12 +384,14 @@ def main():
                         raise ValueError("resolver connection proof copy changed")
                     compile_proof(target)
                     audit = case / "ResolverAudit.v"
-                    audit.write_text("Require Import GoFieldResolver GoResolvedFieldAdd GoFieldEncoding GoFieldMemory.\n" +
+                    audit.write_text("Require Import GoFieldResolver GoResolvedFieldAdd " +
+                                     " ".join((*FOUNDATIONS, *specialization.GENERATED)) + ".\n" +
                                      "\n".join("Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(compile_proof(audit), ROOTS)
                     current()
                     command([*prefix, checker, "-bytecode-compiler", "yes", "-silent", *flags,
-                             "GoFieldResolver", "GoResolvedFieldAdd", *FOUNDATIONS, "ResolverAudit"], timeout=1800)
+                             "GoFieldResolver", "GoResolvedFieldAdd", *FOUNDATIONS, *specialization.GENERATED,
+                             "ResolverAudit"], timeout=2400)
                     current()
                     evidence["status"] = "compiled, closed global assumptions, recursively kernel rechecked"
                 current()
