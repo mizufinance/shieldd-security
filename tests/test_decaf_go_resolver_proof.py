@@ -15,13 +15,18 @@ class GoResolverReplayTests(unittest.TestCase):
             ("wrong-underlying", "underlying_FqUint1",
              "if decide (t = fiat.FqUint1) then fiat.FqUint1ⁱᵐᵖˡ else"),
             ("wrong-dispatch", "resolve_FqAdd",
-             "if decide (name = fiat.FqAdd) then as_function fiat.FqAddⁱᵐᵖˡ else")):
+             "if decide (name = fiat.FqAdd) then as_function fiat.FqAddⁱᵐᵖˡ else"),
+            ("wrong-array-length", "reject_empty_four",
+             "if Nat.eqb (List.length vs) n then traverse (decode element) vs else None"),
+            ("wrong-address", "address_one",
+             "Definition word_address l i := loc_add l (Z.of_nat i).")):
             source = anchor + "\nLemma " + name + " : proposition.\nProof. reflexivity. Qed.\n"
             changed = replay.mutate(source, kind)
             with self.assertRaises(ValueError):
                 replay.mutate(changed, kind)
             with tempfile.TemporaryDirectory() as temp:
-                path = Path(temp) / "GoFieldResolver.v"
+                path = Path(temp) / ({"wrong-array-length": "GoFieldEncoding.v",
+                                     "wrong-address": "GoFieldMemory.v"}.get(kind, "GoFieldResolver.v"))
                 path.write_text(changed)
                 diagnostic = f'File "{path.resolve()}", line 3, characters 7-18:\nError: Unable to unify "a" with "b".'
                 replay.validate_rejection(diagnostic, changed, path, kind)

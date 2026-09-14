@@ -18,7 +18,14 @@ import decaf_go_resolver as resolver
 from security import bounded_run
 
 ROOTS = ("GoFieldResolver.constructed_contracts", "GoResolvedFieldAdd.resolved_fq_add",
-         "GoResolvedFieldAdd.resolved_fr_add")
+         "GoResolvedFieldAdd.resolved_fr_add") + tuple("GoFieldEncoding." + name for name in (
+             "encode_injective", "array_length", "decode_encode", "decode_sound", "wrong_array_length",
+             "reject_empty_four", "replace_length", "replace_forall", "replace_here", "replace_elsewhere",
+             "encoded_lookup", "bounded_lookup", "replace_wellformed", "call_roundtrip", "call_sound",
+             "call_injective")) + tuple("GoFieldMemory." + name for name in (
+                 "address_one", "word_array_append", "word_array_window", "word_array_element", "native_four_view"))
+FOUNDATIONS = ("GoFieldEncoding", "GoFieldMemory")
+CASES = ("original", "wrong-underlying", "wrong-dispatch", "wrong-array-length", "wrong-address")
 PARENT_HELPERS = ("decaf_go_field_proof.py", "decaf_go_proof.py", "decaf_fiat_proof.py",
                   "decaf_fiat_build.py", "decaf_perennial_build.py", "decaf_toolchain.py",
                   "decaf_inventory.py", "formal.py", "security.py")
@@ -178,6 +185,10 @@ def mutate(source, kind):
                              "if decide (t = fiat.FqUint1) then fiat.FqInt1ⁱᵐᵖˡ else"),
         "wrong-dispatch": ("if decide (name = fiat.FqAdd) then as_function fiat.FqAddⁱᵐᵖˡ else",
                            "if decide (name = fiat.FqAdd) then as_function fiat.FqSubⁱᵐᵖˡ else"),
+        "wrong-array-length": ("if Nat.eqb (List.length vs) n then traverse (decode element) vs else None",
+                               "if true then traverse (decode element) vs else None"),
+        "wrong-address": ("Definition word_address l i := loc_add l (Z.of_nat i).",
+                          "Definition word_address l i := loc_add l (2 * Z.of_nat i)."),
     }[kind]
     if source.count(old) != 1 or new in source:
         raise ValueError("resolver control no longer matches")
@@ -185,7 +196,8 @@ def mutate(source, kind):
 
 
 def validate_rejection(output, source, path, kind):
-    name = {"wrong-underlying": "underlying_FqUint1", "wrong-dispatch": "resolve_FqAdd"}[kind]
+    name = {"wrong-underlying": "underlying_FqUint1", "wrong-dispatch": "resolve_FqAdd",
+            "wrong-array-length": "reject_empty_four", "wrong-address": "address_one"}[kind]
     sites = [i + 1 for i, line in enumerate(source.splitlines(), 1) if line.startswith("Lemma " + name + " :")]
     errors = re.findall(r'^File "([^"\n]+)", line (\d+), characters \d+-\d+:\s*\nError:', output, re.M)
     if (len(sites) != 1 or len(errors) != 1 or len(re.findall(r'^Error:', output, re.M)) != 1 or
@@ -200,7 +212,7 @@ def main():
         work.mkdir(parents=True, exist_ok=True)
         report_path = work / "report.json"
         report = {"status": "failed", "completed": False, "full_certification": False,
-                  "scope": "constructed field named-type/helper dispatch contracts and conditional Fq/Fr addition connection",
+                  "scope": "constructive field values and literal array ownership; dispatch contracts and conditional Fq/Fr addition",
                   "theorem_roots": list(ROOTS), "commands": [], "cases": {},
                   "inputs": {}, "artifacts": {}, "logs": {},
                   "kernel_reduction": "recursive checking with bytecode reduction; Rocq VM/compiler correctness is trusted",
@@ -247,7 +259,9 @@ def main():
             parent = json.loads(data)
             original, build = validate_parent(parent)
             handwritten = field.PROOFS / "rocq/GoResolvedFieldAdd.v"
-            for path in (formal.ROOT / "decaf_go_resolver.py", formal.ROOT / "decaf_go_resolver_proof.py", handwritten):
+            foundation_paths = {name: field.PROOFS / "rocq" / (name + ".v") for name in FOUNDATIONS}
+            for path in (formal.ROOT / "decaf_go_resolver.py", formal.ROOT / "decaf_go_resolver_proof.py",
+                         handwritten, *foundation_paths.values()):
                 bind(path, "inputs")
             def parent_source(path):
                 data = path.read_bytes()
@@ -275,14 +289,10 @@ def main():
                 if actual != set(report["artifacts"]):
                     raise ValueError("resolver source/proof artifact inventory changed")
 
-            for name in ("original", "wrong-underlying", "wrong-dispatch"):
+            for name in CASES:
                 case = run / name
                 case.mkdir()
                 evidence = report["cases"][name] = {"directory": str(case), "status": "pending"}
-                source = generated if name == "original" else mutate(generated, name)
-                proof = case / "GoFieldResolver.v"
-                proof.write_text(source)
-                bind(proof)
                 flags = ["-Q", perennial / "src", "Perennial", "-Q", perennial / "new", "New",
                          "-Q", original / "extraction", "New.code", "-Q", original / "support", "", "-Q", case, ""]
 
@@ -296,6 +306,29 @@ def main():
                             bind(path.with_suffix(suffix))
                     return output
 
+                if name in ("original", "wrong-array-length", "wrong-address"):
+                    for module, original_proof in foundation_paths.items():
+                        data = original_proof.read_bytes()
+                        if hashlib.sha256(data).hexdigest() != report["inputs"][str(original_proof.resolve())]:
+                            raise ValueError("constructive foundation proof changed before copying")
+                        text = data.decode("utf-8")
+                        reject = (name, module) in (("wrong-array-length", "GoFieldEncoding"),
+                                                  ("wrong-address", "GoFieldMemory"))
+                        source = mutate(text, name) if reject else text
+                        proof = case / (module + ".v")
+                        proof.write_text(source)
+                        output = compile_proof(proof, reject=reject)
+                        if reject:
+                            validate_rejection(output, source, proof, name)
+                            evidence["status"] = "expected constructive foundation proof rejection"
+                            break
+                    if name != "original":
+                        current()
+                        atomic_json(report_path, report)
+                        continue
+                source = generated if name == "original" else mutate(generated, name)
+                proof = case / "GoFieldResolver.v"
+                proof.write_text(source)
                 output = compile_proof(proof, reject=name != "original")
                 if name != "original":
                     validate_rejection(output, source, proof, name)
@@ -307,12 +340,12 @@ def main():
                         raise ValueError("resolver connection proof copy changed")
                     compile_proof(target)
                     audit = case / "ResolverAudit.v"
-                    audit.write_text("Require Import GoFieldResolver GoResolvedFieldAdd.\n" +
+                    audit.write_text("Require Import GoFieldResolver GoResolvedFieldAdd GoFieldEncoding GoFieldMemory.\n" +
                                      "\n".join("Print Assumptions " + root + "." for root in ROOTS) + "\n")
                     validate_assumptions(compile_proof(audit), ROOTS)
                     current()
                     command([*prefix, checker, "-bytecode-compiler", "yes", "-silent", *flags,
-                             "GoFieldResolver", "GoResolvedFieldAdd", "ResolverAudit"], timeout=1800)
+                             "GoFieldResolver", "GoResolvedFieldAdd", *FOUNDATIONS, "ResolverAudit"], timeout=1800)
                     current()
                     evidence["status"] = "compiled, closed global assumptions, recursively kernel rechecked"
                 current()
