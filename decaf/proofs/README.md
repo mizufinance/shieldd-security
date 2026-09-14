@@ -311,12 +311,15 @@ Its domain requires eight canonical u32 words in each input and `0 <= b < q`;
 it permits any eight-word value for `a`. This is a theorem in the supplied total
 `Core` model, not permission to broaden the native library's input contract.
 
-The intended full Fiat bridge remains semantic equality of
-the complete canonical output lists: independently prove native and exact-option
-Fiat correctness, then use canonical radix-digit uniqueness. This avoids requiring
-syntactically matching intermediate programs; it does not replace native safety,
-termination, compiler or trace proofs. The earlier experimental row-to-Fiat
-equality did not complete kernel checking and is not evidence.
+[`fiat-endpoint.md`](fiat-endpoint.md) describes the exact Fq bridge: semantic
+equality of the complete canonical output lists, using native and exact-option
+Fiat correctness and canonical radix-digit uniqueness. Its separate replay keeps
+Fiat's VM/compiler trust explicit. It does not replace native safety, termination,
+compiler or trace proofs. The earlier experimental row-to-Fiat equality did not
+complete kernel checking and is not evidence.
+
+[`fr-multiplication.md`](fr-multiplication.md) describes the separate Fr replay
+and its source-specific coefficient and carry obligations.
 
 ## Orbis nonce refinement
 

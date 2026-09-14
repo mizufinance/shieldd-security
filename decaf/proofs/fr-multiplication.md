@@ -34,7 +34,22 @@ atomically under `.work/decaf-fr-field-proof`, with separate bounded logs and
 proof-artifact storage. Local compilation and experimental kernel checks do not
 substitute for this fresh replay.
 
+`python3 decaf_fr_fiat_bridge.py` separately replays 24 roots connecting the
+complete native Fr output to Fiat's typed pipeline with the exact recorded
+Rust32 generation options. The bridge requires both inputs reduced below Fr,
+proves the positional/partition representation conversion, and cancels the
+Montgomery decoding factor using its proved inverse. The output words are equal
+to the pipeline output, rather than only congruent modulo Fr.
+
+The endpoint runner reconstructs the native receipt's complete source and
+compiled-artifact inventory, including the extracted body, all eleven derived
+checkpoints, handwritten modules, audits, and each rejection control. It requires
+the fresh accepted Fr and Fq parent replays and the exact generation and Fiat
+build receipts. Its recursive kernel check includes Fiat's VM-enabled pipeline;
+the VM/compiler trust is explicit and distinct from the native replay's VM-free
+check. Missing, changed, or interrupted evidence remains rejected.
+
 These are arithmetic theorems in the supplied total `Core` model. Native
-execution/extraction semantics, overflow/panic safety, termination, the exact
-Fiat Fr endpoint, other field operations, compiled traces and consumer/protocol
-closure remain separate obligations. `full_certification` remains false.
+execution/extraction semantics, overflow/panic safety, termination, other field
+operations, compiled traces and consumer/protocol closure remain separate
+obligations. `full_certification` remains false.
