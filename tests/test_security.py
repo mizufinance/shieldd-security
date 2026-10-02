@@ -1,63 +1,131 @@
-import argparse
 import json
 from pathlib import Path
-import subprocess
-import sys
 import tempfile
 import unittest
 from unittest.mock import patch
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import decoder_contract
 import security
 
+class IdentityTests(unittest.TestCase):
+    def test_policy_check_has_no_verifier_or_historical_inventory_dependency(self):
+        with patch.object(security.sys, 'argv', ['security.py', 'check']), \
+                patch.object(security, 'run', side_effect=AssertionError('unexpected verifier invocation')):
+            self.assertEqual(security.main(), 0)
 
-class DecoderToolingTests(unittest.TestCase):
-    def test_exact_runtime_sources_are_copied_and_hashed(self):
+    def test_duplicate_identity_key_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "lock.json"
+            path.write_text('{"sha":"a","sha":"b"}')
+            with self.assertRaisesRegex(security.CheckError, "duplicate"):
+                security.read_json(path)
+
+    def test_branch_name_is_not_a_pin(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            source = root / "source" / decoder_contract.BOUNDARY
-            source.mkdir(parents=True)
-            for name in ("aggregate_proof_wrapper", "canonical_encoding"):
-                (source / f"{name}.rs").write_text(f"// exact {name}\n")
-            crate = root / "crate"
-            hashes = decoder_contract.prepare(root / "source", crate)
-            for path, checksum in hashes.items():
-                self.assertEqual((root / "source" / path).read_bytes(), (crate / "src" / Path(path).name).read_bytes())
-                self.assertEqual(checksum, security.formal.file_digest(crate / "src" / Path(path).name))
+            (root / "shieldd.lock").write_text(json.dumps({"sha":"dev","ref":"dev"}))
+            with self.assertRaisesRegex(security.CheckError, "full lowercase"):
+                security.locked_sha(root)
 
-    def test_bootstrap_failure_writes_failed_report(self):
+    def test_runtime_dirty_or_wrong_commit_rejected(self):
+        with patch.object(security, "run", return_value="b" * 40):
+            with self.assertRaisesRegex(security.CheckError, "differs"):
+                security.runtime_identity(Path.cwd(), "a" * 40)
+        with patch.object(security, "run", side_effect=["a" * 40, " M src/lib.rs"]):
+            with self.assertRaisesRegex(security.CheckError, "dirty"):
+                security.runtime_identity(Path.cwd(), "a" * 40)
+
+    def test_missing_family_fails_closed(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            with patch.object(security.formal, "WORK", root / "work"), \
-                 patch.object(security.formal, "CACHE", root / "cache"), \
-                 patch.object(security.formal, "resolve_inputs", side_effect=RuntimeError("missing candidate")):
-                with self.assertRaisesRegex(RuntimeError, "missing candidate"):
-                    security.fuzz_locked(argparse.Namespace(seconds=1))
-            report = json.loads((root / "work/fuzz-report/report.json").read_text())
-            self.assertEqual(report["status"], "failed")
-            self.assertFalse(report["full_certification"])
-            self.assertIsNone(report["candidate_revision"])
+            (root / "shieldd.lock").write_bytes((security.ROOT / "shieldd.lock").read_bytes())
+            register = security.read_json(security.ROOT / "assurance.json")
+            del register["families"]["seizure"]
+            (root / "assurance.json").write_text(json.dumps(register))
+            with self.assertRaisesRegex(security.CheckError, "seven"):
+                security.check_register(root)
 
-    def test_nonzero_fuzzer_exit_is_a_failure(self):
+    def test_failed_promotion_preserves_previous_result(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "result.json"
+            path.write_text('{"old":true}')
+            with patch.object(security.os, "replace", side_effect=OSError("blocked")):
+                with self.assertRaises(OSError):
+                    security.write_result(path, {"new": True})
+            self.assertEqual(json.loads(path.read_text()), {"old": True})
+            self.assertEqual(list(path.parent.iterdir()), [path])
+
+    def test_required_obligations_cannot_disappear(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            corpus, reports = root / "corpus", root / "reports"
-            corpus.mkdir()
-            reports.mkdir()
-            with self.assertRaisesRegex(RuntimeError, "failed"):
-                security.bounded_run([sys.executable, "-c", "raise SystemExit(7)"], root, None, reports / "log", corpus, reports, 10)
+            (root / "shieldd.lock").write_bytes((security.ROOT / "shieldd.lock").read_bytes())
+            register = security.read_json(security.ROOT / "assurance.json")
+            del register["claims"]["system"]
+            (root / "assurance.json").write_text(json.dumps(register))
+            with self.assertRaisesRegex(security.CheckError, "required assurance"):
+                security.check_register(root)
 
-    def test_output_budget_is_enforced_even_when_process_exits(self):
+    def test_family_status_cannot_claim_pilot_certification(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            corpus, reports = root / "corpus", root / "reports"
-            corpus.mkdir()
-            reports.mkdir()
-            (corpus / "seed").write_bytes(b"0123456789")
-            with patch.object(security, "BYTE_LIMIT", 1), self.assertRaisesRegex(RuntimeError, "exceeded"):
-                security.bounded_run([sys.executable, "-c", "pass"], root, None, reports / "log", corpus, reports, 10)
+            (root / "shieldd.lock").write_bytes((security.ROOT / "shieldd.lock").read_bytes())
+            register = security.read_json(security.ROOT / "assurance.json")
+            register["families"]["transfer"] = "proved"
+            (root / "assurance.json").write_text(json.dumps(register))
+            with self.assertRaisesRegex(security.CheckError, "whole-family"):
+                security.check_register(root)
 
+    def test_adapter_cannot_override_receipt_identity(self):
+        identity = {"sha":"a"*40}
+        with patch.object(security, "runtime_identity", return_value=identity), patch.object(security, "source_identity", return_value={"dirty": True}), patch.object(Path, "is_file", return_value=True), patch.object(security, "run", return_value='{"outcome":"passed","runtime":{"sha":"forged"},"security":{"dirty":false}}'):
+            result = security.execute_pilot("circuits", security.ROOT / ".work/shieldd-current")
+        self.assertEqual(result["runtime"], identity)
+        self.assertTrue(result["security"]["dirty"])
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_source_drift_during_run_discards_result(self):
+        with patch.object(security, "runtime_identity", return_value={"sha":"a"*40}), patch.object(security, "source_identity", side_effect=[{"sha256":"before"},{"sha256":"after"}]), patch.object(Path, "is_file", return_value=True), patch.object(security, "run", return_value='{"outcome":"passed"}'):
+            with self.assertRaisesRegex(security.CheckError, "changed during"):
+                security.execute_pilot("circuits", security.ROOT / ".work/shieldd-current")
+
+    def test_pilot_cannot_name_a_different_checkout_than_cargo(self):
+        with self.assertRaisesRegex(security.CheckError, "Cargo dependencies"):
+            security.execute_pilot("circuits", Path.cwd())
+
+    def test_timeout_stops_child_process(self):
+        import subprocess
+        import sys
+        import time
+        with tempfile.TemporaryDirectory() as directory:
+            marker = Path(directory) / "orphan.txt"
+            child = "import time; from pathlib import Path; time.sleep(1.2); Path(" + repr(str(marker)) + ").write_text('orphan')"
+            parent = "import subprocess,sys,time; subprocess.Popen([sys.executable,'-c'," + repr(child) + "]); time.sleep(10)"
+            with self.assertRaises(subprocess.TimeoutExpired):
+                security.run([sys.executable, "-c", parent], timeout=0.3)
+            time.sleep(1.3)
+            self.assertFalse(marker.exists(), "timed-out verifier left an active child")
+
+    @unittest.skipIf(security.os.name == "nt", "POSIX process-group regression")
+    def test_nested_runner_remains_in_outer_timeout_group(self):
+        import subprocess
+        import sys
+        import time
+        with tempfile.TemporaryDirectory() as directory:
+            marker = Path(directory) / "orphan.txt"
+            child = "import time; from pathlib import Path; time.sleep(1.2); Path(" + repr(str(marker)) + ").write_text('orphan')"
+            adapter = "import security,sys; security.run([sys.executable,'-c'," + repr(child) + "], timeout=10, check=False)"
+            with self.assertRaises(subprocess.TimeoutExpired):
+                security.run([sys.executable, "-c", adapter], timeout=0.3)
+            time.sleep(1.3)
+            self.assertFalse(marker.exists(), "nested runner escaped outer timeout group")
+
+    def test_expected_semantic_failure_can_be_inspected(self):
+        import sys
+        result = security.run([sys.executable, "-c", "import sys; print('semantic rejection'); sys.exit(7)"], check=False)
+        self.assertEqual(result.returncode, 7)
+        self.assertEqual(result.stdout.strip(), "semantic rejection")
+
+    def test_model_only_cannot_replace_full_runtime_evidence(self):
+        with patch.object(security, 'runtime_identity', return_value={'sha':'a'*40}), patch.object(security, 'source_identity', return_value={'dirty':True}), patch.object(Path, 'is_file', return_value=True), patch.object(security, 'run', return_value='{"outcome":"passed","runtime":null}'):
+            with self.assertRaisesRegex(security.CheckError, 'actual runtime evidence'):
+                security.execute_pilot('state', security.ROOT / '.work/shieldd-current')
+            result = security.execute_pilot('state', security.ROOT / '.work/shieldd-current', model_only=True)
+        self.assertEqual(result['pilot'], 'state-model')
+        self.assertEqual(result['command'][-1], '--model-only')

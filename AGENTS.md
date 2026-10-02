@@ -15,6 +15,17 @@ referenced by an exact `shieldd.lock` commit.
 - A certification result is meaningful only for the full SHA in
   `shieldd.lock`; never certify a branch name or a dirty working tree.
 
-More specific rules under `tools/gnark/lean/AGENTS.md` remain authoritative for
-Lean and generator work.
+Keep this repository small: one CLI, one claim register, one Lean package, and
+models backed by real runtime replay. Add infrastructure only for a live claim.
+
+Lean proofs must use finite heartbeats, small reusable lemmas and symbolic
+recurrences instead of unrolled wide constraint walks. Never use `sorry`,
+`admit`, or new unsound axioms. Audit theorem conclusions, premises and axioms.
+Monitor builds and stop this task's jobs on memory pressure. Run only one heavy
+verification job at a time across agents (Lean, Cargo, or model checking).
+
+Evidence must distinguish proof, bounded model checking, runtime testing and
+assumptions. A hash establishes identity, not semantic correspondence. Negative
+controls count only when the intended semantic failure is observed; a compiler
+error, missing dependency or timeout is not a successful control.
 
