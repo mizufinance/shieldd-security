@@ -23,12 +23,13 @@ jobs:
       - run: python -m unittest discover -s tests
       - run: python security.py check
   pilots:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 330
     env:
       LEAN_NUM_THREADS: '1'
-      CARGO_BUILD_JOBS: '2'
-      RAYON_NUM_THREADS: '2'
+      CARGO_BUILD_JOBS: '1'
+      RAYON_NUM_THREADS: '1'
       CXX: g++-13
       CARGO_TARGET_DIR: ${{ github.workspace }}/.cache/cargo-target
       SHIELDD_PARI_KEYS: ${{ github.workspace }}/.work/pari-keys

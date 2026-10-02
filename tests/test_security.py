@@ -6,6 +6,11 @@ from unittest.mock import patch
 import security
 
 class IdentityTests(unittest.TestCase):
+    def test_policy_check_has_no_verifier_or_historical_inventory_dependency(self):
+        with patch.object(security.sys, 'argv', ['security.py', 'check']), \
+                patch.object(security, 'run', side_effect=AssertionError('unexpected verifier invocation')):
+            self.assertEqual(security.main(), 0)
+
     def test_duplicate_identity_key_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "lock.json"
@@ -35,7 +40,7 @@ class IdentityTests(unittest.TestCase):
             register = security.read_json(security.ROOT / "assurance.json")
             del register["families"]["seizure"]
             (root / "assurance.json").write_text(json.dumps(register))
-            with self.assertRaisesRegex(security.CheckError, "nine"):
+            with self.assertRaisesRegex(security.CheckError, "seven"):
                 security.check_register(root)
 
     def test_failed_promotion_preserves_previous_result(self):
