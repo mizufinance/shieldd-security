@@ -11,14 +11,10 @@ import tempfile
 import tomllib
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from security import ROOT, CheckError, run
-from generate import generate as range_generate
-from generate_volume import generate as volume_generate
-from controls import controls as range_controls
-from compiler_controls import check as compiler_controls
-from volume_controls import check as volume_controls
-
-
+from security import (ROOT, CheckError, run, locked_sha, check_register,
+                      runtime_identity, source_identity, transfer_slice_proof_inputs,
+                      TRANSFER_SLICE_SHA, TRANSFER_SLICE_THEOREMS,
+                      read_json_bytes, verified_bytes)
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -67,10 +63,185 @@ def lean_environment(packages, root=ROOT):
     return {'lean': executable, 'version': version, 'path': os.pathsep.join(paths)}
 
 
+def prepare_transfer_slice(source, qualification, candidate_dir):
+    """Validate previously qualified narrow results; launches no proof job."""
+    from circuits.statement_projection import generate
+    source = Path(source).resolve()
+    sha = locked_sha()
+    if sha != TRANSFER_SLICE_SHA:
+        raise CheckError('transfer-slice supports only the exact PR160 lock')
+    register_bytes = verified_bytes(ROOT / 'assurance.json')
+    register_sha256 = hashlib.sha256(register_bytes).hexdigest()
+    register = check_register()
+    if register != read_json_bytes(register_bytes):
+        raise CheckError('register changed before preregistered qualification read')
+    if register['claims']['system']['status'] != 'blocked':
+        raise CheckError('a development slice cannot promote system certification')
+    try:
+        entry = register['claims']['system']['development_evidence']['reduced_transfer_slice']
+        authority = entry['qualification']
+    except (KeyError, TypeError) as error:
+        raise CheckError('substantive slice inputs must be predeclared before validation') from error
+    if (entry.get('schema') != 'reduced-transfer-slice-inputs-v1' or entry.get('runtime_sha') != sha
+            or entry.get('status') != 'blocked' or entry.get('policy') != 'development_only'
+            or entry.get('theorems') != TRANSFER_SLICE_THEOREMS
+            or not entry.get('scope') or not entry.get('limits') or not entry.get('assumptions')):
+        raise CheckError('incomplete or enlarged transfer-slice preregistration')
+    qualification = Path(qualification).resolve()
+    def raw(path):
+        return hashlib.sha256(verified_bytes(path)).hexdigest()
+    if qualification != (ROOT / authority['path']).resolve():
+        raise CheckError('qualification path differs from preregistered acceptance')
+    # Never replace this expected pin with a newly observed digest.
+    qualification_sha256 = authority['sha256']
+    review = read_json_bytes(verified_bytes(qualification, qualification_sha256))
+    checked_refs = {str(qualification): qualification_sha256}
+    # This explicit, preregistered acceptance is a human-review authority TCB.
+    # A caller-provided result.success flag is never an acceptance mechanism.
+    roles = {'comparison', 'decision', 'projection', 'permanent_spend', 'controls', 'source_joins'}
+    if (review.get('schema') != 'qualified-reduced-transfer-artifacts-v1'
+            or review.get('runtime_sha') != sha or review.get('scope') != 'transfer-slice'
+            or review.get('acceptance') != 'independently_qualified_actual_results'
+            or set(review.get('artifacts', {})) != roles):
+        raise CheckError('missing exact independent qualification coverage')
+    before = {'runtime': runtime_identity(source, sha), 'raw_source': source_identity(),
+              'raw_register_sha256': hashlib.sha256(verified_bytes(ROOT / 'assurance.json', register_sha256)).hexdigest(),
+              'proof_inputs': transfer_slice_proof_inputs()}
+    artifacts, artifact_refs = {}, {}
+    for role in sorted(roles):
+        ref = review['artifacts'][role]
+        path = (ROOT / ref['path']).resolve()
+        data = verified_bytes(path, ref['sha256'])
+        artifact_refs[role] = {'path': str(path), 'sha256': ref['sha256']}
+        checked_refs[str(path)] = ref['sha256']
+        artifacts[role] = read_json_bytes(data)
+        if artifacts[role].get('runtime_sha') != sha:
+            raise CheckError(f'qualified {role} belongs to another runtime')
+    decision = artifacts['decision']
+    if (decision.get('basis_comparison_sha256') != artifact_refs['comparison']['sha256']
+            or decision.get('chosen_approach') not in {'clean', 'direct-lean'}
+            or decision.get('scope') != 'matched permanent-spend four-gate comparison'):
+        raise CheckError('actual comparable spike and documented approach decision are required')
+    if artifacts['comparison'].get('matched_property') != 'permanent-spend-four-gates-v1':
+        raise CheckError('comparison covers a different property')
+    joins = artifacts['source_joins']
+    required_proofs = {'circuits/statement_projection.py', 'circuits/ShielddSecurity/TransferStatement.lean',
+                       'circuits/ShielddSecurity/PermanentSpend.lean',
+                       'circuits/ShielddSecurity/Rows.lean', 'circuits/ShielddSecurity/Range.lean',
+                       'circuits/ShielddSecurity/SpendGateInputs.lean'}
+    if set(joins.get('proof_sources', {})) != required_proofs or not joins.get('assumptions'):
+        raise CheckError('exact proof sources and source-reading assumptions required')
+    for relative, digest in joins['proof_sources'].items():
+        verified_bytes(ROOT / relative, digest)
+        checked_refs[str((ROOT / relative).resolve())] = digest
+    required_runtime = {'lib.rs', 'transfer.rs', 'encryption.rs', 'audit.rs', 'group.rs', 'note.rs'}
+    if set(joins.get('runtime_sources', {})) != required_runtime:
+        raise CheckError('five AST sources and permanent note source required')
+    for name, digest in joins['runtime_sources'].items():
+        runtime_path = source / 'crates/crypto/circuits/src' / name
+        verified_bytes(runtime_path, digest)
+        checked_refs[str(runtime_path)] = digest
+    for role in ('projection', 'permanent_spend'):
+        evidence = artifacts[role]
+        if (set(evidence.get('theorems', {})) != set(TRANSFER_SLICE_THEOREMS[role])
+                or evidence.get('scope') != role):
+            raise CheckError(f'exact named {role} theorem coverage required')
+        for name, audit in evidence['theorems'].items():
+            if not audit.get('full_statement') or not audit.get('premises') or not audit.get('conclusion'):
+                raise CheckError(f'missing full theorem interface: {name}')
+            path = (ROOT / audit['log']['path']).resolve()
+            text = verified_bytes(path, audit['log']['sha256']).decode('utf-8')
+            reports = re.findall(r"'" + re.escape(name) + r"' depends on axioms: \[([^\]]*)\]", text, re.S)
+            none = re.findall(r"'" + re.escape(name) + r"' does not depend on any axioms", text)
+            if len(reports) + len(none) != 1 or audit['full_statement'] not in text or 'sorryAx' in text:
+                raise CheckError(f'missing full named audit: {name}')
+            if reports and any(not re.fullmatch(r'(?:propext|Classical\.choice|Quot\.sound)(?:\.\{(?:[A-Za-z_][A-Za-z0-9_]*|0)\})?', value.strip())
+                               for value in reports[0].split(',') if value.strip()):
+                raise CheckError(f'nonstandard axiom: {name}')
+            checked_refs[str(path)] = audit['log']['sha256']
+    controls = artifacts['controls']
+    expected = {'boolean': [2,0,2,0,1,0,0], 'selection': [0,0,1,0,0,0,0],
+                'root': [0,0,0,0,0,1,0], 'amount': [1,1,0,0,0,0,0]}
+    if (controls.get('canonical_source_sha256') != joins['proof_sources']['circuits/ShielddSecurity/PermanentSpend.lean']
+            or set(controls.get('omissions', {})) != set(expected)
+            or len(controls.get('AST_rejections', [])) != 6
+            or controls.get('adapter_coordinate_rejections') != ['helper coordinate order']
+            or len(controls.get('map_rejections', [])) != 4):
+        raise CheckError('canonical semantic and structural control joins missing')
+    for name, witness in expected.items():
+        observed = controls['omissions'][name]
+        if (observed.get('field_modulus') != 17 or observed.get('assignment_d_a_n_r_s_c_h') != witness
+                or observed.get('retained_gates') != [True,True,True]
+                or observed.get('omitted_gate') is not False or observed.get('independent_BranchSpec') is not False):
+            raise CheckError(f'intended semantic omission not observed: {name}')
+    # Every exact audit/control/source/compiled-provider reference approved by the
+    # pinned independent review is mandatory, current, and checked again below.
+    if not review.get('raw_refs'):
+        raise CheckError('qualified actual execution, imports, cleanup and control raw references required')
+    for ref in review['raw_refs']:
+        path = (ROOT / ref['path']).resolve()
+        verified_bytes(path, ref['sha256'])
+        if str(path) in checked_refs and checked_refs[str(path)] != ref['sha256']:
+            raise CheckError(f'conflicting qualified raw reference: {path}')
+        checked_refs[str(path)] = ref['sha256']
+    projection = artifacts['projection']
+    export_path = (ROOT / projection['AST_export']['path']).resolve()
+    export_bytes = verified_bytes(export_path, projection['AST_export']['sha256'])
+    export = read_json_bytes(export_bytes)
+    audited = (ROOT / projection['audited_generated_source']['path']).resolve()
+    audited_bytes = verified_bytes(audited, projection['audited_generated_source']['sha256'])
+    checked_refs[str(export_path)] = projection['AST_export']['sha256']
+    checked_refs[str(audited)] = projection['audited_generated_source']['sha256']
+    candidate_dir = Path(candidate_dir).resolve()
+    if not candidate_dir.is_relative_to((ROOT / '.work').resolve()) or candidate_dir.exists():
+        raise CheckError('fresh immutable candidate directory under .work required')
+    candidate_dir.mkdir(parents=True)
+    generated = candidate_dir / 'RuntimeTransferStatement.lean'
+    with generated.open('xb') as handle:
+        handle.write(generate(export).encode('utf-8'))
+        handle.flush(); os.fsync(handle.fileno())
+    generated_bytes = verified_bytes(generated)
+    if generated_bytes != audited_bytes:
+        raise CheckError('generated 64-role candidate differs from actually audited source')
+    generated_sha256 = hashlib.sha256(generated_bytes).hexdigest()
+    checked_refs[str(generated)] = generated_sha256
+    for ref in artifact_refs.values():
+        checked_refs[ref['path']] = ref['sha256']
+    for path, digest in checked_refs.items():
+        verified_bytes(path, digest)
+    after = {'runtime': runtime_identity(source, sha), 'raw_source': source_identity(),
+             'raw_register_sha256': hashlib.sha256(verified_bytes(ROOT / 'assurance.json', register_sha256)).hexdigest(),
+             'proof_inputs': transfer_slice_proof_inputs()}
+    if after != before:
+        raise CheckError('slice inputs changed; no result promotion')
+    return {'pilot': 'transfer-slice', 'outcome': 'qualified_development_artifacts_unlinked',
+            'runtime': before['runtime'], 'proof_inputs': before['proof_inputs'],
+            'raw_pre': before, 'raw_post': after, 'artifacts': artifact_refs,
+            'checked_raw_refs': checked_refs, 'approach': decision['chosen_approach'],
+            'generated_mapping': {'path': str(generated), 'sha256': generated_sha256},
+            'theorems': TRANSFER_SLICE_THEOREMS, 'assumptions': entry['assumptions'],
+            'limits': entry['limits'], 'full_system_certification': 'not_established',
+            'register_linkage': 'requires_separate_post_link_validation'}
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--source', type=Path, required=True)
+    parser.add_argument('--scope', choices=['legacy', 'transfer-slice'], default='legacy')
+    parser.add_argument('--qualified-receipts', type=Path)
+    parser.add_argument('--candidate-dir', type=Path)
     args = parser.parse_args()
+    if args.scope == 'transfer-slice':
+        if not args.qualified_receipts or not args.candidate_dir:
+            raise CheckError('narrow slice requires explicit qualified receipts and fresh candidate')
+        print(json.dumps(prepare_transfer_slice(args.source, args.qualified_receipts, args.candidate_dir)))
+        return
+    if args.qualified_receipts or args.candidate_dir:
+        raise CheckError('qualified slice inputs require --scope transfer-slice')
+    from generate import generate as range_generate
+    from generate_volume import generate as volume_generate
+    from controls import controls as range_controls
+    from compiler_controls import check as compiler_controls
+    from volume_controls import check as volume_controls
     if os.name == 'nt':
         raise CheckError('run the entire circuit CLI inside Linux/WSL')
     source = args.source.resolve()

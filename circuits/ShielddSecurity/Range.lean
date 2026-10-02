@@ -1,3 +1,4 @@
+import ShielddSecurity.SpendGateInputs
 import Mathlib.Algebra.Field.Basic
 import Mathlib.Tactic.Ring.RingNF
 import Lean.Elab.Tactic.Omega
@@ -7,20 +8,10 @@ namespace ShielddSecurity
 
 variable {F : Type} [Field F]
 
-/-- A square row is interpreted over every assignment, not honest witnesses. -/
-def Square (a b : F) : Prop := a * a = b
 
 theorem square_zero (x : F) (h : Square x 0) : x = 0 := by
   exact (mul_self_eq_zero.mp h)
 
-theorem boolean_sound (x : F) (h : Square x x) : x = 0 ∨ x = 1 := by
-  have hz : x * (x - 1) = 0 := by
-    calc
-      x * (x - 1) = x * x - x := by ring
-      _ = 0 := by rw [h]; ring
-  rcases mul_eq_zero.mp hz with h0 | h1
-  · exact Or.inl h0
-  · exact Or.inr (sub_eq_zero.mp h1)
 
 /-- The compiler's outlined private constant is constrained, never assumed. -/
 theorem outlined_one (one copy : F) (hOne : one = 1)

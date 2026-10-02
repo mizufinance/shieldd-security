@@ -45,15 +45,14 @@ explicit trusted joins. Compiler regression controls qualify only their finite
 fixtures. Backend cryptographic soundness, transcript/setup assumptions and
 verification-key correspondence remain outside these two pilots.
 
-Clean was evaluated at immutable revision
-[`fba2a29f`](https://github.com/Verified-zkEVM/clean/tree/fba2a29f5e36420d797c1de118ac9f11f23b819e)
-as a bounded source/API feasibility review, not an executed gadget benchmark.
-It has Circom R1CS export (`compileR1CS`/`compileR1CSBin`), WASM witness generation
-and a Plonky3 backend. Its Lean/mathlib 4.33.1 and CompPoly dependencies introduce
-a second toolchain alongside this pilot's 4.30.0. No native bridge to the deployed
-Pari rows was identified. That bridge would still need independent checking, so
-Clean is deferred. Reconsider if an exact-row bridge or demonstrated proof
-maintenance advantage removes more code and trust than it adds.
+The initial Clean source/API feasibility review was followed by an actual matched
+four-gate spike at the pinned Clean revision `fba2a29f5e36420d797c1de118ac9f11f23b819e`
+using Lean 4.33.1. Both implementations and finite F17 controls passed their scoped
+kernel audits. Direct Lean was chosen for reduced-slice maintenance and coverage,
+not a speed ranking: the arms have different theorem/audit workloads and reached
+closures, share algebraic proofs, and did not control OS caches. The canonical
+package remains on Lean 4.30.0. The runtime compiler/row bridge is still an explicit
+assumption in either approach. See [current results and retained evidence](pr160-transfer-slice.md).
 
 Quint is the single state specification language; its TLC backend uses TLA+
 model checking without maintaining a second handwritten TLA+ specification.
@@ -65,7 +64,7 @@ stale or missing evidence cannot establish release eligibility. Negative control
 must detect the intended semantic defect, not merely a build error or timeout.
 Full-system certification is not established.
 
-Completion requires both scoped commands executed against a clean, retrievable
+The broader circuit/state delivery, which this reduced slice does not close, requires both scoped commands executed against a clean, retrievable
 runtime commit, fault-sensitive controls and independent implementation review.
 Runtime changes live in Shieldd; generated outputs and logs live in ignored
 `.work` or CI artifacts. Keep the one-heavy-job/one-Lean-process resource policy
