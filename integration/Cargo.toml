@@ -1,0 +1,20 @@
+[package]
+name = "shieldd-security-replay"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+shieldd-sdk-circuits = { path = "../.work/shieldd-current/crates/crypto/circuits" }
+commonware-cryptography = { path = "../.work/shieldd-current/third_party/commonware/cryptography", default-features = false, features = ["std", "bls12381"] }
+commonware-codec = { path = "../.work/shieldd-current/third_party/commonware/codec" }
+commonware-math = { path = "../.work/shieldd-current/third_party/commonware/math" }
+serde_json = "1"
+hex = "0.4"
+
+[workspace]
+
+[profile.ci]
+inherits = "release"
+debug-assertions = true
+codegen-units = 16
