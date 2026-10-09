@@ -1,0 +1,27 @@
+import ShielddSecurity.TransferPoseidonSecondTail05Proof01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonSecondTail05Controls01
+open CompilerRenamingChecks05 TransferPoseidonSecondTail05Shared01
+open TransferPoseidonSecondTail05Ports01
+open TransferPoseidonSecondTail05Data00 (actualRows)
+open TransferPoseidonSecondTail05RowChecks00 (referenceRows)
+
+def coefficientDelta (values : List Row) : List Row := match values with
+  | ⟨(column,coefficient)::tail,b⟩::rest => ⟨(column,coefficient+1)::tail,b⟩::rest
+  | _ => values
+
+def columnDelta (values : List Row) : List Row := match values with
+  | ⟨(column,coefficient)::tail,b⟩::rest => ⟨(column+1,coefficient)::tail,b⟩::rest
+  | _ => values
+
+theorem positive : checkRows rename actualRows referenceRows=true := TransferPoseidonSecondTail05RowChecks00.checked
+theorem coefficient_mutation_ran : coefficientDelta actualRows≠actualRows := by decide +kernel
+theorem coefficient_rejected : checkRows rename (coefficientDelta actualRows) referenceRows=false := by decide +kernel
+theorem column_mutation_ran : columnDelta actualRows≠actualRows := by decide +kernel
+theorem column_rejected : checkRows rename (columnDelta actualRows) referenceRows=false := by decide +kernel
+theorem omitted_row_rejected : checkRows rename actualRows.tail referenceRows=false := by decide +kernel
+theorem wrong_offset_rejected : checkRows (CompilerWindowRenaming05.swap 23060 412 415) actualRows referenceRows=false := by decide +kernel
+theorem wrong_copy_rejected : checkRows (fun column => if column=200692 then 200693 else rename column) [actualCopy] [TransferPoseidonCall04Shared01.rawCopy]=false := by decide +kernel
+theorem wrong_existing_output_rejected : checkPort rename (after ⟨0,by decide⟩) (TransferPoseidonCall04Semantic01.after 64 ⟨1,by decide⟩)=false := by decide +kernel
+end ShielddSecurity.TransferPoseidonSecondTail05Controls01

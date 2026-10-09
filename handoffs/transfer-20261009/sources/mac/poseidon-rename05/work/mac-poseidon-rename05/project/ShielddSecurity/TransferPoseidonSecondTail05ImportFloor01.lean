@@ -1,0 +1,7 @@
+import ShielddSecurity.TransferPoseidonSecondTail05Controls01
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonSecondTail05Proof01.arbitrary_suffix
+#print axioms ShielddSecurity.TransferPoseidonSecondTail05Proof01.arbitrary_suffix
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonSecondTail05Proof01.total_suffix
+#print axioms ShielddSecurity.TransferPoseidonSecondTail05Proof01.total_suffix
