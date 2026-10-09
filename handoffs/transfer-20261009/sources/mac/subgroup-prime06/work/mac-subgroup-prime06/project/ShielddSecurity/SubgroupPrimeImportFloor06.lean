@@ -1,0 +1,4 @@
+import ShielddSecurity.SubgroupPrimeInheritedAudit06
+set_option pp.all true in
+#check @ShielddSecurity.LucasCertificate.certificate_sound
+#print axioms ShielddSecurity.LucasCertificate.certificate_sound
