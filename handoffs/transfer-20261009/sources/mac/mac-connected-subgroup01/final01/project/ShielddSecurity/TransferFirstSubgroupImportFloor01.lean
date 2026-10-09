@@ -1,0 +1,7 @@
+import ShielddSecurity.TransferFirstSubgroupAssertionCompletion01
+namespace ShielddSecurity.TransferFirstSubgroupImportFloor01
+theorem measured : True := True.intro
+end ShielddSecurity.TransferFirstSubgroupImportFloor01
+set_option pp.all true in
+#check @ShielddSecurity.TransferFirstSubgroupImportFloor01.measured
+#print axioms ShielddSecurity.TransferFirstSubgroupImportFloor01.measured
