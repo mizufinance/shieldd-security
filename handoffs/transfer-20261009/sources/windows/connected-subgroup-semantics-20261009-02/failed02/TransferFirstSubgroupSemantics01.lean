@@ -99,7 +99,7 @@ theorem native_eight_subgroup_sound {J : Type} [AddCommGroup J]
   · exact (GroupNativeCofactor.native_eight_coordinates (d : F) imaginary model
       nonSquare imaginarySquare initial).symm.trans ((congrArg
         (GroupNativeCofactor.nativeEight (d : F)) coordinates).trans image)
-  · rw [← mul_nsmul]
+  · rw [← mul_nsmul, Nat.mul_comm Scalar.order 8]
     exact standardOrder initial
 
 theorem satisfying_graph_subgroup_sound [CharP F Scalar.modulus]
