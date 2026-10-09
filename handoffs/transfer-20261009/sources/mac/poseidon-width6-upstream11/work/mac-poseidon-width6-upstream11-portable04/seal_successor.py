@@ -1,0 +1,38 @@
+"""Append-only portable hygiene successor; original sealed paths remain unchanged."""
+import sys
+assert sys.flags.isolated and sys.flags.dont_write_bytecode and sys.flags.no_site
+import hashlib,json,subprocess
+from pathlib import Path
+S=Path(__file__).resolve().parent;R=S.parents[1];OLD=R/'work/mac-poseidon-width6-upstream11';O=R/'outputs/mac-poseidon-width6-upstream11'
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+producer=O/'publication-manifest01.json';envelope=O/'publication-envelope01.json';assert sha(producer)=='512fbc7dee19294af8180eb9c47dcb7dbe14ccaa56630a8b98e94af770795e24';assert sha(envelope)=='2be900604f616bd59752ed5dc3c673cc2cf1adbce5e00db3c0e72f6d3ecf5762'
+p=json.loads(producer.read_bytes());e=json.loads(envelope.read_bytes())
+for item in p['files']+e['postseal_entries']:assert sha(R/item['path'])==item['sha256'],item['path']
+i=json.loads((S/'replay-inventory04.json').read_bytes());r=json.loads((S/'replay04/replay-result.json').read_bytes());assert r['status']=='passed' and r['generated_sources']==85 and r['closed_flat_before_after'] and r['lean_executions']==0;assert r['recipe_sha256']==i['recipe_sha256']==sha(S/'maintained/supported_verify_replay.py');assert r['inventory_sha256']==sha(S/'replay-inventory04.json')
+assert set(x.name for x in (S/'maintained').iterdir())==set(i['maintained'])
+for name,h in i['maintained'].items():assert (S/'maintained'/name).is_file() and not (S/'maintained'/name).is_symlink() and sha(S/'maintained'/name)==h
+for name,h in i['handwritten_helpers'].items():assert sha(S/'helpers'/name)==h
+for name,item in i['generated'].items():assert sha(OLD/'project/ShielddSecurity'/(name+'.lean'))==item['sha256'];assert sha(S/'replay04/ShielddSecurity'/(name+'.lean'))==item['sha256']
+c=json.loads((S/'controls04/result.json').read_bytes());assert c['status']=='passed' and len(c['controls'])==6
+# Root reachability is a different set from generated source membership.
+math=json.loads((OLD/'review-snapshot02/manifest.json').read_bytes());reachable={Path(x['path']).stem for x in math['files'] if x['path'].endswith('.lean')};passed=json.loads((O/'whole-upstream-result01.json').read_bytes())['current_pass'];roots=set(passed)&reachable;allnames=set(passed);generated=set(i['generated']);assert len(allnames)==87 and len(roots)==85 and len(generated)==85
+assert allnames-roots=={'TransferPoseidonUpstream11ImportFloor01','TransferPoseidonUpstream11TailLeafProbe01'}
+assert allnames-generated=={'CompilerSegmentCompletion11','PoseidonTwoBlockComposition11'}
+counts=dict(all_stage=dict(modules=87,audit_pairs=496),root_reachable=dict(modules=85,audit_pairs=sum(passed[n]['audits'] for n in roots)),generated=dict(modules=85,audit_pairs=sum(passed[n]['audits'] for n in generated)),root_excluded=[dict(module=n,audits=passed[n]['audits'],scope='Cost-only True marker' if 'ImportFloor' in n else 'Independent four-fact tail leaf probe') for n in sorted(allnames-roots)],generated_excluded=[dict(module=n,audits=passed[n]['audits'],scope='Handwritten kernel helper') for n in sorted(allnames-generated)],new_kernel_executions=0,failed_lean_attempts_preserved=11)
+assert counts['root_reachable']['audit_pairs']==491 and counts['generated']['audit_pairs']==491
+(S/'scope04.json').write_text(json.dumps(dict(status='passed',repair='Exact closed flat maintained inventory plus -I -B -S trusted-path bootstrap, source/input/inventory checks before and after each generator; executing recipe hash bound.',counts=counts,generated_bytes_unchanged=True,historical_observation=dict(scope='Parent frozen provenance03 had unpinned __pycache__ from normal Python; preserve historical source/result observations without acceptance',status='superseded_provenance_refusal',proof_credit=0,review_delta_sha256='a305ab3443531633fc13fda491475f62efcca25a64e34b9e4db0fd94e707a6e7'),original_producer_unchanged=True,original_envelope_unchanged=True,math_scope_unchanged=True,full_transfer='OPEN'),indent=2)+'\n')
+(S/'README.md').write_text('''# Portable04 provenance-only successor
+
+Invoke `python3 -I -B -S maintained/supported_verify_replay.py --input portable-input01.json --maintained maintained --inventory replay-inventory04.json --helpers helpers --output-directory FRESH_DIRECTORY` with explicit paths. Maintained must contain exactly the eighteen inventory files, with no directories, symlinks, bytecode or extra Python modules. All helper inputs are supplied as a separate exact two-file closed directory. The input may be the exact previously shipped compact input with SHA74189456aa7380c35040e1c67d3b9d3ad48ce75d332ac80ad44971f1c0812ab9.
+
+Generations run under isolated Python without bytecode or site loading; standard runpy loads before the exact maintained directory is put on the import path. The inventory binds the actual executing runner. Output must be new. This succeeds for all85 exact generated sources without any Lean execution. Six hygiene controls are admission refusals, not semantic/kernel controls. Original proof/source/receipt/producer/envelope paths are unchanged. Root85 and generated85 are different sets; all-stage87/496, root85/491, generated85/491, with explicit excluded modules in scope04.json.
+
+The old provenance03 cache contamination remains a failed provenance observation with zero new proof credit. This successor repairs provenance only. All mathematical/native/full-relation open obligations remain as the original scope01.json states. No new task, Point job, Git write or proof replay is authorized by this packet.
+''')
+files=[]
+for path in sorted(list((S/'maintained').iterdir())+list((S/'helpers').iterdir())+[S/'portable-input01.json',S/'replay-inventory04.json',S/'replay04/replay-result.json',S/'run_hygiene_controls.py',S/'controls04/result.json',S/'scope04.json',S/'README.md',Path(__file__)]):
+ files.append(dict(path=str(path.relative_to(R)),sha256=sha(path),bytes=path.stat().st_size,category='maintained_flat_input' if path.parent.name=='maintained' else 'provenance_successor',publication=True))
+manifest=S/'successor-manifest04.json';assert not manifest.exists();manifest.write_text(json.dumps(dict(schema='upstream11-portable-hygiene-successor-v1',original_producer=dict(path=str(producer.relative_to(R)),sha256=sha(producer)),original_envelope=dict(path=str(envelope.relative_to(R)),sha256=sha(envelope)),original_entries_rehashed=len(p['files'])+len(e['postseal_entries']),files=files,counts=counts,generated_bytes_unchanged=True,new_kernel_executions=0,source_review_acceptance='Await actual Opus5.5 provenance review',full_transfer='OPEN'),indent=2)+'\n')
+processes=subprocess.check_output(['ps','-axo','pid=,comm='],text=True);heavy=[l for l in processes.splitlines() if Path(l.split(maxsplit=1)[1]).name in ['lean','lake','cargo']];assert not heavy
+check=S/'CHECKPOINT04.md';check.write_text(f'Successor manifest SHA {sha(manifest)}. All original386+6entries rehashed unchanged. Fresh85source byte replay PASS;6hygiene admission controls PASS;ZERO Lean executions. Heavy processes none. Await orchestrator provenance review/publication; no other task started.\n')
+succ=S/'successor-envelope04.json';assert not succ.exists();succ.write_text(json.dumps(dict(successor_manifest=dict(path=str(manifest.relative_to(R)),sha256=sha(manifest)),original_producer_sha256=sha(producer),original_envelope_sha256=sha(envelope),postseal_entries=[dict(path=str(check.relative_to(R)),sha256=sha(check),bytes=check.stat().st_size)],heavy_processes=[],proof_credit_unchanged=True),indent=2)+'\n');print(json.dumps(dict(manifest=str(manifest),sha256=sha(manifest),envelope=str(succ),envelope_sha256=sha(succ),entries=len(files),counts=counts)))
