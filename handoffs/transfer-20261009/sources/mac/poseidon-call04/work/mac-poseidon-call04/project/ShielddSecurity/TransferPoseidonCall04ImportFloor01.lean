@@ -1,0 +1,7 @@
+import ShielddSecurity.TransferPoseidonCall04Controls01
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04Checked01.checked_hash6
+#print axioms ShielddSecurity.TransferPoseidonCall04Checked01.checked_hash6
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04Checked01.checked_total
+#print axioms ShielddSecurity.TransferPoseidonCall04Checked01.checked_total

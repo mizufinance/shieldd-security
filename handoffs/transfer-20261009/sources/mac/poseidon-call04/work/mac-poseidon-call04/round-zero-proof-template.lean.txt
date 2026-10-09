@@ -1,0 +1,71 @@
+namespace ShielddSecurity.TransferPoseidonCall04R00Proof
+open Compiler CompilerIndexed01 CompilerCompletion Poseidon PoseidonIndexedRound01 ShielddSecurity.TransferPoseidonCall04Shared01 ShielddSecurity.TransferPoseidonCall04R00 ShielddSecurity.TransferPoseidonCall04R00Checks
+theorem round_certificate : RoundCertificate p (unoutlineRows copy originalRows.toList) parameters 0 before shifted transformed after := by
+  change RoundCertificate p (unoutlineRows copy TransferPoseidonAbsorb02.originalRows.toList) TransferPoseidonAbsorb02SemanticData01.parameters 0 TransferPoseidonAbsorb02SemanticData01.before TransferPoseidonAbsorb02SemanticData01.shifted TransferPoseidonAbsorb02SemanticData01.transformed TransferPoseidonAbsorb02SemanticData01.after
+  exact TransferPoseidonAbsorb02SemanticProof01.round_certificate
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.round_certificate
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.round_certificate
+theorem reverse_checked : checkOriginalCoverage p copy arithmeticRows emittedArith rowMapping=true := by
+  simp only [checkOriginalCoverage,Bool.and_eq_true]
+  constructor
+  · decide +kernel
+  · apply List.all_eq_true.mpr
+    intro index member
+    have bound := List.mem_range.mp member
+    rw [rows_shape.1] at bound
+    have cases : index=0 ∨ index=1 ∨ index=2 ∨ index=3 ∨ index=4 ∨ index=5 ∨ index=6 ∨ index=7 ∨ index=8 ∨ index=9 ∨ index=10 ∨ index=11 ∨ index=12 ∨ index=13 ∨ index=14 ∨ index=15 := by omega
+    rcases cases with rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl|rfl
+    · exact row0_checked
+    · exact row1_checked
+    · exact row2_checked
+    · exact row3_checked
+    · exact row4_checked
+    · exact row5_checked
+    · exact row6_checked
+    · exact row7_checked
+    · exact row8_checked
+    · exact row9_checked
+    · exact row10_checked
+    · exact row11_checked
+    · exact row12_checked
+    · exact row13_checked
+    · exact row14_checked
+    · exact row15_checked
+
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.reverse_checked
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.reverse_checked
+theorem reverse_coverage : ∀ actual∈arithmeticRows.toList,∃ expected∈emitted materializedSteps,canonical p (unoutline copy actual.a)=canonical p expected.a ∧ canonical p (unoutline copy actual.b)=canonical p expected.b := by
+  simpa [emittedArith] using checkOriginalCoverage_sound p copy arithmeticRows emittedArith rowMapping reverse_checked
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.reverse_coverage
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.reverse_coverage
+theorem ordered : Topological [0,copy] [] materializedSteps := CompilerOrder.checked_order _ _ _ ordered_checked
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.ordered
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.ordered
+theorem write_bounds (column : Nat) (member : column∈PoseidonCompletion.writes materializedSteps) : 23060≤column ∧ column≤23075 :=
+  of_decide_eq_true (List.all_eq_true.mp writes_checked column member)
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.write_bounds
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.write_bounds
+theorem emitted_support (row : Row) (member : row∈emitted materializedSteps) (term : Nat × Int) (present : term∈row.a++row.b) : term.1<23076 :=
+  of_decide_eq_true (List.all_eq_true.mp (List.all_eq_true.mp emitted_support_checked row member) term present)
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.emitted_support
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.emitted_support
+variable {F : Type} [Field F] [CharP F p]
+theorem legal (base : Nat → F) : Legal base materializedSteps := by
+  simp [materializedSteps,Legal,Step.Legal]
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.legal
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.legal
+theorem arbitrary_round_sound (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0) (satisfied : Satisfies rho originalRows.toList) :
+    (fun column => eval rho (after column))=Poseidon.round (castParameters parameters) 0 (fun column => eval rho (before column)) := by
+  have unoutlined := unoutline_rows_sound rho copy originalRows.toList satisfied (checkRowAt_sound p originalRows 16 _ copy_checked)
+  exact round_certificate_sound rho (unoutlineRows copy originalRows.toList) parameters 0 before shifted transformed after one four unoutlined round_certificate
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonCall04R00Proof.arbitrary_round_sound
+#print axioms ShielddSecurity.TransferPoseidonCall04R00Proof.arbitrary_round_sound
+end ShielddSecurity.TransferPoseidonCall04R00Proof

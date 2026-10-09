@@ -1,0 +1,61 @@
+import ShielddSecurity.TransferPoseidonCall04Semantic01
+import ShielddSecurity.PoseidonCallTraversal04
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonCall04Checked01
+open Compiler Poseidon
+open ShielddSecurity.TransferPoseidonCall04Shared01
+open ShielddSecurity.TransferPoseidonCall04Program01
+open ShielddSecurity.TransferPoseidonCall04Semantic01
+
+def indices : List (Fin 65) := List.finRange 65
+def output : Fin 6 := ⟨1,by decide⟩
+theorem positive : PoseidonCallTraversal04.check indices output=true := by decide +kernel
+
+theorem materialized_count : materializedSteps.length=309 := by decide +kernel
+theorem step_count : steps.length=310 := by decide +kernel
+theorem row_count : originalRows.length=413 := by decide +kernel
+
+variable {F : Type} [Field F] [CharP F p]
+theorem checked_permutation (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (selected : List (Fin 65)) (port : Fin 6)
+    (checked : PoseidonCallTraversal04.check selected port=true)
+    (satisfied : Satisfies rho originalRows) :
+    (fun column => eval rho (after 64 column))=Poseidon.permute (castParameters parameters)
+      (Poseidon.absorb (Poseidon.initial 23 4) (inputValues rho)) := by
+  apply PoseidonCallTraversal04.checked_rounds (castParameters parameters)
+    (fun index column => eval rho (before index column)) (fun index column => eval rho (after index column))
+    (Poseidon.absorb (Poseidon.initial 23 4) (inputValues rho)) selected port checked (initial_binding rho one)
+  · intro index bound
+    exact congrArg (fun state : State Linear 6 => fun column => eval rho (state column)) (boundary index bound)
+  · intro index member
+    exact all_rounds_sound rho one four satisfied index.val index.isLt
+
+theorem checked_hash6 (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (selected : List (Fin 65)) (port : Fin 6)
+    (checked : PoseidonCallTraversal04.check selected port=true)
+    (satisfied : Satisfies rho originalRows) :
+    eval rho (after 64 port)=Poseidon.hash6 (castParameters parameters) 23 [rho 14,rho 15,rho 21,rho 22] := by
+  have chunks : Poseidon.chunks5 (inputValues rho)=[inputValues rho] := by rw [input_values_exact];rfl
+  have length : (inputValues rho).length=4 := by rw [input_values_exact];rfl
+  have result := Poseidon.hash6_of_one_block (castParameters parameters) 23 (inputValues rho)
+    (Poseidon.initial 23 4) (fun column => eval rho (after 64 column)) chunks
+    (by rw [length]) (checked_permutation rho one four selected port checked satisfied)
+  rw [PoseidonCallTraversal04.output_one selected port checked]
+  simpa only [input_values_exact] using result
+
+theorem checked_total (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) (four : (4:F)≠0)
+    (selected : List (Fin 65)) (port : Fin 6)
+    (checked : PoseidonCallTraversal04.check selected port=true) :
+    Satisfies (completed base) originalRows ∧
+    (∀ input<22735,completed base (3+input)=base (3+input)) ∧
+    (∀ column<22738,completed base column=base column) ∧
+    completed base copy=base copy ∧
+    eval (completed base) (after 64 port)=Poseidon.hash6 (castParameters parameters) 23 [base 14,base 15,base 21,base 22] := by
+  have result := checked_hash6 (completed base)
+    ((original_columns_preserved base 0 (by decide)).trans one) four selected port checked (completed_rows base linked)
+  rw [original_columns_preserved base 14 (by decide),original_columns_preserved base 15 (by decide),
+      original_columns_preserved base 21 (by decide),original_columns_preserved base 22 (by decide)] at result
+  exact ⟨completed_rows base linked,original_inputs_preserved base,original_columns_preserved base,copy_preserved base,result⟩
+
+end ShielddSecurity.TransferPoseidonCall04Checked01

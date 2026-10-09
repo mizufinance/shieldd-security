@@ -1,0 +1,11 @@
+import ShielddSecurity.TransferPoseidonCall04Checked01
+set_option maxHeartbeats 900000
+namespace ShielddSecurity.TransferPoseidonCall04Controls01
+open TransferPoseidonCall04Checked01 PoseidonCallTraversal04
+-- These controls exercise the production traversal gate used in checked_permutation/checked_total.
+-- Arithmetic coefficient/ARK/MDS rejection was checked separately on the identical per-round checker in the sealed late61 pilot.
+theorem positive_control : check indices output=true := positive
+theorem omitted_final_round : check ((List.finRange 65).filter (fun i => i.val≠64)) output=false := by decide +kernel
+theorem duplicate_round_omits_63 : check ((List.finRange 65).map (fun i => if i.val=63 then ⟨64,by decide⟩ else i)) output=false := by decide +kernel
+theorem wrong_existing_output : check indices ⟨0,by decide⟩=false := by decide +kernel
+end ShielddSecurity.TransferPoseidonCall04Controls01

@@ -1,0 +1,79 @@
+import ShielddSecurity.TransferPoseidonCall04Program01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonCall04Semantic01
+open Compiler CompilerCompletion Poseidon ShielddSecurity.TransferPoseidonCall04Shared01
+open ShielddSecurity.TransferPoseidonCall04Program01
+
+def before (index : Nat) (column : Fin 6) : Linear := match index with
+@BEFORE@
+  | _ => []
+def after (index : Nat) (column : Fin 6) : Linear := match index with
+@AFTER@
+  | _ => []
+def resultTerms : Linear := @RESULTTERMS@
+
+theorem result_port : after 64 ⟨1,by decide⟩=resultTerms := rfl
+
+theorem boundary (index : Nat) (bound : index+1<65) : before (index+1)=after index := by
+  have cases : @BOUNDARYCASES@ := by omega
+  rcases cases with @BOUNDARYPATTERNS@
+  all_goals rfl
+
+@LOCAL_INCLUSIONS@
+
+variable {F : Type} [Field F] [CharP F p]
+
+def inputValues (rho : Nat → F) : List F :=
+  TransferPoseidonAbsorb02SemanticData01.orderedInputs.map
+    (fun input => eval rho (TransferPoseidonAbsorb02.inputTerms input))
+
+theorem input_values_exact (rho : Nat → F) : inputValues rho=[rho 14,rho 15,rho 21,rho 22] := by
+  simp [inputValues,TransferPoseidonAbsorb02SemanticData01.orderedInputs,TransferPoseidonAbsorb02.inputTerms,eval]
+
+theorem initial_binding (rho : Nat → F) (one : rho 0=1) :
+    (fun column => eval rho (before 0 column))=Poseidon.absorb (Poseidon.initial 23 4) (inputValues rho) := by
+  change (fun column => eval rho (TransferPoseidonAbsorb02SemanticData01.before column))=Poseidon.absorb (Poseidon.initial 23 4) (inputValues rho)
+  exact TransferPoseidonAbsorb02SemanticProof01.before_values rho one
+
+theorem all_rounds_sound (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) (index : Nat) (bound : index<65) :
+    (fun column => eval rho (after index column))=
+      Poseidon.round (castParameters parameters) index (fun column => eval rho (before index column)) := by
+  have cases : @ROUNDCASES@ := by omega
+  rcases cases with @ROUNDPATTERNS@
+@ROUNDPROOFS@
+
+theorem arbitrary_permutation (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) :
+    (fun column => eval rho (after 64 column))=Poseidon.permute (castParameters parameters)
+      (Poseidon.absorb (Poseidon.initial 23 4) (inputValues rho)) := by
+  exact PoseidonCallComposition04.rounds_chain (count:=65) (castParameters parameters)
+    (fun index column => eval rho (before index column)) (fun index column => eval rho (after index column))
+    (Poseidon.absorb (Poseidon.initial 23 4) (inputValues rho)) (initial_binding rho one)
+    (by intro index bound
+        exact congrArg (fun state : State Linear 6 => fun column => eval rho (state column)) (boundary index bound))
+    (all_rounds_sound rho one four satisfied) 64 (by decide)
+
+theorem arbitrary_hash6 (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) :
+    eval rho resultTerms=Poseidon.hash6 (castParameters parameters) 23 [rho 14,rho 15,rho 21,rho 22] := by
+  have chunks : Poseidon.chunks5 (inputValues rho)=[inputValues rho] := by rw [input_values_exact];rfl
+  have length : (inputValues rho).length=4 := by rw [input_values_exact];rfl
+  have result := Poseidon.hash6_of_one_block (castParameters parameters) 23 (inputValues rho)
+    (Poseidon.initial 23 4) (fun column => eval rho (after 64 column)) chunks
+    (by rw [length]) (arbitrary_permutation rho one four satisfied)
+  simpa only [result_port,input_values_exact] using result
+
+theorem total_native_hash6 (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) (four : (4:F)≠0) :
+    Satisfies (completed base) originalRows ∧
+    (∀ input<22735,completed base (3+input)=base (3+input)) ∧
+    (∀ column<22738,completed base column=base column) ∧
+    completed base copy=base copy ∧
+    eval (completed base) resultTerms=Poseidon.hash6 (castParameters parameters) 23 [base 14,base 15,base 21,base 22] := by
+  have result := arbitrary_hash6 (completed base)
+    ((original_columns_preserved base 0 (by decide)).trans one) four (completed_rows base linked)
+  rw [original_columns_preserved base 14 (by decide),original_columns_preserved base 15 (by decide),
+      original_columns_preserved base 21 (by decide),original_columns_preserved base 22 (by decide)] at result
+  exact ⟨completed_rows base linked,original_inputs_preserved base,original_columns_preserved base,copy_preserved base,result⟩
+end ShielddSecurity.TransferPoseidonCall04Semantic01
