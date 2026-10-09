@@ -1,0 +1,58 @@
+import ShielddSecurity.TransferPoseidonWidth3Tail09Program01
+import ShielddSecurity.TransferPoseidonWidth3Call08Semantic01
+import ShielddSecurity.PoseidonRoundSuffix09
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonWidth3Tail09Semantic01
+open Compiler CompilerCompletion Poseidon
+open ShielddSecurity.TransferPoseidonWidth3Call08Shared01
+open ShielddSecurity.TransferPoseidonWidth3Tail09Program01
+open ShielddSecurity.TransferPoseidonWidth3Call08Semantic01 (before after boundary)
+
+@INCLUSIONS@
+variable {F : Type} [Field F] [CharP F p]
+theorem all_rounds_sound (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) (index : Nat) (lower : 2≤index) (upper : index<65) :
+    (fun column => eval rho (after index column))=
+      Poseidon.round (castParameters parameters) index (fun column => eval rho (before index column)) := by
+  have cases : @CASES@ := by omega
+  rcases cases with @PATTERNS@
+@PROOFS@
+
+theorem arbitrary_suffix (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) :
+    (fun column => eval rho (after 64 column))=PoseidonRoundSuffix09.roundsFrom (castParameters parameters) 2 63
+      (fun column => eval rho (before 2 column)) := by
+  have result := PoseidonRoundSuffix09.chain (castParameters parameters) 2 63
+    (fun index column => eval rho (before index column)) (fun index column => eval rho (after index column))
+    (fun column => eval rho (before 2 column)) rfl
+    (by intro index bound
+        exact congrArg (fun state : State Linear 3 => fun column => eval rho (state column)) (boundary (2+index) (by omega)))
+    (by intro index bound;exact all_rounds_sound rho one four satisfied (2+index) (by omega) (by omega)) 62 (by decide)
+  simpa only [] using result
+
+theorem before_support (column : Fin 3) (term : Nat × Int) (member : term∈before 2 column) : term.1<24744 := by
+  have checked : (List.finRange 3).all (fun col => (before 2 col).all (fun term => decide (term.1<24744)))=true := by decide +kernel
+  have columnChecked := List.all_eq_true.mp checked column (List.mem_finRange column)
+  exact of_decide_eq_true (List.all_eq_true.mp columnChecked term member)
+
+theorem before_preserved (base : Nat → F) :
+    (fun column => eval (completed base) (before 2 column))=(fun column => eval base (before 2 column)) := by
+  funext column
+  apply PoseidonCompletion.eval_run_preserves
+  intro term member written
+  have lower := (certificate (F:=F)).writes term.1 written
+  have upper := before_support column term member
+  omega
+
+theorem total_suffix (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) (four : (4:F)≠0) :
+    Satisfies (completed base) originalRows ∧
+    (∀ column<24744,completed base column=base column) ∧
+    completed base copy=base copy ∧
+    (fun column => eval (completed base) (after 64 column))=PoseidonRoundSuffix09.roundsFrom (castParameters parameters) 2 63
+      (fun column => eval base (before 2 column)) := by
+  have result := arbitrary_suffix (completed base)
+    ((original_columns_preserved base 0 (by decide)).trans one) four (completed_rows base linked)
+  rw [before_preserved base] at result
+  exact ⟨completed_rows base linked,original_columns_preserved base,copy_preserved base,result⟩
+end ShielddSecurity.TransferPoseidonWidth3Tail09Semantic01

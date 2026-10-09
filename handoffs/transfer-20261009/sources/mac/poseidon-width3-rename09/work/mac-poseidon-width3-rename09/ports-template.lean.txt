@@ -1,0 +1,27 @@
+import ShielddSecurity.TransferPoseidonWidth3SecondTail09Ports01
+import ShielddSecurity.CompilerRenamingChecks05
+import ShielddSecurity.TransferPoseidonWidth3Call08Semantic01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonWidth3SecondTail09PortChecks01
+open CompilerColumnRenaming05 CompilerRenamingChecks05
+open TransferPoseidonWidth3SecondTail09Shared01
+open TransferPoseidonWidth3SecondTail09Ports01
+@CHECKS@
+theorem copy_checked : checkRows rename [actualCopy] [TransferPoseidonWidth3Call08Shared01.rawCopy]=true := by decide +kernel
+theorem copy_exact : actualCopy=row rename TransferPoseidonWidth3Call08Shared01.rawCopy :=
+  List.singleton_inj.mp (checked_rows rename [actualCopy] [TransferPoseidonWidth3Call08Shared01.rawCopy] copy_checked)
+variable {F : Type} [Field F]
+theorem before_values (rho : Nat → F) :
+    (fun column => eval rho (before column))=
+      (fun column => eval (fun index => rho (rename index)) (TransferPoseidonWidth3Call08Semantic01.before 2 column)) := by
+  funext column
+  rcases TransferPoseidonWidth3Call08R02Proof.column_cases column with rfl|rfl|rfl
+@BEFOREVALUES@
+theorem after_values (rho : Nat → F) :
+    (fun column => eval rho (after column))=
+      (fun column => eval (fun index => rho (rename index)) (TransferPoseidonWidth3Call08Semantic01.after 64 column)) := by
+  funext column
+  rcases TransferPoseidonWidth3Call08R02Proof.column_cases column with rfl|rfl|rfl
+@AFTERVALUES@
+end ShielddSecurity.TransferPoseidonWidth3SecondTail09PortChecks01
