@@ -1,0 +1,96 @@
+import ShielddSecurity.TransferPoseidonWidth3Call08Program01
+import ShielddSecurity.TransferPoseidonWidth3Absorb08Proof01
+import ShielddSecurity.PoseidonHash3OneBlock08
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonWidth3Call08Semantic01
+open Compiler CompilerCompletion Poseidon ShielddSecurity.TransferPoseidonWidth3Call08Shared01
+open ShielddSecurity.TransferPoseidonWidth3Call08Program01
+
+def before (index : Nat) (column : Fin 3) : Linear := match index with
+@BEFORE@
+  | _ => []
+def after (index : Nat) (column : Fin 3) : Linear := match index with
+@AFTER@
+  | _ => []
+def resultTerms : Linear := @RESULTTERMS@
+
+theorem result_port : after 64 ⟨1,by decide⟩=resultTerms := rfl
+
+theorem boundary (index : Nat) (bound : index+1<65) : before (index+1)=after index := by
+  have cases : @BOUNDARYCASES@ := by omega
+  rcases cases with @BOUNDARYPATTERNS@
+  all_goals rfl
+
+@LOCAL_INCLUSIONS@
+
+theorem inputs_support_checked : CompilerPriorFrame01.checkSupport 2
+    (TransferPoseidonWidth3Absorb08.cutTerms2 TransferPoseidonWidth3Absorb08.inputs) steps=true := by decide +kernel
+
+variable {F : Type} [Field F] [CharP F p]
+
+def inputValues (rho : Nat → F) : List F :=
+  (TransferPoseidonWidth3Absorb08.inputList TransferPoseidonWidth3Absorb08.inputs).map (eval rho)
+
+theorem input_values_exact (rho : Nat → F) : inputValues rho=
+    [eval rho TransferPoseidonWidth3Absorb08.input0,eval rho TransferPoseidonWidth3Absorb08.input1] := rfl
+
+theorem initial_binding (rho : Nat → F) (one : rho 0=1) :
+    (fun column => eval rho (before 0 column))=Poseidon.absorb (Poseidon.initial 24 2) (inputValues rho) := by
+  change (fun column => eval rho (TransferPoseidonWidth3R0008.before column))=Poseidon.absorb (Poseidon.initial 24 2) (inputValues rho)
+  exact TransferPoseidonWidth3Absorb08Proof01.absorption_values 24 2 TransferPoseidonWidth3Absorb08.inputs
+    TransferPoseidonWidth3R0008.before TransferPoseidonWidth3Absorb08Proof01.absorption_checked rho one
+
+theorem all_rounds_sound (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) (index : Nat) (bound : index<65) :
+    (fun column => eval rho (after index column))=
+      Poseidon.round (castParameters parameters) index (fun column => eval rho (before index column)) := by
+  have cases : @ROUNDCASES@ := by omega
+  rcases cases with @ROUNDPATTERNS@
+@ROUNDPROOFS@
+
+theorem arbitrary_permutation (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) :
+    (fun column => eval rho (after 64 column))=Poseidon.permute (castParameters parameters)
+      (Poseidon.absorb (Poseidon.initial 24 2) (inputValues rho)) := by
+  exact PoseidonCallComposition04.rounds_chain (count:=65) (castParameters parameters)
+    (fun index column => eval rho (before index column)) (fun index column => eval rho (after index column))
+    (Poseidon.absorb (Poseidon.initial 24 2) (inputValues rho)) (initial_binding rho one)
+    (by intro index bound
+        exact congrArg (fun state : State Linear 3 => fun column => eval rho (state column)) (boundary index bound))
+    (all_rounds_sound rho one four satisfied) 64 (by decide)
+
+theorem arbitrary_hash3 (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) :
+    eval rho resultTerms=Poseidon.hash3 (castParameters parameters) 24 (inputValues rho) := by
+  have chunks : Poseidon.chunks2 (inputValues rho)=[inputValues rho] := by rw [input_values_exact];rfl
+  have length : (inputValues rho).length=2 := by rw [input_values_exact];rfl
+  have result := PoseidonHash3OneBlock08.hash3_of_one_block (castParameters parameters) 24 (inputValues rho)
+    (Poseidon.initial 24 2) (fun column => eval rho (after 64 column)) chunks
+    (by rw [length]) (arbitrary_permutation rho one four satisfied)
+  simpa only [result_port] using result
+
+theorem input_preserved (base : Nat → F) (input : Fin 2) :
+    eval (completed base) (TransferPoseidonWidth3Absorb08.inputs input)=eval base (TransferPoseidonWidth3Absorb08.inputs input) := by
+  simpa [TransferPoseidonWidth3Absorb08.cutTerms2,input.isLt,completed] using
+    CompilerPriorFrame01.completed_inputs 2 (TransferPoseidonWidth3Absorb08.cutTerms2 TransferPoseidonWidth3Absorb08.inputs)
+      steps inputs_support_checked base input.val input.isLt
+
+theorem input_values_preserved (base : Nat → F) : inputValues (completed base)=inputValues base := by
+  rw [input_values_exact,input_values_exact]
+  have first := input_preserved base 0
+  have second := input_preserved base 1
+  simpa [TransferPoseidonWidth3Absorb08.inputs] using congrArg₂ (fun x y : F => [x,y]) first second
+
+theorem total_native_hash3 (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) (four : (4:F)≠0) :
+    Satisfies (completed base) originalRows ∧
+    (∀ input<22735,completed base (3+input)=base (3+input)) ∧
+    (∀ column<22738,completed base column=base column) ∧
+    completed base copy=base copy ∧
+    (∀ input : Fin 2,eval (completed base) (TransferPoseidonWidth3Absorb08.inputs input)=eval base (TransferPoseidonWidth3Absorb08.inputs input)) ∧
+    eval (completed base) resultTerms=Poseidon.hash3 (castParameters parameters) 24 (inputValues base) := by
+  have result := arbitrary_hash3 (completed base)
+    ((original_columns_preserved base 0 (by decide)).trans one) four (completed_rows base linked)
+  rw [input_values_preserved base] at result
+  exact ⟨completed_rows base linked,original_inputs_preserved base,original_columns_preserved base,copy_preserved base,input_preserved base,result⟩
+end ShielddSecurity.TransferPoseidonWidth3Call08Semantic01

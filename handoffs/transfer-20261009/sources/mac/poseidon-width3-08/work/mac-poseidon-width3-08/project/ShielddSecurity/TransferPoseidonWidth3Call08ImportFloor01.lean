@@ -1,0 +1,10 @@
+import ShielddSecurity.TransferPoseidonWidth3Call08Program01
+import ShielddSecurity.TransferPoseidonWidth3Absorb08Proof01
+import ShielddSecurity.PoseidonHash3OneBlock08
+namespace ShielddSecurity.TransferPoseidonWidth3Call08ImportFloor01
+-- Same imports as the semantic endpoint, with no concrete reductions.
+theorem marker : True := by trivial
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonWidth3Call08ImportFloor01.marker
+#print axioms ShielddSecurity.TransferPoseidonWidth3Call08ImportFloor01.marker
+end ShielddSecurity.TransferPoseidonWidth3Call08ImportFloor01
