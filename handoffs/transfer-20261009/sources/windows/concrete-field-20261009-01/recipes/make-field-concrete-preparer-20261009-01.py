@@ -1,0 +1,17 @@
+from pathlib import Path
+import hashlib
+local=Path('C:/src/shieldd-transfer-handoffs')
+body=(local/'prepare-windows-field-certificate-tree-20261009-03.py').read_text()
+body=body.replace('windows-field-certificate-tree-20261009-03','windows-field-concrete-20261009-01')
+body=body.replace("'FieldPrimeNode38'", "'ConcreteJubjubField01'")
+body=body.replace("['windows-field-certificate-pilot-20261009-05']", "['windows-field-certificate-tree-20261009-03', 'windows-field-certificate-pilot-20261009-05', 'windows-subgroup-arithmetic-20261009-03']")
+body=body.replace("checked['sources'][name]['lean_relative_path']", "checked['sources'][name].get('lean_relative_path', 'ShielddSecurity/' + name + '.lean')")
+body=body.replace("assert {item['name'] for item in reused} == {'ModularPower', 'LucasCertificate', 'UpstreamLucasPrimality'}", "assert {'FieldPrimeNode38', 'ModularPower', 'LucasCertificate', 'UpstreamLucasPrimality'} <= {item['name'] for item in reused}")
+previous=next(line for line in body.splitlines() if line.startswith('scope = '))
+body=body.replace(previous,"scope = 'Concrete mathematical ZMod Scalar.modulus field from actual38-node Lucas root; canonical val/bound/natcast roundtrip and mathematical BE writer, exact coefficient=-10240/10241, explicit imaginary square=-1, modular Euler value and NoUnitSquare for fixed d. Native Scalar/FFI/SDK correspondence, full curve/group-order instances and full Transfer remain OPEN.'")
+composer=(local/'compose-field-cache-20261009-06.py').read_text().replace('windows-field-certificate-tree-20261009-03','windows-field-concrete-20261009-01').replace('field-external-closure-inspection-20261009-01.json','field-concrete-closure-inspection-20261009-01.json')
+target=local/'compose-field-cache-20261009-07.py';target.write_bytes(composer.encode())
+old_hash=hashlib.sha256((local/'compose-field-cache-20261009-06.py').read_bytes()).hexdigest()
+new_hash=hashlib.sha256(target.read_bytes()).hexdigest()
+body=body.replace('compose-field-cache-20261009-06.py','compose-field-cache-20261009-07.py').replace(old_hash,new_hash)
+(local/'prepare-windows-field-concrete-20261009-01.py').write_bytes(body.encode())

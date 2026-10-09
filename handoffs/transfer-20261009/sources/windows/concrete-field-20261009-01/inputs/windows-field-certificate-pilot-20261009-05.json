@@ -1,0 +1,91 @@
+{
+  "sources": {
+    "ModularPower": {
+      "path": "C:\\src\\shieldd-transfer-windows-publication-20261009\\circuits\\ShielddSecurity\\ModularPower.lean",
+      "sha256": "cbe0554958adfc724b2fe5121d1b9b3081fcea5e32f4fa9f71e8d04204b96d8a",
+      "bytes": 2636,
+      "imports": [
+        "Mathlib.Data.ZMod.Basic",
+        "Lean.Elab.Tactic.Omega"
+      ],
+      "lean_relative_path": "ShielddSecurity/ModularPower.lean"
+    },
+    "UpstreamLucasPrimality": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\.lake\\packages\\mathlib\\Mathlib\\NumberTheory\\LucasPrimality.lean",
+      "sha256": "473b4116c0c8fb3e4f1478d41471df080e5b09607e5fd5e6593d57cd90f249f6",
+      "bytes": 3658,
+      "imports": [],
+      "lean_relative_path": "Mathlib/NumberTheory/LucasPrimality.lean"
+    },
+    "LucasCertificate": {
+      "path": "C:\\src\\shieldd-transfer-windows-publication-20261009\\circuits\\ShielddSecurity\\LucasCertificate.lean",
+      "sha256": "5980964798dc5632e6f9c051e047b0331e63fa21ac420d832c032530a18d38b8",
+      "bytes": 3538,
+      "imports": [
+        "ShielddSecurity.ModularPower",
+        "Mathlib.NumberTheory.LucasPrimality"
+      ],
+      "lean_relative_path": "ShielddSecurity/LucasCertificate.lean"
+    },
+    "FieldCertificateSmallPilot01": {
+      "path": "C:\\src\\shieldd-transfer-windows-publication-20261009\\circuits\\ShielddSecurity\\FieldCertificateSmallPilot01.lean",
+      "sha256": "d0d938af6f596d4cd3a1132df171742e9954b6ce46f2312618aa8a4ca67d6fe1",
+      "bytes": 973,
+      "imports": [
+        "ShielddSecurity.LucasCertificate"
+      ],
+      "lean_relative_path": "ShielddSecurity/FieldCertificateSmallPilot01.lean"
+    }
+  },
+  "order": [
+    "ModularPower",
+    "UpstreamLucasPrimality",
+    "LucasCertificate",
+    "FieldCertificateSmallPilot01"
+  ],
+  "dependency_order": [
+    "ModularPower",
+    "UpstreamLucasPrimality",
+    "LucasCertificate",
+    "FieldCertificateSmallPilot01"
+  ],
+  "expected_theorems_by_module": {
+    "ModularPower": [
+      "power_lt",
+      "power_sound",
+      "power_eq_one",
+      "power_ne_one"
+    ],
+    "UpstreamLucasPrimality": [
+      "lucas_primality",
+      "reverse_lucas_primality",
+      "lucas_primality_iff"
+    ],
+    "LucasCertificate": [
+      "factor_power_sound",
+      "prime_divisor_member",
+      "certificate_sound"
+    ],
+    "FieldCertificateSmallPilot01": [
+      "node3_checked",
+      "node3_prime",
+      "bad_factor_rejected",
+      "bad_residue_rejected",
+      "bad_base_rejected"
+    ]
+  },
+  "audited_candidates": {
+    "ModularPower": "7949e5cc96ab8147fc50ef98c25592d2232fb0fee16c4a1db3b8c8eeb5ba61e9",
+    "UpstreamLucasPrimality": "31ae313dee2eb9b60ef62191b4ca5095e607bcbd02336f61951acdee6e6d95ad",
+    "LucasCertificate": "ffcfb2a454f2d652ad5c5584e945980e962e9f4006d610244206e443ebe820f5",
+    "FieldCertificateSmallPilot01": "c5973978b68ed86048e4c0f92e2f6ff6b10a22c90764193551da48b486793f36"
+  },
+  "reused": [],
+  "frozen_import_receipts": {},
+  "proof_bytes_changed": true,
+  "parent_commit": "e90e824285275bd59eac9fb1f5d173b9e38b0d17",
+  "candidate_sha256": "20d3da8789fc847a4e5450c430321b52350e79f7533bcd43ff48695ffa4c862d",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Bounded binary modular exponentiation over ZMod without primality assumptions; generic Lucas checker derives prime-factor coverage from exact product and independently proved factors; node3 and three semantic changed-factor/residue/base rejection controls. Full38-node tree, concrete modulus/d/imaginary/codec instances and full Transfer remain OPEN.",
+  "kernel_run": false
+}
