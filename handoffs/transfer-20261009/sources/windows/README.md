@@ -8,7 +8,7 @@ finite memory/time bounds and exactly one heavy verifier. No caches or binaries
 are supplied or committed.
 
 Only the named portable receipt summaries describe actual kernel observations.
-The five inverse/canonical modules are unrun drafts in this snapshot. Hashes
+The eight inverse/canonical modules are unrun drafts in this snapshot. Hashes
 establish byte identity; they do not establish semantic correspondence. This is
 a sharing snapshot, not an atomic evidence refresh or complete Transfer result.
 
