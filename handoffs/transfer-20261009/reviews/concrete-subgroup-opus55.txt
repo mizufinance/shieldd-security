@@ -1,0 +1,54 @@
+I found no soundness defect. Within its stated premises, the join is a legitimate scoped conditional theorem. There is one misleading comment, and one small presentation gap.
+
+This was a source read only. I did not run Lean, build anything, or replay the kernel, so none of this counts as checked evidence. `graph_matches` (`fin_cases … <;> rfl`) and the Mac packets still depend on kernel replay that I did not observe.
+
+## What I checked
+
+**Node and assertion matching** (`GroupSubgroupSourceGraph.lean:20-88`, compared with `TransferFirstSubgroupData01.node`)
+- Inputs 0–6 map to witness IDs 11–17: point is (11, 12), preimage is (13, 14), hints are 15–17. Constants are 7–21.
+- Curve block 22–28 matches `curveValues` 0–6 operand by operand: xx, yy, neg·xx, yy+neg·xx, d·xx, (d·xx)·yy, 1+….
+- Doubling blocks:
+  - The phase constants come out right: `10+4p`→1, `11+4p`→negative, `12+4p`→1, `13+4p`→1.
+  - The previous point is chained correctly. `x = 25+17p` and `y = 28+17p` land on offsets 13 and 16 of the previous phase.
+  - The hint is input `4+p`. Offset 8 has the operands reversed relative to `doubleValues`; `mul_comm` closes that.
+- All six assertions match `SourceAssertions`: (25, 28) is the curve check, (13/17/21, 37/54/71) are the three inverse checks against constant 1, and (0, 76) and (1, 79) tie the point to the final double.
+- Shape is matched syntactically: `Matches` compares nodes and assertions. No value equation is assumed.
+
+**Constants**
+- `negative` = r−1, where r is `Scalar.modulus`. `negative_cast` gets this from `CharP` and nothing else.
+- `d` is the standard Jubjub d.
+- `two_ne_zero` and `four_ne_zero` are proved through `small_cast_ne_zero` and `CharP`, with no extra premise.
+
+**`original_rows_sound`** (`TransferFirstSubgroupSemantics01.lean:75`)
+- The only premises are an arbitrary `rho` with `rho 0 = 1` and `Satisfies` of all 71 rows. `four` is derived.
+- `inputTerms i = [(3+i, 1)]`, so rho 16/17 is the preimage and rho 14/15 is the point. That is consistent.
+- The conclusion is only "the preimage is on the curve and 8·preimage = point". It does **not** conclude subgroup membership. Getting to r-torsion needs `cofactor_image_annihilated` together with a `standardOrder` premise, and that step is not used here. The file does not claim it, but nobody should cite this theorem as subgroup soundness.
+
+**Completeness side**
+- **Preimage:** `nativePreimage` is built by the native multiply on `encode(inverseEight)`. `inverse_eight_equation` and the bound are checked by `norm_num`/`decide`.
+- **Hints:** `nativeHints` = `sharedInverse` of the native trace. Neither the preimage nor the hints is derived from a desired output.
+- **Denominators** (`:381`): derived from `Group.denominators_nonzero`, using `model.onCurve`, `NoUnitSquare` and `imaginary`. This is not a free premise, and identity points are allowed.
+- **Inputs outside 11..17:** preserved by `constructed_input_roles` (`:318`, `index < 11 ∨ 18 ≤ index`).
+- **Composition** (`:90-110`): `native_assertions_complete` feeds `constructive_slice_complete`, using only `four`. The original-row reverse coverage comes from Final01.
+
+## Circularity and overclaim check
+- **`subgroup : Scalar.order • initial = 0`** is a premise about the *admitted input* in J. It is separate from the circuit's output. The output is proved equal to `model.coordinates initial`; it is not assumed. Not circular.
+- **`BEWrite`** is inhabited by `canonicalWrite`, so it is not vacuous. Proving that the pinned FFI encoder matches it is the open part.
+- **`CanonicalField`** plus `CharP r` forces F ≅ ZMod r (`codec_equiv`), which is consistent.
+- **`StandardCurveModel`** requires `covers`, `injective` and `addition` for the *full* group. `GroupByteCodec.lean:56-60` already notes that SubgroupPoint cannot be J. Nothing restates the model's own conclusion as a premise, but if no inhabitant exists the theorems are vacuous. That makes instantiating it the main open obligation.
+- **`NoUnitSquare d`** and `imaginary² = −1` are plain algebraic parameters, not hidden group-law assumptions.
+- I saw no `sorry`, `admit` or axioms in these sources. Heartbeats are finite (400k/500k).
+
+## Misleading comments
+1. **`TransferFirstSubgroupSemantics01.lean:11-14`**: the header says the file is "not … original-row witness completion". But the same file proves `native_original_rows_complete` (`:90`), which completes witnesses for exactly the 71 selected original rows. The header looks stale. It should say: "completes the 71 selected rows only, under named open curve/codec/field contracts; not the full Transfer relation."
+2. **`GroupSubgroupSourceGraph.lean:398-401`** ("not … an original-row completion theorem") is accurate for that file. It's only worth noting because it contrasts with item 1.
+3. **Minor gap:** `native_original_rows_complete` does not restate that `remaining` passes through outside 11..17. Callers need to compose `constructed_input_roles` themselves, so it might be worth exporting as a conjunct.
+
+## Open owned obligations, in order
+1. A `Group.StandardCurveModel J d_jubjub` instance for the full Jubjub group over ZMod r (`covers`, `injective`, identity, `addition`), plus a full-group order of 8r if subgroup soundness will be claimed.
+2. `NoUnitSquare d_jubjub` and an explicit `imaginary` with `imaginary² = −1` in ZMod r.
+3. A `CanonicalField (ZMod r)` instance, and a `BEWrite` join to the pinned blst `as_slice`/Write path.
+4. The `Scalar.from_limbs(INVERSE_EIGHT)` source contract: that the native scalar equals the `inverseEight` Nat.
+5. An SDK admission join: the SubgroupPoint input embeds into J with `r • P = 0`, tied to runtime pin `844389ee069e1fb2e576708842d0b389b4d9a44a`.
+6. A soundness-side `standardOrder` composition (`cofactor_image_annihilated`) if anyone wants "the selected rows imply a subgroup point".
+7. Full relation inclusion and full Transfer remain OPEN. These 71 rows (58 arithmetic nodes, 6 assertions) are only one slice.
