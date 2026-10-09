@@ -4,13 +4,16 @@ Both machines share `codex/security-assurance` in `mizufinance/shieldd-security`
 Runtime pin: `844389ee069e1fb2e576708842d0b389b4d9a44a`.
 Full Transfer assurance remains OPEN.
 
-The Windows chat, **Resume Transfer assurance proofs**, owns the full proof
-composition and integration, the native/field/DH chain, and the inverse checks
-3131–3136. The Mac agent owns independent finite native/compiled-row checks,
-the completed fixed empty-input hash build, and explicitly assigned independent
-proof obligations. The coordinator owns independent review and the task queue.
+The desktop chat **Transfer proof** owns Windows proof/native builds. The new
+local GPT-6.1 Sol/high subagent owns the Mac build lane. This parent chat
+orchestrates integration and evidence acceptance; local Claude Opus 5.5 performs
+independent review. The stopped predecessor chats remain historical context.
 One bounded heavy verification job may run on each physical machine, as
-explicitly authorized by the user.
+explicitly authorized by the user. See [the completion plan](completion-plan.md).
+
+The publication lock is still the earlier `bac25507…`; the maintained campaign
+and clean runtime snapshot target the full SHA above. This mismatch is being
+reconciled with reviewed source integration. No handoff certifies either tree.
 
 ## Synchronization
 
@@ -57,10 +60,10 @@ Original seal manifests identify locally retained files, including omitted logs.
 `receipts/mac/publication-manifest.json` lists the files actually shipped here.
 This directory does not refresh the claim register or certify full Transfer.
 
-## Worker arrangement — user update 2026-10-09
+## Worker arrangement — implementation authorized 2026-10-09
 
-The existing Mac subagent will finish and seal its current M15 committed-blinding
-range bridge, then stop. Do not reuse or assign further work to that agent.
-The parent coordinator takes over all subsequent Mac proof/build work and
-coordinates directly with the Windows chat. Existing completed sources and
-receipts remain available for independent review and integration.
+The user instructed the new parent chat to implement the completion plan using
+local Sol 6.1/high, the desktop **Transfer proof** chat, and local Opus 5.5.
+This supersedes the earlier parent-only Mac arrangement. The former M15 worker
+remains retired; the new worker is a separate agent. Parent serializes pushes
+and verifies received source identities. No recurring coordination automation.
