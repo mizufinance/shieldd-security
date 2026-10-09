@@ -1,0 +1,69 @@
+I've finished reading the sources and am writing up the recommendation. Nothing was edited or built. The user limited me to Read/Glob/Grep, so I didn't write a plan file.
+
+# Scalable certificate representation for Transfer: recommendation
+
+## 1. Where proof size and time go in the generated sources
+
+Each item below names the problem in the current code and a fix that keeps the goal intact.
+
+| # | Where | Problem | Fix that doesn't hand the goal to an unproved premise |
+|---|---|---|---|
+| B1 | `Compiler.checkRow` (`Compiler.lean:83`) | `rows.any (decide (canonical … ∧ canonical …))` is a full linear scan. Every pass runs `canonical` on both sides of every row it visits. Every `NodeCertificate.square`/`.product` and every `AssertionCertificate` calls it once or twice. At 200,770 rows this is the "repeated full-row search" you want to rule out. | Add an **indexed** variant: `checkRowAt p rows i expected := match rows[i]? with some r => canonEq r expected \| none => false`. Lemma: `checkRowAt … = true → checkRow … = true`. This is a one-line `List.any_of_mem` plus `getElem?_mem`. All existing soundness theorems are reused unchanged. Certificates then carry the row index, which also gives you global row indexing for free. |
+| B2 | `unoutlined := unoutlineRows copy originalRows`, used inside every `decide` | Each `decide` reduces `unoutlineRows` over the whole list again. The kernel does not memoise across separate `decide` goals. | Check once for the whole block. Run one Bool checker over `unoutlined` (see B4). Alternatively, prove `unoutline` at the row-lookup site only: `(unoutlineRows c rows)[i]? = (rows[i]?).map …` via `List.getElem?_map`. |
+| B3 | `by decide` on `canonical p x = canonical p y` (Prop) in about 4 places per node | Elaboration-time `decide` evaluates `Decidable` instances through `Meta.whnf`. That covers DecidableEq on `List (Nat × Int)` with Int `%` by a 254-bit `p`. It's slow and repeats `canonical` on the same LC many times (the shared `lcN` values are re-canonicalised at every use). | (a) Store the LC table **already canonical** and check `canonical p lc = lc` **once per LC**. Every per-use equality then becomes `lcIdx = lcIdx` (Nat), or at most syntactic `List` equality. (b) Use `decide +kernel` or `by rfl` on a Bool checker. Both are kernel-only and add no `Lean.ofReduceBool`. Keep auditing with `#print axioms`. |
+| B4 | One theorem per node or assertion (`certificate{i}`, `operation_sound{i}`), each with its own term | Declarations grow linearly with the graph. Proof terms are small, but the olean holds an elaborated statement per node, and `prior{i}`/`output{i}` repeat the types. | **A generic Bool block checker plus one soundness theorem**: `checkBlock : BlockData → Bool`, `checkBlock_sound : checkBlock d = true → ∀ i, NodeCertificate … ∧ ∀ a ∈ asserts, AssertionCertificate …`. Each block then emits only data plus `theorem ok : checkBlock d = true := by decide +kernel`. Proof size per block is O(1); the olean holds only data. |
+| B5 | `CompilerOrder.checkOrder` (`CompilerOrder.lean:35`) | `prior.all (checkTerms (row.a ++ row.b) step.writes)` with `prior ++ step.rows` growing is **quadratic** in rows. At full scale that's about 10¹⁰ term checks. | New lemma: freshness by **watermark**. If the writes of step k are all ≥ w_k, every term in the rows of steps < k is < w_k, and the kept columns are < w₀ (or explicitly excluded), then `Topological` holds. The cost is O(total terms). It must be proved against `Topological` itself, not assumed. Caveat: Pari's copy column 200692 and fixed columns need explicit exclusion, which `kept` already handles. |
+| B6 | `prior{i} : Fin 2 → Expression := if … then .linear lcA else …` | These are cut contexts. Each node is certified against a two-element fake predecessor, so nothing composes. It also duplicates the operand LCs per node. | A global `expressions : Fin N → Expression` defined by array lookup into the interned table, and `graph.prior expressions` used directly, as `certified_blocks_compute_and_assert` already expects. |
+| B7 | Middle01's 60-term LCs written as literals | The flattened add-chain output is repeated at each consumer, and the source carries 60-term literals. | See §2(b). Derive them as an interned DAG rather than repeating literals. |
+| B8 | `arithmetic_coverage` with `rcases … rfl` and a `decide` per row | A tactic tree per row. | Replace with an indexed `Coverage` checker (§3). |
+
+## 2. Representation options: what exists vs. what's new
+
+**(a) Global interning of constants, LCs and rows.** No interface change. `Linear`, `Row` and `List Row` are unchanged; the generator defines `lcTable : Array Linear`, `rowTable : Array Row` and `constTable : Array Int`. You need two small new lemmas: `canonicalTable_ok` (B3a), and `Array.toList`/`getElem?` agreement so `Satisfies rho rowTable.toList` is the premise. Split tables into chunk modules of about 2–5k entries with the `Array` assembled in an aggregator module. Then Lake rebuilds stay incremental and one thread stays feasible. **Highest value for the least risk.**
+
+**(b) Shared expression DAG instead of flattened literals.** Make the checker *compute* the canonical output, `out := canonical p (lc[x] ++ lc[y])` for `add` and `scaleLinear` for folded nodes, and compare it to the interned target with Nat or List equality. Don't store a separate 60-term literal per consumer. `NodeCertificate.add` already accepts any `output` with `canonical output = canonical (x++y)`, so soundness needs no new lemma. The trade-off: kernel evaluation time replaces olean bytes. Only intern LCs that are actually *consumed* by a multiplication row or an assertion, and leave intermediate add-chain LCs implicit. This is the "genuine constant outlining" lesson from Middle.
+
+**(c) Generic block checker plus one soundness theorem.** This is new, and it's the central piece. Define:
+
+```
+structure NodeCert where kind : Fin 6; l r : Nat; x y out aux : Nat; coeff : Int; rowA rowB : Nat
+def checkNode (p) (rows : Array Row) (lcs : Array Linear) (exprOf : Nat → Expression) (n : RawNode) (c : NodeCert) : Bool
+theorem checkNode_sound : checkNode … = true → NodeCertificate p rows.toList inputTerms (graph.prior exprs i) (graph.node i) (exprs i)
+```
+
+`node_certificate_sound`, `assertion_certificate_sound` and `compiled_values_eq_evaluation` are reused as they stand. `checkNode_sound` is a case split per constructor, roughly 150 lines.
+
+**(d) Raw graph identity.** `SourceGraph.node : (i : Fin n) → SourceNode i.val` is dependently typed, so it can't be read straight out of an array. New: `RawNode := op × Nat × Nat`, `wf : Array RawNode → Bool` (operands < i, inputs < bound), and `toGraph : (a) → wf a = true → SourceGraph`. Graph identity becomes "this `Array RawNode` equals the exporter's array". Bind it by an exact `List` equality in Lean against the generated chunk data, plus the existing Python sha/raw-stream check. That keeps the correspondence a checked computation, not an assumption. `graph.assertions` gets the same treatment.
+
+**(e) Formal compiler replay with exact indexed-row equality.** This is stronger than (c). You write a Lean `compile : RawGraph → List Step × List Row` and prove `rowTable = (compile g).rows` by kernel evaluation. That reproduces exact row order, and both coverage directions follow structurally. It's the correct end state, but Commonware/Pari lowering details have to be modelled exactly (outlining copy, column allocation, BTreeMap order). **Use indexed certificates (c) first and replay later.** Certificates tolerate lowering quirks, while replay forces a full compiler specification.
+
+**(f) Source gadget templates and renaming.** Here's where it could pay off. Poseidon rounds and Decaf field ops repeat. A template is a `BlockData` with column and node offsets, plus a theorem `checkBlock (shift k d) = checkBlock d` (or soundness invariant under a renaming that's injective on columns). That needs real new lemmas: `eval_rename`, `canonical_rename` (order preservation needs a *monotone* renaming because `insertTerm` sorts), and Coverage under renaming. Templates should wait until (a)–(d) give you the measurements. Only adopt them if per-instance kernel check time dominates; data size alone is already handled by (a).
+
+## 3. Coverage in both directions
+
+- **Soundness (local ⊆ full):** `Coverage` with an index certificate. `coverageAt : List (localIdx × fullIdx)` is checked by `canonEq` per pair. New lemma: it implies `CompilerCertificateTransport.Coverage`.
+- **Completeness (every original row ⊆ emitted):** `original_rows_complete` needs `∀ actual ∈ original, ∃ expected ∈ emitted steps`. Use the same indexed map `origIdx ↦ emittedIdx`, plus a **surjectivity check**: the map's domain is exactly `0..R-1`. Prove that with `List.range` equality so no row is skipped.
+- **The missing piece for genuine completeness.** Today `Step.Legal` for `.equal` and `.squareEqual` is discharged trivially (`.equal [(0,1)] [(0,1)]`). You need a lemma linking completion to source evaluation: `eval (run base steps) (exprs i) = SourceGraphEvaluation.values graph inputs i`. That turns `Legal` into "source assertions hold under `values`", i.e. `satisfies_iff_assertions`. This is the completeness counterpart of `compiled_values_eq_evaluation`, it's genuinely new, and it can't become a premise.
+
+## 4. Smallest connected pilot (Sol's slice: nodes 1–58, assertions 1–6)
+
+Use **58 nodes / 6 assertions** as is. Only go to 128 if those 58 contain no `product` node or fewer than 2 chunk boundaries. Structure:
+
+1. `Pilot/Tables{0,1}.lean` hold interned canonical LCs, constants and rows, split into **two** chunks on purpose so cross-module aggregation is measured.
+2. `Pilot/Graph.lean` holds `rawNodes`, `rawAssertions`, the `wf` proof by `decide +kernel`, and `toGraph`. Exact raw identity is an equality against exported data.
+3. `Pilot/Blocks{A,B}.lean` hold node certificates using **global** row indices into the full 200,770-row index space. The table is sparse: an `Array (Option Row)`, or an assoc list sorted by index with a binary-search lookup lemma, so only referenced rows are materialised. `ok : checkBlock … = true := by decide +kernel`.
+4. `Pilot/Compose.lean` applies one `certified_blocks_compute_and_assert` to the connected `SourceGraph 58`. It gets soundness for arbitrary `rho` from `Satisfies rho rowSlice`, plus the completeness theorem (§3) with both coverage directions over the slice rows.
+5. Measure bytes, olean size and time per module, separating aggregation-import time from check time, and track how they grow from 8 to 58 nodes.
+
+State the pilot's limitation plainly: `rowSlice` is a closed sub-relation, so "full-row coverage" holds for the slice only.
+
+## 5. Ranked first improvements
+
+1. **Indexed `checkRowAt` plus a pre-canonicalised interned LC table (B1+B3).** It's small, every existing soundness theorem is reused, and it removes both the O(rows) scan and repeated `canonical`. Do this first and regenerate the four samples to measure.
+2. **Generic `checkBlock` plus `checkBlock_sound` (B4/§2c),** with `decide +kernel` (`v4.30.0` supports it). That reduces declarations to roughly one per block.
+3. **Watermark `Topological` lemma (B5).** This removes the quadratic order check before any scale-up.
+4. `RawNode`→`SourceGraph` plus a global `exprs` (B6/§2d), then the 58-node pilot.
+5. The completion-equals-evaluation lemma (§3) for genuine completeness.
+6. Templates and renaming, then full compiler replay, only once the measurements justify them.
+
+Scaling projection: data-only oleans for about 200k rows and about 690k constants should land in the low GB if interned, not 61–310 GB. The real risk is total kernel check time, so the 58-node pilot must report seconds per checked row and per node.
