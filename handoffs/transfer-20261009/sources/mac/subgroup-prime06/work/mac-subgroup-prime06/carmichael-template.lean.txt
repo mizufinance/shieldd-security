@@ -1,0 +1,15 @@
+import ShielddSecurity.LucasCertificate
+set_option maxHeartbeats 300000
+set_option maxRecDepth 4096
+namespace ShielddSecurity.SubgroupPrimeCarmichael06
+open LucasCertificate
+
+/-- The arithmetic checker alone deliberately does not establish primality. -/
+def carmichael : Certificate := ⟨561,2,[⟨560,1,2⟩]⟩
+theorem carmichael_arithmetic_passes : carmichael.check=true := by decide +kernel
+theorem carmichael_children_not_prime : ¬(∀ entry ∈ carmichael.powers, Nat.Prime entry.factor) := by
+  intro allPrime
+  have composite : ¬Nat.Prime 560 := by decide +kernel
+  exact composite (allPrime ⟨560,1,2⟩ (by simp [carmichael]))
+theorem carmichael_not_prime : ¬Nat.Prime 561 := by decide +kernel
+end ShielddSecurity.SubgroupPrimeCarmichael06
