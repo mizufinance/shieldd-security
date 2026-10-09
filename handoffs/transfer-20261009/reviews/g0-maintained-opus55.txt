@@ -1,0 +1,78 @@
+READ-ONLY SOURCE REVIEW. Model reported: claude-opus-5-5. No kernel or test credit. This predates canonical pin integration. Parent acceptance notes are in g0-integration.json.
+
+I made no changes and ran no builds or Lean checks. Nothing below is kernel-checked, and nothing here is a certification.
+
+The Mac compiler pilot is self-contained and can be integrated now. The full Transfer claim cannot be completed from these sources. Its top theorem takes the circuit's soundness as a premise, and no handwritten module proves that premise from the compiler certificates.
+
+## 1. Compiler pilot: the integration batch
+
+**The pilot's 9 modules don't import any of the 74 missing generated modules.** The import chain is:
+- `SpendGateInputs` → `Range` → `Rows`
+- `Compiler` imports `Rows` and `Arithmetic`
+- `ScalarCompletion`, `CompilerCertificateTransport` and `SourceGraphEvaluation` each import only `Compiler`
+- `CompilerCompletion` imports `ScalarCompletion`
+
+The reduced baseline already has `Arithmetic`, `Range`, `Rows` and `SpendGateInputs`. Add the other five from `…/formal/circuits/ShielddSecurity/` as one handwritten commit: `Compiler`, `ScalarCompletion`, `CompilerCompletion`, `CompilerCertificateTransport`, `SourceGraphEvaluation`. Diff the four shared files against the candidate before adding anything.
+
+**What each theorem assumes (`CompilerCompletion.lean`):**
+- `original_rows_complete` (line 180) is real reverse coverage. Its premises `Topological` and `Step.Shape` are only structural freshness checks. Its `coverage` premise matches each original row to an emitted row after canonicalisation, which is a finite, decidable check.
+- **`Step.Legal` (lines 78–81) needs scrutiny.** For `.equal` and `.squareEqual` steps it requires exactly the row equality that `step_complete` then concludes (lines 100–111). So for assertion rows, completeness is assumed, not proved. The file says so at lines 74–77. The certificate is only honest for assertion rows if `Legal` is derived from the source graph, not supplied as data.
+- `graph_certificate_sound` (`Compiler.lean:377`) is soundness only. Its premises (`one`, `four`, `satisfied`) are genuine hypotheses.
+
+**Missing link for the two-direction certificate (no source in the packet; it needs a new proof):**
+- **Reverse direction:** prove that `Legal (base) steps` follows from the source graph's assertions holding on `SourceGraphEvaluation.values graph inputs` (via `satisfies_iff_assertions`, line 36), when `base` is the input/values assignment. Without this, the reverse direction is conditional on the assertions holding.
+- **Forward direction:** this is `CompilerCertificateTransport.Coverage p localRows fullRows` (local rows ⊆ full rows), from which `graph_nodes_covered` and `graph_assertions_covered` follow. `original_rows_complete` covers the other inclusion (full rows ⊆ emitted rows).
+- **One root theorem** should combine both inclusions and both theorems over the same `steps` list and the same original rows. Only that is a two-direction certificate.
+- **Fixture strategy:** keep the 200770-row G1 comparison and the 1252892-node source graph outside git. Commit only a generator that emits per-block certificates, which are checked through `Coverage` against the full row list. Don't hand-write row literals.
+
+## 2. Full Transfer roots: which assumptions restate the conclusion
+
+The top-level theorem is `full_carrier_acceptance_consequence` (`TransferFullCarrierAcceptance.lean:533`). It takes two premises:
+- **`soundness : LocalRowSoundness` (defined at line 439) restates the conclusion.** It *is* the claim "satisfying rows imply a `TransferSem` witness". The file calls it a "pending local T1/T4 interface … not a proved whole-circuit theorem". It is consumed only here and in `TransferNativeMixedJoin.lean`.
+- **`knowledge : UpstreamKnowledge`** is a legitimate assumption about the proof system (the backend), which matches the register's `backend: assumed`. It must stay a named assumption and never be discharged.
+
+**No handwritten `Transfer*.lean` file uses `graph_certificate_sound`, `original_rows_complete` or `SourceGraphEvaluation`.** Only the generators and the `Group*Completion` modules do. So nothing connects the compiler pilot to `LocalRowSoundness`.
+
+- **Final soundness root:** a new theorem that proves `LocalRowSoundness crypto rows publicLc committed opens` for the concrete Transfer rows. It would use `graph_certificate_outputs` plus a source graph that is proved to compute `TransferSem.publicFields` and the hash.
+- **Final native root:** `mixed_transfer_native_consequence` (`TransferNativeMixedJoin.lean:257`) with `LocalRowSoundness` discharged. `TransferNativeFieldBridge`, from `field_success` to `statement_hash_conversion`, supplies the native field conversions. It depends on `ShielddNativeEncode`, and through the native modules on the missing `RuntimeNativePoseidonParameters` (imported by `ShielddNativeParameterLoader`).
+
+## 3. The 74 missing generated imports, grouped by the root that needs them
+
+All of these are listed in `supplement.json`, from line 200 onward. Each entry is marked "SOURCE_IDENTITY_ONLY_NOT_QUALIFIED", meaning only hashes of Windows staging files exist. **None can be copied in; each must be regenerated.** Batches, in order:
+
+| Batch | Missing modules (examples) | Imported by | Generators to run |
+|---|---|---|---|
+| A: native parameters / field | `RuntimeNativePoseidonParameters`, `RuntimeNativeEncryption{FieldFacts,Fixed28Literal,Fixed29Literal,InitializationBridge,InitializationCoefficients}` | `ShielddNativeParameterLoader`, `NativeEncryption*`, `TransferEpkRawNative` | encryption/Poseidon renderers named in the recipe references |
+| B: EPK (the chain Windows is finishing) | `RuntimeTransferEpk0*`, `RuntimeTransferEpk1PublicationFrame*` (Part000–005, First, Page00–07), `RuntimeTransferEpk1{RenamingRows000/126,TemplateRenamingPage00–03}` | `TransferEpkScope0/1Relation`, `TransferEpkScope1Completion`, `TransferEpkCanonical*` | `generate_transfer_epk_fixed_renaming.py`, `generate_transfer_epk_fixed_template_canonical_preservation.py` |
+| C: balance | `RuntimeBalanceBlinding*`, `RuntimeBalanceVariable{Sequence*,Window000*,Window001*}`, `RuntimeTransferBalanceFinalAdd{Completion,Soundness}` | `TransferBalance*Relation/Frame/Completion`, `TransferAssetMapSdkRelation` | `generate_transfer_balance_blinding_template_*`, `generate_transfer_balance_variable_sequence.py`, `transfer_balance_blinding_{canonical,program}.py` |
+| D: ownership / authorisation | `RuntimeOwnership{RowPrograms,Window000Point0/1Soundness}`, `RuntimeTransferAuthorizationOwnership` | `OwnershipArbitraryTables`, `TransferAuthorizationGameJoin` | `generate_transfer_ownership_*` |
+| E: encryption graph | `RuntimeTransferEncryptionFieldCipherGraph` | `TransferEncryptionNaturalHashGraph` | the encryption graph generator in its recipe entry |
+
+**Interface each batch needs:** the generator's exact input files (relation export, inspection captures), named in `recipe-provenance.json`, from runtime `844389ee…`. Each output goes through the atomic evidence refresh. The current `RuntimeBalanceBlindingCanonical` candidate embeds hex identity literals and imports `TransferReduction`, `ScalarChunkComposition` and `ScalarBitReconstruction`. Those imports must exist in the reduced baseline first.
+
+## 4. CLI and registry changes
+
+- **The reduced-slice digest covers the whole tree.** `transfer_slice_proof_inputs` (baseline `security.py:190`, maintained line 759) hashes every git-tracked file. Any batch above therefore invalidates the existing `reduced_transfer_slice` receipt. That is honest, but each batch must be followed by a fresh `--scope transfer-slice` preparation. Don't re-link the old receipt.
+- **`claims` is pinned to an exact key set** (`{system, range_volume, backend, snapshot_freeze}`) in both trees (baseline line 134; maintained line 243). `system` must stay `blocked` and `backend` must stay `assumed` (maintained lines 252–254).
+- **Adding a separate full-Transfer claim:** don't add a fifth top-level claim; that would mean changing the pinned key set. Add it as `claims.system.development_evidence.full_transfer`, a sibling of `reduced_transfer_slice`, with status `blocked` and limits that name `LocalRowSoundness` and the 74 missing modules. Add a `--scope full-transfer` that is accepted only with `check`, modelled on the `transfer-admission` guard at maintained lines 918–921.
+- **What to port from the maintained CLI:**
+  - Port: the `transfer-admission` scope (read-only source check, which can't publish) and the `--handwritten-transfer` audit list (maintained lines 27–72).
+  - Don't port with the pilot: the ~25 inspection and candidate flags (maintained lines 872–895). They only serve the regeneration batches and should arrive with them.
+
+## Integration steps, in priority order
+
+1. Add the 5 pilot modules plus `--handwritten-transfer` entries for their `#print axioms` roots. Re-prepare the reduced slice.
+2. Write the `Legal`-from-graph lemma and the two-direction root (new proof work, not copied).
+3. Regenerate batch A, then B, from the pinned runtime. Integrate each generator change and its generated output in separate commits.
+4. Write the `LocalRowSoundness` discharge theorem. Then wire `full_carrier_acceptance_consequence` and `mixed_transfer_native_consequence` as the full-Transfer roots under the new `development_evidence.full_transfer` entry.
+5. Regenerate batches C, D and E only when the step-4 roots import them.
+
+## Claims that must stay OPEN
+
+- `LocalRowSoundness`: whole-circuit soundness to `TransferSem`.
+- `Step.Legal` for assertion steps: completeness is assumed, not derived.
+- That the source graph actually computes the intended hash or algorithm (the expected-graph check, `Compiler.lean:325`).
+- `UpstreamKnowledge` and backend knowledge soundness (stays `assumed`).
+- All 74 generated modules, plus anything that imports them.
+- Full Transfer state semantics: indexing and effects beyond `pendingEffects`.
+- Any certification. The publication lock is still `bac25507…`, and the integration runtime is `844389ee…`.
