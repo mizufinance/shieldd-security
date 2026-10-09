@@ -1,0 +1,550 @@
+{
+  "sources": {
+    "SpendGateInputs": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\SpendGateInputs.lean",
+      "sha256": "31b52ea5d1152510d40f0fccb77c83ef7f4a02f9875b50f6a0b9e2c94a2ed3ff",
+      "bytes": 902,
+      "imports": [
+        "Mathlib.Algebra.Field.Defs"
+      ]
+    },
+    "Range": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\Range.lean",
+      "sha256": "b3a0cf9ff3730f88c813d469de11f66bff12bbd7a4ef0f2ef55f0cf90985b487",
+      "bytes": 4134,
+      "imports": [
+        "ShielddSecurity.SpendGateInputs",
+        "Mathlib.Algebra.Field.Basic",
+        "Mathlib.Tactic.Ring.RingNF",
+        "Lean.Elab.Tactic.Omega"
+      ]
+    },
+    "Rows": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\Rows.lean",
+      "sha256": "70547b20790a724ea004b1ed2ea7738120a51fb6dcbc1b303e7ebde7bb35eea0",
+      "bytes": 18069,
+      "imports": [
+        "ShielddSecurity.Range"
+      ]
+    },
+    "Arithmetic": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\Arithmetic.lean",
+      "sha256": "c5e66f122ac669ba13488b3a37e311b67676a2330d9ff4d3cbae71cedd668697",
+      "bytes": 2233,
+      "imports": [
+        "ShielddSecurity.Range",
+        "Mathlib.Algebra.CharP.Defs"
+      ]
+    },
+    "Compiler": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\Compiler.lean",
+      "sha256": "5285044aa4048046c8355b67981c559580681d9028a8246bf40569a3c2337570",
+      "bytes": 22884,
+      "imports": [
+        "ShielddSecurity.Rows",
+        "ShielddSecurity.Arithmetic"
+      ]
+    },
+    "Group": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\Group.lean",
+      "sha256": "f0e46677fc91f3705f5c409f4d94f2c871eaf35ee3288e54cf897eb648d1d270",
+      "bytes": 5687,
+      "imports": [
+        "ShielddSecurity.Compiler"
+      ]
+    },
+    "GroupWindows": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupWindows.lean",
+      "sha256": "f3e6ef76eaaddad6860cc2120d1610ab10e37c61797c56134d952350871ed452",
+      "bytes": 11452,
+      "imports": [
+        "ShielddSecurity.Group"
+      ]
+    },
+    "GroupExtended": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupExtended.lean",
+      "sha256": "b319390c15bde46090fb58c4348456e0634090f1a5489199a1a4a936d5abd7a2",
+      "bytes": 13247,
+      "imports": [
+        "ShielddSecurity.GroupWindows"
+      ]
+    },
+    "TransferWindows": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\TransferWindows.lean",
+      "sha256": "910b6426361e2199c0e81bf7b787f8ca94d6a4f5df1fe694f7ef9e8a2b301e80",
+      "bytes": 3139,
+      "imports": [
+        "Mathlib.Algebra.Group.Basic",
+        "ShielddSecurity.Range"
+      ]
+    },
+    "TransferOwnership": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\TransferOwnership.lean",
+      "sha256": "187a460a672642b98b10f89558bdad150d308bd52088c35da81b21458a13e4d6",
+      "bytes": 12327,
+      "imports": [
+        "ShielddSecurity.GroupWindows",
+        "ShielddSecurity.TransferWindows"
+      ]
+    },
+    "GroupFixedWindows": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupFixedWindows.lean",
+      "sha256": "879469d3b8432b9b4f05d280e301d52fecdcf828ee840f44e9a0676353b586bd",
+      "bytes": 10298,
+      "imports": [
+        "ShielddSecurity.TransferOwnership"
+      ]
+    },
+    "GroupNativeMultiply": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupNativeMultiply.lean",
+      "sha256": "f5c136954a7a3b74f3727a37fedda3d21144cdddebfdc1e0cd46cd2f5652a16a",
+      "bytes": 12221,
+      "imports": [
+        "ShielddSecurity.GroupExtended",
+        "ShielddSecurity.GroupFixedWindows"
+      ]
+    },
+    "Scalar": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\Scalar.lean",
+      "sha256": "f0ca7c1535b7169d11be9aa77ecb08d01d9c466358d0fc29e806dbad8b1f3e01",
+      "bytes": 10689,
+      "imports": [
+        "ShielddSecurity.Arithmetic"
+      ]
+    },
+    "GroupScalarCodec": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupScalarCodec.lean",
+      "sha256": "9c9717047ec032eb6b7840b0b77f3546a22e11549c6b3a96e7c8462c14b7e414",
+      "bytes": 9682,
+      "imports": [
+        "ShielddSecurity.GroupNativeMultiply",
+        "ShielddSecurity.Scalar"
+      ]
+    },
+    "ScalarRows": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\ScalarRows.lean",
+      "sha256": "0b45843ce039047983d0e354add365d973747148e9240f7cdbb8a133c57a08fa",
+      "bytes": 7305,
+      "imports": [
+        "ShielddSecurity.Compiler",
+        "ShielddSecurity.Scalar"
+      ]
+    },
+    "ScalarBits": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\ScalarBits.lean",
+      "sha256": "f9bb76272d647ce26c5782edb10e32c158785fbb5eb4425711749dc1efd12434",
+      "bytes": 8375,
+      "imports": [
+        "ShielddSecurity.ScalarRows"
+      ]
+    },
+    "ScalarComparisonBounds": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\ScalarComparisonBounds.lean",
+      "sha256": "831e652c16649f55fb55388dc48f5d5bc2b46800d6c79f559e631e6da723a7c1",
+      "bytes": 13878,
+      "imports": [
+        "ShielddSecurity.ScalarBits"
+      ]
+    },
+    "TransferReduction": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\TransferReduction.lean",
+      "sha256": "767f6bd61e6ccfdb686327fac0690b6e0e0c6d1b704226c00ff270419c3fbc0c",
+      "bytes": 7460,
+      "imports": [
+        "ShielddSecurity.ScalarComparisonBounds",
+        "Mathlib.Data.Fintype.Card"
+      ]
+    },
+    "GroupByteCodec": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupByteCodec.lean",
+      "sha256": "8eb31a6a7dd3ea2a9bb16a11771b7c7badfe05cf809d69a97d1623a652b7e9cc",
+      "bytes": 5985,
+      "imports": [
+        "ShielddSecurity.GroupScalarCodec",
+        "ShielddSecurity.TransferReduction"
+      ]
+    },
+    "GroupNativeAuthorization": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupNativeAuthorization.lean",
+      "sha256": "27793b653943552f123f5fecc1ba53a92948324436a910ca480d3b408aaafcf5",
+      "bytes": 6591,
+      "imports": [
+        "ShielddSecurity.GroupByteCodec",
+        "ShielddSecurity.GroupFixedWindows"
+      ]
+    },
+    "GroupNativeCofactor": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupNativeCofactor.lean",
+      "sha256": "50216d0c132dd3a4c544aa9b0ac1bb025c846fa28defeb3f1474c35f33fe6357",
+      "bytes": 6855,
+      "imports": [
+        "ShielddSecurity.GroupNativeAuthorization"
+      ]
+    },
+    "GroupNativeNonidentity": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupNativeNonidentity.lean",
+      "sha256": "efc86d331e6681be23bb6c3ea6b9634c2de153cfe24734f9965b51be4eae0c40",
+      "bytes": 2942,
+      "imports": [
+        "ShielddSecurity.GroupByteCodec"
+      ]
+    },
+    "GroupNativeSubgroupWitness": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupNativeSubgroupWitness.lean",
+      "sha256": "d69324f5572537655f270910641161079fac3e5ad8ed49d7766a094a35e9183a",
+      "bytes": 5121,
+      "imports": [
+        "ShielddSecurity.GroupNativeCofactor",
+        "ShielddSecurity.GroupNativeNonidentity"
+      ]
+    },
+    "GroupSubgroupGraphArithmetic": {
+      "path": "C:\\src\\shieldd-formal\\circuits\\ShielddSecurity\\GroupSubgroupGraphArithmetic.lean",
+      "sha256": "1359ddcf0e5b2a418b071941580783aa939cf2d051f9394d4cc4286ebaa91df0",
+      "bytes": 9710,
+      "imports": [
+        "ShielddSecurity.GroupNativeSubgroupWitness"
+      ]
+    }
+  },
+  "order": [
+    "SpendGateInputs",
+    "Range",
+    "Rows",
+    "Arithmetic",
+    "Compiler",
+    "Group",
+    "GroupWindows",
+    "GroupExtended",
+    "TransferWindows",
+    "TransferOwnership",
+    "GroupFixedWindows",
+    "GroupNativeMultiply",
+    "Scalar",
+    "GroupScalarCodec",
+    "ScalarRows",
+    "ScalarBits",
+    "ScalarComparisonBounds",
+    "TransferReduction",
+    "GroupByteCodec",
+    "GroupNativeAuthorization",
+    "GroupNativeCofactor",
+    "GroupNativeNonidentity",
+    "GroupNativeSubgroupWitness",
+    "GroupSubgroupGraphArithmetic"
+  ],
+  "dependency_order": [
+    "SpendGateInputs",
+    "Range",
+    "Rows",
+    "Arithmetic",
+    "Compiler",
+    "Group",
+    "GroupWindows",
+    "GroupExtended",
+    "TransferWindows",
+    "TransferOwnership",
+    "GroupFixedWindows",
+    "GroupNativeMultiply",
+    "Scalar",
+    "GroupScalarCodec",
+    "ScalarRows",
+    "ScalarBits",
+    "ScalarComparisonBounds",
+    "TransferReduction",
+    "GroupByteCodec",
+    "GroupNativeAuthorization",
+    "GroupNativeCofactor",
+    "GroupNativeNonidentity",
+    "GroupNativeSubgroupWitness",
+    "GroupSubgroupGraphArithmetic"
+  ],
+  "expected_theorems_by_module": {
+    "SpendGateInputs": [
+      "boolean_sound"
+    ],
+    "Range": [
+      "square_zero",
+      "outlined_one",
+      "deferred_square",
+      "product_encoding",
+      "binary_bound",
+      "binary_cast",
+      "encodeBits_value",
+      "range_sound",
+      "range_completeness"
+    ],
+    "Rows": [
+      "patchAssignment_preserves",
+      "eval_agrees",
+      "patch_preserves_rows",
+      "patch_preserves_rows_checked",
+      "eval_append",
+      "eval_scale",
+      "satisfies_block",
+      "equality_row_sound",
+      "weighted_eval",
+      "reconstruction_row_sound",
+      "sum_reconstruction_sound",
+      "comparison_row_sound",
+      "comparison_row_complete",
+      "rows_bits_sound",
+      "rows_range_sound",
+      "rows_expression_range_sound",
+      "expression_range_block_complete",
+      "range_block_complete",
+      "writeBits_preserves",
+      "writeBits_map",
+      "writeBits_range_complete",
+      "sum_block_complete",
+      "range_rows_complete",
+      "rangeAssignment_bits",
+      "range_assignment_satisfies"
+    ],
+    "Arithmetic": [
+      "signed_coefficient",
+      "bounded_cast_injective",
+      "addition_lift",
+      "comparison_lift"
+    ],
+    "Compiler": [
+      "eval_insert",
+      "eval_collect",
+      "coefficient_mod",
+      "eval_reduce",
+      "eval_canonical",
+      "canonical_equal",
+      "checked_row_sound",
+      "eval_subtract",
+      "checked_add_sound",
+      "checked_square_sound",
+      "checked_product_sound",
+      "checked_assertion_sound",
+      "eval_unoutline",
+      "unoutline_rows_sound",
+      "node_certificate_sound",
+      "assertion_certificate_sound",
+      "sourceValue_congr",
+      "graph_values_unique",
+      "graph_certificate_sound",
+      "graph_certificate_outputs"
+    ],
+    "Group": [
+      "minus_factor",
+      "plus_factor",
+      "denominators_nonzero",
+      "quotient_sound",
+      "affine_rows_sound"
+    ],
+    "GroupWindows": [
+      "addition_closure_polynomial",
+      "affine_rows_onCurve",
+      "shared_inverse_rows",
+      "shared_inverse_double_sound",
+      "double_rows_sound",
+      "identity_onCurve",
+      "window_correct",
+      "window_onCurve",
+      "cofactor_image_annihilated",
+      "represented_nonidentity"
+    ],
+    "GroupExtended": [
+      "affine_represents",
+      "normalize_represents",
+      "finish_represents",
+      "add_factors",
+      "double_factors",
+      "optimized_denominators_nonzero",
+      "optimized_double_sound",
+      "add_represents",
+      "double_represents_optimized",
+      "double_represents",
+      "add_normalize",
+      "double_normalize"
+    ],
+    "TransferWindows": [
+      "pair_digits_value",
+      "variable_loop",
+      "variable_value",
+      "fixed_value"
+    ],
+    "TransferOwnership": [
+      "double_coordinates",
+      "add_coordinates",
+      "selected_coordinates",
+      "window_coordinates",
+      "precompute_coordinates",
+      "trace_output_append",
+      "trace_equations_append",
+      "trace_coordinates",
+      "trace_scalar_coordinates"
+    ],
+    "GroupFixedWindows": [
+      "native_add_affine",
+      "native_add_coordinates",
+      "fixed_table_coordinates",
+      "fixed_window_coordinates",
+      "fixed_trace_coordinates",
+      "fixed_trace_value_coordinates",
+      "fixed_trace_scalar_coordinates"
+    ],
+    "GroupNativeMultiply": [
+      "pair_bits_digits",
+      "pair_bits_order",
+      "pair_loop_value",
+      "native_precompute_coordinates",
+      "extended_double_coordinates",
+      "extended_add_coordinates",
+      "native_step_represents",
+      "native_loop_represents",
+      "native_multiply_represents",
+      "native_multiply_denominator_nonzero",
+      "native_multiply_coordinates"
+    ],
+    "Scalar": [
+      "reduction_sum_bound",
+      "reduction_sound",
+      "reduction_complete",
+      "reduction_unique",
+      "omitted_last_bound_wraps",
+      "comparison_polynomial_correct",
+      "comparison_step_order",
+      "prefix_value_bound",
+      "prefix_comparison_order",
+      "comparison_chain_sound",
+      "reduction_representation",
+      "canonical_representative_unique"
+    ],
+    "GroupScalarCodec": [
+      "reader_length",
+      "native_reader_indices",
+      "low_byte_bit",
+      "encoded_bit_formula",
+      "reader_index",
+      "encoded_reader",
+      "reader_value",
+      "false_tail_value",
+      "binary_injective_same_width",
+      "scalar_order_width",
+      "circuit_field_width",
+      "canonical_reader_join",
+      "native_field_coordinates",
+      "native_canonical_coordinates"
+    ],
+    "ScalarRows": [
+      "checked_product_sound",
+      "checked_step_sound",
+      "checked_chain_sound"
+    ],
+    "ScalarBits": [
+      "decoded_bit_value",
+      "checked_bit_value",
+      "eval_bitLinear",
+      "decoded_bits_value",
+      "checked_reconstruction",
+      "comparison_fold_order",
+      "comparison_fold_le",
+      "polynomial_chain_decoded",
+      "polynomial_chain_order",
+      "field_condition_true",
+      "quotient_eight_high"
+    ],
+    "ScalarComparisonBounds": [
+      "checked_equality",
+      "endpoint_value",
+      "checked_comparison_bound",
+      "checked_remainder_bound",
+      "checked_terminal_product",
+      "checked_quotient_eight_cap",
+      "no_wrap_and_canonical",
+      "checked_canonical_reduction"
+    ],
+    "TransferReduction": [
+      "decode_canonical_cast",
+      "codec_cardinality",
+      "decoded_reduction",
+      "endpoint_append",
+      "checked_private_remainder",
+      "checked_role_equation",
+      "checked_inverse_nonzero"
+    ],
+    "GroupByteCodec": [
+      "byte_at_valid",
+      "reader_join",
+      "native_reader_coordinates",
+      "canonical_reader_join",
+      "reversed_coordinate_read"
+    ],
+    "GroupNativeAuthorization": [
+      "coordinate_read",
+      "read_point_coordinates",
+      "native_authorization_coordinates",
+      "read_authorization_coordinates"
+    ],
+    "GroupNativeCofactor": [
+      "inverse_eight_equation",
+      "inverse_eight_bound",
+      "native_preimage_coordinates",
+      "subgroup_eight_preimage",
+      "native_eight_coordinates",
+      "native_preimage_complete",
+      "native_authorization_preimage_complete"
+    ],
+    "GroupNativeNonidentity": [
+      "x_zero_two_torsion",
+      "subgroup_nonidentity_x",
+      "nonidentity_inverse_coordinates"
+    ],
+    "GroupNativeSubgroupWitness": [
+      "native_double_constraints",
+      "native_subgroup_constraints"
+    ],
+    "GroupSubgroupGraphArithmetic": [
+      "curve_assertion_iff",
+      "double_inverse_value",
+      "double_output_value",
+      "inverse_hint_unique",
+      "hint_step_sound",
+      "double_assertion_sound",
+      "double_assertion_complete",
+      "native_double_assertion",
+      "constructed_trace_native",
+      "asserted_trace_native",
+      "native_trace_three",
+      "source_assertions_sound",
+      "source_assertions_complete"
+    ]
+  },
+  "audited_candidates": {
+    "SpendGateInputs": "afc6f0fa6f3ae705be95ca5a8804c82987d5aca1964cd0518c120946ae8fb209",
+    "Range": "ee1b97da6e25beca931d5a85f812db07bb0d7e2f098470fac39a16e9b462641d",
+    "Rows": "bf38fa429cbfc9ddb1c9c17e0510a13efb79b0d6b7ebda6416709cbf5c0c558c",
+    "Arithmetic": "eda4f3822347225bdd255f4c50bc6a3fea9f2a3604b78b51bdf7a8bc0dccec27",
+    "Compiler": "f0cb08204e8d781069381d3471c4ba6439cfa2632de0d366743a7e9f1baef3cc",
+    "Group": "7be4dce170f5b9cc42c75304b487bbed9806834460a46aa80fa4efe5a4651579",
+    "GroupWindows": "025fa0d2001d130645bb1a078c8567d9d6aa0591abd69a26f4b1d4e310746349",
+    "GroupExtended": "8493df3e1179aea630f856a5b842ac69d6f66b86c745a95d821f2920bac1ba2c",
+    "TransferWindows": "ad32f74ad25a6f9b1702f871240e1255321cd6b3f61c28bc8e41ef31a8ae3f43",
+    "TransferOwnership": "147f7c11458756ac80760557afd31a1cef600d45bfa62c8363648d3440fa8e9e",
+    "GroupFixedWindows": "47552e43910b08b1b300dcf4d2b614388a5d0e5c426b52a135eb680b83ba8a20",
+    "GroupNativeMultiply": "3edec5f670208c7ce090254476f685e895352f02ce79ee5a8bc40298b1b4163b",
+    "Scalar": "5f40c8589d7895673b89ea6308820d65e50dd6162166bff461288488fd39fa23",
+    "GroupScalarCodec": "8915eb3b44a70be8ae7b0520498a8e44ea393669178ab9cb63ce7a263053b466",
+    "ScalarRows": "b64e1ffda326c7246b94a1bdc8b4d146455adbd258d0cbd02b0a6027941af2e0",
+    "ScalarBits": "f49a3e184dbd95f6cdcac978f2512b5155b2bb98147c7b5c82fc3f9aabe3e869",
+    "ScalarComparisonBounds": "d58250bc18c739a8e04f991fc97c8502362bf45ead5f75e874a23f5d1708e899",
+    "TransferReduction": "92eedefe7679380692ea1146a0dfe63541a453c72c9398da8a0215de5ce84ba7",
+    "GroupByteCodec": "49d92221d23b1c11a191517ee7f6de9955f293d1def0dc28e8b0e76fcc2e363c",
+    "GroupNativeAuthorization": "b191d060a733ca11f6085bc0e3000ee213687efb484ab353d9b9c73e2c669711",
+    "GroupNativeCofactor": "a9fc4262d3b2e16296ede5e7c1097eac420dd380c528579af4328e143bf3eb53",
+    "GroupNativeNonidentity": "5179cd8ef71fbcd4ec2a7ac56f26ef3ca6307a352a3d85e7c45b66d848c1ff68",
+    "GroupNativeSubgroupWitness": "7b5968fe4dd7bdc1c5082288e3458ba57caf714ce9133c5cb5f4ca499d8693d8",
+    "GroupSubgroupGraphArithmetic": "23b291f1b5c27bd5e65494ca814a3842f7a3c01163ee1d3ce9008da52112ae3d"
+  },
+  "reused": [],
+  "frozen_import_receipts": {},
+  "proof_bytes_changed": false,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Reusable arithmetic meaning for the7-node curve block,17-node shared-inverse double, and symbolic triple-double recurrence. Source assertion equations derive OnCurve preimage and nativeEight=point; completeness constructs shared inverses from independent curve/nonzero denominator conditions. Exact typed graph matcher, row inclusion, concrete curve/codec/Crypto interpretation and complete Transfer remain OPEN.",
+  "kernel_run": false
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "windows-native-state-boundary-alignment-v1",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "original_backlog_sha256": "4b5e9cf8d9443e0bad9b22baada43a0ef22b23472ba6f2cdc3fbbe23702649d4",
+  "source_files": {
+    "crates/core/app/src/action_handler/transaction.rs": "4a22aae723076a7c7991b911f6327972e27dae3d1b23ca14320ca58756ca5d67",
+    "crates/core/app/src/app/delivery.rs": "2ed8fdf22fc93dbaa2b426d719b9738a32d67bf01b8c914531e3d29df3006286",
+    "crates/core/app/src/app/lifecycle.rs": "ac736611bab6c9e0c103de00dc0124f6f7dc860a3739439169158b3acc3e218a",
+    "crates/core/app/src/app/mod.rs": "f3b8778b2224abaf8672a19253bfaeda823d64187c4eeecb2e8ebebcbf02453f",
+    "crates/core/component/shielded-pool/src/component/action_handler/transfer.rs": "4c7954a9089971a91896d71999c298f914d7c74d60c148eaf1f81faeadeeeaad"
+  },
+  "evidence_kind": "source review only; no runtime test, refinement, or defect conclusion",
+  "obligations": [
+    "transfer_execute_validated can return an error after writes to the supplied StateWrite; per-action rollback is not its unconditional contract.",
+    "Delivery uses an exclusive StateDelta and applies it only after execution and per-transaction index work succeed; errors before apply discard this delta.",
+    "Deferred transaction queue append occurs after StateDelta.apply.",
+    "Deferred flush drains the queue via mem::take before fallible index writes; failure can preserve already pending effects while draining the queue. Do not assume unconditional queue restoration.",
+    "end_block expects successful deferred flush and can panic before component hooks when flush fails.",
+    "G5 replay and refinement must target the actual caller, abort boundary and durable-store behavior."
+  ],
+  "native_successors": "UNRUN; existing predecessor gates unchanged",
+  "full_transfer": "OPEN"
+}
