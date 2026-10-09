@@ -11,9 +11,10 @@ independent review. The stopped predecessor chats remain historical context.
 One bounded heavy verification job may run on each physical machine, as
 explicitly authorized by the user. See [the completion plan](completion-plan.md).
 
-The publication lock is still the earlier `bac25507…`; the maintained campaign
-and clean runtime snapshot target the full SHA above. This mismatch is being
-reconciled with reviewed source integration. No handoff certifies either tree.
+The publication lock now matches the clean runtime snapshot at the full SHA
+above. The reduced baseline, nine compiler dependencies and bounded capture data
+tools are integrated; the remaining semantic/native sources are still under
+scoped review. No historical receipt is recertified by this pin reconciliation.
 
 ## Synchronization
 

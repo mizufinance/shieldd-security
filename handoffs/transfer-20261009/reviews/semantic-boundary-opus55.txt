@@ -1,0 +1,58 @@
+READ-ONLY SOURCE REVIEW. Model reported claude-opus-5-5. Reviewer explicitly did not read pinned Rust. Parent corrections are in semantic-boundary-disposition.json; this raw review is not accepted verbatim or proof evidence.
+
+I found two real problems and several open interfaces. `complete_transfer` can't be claimed with the current premises. I only read files under `handoffs/transfer-20261009/sources/` (`maintained-review-20261009-01/formal/circuits/ShielddSecurity/`, written below as `…/`) and the two active Mac overlays. I didn't open the pinned Rust `transfer.rs`, `proof.rs` or `zk/pari/*`. I ran nothing, so none of this counts as verification.
+
+## Concrete mismatches
+
+**1. `UpstreamFieldKnowledge` is not tied to the Transfer relation, so as written it can't come from backend extraction.**
+- In `mac-field-claim-acceptance/TransferFieldClaimAcceptance.lean:25-35`, the `individual` and `batch` fields cover every `item.family` and every `relation` in the registry. They give a `FieldClaim` over one fixed set of `rows` and `publicLc`.
+- `ClaimBound` (`…/TransferAcceptance.lean:27-29`) only checks family and relation equality, the single public input and the commitment count. Nothing links `relation` to `rows`.
+- The real registry has other single-statement families, such as NoteSpend. Extraction can't produce a Transfer-row witness from a NoteSpend proof, so this premise is stronger than anything the backend can provide. Any root built on it rests on a premise nobody can discharge.
+- **Fix (cheap):** add a guard to both fields, either `item.family = input.family` or `relation = transferRelationDigest` with `rows`/`publicLc` fixed by that digest. `preparation_compiled_claims_from_field_knowledge` (`:90-108`) only uses `expected … input.family …` items, so the proofs should go through unchanged.
+
+**2. `Crypto` is a free record with no concrete instance anywhere in the handoff.**
+- `…/TransferSem.lean:94-106` defines `hash`, `subgroup`, `mul`, `assetGenerator` and the rest as plain fields. I grepped all of `sources/` for a definition of type `Crypto`; the only hit is `overflowingAdd` (`TransferPublicCanonicality.lean:172`).
+- `LocalRowSoundness` (`…/TransferFullCarrierAcceptance.lean:439-446`) ends in `item.statement = crypto.hash .transferStatement …`. With `crypto` left as a parameter, a root could pick a crypto that makes the premise easy. For example, `subgroup := fun _ => True` satisfies `GroupClosure` (`…/TransferAuthorizationBranchCompletion.lean:12-15`) and makes `ValidPoint` meaningless.
+- `CanonicalCrypto` (`TransferSem.lean:533-542`) only bounds outputs. Its own comment says it gives no security.
+- This is an owned runtime obligation, not a backend or crypto assumption. A final root needs one fixed `deployedCrypto` (Poseidon with the domain codes from `:56-92`, the native group operations from `ShielddNative*`, the asset map and the address-word map), plus proofs of `CanonicalCrypto`, `GroupClosure` and `MulZeroLaw` (`TransferEncryptionDecomposition.lean:7`) for it. Only collision and discrete-log hardness may stay as stated assumptions.
+
+## Abstract premises still in the prospective root
+
+| Parameter | Where | Who owns it |
+|---|---|---|
+| `F`, `[Field F]`, `[CharP F p]` | `TransferFieldClaimAcceptance.lean:111` | Owned, low cost. Instantiate with `ZMod Scalar.modulus`. The moduli are already shown equal in `TransferOwnedRangeInclusion.lean:15,17`. |
+| `codec : CanonicalField F` | `…/TransferReduction.lean:12-15` | Owned. Inhabit it with `ZMod.val`. Note that `promote_field_claim` (`:49`) lacks `CharP`; it's harmless only because `LocalRowSoundness` adds it later. |
+| `opensField : List Nat → F → Prop` | `TransferFieldClaimAcceptance.lean:17-20,38` | Backend/SDK. Disclosed at `:13`. Choosing `fun _ _ => True` satisfies everything, so the root's conclusion `witness.blinding = blinding` says nothing about commitments until this is pinned to the SDK opening. |
+| `fullRows`, `publicLc` | `TransferOwnedRangeInclusion.lean:185` | Owned. They must be set to the G1 rowdata constant and `[(1,1)]`. Today `IndexedCoverage fullRows` is checked against a variable. |
+| `LocalRowSoundness` | `TransferFullCarrierAcceptance.lean:439` | Owned. This is the whole kernel-graph obligation (OPEN), disclosed at `TransferOwnedRangeInclusion.lean:10-11`. |
+| `SdkEncoder` / `SdkDecoder` | `…/TransferNativeFieldBridge.lean:17-31` | Global SDK Fq byte-codec contract. Disclosed at `:10-15`; acceptable as an assumption. |
+
+## Source graph to `TransferSem`
+
+- **Wrong direction for soundness.** `TransferSemanticConstruction.Inputs` (`…/TransferSemanticConstruction.lean:48-68`) contains proofs, not raw values. For example, `RegistryInputs.authenticated` (`…/TransferRegistryUserCompletion.lean:33`) and the `ValidPoint` fields (`:23-26`). So `constructed_transfer_semantics` (`:103`) and `recover` (`…/TransferSemanticInputRecovery.lean:13-31`) go from inputs to `TransferSem`. Soundness needs the other direction: from the 22735-entry witness plus satisfied rows to an `Inputs c`, discharging those proof fields. That map is `LocalRowSoundness`. The existing modules give it a typed target to aim at; they don't give soundness credit.
+- **Header slots 3 and 7 don't map one-to-one.** Your header join covers this; flagging only so the right equations get proved.
+  - Slot 2 (compliance anchor) is `userAnchor` in the model.
+  - `TransferInitialWitnessConstruction.construct` (`…/TransferInitialWitnessConstruction.lean:68-76`) sets `asset := 0` and `regulated := false`. Asset is then derived as `selectedAsset = if regulated then leaf.value else gapAsset` (`TransferRegistryUserCompletion.lean:40-45`).
+  - So slot 3 needs: slot 3 = `leaf.value` when regulated, and slot 3 = `gapAsset` otherwise.
+  - Slot 7 needs: slot 7 is Boolean and equals `RegistryInputs.regulated`.
+  - `raw_headers_and_selector_preserved` (`TransferSemanticConstruction.lean:110-119`) covers slots 0, 1, 2, 4, 5 and 6 but not 3 or 7.
+
+## Next cheapest join beyond the header work
+
+**The committed-wire codec join.** `committedLc := [(2, 1)]` (`TransferOwnedRangeInclusion.lean:13`) treats wire 2 as the committed blinding. Header slot 6 is `blinding`. Nothing I found proves that rho-index 2 is the variable for source witness 6, i.e. a wire-layout map from witness index to rho index for the public, commitment and secret offsets. Without it:
+- the range bound from `concrete_owned_range` (`:162-169`) and
+- `witness.blinding = blinding` in `LocalRowSoundness`
+
+may be about different variables. The fix is a small, non-circular, decidable lemma: `rhoIndex 6 = 2`, plus the analogous offsets for the 8 headers, checked against the G1 rowdata header. After that, priorities are fix 1 (guard), then the concrete crypto instance, then setting `F := ZMod p` and `codec := ZMod.val`.
+
+## Reusable lemmas
+
+- `concrete_owned_range` / `checked_owned_range` (`TransferOwnedRangeInclusion.lean:162,176`)
+- `promote_field_claim`, `verified_field_claims` (`TransferFieldClaimAcceptance.lean:49,66`)
+- `ordered_raw_inputs_exist`, `relation_inputs_preserved` (`TransferSemanticInputRecovery.lean:63,72`)
+- `semantic_witness_exists` (`TransferSemanticConstruction.lean:121`)
+- `statement_full64_conversion` and `statement_hash_conversion` (`TransferNativeFieldBridge.lean:109,120`)
+
+## Can `complete_transfer` be claimed?
+
+**No.** With `crypto`, `opensField`, `fullRows` and `LocalRowSoundness` as parameters, and `UpstreamFieldKnowledge` unguarded, the strongest honest claim is a conditional: "Transfer consequence, assuming kernel soundness and SDK opening." Allowed assumptions are collision and DL hardness, SDK `Fq` codec/opening extraction, and BLST primitives. Owned obligations are concrete `Crypto` with its laws, the family/relation guard, the `fullRows`/`publicLc` constants, the wire-layout map and `LocalRowSoundness`.
