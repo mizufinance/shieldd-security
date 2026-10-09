@@ -1,0 +1,10 @@
+import ShielddSecurity.CompilerCertificateTransport
+import ShielddSecurity.CompilerOrderComposition
+import ShielddSecurity.CompilerSequenceCompletion
+set_option maxHeartbeats 100000
+namespace ShielddSecurity.TransferCostImportFloor01
+theorem measured : True := True.intro
+end ShielddSecurity.TransferCostImportFloor01
+set_option pp.all true in
+#check @ShielddSecurity.TransferCostImportFloor01.measured
+#print axioms ShielddSecurity.TransferCostImportFloor01.measured

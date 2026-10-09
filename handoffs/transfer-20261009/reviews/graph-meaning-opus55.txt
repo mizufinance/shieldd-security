@@ -1,0 +1,81 @@
+# Transfer graph-to-semantics dependency review
+
+This is a dependency assessment, not a certification. I read sources only and built nothing. Everything I checked is cited below. Where something is my proposal rather than an existing theorem, I say so.
+
+## (1) Is there a concrete graph → algorithm → `TransferSem` route?
+
+**No.** The pieces exist in separate layers, and no declaration joins them.
+
+| Layer | Existing declaration | Remaining premises |
+|---|---|---|
+| Compiled rows → independent graph values | `CompilerGraphEvaluationSoundness.certified_blocks_compute_and_assert` (`CompilerGraphEvaluationSoundness.lean:52`) | A concrete `SourceGraph` instance; `NodeCertificate` for each of the 1,252,892 nodes; `AssertionCertificate` and `Coverage` for each block; `CharP F p`; `rho 0 = 1`; `(4:F) ≠ 0` |
+| Graph evaluation | `SourceGraphEvaluation.values` / `satisfies_iff_assertions` | `SourceNode` is only `constant/input/add/mul` (`Compiler.lean:182`). It has no gadget or algorithm meaning. |
+| Semantic construction | `TransferSemanticConstruction.constructed_transfer_semantics` (`:103`) | `CanonicalCrypto c`, `GroupClosure c`, abstract `Crypto` |
+| Semantic recovery | `TransferSemanticInputRecovery.recover` / `recovered_constructed_semantics` | `MulZeroLaw c`. `ordered_raw_inputs_exist` (`:72`) returns structured `Inputs c`, not ordered raw columns, despite its name. |
+| Graph inputs ↔ semantics | `TransferCircuitHeaderInputs.values` (inputs 0–7 only); `TransferCircuitInputSeed.seed` (columns 0, 1, 2 and 200692) | The seed's own docstring (lines 13–14) says binding the role numbers to the pinned instance is still an open data obligation. |
+
+The graph layer has no consumers. In both the canonical and maintained trees, `SourceGraph`, `GraphSatisfies` and `SourceGraphEvaluation.` appear only in `Compiler`, `CompilerCertificateTransport`, `SourceGraphEvaluation` and `CompilerGraphEvaluationSoundness`. No gadget or Transfer module consumes it.
+
+The gadget proofs live at a different layer. They are stated over `Rows`/`Satisfies` on captured raw rows (83 maintained files, e.g. Poseidon, Group*, Scalar*, TransferEpk*, RuntimeBalance*).
+
+The closest thing to a "runtime graph → algorithm" route is `TransferEncryptionNaturalHashGraph.all_hashes_natural` (`:30`):
+- It shows that the 24 captured encryption hash calls over `RuntimeTransferEncryptionHashGraph.rawRows` decode to Poseidon.
+- It is a captured fragment. Nothing embeds it into the full compiled rows or connects it to `SourceGraph`.
+- It imports `RuntimeTransferEncryptionFieldCipherGraph`, and `RuntimeTransferEncryptionHashGraph` is referenced. No file under either name exists in the canonical or maintained trees. The Glob found only `RuntimeTransferStatement` and `RuntimeTransferSignedBalanceWordSoundness`. So I could not inspect this route.
+
+## (2) Smallest reusable next slice after the 8 header inputs
+
+The Rust call order (`transfer.rs:205-213`) matches the Lean header order (`TransferCircuitHeaderInputs.lean:16-25`). The next constructor called is `registry::constrain` (`registry.rs:86-121`), so raw inputs 8 onward are allocated as follows:
+- `value`, `next_index` and `next_value` take 8, 9 and 10.
+- `dk` uses `group::witness_subgroup` (`group.rs:198-218`), which allocates **4** inputs: `p.x`, `p.y`, `pre.x`, `pre.y`. It then asserts that `pre` is on the curve, doubles `pre` three times, and asserts `p = [8]pre`.
+- After that come `daily_limit` and `route_policy`, then `ring` (another `witness_subgroup`), then `ring_id`, `policy_id`, `permission`, `resource`, then `audit.witness`, then the path, then `canonical_bits`.
+- I did not read `audit.rs`, `tree::root` or `canonical_bits`, so I have not confirmed exactly how many inputs those allocate.
+
+Two concrete findings from this:
+- **The raw order differs from `TransferSem.registryFields`** (`TransferSem.lean:488`), which runs `value, nextIndex, nextValue, dailyLimit, …` with the points last. Do not reuse the `*Fields` lists as the raw codec.
+- **`AssetLeaf` has no cofactor preimage** (`TransferSem.lean:146-160`). So raw inputs are not just semantic fields: hints are needed. Completeness requires a hint function; soundness requires that `p = [8]q ∧ OnCurve q` implies `c.subgroup p`. That is currently impossible to state because `Crypto.subgroup` is abstract.
+
+**Recommended slice (proposal): a `witness_subgroup` template.** It is reused at every `group::witness_subgroup` call site (I did not count them). It is small: 4 inputs, an on-curve assertion, 3 doublings and an equality.
+
+```lean
+-- proposed, not existing
+def subgroupTemplate (offset : Nat) (base : Nat) : List (SourceNode …)   -- symbolic in offset/base
+structure SubgroupSegment (graph) (offset nodeStart : Nat) : Prop  -- checkable slice equality
+theorem subgroup_segment_sound :  SubgroupSegment g k a → (assertions in slice hold at
+    SourceGraphEvaluation.values g inputs) → OnCurve q ∧ p = [8]q   where p,q := inputs k..k+3
+theorem subgroup_segment_complete : SubgroupSegment g k a → OnCurve q → inputs k..k+3 = enc p q →
+    p = [8]q → slice assertions hold at SourceGraphEvaluation.values g inputs
+```
+
+Completeness can be stated purely over `SourceGraphEvaluation.values`, which is total. Assignment construction then reuses `CompilerCompletion.run` and the existing seed-preservation results.
+
+The natural algebraic backing is the existing `GroupNativeSubgroupWitness.native_subgroup_constraints`/`DoubleConstraints`. But those are row-level and assume `StandardCurveModel`, so they need a bridge to graph level; they cannot be used directly.
+
+## (3) Composition architecture (proposal)
+
+1. **Generated segment table.** An instrumented replay at the pinned SHA emits one record per gadget call: `(kind, params, inputRange, nodeRange, assertionRange, portNodes)`.
+   - The kernel checks, with a structurally recursive Bool checker proved sound once, that:
+     - the ranges partition all inputs, nodes and assertions;
+     - each node slice equals `template kind params offset`;
+     - each port equals an earlier output.
+   - The checker should be chunked to match the Mac lane's indexed certificates and run with finite heartbeats.
+2. **One locality/frame lemma.** `values` restricted to a slice depends only on its port values. This generalizes `sourceValue_congr` plus `prior`.
+3. **One soundness/completeness pair per template kind**, not per node. Expected kinds include Poseidon per arity (wide and small), witness_subgroup, add/double, select, is_zero, canonical_bits, less_or_equal_limbs, and a tree level, with `tree::root` as a recurrence. Fixed and variable scalar multiplication would be recurrences over window templates.
+4. **Raw codec by construction.** Define `rawInputs : Inputs c → Fin 22735 → F` as the concatenation of per-segment encoders in segment-table order, with semantic hint functions for bits, preimages and inverses. Prove ordering once: "segment input ranges are contiguous and match the graph's `.input` indices." Decoding for soundness reads the same table.
+5. **A Lean `transferProgram`** mirroring the call structure of `transfer.rs`. The generated table must equal it, which is a kernel check. Global soundness and completeness then come from folding the per-template theorems along `transferProgram` into `ComponentsSem`.
+
+**What still needs explicit review or runtime replay rather than kernel proof:**
+- that the template definitions faithfully transcribe the Rust gadget code;
+- that `transferProgram` mirrors `transfer.rs`;
+- that the replayed graph is the one built at `844389ee…`.
+
+A hash only establishes identity here, not correspondence. The abstract `Crypto` → Poseidon/Jubjub instantiation also remains open.
+
+## (4) Blockers that should change build priorities
+
+1. **Layer split (highest priority).** The Windows semantic joins prove gadget facts over captured `rawRows`, while the Mac certificates land on `SourceGraph`. Without a bridge, the row-level joins risk becoming an orphan layer. Before adding more row-level joins, prove one bridge: captured-segment rows `Coverage`'d into the full rows ⇒ the captured outputs equal `SourceGraphEvaluation.values` at the port nodes. Alternatively, commit to graph-level templates.
+2. **Hints are missing from the semantic witness.** Cofactor preimages and bits (and probably is_zero inverses, which I did not read) mean `TransferSemanticConstruction.Inputs` cannot produce all 22,735 raw inputs. Hint functions and an instantiated `subgroup` predicate are needed before any completeness result beyond the header.
+3. **Segment-span instrumentation** is a prerequisite for the full-graph certificate to be usable compositionally. Without it, the 1.25M-node certificate proves graph-row equivalence but cannot be attached to semantics. It must run against the pinned SHA without changing the lock.
+4. **The maintained candidate tree is incomplete.** The generated `RuntimeTransferEncryption*Graph` modules are missing, so that route cannot be evaluated or promoted as it stands.
+
+I did not have Write or ExitPlanMode in this read-only session, so this answer is the assessment and no plan file was written.
