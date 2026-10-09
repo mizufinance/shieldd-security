@@ -1,0 +1,9 @@
+import ShielddSecurity.CompilerRenamingChecks05
+import ShielddSecurity.CompilerWindowRenaming05
+import ShielddSecurity.TransferPoseidonWidth3Call08Data00
+namespace ShielddSecurity.TransferPoseidonWidth3Rename09ImportFloor01
+theorem marker : True := by trivial
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonWidth3Rename09ImportFloor01.marker
+#print axioms ShielddSecurity.TransferPoseidonWidth3Rename09ImportFloor01.marker
+end ShielddSecurity.TransferPoseidonWidth3Rename09ImportFloor01

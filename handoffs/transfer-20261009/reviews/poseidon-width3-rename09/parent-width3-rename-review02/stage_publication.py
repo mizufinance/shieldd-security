@@ -1,0 +1,35 @@
+"""Stage the sealed scoped tail/page packet with parent review dispositions."""
+import hashlib,json,shutil
+from pathlib import Path
+H=Path(__file__).resolve().parent;R=H.parents[1];REPO=R/'work/shared-build-handoff';B=REPO/'handoffs/transfer-20261009';O=R/'outputs/mac-poseidon-width3-rename09';DEST=B/'sources/mac/poseidon-width3-rename09';REV=B/'reviews/poseidon-width3-rename09';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+m=json.loads((O/'publication-manifest01.json').read_text());e=json.loads((O/'publication-envelope01.json').read_text());assert sha(O/'publication-manifest01.json')==e['producer_manifest']['sha256']
+for x in m['files']+e['postseal_entries']:assert sha(R/x['path'])==x['sha256']
+for n,x in m['inherited_imports'].items():
+    p=REPO/'circuits'/Path(x['source_path']).relative_to('work/mac-poseidon-width3-rename09/project');assert sha(p)==x['source_sha256'];assert sha(R/x['original_receipt_path'])==x['original_receipt_sha256']
+a=json.loads((R/'work/parent-width3-rename-review01/receipt-audit02.json').read_text());assert a['modules']==48 and a['type_axiom_audits']==203
+assert not DEST.exists() and not REV.exists();DEST.mkdir(parents=True);REV.mkdir(parents=True);handwritten=[];generated=[];omitted=[];seen=set()
+for x in m['files']+e['postseal_entries']:
+    if x['path'] in seen:continue
+    seen.add(x['path']);src=R/x['path']
+    omit=not x['publication'] or src.name=='consumer-input01.json' or x['category']=='failure_or_representation_predecessor' and src.suffix=='.lean'
+    if omit:
+        omitted.append(dict(x,parent_disposition='preserved locally, raw observation/descriptor or obsolete exact representation; zero added credit'));continue
+    p=DEST/x['path'];p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,p)
+    kind=x['category'];paths=handwritten if kind in {'maintained_generator_or_guard','maintained_template','handwritten_helper','postseal_transport_generator'} else generated;paths.append(str(p.relative_to(REPO)))
+    if '/project/ShielddSecurity/' in x['path'] and src.stem in m['receipts']:
+        canonical=REPO/'circuits/ShielddSecurity'/src.name;assert not canonical.exists();shutil.copyfile(src,canonical);paths.append(str(canonical.relative_to(REPO)))
+for src in [O/'publication-manifest01.json',O/'publication-envelope01.json']:
+    p=DEST/src.relative_to(R);p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,p);generated.append(str(p.relative_to(REPO)))
+for name in ['parent-width3-rename-review01','parent-width3-rename-review02','parent-width3-rename-review03']:
+    origin=R/'work'/name;dest=REV/name;dest.mkdir();j=json.loads((origin/'opus55-review.json').read_text());assert not j['is_error'] and 'claude-opus-5-5' in j['modelUsage']
+    for p in origin.iterdir():
+        if p.is_file() and p.suffix in {'.json','.py'}:
+            if p.name.startswith('receipt-audit') and p.name!='receipt-audit02.json':continue
+            shutil.copyfile(p,dest/p.name);generated.append(str((dest/p.name).relative_to(REPO)))
+core=json.loads((H/'source-manifest.json').read_text());assert all(sha(Path(x['source']))==x['sha256'] for x in core.values())
+p=DEST/'README.md';p.write_text('# Second captured width3 tail and parent page\n\nThe checked instance transports independent rounds2..64 to300actual rows38892..39191 plus copy200769. Its constructor has225materialized steps plus copy, writes61630..61929 and preserves cut LCs, all22735inputs, original columns and copy. Exact selection establishes membership in the generated original-row page38400..39423 plus copy; construction preserves the492earlier page rows when the base satisfies them. Later consumers39192..39423 are not claimed satisfied or preserved. Full200770parent inclusion/partition remains OPEN. The page/capture association is qualified data; no hash is treated as semantics.\n\nThe worker passed48fresh modules and203exactfull-type/standard-axiom audits, with one import-floor True cost marker. Parent re-parsed existing successful logs, independently compared1025DBrows,300translations,63phasepairs and1548operations, and rehashed206producer entries,5postseal entries and88inherited source/object/receipt identities. Three actual Claude Opus5.5 source reviews found no defect in their stated scopes. No parent Lean rerun occurred. Two positive production checks and seven rejections passed; two are length/coverage guards, and none proves semantic output inequality. The altered existing column/index association is independently checked data, with no separate exported existence theorem. Failed compiler and initial byte-replay attempts retain zero credit.\n\nSupported byte replay: run work/mac-poseidon-width3-rename09/verify_replay.py --input outputs/mac-poseidon-width3-rename09/replay-input01.json --output <fresh-directory>. Ten shipped generators, generation_common.py and three templates reproduce46generated sources against the shipped source files. This is source byte regeneration only. The replay input preserves every retained row/port field of the original local descriptor exactly, independently compared by the parent. The large raw descriptor, logs and obsolete source representations stay local; producer identities remain immutable and publication-manifest.json identifies shipped bytes.\n\nField/CharP/four-nonzero and base0/copy-link/prior-row satisfaction premises remain explicit. Target domain18/arity1 absorption/rounds0..1, upstream/native/raw consumer correspondence, later consumers and full Transfer remain OPEN. No certification or atomic certification refresh occurred.\n');generated.append(str(p.relative_to(REPO)))
+public={str(p.relative_to(DEST)):{'sha256':sha(p),'bytes':p.stat().st_size} for p in sorted(DEST.rglob('*')) if p.is_file()}
+p=DEST/'publication-manifest.json';p.write_text(json.dumps({'schema':'parent-reviewed-local-tail-page-publication-v1','files':public,'omitted_local':omitted,'producer_manifest_sha256':sha(O/'publication-manifest01.json'),'postseal_envelope_sha256':sha(O/'publication-envelope01.json'),'fresh_modules':48,'type_axiom_audits':203,'generated_sources_reproduced':46,'parent_kernel_runs':0,'full_transfer':'OPEN'},indent=2)+'\n');generated.append(str(p.relative_to(REPO)))
+p=B/'receipts/mac/poseidon-width3-rename09.json';p.write_text(json.dumps({'schema':'reviewed-tail-page-publication-envelope-v1','producer_result':json.loads((O/'tail-page-result01.json').read_text()),'producer_result_sha256':sha(O/'tail-page-result01.json'),'publication_manifest_sha256':sha(DEST/'publication-manifest.json'),'review_path':str(REV.relative_to(B)),'full_transfer':'OPEN'},indent=2)+'\n');generated.append(str(p.relative_to(REPO)))
+assert len(set(handwritten+generated))==len(handwritten)+len(generated)
+(H/'publication-staging01.json').write_text(json.dumps({'handwritten':handwritten,'generated_evidence':generated,'canonical_modules':48,'packet_files':len(public),'omitted_local_files':len(omitted)},indent=2)+'\n');print(json.dumps({'canonical_modules':48,'packet_files':len(public),'omitted_local_files':len(omitted)}))
