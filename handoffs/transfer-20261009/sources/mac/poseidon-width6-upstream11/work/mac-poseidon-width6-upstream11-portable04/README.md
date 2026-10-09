@@ -1,0 +1,7 @@
+# Portable04 provenance-only successor
+
+Invoke `python3 -I -B -S maintained/supported_verify_replay.py --input portable-input01.json --maintained maintained --inventory replay-inventory04.json --helpers helpers --output-directory FRESH_DIRECTORY` with explicit paths. Maintained must contain exactly the eighteen inventory files, with no directories, symlinks, bytecode or extra Python modules. All helper inputs are supplied as a separate exact two-file closed directory. The input may be the exact previously shipped compact input with SHA74189456aa7380c35040e1c67d3b9d3ad48ce75d332ac80ad44971f1c0812ab9.
+
+Generations run under isolated Python without bytecode or site loading; standard runpy loads before the exact maintained directory is put on the import path. The inventory binds the actual executing runner. Output must be new. This succeeds for all85 exact generated sources without any Lean execution. Six hygiene controls are admission refusals, not semantic/kernel controls. Original proof/source/receipt/producer/envelope paths are unchanged. Root85 and generated85 are different sets; all-stage87/496, root85/491, generated85/491, with explicit excluded modules in scope04.json.
+
+The old provenance03 cache contamination remains a failed provenance observation with zero new proof credit. This successor repairs provenance only. All mathematical/native/full-relation open obligations remain as the original scope01.json states. No new task, Point job, Git write or proof replay is authorized by this packet.

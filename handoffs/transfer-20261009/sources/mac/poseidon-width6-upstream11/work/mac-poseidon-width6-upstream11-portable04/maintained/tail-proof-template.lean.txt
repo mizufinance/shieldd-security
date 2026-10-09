@@ -1,0 +1,95 @@
+@IMPORTS@
+import ShielddSecurity.@STEM@PortChecks01
+import ShielddSecurity.TransferPoseidonTailTemplate05Semantic01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.@STEM@Proof01
+open Compiler CompilerCompletion
+open TransferPoseidonCall04Shared01
+open @STEM@Shared01
+open @STEM@Ports01
+open @STEM@PortChecks01 (before_values after_values)
+
+def arithmeticRows : List Row := @ACTUALROWS@
+def originalRows : List Row := arithmeticRows++[actualCopy]
+def actualIndices : List Nat := @ACTUALINDICES@++[200769]
+def steps : List Step := CompilerColumnRenaming05.steps rename TransferPoseidonTailTemplate05Program01.steps
+
+theorem exact_rows : originalRows=CompilerColumnRenaming05.rows rename TransferPoseidonTailTemplate05Program01.originalRows := by
+  unfold originalRows arithmeticRows TransferPoseidonTailTemplate05Program01.originalRows TransferPoseidonTailTemplate05Program01.arithmeticRows
+  unfold TransferPoseidonTailTemplate05Program01.prefixRows13 TransferPoseidonTailTemplate05Program01.prefixRows12 TransferPoseidonTailTemplate05Program01.prefixRows11 TransferPoseidonTailTemplate05Program01.prefixRows10 TransferPoseidonTailTemplate05Program01.prefixRows9 TransferPoseidonTailTemplate05Program01.prefixRows8 TransferPoseidonTailTemplate05Program01.prefixRows7 TransferPoseidonTailTemplate05Program01.prefixRows6
+  simp only [CompilerColumnRenaming05.rows,List.map_append,List.map_cons,List.map_nil]
+  rw [@ROWFACTS@,@STEM@PortChecks01.copy_exact]
+  simp only [List.append_assoc]
+  rfl
+
+theorem capture_partition : actualIndices=List.range' @FIRSTROW@ 372++[200769] := by decide +kernel
+theorem row_count : originalRows.length=373 := by decide +kernel
+theorem step_count : steps.length=280 := by decide +kernel
+theorem writes_checked : (PoseidonCompletion.writes steps).all (fun column => decide (@WRITELOW@≤column ∧ column<@WRITEHIGH@))=true := by decide +kernel
+theorem writes_bounds (column : Nat) (member : column∈PoseidonCompletion.writes steps) : @WRITELOW@≤column ∧ column<@WRITEHIGH@ :=
+  of_decide_eq_true (List.all_eq_true.mp writes_checked column member)
+
+variable {F : Type} [Field F] [CharP F p]
+def completed (base : Nat → F) : Nat → F := run base steps
+
+theorem completed_rows (base : Nat → F) (linked : base copy=base 0) : Satisfies (completed base) originalRows := by
+  rw [exact_rows]
+  apply CompilerColumnRenaming05.completed_rows rename rename_injective base TransferPoseidonTailTemplate05Program01.steps
+  exact TransferPoseidonTailTemplate05Program01.completed_rows (fun column => base (rename column))
+    (by simpa only [copy_fixed,zero_fixed] using linked)
+
+theorem outside_preserved (base : Nat → F) (column : Nat) (outside : column<@WRITELOW@ ∨ @WRITEHIGH@≤column) : completed base column=base column := by
+  apply PoseidonCompletion.run_outside
+  intro member
+  have bounds := writes_bounds column member
+  omega
+
+theorem prior_rows_preserved (base : Nat → F) (prior : List Row) (satisfied : Satisfies base prior)
+    (support : ∀ row∈prior,∀ term∈row.a++row.b,term.1<@WRITELOW@ ∨ @WRITEHIGH@≤term.1) : Satisfies (completed base) prior := by
+  intro row member
+  have agrees (terms : Linear) (included : ∀ term∈terms,term∈row.a++row.b) : eval (completed base) terms=eval base terms := by
+    apply eval_agrees
+    intro term present
+    exact outside_preserved base term.1 (support row member term (included term present))
+  rw [agrees row.a (by intro term present;exact List.mem_append_left _ present),agrees row.b (by intro term present;exact List.mem_append_right _ present)]
+  exact satisfied row member
+
+theorem original_columns_preserved (base : Nat → F) (column : Nat) (bound : column<22738) : completed base column=base column :=
+  outside_preserved base column (Or.inl (by omega))
+
+theorem original_inputs_preserved (base : Nat → F) (input : Nat) (bound : input<22735) : completed base (3+input)=base (3+input) :=
+  original_columns_preserved base _ (by omega)
+
+theorem copy_preserved (base : Nat → F) : completed base copy=base copy := outside_preserved base copy (Or.inr (by decide))
+
+theorem cut_values_preserved (base : Nat → F) :
+    (fun column => eval (completed base) (before column))=(fun column => eval base (before column)) := by
+  rw [before_values,before_values]
+  change (fun column => eval (fun index => run base (CompilerColumnRenaming05.steps rename TransferPoseidonTailTemplate05Program01.steps) (rename index)) (TransferPoseidonCall04Semantic01.before 2 column))=_
+  rw [CompilerColumnRenaming05.run_steps rename rename_injective base TransferPoseidonTailTemplate05Program01.steps]
+  exact TransferPoseidonTailTemplate05Semantic01.before_preserved (fun column => base (rename column))
+
+theorem arbitrary_suffix (rho : Nat → F) (one : rho 0=1) (four : (4:F)≠0)
+    (satisfied : Satisfies rho originalRows) :
+    (fun column => eval rho (after column))=PoseidonRoundSuffix05.roundsFrom (Poseidon.castParameters parameters) 2 63
+      (fun column => eval rho (before column)) := by
+  have source : Satisfies (fun column => rho (rename column)) TransferPoseidonTailTemplate05Program01.originalRows :=
+    (CompilerColumnRenaming05.satisfies_rows rename rho TransferPoseidonTailTemplate05Program01.originalRows).mp
+      (by rw [←exact_rows];exact satisfied)
+  have result := TransferPoseidonTailTemplate05Semantic01.arbitrary_suffix (fun column => rho (rename column))
+    (by simpa only [zero_fixed] using one) four source
+  rw [←after_values rho,←before_values rho] at result
+  exact result
+
+theorem total_suffix (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) (four : (4:F)≠0) :
+    Satisfies (completed base) originalRows ∧
+    (∀ input<22735,completed base (3+input)=base (3+input)) ∧
+    (∀ column,column<@WRITELOW@ ∨ @WRITEHIGH@≤column → completed base column=base column) ∧
+    completed base copy=base copy ∧
+    (fun column => eval (completed base) (after column))=PoseidonRoundSuffix05.roundsFrom (Poseidon.castParameters parameters) 2 63
+      (fun column => eval base (before column)) := by
+  have result := arbitrary_suffix (completed base) ((original_columns_preserved base 0 (by decide)).trans one) four (completed_rows base linked)
+  rw [cut_values_preserved base] at result
+  exact ⟨completed_rows base linked,original_inputs_preserved base,outside_preserved base,copy_preserved base,result⟩
+end ShielddSecurity.@STEM@Proof01
