@@ -1,0 +1,14 @@
+# Call10 finite whole-call/local-page checkpoint
+
+Heavy lane quiescent. No Git writes. Preserve stage, failures and producer seal.
+Stage `/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-poseidon-width3-call10`; outputs `/Users/antoinecyr/Documents/Codex/2026-10-08/can/outputs/mac-poseidon-width3-call10`.
+Producer manifest `/Users/antoinecyr/Documents/Codex/2026-10-08/can/outputs/mac-poseidon-width3-call10/publication-manifest01.json` SHA `cd000d8c2a82560c081d2387aa06fb1a20481fc0684ea30352464637de3e15e9`.
+Review freeze `review-snapshot01/manifest.json` SHA `5e4ac8e698deaa46b29ed7e9f57d63d4ece5ff73a2a25936fa4c1e84c74992e3`.
+Main22 fresh modules178 named full-type/standard-axiom audits including one cost-only True marker;21noncost modules177 audits. Separate attribution-only successor is one additional execution10audits;23executions188audits total.10 of188 are a separate regenerated attribution-only AbsorbProof successor; successful original endpoint/import bytes remain unchanged. No inherited execution credit.
+19 generated sources byte-replayed in `work/call10-repro01`;18 exactly match originally accepted bytes,one matches separately freshly audited comment-header successor. All explicit portable inputs shipped or required inherited canonical source files with exact guards; no historical bootstrap/read of5.8MB descriptor.
+WholeCall10Proof01 SHA cb546c74480ea26ab926f7b662bd24c0fe8e67d4a6359dc3e884049b0a9abe94; Page01 SHA eb3206838006190d8989f6fcdd5a49e526873f79194723514720231723dbade5.
+317 selected rows=316 arithmetic38876..39191+copy200769;238steps=237materialized+onecopy. Writes61614..61929. Prior476actual rows38400..38875 preserved only ifbase satisfies them. Later232 page rows39192..39423 remain OPEN. Oneinput6-term cutraw363983; domain18arity1IV274; finalstate1 mathhash3 theorem. Raw365617 association is data only.
+Five failed kernel predecessors have zero credit: absorption namespace/subsingleton issues, reservedprefix binder, missingexplicit Shared01 import and symbolic Nat-add rfl finish. All sources/receipts retained. Nine absorption/round productionchecker and five page-selection rejections are exact Bool false statements, not semantic inequalities or exhaustive corruption checks.
+Resource guards unchanged: LEAN_NUM_THREADS1,-j1/-M2048,240s/module,4GiB groupRSS,15%memory/2GiBdisk. Source-only parent/Opus review pending final disposition; no accepted replay requested.
+Full Transfer/upstream-cut/nativecallsite/consumer identity/full200770relation/clean-source verifierVK/laterconsumer obligations OPEN.
+Resume SAME worker /root/mac_transfer. Neworchestrator01a1227a-a87d-7da0-94c8-3d3a8b2992f1 holdsbaton; old/root relay-only. LatestACKbe2b85328a533d38d08b6149e65ecd06e483de0f. No Point retry, no active-source reset/Git. Await next assignment after immutable packet acceptance; no further task started.

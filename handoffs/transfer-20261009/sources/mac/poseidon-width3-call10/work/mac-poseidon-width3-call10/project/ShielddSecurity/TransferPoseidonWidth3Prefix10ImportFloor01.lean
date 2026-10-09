@@ -1,0 +1,8 @@
+import ShielddSecurity.TransferPoseidonWidth3Prefix10AbsorbData01
+namespace ShielddSecurity.TransferPoseidonWidth3Prefix10ImportFloor01
+theorem marker : True := by trivial
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonWidth3Prefix10ImportFloor01.marker
+#print axioms ShielddSecurity.TransferPoseidonWidth3Prefix10ImportFloor01.marker
+
+end ShielddSecurity.TransferPoseidonWidth3Prefix10ImportFloor01
