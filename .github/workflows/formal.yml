@@ -20,6 +20,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - run: python -m pip install -r circuits/requirements.txt
       - run: python -m unittest discover -s tests
       - run: python security.py check
   pilots:
@@ -38,6 +39,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - run: python -m pip install -r circuits/requirements.txt
       - uses: actions/setup-node@v4
         with:
           node-version: '24'

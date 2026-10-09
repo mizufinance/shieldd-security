@@ -14,9 +14,19 @@ canonical permanent-spend field-gate theorems. See the
 Run the light checks with Python 3.13:
 
 ```sh
+python -m pip install -r circuits/requirements.txt
 python -m unittest discover -s tests
 python security.py check
 ```
+
+The [Transfer completion campaign](handoffs/transfer-20261009/completion-plan.md)
+adds reusable compiler soundness/completeness interfaces and bounded source-graph,
+binary-row and certificate readers under `circuits/`. The readers check data
+framing and exact row comparison; they do not prove Transfer semantics. Their
+small fixtures run in ordinary CI. Full captures, build logs and compiler caches
+remain local, with scoped identities and outcomes retained in the handoff packets.
+The concrete full-graph instance, legal-assertion derivation and native/state
+consequence remain open.
 
 The existing narrow integration entry point is:
 
