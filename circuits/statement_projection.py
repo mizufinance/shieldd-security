@@ -12,7 +12,7 @@ def roles():
         ('outputs[0].note', 'recipientNote'), ('outputs[0].recovery', 'recipientRecovery'),
         ('outputs[1].note', 'changeNote'), ('outputs[1].recovery', 'changeRecovery'),
         ('balance.x', 'balanceX'), ('balance.y', 'balanceY'),
-        ('routing_tags[0]', 'recipientRouting'), ('routing_tags[1]', 'changeRouting'),
+        ('routing_tags[0]', 'routingSlot0'), ('routing_tags[1]', 'routingSlot1'),
         ('routing_parameter', 'routingParameters'),
         ('volume.nullifier', 'volumeNullifier'), ('volume.commitment', 'volumeCommitment'),
         ('volume.day_start', 'volumeDayStart'), ('volume.context', 'volumeContext'),

@@ -1,4 +1,4 @@
-"""Retained AST export/generator correspondence, not a new Rust or Lean proof."""
+"""Retained AST export/current generator correspondence, not a new Rust or Lean proof."""
 import hashlib
 import json
 from pathlib import Path
@@ -17,7 +17,7 @@ class StatementProjectionTests(unittest.TestCase):
     def test_retained_export_reproduces_audited_generated_source(self):
         expected = (ROOT / 'circuits/ShielddSecurity/RuntimeTransferStatement.lean').read_bytes()
         self.assertEqual(hashlib.sha256(expected).hexdigest(),
-                         '17f73cfc7163c6c8ff0adebeaa075504310926c0e030d6ca8393fe3d731f43fe')
+                         '27af3108bec88381ab69d82e0325bb034b0c2898c59e844ca71b959998bc5e1e')
         self.assertEqual(statement_projection.generate(self.export()).encode('utf-8'), expected)
 
     def test_semantically_changed_role_order_is_rejected(self):
