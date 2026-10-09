@@ -46,8 +46,7 @@ theorem spend_reconstructed (c : Crypto) (w : TransferSem.Witness) (slot : Fin 2
     constructSpend c w slot (recoverRaw w slot) = w.spends slot := by
   unfold constructSpend
   rw [nullifier_recovered c w slot legal]
-  cases w.spends slot
-  rfl
+  simp only [recoverRaw]
 
 def recoverInputs (c : Crypto) (w : TransferSem.Witness)
     (legal : ∀ slot, SpendSem c w slot)

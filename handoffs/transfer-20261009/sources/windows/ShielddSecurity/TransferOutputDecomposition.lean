@@ -29,8 +29,6 @@ theorem recovery_reconstructed (c : Crypto) (w : TransferSem.Witness) (slot : Fi
   unfold constructRecovery recoverRaw
   dsimp only
   rw [← point, ← masked, ← confirmation, ← amount, ← blinding, ← commitment]
-  cases (w.outputs slot).recovery
-  rfl
 
 theorem output_reconstructed (c : Crypto) (w : TransferSem.Witness) (slot : Fin 2)
     (legal : OutputSem c w slot) :
@@ -38,12 +36,7 @@ theorem output_reconstructed (c : Crypto) (w : TransferSem.Witness) (slot : Fin 
   have note := legal.2.2.1
   unfold constructOutput
   rw [recovery_reconstructed c w slot legal]
-  change {blinding := (w.outputs slot).blinding, amount := (w.outputs slot).amount,
-    recovery := (w.outputs slot).recovery,
-    noteCommitment := noteCommitment c w.asset
-      (if slot.val = 0 then w.receiver.address else w.sender.address)
-      (w.outputs slot).blinding (w.outputs slot).amount (w.outputs slot).recovery.commitment} =
-    w.outputs slot
+  simp only [recoverRaw]
   rw [← note]
 
 def recoverInputs (c : Crypto) (w : TransferSem.Witness)

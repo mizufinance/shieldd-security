@@ -32,8 +32,7 @@ theorem authorization_reconstructed (c : Crypto) (w : TransferSem.Witness)
   have point : computedRK c (recover w) = w.auth.rk := rk.symm
   unfold constructAuth
   rw [recovered.1, recovered.2, point]
-  cases w.auth
-  rfl
+  simp only [recover]
 
 private theorem provisional_reconstructed (c : Crypto) (w : TransferSem.Witness)
     (legal : AuthorizationSem c w) : provisional c w (recover w) = w := by

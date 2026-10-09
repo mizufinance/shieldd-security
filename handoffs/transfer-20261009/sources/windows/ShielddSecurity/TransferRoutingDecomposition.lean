@@ -66,9 +66,9 @@ theorem routing_reconstructed (c : Crypto) (w : TransferSem.Witness)
     funext slot
     exact tag_reconstructed c w legal slot
   unfold construct
-  rw [tags, ← parameter]
-  cases w.routing
-  rfl
+  rw [tags]
+  simp only [recoverInputs]
+  rw [← parameter]
 
 theorem full_record_reconstructed (c : Crypto) (w : TransferSem.Witness)
     (legal : RoutingSem c w) : {w with routing := construct c w (recoverInputs c w legal)} = w := by

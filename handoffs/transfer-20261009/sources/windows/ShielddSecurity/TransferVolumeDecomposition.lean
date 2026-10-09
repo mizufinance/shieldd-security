@@ -23,29 +23,45 @@ theorem selected_day_recovered (c : Crypto) (w : TransferSem.Witness)
 
 def recoverInputs (c : Crypto) (w : TransferSem.Witness) (legal : VolumeSem c w)
     (outboundPositive : 0 < (w.outputs 0).amount)
-    (outboundBound : (w.outputs 0).amount < amountBound) : LegalVolumeInputs c w := by
-  rcases legal with ⟨timestamp, day, second, time, context, fee, dayEquation,
-    prior, _, limit, candidate, position, tracked, _, _⟩
-  refine {toInputs := recoverRaw w, timestampBound := timestamp, dayBound := day,
-    secondBound := second, timeSplit := time, contextValid := context, feeSelf := fee,
-    trackedEligible := ?_, priorBound := prior, outboundPositive := outboundPositive,
-    outboundBound := outboundBound, candidateBound := candidate, limitBound := limit,
-    positionBound := position, trackedLimit := ?_, originZero := ?_,
-    continuationAuthenticated := ?_}
-  · intro enabled
+    (outboundBound : (w.outputs 0).amount < amountBound) : LegalVolumeInputs c w where
+  toInputs := recoverRaw w
+  timestampBound := legal.1
+  dayBound := legal.2.1
+  secondBound := legal.2.2.1
+  timeSplit := legal.2.2.2.1
+  contextValid := legal.2.2.2.2.1
+  feeSelf := legal.2.2.2.2.2.1
+  priorBound := legal.2.2.2.2.2.2.2.1
+  outboundPositive := outboundPositive
+  outboundBound := outboundBound
+  candidateBound := legal.2.2.2.2.2.2.2.2.2.2.1
+  limitBound := legal.2.2.2.2.2.2.2.2.2.1
+  positionBound := legal.2.2.2.2.2.2.2.2.2.2.2.1
+  trackedEligible := by
+    have tracked := legal.2.2.2.2.2.2.2.2.2.2.2.2.1
+    intro enabled
     have eligible := (tracked enabled).1
     simp only [TransferSem.eligible, Bool.and_eq_true, decide_eq_true_eq] at eligible
     exact ⟨eligible.1.1, eligible.1.2, eligible.2⟩
-  · intro enabled
+  trackedLimit := by
+    have tracked := legal.2.2.2.2.2.2.2.2.2.2.2.2.1
+    intro enabled
     have successor := (tracked enabled).2.2.1
     have bound := (tracked enabled).2.2.2.1
     rw [successor] at bound
     exact bound
-  · intro enabled origin
+  originZero := by
+    have tracked := legal.2.2.2.2.2.2.2.2.2.2.2.2.1
+    intro enabled origin
+    change w.volume.startsNewDay = true at origin
     have branch := (tracked enabled).2.2.2.2
     rw [if_pos origin] at branch
     exact branch
-  · intro enabled continuation
+  continuationAuthenticated := by
+    have tracked := legal.2.2.2.2.2.2.2.2.2.2.2.2.1
+    have dayEquation := legal.2.2.2.2.2.2.1
+    intro enabled continuation
+    change w.volume.startsNewDay = false at continuation
     have subject := (tracked enabled).2.1
     have branch := (tracked enabled).2.2.2.2
     rw [if_neg (by simp only [continuation, Bool.false_eq_true, not_false_eq_true])] at branch
@@ -87,14 +103,14 @@ theorem constructed_public_volume (c : Crypto) (w : TransferSem.Witness) (legal 
   cases selected : w.volume.useReal with
   | false =>
     simp only [selected, Bool.false_eq_true, if_false] at nullifier commitment ⊢
-    exact ⟨nullifier.symm, commitment.symm, rfl, rfl⟩
+    exact ⟨nullifier.symm, commitment.symm, trivial, trivial⟩
   | true =>
     have subject := (tracked selected).2.1
     have successor := (tracked selected).2.2.1
     change w.volume.subject = selectedSubject c w at subject
     simp only [selected, if_true] at nullifier commitment ⊢
     rw [← subject, ← successor]
-    exact ⟨nullifier.symm, commitment.symm, rfl, rfl⟩
+    exact ⟨nullifier.symm, commitment.symm, trivial, trivial⟩
 
 theorem full_public_statement_preserved (c : Crypto) (w : TransferSem.Witness)
     (legal : VolumeSem c w) (positive : 0 < (w.outputs 0).amount)
@@ -105,6 +121,7 @@ theorem full_public_statement_preserved (c : Crypto) (w : TransferSem.Witness)
   unfold publicFields
   dsimp only
   rw [fields.1, fields.2.1, fields.2.2.1, fields.2.2.2]
+  rfl
 
 theorem relation_inputs_preserved (c : Crypto) (w : TransferSem.Witness)
     (legal : VolumeSem c w) (positive : 0 < (w.outputs 0).amount)

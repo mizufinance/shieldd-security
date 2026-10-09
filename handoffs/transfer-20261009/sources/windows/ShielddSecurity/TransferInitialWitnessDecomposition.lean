@@ -10,6 +10,10 @@ namespace ShielddSecurity.TransferInitialWitnessDecomposition
 
 open TransferCore TransferSem TransferInitialWitnessConstruction
 
+private theorem fieldsCanonical_append (a b : List Nat) :
+    fieldsCanonical (a ++ b) ↔ fieldsCanonical a ∧ fieldsCanonical b := by
+  simp only [fieldsCanonical, List.mem_append, or_imp, forall_and]
+
 def recover (w : TransferSem.Witness) : Inputs where
   anchor := w.anchor
   assetAnchor := w.assetAnchor
@@ -49,12 +53,12 @@ theorem recovered_inputs_legal (c : Crypto) (w : TransferSem.Witness)
   simp only [CanonicalWitness, fieldsCanonical_append] at canonical
   rcases canonical with
     ⟨⟨⟨⟨⟨⟨⟨⟨header, _⟩, _⟩, _⟩, senderFields⟩, receiverFields⟩, _⟩, _⟩, _⟩
-  refine ⟨header _ (by simp), header _ (by simp), header _ (by simp),
-    volume.1, header _ (by simp), balance.1.2.2.2.2, header _ (by simp),
+  refine ⟨header _ (by simp [recover]), header _ (by simp [recover]), header _ (by simp [recover]),
+    volume.1, header _ (by simp [recover]), balance.1.2.2.2.2, header _ (by simp [recover]),
     sender.1.1, sender.2.2.1.1, receiver.1.1, receiver.2.2.1.1,
     sender.2.2.2.2.1.1, receiver.2.2.2.2.1.1, ?_, ?_⟩
-  · exact senderFields _ (by simp [userFields])
-  · exact receiverFields _ (by simp [userFields])
+  · exact senderFields _ (by simp [userFields, recover])
+  · exact receiverFields _ (by simp [userFields, recover])
 
 theorem recovered_seed_canonical (c : Crypto) (w : TransferSem.Witness)
     (legal : TransferSem.TransferSem c w) : CanonicalWitness (construct (recover w)) :=

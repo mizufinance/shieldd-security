@@ -60,6 +60,7 @@ theorem full_record_reconstructed (c : Crypto) (w : TransferSem.Witness)
     constructRegistry c w (recoverInputs c w legal canonical) = w := by
   unfold constructRegistry
   rw [selected_asset_recovered c w legal canonical]
+  rfl
 
 def recoverAt (c : Crypto) (base w : TransferSem.Witness)
     (anchor : w.assetAnchor = base.assetAnchor)
