@@ -1,0 +1,40 @@
+I found no source defect in `CompilerIndexed01.lean` (SHA `0480a790…09b6e`). Each of its seven theorems proves exactly what you said it claims, and nothing more. The open items are interface obligations for the aggregator. Three are easy to miss: the link row, putting the assertion steps last, and a possible off-by-one in the arithmetic node indices. This was a source read only; I ran no builds. Plan-file writing is disabled in this session, so the review is only here.
+
+## Helper by area
+- **Indexed row lookup (L10–23):** Sound. A missing index returns false, and a hit implies `checkRow` over `rows.toList`. A wrong index that points at a canonically equal row is accepted, which is correct.
+- **Unoutline handling (L25–41):** The result is about `unoutlineRows copy rows.toList`. To get a satisfying assignment for those rows you need `Compiler.lean:167 unoutline_rows_sound`. That theorem requires the link row `⟨[(0,1),(copy,-1)],[]⟩`, and **the helper never checks it**. The aggregator must, and a "missing link row" control will pass this helper.
+- **The eight NodeCertificate branches (L66–117 vs `Compiler.lean:210–246`):** Each branch matches its constructor one-to-one. Ports must be `.linear x` by exact expression equality, so a deferred `.square` result can't feed a later node, which is correct.
+  - `constant` depends on `rho 0 = 1`.
+  - `input` trusts the free `inputTerms` function. Binding `inputTerms 11..17` to the real Pari columns is a descriptor obligation.
+- **Node/output identity binding (L119–138):** The `decide` check ties both the ports and the output of each hint to the `SourceGraph` node and `expressions`. Coverage holds only for nodes in `indices`, as you stated. The local `DecidableEq` at L8 is harmless.
+- **Assertion checker (L153–190):** It walks the whole `graph.assertions`, so assertion coverage is complete, and left/right are bound to `expressions`.
+- **Reverse coverage (L192–226):** The conclusion has exactly the shape of the `coverage` premise of `CompilerCompletion.lean:184 original_rows_complete`.
+  - **Bridge needed:** the `emitted` array must be shown equal to `emitted steps`, the rows built by the completion steps. Being the checker's `rows` is not enough.
+  - The original link row unoutlines to a trivial row, so coverage says nothing about `copy`. That linkage must come from `linked`/`copyKept`/`zeroKept` (L183).
+
+## Composition strategy
+It is not circular if you split the steps. `compiled_values_eq_evaluation` (`CompilerGraphEvaluationSoundness.lean:17`) takes satisfaction of the rows as a premise; it can't produce it. The order must be:
+1. Run `run_complete` on the node-row steps only, the 65 arithmetic/copy rows. Their legality condition is `True` for square and product steps, so this gives satisfaction of those rows.
+2. Apply `unoutline_rows_sound` (needs the link row), then the node certificates and `compiled_values_eq_evaluation`. The output values now equal `values graph`, with no assertion satisfaction used.
+3. Use the Windows subgroup semantics to prove the 6 assertions in `values graph`. That gives legality of the `.equal`/`.squareEqual` steps at the state after the node steps.
+4. Run `run_complete`/`original_rows_complete` on the assertion steps (they write no columns), then apply reverse coverage to get all 71 rows.
+
+**Circularity risk:** if an assertion step comes before the nodes it depends on, its legality is checked against an outdated assignment. Put all 6 assertion steps last, or prove preservation with `run_preserves`.
+
+**Missing bridges:**
+- Canonical equality between the completion row shapes (`[(out,1)]++remainder`, `productRows`) and the certified rows.
+- An assertion-completeness lemma (expression equality implies the row holds). `assertion_certificate_sound` only goes the other way.
+- `base 0 = 1`, `CharP F p` and `(4:F) ≠ 0`.
+
+## Pilot data
+- **Possible off-by-one:** constants occupy indices 7–21, so the 58 arithmetic nodes must be 22–79. "Arithmetic j at local j+21" is only right if j counts from 1. Counting from 0, it collides at 21 and never reaches 79. Confirm which it is.
+- **Row counts:** check that 65 = 2 × products + squares + link/copy rows. Also check that the 6 remaining rows mean no assertion uses the two-row `squares` form.
+
+## Controls
+- **Altered coefficient:** the change must not be a multiple of p, because `canonical` reduces mod p and would accept it. It must also land on a row that a node or assertion check actually looks up.
+- **Wrong existing row index:** the target row must differ canonically. Rows that are equal in canonical form are accepted by design.
+- **Swapped source port:** swapping only in the hint is rejected by the identity check. Swapping the graph and hint together on an `add` node is *accepted*, because `x++y` and `y++x` are canonically equal (and that is harmless). Replace this with "rewire a port to a different earlier node", or swap on a `product` node.
+- **Missing reverse coverage:** dropping a mapping entry trips the size check. A stronger version maps the entry to an existing but wrong position.
+- **Controls to add:** missing link row, wrong `copy`, wrong `inputTerms`, and an `indices` list that leaves out one node. This helper is expected to accept all four; they test the aggregator.
+
+FullTransfer remains open.

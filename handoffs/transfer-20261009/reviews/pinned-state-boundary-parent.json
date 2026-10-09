@@ -1,0 +1,43 @@
+{
+  "kind": "PARENT_PINNED_SOURCE_REVIEW_NOT_FORMAL_REFINEMENT",
+  "observed_utc": "2026-10-09T15:58:55.461066+00:00",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "clean_runtime_verified": true,
+  "source_sha256": {
+    "crates/core/component/shielded-pool/src/component/action_handler/transfer.rs": "4c7954a9089971a91896d71999c298f914d7c74d60c148eaf1f81faeadeeeaad",
+    "crates/core/app/src/app/delivery.rs": "2ed8fdf22fc93dbaa2b426d719b9738a32d67bf01b8c914531e3d29df3006286",
+    "crates/core/app/src/app/mod.rs": "f3b8778b2224abaf8672a19253bfaeda823d64187c4eeecb2e8ebebcbf02453f",
+    "crates/core/app/src/app/lifecycle.rs": "ac736611bab6c9e0c103de00dc0124f6f7dc860a3739439169158b3acc3e218a",
+    "third_party/cnidarium-0.83.0/src/delta.rs": "6fc7d1612400dcab6fcd0e7ffde8a4ec063b53d4d340eec74f8cead44d7cb446"
+  },
+  "observed_order": [
+    {
+      "path": "crates/core/component/shielded-pool/src/component/action_handler/transfer.rs",
+      "function": "transfer_execute_validated",
+      "observation": "Re-extracts the exact item and checks validated capability equality; applies note effects, then ordinary-context volume nullifier and payload. Direct function can return an error after writes to its supplied StateWrite; transaction-level rollback requires the caller delta."
+    },
+    {
+      "path": "crates/core/app/src/app/delivery.rs",
+      "function": "deliver_tx_with_verified_stateless path",
+      "observation": "Begins an exclusive state transaction, runs execution and mode-specific index work, then applies delta; only afterwards pushes a DeferredBatch queue entry. Errors before apply drop the transaction. This supports a caller-level delta model, not a theorem that each low-level action independently rolls back."
+    },
+    {
+      "path": "third_party/cnidarium-0.83.0/src/delta.rs",
+      "function": "ArcStateDeltaExt.try_begin_transaction / StateDelta.apply",
+      "observation": "Arc::get_mut guards exclusive parent access. A new delta owns cached changes; apply flattens them and applies to the parent. This source read has not established a formal Rust ownership/cache or durable storage refinement."
+    },
+    {
+      "path": "crates/core/app/src/app/mod.rs",
+      "function": "flush_deferred_block_transactions",
+      "observation": "Begins separate transaction, obtains height, drains queue with mem::take before fallible put_block_transaction calls; applies index delta only after all writes. Failure after drain can preserve pending effects and lose the queue; TransferIndexing explicitly models that behavior."
+    },
+    {
+      "path": "crates/core/app/src/app/lifecycle.rs",
+      "function": "end_block",
+      "observation": "Flush failure is handled by expect/panic before component end-block hooks. Consumer abort/recovery discipline and durable writer behavior remain separate obligations."
+    }
+  ],
+  "model_assessment": "Current TransferIndexing/TransferTransaction comments correctly avoid claiming native durability or unconditional restoration of the deferred queue. No runtime change proposed from this read alone. G5 needs exact caller/store refinement and supported fault-injection evidence.",
+  "kernel_run": false,
+  "full_transfer": "OPEN"
+}
