@@ -1,0 +1,2418 @@
+{
+  "runtime": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "boundary": "Kernel-checked abstract model and solver model controls; manual source correspondence; no Rust tests run.",
+  "source_check": {
+    "head": {
+      "command": [
+        "git",
+        "-C",
+        "{workspace}/work/runtime-snapshot",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "844389ee069e1fb2e576708842d0b389b4d9a44a\n",
+      "stderr": "",
+      "seconds": 0.004749
+    },
+    "clean_status": {
+      "command": [
+        "git",
+        "-C",
+        "{workspace}/work/runtime-snapshot",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "seconds": 0.032275
+    },
+    "source_files": 39,
+    "source_regions": 88
+  },
+  "tools": {
+    "lean": {
+      "command": [
+        "lean",
+        "+leanprover/lean4:v4.30.0",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)\n",
+      "stderr": "",
+      "seconds": 0.034443
+    },
+    "z3": {
+      "command": [
+        "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout": "Z3 version 4.14.1 - 64 bit\n",
+      "stderr": "",
+      "seconds": 0.002797
+    },
+    "cvc5": {
+      "command": [
+        "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+        "--version"
+      ],
+      "exit": 0,
+      "stdout": "cvc5 1.3.4 [git f3b21c4 on branch HEAD]\ncompiled with GCC version Apple LLVM 17.0.0 (clang-1700.0.13.5) on May  7 2026 15:41:41\n\nCopyright (c) 2009-2026 by the authors and their institutional\naffiliations listed at https://cvc5.github.io/people.html\n\nThis build of cvc5 uses GPLed libraries, and is thus covered by\nthe GNU General Public License (GPL) version 3.  Versions of cvc5\nare available that are covered by the (modified) BSD license. If\nyou want to license cvc5 under this license, please configure cvc5\nwith the \"--no-gpl\" option before building from sources.\n\nTHIS SOFTWARE IS PROVIDED AS-IS, WITHOUT ANY WARRANTIES.\nUSE AT YOUR OWN RISK.\n\nThis version of cvc5 is linked against the following non-(L)GPL'ed\nthird party libraries.\n\n  CaDiCaL - Simplified Satisfiability Solver\n  See https://github.com/arminbiere/cadical for copyright information.\n\n  Editline Library\n  See https://thrysoee.dk/editline\n  for copyright information.\n\n  SymFPU - The Symbolic Floating Point Unit\n  See https://github.com/martin-cs/symfpu/tree/CVC4 for copyright information.\n\nThis version of cvc5 is linked against the following third party\nlibraries covered by the LGPLv3 license.\nSee licenses/lgpl-3.0.txt for more information.\n\n  LibPoly polynomial library\n  See https://github.com/SRI-CSL/libpoly for copyright and\n  licensing information.\n\ncvc5 is statically linked against these libraries. To recompile\nthis version of cvc5 with different versions of these libraries\nfollow the instructions on https://github.com/cvc5/cvc5/blob/main/INSTALL.md\n\nThis version of cvc5 is linked against the following third party\nlibraries covered by the GPLv3 license.\nSee licenses/gpl-3.0.txt for more information.\n\n  CLN - Class Library for Numbers\n  See http://www.ginac.de/CLN for copyright information.\n\n  glpk-cut-log - a modified version of GPLK, the GNU Linear Programming Kit\n  See http://github.com/timothy-king/glpk-cut-log for copyright information\n\n  CoCoALib - a computer algebra library\n  See https://cocoa.dima.unige.it/cocoa/cocoalib/index.shtml for copyright information\n\nSee the file COPYING (distributed with the source code, and with\nall binaries) for the full cvc5 copyright, licensing, and (lack of)\nwarranty information.\n\n",
+      "stderr": "",
+      "seconds": 0.004651
+    }
+  },
+  "lean": {
+    "command": [
+      "lean",
+      "+leanprover/lean4:v4.30.0",
+      "-j1",
+      "-M1024",
+      "-o",
+      "{workspace}/work/mac-admission/qualified-run/Admission.olean",
+      "{workspace}/outputs/mac-admission/Admission.lean"
+    ],
+    "exit": 0,
+    "stdout": "'MacAdmission.accepted_context' does not depend on any axioms\n'MacAdmission.conditional_relation_join' does not depend on any axioms\n'MacAdmission.same_selected_blinding' does not depend on any axioms\n'MacAdmission.capability_binds_exact_item' does not depend on any axioms\n'MacAdmission.capability_rejects_changed_item' does not depend on any axioms\n'MacAdmission.caller_registry_closure' does not depend on any axioms\n'MacAdmission.direct_binds_does_not_bind_registry' does not depend on any axioms\n'MacAdmission.validation_execution_chain' does not depend on any axioms\n'MacAdmission.exact_projected_fields_under_collision_exclusion' does not depend on any axioms\n'MacAdmission.changed_anchor_rejects_reuse_under_collision_exclusion' does not depend on any axioms\n'MacAdmission.projection_does_not_bind_effect_hash' does not depend on any axioms\n'MacAdmission.projection_does_not_bind_full_action' does not depend on any axioms\n'MacAdmission.execution_rechecks_authorization' does not depend on any axioms\n'MacAdmission.validation_execution_does_not_imply_fresh_state' depends on axioms: [propext]\n'MacAdmission.nonzero_signed_balance_is_consistent' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+    "stderr": "",
+    "seconds": 0.414587
+  },
+  "queries": [
+    {
+      "name": "decode_length_guarded",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= byteLength 244))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Decoder predicate excludes the malformed decoded framing.",
+      "smt_sha256": "6212b75acc7481e33da085fe656fc33418dbe2e6fd32438ab6a43c00ae193cb0",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_length_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005559
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_length_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005766
+        }
+      }
+    },
+    {
+      "name": "decode_length_omitted",
+      "guards": {
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= byteLength 244))",
+      "expected": "sat",
+      "omitted": [
+        "length"
+      ],
+      "explanation": "Isolated decoder omission exposes a malformed framing in the abstract model.",
+      "smt_sha256": "f6161d8acdcd0a51487a53d5e0f880d4fc4cdcdabbdea3873b534e0f6516f196",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_length_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun family () Int\n    5)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun suite () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun canonical () Bool\n    true)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.00654
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_length_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 1)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.008715
+        }
+      }
+    },
+    {
+      "name": "decode_suite_guarded",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= suite 1))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Decoder predicate excludes the malformed decoded framing.",
+      "smt_sha256": "2f6ee2397f75333a2dd2870f7a586780ef4ecc1127e774f24c9463f4e2cb4655",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_suite_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004948
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_suite_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005412
+        }
+      }
+    },
+    {
+      "name": "decode_suite_omitted",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= suite 1))",
+      "expected": "sat",
+      "omitted": [
+        "suite"
+      ],
+      "explanation": "Isolated decoder omission exposes a malformed framing in the abstract model.",
+      "smt_sha256": "0f03168173fcf9164e69fb707460e7aaee12c826eb372b802cfd74b6f4523eb5",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_suite_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun family () Int\n    5)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun canonical () Bool\n    true)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005871
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_suite_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 0)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006025
+        }
+      }
+    },
+    {
+      "name": "decode_knownFamily_guarded",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9)))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Decoder predicate excludes the malformed decoded framing.",
+      "smt_sha256": "afe3d54dddbc1eb17ee88f18ad13b8c094a0b8f2f714b9f520eb13d4096399f0",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_knownFamily_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005274
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_knownFamily_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005798
+        }
+      }
+    },
+    {
+      "name": "decode_knownFamily_omitted",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9)))",
+      "expected": "sat",
+      "omitted": [
+        "knownFamily"
+      ],
+      "explanation": "Isolated decoder omission exposes a malformed framing in the abstract model.",
+      "smt_sha256": "fae5cd1d7c1f760c67af800400954238a773b9e0189969b48d68c13c9aac4ab8",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_knownFamily_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun suite () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun canonical () Bool\n    true)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006024
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_knownFamily_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 1)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005904
+        }
+      }
+    },
+    {
+      "name": "decode_publicCount_guarded",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= publicCount 1))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Decoder predicate excludes the malformed decoded framing.",
+      "smt_sha256": "a60c1ec913d3f9b98acc670c1e6131be5b7084c072af08a10ed70f96edd6aa43",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_publicCount_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005237
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_publicCount_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005774
+        }
+      }
+    },
+    {
+      "name": "decode_publicCount_omitted",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= publicCount 1))",
+      "expected": "sat",
+      "omitted": [
+        "publicCount"
+      ],
+      "explanation": "Isolated decoder omission exposes a malformed framing in the abstract model.",
+      "smt_sha256": "074e3bff7823b7a43d648b81df15b69f9c9574511d2f60be1d30943e1749e07a",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_publicCount_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun family () Int\n    5)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun suite () Int\n    1)\n  (define-fun canonical () Bool\n    true)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006219
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_publicCount_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 1)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.00665
+        }
+      }
+    },
+    {
+      "name": "decode_commitmentCount_guarded",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= commitments 1))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Decoder predicate excludes the malformed decoded framing.",
+      "smt_sha256": "db7d2bab8049814599e6bdd6bec05ba74d8012f8a9dd2424cb15d0c8c37dccbc",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_commitmentCount_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.00506
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_commitmentCount_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005379
+        }
+      }
+    },
+    {
+      "name": "decode_commitmentCount_omitted",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= commitments 1))",
+      "expected": "sat",
+      "omitted": [
+        "commitmentCount"
+      ],
+      "explanation": "Isolated decoder omission exposes a malformed framing in the abstract model.",
+      "smt_sha256": "cf5430554e44d6d0f441ef831eae7f7e61f234c6c1bfff53f5a12b59848711cc",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_commitmentCount_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun family () Int\n    5)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun suite () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun canonical () Bool\n    true)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005865
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_commitmentCount_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 1)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006018
+        }
+      }
+    },
+    {
+      "name": "decode_exhaustion_guarded",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= remainder 0))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Decoder predicate excludes the malformed decoded framing.",
+      "smt_sha256": "00bce37d11fd266f1bdfdaf56f76d427e2f9809322745ca3cf5ac0511b22af1c",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_exhaustion_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.00534
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_exhaustion_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005571
+        }
+      }
+    },
+    {
+      "name": "decode_exhaustion_omitted",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not (= remainder 0))",
+      "expected": "sat",
+      "omitted": [
+        "exhaustion"
+      ],
+      "explanation": "Isolated decoder omission exposes a malformed framing in the abstract model.",
+      "smt_sha256": "9aafb730132eb0e8e631e350f698eb641e14ee8cbae04e239bef825b5b4929d2",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_exhaustion_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun family () Int\n    9)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun remainder () Int\n    1)\n  (define-fun canonical () Bool\n    true)\n  (define-fun commitments () Int\n    1)\n  (define-fun suite () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005872
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_exhaustion_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 1)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 1)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006114
+        }
+      }
+    },
+    {
+      "name": "decode_canonical_guarded",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)",
+        "canonical": "canonical"
+      },
+      "assumptions": [],
+      "bad": "(not canonical)",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Decoder predicate excludes the malformed decoded framing.",
+      "smt_sha256": "31923a699ec95ce3ac438fd421cb142f87467438e9b505e4663c5b6756ef60b5",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_canonical_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004713
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_canonical_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005198
+        }
+      }
+    },
+    {
+      "name": "decode_canonical_omitted",
+      "guards": {
+        "length": "(= byteLength 244)",
+        "suite": "(= suite 1)",
+        "knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "publicCount": "(= publicCount 1)",
+        "commitmentCount": "(= commitments 1)",
+        "exhaustion": "(= remainder 0)"
+      },
+      "assumptions": [],
+      "bad": "(not canonical)",
+      "expected": "sat",
+      "omitted": [
+        "canonical"
+      ],
+      "explanation": "Isolated decoder omission exposes a malformed framing in the abstract model.",
+      "smt_sha256": "71e8f2ff8c1893e3a57fe490c5d6da02153caa56c69321bd6efedc81054462c1",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/decode_canonical_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun family () Int\n    3)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun suite () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun canonical () Bool\n    false)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006321
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/decode_canonical_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 1)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005987
+        }
+      }
+    },
+    {
+      "name": "verify_family_guarded",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= family 1))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Individual verification uses the caller family, statement and local key.",
+      "smt_sha256": "4ae2bc3de74e382337b0107a1f9b101db7a902cb1d66f7ec4cc391fe3946a088",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_family_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004664
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_family_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005209
+        }
+      }
+    },
+    {
+      "name": "verify_family_omitted",
+      "guards": {
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= family 1))",
+      "expected": "sat",
+      "omitted": [
+        "family"
+      ],
+      "explanation": "Abstract verifier predicate is independent of application guards; this is not a cryptographic exploit.",
+      "smt_sha256": "9ffa2bf413379f46aaa540ee62f287c2a1ad032912b509699071d6a30e8b7d7f",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_family_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun backendOK () Bool\n    true)\n  (define-fun statement () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun relation () Int\n    0)\n  (define-fun publicCount () Int\n    1)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005891
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_family_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool true)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006912
+        }
+      }
+    },
+    {
+      "name": "verify_relation_guarded",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= relation localRelation))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Individual verification uses the caller family, statement and local key.",
+      "smt_sha256": "25e028d01f22c19502a27daa22ed82d54b2b3b888adb392b7178d9cb419f135d",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_relation_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004707
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_relation_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005477
+        }
+      }
+    },
+    {
+      "name": "verify_relation_omitted",
+      "guards": {
+        "family": "(= family 1)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= relation localRelation))",
+      "expected": "sat",
+      "omitted": [
+        "relation"
+      ],
+      "explanation": "Abstract verifier predicate is independent of application guards; this is not a cryptographic exploit.",
+      "smt_sha256": "e2631664aceb35a6b1e2f1ca409437ab5fb81a0b3b0adacc8425c57f01946f26",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_relation_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun localRelation () Int\n    1)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun backendOK () Bool\n    true)\n  (define-fun statement () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun family () Int\n    1)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005506
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_relation_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 1)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool true)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005353
+        }
+      }
+    },
+    {
+      "name": "verify_statement_guarded",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (and (= publicCount 1) (= statement expectedStatement)))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Individual verification uses the caller family, statement and local key.",
+      "smt_sha256": "5193971e41b2a05254f489561ce508473e7a88a36d56b296a68d44d3b02b01dc",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_statement_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004695
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_statement_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005748
+        }
+      }
+    },
+    {
+      "name": "verify_statement_omitted",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (and (= publicCount 1) (= statement expectedStatement)))",
+      "expected": "sat",
+      "omitted": [
+        "statement"
+      ],
+      "explanation": "Abstract verifier predicate is independent of application guards; this is not a cryptographic exploit.",
+      "smt_sha256": "1833778f19882f69581dc0275c89ccf5457cbecfd4275659ab590fadd120ce7a",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_statement_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun expectedStatement () Int\n    1)\n  (define-fun backendOK () Bool\n    true)\n  (define-fun commitments () Int\n    1)\n  (define-fun relation () Int\n    0)\n  (define-fun family () Int\n    1)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005313
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_statement_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 1)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool true)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005387
+        }
+      }
+    },
+    {
+      "name": "verify_commitmentCount_guarded",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= commitments 1))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Individual verification uses the caller family, statement and local key.",
+      "smt_sha256": "df3095a009264f94362cda0002af21872e5d09e1feaa7308a8e508fbeeaccbf4",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_commitmentCount_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004626
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_commitmentCount_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005293
+        }
+      }
+    },
+    {
+      "name": "verify_commitmentCount_omitted",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= commitments 1))",
+      "expected": "sat",
+      "omitted": [
+        "commitmentCount"
+      ],
+      "explanation": "Abstract verifier predicate is independent of application guards; this is not a cryptographic exploit.",
+      "smt_sha256": "203fd639f64440866906c1b881121274eeb1259a12daa0a3e0c2fc92e818c3c5",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_commitmentCount_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun backendOK () Bool\n    true)\n  (define-fun statement () Int\n    0)\n  (define-fun publicCount () Int\n    1)\n  (define-fun relation () Int\n    0)\n  (define-fun family () Int\n    1)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005239
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_commitmentCount_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool true)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005121
+        }
+      }
+    },
+    {
+      "name": "verify_localSelection_guarded",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= selectedKey localKey))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Individual verification uses the caller family, statement and local key.",
+      "smt_sha256": "3ff7c6d2bd04e31e930151d52bac3154d0b56c2fcfcfc4c0583ae289df6f36fe",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_localSelection_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004592
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_localSelection_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004926
+        }
+      }
+    },
+    {
+      "name": "verify_localSelection_omitted",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= selectedKey localKey))",
+      "expected": "sat",
+      "omitted": [
+        "localSelection"
+      ],
+      "explanation": "Abstract verifier predicate is independent of application guards; this is not a cryptographic exploit.",
+      "smt_sha256": "f275605cf9c977b94d2fa3f7e53f9784a2b370dc30ca737e510e79272efe320e",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_localSelection_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun localKey () Int\n    1)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun backendOK () Bool\n    true)\n  (define-fun statement () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun relation () Int\n    0)\n  (define-fun family () Int\n    1)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005214
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_localSelection_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 1)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool true)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005141
+        }
+      }
+    },
+    {
+      "name": "verify_backend_guarded",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)",
+        "backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not backendOK)",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Individual verification uses the caller family, statement and local key.",
+      "smt_sha256": "8809c43b8c198551f8d0edd34a0e798c04dcfccee64cc28f79079ddffdcb0b8a",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_backend_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004574
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_backend_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.00511
+        }
+      }
+    },
+    {
+      "name": "verify_backend_omitted",
+      "guards": {
+        "family": "(= family 1)",
+        "relation": "(= relation localRelation)",
+        "statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "commitmentCount": "(= commitments 1)",
+        "localSelection": "(= selectedKey localKey)"
+      },
+      "assumptions": [],
+      "bad": "(not backendOK)",
+      "expected": "sat",
+      "omitted": [
+        "backend"
+      ],
+      "explanation": "Abstract verifier predicate is independent of application guards; this is not a cryptographic exploit.",
+      "smt_sha256": "96012845cc0bdc380507e5b48dacec36be609a554a81176383fd18850b2f4b57",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/verify_backend_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun localKey () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun statement () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun relation () Int\n    0)\n  (define-fun family () Int\n    1)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005183
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/verify_backend_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005324
+        }
+      }
+    },
+    {
+      "name": "full_commitment_context_guard_redundant",
+      "guards": {
+        "decode_length": "(= byteLength 244)",
+        "decode_suite": "(= suite 1)",
+        "decode_knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "decode_publicCount": "(= publicCount 1)",
+        "decode_commitmentCount": "(= commitments 1)",
+        "decode_exhaustion": "(= remainder 0)",
+        "decode_canonical": "canonical",
+        "verify_family": "(= family 1)",
+        "verify_relation": "(= relation localRelation)",
+        "verify_statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "verify_localSelection": "(= selectedKey localKey)",
+        "verify_backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= commitments 1))",
+      "expected": "unsat",
+      "omitted": [
+        "verify_commitmentCount"
+      ],
+      "explanation": "Decoder already checks one commitment when only verify's duplicate check is omitted.",
+      "smt_sha256": "4213b34901aca82830c9e05ade9993e0a7aa50bad71e6a36215fc08dd1577f71",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/full_commitment_context_guard_redundant.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004532
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/full_commitment_context_guard_redundant.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005214
+        }
+      }
+    },
+    {
+      "name": "full_publiccount_decode_guard_redundant",
+      "guards": {
+        "decode_length": "(= byteLength 244)",
+        "decode_suite": "(= suite 1)",
+        "decode_knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "decode_commitmentCount": "(= commitments 1)",
+        "decode_exhaustion": "(= remainder 0)",
+        "decode_canonical": "canonical",
+        "verify_family": "(= family 1)",
+        "verify_relation": "(= relation localRelation)",
+        "verify_statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "verify_commitmentCount": "(= commitments 1)",
+        "verify_localSelection": "(= selectedKey localKey)",
+        "verify_backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= publicCount 1))",
+      "expected": "unsat",
+      "omitted": [
+        "decode_publicCount"
+      ],
+      "explanation": "Exact singleton public equality also rejects a count change after decode-count omission.",
+      "smt_sha256": "b309f22cceff9bfe6419cdf8cc4fef1fded3007233f4ee704733b5104dbffe61",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/full_publiccount_decode_guard_redundant.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004697
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/full_publiccount_decode_guard_redundant.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005253
+        }
+      }
+    },
+    {
+      "name": "full_commitment_both_guards_omitted",
+      "guards": {
+        "decode_length": "(= byteLength 244)",
+        "decode_suite": "(= suite 1)",
+        "decode_knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "decode_publicCount": "(= publicCount 1)",
+        "decode_exhaustion": "(= remainder 0)",
+        "decode_canonical": "canonical",
+        "verify_family": "(= family 1)",
+        "verify_relation": "(= relation localRelation)",
+        "verify_statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "verify_localSelection": "(= selectedKey localKey)",
+        "verify_backend": "backendOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= commitments 1))",
+      "expected": "sat",
+      "omitted": [
+        "decode_commitmentCount",
+        "verify_commitmentCount"
+      ],
+      "explanation": "Both count guards must be absent to defeat their combined abstract framing condition.",
+      "smt_sha256": "0d034832ada7f4ab2786edd38fb49d5e9fdae52729c0b286fc04fdc5ec9dd149",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/full_commitment_both_guards_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun canonical () Bool\n    true)\n  (define-fun statement () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun publicCount () Int\n    1)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun backendOK () Bool\n    true)\n  (define-fun suite () Int\n    1)\n  (define-fun family () Int\n    1)\n  (define-fun remainder () Int\n    0)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005279
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/full_commitment_both_guards_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 1)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool true)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005513
+        }
+      }
+    },
+    {
+      "name": "stateless_anchor_guarded",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= bodyAnchor contextAnchor))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Stateless extraction checks the current action and transaction location/context.",
+      "smt_sha256": "da02093e9343e5735b19166f4edbf039f578e5b02e98cfd2f47ec63c02008819",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_anchor_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.00465
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_anchor_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005027
+        }
+      }
+    },
+    {
+      "name": "stateless_anchor_omitted",
+      "guards": {
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= bodyAnchor contextAnchor))",
+      "expected": "sat",
+      "omitted": [
+        "anchor"
+      ],
+      "explanation": "Local predicate omission permits the corresponding malformed caller condition; authorization is abstract.",
+      "smt_sha256": "c8220212de639ce3edf2f53fd373a4e74aaa57e760f6f6eb107dabc66fd22d36",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_anchor_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun contextAnchor () Int\n    1)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun lengthsOK () Bool\n    true)\n  (define-fun authOK () Bool\n    true)\n  (define-fun kind () Int\n    0)\n  (define-fun shapeOK () Bool\n    true)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005968
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_anchor_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 1)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool true)\n(define-fun authOK () Bool true)\n(define-fun lengthsOK () Bool true)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005854
+        }
+      }
+    },
+    {
+      "name": "stateless_shape_guarded",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not shapeOK)",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Stateless extraction checks the current action and transaction location/context.",
+      "smt_sha256": "b53c5fcc1192e170a10b545c7fdfe56be99558df37ff588a293f612d6502fbba",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_shape_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004703
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_shape_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005396
+        }
+      }
+    },
+    {
+      "name": "stateless_shape_omitted",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not shapeOK)",
+      "expected": "sat",
+      "omitted": [
+        "shape"
+      ],
+      "explanation": "Local predicate omission permits the corresponding malformed caller condition; authorization is abstract.",
+      "smt_sha256": "ced41d7baf9d49aa41ad73f41c66b18c6678eb87e0071f8a491a22a973fcf627",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_shape_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun currentEffect () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    true)\n  (define-fun authOK () Bool\n    true)\n  (define-fun kind () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005142
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_shape_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool true)\n(define-fun lengthsOK () Bool true)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005769
+        }
+      }
+    },
+    {
+      "name": "stateless_contextKind_guarded",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= kind expectedKind))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Stateless extraction checks the current action and transaction location/context.",
+      "smt_sha256": "f6ff6b8b5d82995fe105a9dde17cb9bfadd9de36a4d2217523658ecdffa46650",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_contextKind_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004576
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_contextKind_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005411
+        }
+      }
+    },
+    {
+      "name": "stateless_contextKind_omitted",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not (= kind expectedKind))",
+      "expected": "sat",
+      "omitted": [
+        "contextKind"
+      ],
+      "explanation": "Local predicate omission permits the corresponding malformed caller condition; authorization is abstract.",
+      "smt_sha256": "8b0fdeb828082481156d9933a982da8ae8e458f36695829e9c83d021575009c7",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_contextKind_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun expectedKind () Int\n    1)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun lengthsOK () Bool\n    true)\n  (define-fun authOK () Bool\n    true)\n  (define-fun shapeOK () Bool\n    true)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.00544
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_contextKind_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 1)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool true)\n(define-fun authOK () Bool true)\n(define-fun lengthsOK () Bool true)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005771
+        }
+      }
+    },
+    {
+      "name": "stateless_auth_guarded",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not authOK)",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Stateless extraction checks the current action and transaction location/context.",
+      "smt_sha256": "272d2f3b5f68c152147c01cf287fbbae72333d78d54276b9e767ed11daa4ea89",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_auth_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004736
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_auth_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004888
+        }
+      }
+    },
+    {
+      "name": "stateless_auth_omitted",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not authOK)",
+      "expected": "sat",
+      "omitted": [
+        "auth"
+      ],
+      "explanation": "Local predicate omission permits the corresponding malformed caller condition; authorization is abstract.",
+      "smt_sha256": "ad72e1d05c6c947b067ff0409c8037e5fd6a128088d0f3fedd94bd10c4390d3b",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_auth_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun currentEffect () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun authOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    true)\n  (define-fun kind () Int\n    0)\n  (define-fun shapeOK () Bool\n    true)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.004999
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_auth_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool true)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool true)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006872
+        }
+      }
+    },
+    {
+      "name": "stateless_lengths_guarded",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK"
+      },
+      "assumptions": [],
+      "bad": "(not lengthsOK)",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Stateless extraction checks the current action and transaction location/context.",
+      "smt_sha256": "e038a5e75047c9867395163d76c9ea369aa97c1ba7e5bf43d3fe975a691664cb",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_lengths_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004787
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_lengths_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005329
+        }
+      }
+    },
+    {
+      "name": "stateless_lengths_omitted",
+      "guards": {
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK"
+      },
+      "assumptions": [],
+      "bad": "(not lengthsOK)",
+      "expected": "sat",
+      "omitted": [
+        "lengths"
+      ],
+      "explanation": "Local predicate omission permits the corresponding malformed caller condition; authorization is abstract.",
+      "smt_sha256": "8c053897caf4c9e6b65213011cb68e8c283c1c7d14bc1f716b6b3b21fec5e031",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/stateless_lengths_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun currentEffect () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun authOK () Bool\n    true)\n  (define-fun kind () Int\n    0)\n  (define-fun shapeOK () Bool\n    true)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005111
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/stateless_lengths_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool true)\n(define-fun authOK () Bool true)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006625
+        }
+      }
+    },
+    {
+      "name": "receipt_family_guarded",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capFamily 1))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Exact Verification comparison excludes this swapped item.",
+      "smt_sha256": "9266827008e3f74014c670386b097f77760fab2e4443a93ec3f11aafd6502570",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_family_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.004884
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_family_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005277
+        }
+      }
+    },
+    {
+      "name": "receipt_family_omitted",
+      "guards": {
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capFamily 1))",
+      "expected": "sat",
+      "omitted": [
+        "family"
+      ],
+      "explanation": "Partial capability comparison loses this component of exact item identity.",
+      "smt_sha256": "3258d5f817c93af766e23139dcd25f0c8a5b36ca557b57d3c9bbafa272ca8d36",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_family_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.0053
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_family_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005934
+        }
+      }
+    },
+    {
+      "name": "receipt_itemFamily_guarded",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capFamily requestFamily))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Exact Verification comparison excludes this swapped item.",
+      "smt_sha256": "3f514344953cd28cb41ee72aa6761492567103dcfccb1abc78040e0dd414a754",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_itemFamily_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005439
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_itemFamily_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005667
+        }
+      }
+    },
+    {
+      "name": "receipt_itemFamily_omitted",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capFamily requestFamily))",
+      "expected": "sat",
+      "omitted": [
+        "itemFamily"
+      ],
+      "explanation": "Partial capability comparison loses this component of exact item identity.",
+      "smt_sha256": "6714b8bfe98d2d3a2925509b6b59bf1bbe73588a91f2d7854223635f5a3ec8b3",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_itemFamily_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun capFamily () Int\n    1)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005628
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_itemFamily_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 1)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006391
+        }
+      }
+    },
+    {
+      "name": "receipt_statement_guarded",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capStatement requestStatement))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Exact Verification comparison excludes this swapped item.",
+      "smt_sha256": "598236fbf28cfd25ccb1884eff7880f6538e6c908d3b7de2efc5e3e422bbc60f",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_statement_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005039
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_statement_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005872
+        }
+      }
+    },
+    {
+      "name": "receipt_statement_omitted",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capStatement requestStatement))",
+      "expected": "sat",
+      "omitted": [
+        "statement"
+      ],
+      "explanation": "Partial capability comparison loses this component of exact item identity.",
+      "smt_sha256": "59a3d1a45d340cba2126213ef2a0c23158239741c043e9ebb77b3831e8a50f5f",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_statement_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestBytes () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun requestStatement () Int\n    1)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun requestFamily () Int\n    1)\n  (define-fun capFamily () Int\n    1)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006878
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_statement_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 1)\n(define-fun requestFamily () Int 1)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 1)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006613
+        }
+      }
+    },
+    {
+      "name": "receipt_proofBytes_guarded",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capBytes requestBytes))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Exact Verification comparison excludes this swapped item.",
+      "smt_sha256": "9711a82884209209363517096b0529e3bab641d5af97cdf3b39b7a1faa6d477b",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_proofBytes_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005463
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_proofBytes_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005851
+        }
+      }
+    },
+    {
+      "name": "receipt_proofBytes_omitted",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capBytes requestBytes))",
+      "expected": "sat",
+      "omitted": [
+        "proofBytes"
+      ],
+      "explanation": "Partial capability comparison loses this component of exact item identity.",
+      "smt_sha256": "072ce6a99db85a9ae73b643954d5c66147f3781bb60fbd3eac35d26a9e861144",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/receipt_proofBytes_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun requestBytes () Int\n    1)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun requestFamily () Int\n    1)\n  (define-fun capFamily () Int\n    1)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006454
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/receipt_proofBytes_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 1)\n(define-fun requestFamily () Int 1)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 1)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006685
+        }
+      }
+    },
+    {
+      "name": "direct_receipt_does_not_bind_registry",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capRegistry localRegistry))",
+      "expected": "sat",
+      "omitted": [],
+      "explanation": "Faithful boundary: ensure_binds has no registry argument/check.",
+      "smt_sha256": "e1775e246c4f1959869d2b9316272e494769139079835f2853d81fff896aae13",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/direct_receipt_does_not_bind_registry.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun localRegistry () Int\n    1)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun requestFamily () Int\n    1)\n  (define-fun capFamily () Int\n    1)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006109
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/direct_receipt_does_not_bind_registry.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 1)\n(define-fun requestFamily () Int 1)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 1)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006902
+        }
+      }
+    },
+    {
+      "name": "parent_registry_guarded",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)",
+        "registry": "(= capRegistry localRegistry)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capRegistry localRegistry))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "VerifiedTxArtifact supplies the omitted registry condition.",
+      "smt_sha256": "60db2140d547c8d11099c79248dccaed92eb93d0cff19bead643ec95e8b084e7",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/parent_registry_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.005397
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/parent_registry_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.007689
+        }
+      }
+    },
+    {
+      "name": "parent_registry_omitted",
+      "guards": {
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)"
+      },
+      "assumptions": [],
+      "bad": "(not (= capRegistry localRegistry))",
+      "expected": "sat",
+      "omitted": [
+        "registry"
+      ],
+      "explanation": "Omitting the parent registry equality admits a cross-registry abstract receipt.",
+      "smt_sha256": "e1775e246c4f1959869d2b9316272e494769139079835f2853d81fff896aae13",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/parent_registry_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun localRegistry () Int\n    1)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun requestFamily () Int\n    1)\n  (define-fun capFamily () Int\n    1)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006714
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/parent_registry_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 1)\n(define-fun requestFamily () Int 1)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 1)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.007569
+        }
+      }
+    },
+    {
+      "name": "execution_effect_hash_changed_guarded",
+      "guards": {
+        "itemStatement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)",
+        "kind": "(= kind expectedKind)",
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "freshAuth": "(= signedEffect currentEffect)"
+      },
+      "assumptions": [],
+      "bad": "(not (= signedEffect currentEffect))",
+      "expected": "unsat",
+      "omitted": [],
+      "explanation": "Message-binding abstraction plus reauthorization rejects a changed signed effect hash.",
+      "smt_sha256": "87872ac197303f76fc15c0accc9e6544a1cb8d60bb959aecbc83ae9133a6130c",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/execution_effect_hash_changed_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.006412
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/execution_effect_hash_changed_guarded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "unsat\n",
+          "stderr": "",
+          "seconds": 0.006565
+        }
+      }
+    },
+    {
+      "name": "execution_effect_hash_changed_auth_omitted",
+      "guards": {
+        "itemStatement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)",
+        "kind": "(= kind expectedKind)",
+        "anchor": "(= bodyAnchor contextAnchor)"
+      },
+      "assumptions": [],
+      "bad": "(not (= signedEffect currentEffect))",
+      "expected": "sat",
+      "omitted": [
+        "freshAuth"
+      ],
+      "explanation": "Proof-item equality alone does not cover effect-hash context.",
+      "smt_sha256": "1c344d5bbb5b511ce147248e59c23b7ecaa90b6c04837b89397da6cc6c609228",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/execution_effect_hash_changed_auth_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun requestStatement () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun currentEffect () Int\n    1)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.006167
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/execution_effect_hash_changed_auth_omitted.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 1)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006334
+        }
+      }
+    },
+    {
+      "name": "execution_fresh_state_not_encoded",
+      "guards": {
+        "itemStatement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)",
+        "kind": "(= kind expectedKind)",
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "freshAuth": "(= signedEffect currentEffect)"
+      },
+      "assumptions": [],
+      "bad": "(and oldStateOK (not currentStateOK))",
+      "expected": "sat",
+      "omitted": [],
+      "explanation": "Receipt equality does not encode root/time/volume-state stability between calls.",
+      "smt_sha256": "bebd96402ac6a95cdd847b40cfe55a7343964df5e629c19fe474c1cf76f17e48",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/execution_fresh_state_not_encoded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun remainder () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun localRegistry () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun capStatement () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun oldStateOK () Bool\n    true)\n  (define-fun kind () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005419
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/execution_fresh_state_not_encoded.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool true)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005706
+        }
+      }
+    },
+    {
+      "name": "signed_negative_net_allowed",
+      "guards": {
+        "balanceEquation": "(= net (- totalInputs totalOutputs))"
+      },
+      "assumptions": [],
+      "bad": "(and (= totalInputs 3) (= totalOutputs 5) (= net (- 2)))",
+      "expected": "sat",
+      "omitted": [],
+      "explanation": "An action may have negative signed net; aggregate binding is a separate contract.",
+      "smt_sha256": "7b1d390af1728f4b6ab78c26c38c01af0b5930cb1d59099261657a0b11f8dfd3",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/signed_negative_net_allowed.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun localRegistry () Int\n    0)\n  (define-fun suite () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun byteLength () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun relation () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun capBytes () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun commitments () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun publicCount () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun requestFamily () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun family () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun capFamily () Int\n    0)\n  (define-fun totalOutputs () Int\n    5)\n  (define-fun net () Int\n    (- 2))\n  (define-fun totalInputs () Int\n    3)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun authOK () Bool\n    false)\n  (define-fun canonical () Bool\n    false)\n  (define-fun shapeOK () Bool\n    false)\n  (define-fun lengthsOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun backendOK () Bool\n    false)\n)\n",
+          "stderr": "",
+          "seconds": 0.005485
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/signed_negative_net_allowed.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 0)\n(define-fun suite () Int 0)\n(define-fun family () Int 0)\n(define-fun publicCount () Int 0)\n(define-fun commitments () Int 0)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 0)\n(define-fun requestFamily () Int 0)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int (- 2))\n(define-fun totalInputs () Int 3)\n(define-fun totalOutputs () Int 5)\n(define-fun canonical () Bool false)\n(define-fun backendOK () Bool false)\n(define-fun shapeOK () Bool false)\n(define-fun authOK () Bool false)\n(define-fun lengthsOK () Bool false)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006922
+        }
+      }
+    },
+    {
+      "name": "all_admission_guards_positive_baseline",
+      "guards": {
+        "decode_length": "(= byteLength 244)",
+        "decode_suite": "(= suite 1)",
+        "decode_knownFamily": "(or (= family 1) (= family 2) (= family 3) (= family 4) (= family 5) (= family 6) (= family 9))",
+        "decode_publicCount": "(= publicCount 1)",
+        "decode_commitmentCount": "(= commitments 1)",
+        "decode_exhaustion": "(= remainder 0)",
+        "decode_canonical": "canonical",
+        "verify_family": "(= family 1)",
+        "verify_relation": "(= relation localRelation)",
+        "verify_statement": "(and (= publicCount 1) (= statement expectedStatement))",
+        "verify_commitmentCount": "(= commitments 1)",
+        "verify_localSelection": "(= selectedKey localKey)",
+        "verify_backend": "backendOK",
+        "anchor": "(= bodyAnchor contextAnchor)",
+        "shape": "shapeOK",
+        "contextKind": "(= kind expectedKind)",
+        "auth": "authOK",
+        "lengths": "lengthsOK",
+        "family": "(= capFamily 1)",
+        "itemFamily": "(= capFamily requestFamily)",
+        "statement": "(= capStatement requestStatement)",
+        "proofBytes": "(= capBytes requestBytes)",
+        "registry": "(= capRegistry localRegistry)"
+      },
+      "assumptions": [],
+      "bad": "true",
+      "expected": "sat",
+      "omitted": [],
+      "explanation": "Positive satisfiability control prevents vacuous all-guard rejection.",
+      "smt_sha256": "6aa7d7d2b416bf5be97e38a32d6b662ee2dadb4d320e12e7b657cb4dfda843b2",
+      "solvers": {
+        "z3": {
+          "command": [
+            "/opt/homebrew/Cellar/z3/4.14.1/bin/z3",
+            "-T:10",
+            "{workspace}/work/mac-admission/qualified-run/all_admission_guards_positive_baseline.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n  (define-fun localRegistry () Int\n    0)\n  (define-fun requestStatement () Int\n    0)\n  (define-fun contextAnchor () Int\n    0)\n  (define-fun totalInputs () Int\n    0)\n  (define-fun expectedStatement () Int\n    0)\n  (define-fun signedEffect () Int\n    0)\n  (define-fun requestBytes () Int\n    0)\n  (define-fun expectedKind () Int\n    0)\n  (define-fun totalOutputs () Int\n    0)\n  (define-fun localKey () Int\n    0)\n  (define-fun currentEffect () Int\n    0)\n  (define-fun localRelation () Int\n    0)\n  (define-fun remainder () Int\n    0)\n  (define-fun statement () Int\n    0)\n  (define-fun authOK () Bool\n    true)\n  (define-fun relation () Int\n    0)\n  (define-fun commitments () Int\n    1)\n  (define-fun publicCount () Int\n    1)\n  (define-fun shapeOK () Bool\n    true)\n  (define-fun capBytes () Int\n    0)\n  (define-fun kind () Int\n    0)\n  (define-fun suite () Int\n    1)\n  (define-fun family () Int\n    1)\n  (define-fun capFamily () Int\n    1)\n  (define-fun lengthsOK () Bool\n    true)\n  (define-fun bodyAnchor () Int\n    0)\n  (define-fun selectedKey () Int\n    0)\n  (define-fun backendOK () Bool\n    true)\n  (define-fun capRegistry () Int\n    0)\n  (define-fun capStatement () Int\n    0)\n  (define-fun requestFamily () Int\n    1)\n  (define-fun canonical () Bool\n    true)\n  (define-fun byteLength () Int\n    244)\n  (define-fun currentStateOK () Bool\n    false)\n  (define-fun oldStateOK () Bool\n    false)\n  (define-fun net () Int\n    0)\n)\n",
+          "stderr": "",
+          "seconds": 0.005944
+        },
+        "cvc5": {
+          "command": [
+            "/Users/antoinecyr/.local/opt/cvc5-macOS-arm64-static-gpl/bin/cvc5",
+            "--tlimit=10000",
+            "{workspace}/work/mac-admission/qualified-run/all_admission_guards_positive_baseline.smt2"
+          ],
+          "exit": 0,
+          "stdout": "sat\n(\n(define-fun byteLength () Int 244)\n(define-fun suite () Int 1)\n(define-fun family () Int 1)\n(define-fun publicCount () Int 1)\n(define-fun commitments () Int 1)\n(define-fun remainder () Int 0)\n(define-fun relation () Int 0)\n(define-fun localRelation () Int 0)\n(define-fun statement () Int 0)\n(define-fun expectedStatement () Int 0)\n(define-fun selectedKey () Int 0)\n(define-fun localKey () Int 0)\n(define-fun bodyAnchor () Int 0)\n(define-fun contextAnchor () Int 0)\n(define-fun kind () Int 0)\n(define-fun expectedKind () Int 0)\n(define-fun capFamily () Int 1)\n(define-fun requestFamily () Int 1)\n(define-fun capStatement () Int 0)\n(define-fun requestStatement () Int 0)\n(define-fun capBytes () Int 0)\n(define-fun requestBytes () Int 0)\n(define-fun capRegistry () Int 0)\n(define-fun localRegistry () Int 0)\n(define-fun signedEffect () Int 0)\n(define-fun currentEffect () Int 0)\n(define-fun net () Int 0)\n(define-fun totalInputs () Int 0)\n(define-fun totalOutputs () Int 0)\n(define-fun canonical () Bool true)\n(define-fun backendOK () Bool true)\n(define-fun shapeOK () Bool true)\n(define-fun authOK () Bool true)\n(define-fun lengthsOK () Bool true)\n(define-fun oldStateOK () Bool false)\n(define-fun currentStateOK () Bool false)\n)\n",
+          "stderr": "",
+          "seconds": 0.006458
+        }
+      }
+    }
+  ],
+  "summary": {
+    "lean_named_theorems": 15,
+    "smt_queries": 55,
+    "sat": 29,
+    "unsat": 26,
+    "solver_runs": 110,
+    "failures": 0
+  },
+  "final_source_check": {
+    "head": {
+      "command": [
+        "git",
+        "-C",
+        "{workspace}/work/runtime-snapshot",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "844389ee069e1fb2e576708842d0b389b4d9a44a\n",
+      "stderr": "",
+      "seconds": 0.004322
+    },
+    "clean_status": {
+      "command": [
+        "git",
+        "-C",
+        "{workspace}/work/runtime-snapshot",
+        "status",
+        "--porcelain"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": "",
+      "seconds": 0.014544
+    },
+    "source_files": 39,
+    "source_regions": 88
+  }
+}

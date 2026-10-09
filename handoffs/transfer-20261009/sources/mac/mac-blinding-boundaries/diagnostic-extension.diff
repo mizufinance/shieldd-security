@@ -1,0 +1,33 @@
+--- M11/pari/circuit.rs
++++ M12/pari/circuit.rs
+@@ -218,6 +218,30 @@
+             .expect("a constrained auxiliary column");
+         (assignment.values.clone(), self.committed_start,
+             assignment.relation_digest, self.rows.len(), auxiliary)
++    }
++
++    // MAC BOUNDARY DIAGNOSTIC: exact incidence and failing row identifiers.
++    pub fn mac_diagnostic_column_rows(&self, witness: &super::Witness, index: usize,
++        delta: &Scalar) -> (String, Vec<usize>, Vec<usize>) {
++        let mut values = witness.assignment().values.clone();
++        values[index] += delta;
++        let source = match &self.value_sources[index] {
++            ValueSource::One => "One".to_string(),
++            ValueSource::Circuit(idx) => format!("Circuit({idx:?})"),
++            ValueSource::DifferenceSquare(left, right) => format!("DifferenceSquare({left:?},{right:?})"),
++            ValueSource::Zero => "Zero".to_string(),
++        };
++        let mut touched = Vec::new();
++        let mut failing = Vec::new();
++        for (number, row) in self.rows.iter().enumerate() {
++            if row.squared.iter().chain(row.linear.iter()).any(|(column, _)| *column as usize == index) {
++                touched.push(number);
++            }
++            let a = dot(&row.squared, &values);
++            let b = dot(&row.linear, &values);
++            if a.clone() * &a != b { failing.push(number); }
++        }
++        (source, touched, failing)
+     }
+ 
+     // The original row evaluator is called unchanged. Mutations affect only a

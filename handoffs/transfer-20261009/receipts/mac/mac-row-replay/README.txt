@@ -1,0 +1,13 @@
+M11 actual compiled Transfer assignment replay: execution PASSED; independent review pending.
+
+36 legal joint branch baselines satisfy native source constraints and every200770 actual PARI square row in the canonical262144-column relation. All baselines use exact catalogue::compile(Transfer), Relation::witness valued construction, layout/digest matching, leadingconstant1, native statement digest(publicindex1) and balance blinding(committedindex2).36 original witnesses rechecked after cloned-assignment mutations.
+
+144 positive-first row rejections: changing constant/publicdigest/committedblinding/constrainedauxiliary16 in each36cases.36 distinct digest metadata refusals occur before row evaluation.5 extra existingM3 semantic source mutations compile under the same canonical relation/layout then reject both native constraints and actual square rows: externalfee,nonzerodummy,optional-realwrongpath,successorchanged,predecessorwrongpath;each explicitly checks its positive source/rowbaseline first (3unique baselinewitnesses).149 actual row rejections and185 combined controls; these counts must not be doubled for testing native and compiled representations.
+
+The all-zero private vector with correct relation metadata satisfies homogeneous row equations; it violates the fixed-leading-one role and is not a canonical compiler witness or accepted transaction. This scope control makes the boundary of Relation::is_satisfied explicit.
+
+Diagnostic adapter removes only cfg(test) from existing evaluator and adds immutable metadata/getter and cloned-assignment wrapper. Inverse adapter removal reconstructs pinned PARI file exactly: evaluator, dot, compiler, layout, digest and valued construction bodies unchanged. Production snapshot stays clean. Of1209 pinned tracked source files, only circuit.rs diagnostic adapter and lib.rs prior test imports differ. M3 branch module prefix unchanged; a nested new test module is appended.
+
+Both offline Cargo1.95 ci runs passed: matrix77.27s after14.60s compilation;5sourcecontrols21.10s.2Cargo/2Rayon/1testthread,900s bound and4GiB headroom guards;zero swap. The unused Additive diagnostic import and upstream stability-cfg warning are retained. No prover/setup/release/cryptographic verification invoked. New actual-row evidence closes the earlier finite square-row replay gap, not full Transfer arbitrary-assignment soundness or general witness/state consequences.
+
+Reproduce from exact pinned clean runtime with replay.py --runtime /absolute/pinned --copy /absolute/newcopy (fresh copy, offline installed dependencies required). Run wrappers and exact commands/resource records retained; original matrix source identity is module-first-run.rs, final source adds only the second test.

@@ -1,0 +1,45 @@
+{
+  "next_Mac_target": "ShielddSecurity.TransferEncryptionBranchCompletion",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "sources": {
+    "TransferSem": {
+      "bytes": 25198,
+      "sha256": "34bfad86d8619e505f0cfcd7e1191708be5524146a86fc2bdfda444c3f53ab72",
+      "already_delivered": true
+    },
+    "TransferCore": {
+      "bytes": 7369,
+      "sha256": "86e5694ce2ba0c3bb5df9697d5edb4bfdd241eac7eefa0e45181d5c907fe8274",
+      "already_delivered": true
+    }
+  },
+  "new_helper_source_imports_required": false,
+  "target": "constructed_encryption_semantics c base inputs : EncryptionSem c {base with encryption := construct c base inputs}",
+  "inputs": [
+    "seeds : Fin4 -> Nat, ephemeral : Fin4 -> Nat, ownershipRandomness : Fin2 -> Nat",
+    "all seeds<fieldModulus; all ephemeral/randomness<scalarOrder and nonzero to match actual native constructor",
+    "nonidentity(c.mul ephemeral c.generator) and nonidentity(c.mul ownershipRandomness c.generator) explicitly; arbitrary Crypto alone cannot infer standard curve facts",
+    "nonidentity(detectionKey c base) and nonidentity(checkingKey c base), independently selected input-key legality"
+  ],
+  "constructor": [
+    "selected=if flagged base then detectionKey c base else payloadKey c base; base is already post-output/volume/routing",
+    "each epk=c.mul ephemeral generator; each c2=fadd seed (secret c (c.mul ephemeral selected))",
+    "derive fsub c2 sharedSecret=seed by finite modular cancellation lemma under seed<fieldModulus; do not assume the seed equation",
+    "core indices0/2: confirmation=hash .keyConfirmation [seed,epk.x,epk.y,salt(i+1)], ciphertext0=fadd output0.amount (stream seed0); unused core ciphertext1/2 set0",
+    "extended indices1/3: ciphertextj=fadd addressWords(receiver for1/sender for3)j (stream seedj), unused confirmation set0",
+    "detectionSeed=hash .detection (pointFields(mul ephemeral0 detectionKey)++pointFields epk0); detection[i]=fadd [asset,salt0,flagged?1:0,0][i]! (stream detectionSeed i)",
+    "policy[i]=regulated?[ringID,policyID,resource,permission][i]!:emptyPolicy; timestamp=base.timestamp; epoch=regulated?registry.audit.epoch:0; salts[i]=salt base(i+1)",
+    "ownership[i].r=mul randomness generator; .c=add (fingerprint sender/receiver address) (mul randomness checkingKey)"
+  ],
+  "frame": "Whole Witness restoration and all non-encryption fields preserved. Ordered output->volume->routing->encryption prevents stale amount/flag/key selections; do not assume other component results as EncryptionSem premises",
+  "canonicality": "Derive full encryptionFields fieldsCanonical and preserve CanonicalWitness under CanonicalCrypto/baseCanonical/seed legality. Derive fadd/fsub bounds and scalar<fieldModulus from exact modulus/order. Finite symbolic proofs; no 4x3 unrolled wide constraint walk",
+  "forbidden_premises": [
+    "No EncryptionSem or desired metadata/ciphertext/confirmation equation premise",
+    "No universal hash injectivity",
+    "No raw-row/native API/full witness success premise"
+  ],
+  "refusals": "If useful metadata timestamp/salt/epoch/selected core confirmation/ciphertext mutations under actual changed value/hash inequality; core/extended and flag branches explicitly scoped",
+  "native_source": "Compare exact encryption.rs151-244 native build and constrain detection/tier/metadata formulas plus audit.rs ownership constructor; parent has pinned native sources. Existing narrow native tests may be reused and labeled finite runtime testing",
+  "boundary": "Semantic construction only. Windows retains actual five-role DH raw captures, EPk/scalar/registered-key/native-field joins, full shared-row completion, actual state/durable recovery, final integration",
+  "full_transfer": "OPEN"
+}

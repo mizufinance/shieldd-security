@@ -1,0 +1,35 @@
+{
+  "next_Mac_target": "ShielddSecurity.TransferOutputRecoveryCompletion",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "maintained_target": {
+    "path": "circuits/ShielddSecurity/TransferSem.lean",
+    "sha256": "34bfad86d8619e505f0cfcd7e1191708be5524146a86fc2bdfda444c3f53ab72",
+    "already_delivered": true
+  },
+  "target": "Construct both Output records from legal raw amount/blinding/recovery seed/salt/randomizer inputs and prove forall slot : Fin2, OutputSem c {base with outputs := constructOutputs c base inputs} slot",
+  "legal_inputs": [
+    "amount<amountBound; recipient slot0 amount!=0; recovery randomizer<scalarOrder",
+    "nonidentity(c.mul randomizer c.generator), stated explicitly because arbitrary Crypto does not imply standard-curve multiplication laws",
+    "separate canonicality inputs: blinding/seed/salt<fieldModulus, CanonicalCrypto c, CanonicalWitness base"
+  ],
+  "constructor": [
+    "epk=c.mul randomizer c.generator",
+    "c2=fadd seed (secret c (c.mul randomizer (payloadKey c base)))",
+    "confirmation=c.hash .recoveryConfirmation ([seed]++pointFields epk++[salt])",
+    "encryptedAmount=fadd amount (stream c seed 0), encryptedBlinding=fadd blinding (stream c seed 1)",
+    "recovery.commitment=c.hash .recoveryCommitment (pointFields epk++[c2,salt,confirmation,encryptedAmount,encryptedBlinding])",
+    "noteCommitment=noteCommitment c base.asset (receiver address for slot0 / sender address for slot1) blinding amount recovery.commitment"
+  ],
+  "forbidden_premises": [
+    "No OutputSem/recovery commitment/note commitment/construction result equality premise",
+    "No universal hash injectivity",
+    "No assumed raw-row or accepted-state completion"
+  ],
+  "frame": "Restore whole base Witness after replacing outputs; all other fields preserved. Do not claim existing VolumeSem/RoutingSem/EncryptionSem survive changing amounts; rebuild dependent components in that order",
+  "canonicality": "Derive constructed recovery/output fieldsCanonical and full CanonicalWitness from CanonicalCrypto and canonical raw inputs; use finite reusable fadd bound lemma",
+  "source_scope": "Compare pinned note.rs/recovery.rs output constructor and constrain formulas; explicit caveat that this constructs maintained semantics, not actual compiled assignment or Rust object decoding",
+  "optional_scope": "If useful a recovery cancellation equation under explicit standard group/field contracts; avoid widening into state-store recovery which Windows owns",
+  "tests": "Reuse existing pinned native output/recovery tests narrowly; positive-first changes to recipient amount, recovery commitment or confirmation require intended semantic failure, not compiler/timeout",
+  "ownership": "Windows retains full raw-row/shared-column/fullsoundness/state and finalintegration; this new semantic output component can follow M6 without overlapping Windows heavy verification",
+  "full_transfer": "OPEN"
+}

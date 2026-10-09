@@ -1,0 +1,47 @@
+--- pinned/pari/circuit.rs
++++ diagnostic/pari/circuit.rs
+@@ -205,9 +205,34 @@
+         &self.digest
+     }
+ 
++    // MAC DIAGNOSTIC ONLY: disposable independent replay adapter.
++    // Returns immutable assignment/layout metadata without changing the compiler.
++    pub fn mac_diagnostic_values(&self, witness: &super::Witness)
++        -> (Vec<Scalar>, usize, [u8; 32], usize, usize) {
++        let assignment = witness.assignment();
++        let auxiliary = self.rows.iter().flat_map(|row|
++            row.squared.iter().chain(row.linear.iter())).map(|(index, _)| *index as usize)
++            .find(|index| *index > self.public_inputs &&
++                !(*index >= self.committed_start &&
++                  *index < self.committed_start + self.committed_inputs()))
++            .expect("a constrained auxiliary column");
++        (assignment.values.clone(), self.committed_start,
++            assignment.relation_digest, self.rows.len(), auxiliary)
++    }
++
++    // The original row evaluator is called unchanged. Mutations affect only a
++    // fresh private assignment clone; the witness/relation/layout stay immutable.
++    pub fn mac_diagnostic_replay(&self, witness: &super::Witness,
++        delta: Option<(usize, Scalar)>, zero_all: bool, wrong_digest: bool) -> bool {
++        let mut assignment = witness.assignment().clone();
++        if let Some((index, value)) = delta { assignment.values[index] += &value; }
++        if zero_all { assignment.values.fill(Scalar::zero()); }
++        if wrong_digest { assignment.relation_digest[0] ^= 1; }
++        self.is_satisfied(&assignment)
++    }
++
+     /// Check an assignment against every row. Padding rows past the stored
+     /// rows are all-zero and satisfied by construction.
+-    #[cfg(test)]
+     pub(super) fn is_satisfied(&self, assignment: &Assignment) -> bool {
+         if assignment.relation_digest != self.digest || assignment.values.len() != self.size {
+             return false;
+--- M3/mac_branches.rs
++++ diagnostic/mac_branches.rs
+@@ -109,3 +109,6 @@
+     assert!(!accepts(&p, &g, &bad), "real continuation must authenticate prior anchor");
+     println!("MAC_NEGATIVE continuation_wrong_path");
+ }
++
++#[path = "mac_rows.rs"]
++mod row_replay;
