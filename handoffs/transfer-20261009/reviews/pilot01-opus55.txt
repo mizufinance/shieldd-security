@@ -1,0 +1,111 @@
+READ-ONLY SOURCE REVIEW. Model reported: claude-opus-5-5. Frozen review inputs below; no new kernel credit. Parent/worker follow-up is required before scale.
+
+I couldn't write the plan file because no Write tool is available in this session, so the review is below. I read only the four frozen files and the canonical `Compiler`, `CompilerCompletion`, `ScalarCompletion` and `Rows` definitions. Nothing was built.
+
+# Transfer compiler pilot review (pilot-review01)
+
+## Verdict
+**Accepted within its stated scope.** It is a concrete 14-node, 8-row pilot. It proves soundness for an arbitrary assignment and builds a satisfying assignment for this slice only. It is not the full Transfer proof and claims no credit for it. I found no soundness defect. There are two statement defects to fix in the handwritten file, several provenance gaps in the generator, and three structural blockers for scaling.
+
+## Source graph embedding (nodes 0–7, leaves, assertion 0)
+I checked the generator's mapping (`generate_pilot.py:32-45`) against `pilot-data01.json` and `TransferCompilerPilotData01.lean:25-39`:
+- **Leaves:** inputs 7, 13, 14 become local nodes 0–2. Constants 0, 1, 2 become local nodes 3–5, with values `coefficient`, p−1 and 1.
+- **Nodes 0–7 become local nodes 6–13:**
+  - mul(in7,in7) → 6
+  - mul(in13,in13) → 7
+  - mul(in14,in14) → 8
+  - mul(c1,n1) → 9
+  - add(n2,n3) → 10
+  - mul(c0,n1) → 11
+  - mul(n5,n2) → 12
+  - add(c2,n6) → 13
+  
+  All eight match the DB.
+- **Assertion 0:** (node0, input7) becomes local (6, 0) with `squareLinear`, which is correct.
+- **Unknown references fail closed:** any reference outside the mapping raises a `KeyError`.
+- **Input columns:** `inputTerms i = [(3+i,1)]` agrees with `boundary` (`Pilot01.lean:62`). Public input 1 maps to witness 22734 (column 22737), and committed input 2 maps to witness 6 (column 9). Both agree with `source_identity`.
+
+So the embedding is faithful to the lowering DB. Faithfulness to the raw source export is a separate question, covered in G1.
+
+## Defects in the pilot
+
+**D1. `constructive_pilot` doesn't say the inputs are preserved** (`Pilot01.lean:78-80`).
+- It concludes facts about columns 0, copy, 1, 2, 16 and 17 only.
+- It says nothing about `rho 10 = inputs 7`. Column 10 holds the very witness that carries the Boolean assertion.
+- It also omits columns 9 and 22737, even though both are in `kept` (`:14`).
+- `run` writes only columns 22738–22741. The theorem should therefore state total preservation: `∀ c, c ∉ [22738,22739,22740,22741] → rho c = boundary inputs c`. You could also widen `kept` to cover all of columns 3–22737.
+- As written, the theorem doesn't show that the completed assignment keeps the public, committed and witness inputs.
+
+**D2. The pilot claims to exercise outlining but doesn't** (comment at `Pilot01.lean:11`).
+- `copy` (200692) appears only in row 200769 (`Data01.lean:23`). Rows 0–6 never mention column 0 or the copy column.
+- So `unoutline` is the identity on every arithmetic row. Only the link row itself is exercised.
+- The constant-bearing expression `[(0,1),(22740,1)]` (node 13) never appears in any row.
+- Either fix the claim or add a row that genuinely uses the copy column (see B3).
+
+## Generator provenance gaps (G)
+These are not soundness bugs: any mismatch would make the exact-instance premise unprovable rather than unsound. They matter for the guard you are strengthening.
+
+- **G1. Raw source isn't hash-checked.** `generate_pilot.py:11-13` checks only `result01.json` status and reads `lowering-resume01.sqlite`. The DB's sha256 is never recorded or checked. `source_identity.raw_sha256` is copied into the JSON but never verified against a file.
+- **G2. `runtime_sha` is hardcoded** (`:46`). It isn't read from `shieldd.lock`, which conflicts with the AGENTS.md certification rule. The modulus `p` (`:14`) also isn't checked against DB metadata.
+- **G3. `originalRows` are rebuilt, not copied.** The lambda at `:28` re-outlines DB rows (column 0 becomes `copy`, except for a hardcoded 200769). This guesses at how the capture was encoded and isn't tested by any pilot row.
+  - `local_projection` binds `fullRows` to this rebuilt list, so the rebuild is only validated when `ExactIndexedInstance` is discharged against the real capture.
+  - Until then, compare the rows against the raw capture bytes in the generator.
+- **G4. The stored row indices are thrown away.** `certificate['rows']` (`[0]`, `[1]`, `[2,3]`) and the assertion's `[177954]` are read but never emitted.
+  - Lean checks rows by `checkRow`, which does a `List.any` scan over all of `unoutlinedRows` (`Compiler.lean:83-86`). The indices 0, 1, 2, 3, 177954 and 200767–200769 are therefore bound only through `captureIndices` (`Data01.lean:15`), not per certificate.
+  - This is sound, but it doesn't show that the compiler's own row attribution is correct, and it is the main scaling blocker (S1).
+- **G5. Assertion and output data are hardcoded.** The assertion list, its constructor `[(10,1)]` and `outputs=[13]` are written as literals (`:75`, `:104-105`). The assert at `:31` pins the assertion; nothing checks the outputs.
+
+## Assessed and sound (premises, circularity, constants)
+- **Premises are not circular.**
+  - `NodeCertificate` and `AssertionCertificate` premises are finite `canonical`/`checkRow` checks.
+  - `graph_certificate_sound` (`Compiler.lean:377`) takes an arbitrary `rho`, `rho 0 = 1`, `4 ≠ 0` and `Satisfies`. It assumes no desired value.
+  - The graph and the expressions both come from the same DB, but the expressions are kernel-checked against the rows, so that shared origin isn't circular.
+  - Binding the DB graph to `TransferSem` is still **OPEN** (see the last section).
+- **Arbitrary `rho`.** `arbitrary_assignment_graph` (`:109-115`) passes the copy-link check to `unoutline_rows_sound` and then to `graph_certificate_sound`. It is correct.
+  - `copy_and_input_links`, `boolean_consequence` and `illegal_boolean_refused` are correct soundness consequences.
+  - `rho 0 = 1` is a fixed-column assumption of the proof system. That is standard, but it should be stated in the disclosures.
+- **Characteristic and four.** The arbitrary field `F` uses `[CharP F p]` with the concrete BLS12-381 scalar `p`. `four_nonzero` (`:89-96`) is correct (4 < p by `decide`, then `CharP.cast_eq_iff_mod_eq`). Coefficients are reduced by `coefficient_mod`, so p−1 is handled correctly as −1.
+- **`BooleanInput` and `Legal`.**
+  - `Legal` reduces to exactly one non-trivial fact, `inputs 7 * inputs 7 = inputs 7`.
+  - The three `.equal` steps are definitional tautologies, since `boundary` builds columns 1, 2 and the copy column from the same inputs.
+  - `BooleanInput` is a domain predicate stated independently of the rows, which is legitimate. It is still just the assertion's own content restated as a disjunction.
+  - Deriving that witness 7 is Boolean from the Transfer legal-input semantics is **OPEN**. It must not be assumed away, and the pilot's comment at `:12` discloses it honestly.
+- **The copy row.**
+  - `.equal [(0,1)] [(0,1)]` (`:25`) emits a row that is canonically empty. The original copy row unoutlines to canonically empty as well.
+  - It is actually satisfied through `linked`, with 0 and copy both in `kept`, inside `original_rows_complete`. This is correct, but the step itself is only there to give the coverage proof a target.
+- **Coverage of the eight rows.** The coverage proof (`:35-51`) proves reverse coverage for every `originalRows` entry against `emitted steps`, comparing them modulo `canonical`. The product rows match `ScalarCompletion.productRows` (auxiliary, then 4·output).
+- **`Topological`** (`:27-33`) holds: the writes 22738–22741 are fresh against `kept` and against earlier rows.
+- **The partial boundary is honest.**
+  - `GraphSatisfies` covers a closed 14-node cone with explicit leaves, one assertion and declared outputs.
+  - `local_projection` goes in the right direction: full satisfaction implies local satisfaction.
+  - `ExactIndexedInstance` is an explicit premise that nothing supplies, so there is no full-Transfer credit.
+  - Remaining **OPEN** items: whether these 14 nodes are a closed dependency cone of the full graph (no omitted consumers or assertions), and the binding from graph to `TransferSem`.
+
+## Can this approach scale to indexed chunk certificates?
+Not as written. Four blockers:
+- **S1. Row checks scan the whole list.** `checkRow` uses `List.any` (`Compiler.lean:84`), and coverage checks `∃ expected ∈ emitted steps`. At 201k rows that is quadratic.
+  - Add `checkRowAt rows i expected := rows[i]? matches canonically`, with a soundness lemma. Make the generator emit the stored per-certificate indices from G4.
+- **S2. The freshness check is quadratic.** `Topological` checks the growing `prior` on every step (`CompilerCompletion.lean:142`).
+  - Replace it with a monotone-column invariant: each step writes columns above the high-water mark, and kept columns lie below the base. That costs O(1) per step and composes per chunk.
+- **S3. The assignment is a deep nest.** `run` iterates `patchAssignment` once per step, and `Legal` unfolds along it. Over 200k steps this becomes one monolithic term.
+  - Use chunk-level `run_complete` and `run_preserves` lemmas composed over chunk lists. Ideally, define the closed-form assignment from an indexed table.
+- **S4. Node lookup is a per-node case split.** `node`, `expressions` and `node_certificates` are matches or `rcases` with one arm per node (`Data01.lean:25-56, 106-124`).
+  - Use per-chunk array-backed data plus a reflective Bool checker (`decide` on a checker with a soundness theorem). Chunks should be joined through boundary input expressions (`inputTerms`), which the `NodeCertificate` docstring already allows.
+
+## Smallest next benchmarks, in order
+1. **Same 8 rows, indexed checks.** Re-prove the pilot with `checkRowAt` and the per-certificate stored indices 0, 1, 2–3 and 177954 from the DB. Fix D1 and G1–G2 at the same time. This tests G4 and S1 at zero scale risk.
+2. **An outlining row and untested constructors.** Pick the smallest captured slice that contains:
+   - a genuine arithmetic row using the copy column,
+   - a product with a non-empty remainder,
+   - `foldedRight`,
+   - a `linear` or `squares` assertion.
+   
+   This covers D2 and G3 and the certificate constructors nobody has exercised yet.
+3. **Two chunks, joined through a boundary.** Use two contiguous chunks of about 512 nodes each, with a reflective checker and the S2 invariant. Time each chunk and the composition step. If it stays linear, double to 4k.
+4. **One real legal-input fact.** Derive the Boolean fact for witness 7 (or one input bound) from the Transfer legal-input spec instead of declaring it.
+
+## Honestly OPEN (not pilot defects)
+- `ExactIndexedInstance` for the real capture, and the full relation (no `fullTransfer` credit).
+- The binding from graph to `TransferSem`, plus proof that the DB graph is the actual exported circuit and that the cone is closed.
+- Deriving `Legal`/`BooleanInput` from the Transfer semantics.
+- Constructing a satisfying assignment for the full relation.
