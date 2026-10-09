@@ -56,3 +56,11 @@ construction and does not establish an accepted transaction or vulnerability.
 Original seal manifests identify locally retained files, including omitted logs.
 `receipts/mac/publication-manifest.json` lists the files actually shipped here.
 This directory does not refresh the claim register or certify full Transfer.
+
+## Worker arrangement — user update 2026-10-09
+
+The existing Mac subagent will finish and seal its current M15 committed-blinding
+range bridge, then stop. Do not reuse or assign further work to that agent.
+The parent coordinator takes over all subsequent Mac proof/build work and
+coordinates directly with the Windows chat. Existing completed sources and
+receipts remain available for independent review and integration.
