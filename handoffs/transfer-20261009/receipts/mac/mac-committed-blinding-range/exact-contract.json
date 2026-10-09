@@ -1,0 +1,39 @@
+{
+  "task": "M15 owned committed-blinding subgroup bound for field-claim admission",
+  "owner": "mac",
+  "schedule": "After actual M14 settlement; one bounded heavy verifier per physical machine.",
+  "module": "ShielddSecurity.TransferCommittedBlindingRangeBridge",
+  "exact_import_manifest": "sources/windows/mac-M15-blinding-range-imports/manifest.json",
+  "exact_import_manifest_sha256": "70e21822b04868ff12c95aea71190a4a3ffdae0368a554b6162b0ad23c8b54d2",
+  "goal": "Derive b < Scalar.order from the owned canonical blinding rows plus committed2-shadow9 equality and canonical field representation; the upstream extraction interface must not assume the desired subgroup bound.",
+  "expected_results": [
+    "Let inputRows be the exact row200768 equality between columns2 and9, and localRows=inputRows++RuntimeBalanceBlindingCanonical.originalRows. Under Field F, CharP F Scalar.modulus, rho0=1, 4!=0, Satisfies rho localRows, b<Scalar.modulus and (b:F)=rho2, derive b<Scalar.order.",
+    "Under a globally specified TransferReduction.CanonicalField codec, derive codec.decode(rho2)<Scalar.order from the same owned rows, with no per-transaction range premise.",
+    "Name and audit the standard field-characteristic/nonzero-four and codec contracts; global standard field/codec facts are acceptable, desired per-transaction semantic facts are not.",
+    "Use actual_blinding_canonical or actual_randomizer_bits, exact committed-shadow equality, order<fieldModulus and Scalar.canonical_representative_unique; avoid the unrelated126-window group-multiplication closure.",
+    "Reconcile with M13 exact raw row coefficient identity. If using the existing SparseRow bridge, give an exact evaluator transport to ShielddSecurity.Row rather than assuming representations coincide.",
+    "State separately the exact full-relation inclusion/projection obligation; a local row premise or a hash is not a proof of full-row coverage.",
+    "Explain the adapter needed for TransferFullCarrierAcceptance.CompiledClaim: derive its owned bound after extracting a field claim, never hide b<Scalar.order in the assumed Pari knowledge contract."
+  ],
+  "limits": {
+    "threads": 1,
+    "new_module_heartbeats": 300000,
+    "memory_mib": 2048,
+    "seconds_per_module": 240
+  },
+  "source_policy": "Keep the exact supplied coherent source closure separate from M14 semantic imports. Generated canonical source is immutable: fix a generator if a source defect occurs; never edit it to clear a gate. No toolchains/caches/binaries/raw logs/whole captures in Git.",
+  "forbidden": [
+    "No b<Scalar.order premise",
+    "No full TransferSem or desired admission conclusion premise",
+    "No assumed canonical codec equality for only this transaction",
+    "No universal hash injectivity",
+    "No sorry/admit/new unsound axioms",
+    "No claim of complete Transfer"
+  ],
+  "handoff": "Publish new handwritten module, full theorem types/axiom summaries and exact source/receipt identities under Mac-owned paths on codex/security-assurance; preserve source and failed candidate receipts separately. Fetch first, never force push.",
+  "not_owned": [
+    "Windows eight inverse/canonical drafts and DH/EPK/controller3130",
+    "Windows native admission/durable suites3057-3060"
+  ],
+  "full_transfer": "OPEN"
+}
