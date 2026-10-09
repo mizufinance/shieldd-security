@@ -1,0 +1,41 @@
+{
+  "kind": "field-instance input proposal; no kernel credit",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source_base": "d7d44ca82712a35a3e40d68af7ae89b25b128ce6",
+  "source_identities": {
+    "circuits/ShielddSecurity/Scalar.lean": "f0ca7c1535b7169d11be9aa77ecb08d01d9c466358d0fc29e806dbad8b1f3e01",
+    "runtime/crates/crypto/circuits/src/group.rs": "ca75207acfd6bcb794f9f54b8ab3f52b236478f6b10761d459747dcbb9155971",
+    "runtime/crates/crypto/circuits/src/scalar.rs": "4ef5601b479c9888d46ef4040aa0e583186a72ad0a31039029e1edd654b132d5"
+  },
+  "candidate_sha256": "20d3da8789fc847a4e5450c430321b52350e79f7533bcd43ff48695ffa4c862d",
+  "scope": "Primality of Scalar.modulus and concrete Jubjub coefficient/imaginary/nonsquare parameter facts only. No group cardinality, SDK codec or native representation claim.",
+  "checked_data": {
+    "lucas_nodes": 38,
+    "base": 7,
+    "exact_factorization": "2^32 * 3 * 11 * 19 * 10177 * 125527 * 859267 * 906349^2 * 2508409 * 2529403 * 52437899 * 254760293^2",
+    "independent_validator": "validate.py",
+    "negative_controls": 8,
+    "reproduced_byte_exact": true
+  },
+  "kernel_plan": [
+    "Prove a logarithmic modular-power evaluator agrees with exponentiation in ZMod, reducing after each multiplication. All computational facts checked by Lean kernel; no native_decide or giant unreduced power.",
+    "Prove generic Lucas certificate soundness using Mathlib.NumberTheory.LucasPrimality.lucas_primality, exact factor product and recursively established prime factors. Derive prime-factor exhaustiveness from prime divisibility of a product.",
+    "Check small leaves, then each of the 38 certificate nodes under fixed bounded guards; reject altered factor/residue/base controls through the production checker. Audit full types and standard axioms.",
+    "Instantiate Fact Scalar.modulus.Prime and concrete Field (ZMod Scalar.modulus). Prove the integer quotient identities for d and imaginary by kernel arithmetic.",
+    "Prove d^((p-1)/2)=-1 in ZMod p from modular-power output. Derive NoUnitSquare d using the prime-field exponent theorem and nonzero hypotheses, not by assuming nonsquare.",
+    "Bind numeric d to -10240 / 10241 using the exact coefficient equation and 10241 nonzero. Publish only after a coherent fresh source replay."
+  ],
+  "remaining_owned_obligations": [
+    "Full Edwards AddCommGroup and covering StandardCurveModel",
+    "Global Jubjub curve order or annihilator 8*r",
+    "Concrete CanonicalField and BEWrite/native Scalar codec correspondence",
+    "Full graph/rows and independent Transfer semantics",
+    "Native admission/state/durability"
+  ],
+  "constraints": {
+    "one_heavy_lane_per_host": true,
+    "finite_guards": true,
+    "kernel_credit": false,
+    "do_not_change_field_assumptions_until_checked": true
+  }
+}
