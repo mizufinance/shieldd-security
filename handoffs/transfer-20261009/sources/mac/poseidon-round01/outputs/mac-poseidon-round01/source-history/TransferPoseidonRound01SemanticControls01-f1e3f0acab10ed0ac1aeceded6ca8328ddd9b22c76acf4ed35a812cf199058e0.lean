@@ -1,0 +1,66 @@
+-- GENERATED instance of maintained round-semantic-controls-template.lean.txt.
+import ShielddSecurity.TransferPoseidonRound01SemanticControlsData01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonRound01SemanticControls01
+open Compiler CompilerIndexed01 Poseidon PoseidonIndexedRound01
+open TransferPoseidonRound01 TransferPoseidonRound01SemanticData01
+
+open TransferPoseidonRound01SemanticControlsData01
+theorem column_rejection (candidateRows : Array Row) (candidateParameters : Parameters Int 6)
+    (candidateHints : Fin 6 → FifthHint)
+    (rejected : checkColumn p copy candidateRows candidateParameters 1 before shifted transformed candidateHints 0=false) :
+    productionCheck candidateRows candidateParameters after candidateHints=false := by
+  apply Bool.eq_false_iff.mpr
+  intro accepted
+  simp only [productionCheck,Bool.and_eq_true] at accepted
+  simp only [checkRound,Bool.and_eq_true] at accepted
+  have column := List.all_eq_true.mp accepted.2.1 0 (List.mem_finRange 0)
+  rw [rejected] at column
+  contradiction
+
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonRound01SemanticControls01.column_rejection
+#print axioms ShielddSecurity.TransferPoseidonRound01SemanticControls01.column_rejection
+
+theorem ark_rejected : productionCheck originalRows alteredArk after fifthHints=false :=
+  column_rejection originalRows alteredArk fifthHints ark_column_rejected
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonRound01SemanticControls01.ark_rejected
+#print axioms ShielddSecurity.TransferPoseidonRound01SemanticControls01.ark_rejected
+
+theorem wrong_hint_rejected : productionCheck originalRows parameters after alteredHint=false :=
+  column_rejection originalRows parameters alteredHint hint_column_rejected
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonRound01SemanticControls01.wrong_hint_rejected
+#print axioms ShielddSecurity.TransferPoseidonRound01SemanticControls01.wrong_hint_rejected
+
+theorem coefficient_rejected : productionCheck changedRows parameters after fifthHints=false :=
+  column_rejection changedRows parameters fifthHints row_column_rejected
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonRound01SemanticControls01.coefficient_rejected
+#print axioms ShielddSecurity.TransferPoseidonRound01SemanticControls01.coefficient_rejected
+
+theorem mds_rejected : productionCheck originalRows alteredMds after fifthHints=false := by
+  apply Bool.eq_false_iff.mpr
+  intro accepted
+  simp only [productionCheck,Bool.and_eq_true,checkRound] at accepted
+  have mix := List.all_eq_true.mp accepted.2.2 0 (List.mem_finRange 0)
+  rw [mds_mix_rejected] at mix
+  contradiction
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonRound01SemanticControls01.mds_rejected
+#print axioms ShielddSecurity.TransferPoseidonRound01SemanticControls01.mds_rejected
+
+theorem state_port_rejected : productionCheck originalRows parameters alteredPort fifthHints=false := by
+  apply Bool.eq_false_iff.mpr
+  intro accepted
+  simp only [productionCheck,Bool.and_eq_true] at accepted
+  have port := List.all_eq_true.mp accepted.1.2 0 (List.mem_finRange 0)
+  rw [port_binding_rejected] at port
+  contradiction
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonRound01SemanticControls01.state_port_rejected
+#print axioms ShielddSecurity.TransferPoseidonRound01SemanticControls01.state_port_rejected
+
+end ShielddSecurity.TransferPoseidonRound01SemanticControls01

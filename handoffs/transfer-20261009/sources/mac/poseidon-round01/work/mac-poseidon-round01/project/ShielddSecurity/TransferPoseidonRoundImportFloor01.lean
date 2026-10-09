@@ -1,0 +1,7 @@
+import ShielddSecurity.TransferPoseidonRound01SemanticProof01
+namespace ShielddSecurity.TransferPoseidonRoundImportFloor01
+theorem imported : True := True.intro
+end ShielddSecurity.TransferPoseidonRoundImportFloor01
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonRoundImportFloor01.imported
+#print axioms ShielddSecurity.TransferPoseidonRoundImportFloor01.imported
