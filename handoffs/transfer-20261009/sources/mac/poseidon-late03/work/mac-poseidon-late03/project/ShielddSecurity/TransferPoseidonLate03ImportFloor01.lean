@@ -1,0 +1,7 @@
+import ShielddSecurity.TransferPoseidonLate03Controls01
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonLate03Proof01.arbitrary_native_round
+#print axioms ShielddSecurity.TransferPoseidonLate03Proof01.arbitrary_native_round
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonLate03Proof01.total_native_round
+#print axioms ShielddSecurity.TransferPoseidonLate03Proof01.total_native_round

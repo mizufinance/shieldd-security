@@ -1,0 +1,29 @@
+import ShielddSecurity.TransferPoseidonAbsorb02ControlsData01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonAbsorb02Controls01
+open Compiler CompilerIndexed01 Poseidon PoseidonIndexedFolded02 TransferPoseidonAbsorb02 TransferPoseidonAbsorb02SemanticData01 TransferPoseidonAbsorb02ControlsData01
+theorem absorption_rejection (domain arity : Nat) (inputs : List Nat)
+    (rejected : absorptionCheck domain arity inputs before=false) :
+    productionCheck originalRows parameters after fifthHints domain arity inputs=false := by
+  apply Bool.eq_false_iff.mpr
+  intro accepted
+  simp only [productionCheck,Bool.and_eq_true] at accepted
+  exact Bool.false_ne_true (rejected.symm.trans accepted.1.1.2)
+theorem domain_rejected : productionCheck originalRows parameters after fifthHints 22 4 orderedInputs=false :=
+  absorption_rejection 22 4 orderedInputs domain_field_false
+theorem arity_rejected : productionCheck originalRows parameters after fifthHints 23 5 orderedInputs=false :=
+  absorption_rejection 23 5 orderedInputs arity_field_false
+theorem input_order_rejected : productionCheck originalRows parameters after fifthHints 23 4 wrongInputs=false :=
+  absorption_rejection 23 4 wrongInputs input_field_false
+theorem folded_rejection (hints : Fin 6 → FifthHint)
+    (rejected : checkColumn p copy originalRows parameters 0 before shifted transformed hints 0=false) :
+    productionCheck originalRows parameters after hints 23 4 orderedInputs=false := by
+  apply Bool.eq_false_iff.mpr
+  intro accepted
+  simp only [productionCheck,Bool.and_eq_true,checkRound] at accepted
+  have column := List.all_eq_true.mp accepted.2.1 0 (List.mem_finRange 0)
+  exact Bool.false_ne_true (rejected.symm.trans column)
+theorem native_fold_rejected : productionCheck originalRows parameters after wrongHint 23 4 orderedInputs=false :=
+  folded_rejection wrongHint folded_field_false
+end ShielddSecurity.TransferPoseidonAbsorb02Controls01

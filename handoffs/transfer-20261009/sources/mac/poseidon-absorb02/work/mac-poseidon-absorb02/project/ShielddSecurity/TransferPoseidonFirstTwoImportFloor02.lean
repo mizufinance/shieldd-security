@@ -1,0 +1,7 @@
+import ShielddSecurity.TransferPoseidonFirstTwo02Controls01
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonFirstTwo02Controls01.production_sound
+#print axioms ShielddSecurity.TransferPoseidonFirstTwo02Controls01.production_sound
+set_option pp.all true in
+#check @ShielddSecurity.TransferPoseidonFirstTwo02Controls01.production_constructive
+#print axioms ShielddSecurity.TransferPoseidonFirstTwo02Controls01.production_constructive

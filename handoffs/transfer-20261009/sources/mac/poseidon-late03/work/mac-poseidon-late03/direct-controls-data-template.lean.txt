@@ -1,0 +1,27 @@
+import ShielddSecurity.TransferPoseidonLate03Proof01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonLate03ControlsData01
+open Compiler CompilerIndexed01 CompilerCompletion Poseidon PoseidonIndexedRound01 TransferPoseidonLate03
+
+def wrongArk : Parameters Int 6 := {parameters with ark := fun round column => if round=61 ∧ column=0 then parameters.ark round column+1 else parameters.ark round column}
+def wrongMds : Parameters Int 6 := {parameters with mds := fun row column => if row=0 ∧ column=0 then parameters.mds row column+1 else parameters.mds row column}
+def wrongBefore : State Linear 6 := fun column => if column=0 then before 1 else before column
+def wrongHints : Fin 6 → FifthHint := fun column => if column=0 then {fifthHints column with first:=1} else fifthHints column
+def changedRow : Row := ⟨(match row0.a with | [] => [] | (column,coef)::rest => (column,coef+1)::rest),row0.b⟩
+def changedRows : Array Row := originalRows.set! 0 changedRow
+def missingReverse : Array Nat := (List.range 24).toArray
+def missingCopy : Array Row := originalRows.extract 0 24
+
+theorem ark_column_false : checkColumn p copy originalRows wrongArk 61 before shifted transformed fifthHints 0=false := by decide +kernel
+theorem mds_mix_false : decide (canonical p (after 0)=canonical p (mixLinear wrongMds.mds transformed 0))=false := by decide +kernel
+theorem before_column_false : checkColumn p copy originalRows parameters 61 wrongBefore shifted transformed fifthHints 0=false := by decide +kernel
+theorem hint_column_false : checkColumn p copy originalRows parameters 61 before shifted transformed wrongHints 0=false := by decide +kernel
+theorem coefficient_column_false : checkColumn p copy changedRows parameters 61 before shifted transformed fifthHints 0=false := by decide +kernel
+theorem reverse_false : checkOriginalCoverage p copy originalRows emittedRows missingReverse=false := by decide +kernel
+theorem copy_false : checkRowAt p missingCopy 24 ⟨[(0,1),(copy,-1)],[]⟩=false := by decide +kernel
+theorem coefficient_mutation_ran : changedRows[0]?=some changedRow ∧ changedRow≠row0 ∧ (changedRows.extract 1 25)=(originalRows.extract 1 25) := by decide +kernel
+theorem port_mutation_ran : wrongBefore 0≠before 0 := by decide +kernel
+theorem hint_mutation_ran : (wrongHints 0).first=1 ∧ (fifthHints 0).first=0 ∧ canonical p (unoutline copy row0.a)≠canonical p (unoutline copy row1.a) := by decide +kernel
+theorem guard_shapes : missingReverse.size=24 ∧ originalRows.size=25 ∧ missingCopy.size=24 := by decide +kernel
+end ShielddSecurity.TransferPoseidonLate03ControlsData01

@@ -1,0 +1,16 @@
+import ShielddSecurity.TransferPoseidonAbsorb02SemanticProof01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferPoseidonAbsorb02ControlsData01
+open Compiler CompilerIndexed01 Poseidon PoseidonIndexedFolded02 TransferPoseidonAbsorb02 TransferPoseidonAbsorb02SemanticData01
+def wrongInputs : List Nat := [12,11,18,19]
+def wrongHint (column : Fin 6) : FifthHint :=
+  if column=0 then .constant 24877380261526996562448766783081897666376381975344509826094208368479247895771 else fifthHints column
+theorem domain_field_false : absorptionCheck 22 4 orderedInputs before=false := by decide +kernel
+theorem arity_field_false : absorptionCheck 23 5 orderedInputs before=false := by decide +kernel
+theorem input_field_false : absorptionCheck 23 4 wrongInputs before=false := by decide +kernel
+theorem folded_field_false : checkColumn p copy originalRows parameters 0 before shifted transformed wrongHint 0=false := by decide +kernel
+theorem original_input_mutation : wrongInputs≠orderedInputs := by decide +kernel
+theorem constant_mutation : wrongHint 0≠fifthHints 0 := by simp [wrongHint,fifthHints]
+theorem arity_matches_inputs : orderedInputs.length=4 := by decide +kernel
+end ShielddSecurity.TransferPoseidonAbsorb02ControlsData01
