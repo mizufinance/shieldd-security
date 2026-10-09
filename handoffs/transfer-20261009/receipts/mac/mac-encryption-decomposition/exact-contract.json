@@ -1,0 +1,55 @@
+{
+  "task": "M14 independent encryption representation decomposition",
+  "owner": "mac",
+  "schedule": "After current Mac M13 committed2-shadow9 bridge settles; one bounded Mac verifier at a time.",
+  "module": "ShielddSecurity.TransferEncryptionDecomposition",
+  "closure": {
+    "TransferCore": {
+      "file": "ShielddSecurity/TransferCore.lean",
+      "bytes": 7369,
+      "sha256": "86e5694ce2ba0c3bb5df9697d5edb4bfdd241eac7eefa0e45181d5c907fe8274",
+      "imports": [
+        "Mathlib.Data.Int.Basic",
+        "Lean.Elab.Tactic.Omega"
+      ]
+    },
+    "TransferSem": {
+      "file": "ShielddSecurity/TransferSem.lean",
+      "bytes": 25198,
+      "sha256": "34bfad86d8619e505f0cfcd7e1191708be5524146a86fc2bdfda444c3f53ab72",
+      "imports": [
+        "ShielddSecurity.TransferCore"
+      ]
+    },
+    "TransferEncryptionBranchCompletion": {
+      "file": "ShielddSecurity/TransferEncryptionBranchCompletion.lean",
+      "bytes": 17601,
+      "sha256": "78c9806ef91e1b863d6f1ca3039d610504833b1354d5d371c5367c1a0f42aba8",
+      "imports": [
+        "ShielddSecurity.TransferSem"
+      ]
+    }
+  },
+  "goal": "Recover LegalEncryptionInputs from independent EncryptionSem plus CanonicalWitness; normalize unused private tier auxiliaries while preserving exact public encryption fields, all64 public fields, statement hash and committed blinding.",
+  "requirements": [
+    "Prove modular fadd (fsub ciphertext shared) shared = ciphertext under ciphertext < fieldModulus using finite symbolic lemmas.",
+    "Recover seeds by fsub, ephemeral scalars and ownership randomness from the semantic record.",
+    "Derive nonzero scalars from EPK/ownership nonidentity using explicit global standard-curve mul-zero law; do not assume the desired nonzero result.",
+    "Derive raw-input bounds from CanonicalWitness or semantic scalar bounds; keep canonical crypto codomain and curve contracts explicit.",
+    "Core tiers 0/2 constrain ciphertext0 and confirmation; their ciphertext1/2 are inactive. Extended tiers 1/3 constrain all three ciphertexts; their confirmation is inactive.",
+    "Do not assert equality of the entire private Encryption record when inactive auxiliaries are unconstrained.",
+    "Audit complete theorem types and axioms; finite heartbeats, small lemmas, no sorry/admit/new axioms.",
+    "Record source hashes, source-only failures and actual kernel outcomes separately; no compiler/timeouts counted as semantic controls."
+  ],
+  "forbidden": [
+    "No EncryptionSem premise in the forward constructor theorem",
+    "No universal hash injectivity",
+    "No assumed full row assignment, desired hash equality, native acceptance or Rust correspondence"
+  ],
+  "do_not_duplicate": [
+    "Windows inverse/canonical drafts 3131-3136",
+    "Windows field/DH/EPK 3130",
+    "Mac current committed2-shadow9 blinding equality bridge"
+  ],
+  "handoff": "Only new handwritten module, exact closure manifest and bounded actual theorem/axiom receipt; append under Mac-owned paths. Full Transfer stays OPEN."
+}
