@@ -1,0 +1,64 @@
+I found **no concrete logical or source-mapping defects, and no circularity**, in the reviewed Lean source. This was a read-only source review. I did not run Lean or any checker, so every `decide +kernel` result and axiom printout below is unverified, and so is the claim that the files compile.
+
+## What the source shows
+
+**All 80 nodes are covered.**
+- `Leaf01.indices` is the map of `finRange 54` (nodes 0–53) and `Leaf02` is `finRange 26` shifted by 54 (nodes 54–79).
+- `all_index_coverage` (Certificates01:13) proves every `Fin 80` falls in one of the two blocks, by splitting on `< 54` and `omega`.
+- `checkBlock` (CompilerIndexed01:124) checks `hint.node = graph.node` and `hint.output = expressions`, so a hint cannot be paired with the wrong node.
+- The two leaf certificates are checked against `arithmeticRows`, not against `originalRows`.
+
+**65 arithmetic rows vs 71 full rows.**
+- The emitted rows are: 8 squares × 1 row + 28 products × 2 rows = 64 rows; then 6 assertion rows; then 1 copy row.
+- That gives 65 rows for `arithmeticSteps` and 71 for `allSteps`. `rows_shape` (Data01:328) matches.
+- `arithmeticRows` is `row0..row63` plus `row70`. `nodeInclusionMapping` is `range 64 ++ [70]`, which places the copy row correctly.
+- Hint row pointers only use 0..63, all inside the arithmetic part.
+- `node_coverage` carries the node certificates from the 65-row set to the 71-row set.
+
+**Copy binding is real, not vacuous.**
+- After unoutlining, `copyStep = .equal [(0,1)] [(0,1)]` (Data01:319) is a trivial row.
+- The real binding comes from three places:
+  - `boundary` sets columns 0 and `copy` to 1.
+  - `completed_one` / `completed_copy` show those values survive the run.
+  - `eval_unoutline … linked` (Final01:81) carries the result over to the actual row 70, `[(0,1),(copy,-1)]`.
+- `actual_copy_checked` and `arithmetic_copy_checked` tie that row to its exact index.
+
+**Legal arithmetic does not depend on assertion truth.**
+- `completed = run (boundary inputs) arithmeticSteps`, and `arithmeticSteps` contains no assertion steps.
+- `legal` (Completion01:22) is proved by `simp` with no premises.
+- `completed_values` uses only the arithmetic rows, the node certificates and the `four` premise.
+- The assertion premise enters only at Final01:54, after the values are already fixed.
+- Assertion steps are typed as equal-steps; I did not open `Step.Legal`. AssertionCompletion01 lines up each graph assertion pair with its `.equal` step: (25,28)→lc13/lc17, (13,37)→lc9/lc28, (17,54)→lc9/lc54, (21,71)→lc9/lc80, (0,76)→lc0/lc89, (1,79)→lc1/lc94. This matches `graph.assertions` (Data01:268), `assertionSteps`, and `assertionHints` rows 64–69.
+
+**All 22,735 inputs are preserved.**
+- All written columns are ≥ 22738 (`writes_check`).
+- Input `i` lives at column `3+i` ≤ 22737, and `copy` = 200692 is outside that range.
+- `boundary(3+i) = inputs i`.
+- The graph only reads inputs 11–17, all under 22735 (`input_bound`).
+
+**Rejection controls.** These are real semantic rejections:
+- wrong hint row (row 1 instead of 0 for node 22);
+- rewired ports;
+- wrong input column (13→17);
+- wrong copy column (200691);
+- mutated coefficient.
+
+## Weak points (not defects)
+
+1. **Two controls fail on shape, not meaning.** `missing_reverse_coverage_rejected` (Controls01:30) fails only because of the `mapping.size = original.size` check. `missing_copy_row_rejected` (Controls01:42) fails only because the index is out of bounds. Neither shows a wrong row being caught.
+2. **The omitted-node control tests a different function.** `omitted_node_rejected` (Controls01:50) uses `completeIndices`, which is defined only in Controls01. The proof's actual coverage, `all_index_coverage`, never calls it, so this control says nothing about the real coverage mechanism. A better control would be a leaf whose `indices` skips a node, shown to break `node_certificates`.
+3. **`boundary` puts junk in columns 1 and 2.** It assigns `inputs(column-3)` there, which is `inputs 0` because natural-number subtraction floors at 0. This is harmless only if no row reads columns 1–2. That is implied by the checked row satisfaction, but nothing states it explicitly.
+4. **Generic lemmas not re-read.** I did not re-read these dependencies in `circuits/ShielddSecurity`: `run_complete`, `run_preserves`, `run_outside`, `canonical_equal`, `eval_unoutline`, `unoutline_rows_sound`, `node_certificate_sound`, `computing_values_unique`, `checkOriginalCoverage_sound`'s callers, and `step_complete`. My conclusions assume they mean what their names say.
+
+## Known limits (unchanged)
+- `constructive_slice_complete` covers this slice only. It is not inclusion in the full relation.
+- It is not runtime refinement.
+- The resource measurements are sampled.
+- The six `SourceGraphEvaluation` assertion equalities are still an open premise, pending the Windows curve/hint semantics.
+
+## Still needed to join
+1. Replay the kernel check of the manifest (SHA `9cf52ac8…e697`) on the target, and audit each `#print axioms` output (no `sorryAx`, no extra axioms).
+2. Windows proves the six assertion equalities for legal native inputs.
+3. Show that this subgroup's column layout fits into the full relation: input offset 3, writes in columns 22738–22801, copy column 200692, and capture indices `177955–177960` and `200769`.
+4. Connect to `shieldd.lock` for the runtime side.
+5. Optionally, replace the two shape-only controls and the omitted-node control with semantic ones.
