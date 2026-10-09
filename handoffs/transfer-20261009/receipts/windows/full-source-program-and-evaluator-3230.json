@@ -1,0 +1,46 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "module": "SourceGraphEvaluation",
+  "actual_kernel": true,
+  "source_sha256": "e2e747755621c9519ba3956f1999708b76a84bc1bd7a838f3de2c0491119cf7e",
+  "guard_sha256": "256185835bebc28f74fe11e01859cc59a2ea503b937acc92aeb44ce31d0c95e3",
+  "source_manifest_sha256": "f13b826e8b52dd1cac348f77eb8dba9746671e643f88c5027b95ffad9082a5c0",
+  "audits": 5,
+  "axioms": {
+    "values_compute": [
+      "propext",
+      "Quot.sound"
+    ],
+    "computing_values_unique": [
+      "propext",
+      "Quot.sound"
+    ],
+    "satisfies_iff_assertions": [
+      "propext",
+      "Quot.sound"
+    ],
+    "outputs_unique": [
+      "propext",
+      "Quot.sound"
+    ],
+    "computing_values_exist": [
+      "propext",
+      "Quot.sound"
+    ]
+  },
+  "full_types": {
+    "values_compute": "@ShielddSecurity.SourceGraphEvaluation.values_compute : \u2200 {F : Type} [inst : Field.{0} F] {inputs nodes : Nat}\n  (graph : ShielddSecurity.Compiler.SourceGraph inputs nodes) (inputValues : Nat \u2192 F) (index : Fin nodes),\n  @Eq.{1} F (@ShielddSecurity.SourceGraphEvaluation.values F inst inputs nodes graph inputValues index)\n    (@ShielddSecurity.Compiler.sourceValue F inst (@Fin.val nodes index) inputValues\n      (@ShielddSecurity.Compiler.SourceGraph.prior inputs nodes graph F\n        (@ShielddSecurity.SourceGraphEvaluation.values F inst inputs nodes graph inputValues) index)\n      (@ShielddSecurity.Compiler.SourceGraph.node inputs nodes graph index))",
+    "computing_values_unique": "@ShielddSecurity.SourceGraphEvaluation.computing_values_unique : \u2200 {F : Type} [inst : Field.{0} F] {inputs nodes : Nat}\n  (graph : ShielddSecurity.Compiler.SourceGraph inputs nodes) (inputValues : Nat \u2192 F) (reference : Fin nodes \u2192 F)\n  (computes :\n    \u2200 (index : Fin nodes),\n      @Eq.{1} F (reference index)\n        (@ShielddSecurity.Compiler.sourceValue F inst (@Fin.val nodes index) inputValues\n          (@ShielddSecurity.Compiler.SourceGraph.prior inputs nodes graph F reference index)\n          (@ShielddSecurity.Compiler.SourceGraph.node inputs nodes graph index))),\n  @Eq.{1} ((index : Fin nodes) \u2192 F)\n    (@ShielddSecurity.SourceGraphEvaluation.values F inst inputs nodes graph inputValues) reference",
+    "satisfies_iff_assertions": "@ShielddSecurity.SourceGraphEvaluation.satisfies_iff_assertions : \u2200 {F : Type} [inst : Field.{0} F] {inputs nodes : Nat}\n  (graph : ShielddSecurity.Compiler.SourceGraph inputs nodes) (inputValues : Nat \u2192 F),\n  Iff\n    (@ShielddSecurity.Compiler.GraphSatisfies F inst inputs nodes graph inputValues\n      (@ShielddSecurity.SourceGraphEvaluation.values F inst inputs nodes graph inputValues))\n    (\u2200 (assertion : Prod.{0, 0} (Fin nodes) (Fin nodes)),\n      @Membership.mem.{0, 0} (Prod.{0, 0} (Fin nodes) (Fin nodes)) (List.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n          (@List.instMembership.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n          (@ShielddSecurity.Compiler.SourceGraph.assertions inputs nodes graph) assertion \u2192\n        @Eq.{1} F\n          (@ShielddSecurity.SourceGraphEvaluation.values F inst inputs nodes graph inputValues\n            (@Prod.fst.{0, 0} (Fin nodes) (Fin nodes) assertion))\n          (@ShielddSecurity.SourceGraphEvaluation.values F inst inputs nodes graph inputValues\n            (@Prod.snd.{0, 0} (Fin nodes) (Fin nodes) assertion)))",
+    "outputs_unique": "@ShielddSecurity.SourceGraphEvaluation.outputs_unique : \u2200 {F : Type} [inst : Field.{0} F] {inputs nodes : Nat}\n  (graph : ShielddSecurity.Compiler.SourceGraph inputs nodes) (inputValues : Nat \u2192 F) (reference : Fin nodes \u2192 F)\n  (computes :\n    \u2200 (index : Fin nodes),\n      @Eq.{1} F (reference index)\n        (@ShielddSecurity.Compiler.sourceValue F inst (@Fin.val nodes index) inputValues\n          (@ShielddSecurity.Compiler.SourceGraph.prior inputs nodes graph F reference index)\n          (@ShielddSecurity.Compiler.SourceGraph.node inputs nodes graph index))),\n  @Eq.{1} (List.{0} F)\n    (@List.map.{0, 0} (Fin nodes) F\n      (@ShielddSecurity.SourceGraphEvaluation.values F inst inputs nodes graph inputValues)\n      (@ShielddSecurity.Compiler.SourceGraph.outputs inputs nodes graph))\n    (@List.map.{0, 0} (Fin nodes) F reference (@ShielddSecurity.Compiler.SourceGraph.outputs inputs nodes graph))",
+    "computing_values_exist": "@ShielddSecurity.SourceGraphEvaluation.computing_values_exist : \u2200 {F : Type} [inst : Field.{0} F] {inputs nodes : Nat}\n  (graph : ShielddSecurity.Compiler.SourceGraph inputs nodes) (inputValues : Nat \u2192 F),\n  @Exists.{1} (Fin nodes \u2192 F) fun (computed : Fin nodes \u2192 F) =>\n    And\n      (\u2200 (index : Fin nodes),\n        @Eq.{1} F (computed index)\n          (@ShielddSecurity.Compiler.sourceValue F inst (@Fin.val nodes index) inputValues\n            (@ShielddSecurity.Compiler.SourceGraph.prior inputs nodes graph F computed index)\n            (@ShielddSecurity.Compiler.SourceGraph.node inputs nodes graph index)))\n      (\u2200 (reference : Fin nodes \u2192 F),\n        (\u2200 (index : Fin nodes),\n            @Eq.{1} F (reference index)\n              (@ShielddSecurity.Compiler.sourceValue F inst (@Fin.val nodes index) inputValues\n                (@ShielddSecurity.Compiler.SourceGraph.prior inputs nodes graph F reference index)\n                (@ShielddSecurity.Compiler.SourceGraph.node inputs nodes graph index))) \u2192\n          @Eq.{1} (Fin nodes \u2192 F) computed reference)"
+  },
+  "structural_reader_actual_tests": 6,
+  "source_recipe_preparation_count": 3,
+  "export_recipe_manifest_sha256": "c5a134bce313695a26bf409cb26c82d50ac97f3ff18e9f19c9b86484a3e07957",
+  "Rust_build_or_capture": false,
+  "actual_complete_graph_instance": false,
+  "semantic_control_credit_from_parser_tests": 0,
+  "scope": "Unique total values for the existing typed DAG are constructed. Actual graph extraction, legal raw algorithm assertion derivation, all compiler rows/topology and native correspondence remain open.",
+  "full_transfer": "OPEN"
+}
