@@ -1,0 +1,15 @@
+--- M12/pari/circuit.rs
++++ M13/pari/circuit.rs
+@@ -218,6 +218,12 @@
+             .expect("a constrained auxiliary column");
+         (assignment.values.clone(), self.committed_start,
+             assignment.relation_digest, self.rows.len(), auxiliary)
++    }
++
++    // MAC M13 immutable sparse-row certificate getter only.
++    pub fn mac_diagnostic_row_certificate(&self, row: usize)
++        -> (Vec<(u32, Scalar)>, Vec<(u32, Scalar)>) {
++        (self.rows[row].squared.clone(), self.rows[row].linear.clone())
+     }
+ 
+     // MAC BOUNDARY DIAGNOSTIC: exact incidence and failing row identifiers.
