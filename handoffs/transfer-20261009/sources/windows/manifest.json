@@ -19,7 +19,11 @@
     "TransferRawInputTransport",
     "TransferEarlierInputRecovery",
     "TransferEarlierUserRecovery",
-    "TransferTailInputTransport"
+    "TransferTailInputTransport",
+    "TransferTailOutputRecovery",
+    "TransferTailEncryptionRecovery",
+    "TransferTailRawInputRecovery",
+    "TransferSemanticInputRecovery"
   ],
   "topological_order": [
     "TransferCore",
@@ -81,7 +85,11 @@
     "TransferRawInputTransport",
     "TransferEarlierInputRecovery",
     "TransferEarlierUserRecovery",
-    "TransferTailInputTransport"
+    "TransferTailInputTransport",
+    "TransferTailOutputRecovery",
+    "TransferTailEncryptionRecovery",
+    "TransferTailRawInputRecovery",
+    "TransferSemanticInputRecovery"
   ],
   "sources": {
     "TransferRawStatementConstruction": {
@@ -606,9 +614,43 @@
         "ShielddSecurity.TransferEncryptionBranchCompletion",
         "ShielddSecurity.TransferRoutingBranchCompletion"
       ]
+    },
+    "TransferTailOutputRecovery": {
+      "file": "ShielddSecurity/TransferTailOutputRecovery.lean",
+      "bytes": 5194,
+      "sha256": "007ea711fc40ea56b0bd1f5212b0954bdffc9dc8a250e77a998c57626299adb8",
+      "imports": [
+        "ShielddSecurity.TransferEarlierUserRecovery",
+        "ShielddSecurity.TransferTailInputTransport"
+      ]
+    },
+    "TransferTailEncryptionRecovery": {
+      "file": "ShielddSecurity/TransferTailEncryptionRecovery.lean",
+      "bytes": 5419,
+      "sha256": "34ade504c56dee83bb9b595196c62744a729890333fccc505eae242b93bc4755",
+      "imports": [
+        "ShielddSecurity.TransferTailOutputRecovery"
+      ]
+    },
+    "TransferTailRawInputRecovery": {
+      "file": "ShielddSecurity/TransferTailRawInputRecovery.lean",
+      "bytes": 4313,
+      "sha256": "ab000d9d159143b929688459baebce2b17f5a8e5044f84c170fafe6eeec63306",
+      "imports": [
+        "ShielddSecurity.TransferTailEncryptionRecovery"
+      ]
+    },
+    "TransferSemanticInputRecovery": {
+      "file": "ShielddSecurity/TransferSemanticInputRecovery.lean",
+      "bytes": 5715,
+      "sha256": "d71566b3d4b8b7f7a4a9380441af62643f53ac688fb2d0b03ceb567950ea1dad",
+      "imports": [
+        "ShielddSecurity.TransferTailRawInputRecovery",
+        "ShielddSecurity.TransferSemanticConstruction"
+      ]
     }
   },
-  "total_source_bytes": 512526,
+  "total_source_bytes": 533167,
   "prepared_reverse_modules": {
     "TransferCanonicalDecomposition": {
       "sha256": "7baa04295de919c2913e424ee7024e4cbecda0899b12faad21657f85ab1c9ba7",
@@ -693,6 +735,30 @@
       "kernel_status": "PASS_5_AUDITS_3200",
       "full_transfer": "OPEN",
       "scope": "Ordered inverse recovery and explicit read-field transport; no full circuit assignment."
+    },
+    "TransferTailOutputRecovery": {
+      "sha256": "007ea711fc40ea56b0bd1f5212b0954bdffc9dc8a250e77a998c57626299adb8",
+      "kernel_status": "PASS_5_AUDITS_3206",
+      "full_transfer": "OPEN",
+      "scope": "Ordered raw semantic input coverage with all64/hash/blinding preservation; no full circuit assignment."
+    },
+    "TransferTailEncryptionRecovery": {
+      "sha256": "34ade504c56dee83bb9b595196c62744a729890333fccc505eae242b93bc4755",
+      "kernel_status": "PASS_5_AUDITS_3211",
+      "full_transfer": "OPEN",
+      "scope": "Ordered raw semantic input coverage with all64/hash/blinding preservation; no full circuit assignment."
+    },
+    "TransferTailRawInputRecovery": {
+      "sha256": "ab000d9d159143b929688459baebce2b17f5a8e5044f84c170fafe6eeec63306",
+      "kernel_status": "PASS_5_AUDITS_3215",
+      "full_transfer": "OPEN",
+      "scope": "Ordered raw semantic input coverage with all64/hash/blinding preservation; no full circuit assignment."
+    },
+    "TransferSemanticInputRecovery": {
+      "sha256": "d71566b3d4b8b7f7a4a9380441af62643f53ac688fb2d0b03ceb567950ea1dad",
+      "kernel_status": "PASS_5_AUDITS_3223",
+      "full_transfer": "OPEN",
+      "scope": "Ordered raw semantic input coverage with all64/hash/blinding preservation; no full circuit assignment."
     }
   },
   "receipt_scope": "All copied sources have exact byte identities; only the explicitly named actual receipts claim kernel observations."

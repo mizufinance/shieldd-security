@@ -1,0 +1,185 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "lean_version": "4.30.0",
+  "checked_modules": [
+    {
+      "module": "TransferTailOutputRecovery",
+      "counter": 3206,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "007ea711fc40ea56b0bd1f5212b0954bdffc9dc8a250e77a998c57626299adb8",
+      "axioms": {
+        "output_records_reconstructed": [
+          "propext",
+          "Quot.sound"
+        ],
+        "after_outputs_restored": [
+          "propext",
+          "Quot.sound"
+        ],
+        "output_frame": [
+          "propext",
+          "Quot.sound"
+        ],
+        "volume_record_agrees": [
+          "propext",
+          "Quot.sound"
+        ],
+        "volume_encryption_frame": [
+          "propext",
+          "Quot.sound"
+        ]
+      },
+      "full_types": {
+        "output_records_reconstructed": "ShielddSecurity.TransferTailOutputRecovery.output_records_reconstructed : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) \u2192 ShielddSecurity.TransferSem.Output)\n    (ShielddSecurity.TransferSem.Witness.outputs (ShielddSecurity.TransferTailOutputRecovery.outputStage c w legal))\n    (ShielddSecurity.TransferSem.Witness.outputs w)",
+        "after_outputs_restored": "ShielddSecurity.TransferTailOutputRecovery.after_outputs_restored : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Witness\n    (have __src : ShielddSecurity.TransferSem.Witness :=\n      ShielddSecurity.TransferTailOutputRecovery.outputStage c w legal;\n    ShielddSecurity.TransferSem.Witness.mk (ShielddSecurity.TransferSem.Witness.anchor __src)\n      (ShielddSecurity.TransferSem.Witness.assetAnchor __src) (ShielddSecurity.TransferSem.Witness.userAnchor __src)\n      (ShielddSecurity.TransferSem.Witness.asset __src) (ShielddSecurity.TransferSem.Witness.regulated __src)\n      (ShielddSecurity.TransferSem.Witness.timestamp __src) (ShielddSecurity.TransferSem.Witness.nonce __src)\n      (ShielddSecurity.TransferSem.Witness.blinding __src) (ShielddSecurity.TransferSem.Witness.registry __src)\n      (ShielddSecurity.TransferSem.Witness.sender __src) (ShielddSecurity.TransferSem.Witness.receiver __src)\n      (ShielddSecurity.TransferSem.Witness.auth __src) (ShielddSecurity.TransferSem.Witness.spends __src)\n      (ShielddSecurity.TransferSem.Witness.optionalDummy __src) (ShielddSecurity.TransferSem.Witness.paddingSeed __src)\n      (ShielddSecurity.TransferSem.Witness.outputs __src) (ShielddSecurity.TransferSem.Witness.volume w)\n      (ShielddSecurity.TransferSem.Witness.routing w) (ShielddSecurity.TransferSem.Witness.encryption w))\n    w",
+        "output_frame": "ShielddSecurity.TransferTailOutputRecovery.output_frame : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferTailInputTransport.Frame (ShielddSecurity.TransferTailOutputRecovery.outputStage c w legal) w",
+        "volume_record_agrees": "ShielddSecurity.TransferTailOutputRecovery.volume_record_agrees : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Volume\n    (ShielddSecurity.TransferSem.Witness.volume (ShielddSecurity.TransferTailOutputRecovery.volumeStage c w legal))\n    (ShielddSecurity.TransferVolumeBranchCompletion.construct c w\n      (ShielddSecurity.TransferTailOutputRecovery.originalVolumeInputs c w legal))",
+        "volume_encryption_frame": "ShielddSecurity.TransferTailOutputRecovery.volume_encryption_frame : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferTailInputTransport.EncryptionFrame\n    (ShielddSecurity.TransferTailOutputRecovery.volumeStage c w legal) w"
+      },
+      "guard_sha256": "4ccbcafc9a159d0c06522d90dd5b9682b6423227a10c61276a8c6973530b9423",
+      "source_manifest_sha256": "06cd7b2fd75f1f361a2aace463b7e5cd7bcac8ac11bd9378cd5db9159cd44f88"
+    },
+    {
+      "module": "TransferTailEncryptionRecovery",
+      "counter": 3211,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "34ade504c56dee83bb9b595196c62744a729890333fccc505eae242b93bc4755",
+      "axioms": {
+        "encryption_record_agrees": [
+          "propext",
+          "Quot.sound"
+        ],
+        "encryption_frame": [
+          "propext",
+          "Quot.sound"
+        ],
+        "routing_records_reconstructed": [
+          "propext",
+          "Quot.sound"
+        ],
+        "tail_frame_restored": [
+          "propext",
+          "Quot.sound"
+        ],
+        "normalized_record": [
+          "propext",
+          "Quot.sound"
+        ]
+      },
+      "full_types": {
+        "encryption_record_agrees": "ShielddSecurity.TransferTailEncryptionRecovery.encryption_record_agrees : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Encryption\n    (ShielddSecurity.TransferSem.Witness.encryption\n      (ShielddSecurity.TransferTailEncryptionRecovery.encryptionStage c w zeroMul legal))\n    (ShielddSecurity.TransferEncryptionBranchCompletion.construct c w\n      (ShielddSecurity.TransferTailEncryptionRecovery.originalEncryptionInputs c w zeroMul legal))",
+        "encryption_frame": "ShielddSecurity.TransferTailEncryptionRecovery.encryption_frame : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferTailInputTransport.Frame\n    (ShielddSecurity.TransferTailEncryptionRecovery.encryptionStage c w zeroMul legal) w",
+        "routing_records_reconstructed": "ShielddSecurity.TransferTailEncryptionRecovery.routing_records_reconstructed : \u2200\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Routing\n    (ShielddSecurity.TransferSem.Witness.routing\n      (ShielddSecurity.TransferTailEncryptionRecovery.finalStage c w zeroMul legal))\n    (ShielddSecurity.TransferSem.Witness.routing w)",
+        "tail_frame_restored": "ShielddSecurity.TransferTailEncryptionRecovery.tail_frame_restored : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Witness\n    (have __src : ShielddSecurity.TransferSem.Witness :=\n      ShielddSecurity.TransferTailEncryptionRecovery.finalStage c w zeroMul legal;\n    ShielddSecurity.TransferSem.Witness.mk (ShielddSecurity.TransferSem.Witness.anchor __src)\n      (ShielddSecurity.TransferSem.Witness.assetAnchor __src) (ShielddSecurity.TransferSem.Witness.userAnchor __src)\n      (ShielddSecurity.TransferSem.Witness.asset __src) (ShielddSecurity.TransferSem.Witness.regulated __src)\n      (ShielddSecurity.TransferSem.Witness.timestamp __src) (ShielddSecurity.TransferSem.Witness.nonce __src)\n      (ShielddSecurity.TransferSem.Witness.blinding __src) (ShielddSecurity.TransferSem.Witness.registry __src)\n      (ShielddSecurity.TransferSem.Witness.sender __src) (ShielddSecurity.TransferSem.Witness.receiver __src)\n      (ShielddSecurity.TransferSem.Witness.auth __src) (ShielddSecurity.TransferSem.Witness.spends __src)\n      (ShielddSecurity.TransferSem.Witness.optionalDummy __src) (ShielddSecurity.TransferSem.Witness.paddingSeed __src)\n      (ShielddSecurity.TransferSem.Witness.outputs __src) (ShielddSecurity.TransferSem.Witness.volume w)\n      (ShielddSecurity.TransferSem.Witness.routing __src) (ShielddSecurity.TransferSem.Witness.encryption w))\n    w",
+        "normalized_record": "ShielddSecurity.TransferTailEncryptionRecovery.normalized_record : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Witness\n    (ShielddSecurity.TransferTailEncryptionRecovery.finalStage c w zeroMul legal)\n    (ShielddSecurity.TransferSem.Witness.mk (ShielddSecurity.TransferSem.Witness.anchor w)\n      (ShielddSecurity.TransferSem.Witness.assetAnchor w) (ShielddSecurity.TransferSem.Witness.userAnchor w)\n      (ShielddSecurity.TransferSem.Witness.asset w) (ShielddSecurity.TransferSem.Witness.regulated w)\n      (ShielddSecurity.TransferSem.Witness.timestamp w) (ShielddSecurity.TransferSem.Witness.nonce w)\n      (ShielddSecurity.TransferSem.Witness.blinding w) (ShielddSecurity.TransferSem.Witness.registry w)\n      (ShielddSecurity.TransferSem.Witness.sender w) (ShielddSecurity.TransferSem.Witness.receiver w)\n      (ShielddSecurity.TransferSem.Witness.auth w) (ShielddSecurity.TransferSem.Witness.spends w)\n      (ShielddSecurity.TransferSem.Witness.optionalDummy w) (ShielddSecurity.TransferSem.Witness.paddingSeed w)\n      (ShielddSecurity.TransferSem.Witness.outputs w)\n      (ShielddSecurity.TransferVolumeBranchCompletion.construct c w\n        (ShielddSecurity.TransferTailOutputRecovery.originalVolumeInputs c w legal))\n      (ShielddSecurity.TransferSem.Witness.routing w)\n      (ShielddSecurity.TransferEncryptionBranchCompletion.construct c w\n        (ShielddSecurity.TransferTailEncryptionRecovery.originalEncryptionInputs c w zeroMul legal)))"
+      },
+      "guard_sha256": "2d98852b0ecbe9eb3a455c8236150711ccc23cee6767a36c5ac9c6eafac92fad",
+      "source_manifest_sha256": "635e4716fc64ca379c8bedb2c1a83397ed9eec2ca5b51005343acdba2ec0247e"
+    },
+    {
+      "module": "TransferTailRawInputRecovery",
+      "counter": 3215,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "ab000d9d159143b929688459baebce2b17f5a8e5044f84c170fafe6eeec63306",
+      "axioms": {
+        "output_raw_canonical": [
+          "propext",
+          "Quot.sound"
+        ],
+        "volume_raw_canonical": [
+          "propext",
+          "Quot.sound"
+        ],
+        "routing_height_canonical": [
+          "propext",
+          "Quot.sound"
+        ],
+        "constructed_tail_agrees": [
+          "propext",
+          "Quot.sound"
+        ],
+        "legal_tail_inputs_exist": [
+          "propext",
+          "Quot.sound"
+        ]
+      },
+      "full_types": {
+        "output_raw_canonical": "ShielddSecurity.TransferTailRawInputRecovery.output_raw_canonical : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w)\n  (slot : Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))),\n  And\n    (@LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferOutputRecoveryCompletion.RawOutputInputs.blinding\n        (@ShielddSecurity.TransferOutputRecoveryCompletion.LegalOutputInputs.raw c\n          (ShielddSecurity.TransferTailOutputRecovery.outputInputs c w legal) slot))\n      ShielddSecurity.TransferCore.fieldModulus)\n    (And\n      (@LT.lt.{0} Nat instLTNat\n        (ShielddSecurity.TransferOutputRecoveryCompletion.RawOutputInputs.seed\n          (@ShielddSecurity.TransferOutputRecoveryCompletion.LegalOutputInputs.raw c\n            (ShielddSecurity.TransferTailOutputRecovery.outputInputs c w legal) slot))\n        ShielddSecurity.TransferCore.fieldModulus)\n      (@LT.lt.{0} Nat instLTNat\n        (ShielddSecurity.TransferOutputRecoveryCompletion.RawOutputInputs.salt\n          (@ShielddSecurity.TransferOutputRecoveryCompletion.LegalOutputInputs.raw c\n            (ShielddSecurity.TransferTailOutputRecovery.outputInputs c w legal) slot))\n        ShielddSecurity.TransferCore.fieldModulus))",
+        "volume_raw_canonical": "ShielddSecurity.TransferTailRawInputRecovery.volume_raw_canonical : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  And\n    (@LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferVolumeBranchCompletion.Inputs.priorBlinding\n        (@ShielddSecurity.TransferVolumeBranchCompletion.LegalVolumeInputs.toInputs c\n          (ShielddSecurity.TransferTailOutputRecovery.outputStage c w legal)\n          (ShielddSecurity.TransferTailOutputRecovery.volumeInputs c w legal)))\n      ShielddSecurity.TransferCore.fieldModulus)\n    (And\n      (@LT.lt.{0} Nat instLTNat\n        (ShielddSecurity.TransferVolumeBranchCompletion.Inputs.successorBlinding\n          (@ShielddSecurity.TransferVolumeBranchCompletion.LegalVolumeInputs.toInputs c\n            (ShielddSecurity.TransferTailOutputRecovery.outputStage c w legal)\n            (ShielddSecurity.TransferTailOutputRecovery.volumeInputs c w legal)))\n        ShielddSecurity.TransferCore.fieldModulus)\n      (ShielddSecurity.TransferSem.fieldsCanonical\n        (@ShielddSecurity.TransferSem.pathFields (@OfNat.ofNat.{0} Nat (nat_lit 24) (instOfNatNat (nat_lit 24)))\n          (ShielddSecurity.TransferVolumeBranchCompletion.Inputs.priorSiblings\n            (@ShielddSecurity.TransferVolumeBranchCompletion.LegalVolumeInputs.toInputs c\n              (ShielddSecurity.TransferTailOutputRecovery.outputStage c w legal)\n              (ShielddSecurity.TransferTailOutputRecovery.volumeInputs c w legal))))))",
+        "routing_height_canonical": "ShielddSecurity.TransferTailRawInputRecovery.routing_height_canonical : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @LT.lt.{0} Nat instLTNat\n    (ShielddSecurity.TransferRoutingBranchCompletion.LegalRoutingInputs.height\n      (ShielddSecurity.TransferTailEncryptionRecovery.routingInputs c w legal))\n    ShielddSecurity.TransferCore.fieldModulus",
+        "constructed_tail_agrees": "ShielddSecurity.TransferTailRawInputRecovery.constructed_tail_agrees : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Witness\n    (ShielddSecurity.TransferSemanticTailConstruction.construct c\n      (ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal)\n      (ShielddSecurity.TransferTailRawInputRecovery.recover c w zeroMul legal))\n    (ShielddSecurity.TransferTailEncryptionRecovery.finalStage c w zeroMul legal)",
+        "legal_tail_inputs_exist": "ShielddSecurity.TransferTailRawInputRecovery.legal_tail_inputs_exist : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Exists.{1}\n    (ShielddSecurity.TransferSemanticTailConstruction.Inputs c\n      (ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal))\n    fun\n      (i :\n        ShielddSecurity.TransferSemanticTailConstruction.Inputs c\n          (ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal)) =>\n    @Eq.{1} ShielddSecurity.TransferSem.Witness\n      (ShielddSecurity.TransferSemanticTailConstruction.construct c\n        (ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal) i)\n      (ShielddSecurity.TransferTailEncryptionRecovery.finalStage c w zeroMul legal)"
+      },
+      "guard_sha256": "08bebf0381d51a8301cbe41d4303cceeb1f9ff8d36f3de7559455bdfeb17b52f",
+      "source_manifest_sha256": "3a15a5d4a86b35b6e5f1c216f6cb6089712c101c68eaaaed0eb05035e295dfda"
+    },
+    {
+      "module": "TransferSemanticInputRecovery",
+      "counter": 3223,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "d71566b3d4b8b7f7a4a9380441af62643f53ac688fb2d0b03ceb567950ea1dad",
+      "axioms": {
+        "constructed_stage_agrees": [
+          "propext",
+          "Quot.sound"
+        ],
+        "public_fields_preserved": [
+          "propext",
+          "Quot.sound"
+        ],
+        "relation_inputs_preserved": [
+          "propext",
+          "Quot.sound"
+        ],
+        "ordered_raw_inputs_exist": [
+          "propext",
+          "Quot.sound"
+        ],
+        "recovered_constructed_semantics": [
+          "propext",
+          "Quot.sound"
+        ]
+      },
+      "full_types": {
+        "constructed_stage_agrees": "ShielddSecurity.TransferSemanticInputRecovery.constructed_stage_agrees : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Witness\n    (ShielddSecurity.TransferSemanticConstruction.construct c\n      (ShielddSecurity.TransferSemanticInputRecovery.recover c w zeroMul legal))\n    (ShielddSecurity.TransferTailEncryptionRecovery.finalStage c w zeroMul legal)",
+        "public_fields_preserved": "ShielddSecurity.TransferSemanticInputRecovery.public_fields_preserved : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} (List.{0} Nat)\n    (ShielddSecurity.TransferSem.publicFields c\n      (ShielddSecurity.TransferSemanticConstruction.construct c\n        (ShielddSecurity.TransferSemanticInputRecovery.recover c w zeroMul legal)))\n    (ShielddSecurity.TransferSem.publicFields c w)",
+        "relation_inputs_preserved": "ShielddSecurity.TransferSemanticInputRecovery.relation_inputs_preserved : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  And\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferSem.Crypto.hash c ShielddSecurity.TransferSem.Domain.transferStatement\n        (ShielddSecurity.TransferSem.publicFields c\n          (ShielddSecurity.TransferSemanticConstruction.construct c\n            (ShielddSecurity.TransferSemanticInputRecovery.recover c w zeroMul legal))))\n      (ShielddSecurity.TransferSem.Crypto.hash c ShielddSecurity.TransferSem.Domain.transferStatement\n        (ShielddSecurity.TransferSem.publicFields c w)))\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferSem.Witness.blinding\n        (ShielddSecurity.TransferSemanticConstruction.construct c\n          (ShielddSecurity.TransferSemanticInputRecovery.recover c w zeroMul legal)))\n      (ShielddSecurity.TransferSem.Witness.blinding w))",
+        "ordered_raw_inputs_exist": "ShielddSecurity.TransferSemanticInputRecovery.ordered_raw_inputs_exist : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Exists.{1} (ShielddSecurity.TransferSemanticConstruction.Inputs c)\n    fun (i : ShielddSecurity.TransferSemanticConstruction.Inputs c) =>\n    And\n      (@Eq.{1} (List.{0} Nat)\n        (ShielddSecurity.TransferSem.publicFields c (ShielddSecurity.TransferSemanticConstruction.construct c i))\n        (ShielddSecurity.TransferSem.publicFields c w))\n      (@Eq.{1} Nat\n        (ShielddSecurity.TransferSem.Witness.blinding (ShielddSecurity.TransferSemanticConstruction.construct c i))\n        (ShielddSecurity.TransferSem.Witness.blinding w))",
+        "recovered_constructed_semantics": "ShielddSecurity.TransferSemanticInputRecovery.recovered_constructed_semantics : \u2200\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (zeroMul : ShielddSecurity.TransferEncryptionDecomposition.MulZeroLaw c)\n  (legal : ShielddSecurity.TransferSem.TransferSem c w)\n  (cryptoCanonical : ShielddSecurity.TransferSem.CanonicalCrypto c)\n  (group : ShielddSecurity.TransferAuthorizationBranchCompletion.GroupClosure c),\n  ShielddSecurity.TransferSem.TransferSem c\n    (ShielddSecurity.TransferSemanticConstruction.construct c\n      (ShielddSecurity.TransferSemanticInputRecovery.recover c w zeroMul legal))"
+      },
+      "guard_sha256": "7fc697fa839e7072a04760ac4b9359de9e5831d708163710ec4e9e11bf315704",
+      "source_manifest_sha256": "118a125844b6e610955ef224b9b94e18c4d470ebc98bf26814b547123522c951"
+    }
+  ],
+  "actual_audits": 20,
+  "retained_actual_failures": [
+    {
+      "stem": "tail-encryption-recovery",
+      "counter": 3209,
+      "actual_compile_failure": true,
+      "failure_sha256": "b5d0b9afc349dd194ec02cb0fd3f38e1c594dc590e9e0ca65cfb77df74738568",
+      "proof_or_semantic_control_credit": 0
+    },
+    {
+      "stem": "tail-raw-input-recovery",
+      "counter": 3213,
+      "actual_compile_failure": true,
+      "failure_sha256": "644ce0698d6599db2b4701e1b48867a561fd5c1683cc605db375e577d21b8aa6",
+      "proof_or_semantic_control_credit": 0
+    },
+    {
+      "stem": "semantic-input-recovery",
+      "counter": 3220,
+      "actual_compile_failure": true,
+      "failure_sha256": "ccfc6357daf9ba74405426bbeee2067a44efaeb8343de8a4a2e64cf4868ed39c",
+      "proof_or_semantic_control_credit": 0
+    }
+  ],
+  "qualification": "Independent legal semantic witnesses admit the actual ordered TransferSemanticConstruction.Inputs. The raw constructor preserves all64 public fields, the exact statement hash and committed blinding. Private volume/encryption auxiliaries may normalize. MulZeroLaw is explicit for inverse recovery; the optional forward semantic derivation uses global CanonicalCrypto/GroupClosure. One full circuit rho, all-row satisfaction/extraction and pinned Rust consequence remain open.",
+  "native_runs": 0,
+  "full_transfer": "OPEN"
+}
