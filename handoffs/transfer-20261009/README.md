@@ -16,8 +16,11 @@ explicitly authorized by the user.
 
 1. The desktop publishes first. The Mac fetches that exact commit and publishes
    its scoped sources and portable receipts on top.
-2. Serialize pushes through the coordinator. Before pushing, fetch the shared
-   branch and rebase only unpublished commits. Never force push.
+2. Announce the publishing owner to the other worker/coordinator. Before pushing, fetch the shared
+   branch and rebase only unpublished commits. Never force push. If a competing
+   fast-forward push wins, fetch/rebase and recheck the scoped staged sources before
+   retrying. Workers may publish their owned packets without waiting for a new
+   interactive coordinator turn; independent review remains pending until performed.
 3. After every push, the other machine fetches and acknowledges the exact origin
    commit. A local build may retain frozen earlier source inputs; its receipt must
    identify those bytes rather than silently attributing the run to the latest tip.
