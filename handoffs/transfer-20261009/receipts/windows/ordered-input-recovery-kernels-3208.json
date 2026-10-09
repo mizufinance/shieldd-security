@@ -1,0 +1,188 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "lean_version": "4.30.0",
+  "checked_modules": [
+    {
+      "module": "TransferRawInputTransport",
+      "counter": 3186,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "ec358be938bde5a3152e4dbea40f531181ad62288d2508f18cdf467778015b04",
+      "axioms": {
+        "authorization_owned_fields": [
+          "propext"
+        ],
+        "spend_inputs_transport": [
+          "propext"
+        ],
+        "spend_owned_records": [
+          "propext",
+          "Quot.sound"
+        ],
+        "user_path_transport": [
+          "propext"
+        ],
+        "authorization_inputs_transport": []
+      },
+      "full_types": {
+        "authorization_owned_fields": "ShielddSecurity.TransferRawInputTransport.authorization_owned_fields : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness)\n  (frame : ShielddSecurity.TransferRawInputTransport.AuthorizationFrame base old)\n  (i : ShielddSecurity.TransferAuthorizationBranchCompletion.RawInputs),\n  And\n    (@Eq.{1} ShielddSecurity.TransferSem.Authorization\n      (ShielddSecurity.TransferSem.Witness.auth\n        (ShielddSecurity.TransferAuthorizationBranchCompletion.construct c base i))\n      (ShielddSecurity.TransferSem.Witness.auth\n        (ShielddSecurity.TransferAuthorizationBranchCompletion.construct c old i)))\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferSem.User.rnkCommitment\n        (ShielddSecurity.TransferSem.Witness.sender\n          (ShielddSecurity.TransferAuthorizationBranchCompletion.construct c base i)))\n      (ShielddSecurity.TransferSem.User.rnkCommitment\n        (ShielddSecurity.TransferSem.Witness.sender\n          (ShielddSecurity.TransferAuthorizationBranchCompletion.construct c old i))))",
+        "spend_inputs_transport": "ShielddSecurity.TransferRawInputTransport.spend_inputs_transport : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness)\n  (frame : ShielddSecurity.TransferRawInputTransport.SpendFrame base old)\n  (i : ShielddSecurity.TransferSpendBranchCompletion.LegalInputs c old),\n  @Eq.{1}\n    (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) \u2192\n      ShielddSecurity.TransferSpendBranchCompletion.RawSpend)\n    (@ShielddSecurity.TransferSpendBranchCompletion.LegalInputs.raw c base\n      (ShielddSecurity.TransferRawInputTransport.transportSpends c base old frame i))\n    (@ShielddSecurity.TransferSpendBranchCompletion.LegalInputs.raw c old i)",
+        "spend_owned_records": "ShielddSecurity.TransferRawInputTransport.spend_owned_records : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness)\n  (frame : ShielddSecurity.TransferRawInputTransport.SpendFrame base old)\n  (i : ShielddSecurity.TransferSpendBranchCompletion.LegalInputs c old)\n  (slot : Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))),\n  @Eq.{1} ShielddSecurity.TransferSem.Spend\n    (ShielddSecurity.TransferSem.Witness.spends\n      (ShielddSecurity.TransferSpendBranchCompletion.construct c base\n        (ShielddSecurity.TransferRawInputTransport.transportSpends c base old frame i))\n      slot)\n    (ShielddSecurity.TransferSem.Witness.spends (ShielddSecurity.TransferSpendBranchCompletion.construct c old i) slot)",
+        "user_path_transport": "ShielddSecurity.TransferRawInputTransport.user_path_transport : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness) (user original : ShielddSecurity.TransferSem.User)\n  (frame : ShielddSecurity.TransferRawInputTransport.UserFrame base old user original)\n  (i : ShielddSecurity.TransferRegistryUserCompletion.UserPathInputs)\n  (legal : ShielddSecurity.TransferRegistryUserCompletion.LegalUserPath c old original i),\n  ShielddSecurity.TransferRegistryUserCompletion.LegalUserPath c base user i",
+        "authorization_inputs_transport": "ShielddSecurity.TransferRawInputTransport.authorization_inputs_transport : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness)\n  (frame : ShielddSecurity.TransferRawInputTransport.AuthorizationFrame base old)\n  (i : ShielddSecurity.TransferAuthorizationBranchCompletion.RawInputs)\n  (legal : ShielddSecurity.TransferAuthorizationBranchCompletion.LegalInputs c old i),\n  ShielddSecurity.TransferAuthorizationBranchCompletion.LegalInputs c base i"
+      },
+      "guard_sha256": "2c0b546941a77231ecee8e70ba07b411dadb7673cd9d894c2a1398cd0743fb3b",
+      "source_manifest_sha256": "f3dd4242942211c74ab4062bac563f546e73ed728f581ddeba5e2be76a06acf2"
+    },
+    {
+      "module": "TransferEarlierInputRecovery",
+      "counter": 3189,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "ba98b557f097dcbdfdb2bc46c93a73900c24fd6787e3a2324cf211ace531d5f6",
+      "axioms": {
+        "registry_frame": [
+          "propext",
+          "Quot.sound"
+        ],
+        "authorization_inputs_legal": [
+          "propext",
+          "Quot.sound"
+        ],
+        "authorization_frame": [
+          "propext",
+          "Quot.sound"
+        ],
+        "spend_records_reconstructed": [
+          "propext",
+          "Quot.sound"
+        ],
+        "user_frames": [
+          "propext",
+          "Quot.sound"
+        ]
+      },
+      "full_types": {
+        "registry_frame": "ShielddSecurity.TransferEarlierInputRecovery.registry_frame : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferRawInputTransport.AuthorizationFrame\n    (ShielddSecurity.TransferEarlierInputRecovery.registryStage c w legal) w",
+        "authorization_inputs_legal": "ShielddSecurity.TransferEarlierInputRecovery.authorization_inputs_legal : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferAuthorizationBranchCompletion.LegalInputs c\n    (ShielddSecurity.TransferEarlierInputRecovery.registryStage c w legal)\n    (ShielddSecurity.TransferAuthorizationDecomposition.recover w)",
+        "authorization_frame": "ShielddSecurity.TransferEarlierInputRecovery.authorization_frame : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferRawInputTransport.SpendFrame\n    (ShielddSecurity.TransferEarlierInputRecovery.authorizationStage c w legal) w",
+        "spend_records_reconstructed": "ShielddSecurity.TransferEarlierInputRecovery.spend_records_reconstructed : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) \u2192 ShielddSecurity.TransferSem.Spend)\n    (ShielddSecurity.TransferSem.Witness.spends (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal))\n    (ShielddSecurity.TransferSem.Witness.spends w)",
+        "user_frames": "ShielddSecurity.TransferEarlierInputRecovery.user_frames : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  And\n    (ShielddSecurity.TransferRawInputTransport.UserFrame\n      (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal) w\n      (ShielddSecurity.TransferSem.Witness.sender (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal))\n      (ShielddSecurity.TransferSem.Witness.sender w))\n    (ShielddSecurity.TransferRawInputTransport.UserFrame\n      (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal) w\n      (ShielddSecurity.TransferSem.Witness.receiver (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal))\n      (ShielddSecurity.TransferSem.Witness.receiver w))"
+      },
+      "guard_sha256": "8f5c2279aa1cc573a1a0833d9a9508e30b37f4e8e655b88602df736d4d6c5317",
+      "source_manifest_sha256": "94c0d793c6f22d3634381230ac6fc0980a3deb73af843465ef81f26d0175700b"
+    },
+    {
+      "module": "TransferEarlierUserRecovery",
+      "counter": 3193,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "5be78fed0f96308fb8a65fbfd60de65c0b5f46c4750383a08ab9418c1a816f36",
+      "axioms": {
+        "sender_inputs_legal": [
+          "propext",
+          "Quot.sound"
+        ],
+        "receiver_inputs_legal": [
+          "propext",
+          "Quot.sound"
+        ],
+        "user_records_reconstructed": [
+          "propext",
+          "Quot.sound"
+        ],
+        "earlier_tail_restored": [
+          "propext",
+          "Quot.sound"
+        ],
+        "earlier_components_recovered": [
+          "propext",
+          "Quot.sound"
+        ]
+      },
+      "full_types": {
+        "sender_inputs_legal": "ShielddSecurity.TransferEarlierUserRecovery.sender_inputs_legal : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferRegistryUserCompletion.LegalUserPath c\n    (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal)\n    (ShielddSecurity.TransferSem.Witness.sender (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal))\n    (ShielddSecurity.TransferEarlierUserRecovery.senderInputs w)",
+        "receiver_inputs_legal": "ShielddSecurity.TransferEarlierUserRecovery.receiver_inputs_legal : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferRegistryUserCompletion.LegalUserPath c\n    (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal)\n    (ShielddSecurity.TransferSem.Witness.receiver (ShielddSecurity.TransferEarlierInputRecovery.spendStage c w legal))\n    (ShielddSecurity.TransferEarlierUserRecovery.receiverInputs w)",
+        "user_records_reconstructed": "ShielddSecurity.TransferEarlierUserRecovery.user_records_reconstructed : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  And\n    (@Eq.{1} ShielddSecurity.TransferSem.User\n      (ShielddSecurity.TransferSem.Witness.sender (ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal))\n      (ShielddSecurity.TransferSem.Witness.sender w))\n    (@Eq.{1} ShielddSecurity.TransferSem.User\n      (ShielddSecurity.TransferSem.Witness.receiver\n        (ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal))\n      (ShielddSecurity.TransferSem.Witness.receiver w))",
+        "earlier_tail_restored": "ShielddSecurity.TransferEarlierUserRecovery.earlier_tail_restored : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  @Eq.{1} ShielddSecurity.TransferSem.Witness\n    (have __src : ShielddSecurity.TransferSem.Witness :=\n      ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal;\n    ShielddSecurity.TransferSem.Witness.mk (ShielddSecurity.TransferSem.Witness.anchor __src)\n      (ShielddSecurity.TransferSem.Witness.assetAnchor __src) (ShielddSecurity.TransferSem.Witness.userAnchor __src)\n      (ShielddSecurity.TransferSem.Witness.asset __src) (ShielddSecurity.TransferSem.Witness.regulated __src)\n      (ShielddSecurity.TransferSem.Witness.timestamp __src) (ShielddSecurity.TransferSem.Witness.nonce __src)\n      (ShielddSecurity.TransferSem.Witness.blinding __src) (ShielddSecurity.TransferSem.Witness.registry __src)\n      (ShielddSecurity.TransferSem.Witness.sender __src) (ShielddSecurity.TransferSem.Witness.receiver __src)\n      (ShielddSecurity.TransferSem.Witness.auth __src) (ShielddSecurity.TransferSem.Witness.spends __src)\n      (ShielddSecurity.TransferSem.Witness.optionalDummy __src) (ShielddSecurity.TransferSem.Witness.paddingSeed __src)\n      (ShielddSecurity.TransferSem.Witness.outputs w) (ShielddSecurity.TransferSem.Witness.volume w)\n      (ShielddSecurity.TransferSem.Witness.routing w) (ShielddSecurity.TransferSem.Witness.encryption w))\n    w",
+        "earlier_components_recovered": "ShielddSecurity.TransferEarlierUserRecovery.earlier_components_recovered : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness) (legal : ShielddSecurity.TransferSem.TransferSem c w),\n  ShielddSecurity.TransferSemanticTailConstruction.EarlierComponents c\n    (ShielddSecurity.TransferEarlierUserRecovery.earlierStage c w legal)"
+      },
+      "guard_sha256": "cbc2bf8e7a36b4c2587cef0a4d7450b3fad2bad7d71b8c01151d74989873ce0f",
+      "source_manifest_sha256": "001ccfaf4706211122e4a635a6993c175a953df664b889d1a30f657cf862dc15"
+    },
+    {
+      "module": "TransferTailInputTransport",
+      "counter": 3200,
+      "actual_exit": 0,
+      "audits": 5,
+      "source_sha256": "90b835f10df5149897df4398f6963f27dd7fe5dae9ae173f23af01238c1723db",
+      "axioms": {
+        "volume_raw_preserved": [
+          "propext"
+        ],
+        "volume_construct_agrees": [
+          "propext"
+        ],
+        "encryption_construct_agrees": [
+          "propext",
+          "Quot.sound"
+        ],
+        "routing_construct_agrees": [
+          "propext",
+          "Quot.sound"
+        ],
+        "encryption_raw_preserved": []
+      },
+      "full_types": {
+        "volume_raw_preserved": "ShielddSecurity.TransferTailInputTransport.volume_raw_preserved : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness) (frame : ShielddSecurity.TransferTailInputTransport.Frame base old)\n  (i : ShielddSecurity.TransferVolumeBranchCompletion.LegalVolumeInputs c old),\n  @Eq.{1} ShielddSecurity.TransferVolumeBranchCompletion.Inputs\n    (@ShielddSecurity.TransferVolumeBranchCompletion.LegalVolumeInputs.toInputs c base\n      (ShielddSecurity.TransferTailInputTransport.transportVolume c base old frame i))\n    (@ShielddSecurity.TransferVolumeBranchCompletion.LegalVolumeInputs.toInputs c old i)",
+        "volume_construct_agrees": "ShielddSecurity.TransferTailInputTransport.volume_construct_agrees : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness) (frame : ShielddSecurity.TransferTailInputTransport.Frame base old)\n  (i : ShielddSecurity.TransferVolumeBranchCompletion.LegalVolumeInputs c old),\n  @Eq.{1} ShielddSecurity.TransferSem.Volume\n    (ShielddSecurity.TransferVolumeBranchCompletion.construct c base\n      (ShielddSecurity.TransferTailInputTransport.transportVolume c base old frame i))\n    (ShielddSecurity.TransferVolumeBranchCompletion.construct c old i)",
+        "encryption_construct_agrees": "ShielddSecurity.TransferTailInputTransport.encryption_construct_agrees : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness)\n  (frame : ShielddSecurity.TransferTailInputTransport.EncryptionFrame base old)\n  (i : ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs c old),\n  @Eq.{1} ShielddSecurity.TransferSem.Encryption\n    (ShielddSecurity.TransferEncryptionBranchCompletion.construct c base\n      (ShielddSecurity.TransferTailInputTransport.transportEncryption c base old frame i))\n    (ShielddSecurity.TransferEncryptionBranchCompletion.construct c old i)",
+        "routing_construct_agrees": "ShielddSecurity.TransferTailInputTransport.routing_construct_agrees : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness) (frame : ShielddSecurity.TransferTailInputTransport.Frame base old)\n  (i : ShielddSecurity.TransferRoutingBranchCompletion.LegalRoutingInputs),\n  @Eq.{1} ShielddSecurity.TransferSem.Routing (ShielddSecurity.TransferRoutingBranchCompletion.construct c base i)\n    (ShielddSecurity.TransferRoutingBranchCompletion.construct c old i)",
+        "encryption_raw_preserved": "ShielddSecurity.TransferTailInputTransport.encryption_raw_preserved : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (base old : ShielddSecurity.TransferSem.Witness)\n  (frame : ShielddSecurity.TransferTailInputTransport.EncryptionFrame base old)\n  (i : ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs c old),\n  And\n    (@Eq.{1} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192 Nat)\n      (@ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs.seeds c base\n        (ShielddSecurity.TransferTailInputTransport.transportEncryption c base old frame i))\n      (@ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs.seeds c old i))\n    (And\n      (@Eq.{1} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192 Nat)\n        (@ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs.ephemeral c base\n          (ShielddSecurity.TransferTailInputTransport.transportEncryption c base old frame i))\n        (@ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs.ephemeral c old i))\n      (@Eq.{1} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) \u2192 Nat)\n        (@ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs.ownershipRandomness c base\n          (ShielddSecurity.TransferTailInputTransport.transportEncryption c base old frame i))\n        (@ShielddSecurity.TransferEncryptionBranchCompletion.LegalEncryptionInputs.ownershipRandomness c old i)))"
+      },
+      "guard_sha256": "79e90beca4f24b003da0e08f6a0bd7f96e0ba7f1d631a4b7d6342ee2b49c40da",
+      "source_manifest_sha256": "f768518b6e929ca8d51664a91a5ced8f140c29db2679ce392d2ef6c7b2efcbf7"
+    }
+  ],
+  "actual_audits": 20,
+  "retained_actual_failures": [
+    {
+      "stem": "earlier-user-recovery",
+      "counter": 3191,
+      "actual_compile_failure": true,
+      "failure_sha256": "050f2d3953acef18e38af5f34c2c2e48d0f1d94ac773b14f0d9edf3760697148",
+      "proof_or_semantic_control_credit": 0
+    },
+    {
+      "stem": "tail-input-transport",
+      "counter": 3194,
+      "actual_compile_failure": true,
+      "failure_sha256": "02ce158abc73fe93ee16898cd820fe10210d6e388115347f27ccfc4e84cd0b06",
+      "proof_or_semantic_control_credit": 0
+    },
+    {
+      "stem": "tail-input-transport",
+      "counter": 3196,
+      "actual_compile_failure": true,
+      "failure_sha256": "03488f21145d95cf81b15115158c008fa0483127516e2b0b4740fc3a7a5c188a",
+      "proof_or_semantic_control_credit": 0
+    },
+    {
+      "stem": "tail-input-transport",
+      "counter": 3198,
+      "actual_compile_failure": true,
+      "failure_sha256": "6f586a2fc7b0e44b39e96ad3027b5db1b61156ab459609982e0b8d8cbabcb683",
+      "proof_or_semantic_control_credit": 0
+    },
+    {
+      "stem": "tail-output-recovery",
+      "counter": 3202,
+      "actual_compile_failure": true,
+      "failure_sha256": "2dde3eb3b5c2d65e366d81fc61fb218661f6469a2690030500d3240bc351e928",
+      "proof_or_semantic_control_credit": 0
+    }
+  ],
+  "qualification": "Ordered recovery through users and structural volume/encryption/routing transport. The read-field frames are derived; no forward desired semantic result is assumed. Full ordered raw input packaging, full row assignment and pinned Rust consequence remain open.",
+  "native_runs": 0,
+  "full_transfer": "OPEN"
+}

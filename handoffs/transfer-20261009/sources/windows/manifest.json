@@ -15,7 +15,11 @@
     "TransferInitialWitnessDecomposition",
     "TransferRoutingDecomposition",
     "TransferEncryptionDecomposition",
-    "TransferRawInputCoverage"
+    "TransferRawInputCoverage",
+    "TransferRawInputTransport",
+    "TransferEarlierInputRecovery",
+    "TransferEarlierUserRecovery",
+    "TransferTailInputTransport"
   ],
   "topological_order": [
     "TransferCore",
@@ -73,7 +77,11 @@
     "TransferInitialWitnessDecomposition",
     "TransferRoutingDecomposition",
     "TransferEncryptionDecomposition",
-    "TransferRawInputCoverage"
+    "TransferRawInputCoverage",
+    "TransferRawInputTransport",
+    "TransferEarlierInputRecovery",
+    "TransferEarlierUserRecovery",
+    "TransferTailInputTransport"
   ],
   "sources": {
     "TransferRawStatementConstruction": {
@@ -560,9 +568,47 @@
         "ShielddSecurity.TransferEncryptionDecomposition",
         "ShielddSecurity.TransferRoutingDecomposition"
       ]
+    },
+    "TransferRawInputTransport": {
+      "file": "ShielddSecurity/TransferRawInputTransport.lean",
+      "bytes": 6767,
+      "sha256": "ec358be938bde5a3152e4dbea40f531181ad62288d2508f18cdf467778015b04",
+      "imports": [
+        "ShielddSecurity.TransferAuthorizationBranchCompletion",
+        "ShielddSecurity.TransferSpendBranchCompletion",
+        "ShielddSecurity.TransferRegistryUserCompletion"
+      ]
+    },
+    "TransferEarlierInputRecovery": {
+      "file": "ShielddSecurity/TransferEarlierInputRecovery.lean",
+      "bytes": 5989,
+      "sha256": "ba98b557f097dcbdfdb2bc46c93a73900c24fd6787e3a2324cf211ace531d5f6",
+      "imports": [
+        "ShielddSecurity.TransferRawInputCoverage",
+        "ShielddSecurity.TransferRawInputTransport"
+      ]
+    },
+    "TransferEarlierUserRecovery": {
+      "file": "ShielddSecurity/TransferEarlierUserRecovery.lean",
+      "bytes": 6005,
+      "sha256": "5be78fed0f96308fb8a65fbfd60de65c0b5f46c4750383a08ab9418c1a816f36",
+      "imports": [
+        "ShielddSecurity.TransferEarlierInputRecovery",
+        "ShielddSecurity.TransferSemanticTailConstruction"
+      ]
+    },
+    "TransferTailInputTransport": {
+      "file": "ShielddSecurity/TransferTailInputTransport.lean",
+      "bytes": 7581,
+      "sha256": "90b835f10df5149897df4398f6963f27dd7fe5dae9ae173f23af01238c1723db",
+      "imports": [
+        "ShielddSecurity.TransferVolumeBranchCompletion",
+        "ShielddSecurity.TransferEncryptionBranchCompletion",
+        "ShielddSecurity.TransferRoutingBranchCompletion"
+      ]
     }
   },
-  "total_source_bytes": 486184,
+  "total_source_bytes": 512526,
   "prepared_reverse_modules": {
     "TransferCanonicalDecomposition": {
       "sha256": "7baa04295de919c2913e424ee7024e4cbecda0899b12faad21657f85ab1c9ba7",
@@ -623,6 +669,30 @@
       "kernel_status": "PASS_5_AUDITS_3183",
       "scope": "Joint inverse raw-input coverage at one independent legal semantic frame, including all component legality records and exact reconstructed registry/auth/spend/output/user/routing records. Sequential stage transport, full circuit assignment, arbitrary-row extraction and pinned Rust/native consequence remain OPEN. Global MulZeroLaw explicit; independent TransferSem consumed only in reverse direction.",
       "full_transfer": "OPEN"
+    },
+    "TransferRawInputTransport": {
+      "sha256": "ec358be938bde5a3152e4dbea40f531181ad62288d2508f18cdf467778015b04",
+      "kernel_status": "PASS_5_AUDITS_3186",
+      "full_transfer": "OPEN",
+      "scope": "Ordered inverse recovery and explicit read-field transport; no full circuit assignment."
+    },
+    "TransferEarlierInputRecovery": {
+      "sha256": "ba98b557f097dcbdfdb2bc46c93a73900c24fd6787e3a2324cf211ace531d5f6",
+      "kernel_status": "PASS_5_AUDITS_3189",
+      "full_transfer": "OPEN",
+      "scope": "Ordered inverse recovery and explicit read-field transport; no full circuit assignment."
+    },
+    "TransferEarlierUserRecovery": {
+      "sha256": "5be78fed0f96308fb8a65fbfd60de65c0b5f46c4750383a08ab9418c1a816f36",
+      "kernel_status": "PASS_5_AUDITS_3193",
+      "full_transfer": "OPEN",
+      "scope": "Ordered inverse recovery and explicit read-field transport; no full circuit assignment."
+    },
+    "TransferTailInputTransport": {
+      "sha256": "90b835f10df5149897df4398f6963f27dd7fe5dae9ae173f23af01238c1723db",
+      "kernel_status": "PASS_5_AUDITS_3200",
+      "full_transfer": "OPEN",
+      "scope": "Ordered inverse recovery and explicit read-field transport; no full circuit assignment."
     }
   },
   "receipt_scope": "All copied sources have exact byte identities; only the explicitly named actual receipts claim kernel observations."
