@@ -166,19 +166,22 @@ class TransferSliceTests(unittest.TestCase):
         for relative in ('circuits/ShielddSecurity/PermanentSpend.lean',
                          'runtime/crates/crypto/circuits/src/note.rs', 'assurance.json'):
             with self.subTest(relative=relative), self.fixture() as (root, runtime, qualification, entry):
-                target = root / relative
+                # The checker resolves runtime paths. macOS temporary paths
+                # may name /var while the same file resolves under /private/var.
+                target = (root / relative).resolve()
                 original = checker.verified_bytes
                 changed = False
                 def replace_after_read(path, *args, **kwargs):
                     nonlocal changed
                     value = original(path, *args, **kwargs)
-                    if Path(path) == target and not changed:
+                    if Path(path).resolve() == target and not changed:
                         target.write_bytes(target.read_bytes() + b' ')
                         changed = True
                     return value
                 with patch.object(checker, 'verified_bytes', side_effect=replace_after_read):
                     with self.assertRaises(security.CheckError):
                         checker.prepare_transfer_slice(runtime, qualification['path'], root/'.work/candidate')
+                self.assertTrue(changed, 'the intended source-drift mutation did not run')
 
     def test_failed_generation_leaves_previous_atomic_receipt(self):
         with self.fixture() as (root, runtime, qualification, entry):

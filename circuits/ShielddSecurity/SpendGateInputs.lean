@@ -23,4 +23,8 @@ def eval {F : Type} [Field F] (rho : Nat → F) : Linear → F
   | [] => 0
   | (column, coefficient) :: terms => (coefficient : F) * rho column + eval rho terms
 
+set_option pp.all true in
+#check @boolean_sound
+#print axioms boolean_sound
+
 end ShielddSecurity
