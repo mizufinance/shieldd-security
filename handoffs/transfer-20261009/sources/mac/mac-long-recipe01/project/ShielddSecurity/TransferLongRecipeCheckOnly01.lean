@@ -1,0 +1,10 @@
+import ShielddSecurity.TransferLongRecipeRecords01
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.TransferLongRecipeCheckOnly01
+open CompilerRecipe01 TransferLongRecipeData01
+theorem only_check : checkRecords 22735 records=true := by decide +kernel
+end ShielddSecurity.TransferLongRecipeCheckOnly01
+set_option pp.all true in
+#check @ShielddSecurity.TransferLongRecipeCheckOnly01.only_check
+#print axioms ShielddSecurity.TransferLongRecipeCheckOnly01.only_check
