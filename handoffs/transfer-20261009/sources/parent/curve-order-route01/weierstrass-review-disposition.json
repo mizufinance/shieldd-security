@@ -1,0 +1,45 @@
+{
+  "kind": "parent-disposition-coordinate-route-source-review",
+  "observed_utc": "2026-10-09T17:59:52.078806+00:00",
+  "review": "weierstrass-opus55-review.json",
+  "review_sha256": "acefb3a1f4935f697d0abdc7a2816e0295599a1cdb01d1529c470adebf7a4723",
+  "conclusion": "Formulas accepted as a proposed mathematical route, no kernel/model/order credit.",
+  "accepted_obligations": [
+    "Prove d!=0 explicitly (or derive from nonzero discriminant); NoUnitSquare alone allows d=0.",
+    "Derive d!=-1 from NoUnitSquare and i*i=-1.",
+    "Derive B!=0 from B*(a-d)=4 and2!=0.",
+    "Prove concrete discriminant nonzero in the field from exact integer bound and characteristic; integer check alone is not a field proof.",
+    "Define exceptional maps by cases; do not rely silently on Lean division-by-zero normalization.",
+    "Handle inverse/negation, unique order-two point, and order-four doubling branches when proving addition compatibility."
+  ],
+  "recommended_next_after_current_pilots": {
+    "stage": "bounded rational-point bijection pilot on currentMathlib",
+    "generic_explicit_parameters": [
+      "Field F",
+      "DecidableEq F",
+      "d",
+      "imaginary",
+      "imaginary*imaginary=-1",
+      "NoUnitSquare d",
+      "d!=0",
+      "(2:F)!=0",
+      "(a-d)*A=2*(a+d) witha=-1",
+      "(a-d)*B=4",
+      "specificW coefficients0,A*B,0,B^2,0",
+      "W.discriminant!=0"
+    ],
+    "result": "Equiv between OnCurve d subtype and W.toAffine.Point, with explicitly proved exceptional images and negation compatibility.",
+    "not_in_result": [
+      "Edwards AddCommGroup",
+      "addition compatibility",
+      "StandardCurveModel instance",
+      "Hasse bound",
+      "group cardinality or8rannihilation"
+    ]
+  },
+  "transport_preference": "Conditional preference over standalone Edwards associativity because counting also needs a Weierstrass bijection and addition identities use2points rather than3. Measure import and identity-certificate costs before committing to full transport.",
+  "foreign_hasse": "Do not integrate source with sorry/admit stubs or change toolchain just from this review. Compatibility, needed source closure and exact theorem axiom replay remain separate open work.",
+  "kernel_run": false,
+  "proof_credit": 0,
+  "full_transfer": "OPEN"
+}
