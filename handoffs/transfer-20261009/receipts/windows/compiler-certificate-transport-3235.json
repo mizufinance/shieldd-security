@@ -1,0 +1,50 @@
+{
+  "module": "CompilerCertificateTransport",
+  "actual_kernel": true,
+  "source_sha256": "ec16f39a073cbcc2f9befd4474027a9dd2fb383e764047fb1cf2ffc489e84839",
+  "guard_sha256": "aa2036b31a0281061f249027c7e471453ac568e7bac028ac2b99de4b697573d3",
+  "source_manifest_sha256": "d4e8a9b24e718c0ffeb873dd9d4fd87331e97ea90e0d2b66b30c15dac38aa2f1",
+  "audits": 5,
+  "axioms": {
+    "check_row_covered": [
+      "propext",
+      "Quot.sound"
+    ],
+    "node_certificate_covered": [
+      "propext",
+      "Quot.sound"
+    ],
+    "assertion_certificate_covered": [
+      "propext",
+      "Quot.sound"
+    ],
+    "graph_nodes_covered": [
+      "propext",
+      "Quot.sound"
+    ],
+    "graph_assertions_covered": [
+      "propext",
+      "Quot.sound"
+    ]
+  },
+  "full_types": {
+    "check_row_covered": "ShielddSecurity.CompilerCertificateTransport.check_row_covered : \u2200 (p : Nat)\n  (localRows fullRows : List.{0} ShielddSecurity.Row)\n  (coverage : ShielddSecurity.CompilerCertificateTransport.Coverage p localRows fullRows)\n  (expected : ShielddSecurity.Row)\n  (checked : @Eq.{1} Bool (ShielddSecurity.Compiler.checkRow p localRows expected) Bool.true),\n  @Eq.{1} Bool (ShielddSecurity.Compiler.checkRow p fullRows expected) Bool.true",
+    "node_certificate_covered": "@ShielddSecurity.CompilerCertificateTransport.node_certificate_covered : \u2200 {p n : Nat}\n  (localRows fullRows : List.{0} ShielddSecurity.Row)\n  (coverage : ShielddSecurity.CompilerCertificateTransport.Coverage p localRows fullRows)\n  (inputTerms : Nat \u2192 ShielddSecurity.Linear) (earlier : Fin n \u2192 ShielddSecurity.Compiler.Expression)\n  (node : ShielddSecurity.Compiler.SourceNode n) (output : ShielddSecurity.Compiler.Expression)\n  (certificate : @ShielddSecurity.Compiler.NodeCertificate p localRows inputTerms n earlier node output),\n  @ShielddSecurity.Compiler.NodeCertificate p fullRows inputTerms n earlier node output",
+    "assertion_certificate_covered": "@ShielddSecurity.CompilerCertificateTransport.assertion_certificate_covered : \u2200 {p : Nat}\n  (localRows fullRows : List.{0} ShielddSecurity.Row)\n  (coverage : ShielddSecurity.CompilerCertificateTransport.Coverage p localRows fullRows)\n  (left right : ShielddSecurity.Compiler.Expression)\n  (certificate : ShielddSecurity.Compiler.AssertionCertificate p localRows left right),\n  ShielddSecurity.Compiler.AssertionCertificate p fullRows left right",
+    "graph_nodes_covered": "@ShielddSecurity.CompilerCertificateTransport.graph_nodes_covered : \u2200 {p inputs nodes : Nat}\n  (graph : ShielddSecurity.Compiler.SourceGraph inputs nodes) (blocks : Fin nodes \u2192 List.{0} ShielddSecurity.Row)\n  (fullRows : List.{0} ShielddSecurity.Row)\n  (coverage : \u2200 (index : Fin nodes), ShielddSecurity.CompilerCertificateTransport.Coverage p (blocks index) fullRows)\n  (inputTerms : Nat \u2192 ShielddSecurity.Linear) (expressions : Fin nodes \u2192 ShielddSecurity.Compiler.Expression)\n  (certificates :\n    \u2200 (index : Fin nodes),\n      @ShielddSecurity.Compiler.NodeCertificate p (blocks index) inputTerms (@Fin.val nodes index)\n        (@ShielddSecurity.Compiler.SourceGraph.prior inputs nodes graph ShielddSecurity.Compiler.Expression expressions\n          index)\n        (@ShielddSecurity.Compiler.SourceGraph.node inputs nodes graph index) (expressions index))\n  (index : Fin nodes),\n  @ShielddSecurity.Compiler.NodeCertificate p fullRows inputTerms (@Fin.val nodes index)\n    (@ShielddSecurity.Compiler.SourceGraph.prior inputs nodes graph ShielddSecurity.Compiler.Expression expressions\n      index)\n    (@ShielddSecurity.Compiler.SourceGraph.node inputs nodes graph index) (expressions index)",
+    "graph_assertions_covered": "@ShielddSecurity.CompilerCertificateTransport.graph_assertions_covered : \u2200 {p inputs nodes : Nat}\n  (graph : ShielddSecurity.Compiler.SourceGraph inputs nodes)\n  (blocks : Prod.{0, 0} (Fin nodes) (Fin nodes) \u2192 List.{0} ShielddSecurity.Row)\n  (fullRows : List.{0} ShielddSecurity.Row)\n  (coverage :\n    \u2200 (assertion : Prod.{0, 0} (Fin nodes) (Fin nodes)),\n      @Membership.mem.{0, 0} (Prod.{0, 0} (Fin nodes) (Fin nodes)) (List.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n          (@List.instMembership.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n          (@ShielddSecurity.Compiler.SourceGraph.assertions inputs nodes graph) assertion \u2192\n        ShielddSecurity.CompilerCertificateTransport.Coverage p (blocks assertion) fullRows)\n  (expressions : Fin nodes \u2192 ShielddSecurity.Compiler.Expression)\n  (certificates :\n    \u2200 (assertion : Prod.{0, 0} (Fin nodes) (Fin nodes)),\n      @Membership.mem.{0, 0} (Prod.{0, 0} (Fin nodes) (Fin nodes)) (List.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n          (@List.instMembership.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n          (@ShielddSecurity.Compiler.SourceGraph.assertions inputs nodes graph) assertion \u2192\n        ShielddSecurity.Compiler.AssertionCertificate p (blocks assertion)\n          (expressions (@Prod.fst.{0, 0} (Fin nodes) (Fin nodes) assertion))\n          (expressions (@Prod.snd.{0, 0} (Fin nodes) (Fin nodes) assertion)))\n  (assertion : Prod.{0, 0} (Fin nodes) (Fin nodes)),\n  @Membership.mem.{0, 0} (Prod.{0, 0} (Fin nodes) (Fin nodes)) (List.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n      (@List.instMembership.{0} (Prod.{0, 0} (Fin nodes) (Fin nodes)))\n      (@ShielddSecurity.Compiler.SourceGraph.assertions inputs nodes graph) assertion \u2192\n    ShielddSecurity.Compiler.AssertionCertificate p fullRows\n      (expressions (@Prod.fst.{0, 0} (Fin nodes) (Fin nodes) assertion))\n      (expressions (@Prod.snd.{0, 0} (Fin nodes) (Fin nodes) assertion))"
+  },
+  "safe_helper": 3236,
+  "resume_status": 0,
+  "retained_failure": {
+    "counter": 3232,
+    "source_sha256": "0203bab7fe59dcd3ac92cdb5a0bead6220a563e1e02c5bf53e870da4beccc56e",
+    "actual_exit": 1,
+    "reason": "Lean case continuation indentation",
+    "proof_credit": 0
+  },
+  "actual_full_graph_instance": false,
+  "kernel_full_row_inclusion": false,
+  "scope": "Local typed node/assertion certificates lift through explicit canonical row-body coverage. No actual full row coverage instance or owned algorithm assertion meaning is inferred.",
+  "full_transfer": "OPEN"
+}
