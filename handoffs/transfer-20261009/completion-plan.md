@@ -101,3 +101,10 @@ The first complete 65-round width6 Poseidon instance is now sealed and reviewed:
 The raw signal5817 association is qualified extraction data. Actual parent-row inclusion, the parent consumer identity, native runtime/compiler correspondence, and the whole Transfer theorem remain open. The count theorems prove local list sizes; capture-index metadata does not prove a parent-position join. No final certification evidence refresh has occurred.
 
 The next scaling step is generic column-renaming transport and one second actual width6 tail. Independent bounded data comparison found all 210 captured tails (rounds2..64, 175width6 and35width3) match per-width row/port templates under column translation, across75,600 rows. This supplies candidate reuse data only. Prove transport before using this to replace repeated arithmetic checking; round0/1 absorption and the width3 template still require their own proof work. Windows continues concrete curve addition compatibility, then the order/native obligations.
+
+
+### Candidate inputs for the next proof steps
+
+A complete recursive Lucas candidate for the exact Jubjub subgroup order is now available in `sources/parent/subgroup-prime-candidate01`. Its explicit large factors come from the pinned ACL2 Pratt certificate; the parser treats that source as untrusted data. Independent modular arithmetic and factor/dependency checks passed for all51 nodes with six rejecting controls. The local lane will replay it through the existing Lean Lucas checker after sealing the second-tail instance. No ACL2 result is assumed and no primality credit is assigned before that replay.
+
+The data-only Poseidon call census now verifies round0 source patterns as well as the earlier rounds1..64 patterns. The210 permutations form188 captured hash chains with22 continuation blocks. Domain, arity, inputs and chunk transitions pass independent source-absorption replay, providing candidates for the remaining Lean joins. Runtime callsite identity and complete parent relation inclusion remain open.
