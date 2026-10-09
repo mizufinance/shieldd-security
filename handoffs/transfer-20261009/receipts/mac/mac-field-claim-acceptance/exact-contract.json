@@ -1,0 +1,46 @@
+{
+  "task": "M16 admission from upstream field-claim knowledge with locally derived input bounds",
+  "owner": "mac-coordinator-parent",
+  "schedule": "After the existing Mac worker's current M15 task settles and stops; the Mac coordinator parent owns this next task. Do not dispatch it to the worker. One bounded heavy verifier per physical machine.",
+  "module": "ShielddSecurity.TransferFieldClaimAcceptance",
+  "exact_import_manifest": "sources/windows/mac-M16-field-claim-imports/manifest.json",
+  "exact_import_manifest_sha256": "b7d6cbbc15b380949f7c624f6d9236e4bfc50b86b396a9b8cb3a113cca27627b",
+  "goal": "Add a new coherent acceptance path whose upstream knowledge gives only a satisfying field assignment and matching public/committed opening; canonical public values and the subgroup blinding bound are locally derived.",
+  "interface_design": [
+    "Keep existing maintained TransferFullCarrierAcceptance immutable; its UpstreamKnowledge/CompiledClaim is the combined historical intermediate interface, not the primitive upstream contract.",
+    "Define a minimal FieldClaim/UpstreamFieldKnowledge for individual and batch modes. An extracted rho satisfies the exact supplied rows, rho0=1 and eval rho publicLc=(item.statement:F). The committed field value opens the matching commitment. Do not put item.statement<fieldModulus or blinding<scalarOrder into this upstream record.",
+    "Use a globally specified TransferReduction.CanonicalField codec to choose the canonical natural committed value. If expressing the opening predicate over Nat, use its globally specified field-to-canonical-natural interpretation, not a transaction-specific desired opening law.",
+    "The independently owned range interface may be explicit at this composition layer: for every rho satisfying the actual rows with rho0=1, codec.decode(eval rho committed)<scalarOrder. Instantiate it using actual M15 plus exact complete-row inclusion/projection; keep that instantiation obligation visible if still open.",
+    "Derive expected-item public canonicality from CanonicalCrypto.hash codomain, since FullCarrier.expected is sourceItem with crypto.hash .transferStatement. Do not assume the desired public bound in the upstream contract.",
+    "Derive verified field claims from existing individual/batch mode checks and envelope/registry/ClaimBound joins, analogously to verified_compiled_claims but consuming only the minimal field-knowledge record.",
+    "For application-created expected items, promote an extracted field claim to the combined CompiledClaim by deriving both natural bounds and the canonical cast roundtrip. Never add a per-item subgroup-order premise.",
+    "Prove preparation_semantic_or_collision_from_field_knowledge using the same independently defined LocalRowSoundness interface. It remains an explicit pending T1/T4 owned premise; do not disguise it as upstream knowledge or claim full Transfer.",
+    "If useful, compose the existing exact modeled pending-effect theorem with this semantic-or-collision result, keeping native/state/durable correspondence open and avoiding universal hash injectivity."
+  ],
+  "qualification_requirements": [
+    "Audit complete theorem types and every premise, especially no range or TransferSem premise hidden in the upstream knowledge record.",
+    "Use exact source-byte import identities; if the M15 PRIMARY range project and maintained carrier closure differ in a dependency, preserve both and make the representation/source correspondence explicit rather than overlay objects.",
+    "Finite heartbeats/small symbolic proofs, LEAN_NUM_THREADS=1, one narrow module at a time; preserve failed candidates and give no semantic control credit to compiler/timeout/dependency failures.",
+    "Do not modify generated Lean/evidence, release registers, atomic refresh or native runtime sources."
+  ],
+  "limits": {
+    "threads": 1,
+    "new_module_heartbeats": 300000,
+    "memory_mib": 2048,
+    "seconds_per_module": 240
+  },
+  "forbidden": [
+    "No subgroup bound in UpstreamFieldKnowledge",
+    "No canonical statement bound in UpstreamFieldKnowledge",
+    "No desired TransferSem or poststate assumption as upstream guarantee",
+    "No universal hash injectivity",
+    "No sorry/admit/new unsound axioms",
+    "No full Transfer or unbounded Rust refinement claim"
+  ],
+  "handoff": "Publish the new handwritten module, full theorem/axiom summaries and exact source/receipt identities under Mac-owned paths on codex/security-assurance. Fetch first and preserve failures. Do not force push.",
+  "not_owned": [
+    "Windows eight inverse/canonical drafts, full-row constructor/extractor and DH/EPK/controller3130",
+    "Windows native admission/durable suites3057-3060"
+  ],
+  "full_transfer": "OPEN"
+}
