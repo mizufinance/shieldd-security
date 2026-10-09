@@ -1,0 +1,31 @@
+{
+  "schema": "transfer-indexing-no-prover-source-controls-v1",
+  "status": "SOURCE_ONLY_UNRUN",
+  "pin": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "resource": "state/transfer_indexing_controls.rs",
+  "composer": "integration/transfer_indexing_controls.py",
+  "tests": [
+    "app::host::tests::fv_deferred_queue_fault_drains_without_durable_commit",
+    "app::host::tests::fv_same_instance_endblock_retry_after_queue_fault",
+    "app::host::tests::fv_host_rollback_after_queue_fault_restores_committed_parent"
+  ],
+  "scope": "Direct native duplicate-index write fault via canonical, deliberately injected no-action queue fixtures. No stateless admission, valid signature, proved Transfer or semantic negative-control credit.",
+  "registry": "Complete correctly generated matching v2 registry05 only; no old v1/partial03. Native VK loader success required, PK decode/first-prove not exercised or credited.",
+  "build_and_run": "Root alone: cargo test --locked --offline --profile ci -p shieldd-sdk-app --lib EXACT_TEST -- --exact --test-threads=1 --nocapture",
+  "resource_policy": "One guarded Cargo/test process at a time, cached build one thread, finite cap, direct validated host sampler, physical1.5GiB/commit512MiB reserves. No agent execution or reduced guards.",
+  "expected_observations": [
+    "Actual put_block_transaction duplicate committed transaction error propagates through App end-block expect to an exact caught panic; first staged index insertion is unapplied.",
+    "Host remains InBlock because its interrupted-phase transition follows App end_block. Deferred queue is drained; durable committed state remains the original parent. Direct unsealed commit is rejected.",
+    "Same diagnostic Host instance can retry empty-queue end_block and seal/commit an empty indexed block. This is source branch behavior, not accepted Transfer loss or a security-positive retry assertion.",
+    "Explicit rollback reconstructs the old committed parent, clears pending/deferred state and returns Idle; a fresh empty block completes.",
+    "These Host unit controls do not instantiate QueryContext. Published-snapshot expectations remain unchanged until matching joint publication; reuse the separate native committed_queries_advance_only_after_joint_publication test for that API, without claiming it covers this injected fault."
+  ],
+  "remaining_genuine_controls": [
+    "Actual accepted Transfer effects/ordered indexes under both PerTx and DeferredBatch using genuine correctly-generated matching-key proofs.",
+    "Source-owned one-shot flush write failure after genuine deliveries, exact pending/durable/published readback, consumer abort/rollback/reexecute trace.",
+    "A reachable consumer that retries after end-block panic must be demonstrated before declaring any accepted-block contract break. Retained Bankd PR351 source is architecture reference, not paired deployment qualification."
+  ],
+  "failure_policy": "Compiler/loader/dependency/timeout/OOM/zero-tests/wrong panic cause are infrastructure or unrelated failures. They do not count as successful fault controls.",
+  "gates": "OPEN",
+  "evidence": []
+}

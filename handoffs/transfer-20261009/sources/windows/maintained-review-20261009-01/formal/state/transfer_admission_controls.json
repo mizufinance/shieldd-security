@@ -1,0 +1,56 @@
+{
+  "schema": "transfer-admission-control-source-v1",
+  "status": "source_only_uncompiled_unrun",
+  "certification": false,
+  "evidence": [],
+  "runtime_commit": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "setup_resource": "state/transfer_distinct_registry.rs",
+  "setup_resource_sha256": "1c4ced00b630034b091d4abdf72ca50ab0fb7011e63e52bca1187ed983e2631e",
+  "test_append_resource": "state/transfer_admission_controls.rs",
+  "test_append_resource_sha256": "42736c886bdfd3b3aa112157de0830fc6cf3412e0a41d8a66263f823198d31b6",
+  "parent_control_resource": "state/transfer_effect_controls.rs",
+  "parent_control_resource_sha256": "ae3ec39fd499b02d87b9ffc5c1d611993c7f6d572b1660592ec5f1199064cc9c",
+  "immutable_six_packet_inputs_sha256": "8b744c092cedbf8eda1c71d0b38cfe548cb515d1dea0a75d0e6f92a8c52f52ca",
+  "native_api_physical_source_sha256": {
+    "crates/crypto/proof-params/src/pari.rs": "a759b3afca0195b5dc027c6b5ff9e734a8e0a874abfebfed9d2828ad28d42f11",
+    "crates/crypto/proof-params/Cargo.toml": "f545d84484a97455d322eaeb8e0eae7a93736ec9a53308c3065b27965ceaa79d",
+    "crates/crypto/proof-params/examples/pari_setup.rs": "9d956c124974361a2decc902e2ca1054c646d7f51d47214c1c53c229a028038f",
+    "crates/crypto/circuits/src/catalogue.rs": "98ad0d67ccb1454fd7447863c78bf5012516ad09c992f10df0b613d2ed2b6d5a",
+    "crates/crypto/circuits/src/proof.rs": "e695994b689ae4696743c839cc59680d3f8de994666e3c2fe862e1bf56ad5f93",
+    "crates/core/app/src/stateless_cache.rs": "eb4e5be37d82f6a609f9437f854109fec15ed9198f73f9dba52801ccae9cc9f9",
+    "crates/core/app/src/app/mod.rs": "f3b8778b2224abaf8672a19253bfaeda823d64187c4eeecb2e8ebebcbf02453f",
+    "crates/core/app/src/action_handler/transaction/stateless.rs": "bbc24003100af93929df75dbe3f96b05ec7f2221a5a2a64c5f15c0c62f6f7b65",
+    "crates/core/app/src/action_handler/transaction.rs": "4a22aae723076a7c7991b911f6327972e27dae3d1b23ca14320ca58756ca5d67",
+    "crates/core/component/shielded-pool/src/component/action_handler/transfer.rs": "4c7954a9089971a91896d71999c298f914d7c74d60c148eaf1f81faeadeeeaad",
+    "crates/core/transaction/src/transaction.rs": "57827e29735781098b543921fca9c2d8caca379c331d2ba6b9379c5e8c3d4068",
+    "crates/core/app/src/app/tests/proof_acceptance_tests.rs": "3feb599a15b01142d1ef8bbc9a7d83f765c415fea7352340d201db88dfc1bb32"
+  },
+  "future_example_path": "crates/crypto/proof-params/examples/transfer_distinct_registry.rs",
+  "future_append_path": "crates/core/app/src/app/tests/proof_acceptance_tests/transfer_effect_controls.rs",
+  "complete_original_registry": "/root/.cache/shieldd-security-verification/transfer-test-pari-v2-844389-20261004-05",
+  "fresh_distinct_registry": "/root/.cache/shieldd-security-verification/transfer-test-pari-v2-distinct-844389-20261004-01",
+  "tests": [
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_distinct_same_family_registry_rejects_exact_proof_and_capability",
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_cross_transaction_family_queue_order_is_exact",
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_exact_effect_and_authorization_messages_reject_mutation"
+  ],
+  "source_contracts": [
+    "Native public Manifest/Entry/Artifact and catalogue::compile expose required data; private Registry/Verified fields are never read or forged. Actual native Registry::load derives IDs.",
+    "Distinct Transfer setup calls unchanged pari::setup(compiledTransferRelation,SysRng,Sequential) only once, no metadata-only key mutation. Original complete all7 registry is validated first, all14 artifacts checksummed with65536-byte streaming chunks before and after. Six other PK/VK artifacts copied exactly.",
+    "Before and after fresh publication native Registry::load checks full keys.v2 closed family set, all VKs, current exact relations and domain sizes. First real witness_auth_build under both registries exercises lazy PK checksum/decode/embedded-VK, not only loader success.",
+    "One completed actual Transfer plan is built under both valid registries. Both own proofs verify positively, statements and relation match exactly, native Transfer VKs and registry IDs differ. Cross-key individual/batch failures must be invalid Pari proof/batch, not family/relation/decoder failures.",
+    "Original genuinely minted capability under alternate Registry fails proof capability registry mismatch; original verified transaction under alternate App fails verified transaction registry mismatch with complete snapshot equality. Same raw cache entry does not hit alternate native registry ID; alternate genuine delivery then passes.",
+    "Queue control verifies2 distinct real Transfer items, accepts exact artifact/family queue order, then reverses only genuine capabilities and requires verified proof capability mismatch. No mutated proof or fabricated Verified is introduced.",
+    "Effect/auth control verifies original genuine body+fee proof/signature pipeline, mutates transaction parameters without reauthorizing and separately moves exact body/fee Transfer values between locations. Exact native hash changes, binding/action signature errors and location context errors must be observed. This covers body/fee ordering, not arbitrary multi-body permutation.",
+    "Cryptographic assumptions, trusted correctly generated setup, full row-to-native Transfer semantics, Rust-to-Lean refinement and arbitrary store crash durability remain OPEN. Offline source tests, identities and recipes are not runtime controls."
+  ],
+  "execution_requirements": [
+    "No active or frozen runtime stage may change. Stage in a fresh successor over the six-control child after exact parent source inventories/pass, then append the reviewed snippet and add the diagnostic example only. Retain full parent before/after and child after; validate exact3 resources and exact2 runtime path deltas.",
+    "Complete original setup05 registry is UNRUN; all7/15 files, relation/domain/native source/setup executable/source inventory and resource receipts must pass before distinct setup. Preserve all old/failed partial03 and v1 registries.",
+    "Build/setup/control jobs are root-only after serial capture/kernel work. Same direct validated PSAPI host sampling/admission3GiB physical/1.5GiB commit and reserves1.5GiB/512MiB, task-only finite cgroup/process group/swap, one Cargo/test thread; never weaken guards.",
+    "Native setup may have large compiled relation/key/encoding allocations. Use existing guarded setup policy at least768MiB resident/8GiB task swap/7200s+200 finite cap or root-approved measured successor; no setup job is provided or launched here.",
+    "Build example under --locked --offline --profile ci -p shieldd-sdk-proof-params --example transfer_distinct_registry -j1 with exact circuits opt-level0 and retained native source inventory. Call only with exact complete registry05 and fresh distinct destination. Existing destination/staging are refused; failed owned partial staging retained.",
+    "Each named test is exact --lib -- --exact --test-threads=1 --nocapture under correctly generated SHIELDD_PARI_KEYS registry05. Distinct key test also requires SHIELDD_TRANSFER_DISTINCT_KEYS pointing only to the complete distinct native registry. Actual one test passed, intended labelled semantic failures and positive readbacks required.",
+    "Compilation, missing key/parent, loader/prover/fixture failure, timeout, OOM, zero tests or any other rejection cause is infrastructure failure, not successful control."
+  ]
+}

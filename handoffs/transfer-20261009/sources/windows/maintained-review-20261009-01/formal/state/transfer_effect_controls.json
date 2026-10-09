@@ -1,0 +1,47 @@
+{
+  "schema": "transfer-effect-test-overlay-v1",
+  "runtime_commit": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "status": "source_only_not_runtime_tested",
+  "evidence": [],
+  "resource": "state/transfer_effect_controls.rs",
+  "resource_sha256": "ae3ec39fd499b02d87b9ffc5c1d611993c7f6d572b1660592ec5f1199064cc9c",
+  "patch": "state/transfer_effect_controls.patch",
+  "patch_sha256": "3a5242f783ee65ab6a9d0f58a1386bd98dc9789acb8313aabebe958729425078",
+  "base_files": {
+    "crates/core/app/src/app/tests/proof_acceptance_tests.rs": "3feb599a15b01142d1ef8bbc9a7d83f765c415fea7352340d201db88dfc1bb32",
+    "crates/core/app/src/action_handler/transaction.rs": "4a22aae723076a7c7991b911f6327972e27dae3d1b23ca14320ca58756ca5d67",
+    "crates/core/app/src/app/delivery.rs": "2ed8fdf22fc93dbaa2b426d719b9738a32d67bf01b8c914531e3d29df3006286"
+  },
+  "patched_text_sha256": {
+    "crates/core/app/src/app/tests/proof_acceptance_tests.rs": "92387d32598ad10428a00a17c84925f60cb2a6a4dad4aed8554f504531501d0e",
+    "crates/core/app/src/action_handler/transaction.rs": "66b07cf9e76ad498f7f0875ac03d94107743af98d3e6094c2726c1e88ce79b1b",
+    "crates/core/app/src/app/delivery.rs": "b746a09574085c01025cd47455c1fd84bbca2e33e2ae1e61f6330a42af8fa415",
+    "crates/core/app/src/app/tests/proof_acceptance_tests/transfer_effect_controls.rs": "ae3ec39fd499b02d87b9ffc5c1d611993c7f6d572b1660592ec5f1199064cc9c"
+  },
+  "tests": [
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_all_slots_volume_and_fee_order",
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_daily_replay_rejects_before_spends",
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_late_failure_preserves_prior_effects_and_indexes",
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_claim_family_key_and_context_admission",
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_slot_capabilities_and_exact_cache_reuse",
+    "app::tests::proof_acceptance_tests::transfer_effect_controls::genuine_transfer_cached_artifact_rechecks_volume_and_every_spend_slot"
+  ],
+  "source_contracts": [
+    "Existing family_fixtures and setup_test_txs use full Transfer MockClient.witness_auth_build, canonical transaction decode and production delivery/admission.",
+    "cfg(test) faults are exact transaction-ID-bound and return only after production body routing/effects or production index staging; they do not replace proof verification.",
+    "The ordinary/daily replay fixture supplies fresh permanent spend nullifiers; a pre-existing same-day volume key is the intended rejection, not a changed proof.",
+    "PerTx and DeferredBatch fault snapshots compare earlier accepted effects, all permanent/pending spend slots, note/volume payload bytes, daily entry/marker reads, SCT position, routes and both index buffers.",
+    "Production Rust source-to-Lean correspondence and participating-store crash durability remain open; no abstract theorem or fingerprint is used as runtime acceptance evidence.",
+    "New admission controls use genuine full body/fee proofs, verify both positively, decode typed changed claims with unchanged original proof tails, and require exact family/relation/statement/crypto/batch errors. Public claim mutation also changes expected statement; decoder errors are not claim-binding rejection.",
+    "Actual Registry-minted capabilities permit row permutation with fixed slot keys, reject duplicate/missing/extra coverage and nonvacuous body/fee capability swaps. No fake Verified capability or proof-free builder is introduced.",
+    "A wrong registry lookup ID and same original lookup hash with changed raw bytes test exact cache comparisons only. A separately generated same-family key/registry capability rejection remains a pending control; wrong-family registry key checks only the exact relation guard.",
+    "Current setup/key validity, upstream Pari knowledge/committed binding, source/native semantics and actual production state joins remain open. These prepared controls are unbuilt and unrun; exact expected errors are required before counting runtime controls.",
+    "A genuinely delivered positive warms an exact verified cache artifact but discards its working state. Five fresh Apps over the same committed parent then independently stage the ordinary day nullifier or one of all four body/fee spend slots. Cached delivery must report the exact labelled current-state conflict, preserve the complete effect snapshot including earlier staged state, and retain the same valid stateless Arc. This is pending-block replay only; durable restart/query tests and cache-hit source refinement remain separate."
+  ],
+  "execution_requirements": [
+    "Apply only to a new mutable diagnostic stage at the exact runtime commit after checking every base file SHA256. Do not apply to the clean checkout or frozen observer stage.",
+    "Use a complete correctly generated matching registry via SHIELDD_PARI_KEYS; retain key/source/tool identities and real proof-building output.",
+    "Root owns one heavy process; run each exact named app test with finite resource caps and --test-threads=1 after current capture jobs finish.",
+    "Source-only checks do not establish test success. Only the intended labelled post-effect error or daily-volume error with unchanged snapshot counts as a runtime control."
+  ]
+}

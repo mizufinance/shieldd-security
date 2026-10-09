@@ -1,0 +1,270 @@
+{
+  "crates/crypto/circuits/src/transfer.rs": [
+    {
+      "anchor": "    let sender = compliance::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_sender_scope = crate::transfer::remaining_inspection::scope(\"sender\");\n    let sender = compliance::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let receiver = compliance::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_receiver_scope = crate::transfer::remaining_inspection::scope(\"receiver\");\n    let receiver = compliance::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let volume = volume::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_volume_scope = crate::transfer::remaining_inspection::scope(\"volume\");\n    let volume = volume::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let audit = encryption::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_encryption_scope = crate::transfer::remaining_inspection::scope(\"encryption\");\n    let audit = encryption::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let routing = routing::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_routing_scope = crate::transfer::remaining_inspection::scope(\"routing\");\n    let routing = routing::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let claimed = var(claimed_statement);",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_statement_scope = crate::transfer::remaining_inspection::scope(\"statement\");\n    let claimed = var(claimed_statement);",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let select_point = |p:",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"registry-leaf\", &[&leaf.dk.x, &leaf.dk.y, &leaf.ring.x, &leaf.ring.y, &leaf.audit.payload.x, &leaf.audit.payload.y, &leaf.audit.checking.x, &leaf.audit.checking.y, &leaf.audit.epoch, &leaf.daily_limit, &leaf.ring_id, &leaf.policy_id, &leaf.resource, &leaf.permission]);\n    let select_point = |p:",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let leaf = registry::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"shared\", &[&anchor, &asset_anchor, &compliance_anchor, &asset, &timestamp, &nonce, &blinding, regulated.var()]);\n    let leaf = registry::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_receiver_scope = crate::transfer::remaining_inspection::scope(\"receiver\");\n",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"sender-binding\", &[&sender.address.diversified.x, &sender.address.diversified.y, &sender.address.transmission.x, &sender.address.transmission.y, &sender.rnk_dh.x, &sender.rnk_dh.y, &sender.rnk_commitment, &sender.lifecycle]);\n    #[cfg(feature = \"formal-observer\")]\n    drop(_remaining_sender_scope);\n    #[cfg(feature = \"formal-observer\")]\n    let _remaining_receiver_scope = crate::transfer::remaining_inspection::scope(\"receiver\");\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let auth = authorization::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"receiver-binding\", &[&receiver.address.diversified.x, &receiver.address.diversified.y, &receiver.address.transmission.x, &receiver.address.transmission.y, &receiver.rnk_dh.x, &receiver.rnk_dh.y, &receiver.rnk_commitment, &receiver.lifecycle]);\n    #[cfg(feature = \"formal-observer\")]\n    drop(_remaining_receiver_scope);\n    let auth = authorization::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    ((volume.proof_context.clone()",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"volume-output\", &[&volume.nullifier, &volume.commitment, &volume.day_start, &volume.proof_context, volume.flagged.var()]);\n    #[cfg(feature = \"formal-observer\")]\n    drop(_remaining_volume_scope);\n    ((volume.proof_context.clone()",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let balance = balance::constrain(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"routing-output\", &[&routing.parameter_set, &routing.tags[0], &routing.tags[1], routing.swapped.var()]);\n    #[cfg(feature = \"formal-observer\")]\n    drop(_remaining_routing_scope);\n    let balance = balance::constrain(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    #[cfg(feature = \"formal-observer\")]\n    let _remaining_routing_scope = crate::transfer::remaining_inspection::scope(\"routing\");\n",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"audit-output\", &[&audit.metadata.policy.ring_id, &audit.metadata.policy.policy_id, &audit.metadata.policy.resource, &audit.metadata.policy.permission, &audit.metadata.policy.timestamp, &audit.metadata.audit_epoch]);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"published44\", &audit.fields().iter().collect::<Vec<_>>());\n    #[cfg(feature = \"formal-observer\")]\n    drop(_remaining_encryption_scope);\n    #[cfg(feature = \"formal-observer\")]\n    let _remaining_routing_scope = crate::transfer::remaining_inspection::scope(\"routing\");\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    params\n        .circuit(STATEMENT_DOMAIN, &statement.fields())\n        .assert_eq(&claimed);",
+      "replacement": "    let remaining_fields = statement.fields();\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"ordered64\", &remaining_fields.iter().collect::<Vec<_>>());\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"interface\", &[&claimed, &blinding]);\n    params\n        .circuit(STATEMENT_DOMAIN, &remaining_fields)\n        .assert_eq(&claimed);\n    #[cfg(feature = \"formal-observer\")]\n    drop(_remaining_statement_scope);",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let spend_context = note::SpendContext {",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"auth-roots\", &[&auth.nk, &auth.effective_nk, &auth.ak.x, &auth.ak.y, &rk.x, &rk.y, &randomizer]);\n    let spend_context = note::SpendContext {",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let sender_fields = address_fields(&sender.address);",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"note-slots\", &[&spends[0].nullifier, &spends[1].nullifier, &outputs[0].commitment, &outputs[0].capsule.commitment, &outputs[1].commitment, &outputs[1].capsule.commitment, &outputs[0].note.amount, &outputs[1].note.amount]);\n    let sender_fields = address_fields(&sender.address);",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let external = !same_address;\n",
+      "replacement": "    let external = !same_address;\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"external\", &[external.var(), regulated.var()]);\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let statement = Statement {",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"balance\", &[&balance.x, &balance.y]);\n    let statement = Statement {",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ],
+  "crates/crypto/circuits/src/compliance.rs": [
+    {
+      "anchor": "    let root = tree::root(ctx, params, Tree::Compliance, hash, &w.path.witness(ctx));",
+      "replacement": "    let remaining_path = w.path.witness(ctx);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"membership\", &[&hash, &remaining_path.position, asset, anchor, regulated.var()]);\n    let root = tree::root(ctx, params, Tree::Compliance, hash, &remaining_path);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"computed-root\", &[&root]);",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let bits = decompose(ctx, &leaf.lifecycle, 131);\n",
+      "replacement": "    let bits = decompose(ctx, &leaf.lifecycle, 131);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"lifecycle-bits\", &bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ],
+  "crates/crypto/circuits/src/volume.rs": [
+    {
+      "anchor": "    let use_real = BoolVar::witness(",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"shared\", &[&shared.timestamp, shared.eligible_ordinary.var(), &shared.sender_address[0], &shared.sender_address[1], &shared.sender_address[2], &shared.sender_address[3], &shared.asset, &shared.outbound, &shared.daily_limit, &shared.anchor, &shared.nk, &shared.padding_seed]);\n    let use_real = BoolVar::witness(",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    decompose(ctx, &shared.timestamp, 64);",
+      "replacement": "    let remaining_timestamp_bits = decompose(ctx, &shared.timestamp, 64);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"timestamp-bits\", &remaining_timestamp_bits.iter().map(|b|b.var()).collect::<Vec<_>>());",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    decompose(ctx, &day_index, 48);",
+      "replacement": "    let remaining_day_bits = decompose(ctx, &day_index, 48);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"day-bits\", &remaining_day_bits.iter().map(|b|b.var()).collect::<Vec<_>>());",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    decompose(ctx, &prior, 128);",
+      "replacement": "    let remaining_prior_bits = decompose(ctx, &prior, 128);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"prior-bits\", &remaining_prior_bits.iter().map(|b|b.var()).collect::<Vec<_>>());",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    decompose(ctx, &successor, 128);",
+      "replacement": "    let remaining_successor_bits = decompose(ctx, &successor, 128);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"successor-bits\", &remaining_successor_bits.iter().map(|b|b.var()).collect::<Vec<_>>());",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let within = less_or_equal_bounded(ctx, &candidate_bits, &limit_bits);\n",
+      "replacement": "    let within = less_or_equal_bounded(ctx, &candidate_bits, &limit_bits);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"controls\", &[use_real.var(), starts_new_day.var(), &proof_context, ordinary.var(), &second, &selected_day, &day_start, &subject, &prior, &successor, &candidate, within.var(), flagged.var()]);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"candidate-bits\", &candidate_bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"limit-bits\", &limit_bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"second-bits\", &seconds.iter().map(|b|b.var()).collect::<Vec<_>>());\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let day_index = var(&Scalar::from(w.timestamp_day_index));\n",
+      "replacement": "    let day_index = var(&Scalar::from(w.timestamp_day_index));\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"day-index\", &[&day_index]);\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    less_or_equal(&seconds, &last_second).assert_eq(&BoolVar::constant(true));",
+      "replacement": "    let remaining_second_within = less_or_equal(&seconds, &last_second);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"second-within\", &[remaining_second_within.var()]);\n    remaining_second_within.assert_eq(&BoolVar::constant(true));",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let ordinary = !is_fee;",
+      "replacement": "    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"context-bool\", &[&proof_context, is_fee.var()]);\n    let ordinary = !is_fee;",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ],
+  "crates/crypto/circuits/src/encryption.rs": [
+    {
+      "anchor": "        ownership: std::array::from_fn(|i| {\n",
+      "replacement": "        ownership: std::array::from_fn(|i| {\n            #[cfg(feature = \"formal-observer\")]\n            let _remaining_audit_scope = crate::transfer::remaining_inspection::scope(if i==0 {\"audit-sender\"} else {\"audit-receiver\"});\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "        let bits = scalar::canonical_bits(ctx, &var(&w.ephemeral[i]));\n",
+      "replacement": "        let bits = scalar::canonical_bits(ctx, &var(&w.ephemeral[i]));\n        #[cfg(feature = \"formal-observer\")]\n        crate::transfer::remaining_inspection::indexed(\"ephemeral-bits\", i, &bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let var = |value: &Scalar| Var::witness(ctx, |_| value.clone());\n",
+      "replacement": "    let var = |value: &Scalar| Var::witness(ctx, |_| value.clone());\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"shared\", &[shared.flagged.var(), &shared.nonce_root, &shared.asset, &shared.amount, &shared.detection_key.x, &shared.detection_key.y, &shared.audit.epoch, &shared.audit.payload.x, &shared.audit.payload.y, &shared.audit.checking.x, &shared.audit.checking.y, &shared.sender.diversified.x, &shared.sender.diversified.y, &shared.sender.transmission.x, &shared.sender.transmission.y, &shared.receiver.diversified.x, &shared.receiver.diversified.y, &shared.receiver.transmission.x, &shared.receiver.transmission.y, &shared.policy.ring_id, &shared.policy.policy_id, &shared.policy.resource, &shared.policy.permission, &shared.policy.timestamp]);\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    out.metadata.audit_epoch.assert_eq(&shared.audit.epoch);\n",
+      "replacement": "    out.metadata.audit_epoch.assert_eq(&shared.audit.epoch);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"metadata-equality-endpoints\", &[&a.ring_id, &b.ring_id, &a.policy_id, &b.policy_id, &a.resource, &b.resource, &a.permission, &b.permission, &a.timestamp, &b.timestamp, &out.metadata.audit_epoch, &shared.audit.epoch, &out.metadata.salts[0], &salts[1], &out.metadata.salts[1], &salts[2], &out.metadata.salts[2], &salts[3], &out.metadata.salts[3], &salts[4]]);\n",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ],
+  "crates/crypto/circuits/src/audit.rs": [
+    {
+      "anchor": "    let bits = scalar::canonical_bits(ctx, &var(&witness.randomness));\n",
+      "replacement": "    let bits = scalar::canonical_bits(ctx, &var(&witness.randomness));\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"randomness-bits\", &bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"binding\", &[&address.diversified.x, &address.diversified.y, &address.transmission.x, &address.transmission.y, &checking.x, &checking.y, &result.r.x, &result.r.y, &result.c.x, &result.c.y]);\n",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ],
+  "crates/crypto/circuits/src/hash.rs": [
+    {
+      "anchor": "            let recovery_call = crate::recovery::hash_inspection::start(domain, inputs);\n",
+      "replacement": "            let recovery_call = crate::recovery::hash_inspection::start(domain, inputs);\n            let remaining_call = crate::transfer::remaining_inspection::start(domain, inputs);\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "                crate::recovery::hash_inspection::state(&recovery_call, block, after, state);\n",
+      "replacement": "                crate::recovery::hash_inspection::state(&recovery_call, block, after, state);\n                crate::transfer::remaining_inspection::state(&remaining_call, block, after, state);\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "            crate::recovery::hash_inspection::finish(recovery_call, &output);\n",
+      "replacement": "            crate::recovery::hash_inspection::finish(recovery_call, &output);\n            crate::transfer::remaining_inspection::finish(remaining_call, &output);\n",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ],
+  "crates/crypto/circuits/src/tree.rs": [
+    {
+      "anchor": "        node = next;",
+      "replacement": "        #[cfg(feature = \"formal-observer\")]\n        crate::transfer::remaining_inspection::tree_level(level, &[&node, low.var(), high.var(), &siblings[0], &siblings[1], &siblings[2], &left_swap, &right_swap, &inputs[1], &inputs[2], &inputs[3], &inputs[4], &next, &path.position]);\n        node = next;",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ],
+  "crates/crypto/circuits/src/routing.rs": [
+    {
+      "anchor": "    let sender_word = params.circuit(ROUTE, &[sender.x.clone(), sender.y.clone()]);\n",
+      "replacement": "    let sender_word = params.circuit(ROUTE, &[sender.x.clone(), sender.y.clone()]);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"shared\", &[regulated.var(), change_amount, &sender.x, &sender.y, &receiver.x, &receiver.y, nonce]);\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let unregulated_bits = precision(ctx, &unregulated_value);\n",
+      "replacement": "    let unregulated_bits = precision(ctx, &unregulated_value);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"precision-values\", &[&regulated_value, &unregulated_value]);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"regulated-prefix\", &regulated_bits.iter().collect::<Vec<_>>());\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"unregulated-prefix\", &unregulated_bits.iter().collect::<Vec<_>>());\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "        let random_bits = canonical_bits(ctx, &random_word);\n",
+      "replacement": "        let random_bits = canonical_bits(ctx, &random_word);\n        #[cfg(feature = \"formal-observer\")]\n        crate::transfer::remaining_inspection::indexed(\"public-bits\", slot, &public_bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n        #[cfg(feature = \"formal-observer\")]\n        crate::transfer::remaining_inspection::indexed(\"route-bits\", slot, &route_bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n        #[cfg(feature = \"formal-observer\")]\n        crate::transfer::remaining_inspection::indexed(\"random-bits\", slot, &random_bits.iter().map(|b|b.var()).collect::<Vec<_>>());\n",
+      "kind": "replace",
+      "expected_count": 1
+    },
+    {
+      "anchor": "    let tags = w.tags.each_ref().map(var);\n",
+      "replacement": "    let tags = w.tags.each_ref().map(var);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"flags\", &[swapped.var(), meaningful[0].var(), meaningful[1].var(), &words[0], &words[1], &tags[0], &tags[1]]);\n    #[cfg(feature = \"formal-observer\")]\n    crate::transfer::remaining_inspection::values(\"active-prefix\", &active.iter().map(|b|b.var()).collect::<Vec<_>>());\n",
+      "kind": "replace",
+      "expected_count": 1
+    }
+  ]
+}

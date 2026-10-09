@@ -1,0 +1,889 @@
+//! Bounded first ownership-loop metadata; ordinary/repeated full-row parity.
+use commonware_codec::Encode;
+use commonware_cryptography::zk::circuit::CircuitIdx;
+use commonware_cryptography::zk::pari::InputLayout;
+use serde_json::{json, Value};
+use shieldd_sdk_circuits::{catalogue, proof::Family, scalar::inspection::Observed};
+use std::{
+    fs::{File, OpenOptions},
+    io::{BufReader, BufWriter, Read, Write},
+    path::{Path, PathBuf},
+};
+
+fn index(i: &CircuitIdx) -> Value {
+    match i {
+        CircuitIdx::Constant(i) => json!([0, i]),
+        CircuitIdx::Witness(i) => json!([1, i]),
+        CircuitIdx::Node(i) => json!([2, i]),
+    }
+}
+fn observed(v: &Observed) -> Value {
+    match v {
+        Observed::Source(i) => json!({"source":index(i)}),
+        Observed::Native(v) => json!({"native":hex::encode(v.encode())}),
+    }
+}
+fn pair(p: &[Observed; 2]) -> Value {
+    json!(p.iter().map(observed).collect::<Vec<_>>())
+}
+struct RowSpool {
+    path: PathBuf,
+    layout: InputLayout,
+    domain: usize,
+    digest: [u8; 32],
+    public: usize,
+    blocks: Vec<usize>,
+    rows: usize,
+}
+impl Drop for RowSpool {
+    fn drop(&mut self) {
+        let _ = std::fs::remove_file(&self.path);
+    }
+}
+impl RowSpool {
+    fn new(compiled: &catalogue::Compiled) -> anyhow::Result<Self> {
+        let suffix = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)?
+            .as_nanos();
+        let path = std::env::temp_dir().join(format!(
+            "shieldd-ownership-{}-{suffix}.rows",
+            std::process::id()
+        ));
+        let file = OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(&path)?;
+        let relation = &compiled.relation;
+        let spool = Self {
+            path,
+            layout: compiled.layout.clone(),
+            domain: relation.domain_size(),
+            digest: *relation.digest(),
+            public: relation.public_inputs(),
+            blocks: relation.blocks().to_vec(),
+            rows: relation.inspect_rows().len(),
+        };
+        let mut writer = BufWriter::new(file);
+        for (a, b) in relation.inspect_rows() {
+            for terms in [a, b] {
+                writer.write_all(&u64::try_from(terms.len())?.to_be_bytes())?;
+                for (column, coefficient) in terms {
+                    writer.write_all(&column.to_be_bytes())?;
+                    writer.write_all(&coefficient.encode())?;
+                }
+            }
+        }
+        writer.flush()?;
+        writer.get_ref().sync_all()?;
+        Ok(spool)
+    }
+    fn shape(&self) -> Value {
+        json!({"schema":"shieldd-transfer-ordered-spool-v1", "domain_size":self.domain,
+            "relation_digest":hex::encode(self.digest),"full_rows":self.rows,
+            "public_inputs":self.public,"blocks":self.blocks,
+            "source_public":self.layout.public().iter().map(index).collect::<Vec<_>>(),
+            "source_blocks":self.layout.blocks().iter().map(|block|
+                block.iter().map(index).collect::<Vec<_>>()).collect::<Vec<_>>()})
+    }
+    fn persist(&self, prefix: &str, compilation: &str) -> anyhow::Result<()> {
+        let mut source = BufReader::new(File::open(&self.path)?);
+        let mut target = OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(packet_path(prefix, "rows"))?;
+        std::io::copy(&mut source, &mut target)?;
+        target.sync_all()?;
+        let mut shape = self.shape();
+        shape["compilation"] = json!(compilation);
+        write_packet_json(prefix, "shape.json", &shape)
+    }
+    fn compare(&self, compiled: &catalogue::Compiled) -> anyhow::Result<()> {
+        let relation = &compiled.relation;
+        anyhow::ensure!(
+            self.layout == compiled.layout
+                && self.domain == relation.domain_size()
+                && self.digest == *relation.digest()
+                && self.public == relation.public_inputs()
+                && self.blocks == relation.blocks()
+                && self.rows == relation.inspect_rows().len(),
+            "ownership relation shape/digest mismatch"
+        );
+        let mut reader = BufReader::new(File::open(&self.path)?);
+        for (row, (a, b)) in relation.inspect_rows().enumerate() {
+            let mut actual = Vec::new();
+            for terms in [a, b] {
+                actual.extend_from_slice(&u64::try_from(terms.len())?.to_be_bytes());
+                for (column, coefficient) in terms {
+                    actual.extend_from_slice(&column.to_be_bytes());
+                    actual.extend_from_slice(&coefficient.encode());
+                }
+            }
+            let mut expected = vec![0; actual.len()];
+            reader.read_exact(&mut expected)?;
+            anyhow::ensure!(
+                actual == expected,
+                "ownership ordered row mismatch at {row}"
+            );
+        }
+        let mut trailing = [0];
+        anyhow::ensure!(
+            reader.read(&mut trailing)? == 0,
+            "ownership row spool trailing bytes"
+        );
+        Ok(())
+    }
+}
+fn packet_path(prefix: &str, suffix: &str) -> PathBuf {
+    PathBuf::from(format!("{prefix}.{suffix}"))
+}
+fn write_packet_json(prefix: &str, suffix: &str, value: &Value) -> anyhow::Result<()> {
+    let file = OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(packet_path(prefix, suffix))?;
+    let mut writer = BufWriter::new(file);
+    serde_json::to_writer(&mut writer, value)?;
+    writer.write_all(b"\n")?;
+    writer.flush()?;
+    writer.get_ref().sync_all()?;
+    Ok(())
+}
+fn read_packet_json(prefix: &str, suffix: &str) -> anyhow::Result<Value> {
+    let file = File::open(packet_path(prefix, suffix))?;
+    anyhow::ensure!(
+        file.metadata()?.len() <= 8 * 1024 * 1024,
+        "spool JSON size bound"
+    );
+    Ok(serde_json::from_reader(BufReader::new(file))?)
+}
+fn ensure_original_shape(shape: &Value) -> anyhow::Result<()> {
+    anyhow::ensure!(
+        shape["schema"] == "shieldd-transfer-ordered-spool-v1"
+            && shape["domain_size"] == 262144
+            && shape["full_rows"] == 200770
+            && shape["public_inputs"] == 1
+            && shape["blocks"] == json!([1])
+            && shape["relation_digest"]
+                == "16e7b009b763be55ca21f423f4f97e8c132b40b6adbcd06f6a3be17f2d0ef236",
+        "spool original Transfer identity/shape mismatch"
+    );
+    let public = shape["source_public"]
+        .as_array()
+        .ok_or_else(|| anyhow::anyhow!("spool public sources absent"))?;
+    let blocks = shape["source_blocks"]
+        .as_array()
+        .ok_or_else(|| anyhow::anyhow!("spool block sources absent"))?;
+    anyhow::ensure!(
+        public.len() == 1
+            && blocks.len() == 1
+            && blocks[0].as_array().is_some_and(|b| b.len() == 1),
+        "spool source layout shape mismatch"
+    );
+    Ok(())
+}
+fn compare_framed_rows(
+    left: &Path,
+    right: &Path,
+    rows: usize,
+    domain: usize,
+) -> anyhow::Result<()> {
+    let mut left = BufReader::new(File::open(left)?);
+    let mut right = BufReader::new(File::open(right)?);
+    for row in 0..rows {
+        for axis in 0..2 {
+            let mut a = [0u8; 8];
+            let mut b = [0u8; 8];
+            left.read_exact(&mut a)?;
+            right.read_exact(&mut b)?;
+            anyhow::ensure!(a == b, "spool row {row} axis {axis} term count mismatch");
+            let count = usize::try_from(u64::from_be_bytes(a))?;
+            anyhow::ensure!(count <= domain, "spool term count bound");
+            for term in 0..count {
+                let mut a = [0u8; 36];
+                let mut b = [0u8; 36];
+                left.read_exact(&mut a)?;
+                right.read_exact(&mut b)?;
+                anyhow::ensure!(a == b, "spool row {row} axis {axis} term {term} mismatch");
+            }
+        }
+    }
+    let mut trailing = [0];
+    anyhow::ensure!(
+        left.read(&mut trailing)? == 0 && right.read(&mut trailing)? == 0,
+        "spool row trailing bytes"
+    );
+    Ok(())
+}
+fn spool_identity(path: &Path, shape: &Value) -> anyhow::Result<String> {
+    use commonware_cryptography::blake3::CoreBlake3;
+    let mut hasher = CoreBlake3::new();
+    hasher.update(b"_COMMONWARE_CRYPTOGRAPHY_ZK_PARI_RELATION_DIGEST");
+    let domain = shape["domain_size"]
+        .as_u64()
+        .ok_or_else(|| anyhow::anyhow!("spool domain absent"))?;
+    let rows = shape["full_rows"]
+        .as_u64()
+        .ok_or_else(|| anyhow::anyhow!("spool row count absent"))?;
+    hasher.update(&domain.to_be_bytes());
+    hasher.update(&rows.to_be_bytes());
+    let hash_sources = |hasher: &mut CoreBlake3, value: &Value| -> anyhow::Result<()> {
+        let sources = value
+            .as_array()
+            .ok_or_else(|| anyhow::anyhow!("spool source array absent"))?;
+        hasher.update(&u64::try_from(sources.len())?.to_be_bytes());
+        for source in sources {
+            let source = source
+                .as_array()
+                .ok_or_else(|| anyhow::anyhow!("spool source pair absent"))?;
+            anyhow::ensure!(source.len() == 2, "spool source pair shape");
+            let tag = source[0]
+                .as_u64()
+                .ok_or_else(|| anyhow::anyhow!("spool source tag absent"))?;
+            let index = source[1]
+                .as_u64()
+                .ok_or_else(|| anyhow::anyhow!("spool source index absent"))?;
+            anyhow::ensure!(tag <= 2, "spool source tag bound");
+            hasher.update(&[u8::try_from(tag)?]);
+            hasher.update(&u32::try_from(index)?.to_be_bytes());
+        }
+        Ok(())
+    };
+    hash_sources(&mut hasher, &shape["source_public"])?;
+    let blocks = shape["source_blocks"]
+        .as_array()
+        .ok_or_else(|| anyhow::anyhow!("spool source blocks absent"))?;
+    hasher.update(&u64::try_from(blocks.len())?.to_be_bytes());
+    for block in blocks {
+        hash_sources(&mut hasher, block)?;
+    }
+    let modulus = hex::decode("73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001")?;
+    let mut reader = BufReader::new(File::open(path)?);
+    for row in 0..rows {
+        for label in [b"A", b"B"] {
+            hasher.update(label);
+            let mut count = [0u8; 8];
+            reader.read_exact(&mut count)?;
+            let size = u64::from_be_bytes(count);
+            anyhow::ensure!(size <= domain, "spool term count bound at {row}");
+            hasher.update(&count);
+            let mut previous = None;
+            for _ in 0..size {
+                let mut term = [0u8; 36];
+                reader.read_exact(&mut term)?;
+                let column = u32::from_be_bytes(term[..4].try_into()?);
+                anyhow::ensure!(
+                    u64::from(column) < domain
+                        && previous.is_none_or(|p| column > p)
+                        && term[4..].iter().any(|&b| b != 0)
+                        && &term[4..] < modulus.as_slice(),
+                    "spool noncanonical term at {row}"
+                );
+                previous = Some(column);
+                hasher.update(&term);
+            }
+        }
+    }
+    let mut trailing = [0];
+    anyhow::ensure!(reader.read(&mut trailing)? == 0, "spool row trailing bytes");
+    Ok(hex::encode(hasher.finalize().as_bytes()))
+}
+fn qualified_metadata(
+    first: &str,
+    ordinary1: &str,
+    ordinary2: &str,
+    repeated: &str,
+) -> anyhow::Result<Value> {
+    let prefixes = [first, ordinary1, ordinary2, repeated];
+    let paths = prefixes
+        .iter()
+        .map(|prefix| std::fs::canonicalize(packet_path(prefix, "rows")))
+        .collect::<std::io::Result<Vec<_>>>()?;
+    for i in 0..paths.len() {
+        anyhow::ensure!(
+            !paths[..i].contains(&paths[i]),
+            "qualification needs four distinct compilation spools"
+        );
+    }
+    let mut shapes = prefixes
+        .iter()
+        .map(|prefix| read_packet_json(prefix, "shape.json"))
+        .collect::<anyhow::Result<Vec<_>>>()?;
+    for (shape, kind) in shapes
+        .iter_mut()
+        .zip(["observer", "ordinary", "ordinary", "observer"])
+    {
+        ensure_original_shape(shape)?;
+        anyhow::ensure!(
+            shape["compilation"] == kind,
+            "spool compilation kind mismatch"
+        );
+        shape
+            .as_object_mut()
+            .ok_or_else(|| anyhow::anyhow!("spool shape is not object"))?
+            .remove("compilation");
+    }
+    anyhow::ensure!(
+        shapes.iter().all(|shape| shape == &shapes[0]),
+        "spool full source/shape mismatch"
+    );
+    anyhow::ensure!(
+        spool_identity(&paths[0], &shapes[0])? == shapes[0]["relation_digest"].as_str().unwrap(),
+        "spool bytes/source layout do not match declared original relation digest"
+    );
+    for path in &paths[1..] {
+        compare_framed_rows(&paths[0], path, 200770, 262144)?;
+    }
+    let mut pending = read_packet_json(first, "pending.json")?;
+    let repeat = read_packet_json(repeated, "pending.json")?;
+    anyhow::ensure!(pending == repeat, "repeated observer JSON mismatch");
+    anyhow::ensure!(
+        pending["ordinary_full_ordered_rows_equal"] == false
+            && pending["relation_digest"] == shapes[0]["relation_digest"]
+            && pending["domain_size"] == shapes[0]["domain_size"]
+            && pending["full_rows"] == shapes[0]["full_rows"]
+            && pending["constant_copy"] == 200692,
+        "pending observer identity/shape/parity mismatch"
+    );
+    match pending["schema"].as_str() {
+        Some("shieldd-transfer-authorization-roles-v1") => {}
+        Some("shieldd-transfer-fixed-spend-v1") => {
+            anyhow::ensure!(
+                pending["repeated_observations_equal"] == false,
+                "pending fixed repeat flag mismatch"
+            );
+            pending["repeated_observations_equal"] = json!(true);
+        }
+        _ => anyhow::bail!("unsupported pending observer schema"),
+    }
+    pending["ordinary_full_ordered_rows_equal"] = json!(true);
+    Ok(pending)
+}
+fn qualify_spools(
+    first: &str,
+    ordinary1: &str,
+    ordinary2: &str,
+    repeated: &str,
+) -> anyhow::Result<()> {
+    let metadata = qualified_metadata(first, ordinary1, ordinary2, repeated)?;
+    println!("{}", serde_json::to_string(&metadata)?);
+    Ok(())
+}
+fn main() -> anyhow::Result<()> {
+    let args: Vec<_> = std::env::args().skip(1).collect();
+    if args.len() == 2 && args[0] == "roles-spool" {
+        return capture_roles(Some(&args[1]));
+    }
+    if args.len() == 2 && args[0] == "ordinary-spool" {
+        let compiled = catalogue::compile(Family::Transfer)?;
+        let spool = RowSpool::new(&compiled)?;
+        drop(compiled);
+        ensure_original_shape(&spool.shape())?;
+        return spool.persist(&args[1], "ordinary");
+    }
+    if args.len() == 4 && args[0] == "fixed-spend-spool" {
+        return capture_fixed_spend(args[1].parse()?, args[2].parse()?, Some(&args[3]));
+    }
+    if args.len() == 5 && args[0] == "qualify-spools" {
+        return qualify_spools(&args[1], &args[2], &args[3], &args[4]);
+    }
+    if args == ["roles"] {
+        return capture_roles(None);
+    }
+    anyhow::ensure!(
+        args.is_empty() || args.len() == 2 || args.len() == 3,
+        "expected optional window-start window-count [rnk-dh]"
+    );
+    let (start, count) = if args.is_empty() {
+        (0, 16)
+    } else {
+        (args[0].parse()?, args[1].parse()?)
+    };
+    if args.len() == 3 && args[2] == "rnk-hash" {
+        anyhow::ensure!(
+            count == 1,
+            "RNK hash capture selects exactly one permutation"
+        );
+        return capture_hash(start);
+    }
+    if args.len() == 3 && args[2] == "fixed-spend" {
+        return capture_fixed_spend(start, count, None);
+    }
+    let rnk_dh = args.len() == 3;
+    anyhow::ensure!(
+        !rnk_dh || args[2] == "rnk-dh",
+        "unknown variable-loop occurrence"
+    );
+    let inspect = if rnk_dh {
+        catalogue::inspect_transfer_rnk_dh
+    } else {
+        catalogue::inspect_transfer_ownership
+    };
+    eprintln!(
+        "capture selected authorization variable loop windows {start}..{}",
+        start + count
+    );
+    let catalogue::OwnershipInspection {
+        compiled,
+        report,
+        reduction,
+        ivk_handles,
+        selected,
+        expressions,
+        constant_copy,
+        nodes,
+        window_start,
+        window_count,
+    } = inspect(start, count)?;
+    anyhow::ensure!(
+        compiled.relation.public_inputs() == 1
+            && compiled.relation.blocks() == [1]
+            && compiled.layout.public().len() == 1
+            && compiled.layout.blocks().len() == 1
+            && compiled.layout.blocks()[0].len() == 1,
+        "Transfer shape changed"
+    );
+    eprintln!("spool full ordered captured rows and release relation");
+    let spool = RowSpool::new(&compiled)?;
+    drop(compiled);
+    for _ in 0..2 {
+        eprintln!("ordinary full ordered relation comparison");
+        let ordinary = catalogue::compile(Family::Transfer)?;
+        spool.compare(&ordinary)?;
+    }
+    eprintln!("repeat ownership capture");
+    let repeated = inspect(start, count)?;
+    spool.compare(&repeated.compiled)?;
+    anyhow::ensure!(
+        repeated.report == report
+            && repeated.reduction == reduction
+            && repeated.ivk_handles == ivk_handles
+            && repeated.selected == selected
+            && repeated.expressions == expressions
+            && repeated.nodes == nodes
+            && repeated.constant_copy == constant_copy,
+        "ownership repeat mismatch"
+    );
+    drop(repeated);
+    let mut metadata = json!({
+        "schema":"shieldd-transfer-ownership-v1", "family":"transfer",
+        "scope":"bounded first ownership variable-loop observation; source/row/group joins open",
+        "relation_digest":hex::encode(spool.digest), "domain_size":spool.domain,
+        "full_rows":spool.rows, "constant_copy":constant_copy,
+        "ivk_handles":ivk_handles.iter().map(index).collect::<Vec<_>>(),
+        "remainder":index(&reduction.remainder),
+        "remainder_bits":reduction.remainder_bits.iter().map(index).collect::<Vec<_>>(),
+        "window_start":window_start, "window_count":window_count,
+        "total_windows":126,
+        "base":pair(&report.base), "twice":pair(&report.twice), "triple":pair(&report.triple),
+        "bits":report.bits.iter().map(index).collect::<Vec<_>>(),
+        "output":pair(&report.output), "target":report.target.as_ref().map(pair),
+        "windows":report.windows[start..start+count].iter().map(|w|w.iter().map(pair).collect::<Vec<_>>()).collect::<Vec<_>>(),
+        "window_bits":report.window_bits[start..start+count].iter().map(|b|b.iter().map(index).collect::<Vec<_>>()).collect::<Vec<_>>(),
+        "quotients":report.quotients[..2].iter().chain(report.quotients[2+3*start..2+3*(start+count)].iter())
+            .map(|q|q.iter().map(observed).collect::<Vec<_>>()).collect::<Vec<_>>(),
+        "expressions":selected.iter().zip(&expressions).map(|(source,terms)|json!({
+            "source":index(source), "terms":terms.iter().map(|(column,coefficient)|
+                json!([column,hex::encode(coefficient.encode())])).collect::<Vec<_>>() })).collect::<Vec<_>>(),
+        "nodes":nodes.iter().map(|(node,multiply,left,right)|json!({
+            "index":node,"multiply":multiply,"left":index(left),"right":index(right)})).collect::<Vec<_>>()
+    });
+    if rnk_dh {
+        metadata["schema"] = json!("shieldd-transfer-rnk-dh-v1");
+        metadata["scope"] = json!("bounded RNK-DH variable-loop observation; hash references are boundary-only; source/row/group joins open");
+        metadata.as_object_mut().unwrap().remove("target");
+        metadata["nonidentity_inverse"] = observed(report.nonidentity_inverse.as_ref().unwrap());
+        let bindings = report.rnk.as_ref().unwrap();
+        metadata["rnk_bindings"] = json!({
+            "inputs":bindings.inputs.iter().map(observed).collect::<Vec<_>>(),
+            "hash":observed(&bindings.hash), "commitment":observed(&bindings.commitment),
+            "regulated":observed(&bindings.regulated), "registered":observed(&bindings.registered),
+            "effective_nk":observed(&bindings.effective_nk)
+        });
+    }
+    println!("{}", serde_json::to_string(&metadata)?);
+    Ok(())
+}
+
+fn capture_fixed_spend(start: usize, count: usize, spill: Option<&str>) -> anyhow::Result<()> {
+    eprintln!(
+        "capture bounded spend fixed-loop windows {start}..{}",
+        start + count
+    );
+    let catalogue::FixedSpendInspection {
+        compiled,
+        report,
+        canonical_endpoint,
+        canonical_steps,
+        selected,
+        expressions,
+        constant_copy,
+    } = catalogue::inspect_transfer_fixed_spend(start, count)?;
+    anyhow::ensure!(
+        compiled.relation.public_inputs() == 1
+            && compiled.relation.blocks() == [1]
+            && compiled.layout.public().len() == 1
+            && compiled.layout.blocks().len() == 1
+            && compiled.layout.blocks()[0].len() == 1,
+        "Transfer shape changed"
+    );
+    let spool = RowSpool::new(&compiled)?;
+    anyhow::ensure!(
+        hex::encode(spool.digest)
+            == "16e7b009b763be55ca21f423f4f97e8c132b40b6adbcd06f6a3be17f2d0ef236"
+            && spool.domain == 262144
+            && spool.rows == 200770
+            && constant_copy == 200692,
+        "fixed capture differs from original Transfer relation identity/shape"
+    );
+    drop(compiled);
+    if let Some(prefix) = spill {
+        spool.persist(prefix, "observer")?;
+    }
+    if spill.is_none() {
+        for _ in 0..2 {
+            eprintln!("ordinary full ordered relation comparison");
+            let ordinary = catalogue::compile(Family::Transfer)?;
+            spool.compare(&ordinary)?;
+        }
+        eprintln!("repeat bounded fixed-loop capture");
+        let repeated = catalogue::inspect_transfer_fixed_spend(start, count)?;
+        spool.compare(&repeated.compiled)?;
+        anyhow::ensure!(
+            repeated.report == report
+                && repeated.canonical_endpoint == canonical_endpoint
+                && repeated.canonical_steps == canonical_steps
+                && repeated.selected == selected
+                && repeated.expressions == expressions
+                && repeated.constant_copy == constant_copy,
+            "fixed spend repeat mismatch"
+        );
+        drop(repeated);
+    }
+    let metadata = json!({
+        "schema":"shieldd-transfer-fixed-spend-v1", "family":"transfer",
+        "scope":"bounded actual ascending fixed-window arithmetic and LCs; canonical randomizer/native semantic joins open",
+        "relation_digest":hex::encode(spool.digest), "domain_size":spool.domain,
+        "full_rows":spool.rows, "constant_copy":constant_copy,
+        "ordinary_full_ordered_rows_equal":spill.is_none(), "repeated_observations_equal":spill.is_none(),
+        "window_start":report.window_start, "window_count":report.window_count, "total_windows":126,
+        "randomizer":observed(&report.randomizer), "generator":pair(&report.generator),
+        "bits":report.bits.iter().map(index).collect::<Vec<_>>(), "output":pair(&report.output),
+        "canonical":{"endpoint":index(&canonical_endpoint),
+            "steps":canonical_steps.iter().map(|step|step.iter().map(observed).collect::<Vec<_>>()).collect::<Vec<_>>()},
+        "windows":report.windows.iter().map(|window| json!({
+            "bits":window.bits.iter().map(index).collect::<Vec<_>>(),
+            "table":window.table.iter().map(pair).collect::<Vec<_>>(),
+            "points":window.points.iter().map(pair).collect::<Vec<_>>(),
+            "arithmetic":window.arithmetic.iter().map(observed).collect::<Vec<_>>(),
+            "quotient":window.quotient.iter().map(observed).collect::<Vec<_>>()
+        })).collect::<Vec<_>>(),
+        "expressions":selected.iter().zip(&expressions).map(|(source, terms)| json!({
+            "source":index(source), "terms":terms.iter().map(|(column, coefficient)|
+                json!([column, hex::encode(coefficient.encode())])).collect::<Vec<_>>()
+        })).collect::<Vec<_>>()
+    });
+    if let Some(prefix) = spill {
+        write_packet_json(prefix, "pending.json", &metadata)?;
+    } else {
+        println!("{}", serde_json::to_string(&metadata)?);
+    }
+    Ok(())
+}
+
+fn capture_roles(spill: Option<&str>) -> anyhow::Result<()> {
+    eprintln!("capture Transfer caller/spend authorization boundary roles");
+    let catalogue::TransferRoleInspection {
+        compiled,
+        report,
+        rnk,
+        ivk_handles,
+        selected,
+        expressions,
+        constant_copy,
+    } = catalogue::inspect_transfer_roles()?;
+    anyhow::ensure!(
+        compiled.relation.public_inputs() == 1
+            && compiled.relation.blocks() == [1]
+            && compiled.layout.public().len() == 1
+            && compiled.layout.blocks().len() == 1
+            && compiled.layout.blocks()[0].len() == 1,
+        "Transfer shape changed"
+    );
+    let spool = RowSpool::new(&compiled)?;
+    drop(compiled);
+    if let Some(prefix) = spill {
+        ensure_original_shape(&spool.shape())?;
+        anyhow::ensure!(
+            constant_copy == 200692,
+            "original Transfer constant-copy changed"
+        );
+        spool.persist(prefix, "observer")?;
+    }
+    if spill.is_none() {
+        for _ in 0..2 {
+            eprintln!("ordinary full ordered relation comparison");
+            let ordinary = catalogue::compile(Family::Transfer)?;
+            spool.compare(&ordinary)?;
+        }
+        eprintln!("repeat Transfer authorization role capture");
+        let repeated = catalogue::inspect_transfer_roles()?;
+        spool.compare(&repeated.compiled)?;
+        anyhow::ensure!(
+            repeated.report == report
+                && repeated.rnk == rnk
+                && repeated.ivk_handles == ivk_handles
+                && repeated.selected == selected
+                && repeated.expressions == expressions
+                && repeated.constant_copy == constant_copy,
+            "authorization roles repeat mismatch"
+        );
+        drop(repeated);
+    }
+    let a = &report.caller;
+    let s = &report.spend;
+    let metadata = json!({
+        "schema":"shieldd-transfer-authorization-roles-v1","family":"transfer",
+        "scope":"existing caller/spend authorization boundaries and LCs only; source/row/native semantic joins open",
+        "relation_digest":hex::encode(spool.digest),"domain_size":spool.domain,
+        "full_rows":spool.rows,"constant_copy":constant_copy,"ordinary_full_ordered_rows_equal":spill.is_none(),
+        "ivk_handles":ivk_handles.iter().map(index).collect::<Vec<_>>(),
+        "caller":{"regulated":observed(&a.regulated),"asset":observed(&a.asset),
+            "leaf_ring":pair(&a.leaf_ring),"fixed_ring":pair(&a.fixed_ring),"selected_ring":pair(&a.selected_ring),
+            "address":a.address.iter().map(observed).collect::<Vec<_>>(),"rnk_dh":pair(&a.rnk_dh),
+            "registered_rnk":observed(&a.registered_rnk),"ak":pair(&a.ak),
+            "nk":observed(&a.nk),"effective_nk":observed(&a.effective_nk)},
+        "spend":{"ak":pair(&s.ak),"randomizer":observed(&s.randomizer),
+            "bits":s.bits.iter().map(index).collect::<Vec<_>>(),"generator":pair(&s.generator),
+            "contribution":pair(&s.contribution),"computed":pair(&s.computed),"rk":pair(&s.rk)},
+        "rnk_bindings":{"inputs":rnk.inputs.iter().map(observed).collect::<Vec<_>>(),
+            "hash":observed(&rnk.hash),"commitment":observed(&rnk.commitment),
+            "regulated":observed(&rnk.regulated),"registered":observed(&rnk.registered),
+            "effective_nk":observed(&rnk.effective_nk)},
+        "expressions":selected.iter().zip(&expressions).map(|(source,terms)|json!({
+            "source":index(source),"terms":terms.iter().map(|(column,coefficient)|
+                json!([column,hex::encode(coefficient.encode())])).collect::<Vec<_>>()
+        })).collect::<Vec<_>>()
+    });
+    if let Some(prefix) = spill {
+        write_packet_json(prefix, "pending.json", &metadata)?;
+    } else {
+        println!("{}", serde_json::to_string(&metadata)?);
+    }
+    Ok(())
+}
+
+fn capture_hash(block: usize) -> anyhow::Result<()> {
+    eprintln!("capture RNK/commitment permutation {block}");
+    let catalogue::RnkHashInspection {
+        compiled,
+        block,
+        hashes,
+        rnk,
+        ivk_handles,
+        selected,
+        expressions,
+        constant_copy,
+        nodes,
+    } = catalogue::inspect_transfer_rnk_hash(block)?;
+    anyhow::ensure!(
+        compiled.relation.public_inputs() == 1
+            && compiled.relation.blocks() == [1]
+            && compiled.layout.public().len() == 1
+            && compiled.layout.blocks().len() == 1
+            && compiled.layout.blocks()[0].len() == 1,
+        "Transfer shape changed"
+    );
+    let spool = RowSpool::new(&compiled)?;
+    drop(compiled);
+    for _ in 0..2 {
+        eprintln!("ordinary full ordered relation comparison");
+        let ordinary = catalogue::compile(Family::Transfer)?;
+        spool.compare(&ordinary)?;
+    }
+    eprintln!("repeat selected hash permutation capture");
+    let repeated = catalogue::inspect_transfer_rnk_hash(block)?;
+    spool.compare(&repeated.compiled)?;
+    anyhow::ensure!(
+        repeated.block == block
+            && repeated.hashes == hashes
+            && repeated.rnk == rnk
+            && repeated.ivk_handles == ivk_handles
+            && repeated.selected == selected
+            && repeated.expressions == expressions
+            && repeated.nodes == nodes
+            && repeated.constant_copy == constant_copy,
+        "RNK hash repeat mismatch"
+    );
+    drop(repeated);
+    let metadata = json!({
+        "schema":"shieldd-transfer-rnk-hash-block-v1","family":"transfer",
+        "scope":"one existing permutation cone; before states are after absorption; other boundaries have LCs only; semantic joins open",
+        "relation_digest":hex::encode(spool.digest),"domain_size":spool.domain,
+        "full_rows":spool.rows,"constant_copy":constant_copy,
+        "ordinary_full_ordered_rows_equal":true,"block":block,
+        "ivk_handles":ivk_handles.iter().map(index).collect::<Vec<_>>(),
+        "hashes":hashes.iter().map(|hash|json!({"domain":hash.domain,
+            "inputs":hash.inputs.iter().map(observed).collect::<Vec<_>>(),"output":observed(&hash.output),
+            "blocks":hash.blocks.iter().map(|block|json!({
+                "before":block.before.iter().map(observed).collect::<Vec<_>>(),
+                "after":block.after.iter().map(observed).collect::<Vec<_>>()
+            })).collect::<Vec<_>>()
+        })).collect::<Vec<_>>(),
+        "rnk_bindings":{"inputs":rnk.inputs.iter().map(observed).collect::<Vec<_>>(),
+            "hash":observed(&rnk.hash),"commitment":observed(&rnk.commitment),
+            "regulated":observed(&rnk.regulated),"registered":observed(&rnk.registered),
+            "effective_nk":observed(&rnk.effective_nk)},
+        "expressions":selected.iter().zip(&expressions).map(|(source,terms)|json!({
+            "source":index(source),"terms":terms.iter().map(|(column,coefficient)|
+                json!([column,hex::encode(coefficient.encode())])).collect::<Vec<_>>()
+        })).collect::<Vec<_>>(),
+        "nodes":nodes.iter().map(|(node,multiply,left,right)|json!({
+            "index":node,"multiply":multiply,"left":index(left),"right":index(right)
+        })).collect::<Vec<_>>()
+    });
+    println!("{}", serde_json::to_string(&metadata)?);
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn framed_comparison_observes_semantic_failures() {
+        use super::*;
+        let suffix = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let directory = std::env::temp_dir().join(format!(
+            "shieldd-framed-test-{}-{suffix}",
+            std::process::id()
+        ));
+        std::fs::create_dir(&directory).unwrap();
+        let left = directory.join("left.rows");
+        let right = directory.join("right.rows");
+        let row = |column: u32| {
+            let mut value = 1u64.to_be_bytes().to_vec();
+            value.extend_from_slice(&column.to_be_bytes());
+            value.extend_from_slice(&[0u8; 31]);
+            value.push(1);
+            value.extend_from_slice(&0u64.to_be_bytes());
+            value
+        };
+        let mut bytes = row(3);
+        bytes.extend(row(4));
+        std::fs::write(&left, &bytes).unwrap();
+        std::fs::write(&right, &bytes).unwrap();
+        compare_framed_rows(&left, &right, 2, 8).unwrap();
+        let mut reordered = row(4);
+        reordered.extend(row(3));
+        let mut changed = bytes.clone();
+        changed[43] = 2;
+        let mut trailing = bytes.clone();
+        trailing.push(0);
+        for invalid in [
+            reordered,
+            changed,
+            bytes[..bytes.len() - 1].to_vec(),
+            trailing,
+        ] {
+            std::fs::write(&right, invalid).unwrap();
+            assert!(compare_framed_rows(&left, &right, 2, 8).is_err());
+        }
+        let shape = json!({"domain_size":8,"full_rows":2,"source_public":[[1,0]],"source_blocks":[[[1,1]]]});
+        let digest = spool_identity(&left, &shape).unwrap();
+        let mut changed_shape = shape.clone();
+        changed_shape["source_public"] = json!([[1, 2]]);
+        assert_ne!(digest, spool_identity(&left, &changed_shape).unwrap());
+        let mut noncanonical = bytes.clone();
+        noncanonical[12..44].fill(0);
+        std::fs::write(&right, noncanonical).unwrap();
+        assert!(spool_identity(&right, &shape).is_err());
+        std::fs::remove_dir_all(directory).unwrap();
+    }
+    use super::*;
+    use commonware_cryptography::{
+        bls12381::primitives::group::Scalar,
+        zk::{
+            circuit::{self, Var},
+            pari::Relation,
+        },
+    };
+    fn tiny() -> catalogue::Compiled {
+        let (c, returned) = circuit::build(|ctx| {
+            let x = Var::witness(ctx, |_| Scalar::from(3));
+            let y = Var::witness(ctx, |_| Scalar::from(4));
+            (x.clone() * &y).assert_eq(&Var::native(Scalar::from(12)));
+            vec![x, y]
+        });
+        let layout = InputLayout::new(vec![returned[0]], vec![vec![returned[1]]]).unwrap();
+        let relation = Relation::compile(&c, &layout).unwrap();
+        catalogue::Compiled {
+            family: Family::Transfer,
+            relation,
+            layout,
+        }
+    }
+    #[test]
+    fn exact_ordered_spool_rejects_corruption_truncation_and_trailing_bytes() {
+        let compiled = tiny();
+        let spool = RowSpool::new(&compiled).unwrap();
+        spool.compare(&compiled).unwrap();
+        let original = std::fs::read(&spool.path).unwrap();
+        let mut offset = 0;
+        let mut ranges = Vec::new();
+        for _ in 0..spool.rows {
+            let start = offset;
+            for _ in 0..2 {
+                let count =
+                    u64::from_be_bytes(original[offset..offset + 8].try_into().unwrap()) as usize;
+                offset += 8 + count * 36;
+            }
+            ranges.push(start..offset);
+        }
+        assert_eq!(offset, original.len());
+        assert!(ranges.len() > 1);
+        let last = ranges.len() - 1;
+        assert_ne!(
+            &original[ranges[0].clone()],
+            &original[ranges[last].clone()]
+        );
+        let mut reordered = original[ranges[last].clone()].to_vec();
+        for range in &ranges[1..last] {
+            reordered.extend_from_slice(&original[range.clone()]);
+        }
+        reordered.extend_from_slice(&original[ranges[0].clone()]);
+        std::fs::write(&spool.path, &reordered).unwrap();
+        assert!(spool
+            .compare(&compiled)
+            .unwrap_err()
+            .to_string()
+            .contains("ownership ordered row mismatch"));
+        let mut corrupted = original.clone();
+        let last = corrupted.len() - 1;
+        corrupted[last] ^= 1;
+        std::fs::write(&spool.path, &corrupted).unwrap();
+        assert!(spool
+            .compare(&compiled)
+            .unwrap_err()
+            .to_string()
+            .contains("ownership ordered row mismatch"));
+        std::fs::write(&spool.path, &original[..original.len() - 1]).unwrap();
+        let truncated = spool.compare(&compiled).unwrap_err();
+        assert_eq!(
+            truncated.downcast_ref::<std::io::Error>().unwrap().kind(),
+            std::io::ErrorKind::UnexpectedEof
+        );
+        let mut trailing = original.clone();
+        trailing.push(0);
+        std::fs::write(&spool.path, &trailing).unwrap();
+        assert_eq!(
+            spool.compare(&compiled).unwrap_err().to_string(),
+            "ownership row spool trailing bytes"
+        );
+        std::fs::write(&spool.path, &original).unwrap();
+        spool.compare(&compiled).unwrap();
+        let path = spool.path.clone();
+        drop(spool);
+        assert!(!path.exists());
+    }
+}

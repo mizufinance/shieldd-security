@@ -1,0 +1,119 @@
+name: security
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      runtime_replay:
+        type: boolean
+        default: false
+        description: Generate a complete development registry and run real cache/durability replay
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  policy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Exact historical blobs are checked by the recovery inventory.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - run: python -m unittest discover -s tests
+      - run: python security.py check
+  pilots:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    env:
+      LEAN_NUM_THREADS: '1'
+      CARGO_BUILD_JOBS: '2'
+      RAYON_NUM_THREADS: '2'
+      CXX: g++-13
+      CARGO_TARGET_DIR: ${{ github.workspace }}/.cache/cargo-target
+      SHIELDD_PARI_KEYS: ${{ github.workspace }}/.work/pari-keys
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Read immutable runtime pin
+        id: runtime
+        run: echo "sha=$(python -c 'import security; print(security.locked_sha())')" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          repository: mizufinance/shieldd
+          fetch-depth: 0
+          ref: ${{ steps.runtime.outputs.sha }}
+          path: .work/shieldd-current
+          token: ${{ secrets.SHIELDD_READ_TOKEN || github.token }}
+          persist-credentials: false
+      - name: Install Linux compiler dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang lld libclang-dev g++-13 cmake pkg-config libssl-dev protobuf-compiler zstd
+          rustup toolchain install 1.95.0 --profile minimal
+      - name: Install exact Lean and narrow mathlib cache
+        timeout-minutes: 30
+        run: |
+          curl --fail --location https://github.com/leanprover/lean4/releases/download/v4.30.0/lean-4.30.0-linux.tar.zst -o .work/lean.tar.zst
+          echo '4dad74141c2c119ca1aa626656be83b8e14238afba97271fd7bf1eb3f081b319  .work/lean.tar.zst' | sha256sum --check
+          tar --zstd -xf .work/lean.tar.zst -C .work
+          export PATH="$GITHUB_WORKSPACE/.work/lean-4.30.0-linux/bin:$PATH"
+          echo "$GITHUB_WORKSPACE/.work/lean-4.30.0-linux/bin" >> "$GITHUB_PATH"
+          cd circuits
+          MATHLIB_NO_CACHE_ON_UPDATE=1 lake update
+          git diff --exit-code -- lake-manifest.json lean-toolchain
+          lake exe cache get Mathlib.Algebra.Field.Basic Mathlib.Tactic.Ring.RingNF Mathlib.Algebra.CharP.Defs Mathlib.Data.Int.Basic Mathlib.Algebra.Group.Basic
+      - name: Handwritten Transfer semantics, component proofs and theorem audits
+        timeout-minutes: 15
+        run: python security.py check --handwritten-transfer
+      - name: Install locked model checker
+        run: |
+          mkdir -p .work/quint .work/quint-home/apalache-dist-0.56.1
+          cp state/package.json state/package-lock.json .work/quint/
+          npm ci --prefix .work/quint
+          curl --fail --location https://github.com/apalache-mc/apalache/releases/download/v0.56.1/apalache.tgz -o .work/apalache.tgz
+          echo '91125e5a3646b9c9d3a7d921d3323f321fac5071909f72b3960c66ff2f998ee1  .work/apalache.tgz' | sha256sum --check
+          tar -xzf .work/apalache.tgz -C .work/quint-home/apalache-dist-0.56.1
+      - name: Actual circuit arithmetic proof and controls
+        timeout-minutes: 90
+        run: python security.py circuits
+      - name: Finite snapshot model and controls
+        timeout-minutes: 10
+        run: python security.py state --model-only
+      - name: Generate complete development registry
+        timeout-minutes: 90
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_replay }}
+        working-directory: .work/shieldd-current
+        run: cargo run --locked --profile ci -p shieldd-sdk-proof-params --example pari_setup -- "$SHIELDD_PARI_KEYS"
+      - name: Compile real runtime replay tests
+        timeout-minutes: 60
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_replay }}
+        working-directory: .work/shieldd-current
+        run: cargo test --locked --profile ci -p shieldd-sdk-app --lib --no-run
+      - name: Real Rust trace, cache and durability replay
+        timeout-minutes: 35
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.runtime_replay }}
+        run: python security.py state
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scoped-security-evidence
+          path: |
+            .work/results/
+            .work/circuits/
+            .work/state/*.log
+            .work/state/traces.json
+          if-no-files-found: warn

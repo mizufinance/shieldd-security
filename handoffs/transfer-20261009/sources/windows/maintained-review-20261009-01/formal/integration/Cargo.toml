@@ -1,0 +1,65 @@
+[package]
+name = "shieldd-security-replay"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[features]
+# Local diagnostic selection only. The current-source staged build explicitly
+# enables shieldd-sdk-circuits/formal-observer; historical sources lack it.
+formal-observer = []
+
+[[bin]]
+name = "transfer-ownership-inspection"
+path = "src/bin/transfer-ownership-inspection.rs"
+required-features = ["formal-observer"]
+
+[[bin]]
+name = "transfer-ak-subgroup-inspection"
+path = "src/bin/transfer-ak-subgroup-inspection.rs"
+required-features = ["formal-observer"]
+
+[[bin]]
+name = "transfer-relation"
+path = "src/bin/transfer-relation.rs"
+required-features = ["formal-observer"]
+
+[[bin]]
+name = "transfer-balance-inspection"
+path = "src/bin/transfer-balance-inspection.rs"
+required-features = ["formal-observer"]
+
+[[bin]]
+name = "transfer-canonical-balance-inspection"
+path = "src/bin/transfer-canonical-balance-inspection.rs"
+required-features = ["formal-observer"]
+
+[[bin]]
+name = "transfer-ivk-inspection"
+path = "src/bin/transfer-ivk-inspection.rs"
+required-features = ["formal-observer"]
+
+[[bin]]
+name = "transfer-ivk-reduction-inspection"
+path = "src/bin/transfer-ivk-reduction-inspection.rs"
+required-features = ["formal-observer"]
+
+[dependencies]
+shieldd-sdk-circuits = { path = "../.work/shieldd-current/crates/crypto/circuits" }
+shieldd-sdk-crypto = { path = "../.work/shieldd-current/crates/crypto/primitives" }
+commonware-cryptography = { path = "../.work/shieldd-current/third_party/commonware/cryptography", default-features = false, features = ["std", "bls12381"] }
+commonware-codec = { path = "../.work/shieldd-current/third_party/commonware/codec" }
+commonware-math = { path = "../.work/shieldd-current/third_party/commonware/math" }
+serde_json = "1"
+serde = { version = "1.0.219", features = ["derive"] }
+rand10 = { package = "rand", version = "=0.10.2" }
+hex = "0.4"
+syn = { version = "=2.0.119", features = ["full", "parsing"] }
+anyhow = "1"
+
+[workspace]
+
+[profile.ci]
+inherits = "release"
+debug-assertions = true
+codegen-units = 16

@@ -1,0 +1,168 @@
+theory OrbisPreLifecycle
+begin
+
+/*
+  UNQUALIFIED source-backed lifecycle slice, orbis-rs 0a0f935.
+  No Tamarin execution or runtime replay result is asserted by this file.
+
+  Sources: bin/orbis-node/src/pre/v0/{service.rs,coordinator/handlers.rs},
+  helpers/jti_replay.rs, app_state.rs. The entrypoint and each responder share
+  the same node-local guard. ACP runs before insertion; crypto errors after
+  insertion consume the token. Restart and live-entry eviction lose protection.
+
+  Scope: exact signed claims and per-node resident replay state only. Ideal
+  signatures represent JWT authentication; byte codecs/DID resolution and time
+  checks require real replay. No BLS/Jubjub/PET, DKG, threshold aggregation,
+  response signature, reader secrecy or global authorization theorem is claimed.
+  The next model increment must map those actual primitives separately.
+
+  ACPAllow/ACPReject are explicit backend decisions for the exact node/claims.
+  An attacker may control the backend in this model: no desired authorization
+  property is smuggled in as a restriction. Emission below is just the observed
+  handler completion event; its bytes and cryptography are outside this slice.
+
+  Track models absence of one token entry before its first observed use in a
+  boot. The uniqueness restriction is cache initialization, not anti-replay.
+  CapacityEviction abstracts other accepted tokens filling the bounded cache;
+  its reachability must be replayed with the real capped guard. This is not a
+  count/expiry-order model of MAX_JTI_ENTRIES. Token validity and ACP revocation
+  are independent environmental transitions, not verified policy freshness.
+*/
+
+builtins: signing
+
+rule NewNode:
+  [ Fr(~node), Fr(~boot) ]
+  --[ NodeStarted(~node, ~boot) ]->
+  [ !Node(~node), Live(~node, ~boot), Out(~node) ]
+
+rule RestartNode:
+  [ Live(node, boot), Fr(~next) ]
+  --[ Restarted(node, boot, ~next) ]->
+  [ Live(node, ~next) ]
+
+rule IssueRequestToken:
+  let claims = <reader, object, derivation, salt, actor>
+      body = <'pre', ~jti, claims>
+  in
+  [ Fr(~issuer), Fr(~jti), In(claims) ]
+  --[ TokenIssued(~jti, claims, pk(~issuer)) ]->
+  [ !Token(~jti, claims, pk(~issuer)), TokenValid(~jti),
+    Out(<body, sign(body, ~issuer), pk(~issuer)>) ]
+
+rule ExpireToken:
+  [ TokenValid(jti) ]
+  --[ TokenExpired(jti) ]->
+  [ ]
+
+rule TrackTokenInBoot:
+  [ Live(node, boot), !Token(jti, claims, issuer) ]
+  --[ Track(node, boot, jti) ]->
+  [ Live(node, boot), Cell(node, boot, jti, 'absent') ]
+
+restriction UniqueTracking:
+  "All node boot jti #i #j.
+     Track(node, boot, jti)@i & Track(node, boot, jti)@j ==> #i = #j"
+
+// Equality is the ordinary signature verification result, not an imported
+// 'proof was honestly generated' restriction.
+restriction Equality:
+  "All x y #i. Eq(x,y)@i ==> x = y"
+
+rule ValidateSignedClaims:
+  let body = <'pre', jti, claims>
+  in
+  [ Live(node, boot), TokenValid(jti), !Token(jti, claims, issuer),
+    In(<body, signature, issuer>), Fr(~request) ]
+  --[ Eq(verify(signature, body, issuer), true),
+      ClaimsValidated(node, boot, ~request, jti, claims) ]->
+  [ Live(node, boot), TokenValid(jti),
+    Validated(node, boot, ~request, jti, claims) ]
+
+rule ACPAllows:
+  [ Live(node, boot), Validated(node, boot, request, jti, claims),
+    In(<'acp_allow', node, claims>) ]
+  --[ ACPAllowed(node, boot, request, jti, claims) ]->
+  [ Live(node, boot), Checked(node, boot, request, jti, claims) ]
+
+rule ACPDenies:
+  [ Live(node, boot), Validated(node, boot, request, jti, claims),
+    In(<'acp_deny', node, claims>) ]
+  --[ ACPDenied(node, boot, request, jti, claims) ]->
+  [ Live(node, boot) ]
+
+rule ConsumeJti:
+  [ Live(node, boot), Checked(node, boot, request, jti, claims),
+    Cell(node, boot, jti, 'absent') ]
+  --[ JtiRecorded(node, boot, request, jti, claims) ]->
+  [ Live(node, boot), Cell(node, boot, jti, 'resident'),
+    AfterGuard(node, boot, request, jti, claims) ]
+
+rule RejectResidentReplay:
+  [ Live(node, boot), Checked(node, boot, request, jti, claims),
+    Cell(node, boot, jti, 'resident') ]
+  --[ ReplayRejected(node, boot, request, jti, claims) ]->
+  [ Live(node, boot), Cell(node, boot, jti, 'resident') ]
+
+rule CapacityEviction:
+  [ Live(node, boot), Cell(node, boot, jti, 'resident'),
+    In(<'authorized_capacity_pressure', node, jti>) ]
+  --[ EntryEvicted(node, boot, jti) ]->
+  [ Live(node, boot), Cell(node, boot, jti, 'absent') ]
+
+rule CryptographicOrStorageFailure:
+  [ Live(node, boot), AfterGuard(node, boot, request, jti, claims) ]
+  --[ PostGuardFailure(node, boot, request, jti, claims) ]->
+  [ Live(node, boot) ]
+
+rule HandlerCompleted:
+  [ Live(node, boot), AfterGuard(node, boot, request, jti, claims) ]
+  --[ HandlerResponse(node, boot, request, jti, claims) ]->
+  [ Live(node, boot), Out(<'handler_completed', node, request>) ]
+
+lemma completion_requires_prior_local_decision_and_consumption:
+  "All node boot request jti claims #r.
+    HandlerResponse(node,boot,request,jti,claims)@r ==>
+      (Ex #v #a #c.
+        ClaimsValidated(node,boot,request,jti,claims)@v &
+        ACPAllowed(node,boot,request,jti,claims)@a &
+        JtiRecorded(node,boot,request,jti,claims)@c & #v < #a & #a < #c & #c < #r)"
+
+lemma same_boot_readmission_requires_eviction:
+  "All node boot first second jti claims #i #j.
+    JtiRecorded(node,boot,first,jti,claims)@i &
+    JtiRecorded(node,boot,second,jti,claims)@j & #i < #j ==>
+      (Ex #e. EntryEvicted(node,boot,jti)@e & #i < #e & #e < #j)"
+
+lemma failure_can_consume_token:
+  exists-trace
+  "Ex node boot first second jti claims #f #r.
+    PostGuardFailure(node,boot,first,jti,claims)@f &
+    ReplayRejected(node,boot,second,jti,claims)@r & #f < #r"
+
+lemma restart_can_reopen_replay:
+  exists-trace
+  "Ex node old next first second jti claims #i #s #j.
+    JtiRecorded(node,old,first,jti,claims)@i & Restarted(node,old,next)@s &
+    JtiRecorded(node,next,second,jti,claims)@j & #i < #s & #s < #j"
+
+lemma eviction_can_reopen_replay:
+  exists-trace
+  "Ex node boot first second jti claims #i #e #j.
+    JtiRecorded(node,boot,first,jti,claims)@i & EntryEvicted(node,boot,jti)@e &
+    JtiRecorded(node,boot,second,jti,claims)@j & #i < #e & #e < #j"
+
+lemma another_node_can_accept_same_token:
+  exists-trace
+  "Ex first_node second_node first_boot second_boot first second jti claims #i #j.
+    JtiRecorded(first_node,first_boot,first,jti,claims)@i &
+    JtiRecorded(second_node,second_boot,second,jti,claims)@j &
+    not (first_node = second_node)"
+
+lemma token_can_expire_after_validation_before_response:
+  exists-trace
+  "Ex node boot request jti claims #v #e #r.
+    ClaimsValidated(node,boot,request,jti,claims)@v & TokenExpired(jti)@e &
+    HandlerResponse(node,boot,request,jti,claims)@r & #v < #e & #e < #r"
+
+end
