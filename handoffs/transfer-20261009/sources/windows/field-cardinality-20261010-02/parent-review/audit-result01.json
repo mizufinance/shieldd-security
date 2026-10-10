@@ -1,0 +1,1779 @@
+{
+  "classification": "independent parent parsing of sealed existing sources and compiler diagnostics; no Lean replay",
+  "manifest_files_rehashed": 160,
+  "modules": [
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "ModularPower",
+      "source": {
+        "bytes": 3273,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-modular-power-field-20261010-01\\project\\ShielddSecurity\\ModularPower.lean",
+        "sha256": "21c2067094b49fb7b994f19eb31d2c079ba0eb8e0440c0ae9578ab7e91544201"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.ModularPower.power",
+          "full_type": "ShielddSecurity.ModularPower.power : (modulus base exponent : Nat) \u2192 Nat",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.ModularPower.power_lt",
+          "full_type": "ShielddSecurity.ModularPower.power_lt : \u2200 (modulus base exponent : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) modulus),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.ModularPower.power modulus base exponent) modulus",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.ModularPower.power_sound",
+          "full_type": "ShielddSecurity.ModularPower.power_sound : \u2200 (modulus base exponent : Nat),\n  @Eq.{1} (ZMod modulus)\n    (@Nat.cast.{0} (ZMod modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod modulus) (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))\n      (ShielddSecurity.ModularPower.power modulus base exponent))\n    (@HPow.hPow.{0, 0, 0} (ZMod modulus) Nat (ZMod modulus)\n      (@instHPow.{0, 0} (ZMod modulus) Nat\n        (@Monoid.toPow.{0} (ZMod modulus)\n          (@Semiring.toMonoid.{0} (ZMod modulus)\n            (@CommSemiring.toSemiring.{0} (ZMod modulus)\n              (@CommRing.toCommSemiring.{0} (ZMod modulus) (ZMod.commRing modulus))))))\n      (@Nat.cast.{0} (ZMod modulus)\n        (@AddMonoidWithOne.toNatCast.{0} (ZMod modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod modulus) (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))\n        base)\n      exponent)",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.ModularPower.power_eq_one",
+          "full_type": "ShielddSecurity.ModularPower.power_eq_one : \u2200 (modulus base exponent : Nat)\n  (checked :\n    @Eq.{1} Nat (ShielddSecurity.ModularPower.power modulus base exponent)\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} (ZMod modulus)\n    (@HPow.hPow.{0, 0, 0} (ZMod modulus) Nat (ZMod modulus)\n      (@instHPow.{0, 0} (ZMod modulus) Nat\n        (@Monoid.toPow.{0} (ZMod modulus)\n          (@Semiring.toMonoid.{0} (ZMod modulus)\n            (@CommSemiring.toSemiring.{0} (ZMod modulus)\n              (@CommRing.toCommSemiring.{0} (ZMod modulus) (ZMod.commRing modulus))))))\n      (@Nat.cast.{0} (ZMod modulus)\n        (@AddMonoidWithOne.toNatCast.{0} (ZMod modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod modulus) (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))\n        base)\n      exponent)\n    (@OfNat.ofNat.{0} (ZMod modulus) (nat_lit 1)\n      (@One.toOfNat1.{0} (ZMod modulus)\n        (@AddMonoidWithOne.toOne.{0} (ZMod modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod modulus)\n              (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.ModularPower.power_ne_one",
+          "full_type": "ShielddSecurity.ModularPower.power_ne_one : \u2200 (modulus base exponent : Nat)\n  (large : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) modulus)\n  (checked :\n    @Ne.{1} Nat (ShielddSecurity.ModularPower.power modulus base exponent)\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Ne.{1} (ZMod modulus)\n    (@HPow.hPow.{0, 0, 0} (ZMod modulus) Nat (ZMod modulus)\n      (@instHPow.{0, 0} (ZMod modulus) Nat\n        (@Monoid.toPow.{0} (ZMod modulus)\n          (@Semiring.toMonoid.{0} (ZMod modulus)\n            (@CommSemiring.toSemiring.{0} (ZMod modulus)\n              (@CommRing.toCommSemiring.{0} (ZMod modulus) (ZMod.commRing modulus))))))\n      (@Nat.cast.{0} (ZMod modulus)\n        (@AddMonoidWithOne.toNatCast.{0} (ZMod modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod modulus) (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))\n        base)\n      exponent)\n    (@OfNat.ofNat.{0} (ZMod modulus) (nat_lit 1)\n      (@One.toOfNat1.{0} (ZMod modulus)\n        (@AddMonoidWithOne.toOne.{0} (ZMod modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod modulus)\n              (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "NatModularPowerFieldSound01",
+      "source": {
+        "bytes": 1323,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-modular-power-field-20261010-01\\project\\ShielddSecurity\\NatModularPowerFieldSound01.lean",
+        "sha256": "55a4a3d0a66621c10aaf4f2ed19cb9a4673602165524f05cab5e615a4ef5bba0"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.NatModularPowerFieldSound01.power_agreement",
+          "full_type": "ShielddSecurity.NatModularPowerFieldSound01.power_agreement : \u2200 (modulus base exponent : Nat),\n  @Eq.{1} Nat (ShielddSecurity.NatModularPower01.power modulus base exponent)\n    (ShielddSecurity.ModularPower.power modulus base exponent)",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.NatModularPowerFieldSound01.power_sound",
+          "full_type": "ShielddSecurity.NatModularPowerFieldSound01.power_sound : \u2200 (modulus base exponent : Nat),\n  @Eq.{1} (ZMod modulus)\n    (@Nat.cast.{0} (ZMod modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod modulus) (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))\n      (ShielddSecurity.NatModularPower01.power modulus base exponent))\n    (@HPow.hPow.{0, 0, 0} (ZMod modulus) Nat (ZMod modulus)\n      (@instHPow.{0, 0} (ZMod modulus) Nat\n        (@Monoid.toPow.{0} (ZMod modulus)\n          (@Semiring.toMonoid.{0} (ZMod modulus)\n            (@CommSemiring.toSemiring.{0} (ZMod modulus)\n              (@CommRing.toCommSemiring.{0} (ZMod modulus) (ZMod.commRing modulus))))))\n      (@Nat.cast.{0} (ZMod modulus)\n        (@AddMonoidWithOne.toNatCast.{0} (ZMod modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod modulus) (@CommRing.toRing.{0} (ZMod modulus) (ZMod.commRing modulus)))))\n        base)\n      exponent)",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "TorsionEulerResidue01",
+      "source": {
+        "bytes": 1469,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-modular-power-field-20261010-01\\project\\ShielddSecurity\\TorsionEulerResidue01.lean",
+        "sha256": "9989c94f914980e13ca3add38a0b11b46cefa219f918300a09113c72737f3806"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.TorsionEulerResidue01.first_residue",
+          "full_type": "ShielddSecurity.TorsionEulerResidue01.first_residue : @Eq.{1} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n  (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n    (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@instHPow.{0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n      (@Monoid.toPow.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus))))))\n    (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n      ShielddSecurity.TorsionEulerInteger49.firstX)\n    ShielddSecurity.TorsionEulerInteger49.half)\n  (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) ShielddSecurity.TorsionEulerInteger49.modulus\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionEulerResidue01.second_residue",
+          "full_type": "ShielddSecurity.TorsionEulerResidue01.second_residue : @Eq.{1} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n  (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n    (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@instHPow.{0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n      (@Monoid.toPow.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus))))))\n    (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n      ShielddSecurity.TorsionEulerInteger49.secondX)\n    ShielddSecurity.TorsionEulerInteger49.half)\n  (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) ShielddSecurity.TorsionEulerInteger49.modulus\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionEulerResidue01.discriminant_residue",
+          "full_type": "ShielddSecurity.TorsionEulerResidue01.discriminant_residue : @Eq.{1}\n  (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n  (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n    (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@instHPow.{0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n      (@Monoid.toPow.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus))))))\n    (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n      ShielddSecurity.TorsionEulerInteger49.quadraticDiscriminant)\n    ShielddSecurity.TorsionEulerInteger49.half)\n  (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) ShielddSecurity.TorsionEulerInteger49.modulus\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "LucasCertificate",
+      "source": {
+        "bytes": 4573,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\LucasCertificate.lean",
+        "sha256": "a7507f43fb2971cd3ca1a72ab6a646aedc2f19f354d2314e7d576c4a3e02ae7d"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.LucasCertificate.FactorPower",
+          "full_type": "ShielddSecurity.LucasCertificate.FactorPower : Type",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.LucasCertificate.Certificate",
+          "full_type": "ShielddSecurity.LucasCertificate.Certificate : Type",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.LucasCertificate.FactorPower.check",
+          "full_type": "ShielddSecurity.LucasCertificate.FactorPower.check : (n base : Nat) \u2192\n  (entry : ShielddSecurity.LucasCertificate.FactorPower) \u2192 Bool",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.LucasCertificate.Certificate.check",
+          "full_type": "ShielddSecurity.LucasCertificate.Certificate.check : (certificate : ShielddSecurity.LucasCertificate.Certificate) \u2192 Bool",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.LucasCertificate.factor_power_sound",
+          "full_type": "ShielddSecurity.LucasCertificate.factor_power_sound : \u2200 (n base : Nat)\n  (large : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n)\n  (entry : ShielddSecurity.LucasCertificate.FactorPower)\n  (checked : @Eq.{1} Bool (ShielddSecurity.LucasCertificate.FactorPower.check n base entry) Bool.true),\n  @Ne.{1} (ZMod n)\n    (@HPow.hPow.{0, 0, 0} (ZMod n) Nat (ZMod n)\n      (@instHPow.{0, 0} (ZMod n) Nat\n        (@Monoid.toPow.{0} (ZMod n)\n          (@Semiring.toMonoid.{0} (ZMod n)\n            (@CommSemiring.toSemiring.{0} (ZMod n) (@CommRing.toCommSemiring.{0} (ZMod n) (ZMod.commRing n))))))\n      (@Nat.cast.{0} (ZMod n)\n        (@AddMonoidWithOne.toNatCast.{0} (ZMod n)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod n)\n            (@Ring.toAddGroupWithOne.{0} (ZMod n) (@CommRing.toRing.{0} (ZMod n) (ZMod.commRing n)))))\n        base)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) n\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n        (ShielddSecurity.LucasCertificate.FactorPower.factor entry)))\n    (@OfNat.ofNat.{0} (ZMod n) (nat_lit 1)\n      (@One.toOfNat1.{0} (ZMod n)\n        (@AddMonoidWithOne.toOne.{0} (ZMod n)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod n)\n            (@Ring.toAddGroupWithOne.{0} (ZMod n) (@CommRing.toRing.{0} (ZMod n) (ZMod.commRing n)))))))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.LucasCertificate.prime_divisor_member",
+          "full_type": "ShielddSecurity.LucasCertificate.prime_divisor_member : \u2200 (factors : List.{0} Nat)\n  (primes :\n    \u2200 (factor : Nat),\n      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) factors factor \u2192 Nat.Prime factor)\n  (q : Nat) (prime : Nat.Prime q)\n  (divides : @Dvd.dvd.{0} Nat Nat.instDvd q (@List.prod.{0} Nat instMulNat Nat.instOne factors)),\n  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) factors q",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.LucasCertificate.certificate_sound",
+          "full_type": "ShielddSecurity.LucasCertificate.certificate_sound : \u2200 (certificate : ShielddSecurity.LucasCertificate.Certificate)\n  (primes :\n    \u2200 (entry : ShielddSecurity.LucasCertificate.FactorPower),\n      @Membership.mem.{0, 0} ShielddSecurity.LucasCertificate.FactorPower\n          (List.{0} ShielddSecurity.LucasCertificate.FactorPower)\n          (@List.instMembership.{0} ShielddSecurity.LucasCertificate.FactorPower)\n          (ShielddSecurity.LucasCertificate.Certificate.powers certificate) entry \u2192\n        Nat.Prime (ShielddSecurity.LucasCertificate.FactorPower.factor entry))\n  (checked : @Eq.{1} Bool (ShielddSecurity.LucasCertificate.Certificate.check certificate) Bool.true),\n  Nat.Prime (ShielddSecurity.LucasCertificate.Certificate.n certificate)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode01",
+      "source": {
+        "bytes": 947,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\FieldPrimeNode01.lean",
+        "sha256": "577cdeb1e3f4b266c67cf2f3bb83977ce3e94ff460bf7be68c37fdea4687c9ee"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode01.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode01.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode01.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode01.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode01.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode01.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode01.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode02",
+      "source": {
+        "bytes": 1024,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\FieldPrimeNode02.lean",
+        "sha256": "82bc85c5b4ee64a06aa42d16f802f1be5c99d8d9f5204dbce93578fa83c04ec5"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode02.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode02.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode02.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode02.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode02.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode02.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode02.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode03",
+      "source": {
+        "bytes": 1039,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\FieldPrimeNode03.lean",
+        "sha256": "6d7118f16b619a83c5d7907f8d113b844db9d58ae7833f5b21b0ed68ca64b347"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode03.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode03.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode03.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode03.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode03.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode03.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode03.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode04",
+      "source": {
+        "bytes": 1103,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\FieldPrimeNode04.lean",
+        "sha256": "f03408030a9e4e6d448e712a76de91b6cf0d00936996f3ac8c32100ae972779b"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode04.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode04.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode04.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode04.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode04.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode04.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode04.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode05",
+      "source": {
+        "bytes": 1106,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\FieldPrimeNode05.lean",
+        "sha256": "0992b6c7d27c4efcaa491e7a97579a86b9b72669c6cb4e6d5a4852e4555a9764"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode05.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode05.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode05.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode05.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode05.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode05.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode05.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 11) (instOfNatNat (nat_lit 11)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode06",
+      "source": {
+        "bytes": 1122,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\FieldPrimeNode06.lean",
+        "sha256": "c9abcd4b4bc4f6a7c5b6b050b8fa3d138f61b2aa85afacfa7cc1a2173ce370d5"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode06.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode06.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode06.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode06.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode06.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode06.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode06.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 13) (instOfNatNat (nat_lit 13)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode07",
+      "source": {
+        "bytes": 1075,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-01\\project\\ShielddSecurity\\FieldPrimeNode07.lean",
+        "sha256": "ed5cb8ca8db028f5e8fd327718a6aa3dad613b158cb5297586ffb8ce44196b5d"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode07.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode07.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode07.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode07.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode07.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode07.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode07.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 17) (instOfNatNat (nat_lit 17)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode08",
+      "source": {
+        "bytes": 1121,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode08.lean",
+        "sha256": "6a1cb1e8254ea7517242cb73f424e5b6974e573873b8e852fabf9df41b7eecc6"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode08.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode08.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode08.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode08.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode08.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode08.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode08.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 19) (instOfNatNat (nat_lit 19)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode09",
+      "source": {
+        "bytes": 1108,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode09.lean",
+        "sha256": "b4e1f829947795cea4a8bdeb1510b43c400369309164c92bf30b861f9a01c347"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode09.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode09.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode09.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode09.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode09.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode09.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode09.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 23) (instOfNatNat (nat_lit 23)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode10",
+      "source": {
+        "bytes": 1125,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode10.lean",
+        "sha256": "df7ab97d7fe1e42df202ab3bf3bbad3059546e422037f14cafd81f0043375203"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode10.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode10.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode10.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode10.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode10.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode10.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode10.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 29) (instOfNatNat (nat_lit 29)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode11",
+      "source": {
+        "bytes": 1189,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode11.lean",
+        "sha256": "663258cd708809982c24638368cf3a8ded0dbd3d7dcf4304df8bb6aeb290d14a"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode11.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode11.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode11.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode11.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode11.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode11.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode11.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 43) (instOfNatNat (nat_lit 43)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode12",
+      "source": {
+        "bytes": 1109,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode12.lean",
+        "sha256": "a6d8e75d7752c93c4500f6c3909c820b0c461553bbe478d92feac4ca1f7a00ad"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode12.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode12.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode12.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode12.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode12.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode12.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode12.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode13",
+      "source": {
+        "bytes": 1126,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode13.lean",
+        "sha256": "c177428358d1eb906756011388ddd7b05c7c325fdc6b9a9cbf7ec56889fc85e2"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode13.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode13.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode13.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode13.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode13.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode13.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode13.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 53) (instOfNatNat (nat_lit 53)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode14",
+      "source": {
+        "bytes": 1158,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode14.lean",
+        "sha256": "50b667894b55497252b40edbe13096a993c2e43b7450e75163404532f8f65cbd"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode14.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode14.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode14.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode14.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode14.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode14.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode14.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 73) (instOfNatNat (nat_lit 73)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode15",
+      "source": {
+        "bytes": 1190,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-02\\project\\ShielddSecurity\\FieldPrimeNode15.lean",
+        "sha256": "55356d37f2a88b1de627068545af024ff95c22cc34bdefe237cb2c29f7ef2b14"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode15.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode15.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode15.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode15.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode15.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode15.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode15.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 79) (instOfNatNat (nat_lit 79)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode16",
+      "source": {
+        "bytes": 1143,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode16.lean",
+        "sha256": "c7492b3c77ded6272af7b1d6dec1f9c76c90dcf4066c01bef26eb98486172167"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode16.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode16.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode16.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode16.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode16.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode16.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode16.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 89) (instOfNatNat (nat_lit 89)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode17",
+      "source": {
+        "bytes": 1177,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode17.lean",
+        "sha256": "e9e0217f2b6c680c03e4a9698d545f07fd146a57e06cc47b58c9b85bbd28afaf"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode17.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode17.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode17.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode17.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode17.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode17.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode17.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode18",
+      "source": {
+        "bytes": 1111,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode18.lean",
+        "sha256": "357b192b12a2fcfd38c452277541cea1ba74bc1a6b97c89c62772c88dda13521"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode18.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode18.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode18.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode18.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode18.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode18.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode18.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 179) (instOfNatNat (nat_lit 179)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode19",
+      "source": {
+        "bytes": 1114,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode19.lean",
+        "sha256": "53f35c52b642c4fee65c90a744c9bf98848b4c8e2324f723eba9c02f9644f5b1"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode19.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode19.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode19.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode19.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode19.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode19.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode19.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 359) (instOfNatNat (nat_lit 359)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode20",
+      "source": {
+        "bytes": 1209,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode20.lean",
+        "sha256": "ae021a5b4b03e0d58df8350f1ac98e05904e91dc985907a9035ebbfe1085099e"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode20.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode20.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode20.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode20.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode20.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode20.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode20.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 449) (instOfNatNat (nat_lit 449)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode21",
+      "source": {
+        "bytes": 1217,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode21.lean",
+        "sha256": "74971bcad50eaf6cf0e23a684bb1151e9212974073048cfe1cfc4f2fda054e84"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode21.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode21.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode21.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode21.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode21.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode21.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode21.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 523) (instOfNatNat (nat_lit 523)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode22",
+      "source": {
+        "bytes": 1203,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode22.lean",
+        "sha256": "6b0d15642e9ffe89308de707f5b8e6492726e38cbbd50f488438c71c963e4a1b"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode22.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode22.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode22.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode22.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode22.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode22.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode22.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 1607) (instOfNatNat (nat_lit 1607)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode23",
+      "source": {
+        "bytes": 1319,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-03\\project\\ShielddSecurity\\FieldPrimeNode23.lean",
+        "sha256": "ec9df2df798bbd12a5c37d03d4095704c726502f2d7152d5ee6886bbfa9c9ff8"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode23.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode23.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode23.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode23.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode23.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode23.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode23.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 10177) (instOfNatNat (nat_lit 10177)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode24",
+      "source": {
+        "bytes": 1254,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode24.lean",
+        "sha256": "aa36af2292c7979b21ac11ec9529774aa9222555bd6e1209120c30895cbcd19e"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode24.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode24.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode24.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode24.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode24.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode24.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode24.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 18329) (instOfNatNat (nat_lit 18329)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode25",
+      "source": {
+        "bytes": 1256,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode25.lean",
+        "sha256": "cb41bcf07c924e60114ef7f970e8970048181168f7560f1b3e30d47bf996e5bb"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode25.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode25.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode25.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode25.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode25.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode25.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode25.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 20921) (instOfNatNat (nat_lit 20921)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode26",
+      "source": {
+        "bytes": 1393,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode26.lean",
+        "sha256": "aa87c2ca9c45eedbec1388e8987c48bfa1a2d1c86eb5ee47aba824a465ceb7c2"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode26.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode26.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode26.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode26.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode26.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode26.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode26.prime : Nat.Prime (@OfNat.ofNat.{0} Nat (nat_lit 47737) (instOfNatNat (nat_lit 47737)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode27",
+      "source": {
+        "bytes": 1329,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode27.lean",
+        "sha256": "698075c77ffeebe7b62908ca4de48e3c3bc1d4b8cf6a824785dd18a2b84cff0c"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode27.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode27.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode27.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode27.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode27.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode27.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode27.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 110573) (instOfNatNat (nat_lit 110573)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode28",
+      "source": {
+        "bytes": 1216,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode28.lean",
+        "sha256": "72dedfa52a2fe7da8fa383ac71d998834c12a45341506950f0281a30750053d2"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode28.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode28.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode28.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode28.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode28.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode28.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode28.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 125527) (instOfNatNat (nat_lit 125527)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode29",
+      "source": {
+        "bytes": 1309,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode29.lean",
+        "sha256": "3bf37fd2de7e75e3d9053f162f7b0703012b9c9379b1d95f8fee732e438ede01"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode29.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode29.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode29.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode29.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode29.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode29.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode29.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 609743) (instOfNatNat (nat_lit 609743)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode30",
+      "source": {
+        "bytes": 1247,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode30.lean",
+        "sha256": "091acee1d2c5c96dadb5c43c45fc64241ab7dd63454874107ba13ce3b3de24df"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode30.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode30.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode30.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode30.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode30.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode30.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode30.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 859267) (instOfNatNat (nat_lit 859267)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode31",
+      "source": {
+        "bytes": 1335,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-04\\project\\ShielddSecurity\\FieldPrimeNode31.lean",
+        "sha256": "952abf64955a65cffb4491aef5ad245415bc642dd208aa013d869d57e7a372f8"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode31.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode31.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode31.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode31.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode31.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode31.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode31.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 906349) (instOfNatNat (nat_lit 906349)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode32",
+      "source": {
+        "bytes": 1473,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-05\\project\\ShielddSecurity\\FieldPrimeNode32.lean",
+        "sha256": "edde5083d5b94eb5ab2e98f5dca20cb201a62de52842182888cb49380deb25c5"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode32.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode32.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode32.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode32.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode32.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode32.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode32.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 2508409) (instOfNatNat (nat_lit 2508409)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode33",
+      "source": {
+        "bytes": 1320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-05\\project\\ShielddSecurity\\FieldPrimeNode33.lean",
+        "sha256": "ad937ae8cc56d04fa3937578268553f4a405d0784bc539e617a23eb998f5ff03"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode33.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode33.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode33.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode33.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode33.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode33.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode33.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 2529403) (instOfNatNat (nat_lit 2529403)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode34",
+      "source": {
+        "bytes": 1282,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-05\\project\\ShielddSecurity\\FieldPrimeNode34.lean",
+        "sha256": "535aa30dd5fc24f1b1a2a2911b5389fa5c29ec565c148c915ff56f8e6e3b51c3"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode34.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode34.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode34.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode34.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode34.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode34.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode34.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 2653753) (instOfNatNat (nat_lit 2653753)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode35",
+      "source": {
+        "bytes": 1237,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-05\\project\\ShielddSecurity\\FieldPrimeNode35.lean",
+        "sha256": "705bd17ed379beaaa848bc73588c54510cd0db66d473d75ef55d4e09f8e44be8"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode35.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode35.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode35.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode35.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode35.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode35.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode35.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 52437899) (instOfNatNat (nat_lit 52437899)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode36",
+      "source": {
+        "bytes": 1295,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-05\\project\\ShielddSecurity\\FieldPrimeNode36.lean",
+        "sha256": "60972c26535e2ef87701f044099e9aaceea0ecc202f2b3d34802da0213ab1a79"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode36.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode36.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode36.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode36.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode36.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode36.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode36.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 63690073) (instOfNatNat (nat_lit 63690073)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode37",
+      "source": {
+        "bytes": 1174,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-05\\project\\ShielddSecurity\\FieldPrimeNode37.lean",
+        "sha256": "ec8fb0bc2ed1e94320f0182ae86a1b0d0d80897bb8befdc097e08e813bcb25e4"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode37.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode37.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode37.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode37.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode37.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode37.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode37.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 254760293) (instOfNatNat (nat_lit 254760293)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "FieldPrimeNode38",
+      "source": {
+        "bytes": 9337,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prime-tree-closed-20261010-05\\project\\ShielddSecurity\\FieldPrimeNode38.lean",
+        "sha256": "a6193bb5fb533a44cda13cb9248f90536df615f8f7749bc0aeed9cc0d363420b"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.FieldPrimeNode38.certificate",
+          "full_type": "ShielddSecurity.FieldPrimeNode38.certificate : ShielddSecurity.LucasCertificate.Certificate",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode38.checked",
+          "full_type": "ShielddSecurity.FieldPrimeNode38.checked : @Eq.{1} Bool\n  (ShielddSecurity.LucasCertificate.Certificate.check ShielddSecurity.FieldPrimeNode38.certificate) Bool.true",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.FieldPrimeNode38.prime",
+          "full_type": "ShielddSecurity.FieldPrimeNode38.prime : Nat.Prime\n  (@OfNat.ofNat.{0} Nat (nat_lit 52435875175126190479447740508185965837690552500527637822603658699938581184513)\n    (instOfNatNat (nat_lit 52435875175126190479447740508185965837690552500527637822603658699938581184513)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "TorsionPrimeNonsquare01",
+      "source": {
+        "bytes": 3900,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-torsion-prime-nonsquare-20261010-04\\project\\ShielddSecurity\\TorsionPrimeNonsquare01.lean",
+        "sha256": "26942ea90efc735ded1e4d3db7cf6229d66717874e65afb8d525018b211f2c2f"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.TorsionPrimeNonsquare01.fermat",
+          "full_type": "@ShielddSecurity.TorsionPrimeNonsquare01.fermat : \u2200\n  [inst : Fact (Nat.Prime ShielddSecurity.TorsionEulerInteger49.modulus)]\n  (value : ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n  (nonzero :\n    @Ne.{1} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) value\n      (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) (nat_lit 0)\n        (@Zero.toOfNat0.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@MulZeroClass.toZero.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@instMulZeroClassOfSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@DivisionSemiring.toSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@Semifield.toDivisionSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                  (@Field.toSemifield.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst))))))))),\n  @Eq.{1} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n      (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@instHPow.{0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n        (@Monoid.toPow.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@DivisionSemiring.toSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@Semifield.toDivisionSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@Field.toSemifield.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst)))))))\n      value\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) ShielddSecurity.TorsionEulerInteger49.half))\n    (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) (nat_lit 1)\n      (@One.toOfNat1.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddMonoidWithOne.toOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@DivisionRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@Field.toDivisionRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst))))))))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionPrimeNonsquare01.minus_one",
+          "full_type": "ShielddSecurity.TorsionPrimeNonsquare01.minus_one : @Eq.{1} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n  (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) ShielddSecurity.TorsionEulerInteger49.modulus\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))\n  (@Neg.neg.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@NegZeroClass.toNeg.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@SubNegZeroMonoid.toNegZeroClass.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@SubtractionMonoid.toSubNegZeroMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@SubtractionCommMonoid.toSubtractionMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@AddCommGroup.toDivisionAddCommMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@Ring.toAddCommGroup.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                  (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus))))))))\n    (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) (nat_lit 1)\n      (@One.toOfNat1.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddMonoidWithOne.toOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus))))))))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionPrimeNonsquare01.two_ne_zero",
+          "full_type": "ShielddSecurity.TorsionPrimeNonsquare01.two_ne_zero : @Ne.{1} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n  (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) (nat_lit 2)\n    (@instOfNatAtLeastTwo.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) (nat_lit 2)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))\n      (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n        (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n  (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) (nat_lit 0)\n    (@Zero.toOfNat0.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@MulZeroClass.toZero.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@instMulZeroClassOfSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)))))))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionPrimeNonsquare01.nonsquare_of_residue",
+          "full_type": "@ShielddSecurity.TorsionPrimeNonsquare01.nonsquare_of_residue : \u2200\n  [inst : Fact (Nat.Prime ShielddSecurity.TorsionEulerInteger49.modulus)]\n  (value : ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n  (residue :\n    @Eq.{1} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n        (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@instHPow.{0, 0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus) Nat\n          (@Monoid.toPow.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@DivisionSemiring.toSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@Semifield.toDivisionSemiring.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                  (@Field.toSemifield.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst)))))))\n        value ShielddSecurity.TorsionEulerInteger49.half)\n      (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@DivisionRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@Field.toDivisionRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst))))))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) ShielddSecurity.TorsionEulerInteger49.modulus\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))),\n  @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst) value",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionPrimeNonsquare01.first_nonsquare",
+          "full_type": "@ShielddSecurity.TorsionPrimeNonsquare01.first_nonsquare : \u2200\n  [inst : Fact (Nat.Prime ShielddSecurity.TorsionEulerInteger49.modulus)],\n  @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst)\n    (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@DivisionRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@Field.toDivisionRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst))))))\n      ShielddSecurity.TorsionEulerInteger49.firstX)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionPrimeNonsquare01.second_nonsquare",
+          "full_type": "@ShielddSecurity.TorsionPrimeNonsquare01.second_nonsquare : \u2200\n  [inst : Fact (Nat.Prime ShielddSecurity.TorsionEulerInteger49.modulus)],\n  @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst)\n    (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@DivisionRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@Field.toDivisionRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst))))))\n      ShielddSecurity.TorsionEulerInteger49.secondX)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionPrimeNonsquare01.discriminant_nonsquare",
+          "full_type": "@ShielddSecurity.TorsionPrimeNonsquare01.discriminant_nonsquare : \u2200\n  [inst : Fact (Nat.Prime ShielddSecurity.TorsionEulerInteger49.modulus)],\n  @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst)\n    (@Nat.cast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n            (@DivisionRing.toRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n              (@Field.toDivisionRing.{0} (ZMod ShielddSecurity.TorsionEulerInteger49.modulus)\n                (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus inst))))))\n      ShielddSecurity.TorsionEulerInteger49.quadraticDiscriminant)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "CurveCardinalityImage01",
+      "source": {
+        "bytes": 3009,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-cardinality-image-20261010-02\\project\\ShielddSecurity\\CurveCardinalityImage01.lean",
+        "sha256": "b42e1d83901004816f69f2a41d7809a3399530e2100ac42a73d1bd11cf4f5393"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.CurveCardinalityImage01.kernel_image_cardinality",
+          "full_type": "@ShielddSecurity.CurveCardinalityImage01.kernel_image_cardinality : \u2200 {J : Type} [inst : AddGroup.{0} J]\n  (map :\n    @AddMonoidHom.{0, 0} J J\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst))))),\n  @Eq.{1} Nat (Nat.card.{0} J)\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J inst)\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J inst) J (@AddSubgroup.instSetLike.{0} J inst))\n            (@AddMonoidHom.ker.{0, 0} J inst J\n              (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)))\n              map)\n            x))\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J inst)\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J inst) J (@AddSubgroup.instSetLike.{0} J inst))\n            (@AddMonoidHom.range.{0, 0} J inst J inst map) x)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.CurveCardinalityImage01.quotient_is_image",
+          "full_type": "@ShielddSecurity.CurveCardinalityImage01.quotient_is_image : \u2200 {J : Type} [inst : AddGroup.{0} J]\n  (map :\n    @AddMonoidHom.{0, 0} J J\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)))))\n  (kernelEight :\n    @Eq.{1} Nat\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J inst)\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J inst) J (@AddSubgroup.instSetLike.{0} J inst))\n            (@AddMonoidHom.ker.{0, 0} J inst J\n              (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)))\n              map)\n            x))\n      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))),\n  @Eq.{1} Nat\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (Nat.card.{0} J)\n      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))\n    (Nat.card.{0}\n      (@Subtype.{1} J fun (x : J) =>\n        @Membership.mem.{0, 0} J (@AddSubgroup.{0} J inst)\n          (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J inst) J (@AddSubgroup.instSetLike.{0} J inst))\n          (@AddMonoidHom.range.{0, 0} J inst J inst map) x))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.CurveCardinalityImage01.eight_scalar_coprime",
+          "full_type": "ShielddSecurity.CurveCardinalityImage01.eight_scalar_coprime : Nat.Coprime\n  (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) ShielddSecurity.CurveCardinalityWindow01.scalarModulus",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.CurveCardinalityImage01.scalar_kernel_divisibility",
+          "full_type": "@ShielddSecurity.CurveCardinalityImage01.scalar_kernel_divisibility : \u2200 {J : Type} [inst : AddGroup.{0} J]\n  (map :\n    @AddMonoidHom.{0, 0} J J\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)))))\n  (kernelEight :\n    @Eq.{1} Nat\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J inst)\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J inst) J (@AddSubgroup.instSetLike.{0} J inst))\n            (@AddMonoidHom.ker.{0, 0} J inst J\n              (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)))\n              map)\n            x))\n      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))\n  (base : J)\n  (baseOrder :\n    @Eq.{1} Nat (@addOrderOf.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)) base)\n      ShielddSecurity.CurveCardinalityWindow01.scalarModulus),\n  @Dvd.dvd.{0} Nat Nat.instDvd\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))\n      ShielddSecurity.CurveCardinalityWindow01.scalarModulus)\n    (Nat.card.{0} J)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.CurveCardinalityImage01.cardinality_from_image",
+          "full_type": "@ShielddSecurity.CurveCardinalityImage01.cardinality_from_image : \u2200 {J : Type} [inst : AddGroup.{0} J] [Finite.{1} J]\n  (map :\n    @AddMonoidHom.{0, 0} J J\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)))))\n  (kernelEight :\n    @Eq.{1} Nat\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J inst)\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J inst) J (@AddSubgroup.instSetLike.{0} J inst))\n            (@AddMonoidHom.ker.{0, 0} J inst J\n              (@AddMonoid.toAddZeroClass.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)))\n              map)\n            x))\n      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))\n  (base : J)\n  (baseOrder :\n    @Eq.{1} Nat (@addOrderOf.{0} J (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J inst)) base)\n      ShielddSecurity.CurveCardinalityWindow01.scalarModulus)\n  (oddImage :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (Nat.card.{0}\n          (@Subtype.{1} J fun (x : J) =>\n            @Membership.mem.{0, 0} J (@AddSubgroup.{0} J inst)\n              (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J inst) J (@AddSubgroup.instSetLike.{0} J inst))\n              (@AddMonoidHom.range.{0, 0} J inst J inst map) x))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n  (affineBound :\n    @LE.le.{0} Nat instLENat (Nat.card.{0} J)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          ShielddSecurity.CurveCardinalityWindow01.fieldModulus)\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))),\n  @Eq.{1} Nat (Nat.card.{0} J)\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))\n      ShielddSecurity.CurveCardinalityWindow01.scalarModulus)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "TorsionOddImage01",
+      "source": {
+        "bytes": 2610,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-torsion-odd-image-20261010-03\\project\\ShielddSecurity\\TorsionOddImage01.lean",
+        "sha256": "c1622b028eefb56c0204af7e5770ac3dd406401cb0c051d0ed2df6e622221b72"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.TorsionOddImage01.order_sixteen_of_eight_image",
+          "full_type": "@ShielddSecurity.TorsionOddImage01.order_sixteen_of_eight_image : \u2200 {J : Type} [inst : AddCommGroup.{0} J] (point : J)\n  (killed :\n    @Eq.{1} J\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n        (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))) point)\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst))))))))\n  (eightNonzero :\n    @Ne.{1} J\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n        (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) point)\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst)))))))),\n  @Eq.{1} Nat\n    (@addOrderOf.{0} J\n      (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))) point)\n    (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionOddImage01.odd_eight_image",
+          "full_type": "@ShielddSecurity.TorsionOddImage01.odd_eight_image : \u2200 {J : Type} [inst : AddCommGroup.{0} J] [Finite.{1} J]\n  (noSixteen :\n    \u2200 (point : J),\n      @Ne.{1} Nat\n        (@addOrderOf.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n          point)\n        (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n              (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n            (@AddMonoidHom.range.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J (@AddCommGroup.toAddGroup.{0} J inst)\n              (@nsmulAddMonoidHom.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst)\n                (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))))\n            x))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "AffineFibreBound01",
+      "source": {
+        "bytes": 3414,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-affine-fibre-bound-20261010-03\\project\\ShielddSecurity\\AffineFibreBound01.lean",
+        "sha256": "12be5e87fcf8130f5b04e35e68a24207f9d28c30c12c5b58f1af97922ab23995"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.AffineFibreBound01.square_fibre_bound",
+          "full_type": "@ShielddSecurity.AffineFibreBound01.square_fibre_bound : \u2200 {F : Type} [inst : Field.{0} F] [Fintype.{0} F] (right : F),\n  @LE.le.{0} Nat instLENat\n    (Nat.card.{0}\n      (@Subtype.{1} F fun (value : F) =>\n        @Eq.{1} F\n          (@HMul.hMul.{0, 0, 0} F F F\n            (@instHMul.{0} F\n              (@Distrib.toMul.{0} F\n                (@instDistribOfSemiring.{0} F\n                  (@DivisionSemiring.toSemiring.{0} F\n                    (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n            value value)\n          right))\n    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.AffineFibreBound01.solutions_equiv",
+          "full_type": "@ShielddSecurity.AffineFibreBound01.solutions_equiv : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (right : F \u2192 F) \u2192\n      Equiv.{1, 1}\n        (@Subtype.{1} (Prod.{0, 0} F F) fun (xy : Prod.{0, 0} F F) =>\n          @Eq.{1} F\n            (@HMul.hMul.{0, 0, 0} F F F\n              (@instHMul.{0} F\n                (@Distrib.toMul.{0} F\n                  (@instDistribOfSemiring.{0} F\n                    (@DivisionSemiring.toSemiring.{0} F\n                      (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n              (@Prod.snd.{0, 0} F F xy) (@Prod.snd.{0, 0} F F xy))\n            (right (@Prod.fst.{0, 0} F F xy)))\n        (@Sigma.{0, 0} F fun (x : F) =>\n          @Subtype.{1} F fun (y : F) =>\n            @Eq.{1} F\n              (@HMul.hMul.{0, 0, 0} F F F\n                (@instHMul.{0} F\n                  (@Distrib.toMul.{0} F\n                    (@instDistribOfSemiring.{0} F\n                      (@DivisionSemiring.toSemiring.{0} F\n                        (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n                y y)\n              (right x))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.AffineFibreBound01.affine_solution_bound",
+          "full_type": "@ShielddSecurity.AffineFibreBound01.affine_solution_bound : \u2200 {F : Type} [inst : Field.{0} F] [Fintype.{0} F]\n  (right : F \u2192 F),\n  @LE.le.{0} Nat instLENat\n    (Nat.card.{0}\n      (@Subtype.{1} (Prod.{0, 0} F F) fun (xy : Prod.{0, 0} F F) =>\n        @Eq.{1} F\n          (@HMul.hMul.{0, 0, 0} F F F\n            (@instHMul.{0} F\n              (@Distrib.toMul.{0} F\n                (@instDistribOfSemiring.{0} F\n                  (@DivisionSemiring.toSemiring.{0} F\n                    (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n            (@Prod.snd.{0, 0} F F xy) (@Prod.snd.{0, 0} F F xy))\n          (right (@Prod.fst.{0, 0} F F xy))))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (Nat.card.{0} F))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.AffineFibreBound01.projective_solution_bound",
+          "full_type": "@ShielddSecurity.AffineFibreBound01.projective_solution_bound : \u2200 {F : Type} [inst : Field.{0} F] [Fintype.{0} F]\n  (right : F \u2192 F),\n  @LE.le.{0} Nat instLENat\n    (Nat.card.{0}\n      (Option.{0}\n        (@Subtype.{1} (Prod.{0, 0} F F) fun (xy : Prod.{0, 0} F F) =>\n          @Eq.{1} F\n            (@HMul.hMul.{0, 0, 0} F F F\n              (@instHMul.{0} F\n                (@Distrib.toMul.{0} F\n                  (@instDistribOfSemiring.{0} F\n                    (@DivisionSemiring.toSemiring.{0} F\n                      (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n              (@Prod.snd.{0, 0} F F xy) (@Prod.snd.{0, 0} F F xy))\n            (right (@Prod.fst.{0, 0} F F xy)))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (Nat.card.{0} F))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "DoublingKernelBound01",
+      "source": {
+        "bytes": 4287,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-doubling-kernel-bound-20261010-04\\project\\ShielddSecurity\\DoublingKernelBound01.lean",
+        "sha256": "ea0f3669c89b12c5de62f5883017d593d3039e9d1a9ff8d9a13f47899ad58be1"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.DoublingKernelBound01.kernel_composition_bound",
+          "full_type": "@ShielddSecurity.DoublingKernelBound01.kernel_composition_bound : \u2200 {J : Type} [inst : AddCommGroup.{0} J]\n  [Finite.{1} J]\n  (left right :\n    @AddMonoidHom.{0, 0} J J\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))),\n  @LE.le.{0} Nat instLENat\n    (Nat.card.{0}\n      (@Subtype.{1} J fun (x : J) =>\n        @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n          (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n            (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n          (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n            (@AddMonoid.toAddZeroClass.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n            (@AddMonoidHom.comp.{0, 0, 0} J J J\n              (@AddZeroClass.toAddZero.{0} J\n                (@AddMonoid.toAddZeroClass.{0} J\n                  (@SubNegMonoid.toAddMonoid.{0} J\n                    (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n              (@AddZeroClass.toAddZero.{0} J\n                (@AddMonoid.toAddZeroClass.{0} J\n                  (@SubNegMonoid.toAddMonoid.{0} J\n                    (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n              (@AddZeroClass.toAddZero.{0} J\n                (@AddMonoid.toAddZeroClass.{0} J\n                  (@SubNegMonoid.toAddMonoid.{0} J\n                    (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n              left right))\n          x))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n              (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n            (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n              (@AddMonoid.toAddZeroClass.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n              left)\n            x))\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n              (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n            (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n              (@AddMonoid.toAddZeroClass.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n              right)\n            x)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.DoublingKernelBound01.multiply",
+          "full_type": "@ShielddSecurity.DoublingKernelBound01.multiply : {J : Type} \u2192\n  [inst : AddCommGroup.{0} J] \u2192\n    (n : Nat) \u2192\n      @AddMonoidHom.{0, 0} J J\n        (@AddZeroClass.toAddZero.{0} J\n          (@AddMonoid.toAddZeroClass.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n        (@AddZeroClass.toAddZero.{0} J\n          (@AddMonoid.toAddZeroClass.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))",
+          "axioms": [
+            "propext"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.DoublingKernelBound01.multiplication_composition",
+          "full_type": "@ShielddSecurity.DoublingKernelBound01.multiplication_composition : \u2200 {J : Type} [inst : AddCommGroup.{0} J]\n  (a b : Nat),\n  @Eq.{1}\n    (@AddMonoidHom.{0, 0} J J\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))))\n    (@AddMonoidHom.comp.{0, 0, 0} J J J\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n      (@AddZeroClass.toAddZero.{0} J\n        (@AddMonoid.toAddZeroClass.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n      (@ShielddSecurity.DoublingKernelBound01.multiply J inst a)\n      (@ShielddSecurity.DoublingKernelBound01.multiply J inst b))\n    (@ShielddSecurity.DoublingKernelBound01.multiply J inst\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) a b))",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.DoublingKernelBound01.doubling_kernel_step",
+          "full_type": "@ShielddSecurity.DoublingKernelBound01.doubling_kernel_step : \u2200 {J : Type} [inst : AddCommGroup.{0} J] [Finite.{1} J]\n  (n : Nat)\n  (twoBound :\n    @LE.le.{0} Nat instLENat\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n              (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n            (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n              (@AddMonoid.toAddZeroClass.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n              (@ShielddSecurity.DoublingKernelBound01.multiply J inst\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))\n            x))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))),\n  @LE.le.{0} Nat instLENat\n    (Nat.card.{0}\n      (@Subtype.{1} J fun (x : J) =>\n        @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n          (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n            (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n          (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n            (@AddMonoid.toAddZeroClass.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n            (@ShielddSecurity.DoublingKernelBound01.multiply J inst\n              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)))\n          x))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n              (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n            (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n              (@AddMonoid.toAddZeroClass.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n              (@ShielddSecurity.DoublingKernelBound01.multiply J inst n))\n            x)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.DoublingKernelBound01.power_two_kernel_bound",
+          "full_type": "@ShielddSecurity.DoublingKernelBound01.power_two_kernel_bound : \u2200 {J : Type} [inst : AddCommGroup.{0} J] [Finite.{1} J]\n  (k : Nat)\n  (twoBound :\n    @LE.le.{0} Nat instLENat\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n              (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n            (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n              (@AddMonoid.toAddZeroClass.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n              (@ShielddSecurity.DoublingKernelBound01.multiply J inst\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))\n            x))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))),\n  @LE.le.{0} Nat instLENat\n    (Nat.card.{0}\n      (@Subtype.{1} J fun (x : J) =>\n        @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n          (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n            (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n          (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n            (@AddMonoid.toAddZeroClass.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n            (@ShielddSecurity.DoublingKernelBound01.multiply J inst\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)))\n          x))\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.DoublingKernelBound01.kernel_eight_bound",
+          "full_type": "@ShielddSecurity.DoublingKernelBound01.kernel_eight_bound : \u2200 {J : Type} [inst : AddCommGroup.{0} J] [Finite.{1} J]\n  (twoBound :\n    @LE.le.{0} Nat instLENat\n      (Nat.card.{0}\n        (@Subtype.{1} J fun (x : J) =>\n          @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n            (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n              (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n            (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n              (@AddMonoid.toAddZeroClass.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n              (@ShielddSecurity.DoublingKernelBound01.multiply J inst\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))\n            x))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))),\n  @LE.le.{0} Nat instLENat\n    (Nat.card.{0}\n      (@Subtype.{1} J fun (x : J) =>\n        @Membership.mem.{0, 0} J (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst))\n          (@SetLike.instMembership.{0, 0} (@AddSubgroup.{0} J (@AddCommGroup.toAddGroup.{0} J inst)) J\n            (@AddSubgroup.instSetLike.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))\n          (@AddMonoidHom.ker.{0, 0} J (@AddCommGroup.toAddGroup.{0} J inst) J\n            (@AddMonoid.toAddZeroClass.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst))))\n            (@ShielddSecurity.DoublingKernelBound01.multiply J inst\n              (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))))\n          x))\n    (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "actual point and symbolic cardinality",
+      "module": "TorsionCertifiedField01",
+      "source": {
+        "bytes": 4112,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-torsion-certified-field-20261010-01\\project\\ShielddSecurity\\TorsionCertifiedField01.lean",
+        "sha256": "fe636a8aa044bae9fc49f1e52c26a5901119823b2a3c70766a47e15a5ff6999a"
+      },
+      "audits": [
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.modulus_prime",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.modulus_prime : Nat.Prime ShielddSecurity.TorsionEulerInteger49.modulus",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.primeFact",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.primeFact : Fact (Nat.Prime ShielddSecurity.TorsionEulerInteger49.modulus)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.F",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.F : Type",
+          "axioms": []
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.A",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.A : ShielddSecurity.TorsionCertifiedField01.F",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.B",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.B : ShielddSecurity.TorsionCertifiedField01.F",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.B_nonzero",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.B_nonzero : @Ne.{1} ShielddSecurity.TorsionCertifiedField01.F\n  ShielddSecurity.TorsionCertifiedField01.B\n  (@OfNat.ofNat.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 0)\n    (@Zero.toOfNat0.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (@MulZeroClass.toZero.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@instMulZeroClassOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                  ShielddSecurity.TorsionCertifiedField01.primeFact))))))))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.discriminant_equation",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.discriminant_equation : @Eq.{1} ShielddSecurity.TorsionCertifiedField01.F\n  (@HSub.hSub.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n    ShielddSecurity.TorsionCertifiedField01.F\n    (@instHSub.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (@SubNegMonoid.toSub.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@AddGroup.toSubNegMonoid.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@AddGroupWithOne.toAddGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact))))))))\n    (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n      ShielddSecurity.TorsionCertifiedField01.F\n      (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n      ShielddSecurity.TorsionCertifiedField01.A ShielddSecurity.TorsionCertifiedField01.A)\n    (@OfNat.ofNat.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 4)\n      (@instOfNatAtLeastTwo.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 4)\n        (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact))))))\n        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))\n          (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))))\n  (@Nat.cast.{0} ShielddSecurity.TorsionCertifiedField01.F\n    (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                ShielddSecurity.TorsionCertifiedField01.primeFact))))))\n    ShielddSecurity.TorsionEulerInteger49.quadraticDiscriminant)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.first_nonsquare",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.first_nonsquare : @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare\n  ShielddSecurity.TorsionCertifiedField01.F\n  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus ShielddSecurity.TorsionCertifiedField01.primeFact)\n  (@Nat.cast.{0} ShielddSecurity.TorsionCertifiedField01.F\n    (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                ShielddSecurity.TorsionCertifiedField01.primeFact))))))\n    ShielddSecurity.TorsionEulerInteger49.firstX)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.second_nonsquare",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.second_nonsquare : @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare\n  ShielddSecurity.TorsionCertifiedField01.F\n  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus ShielddSecurity.TorsionCertifiedField01.primeFact)\n  (@Nat.cast.{0} ShielddSecurity.TorsionCertifiedField01.F\n    (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                ShielddSecurity.TorsionCertifiedField01.primeFact))))))\n    ShielddSecurity.TorsionEulerInteger49.secondX)",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.discriminant_nonsquare",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.discriminant_nonsquare : @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare\n  ShielddSecurity.TorsionCertifiedField01.F\n  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus ShielddSecurity.TorsionCertifiedField01.primeFact)\n  (@HSub.hSub.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n    ShielddSecurity.TorsionCertifiedField01.F\n    (@instHSub.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (@SubNegMonoid.toSub.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@AddGroup.toSubNegMonoid.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@AddGroupWithOne.toAddGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact))))))))\n    (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n      ShielddSecurity.TorsionCertifiedField01.F\n      (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n      ShielddSecurity.TorsionCertifiedField01.A ShielddSecurity.TorsionCertifiedField01.A)\n    (@OfNat.ofNat.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 4)\n      (@instOfNatAtLeastTwo.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 4)\n        (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact))))))\n        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))\n          (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.scaled_discriminant_nonsquare",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.scaled_discriminant_nonsquare : @ShielddSecurity.WeierstrassTwoTorsionAlgebra01.NoSquare\n  ShielddSecurity.TorsionCertifiedField01.F\n  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus ShielddSecurity.TorsionCertifiedField01.primeFact)\n  (@HSub.hSub.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n    ShielddSecurity.TorsionCertifiedField01.F\n    (@instHSub.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (@SubNegMonoid.toSub.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@AddGroup.toSubNegMonoid.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@AddGroupWithOne.toAddGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact))))))))\n    (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n      ShielddSecurity.TorsionCertifiedField01.F\n      (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n      (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n        ShielddSecurity.TorsionCertifiedField01.F\n        (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n        ShielddSecurity.TorsionCertifiedField01.A ShielddSecurity.TorsionCertifiedField01.B)\n      (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n        ShielddSecurity.TorsionCertifiedField01.F\n        (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n        ShielddSecurity.TorsionCertifiedField01.A ShielddSecurity.TorsionCertifiedField01.B))\n    (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n      ShielddSecurity.TorsionCertifiedField01.F\n      (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n      (@OfNat.ofNat.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 4)\n        (@instOfNatAtLeastTwo.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 4)\n          (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact))))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))\n      (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n        ShielddSecurity.TorsionCertifiedField01.F\n        (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n        ShielddSecurity.TorsionCertifiedField01.B ShielddSecurity.TorsionCertifiedField01.B)))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "name": "ShielddSecurity.TorsionCertifiedField01.zero_y_forces_zero_x",
+          "full_type": "ShielddSecurity.TorsionCertifiedField01.zero_y_forces_zero_x : \u2200 (x y : ShielddSecurity.TorsionCertifiedField01.F)\n  (equation :\n    @Eq.{1} ShielddSecurity.TorsionCertifiedField01.F\n      (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n        ShielddSecurity.TorsionCertifiedField01.F\n        (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n        y y)\n      (@HAdd.hAdd.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n        ShielddSecurity.TorsionCertifiedField01.F\n        (@instHAdd.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@Distrib.toAdd.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n        (@HAdd.hAdd.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n          ShielddSecurity.TorsionCertifiedField01.F\n          (@instHAdd.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Distrib.toAdd.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                        ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n          (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n            ShielddSecurity.TorsionCertifiedField01.F\n            (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                        (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                          ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n            (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n              ShielddSecurity.TorsionCertifiedField01.F\n              (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                        (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                          (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                            ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n              x x)\n            x)\n          (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n            ShielddSecurity.TorsionCertifiedField01.F\n            (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                        (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                          ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n            (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n              ShielddSecurity.TorsionCertifiedField01.F\n              (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                        (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                          (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                            ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n              (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n                ShielddSecurity.TorsionCertifiedField01.F\n                (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                        (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                          (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                            (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                              ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n                ShielddSecurity.TorsionCertifiedField01.A ShielddSecurity.TorsionCertifiedField01.B)\n              x)\n            x))\n        (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n          ShielddSecurity.TorsionCertifiedField01.F\n          (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                        ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n          (@HMul.hMul.{0, 0, 0} ShielddSecurity.TorsionCertifiedField01.F ShielddSecurity.TorsionCertifiedField01.F\n            ShielddSecurity.TorsionCertifiedField01.F\n            (@instHMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Distrib.toMul.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@instDistribOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                        (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                          ShielddSecurity.TorsionCertifiedField01.primeFact)))))))\n            ShielddSecurity.TorsionCertifiedField01.B ShielddSecurity.TorsionCertifiedField01.B)\n          x)))\n  (zeroY :\n    @Eq.{1} ShielddSecurity.TorsionCertifiedField01.F y\n      (@OfNat.ofNat.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 0)\n        (@Zero.toOfNat0.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@MulZeroClass.toZero.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@instMulZeroClassOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact))))))))),\n  @Eq.{1} ShielddSecurity.TorsionCertifiedField01.F x\n    (@OfNat.ofNat.{0} ShielddSecurity.TorsionCertifiedField01.F (nat_lit 0)\n      (@Zero.toOfNat0.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@MulZeroClass.toZero.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@instMulZeroClassOfSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (@DivisionSemiring.toSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (@Semifield.toDivisionSemiring.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (@Field.toSemifield.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact))))))))",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    }
+  ],
+  "declarations": 167,
+  "full_transfer": "OPEN",
+  "native_correspondence": "OPEN",
+  "global_curve_order": "OPEN",
+  "expected_declarations": 167,
+  "external_inventory": "remote inventory identities recorded in capsule; complete inventories not independently replayed by parent"
+}
