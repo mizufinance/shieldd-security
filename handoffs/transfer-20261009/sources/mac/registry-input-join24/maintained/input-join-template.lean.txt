@@ -1,0 +1,110 @@
+import ShielddSecurity.RegistryWhole23
+import ShielddSecurity.TransferPoseidonThreeCallJoin15Proof01
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.RegistryInputJoin24
+open Compiler CompilerCompletion Poseidon
+open CapturedInitial73419Generic01 (p copy normalized)
+open CapturedInitial73419Completion01 (callRows call0 call1 call2 call3 call4)
+def transformed (xs : List Row) := CapturedInitial73419Collected01.collected (normalized xs)
+theorem transformed_append (a b : List Row) : transformed (a++b)=transformed a++transformed b := by
+  simp only [transformed,CapturedInitial73419Collected01.collected,normalized,unoutlineRows,List.map_append]
+theorem source_split : TransferPoseidonCall04Program01.arithmeticRows=
+    (TransferPoseidonCall04R00.arithmeticRows.toList++TransferPoseidonCall04R01.arithmeticRows.toList)++TransferPoseidonTailTemplate05Program01.arithmeticRows := by
+  simp only [TransferPoseidonCall04Program01.arithmeticRows,
+    TransferPoseidonCall04Program01.prefixRows0,TransferPoseidonCall04Program01.prefixRows1,TransferPoseidonCall04Program01.prefixRows2,TransferPoseidonCall04Program01.prefixRows3,TransferPoseidonCall04Program01.prefixRows4,TransferPoseidonCall04Program01.prefixRows5,TransferPoseidonCall04Program01.prefixRows6,TransferPoseidonCall04Program01.prefixRows7,TransferPoseidonCall04Program01.prefixRows8,
+    TransferPoseidonCall04Block00.rows,TransferPoseidonCall04Block00.prefixRows0,TransferPoseidonCall04Block00.prefixRows1,TransferPoseidonCall04Block00.prefixRows2,TransferPoseidonCall04Block00.prefixRows3,TransferPoseidonCall04Block00.prefixRows4,TransferPoseidonCall04Block00.prefixRows5,TransferPoseidonCall04Block00.prefixRows6,TransferPoseidonCall04Block00.prefixRows7,
+    TransferPoseidonTailTemplate05Program01.arithmeticRows,
+    TransferPoseidonTailTemplate05Program01.prefixRows0,TransferPoseidonTailTemplate05Program01.prefixRows1,TransferPoseidonTailTemplate05Program01.prefixRows2,TransferPoseidonTailTemplate05Program01.prefixRows3,TransferPoseidonTailTemplate05Program01.prefixRows4,TransferPoseidonTailTemplate05Program01.prefixRows5,TransferPoseidonTailTemplate05Program01.prefixRows6,TransferPoseidonTailTemplate05Program01.prefixRows7,TransferPoseidonTailTemplate05Program01.prefixRows8,TransferPoseidonTailTemplate05Program01.prefixRows9,TransferPoseidonTailTemplate05Program01.prefixRows10,TransferPoseidonTailTemplate05Program01.prefixRows11,TransferPoseidonTailTemplate05Program01.prefixRows12,TransferPoseidonTailTemplate05Program01.prefixRows13,List.append_assoc]
+theorem arithmetic_count : TransferPoseidonCall04Program01.arithmeticRows.length=412 := by
+  have first : TransferPoseidonCall04R00.arithmeticRows.toList.length=16 := by decide +kernel
+  have second : TransferPoseidonCall04R01.arithmeticRows.toList.length=24 := by decide +kernel
+  have tail : TransferPoseidonTailTemplate05Program01.arithmeticRows.length=372 := R22.counts.2.2.2
+  rw [source_split,List.length_append,List.length_append,first,second,tail]
+theorem whole_collected : callRows=transformed TransferPoseidonCall04Program01.arithmeticRows := by
+  let xs := TransferPoseidonCall04Program01.arithmeticRows
+  have partition : ((((xs.take 183++(xs.drop 183).take 71)++(xs.drop 254).take 50)++(xs.drop 304).take 104)++(xs.drop 408).take 4)=xs := by
+    rw [←List.take_add (i:=183) (j:=71),←List.take_add (i:=254) (j:=50),←List.take_add (i:=304) (j:=104),←List.take_add (i:=408) (j:=4)]
+    apply List.take_of_length_le
+    exact Nat.le_of_eq arithmetic_count
+  change (((call0++call1)++call2)++call3)++call4=transformed xs
+  rw [CapturedInitial73419Completion01.call_match0,CapturedInitial73419Completion01.call_match1,CapturedInitial73419Completion01.call_match2,CapturedInitial73419Completion01.call_match3,CapturedInitial73419Completion01.call_match4]
+  change (((transformed (xs.take 183)++transformed ((xs.drop 183).take 71))++transformed ((xs.drop 254).take 50))++transformed ((xs.drop 304).take 104))++transformed ((xs.drop 408).take 4)=transformed xs
+  rw [←transformed_append,←transformed_append,←transformed_append,←transformed_append]
+  exact congrArg transformed partition
+variable {F : Type} [Field F] [CharP F p]
+omit [CharP F p] in
+theorem collected_reverse (target source : List Row) (equal : target=CapturedInitial73419Collected01.collected source)
+    (rho : Nat → F) (sat : Satisfies rho target) : Satisfies rho source := by
+  intro row member
+  have given := sat ⟨collect row.a,collect row.b⟩ (by rw [equal];exact List.mem_map.mpr ⟨row,member,rfl⟩)
+  simpa only [eval_collect] using given
+omit [CharP F p] in
+theorem normalized_reverse (rows : List Row) (rho : Nat → F) (linked : rho copy=rho 0)
+    (sat : Satisfies rho (normalized rows)) : Satisfies rho rows := by
+  intro row member
+  have given := sat ⟨unoutline copy row.a,unoutline copy row.b⟩ (List.mem_map.mpr ⟨row,member,rfl⟩)
+  simpa only [eval_unoutline rho copy _ linked] using given
+theorem copy_complete (rho : Nat → F) (linked : rho copy=rho 0) : Satisfies rho [TransferPoseidonCall04Shared01.rawCopy] := by
+  have equality : canonical p TransferPoseidonCall04Shared01.rawCopy.a=canonical p [(0,1),(copy,-1)] := by decide +kernel
+  have values : eval rho TransferPoseidonCall04Shared01.rawCopy.a=eval rho [(0,1),(copy,-1)] := by
+    rw [←eval_canonical rho TransferPoseidonCall04Shared01.rawCopy.a,equality,eval_canonical]
+  intro row member
+  have same := List.mem_singleton.mp member
+  subst row
+  change Square (eval rho TransferPoseidonCall04Shared01.rawCopy.a) 0
+  rw [values]
+  simp [eval,linked,Square]
+theorem original_call (rho : Nat → F) (linked : rho copy=rho 0) (sat : Satisfies rho callRows) : Satisfies rho TransferPoseidonCall04Program01.originalRows := by
+  have unoutlined := collected_reverse callRows _ whole_collected rho sat
+  have original := normalized_reverse _ rho linked unoutlined
+  intro row member
+  rcases List.mem_append.mp member with member|member
+  · exact original row member
+  · exact copy_complete rho linked row member
+theorem literal_inputs : CapturedRegistryLeaf20R0Data01.inputTerms 3=TransferPoseidonCall04Semantic01.resultTerms ∧
+    CapturedRegistryLeaf20R0Data01.inputTerms 4=TransferPoseidonWidth3Call08Semantic01.resultTerms := by decide +kernel
+theorem copy_from_leaf (rho : Nat → F) (sat : Satisfies rho RegistryWhole23.selectedRows) : rho copy=rho 0 := by
+  have copySat : Satisfies rho [TransferPoseidonCall04Shared01.rawCopy] := by
+    intro row member
+    apply sat
+    exact List.mem_append_right _ member
+  have check : checkRow p [TransferPoseidonCall04Shared01.rawCopy] ⟨[(0,1),(copy,-1)],[]⟩=true := by decide +kernel
+  have equal := checked_assertion_sound rho [TransferPoseidonCall04Shared01.rawCopy] [(0,1)] [(copy,1)] copySat
+    (by simpa [subtract,scaleLinear] using check)
+  simpa [eval] using equal.symm
+def semanticInputs (rho : Nat → F) : List F :=
+  [rho 11,rho 12,rho 13,
+   Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 23 [rho 14,rho 15,rho 21,rho 22],
+   Poseidon.hash3 (castParameters TransferPoseidonWidth3Call08Shared01.parameters) 24
+     [Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 24 [rho 23,rho 24,rho 30,rho 31,rho 32,rho 33],
+      Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 36 [rho 34,rho 35,rho 36,rho 42,rho 43]]]
+theorem arbitrary_registry (rho : Nat → F) (one : rho 0=1)
+    (prior : Satisfies rho CapturedPriorRows16Frame01.capturedPriorRows)
+    (joined : Satisfies rho TransferPoseidonThreeCallJoin15Program01.originalRows)
+    (leaf : Satisfies rho RegistryWhole23.selectedRows) :
+    eval rho RegistryWhole23.actualResult=Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 25 (semanticInputs rho) := by
+  have first := TransferPoseidonCall04Semantic01.arbitrary_hash6 rho one CapturedRegistryLeaf20R0Proof01.four_ne_zero
+    (original_call rho (copy_from_leaf rho leaf) (fun row member => prior row (CapturedInitial73419Completion01.call_in_prior row member)))
+  have child := TransferPoseidonThreeCallJoin15Proof01.arbitrary_nested_hash rho one CapturedRegistryLeaf20R0Proof01.four_ne_zero joined
+  have result := RegistryWhole23.arbitrary_hash rho one leaf
+  have originals : [eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 0),eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 1),eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 2)]=[rho 11,rho 12,rho 13] := by
+    simp [CapturedRegistryLeaf20R0Data01.inputTerms,eval]
+  change eval rho RegistryWhole23.actualResult=Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 25
+    ([eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 0),eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 1),eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 2)]++[eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 3),eval rho (CapturedRegistryLeaf20R0Data01.inputTerms 4)]) at result
+  rw [originals,literal_inputs.1,literal_inputs.2,first,child] at result
+  exact result
+theorem semantic_preserved (base : Nat → F) : semanticInputs (RegistryWhole23.final base)=semanticInputs base := by
+  have values (column : Nat) (below : column<22738) : RegistryWhole23.final base column=base column := RegistryWhole23.final_outside base column (Or.inl below)
+  simp only [semanticInputs,values 11 (by decide),values 12 (by decide),values 13 (by decide),values 14 (by decide),values 15 (by decide),values 21 (by decide),values 22 (by decide),values 23 (by decide),values 24 (by decide),values 30 (by decide),values 31 (by decide),values 32 (by decide),values 33 (by decide),values 34 (by decide),values 35 (by decide),values 36 (by decide),values 42 (by decide),values 43 (by decide)]
+theorem total_registry (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) :
+    Satisfies (RegistryWhole23.final base) CapturedPriorRows16Frame01.capturedPriorRows ∧
+    Satisfies (RegistryWhole23.final base) TransferPoseidonThreeCallJoin15Program01.originalRows ∧
+    Satisfies (RegistryWhole23.final base) RegistryWhole23.selectedRows ∧
+    eval (RegistryWhole23.final base) RegistryWhole23.actualResult=Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 25 (semanticInputs base) := by
+  have rows := RegistryWhole23.same_assignment_rows base linked
+  refine ⟨rows.1,rows.2.1,rows.2.2,?_⟩
+  rw [arbitrary_registry (RegistryWhole23.final base) ((RegistryWhole23.final_outside base 0 (Or.inl (by decide))).trans one) rows.1 rows.2.1 rows.2.2,semantic_preserved]
+end ShielddSecurity.RegistryInputJoin24
