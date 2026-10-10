@@ -1,0 +1,65 @@
+{
+  "kind": "read-only pinned runtime source review, no kernel or native execution result",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "files": [
+    {
+      "path": "crates/crypto/circuits/src/proof.rs",
+      "bytes": 6565,
+      "sha256": "e695994b689ae4696743c839cc59680d3f8de994666e3c2fe862e1bf56ad5f93",
+      "functions": [
+        "Envelope::from_bytes",
+        "Envelope::check_context",
+        "Envelope::verify",
+        "verify_batch"
+      ],
+      "observations": [
+        "Envelope parser requires one public field and one commitment, complete byte consumption, expected suite and parsed family.",
+        "Context requires exact family, key relation digest, sole public input equal to statement, one commitment.",
+        "Single/batch admission calls actual Pari verification with family transcript; batch has fresh CSPRNG coefficients and checks every context."
+      ]
+    },
+    {
+      "path": "crates/crypto/proof-params/src/pari.rs",
+      "bytes": 24660,
+      "sha256": "a759b3afca0195b5dc027c6b5ff9e734a8e0a874abfebfed9d2828ad28d42f11",
+      "functions": [
+        "Registry::load",
+        "validate_relation",
+        "Registry::verify_item",
+        "Registry::verify_items",
+        "Verified::ensure_binds"
+      ],
+      "observations": [
+        "Trusted manifest is operator-selected and setup development; keys match exact compiled catalogue relation and domain, including equality-sensitive cache hit.",
+        "Exact family-local verification precedes capability minting; batch rejects empty/mixed families.",
+        "Capability contains registry identity and cloned complete item; ensure_binds checks family and complete item equality."
+      ]
+    },
+    {
+      "path": "crates/core/component/shielded-pool/src/transfer/proof.rs",
+      "bytes": 17943,
+      "sha256": "b9770d4f42b1670646bc4976f8c91c7d1da25d89f22780613aa82de2a25a00d5",
+      "functions": [
+        "TransferProof::to_batch_item",
+        "TransferProof::verify",
+        "TransferProof::prove"
+      ],
+      "observations": [
+        "Runtime Transfer public structure hashes to the sole circuit statement digest; all 64 fields are not directly public verifier inputs.",
+        "Transfer family and field encoding are explicit, individual verification uses locally loaded registry.",
+        "Successful proving performs native registry verification before returning encoded proof."
+      ]
+    }
+  ],
+  "remaining_owned_obligations": [
+    "Concrete SDK statement hash/field encoding corresponds to formal definitions and correct 64-field ordering.",
+    "Actual catalogue relation corresponds to full formal row instance at the recorded digest and layout.",
+    "Apply backend knowledge soundness to verified claim to obtain assignment plus committed blinding opening; one commitment alone does not reveal blinding equality.",
+    "Bind semantic theorem to capability for exact expected slot and registry, then actual Transfer execution and explicit abort/recovery contract."
+  ],
+  "explicit_external_assumptions": [
+    "Pari knowledge/batch soundness under exact setup/transcript/key assumptions.",
+    "Collision resistance and unambiguous encoding for statement/registry/relation digests."
+  ],
+  "full_transfer": "OPEN"
+}

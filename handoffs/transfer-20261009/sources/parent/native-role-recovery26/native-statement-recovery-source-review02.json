@@ -1,0 +1,82 @@
+{
+  "kind": "read-only exact runtime source review, no native execution or kernel result",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "files": [
+    {
+      "path": "crates/crypto/circuits/src/transfer.rs",
+      "bytes": 12787,
+      "sha256": "c94460ee3c389cb0a980c9fd6289aa488bda0c71401989913160b2bdddf5d266"
+    },
+    {
+      "path": "crates/core/component/shielded-pool/src/public_input_hash.rs",
+      "bytes": 10901,
+      "sha256": "ea511e9049645b2c6ad44171513134bf6d31494c8f73fc032222184aafeeec73"
+    },
+    {
+      "path": "crates/core/app/src/app/mod.rs",
+      "bytes": 48180,
+      "sha256": "f3b8778b2224abaf8672a19253bfaeda823d64187c4eeecb2e8ebebcbf02453f"
+    },
+    {
+      "path": "crates/core/app/src/app/lifecycle.rs",
+      "bytes": 8013,
+      "sha256": "ac736611bab6c9e0c103de00dc0124f6f7dc860a3739439169158b3acc3e218a"
+    },
+    {
+      "path": "crates/core/app/src/app/host.rs",
+      "bytes": 89723,
+      "sha256": "fc1c43378105957364e85054f5818eede0702ba9fc5a9d413f53669cb0bfab1d"
+    },
+    {
+      "path": "crates/core/app/src/app/permanent_writer.rs",
+      "bytes": 10619,
+      "sha256": "444b5ce8436eff3e1cc93e162fe2b567f055b512ac56a29fc887d86e44cbf72d"
+    },
+    {
+      "path": "crates/bin/shieldd/src/ffi.rs",
+      "bytes": 46951,
+      "sha256": "39a13e86abc77a81311e5cf90ff30879620207edca44d46e884bd59a0c98d61c"
+    }
+  ],
+  "formal_sources": [
+    {
+      "path": "circuits/ShielddSecurity/TransferSem.lean",
+      "bytes": 25198,
+      "sha256": "34bfad86d8619e505f0cfcd7e1191708be5524146a86fc2bdfda444c3f53ab72"
+    },
+    {
+      "path": "circuits/ShielddSecurity/TransferStatement.lean",
+      "bytes": 4527,
+      "sha256": "677f3916faa8b26c884085b3c8b79ff01e80d59d3f2087f51bef64af0646fb58"
+    },
+    {
+      "path": "circuits/ShielddSecurity/RuntimeTransferStatement.lean",
+      "bytes": 2019,
+      "sha256": "27af3108bec88381ab69d82e0325bb034b0c2898c59e844ca71b959998bc5e1e"
+    },
+    {
+      "path": "circuits/ShielddSecurity/TransferNativeStatementSequence.lean",
+      "bytes": 8930,
+      "sha256": "9eb8ab72e3fe146671ad513959aa45e0705dcb0560444b4eb4b9ad1a7a948fbe"
+    },
+    {
+      "path": "circuits/ShielddSecurity/TransferExecution.lean",
+      "bytes": 9931,
+      "sha256": "60777eff345ccf5181b2c5ffbf6c89b22fcafb1c47335f3a67dc7f4ab41388af"
+    }
+  ],
+  "observations": {
+    "statement": "Statement::fields has 64 fields in structured formal order, including tier placement, timestamp at index44, confirmations45/46 and ownership56..63. Public API validates shape/metadata and builds typed statement, then hashes exact field count under Transfer statement domain. The circuit constrains the same typed field list. Source correspondence remains to instantiate; fixed field ordering does not prove hash injectivity.",
+    "deferred_flush": "Queue is taken before fallible per-transaction writes; child state applies only after all writes. A flush error may leave queue drained. end_block calls expect before HostExecution moves phase to CommitInterrupted. FFI catches panic without rebuilding the service.",
+    "recover": "Rollback calls recover_current on latest durable application snapshot, recovers nullifier boundary, rebuilds App then resets phase Idle. It is an explicit operation, not an automatic consequence of FFI failure.",
+    "commit": "Nullifiers commit then application batch persists, then root/nullifier-complete/capacity work remains fallible. Errors need not mean the durable old state. Recovery must choose the actual authenticated durable boundary; caller coordination and store implementation assumptions remain owned joins.",
+    "source_tests": "Canceled commit and stale-snapshot commit tests require explicit rollback before replay and later reopen/readback. This review did not run those tests."
+  },
+  "remaining": [
+    "Instantiate actual decoded SDK point/field/hash operations in formal source refinement.",
+    "Discharge actual verifier/row-to-TransferSem and capability slot binding.",
+    "Derive actual Transfer effects and define/prove explicit error, abort, interrupted-commit and recovery transitions.",
+    "Exercise relevant native fault paths under existing worker process limits; source review alone does not validate them."
+  ],
+  "full_transfer": "OPEN"
+}
