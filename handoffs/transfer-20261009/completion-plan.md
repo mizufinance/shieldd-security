@@ -1,19 +1,31 @@
 # Transfer proof completion plan — 9 October 2026
 
-Current additional accepted scope: MerkleSelection26, MerkleHash27 and
-MerkleInputMeaning28 extend Initial734, Join15 and RegistryWhole23 on one
-assignment. MerkleHash27 is published at
-`a6016b330aef385b1904968809ba521203b8df66`; its six modules have 131 full
-type/standard-axiom audits and cover 413 selected positions. The separate
-MerkleInputMeaning28 endpoint supplies six audits joining the nested registry
-hash from original inputs to this first asset path hash. Boolean/deferred
-constraints and the remaining levels are still open. Parent generator and
-captured-row checks passed. The retained desktop has passed scoped actual
-point-set, two-torsion, eight-kernel-bound and doubling/no-half endpoints;
-actual global curve cardinality remains open until its remaining obligations
-are sealed and reviewed. The earlier 325-source scoped closure was assembled
-without caches or replay. Full relation coverage, independently legal full
-construction, native/state joins and final certification remain OPEN.
+Current accepted scope (10 October 2026): Initial734, Join15, RegistryWhole23,
+RegistryInputJoin24, MerkleSelection26, MerkleHash27 and MerkleInputMeaning28
+compose the original-input registry and first asset-path hash on one assignment.
+MerkleBits29 and Quaternary30 add captured Boolean/position constraints and the
+ordered four-child interpretation, published at
+`27f6938b6f150a2a9dc7b9c1baa3cdfc9282ad67`. Their constructor seeds private
+bit hints under explicit legal position conditions; preservation of arbitrary
+unseeded hints is not claimed. ReusablePoseidonPhase31 supplies a legal-for-every-
+base phase constructor and arbitrary-assignment round soundness from finite
+checks, published at `d6e01364bf784f60e2dff370a9ab8b38e8cba537`. Remaining path
+instances, the full16-level recurrence and final anchor are under development.
+
+The desktop's certified prime field, actual point bound/doubling/torsion and
+exact eight-kernel/no16/odd-image endpoints are accepted. The newly qualified
+closed cardinality join definitionally binds the retained exact base order to
+the same actual Mathlib curve, proving its full cardinality8r and global8r
+exponent without a base-order or cardinality premise. It is published at
+`5100abd1bc6e9f991f2108d60493906fb14d17b9`. Historical trace imports are retained
+qualified inputs, not freshly replayed claims. Native base and group-operation
+correspondence remain separate obligations.
+
+The expanded336-source scoped closure through MerkleInputMeaning28 is assembled
+without caches or replay at `4815b4573b56997c1df01c1f728050b78903bda3`.
+Full relation coverage, independently legal full construction, native admission/
+state/durability joins, portable final replay and atomic certification remain
+OPEN. The exact runtime pin remains `844389ee069e1fb2e576708842d0b389b4d9a44a`.
 
 Status: **OPEN**. Current orchestration continues the same retained local **GPT-6.1 Sol / high** agent and existing desktop chat **Transfer proof**. The former orchestrator relays to the local agent when needed. Both workers own proof strategy, routine repairs, narrow bounded builds and continuation between milestones. The parent owns high-level endpoint review, cross-host integration, serialized publication and final certification. **Claude Opus 5.5** review is optional; parent review can proceed independently. Dated checkpoints below preserve history, not current stopping instructions.
 
