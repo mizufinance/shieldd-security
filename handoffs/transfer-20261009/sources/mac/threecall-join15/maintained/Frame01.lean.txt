@@ -1,0 +1,61 @@
+variable {F : Type} [Field F] [CharP F p]
+def wide_segment : CompilerSegmentCompletion11.Segment F copy :=
+  CompilerSegmentCompletion11.append copy (TransferPoseidonCall14Program01.segment (F:=F))
+    (TransferPoseidonCall13Program01.segment (F:=F))
+    (by change 24308≤24308;decide) (by change 23472≤24308;decide)
+    (by change 24308≤24724;decide) (by change 0<23472;decide)
+    (by change 24308≤200692 ∧ 24724≤200692;decide)
+theorem wide_segment_steps : (wide_segment (F:=F)).steps=
+    TransferPoseidonCall14Program01.materializedSteps++TransferPoseidonCall13Program01.materializedSteps := rfl
+theorem wide_segment_rows : (wide_segment (F:=F)).rows=
+    TransferPoseidonCall14Program01.arithmeticRows++TransferPoseidonCall13Program01.arithmeticRows := rfl
+theorem child_writes_checked : (PoseidonCompletion.writes TransferPoseidonWidth3Call08Program01.materializedSteps).all
+    (fun column => decide (24724≤column ∧ column<25044))=true := by decide +kernel
+theorem child_rows_support_checked : CompilerSequenceCompletion.checkRows copy 25044 []
+    TransferPoseidonWidth3Call08Program01.arithmeticRows=true := by decide +kernel
+theorem child_writes_bounds (column : Nat)
+    (member : column∈PoseidonCompletion.writes TransferPoseidonWidth3Call08Program01.materializedSteps) :
+    24724≤column ∧ column<25044 :=
+  of_decide_eq_true (List.all_eq_true.mp child_writes_checked column member)
+theorem child_rows_support (row : Row) (member : row∈TransferPoseidonWidth3Call08Program01.arithmeticRows)
+    (term : Nat × Int) (present : term∈row.a++row.b) : term.1<25044 ∨ term.1=copy := by
+  have covered : (term.1=copy ∨ term.1<25044) ∧ term.1∉([] : List Nat) :=
+    of_decide_eq_true (List.all_eq_true.mp (List.all_eq_true.mp child_rows_support_checked row member) term present)
+  rcases covered.1 with fixed|below
+  · exact Or.inr fixed
+  · exact Or.inl below
+theorem child_materialized_complete (base : Nat → F) (linked : base copy=base 0) :
+    Satisfies (run base TransferPoseidonWidth3Call08Program01.materializedSteps)
+      TransferPoseidonWidth3Call08Program01.arithmeticRows :=
+  (original_rows_complete base TransferPoseidonWidth3Call08Program01.materializedSteps [0,copy]
+    TransferPoseidonWidth3Call08Program01.arithmeticRows copy
+    (TransferPoseidonWidth3Call08Program01.certificate8 (F:=F)).ordered
+    ((TransferPoseidonWidth3Call08Program01.certificate8 (F:=F)).legal base)
+    (by simp) (by simp) linked
+    (TransferPoseidonWidth3Call08Program01.certificate8 (F:=F)).coverage).1
+def child_segment : CompilerSegmentCompletion11.Segment F copy where
+  steps := TransferPoseidonWidth3Call08Program01.materializedSteps
+  rows := TransferPoseidonWidth3Call08Program01.arithmeticRows
+  low := 24724
+  high := 25044
+  writes := child_writes_bounds
+  support := child_rows_support
+  complete := child_materialized_complete
+def whole_segment : CompilerSegmentCompletion11.Segment F copy :=
+  CompilerSegmentCompletion11.append copy (wide_segment (F:=F)) (child_segment (F:=F))
+    (by change 24724≤24724;decide) (by change 23472≤24724;decide)
+    (by change 24724≤25044;decide) (by change 0<23472;decide)
+    (by change 24724≤200692 ∧ 25044≤200692;decide)
+theorem wide_rows_preserved_by_child (base : Nat → F)
+    (satisfied : Satisfies base (wide_segment (F:=F)).rows) :
+    Satisfies (run base TransferPoseidonWidth3Call08Program01.materializedSteps) (wide_segment (F:=F)).rows := by
+  apply CompilerSequenceCompletion.preserves_rows base _ _ satisfied
+  intro row member term present written
+  have upper := (wide_segment (F:=F)).support row member term present
+  have bounds := child_writes_bounds term.1 written
+  rcases upper with below|fixed
+  · change term.1<24724 at below
+    omega
+  · change term.1=200692 at fixed
+    omega
+theorem original_inputs_outside (input : Nat) (bound : input<22735) : 3+input<23472 := by omega

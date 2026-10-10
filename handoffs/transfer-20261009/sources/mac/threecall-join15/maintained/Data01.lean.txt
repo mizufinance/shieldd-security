@@ -1,0 +1,20 @@
+def width6Parameters : Poseidon.Parameters Int 6 := TransferPoseidonCall04Shared01.parameters
+def width3Parameters : Poseidon.Parameters Int 3 := TransferPoseidonWidth3Call08Shared01.parameters
+def p : Nat := TransferPoseidonCall04Shared01.p
+def copy : Nat := TransferPoseidonCall04Shared01.copy
+def input0Literal : Linear := @@INPUT0@@
+def input1Literal : Linear := @@INPUT1@@
+def resultLiteral : Linear := @@RESULT@@
+theorem input0_binding : TransferPoseidonWidth3Absorb08.input0=TransferPoseidonCall14B1TailPorts01.after 1 := rfl
+theorem input1_binding : TransferPoseidonWidth3Absorb08.input1=TransferPoseidonCall13TailPorts01.after 1 := rfl
+theorem input0_literal : TransferPoseidonWidth3Absorb08.input0=input0Literal := rfl
+theorem input1_literal : TransferPoseidonWidth3Absorb08.input1=input1Literal := rfl
+theorem result_binding : TransferPoseidonWidth3Call08Semantic01.resultTerms=resultLiteral := rfl
+theorem call14_copy_binding : TransferPoseidonCall14Program01.copyRow=TransferPoseidonWidth3Call08Shared01.rawCopy := rfl
+theorem call13_copy_binding : TransferPoseidonCall13Program01.copyRow=TransferPoseidonWidth3Call08Shared01.rawCopy := rfl
+theorem copy_rows_equal : TransferPoseidonCall14Program01.copyRow=TransferPoseidonCall13Program01.copyRow ∧
+    TransferPoseidonCall13Program01.copyRow=TransferPoseidonWidth3Call08Shared01.rawCopy := ⟨rfl,rfl⟩
+theorem modulus_copy_equal : p=TransferPoseidonWidth3Call08Shared01.p ∧ copy=TransferPoseidonWidth3Call08Shared01.copy := ⟨rfl,rfl⟩
+theorem width6_parameters_same : width6Parameters=TransferPoseidonCall04Shared01.parameters := rfl
+theorem copy_steps_equal : TransferPoseidonCall14B0R00.copyStep=TransferPoseidonWidth3Call08Shared01.copyStep ∧
+    TransferPoseidonCall04Shared01.copyStep=TransferPoseidonWidth3Call08Shared01.copyStep := ⟨rfl,rfl⟩

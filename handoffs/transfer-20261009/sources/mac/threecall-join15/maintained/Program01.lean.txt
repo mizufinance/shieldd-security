@@ -1,0 +1,49 @@
+def materializedSteps : List Step :=
+  (TransferPoseidonCall14Program01.materializedSteps++TransferPoseidonCall13Program01.materializedSteps)++
+    TransferPoseidonWidth3Call08Program01.materializedSteps
+def arithmeticRows : List Row :=
+  (TransferPoseidonCall14Program01.arithmeticRows++TransferPoseidonCall13Program01.arithmeticRows)++
+    TransferPoseidonWidth3Call08Program01.arithmeticRows
+def originalRows : List Row := arithmeticRows++[TransferPoseidonWidth3Call08Shared01.rawCopy]
+def steps : List Step := materializedSteps++[TransferPoseidonWidth3Call08Shared01.copyStep]
+variable {F : Type} [Field F] [CharP F p]
+theorem segment_steps : (whole_segment (F:=F)).steps=materializedSteps := rfl
+theorem segment_rows : (whole_segment (F:=F)).rows=arithmeticRows := rfl
+def completed (base : Nat → F) : Nat → F := run base steps
+omit [CharP F p] in
+theorem completed_materialized (base : Nat → F) : completed base=run base materializedSteps := by
+  unfold completed steps
+  rw [CompilerSequenceCompletion.run_append]
+  rfl
+omit [CharP F p] in
+theorem sequential_run (base : Nat → F) : completed base=
+    run (run (run base TransferPoseidonCall14Program01.materializedSteps)
+      TransferPoseidonCall13Program01.materializedSteps) TransferPoseidonWidth3Call08Program01.materializedSteps := by
+  rw [completed_materialized]
+  unfold materializedSteps
+  rw [CompilerSequenceCompletion.run_append,CompilerSequenceCompletion.run_append]
+theorem outside_preserved (base : Nat → F) (column : Nat)
+    (outside : column<23472 ∨ 25044≤column) : completed base column=base column := by
+  rw [completed_materialized,←segment_steps (F:=F)]
+  exact CompilerSegmentCompletion11.outside copy whole_segment base column outside
+theorem copy_preserved (base : Nat → F) : completed base copy=base copy :=
+  outside_preserved base copy (Or.inr (by change 25044≤200692;decide))
+theorem original_inputs_preserved (base : Nat → F) (input : Nat) (bound : input<22735) :
+    completed base (3+input)=base (3+input) := outside_preserved base _ (Or.inl (original_inputs_outside input bound))
+theorem completed_rows (base : Nat → F) (linked : base copy=base 0) : Satisfies (completed base) originalRows := by
+  have arithmetic := (whole_segment (F:=F)).complete base linked
+  rw [segment_steps (F:=F),segment_rows (F:=F),←completed_materialized] at arithmetic
+  have link : completed base copy=completed base 0 := by
+    rw [copy_preserved,outside_preserved base 0 (Or.inl (by decide))]
+    exact linked
+  have copying := TransferPoseidonCall14Program01.copy_satisfied (completed base) link
+  rw [call14_copy_binding] at copying
+  intro row member
+  rcases List.mem_append.mp member with member|member
+  · exact arithmetic row member
+  · exact copying row member
+theorem conditional_prior_rows (base : Nat → F) (prior : List Row) (satisfied : Satisfies base prior)
+    (support : ∀ row∈prior,∀ term∈row.a++row.b,term.1<23472 ∨ 25044≤term.1) :
+    Satisfies (completed base) prior := by
+  rw [completed_materialized,←segment_steps (F:=F)]
+  exact CompilerSegmentCompletion11.prior_preserved copy whole_segment base prior satisfied support

@@ -1,0 +1,15 @@
+def bindingCheck (candidateFirst candidateSecond candidateResult : Linear) (candidateCopyCount : Nat) : Bool :=
+  decide (candidateFirst=input0Literal ∧ candidateSecond=input1Literal ∧
+    candidateResult=resultLiteral ∧ candidateCopyCount=1)
+theorem binding_fields (first second result : Linear) (copyCount : Nat)
+    (accepted : bindingCheck first second result copyCount=true) :
+    first=input0Literal ∧ second=input1Literal ∧ result=resultLiteral ∧ copyCount=1 := of_decide_eq_true accepted
+theorem correct_port_check : bindingCheck TransferPoseidonWidth3Absorb08.input0 TransferPoseidonWidth3Absorb08.input1
+    TransferPoseidonWidth3Call08Semantic01.resultTerms 1=true := by decide +kernel
+theorem wrong_existing_input_order_rejected : bindingCheck TransferPoseidonWidth3Absorb08.input1 TransferPoseidonWidth3Absorb08.input0
+    TransferPoseidonWidth3Call08Semantic01.resultTerms 1=false := by decide +kernel
+theorem wrong_result_port_rejected : bindingCheck TransferPoseidonWidth3Absorb08.input0 TransferPoseidonWidth3Absorb08.input1
+    (TransferPoseidonWidth3Call08Semantic01.after 64 0) 1=false := by decide +kernel
+theorem missing_copy_count_rejected : bindingCheck TransferPoseidonWidth3Absorb08.input0 TransferPoseidonWidth3Absorb08.input1
+    TransferPoseidonWidth3Call08Semantic01.resultTerms 0=false := by decide +kernel
+@@COMPONENT_CONTROL_ALIASES@@
