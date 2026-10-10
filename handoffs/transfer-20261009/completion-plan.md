@@ -9,8 +9,14 @@ ordered four-child interpretation, published at
 bit hints under explicit legal position conditions; preservation of arbitrary
 unseeded hints is not claimed. ReusablePoseidonPhase31 supplies a legal-for-every-
 base phase constructor and arbitrary-assignment round soundness from finite
-checks, published at `d6e01364bf784f60e2dff370a9ab8b38e8cba537`. Remaining path
-instances, the full16-level recurrence and final anchor are under development.
+checks, published at `d6e01364bf784f60e2dff370a9ab8b38e8cba537`. The first two
+captured phases are now qualified for every asset path level; the remaining
+28-phase packet has 644 complete public declaration reports at
+`fa7b86c4c32b097c189bd941dbdf4ac63ff0bc09`. All15 remaining actual selection
+body certificates, with both coverage directions and four checker controls,
+are published at `61fbb2b75fc9663136ecddd888fb41ce1d3a2b2c`. They cover180
+arithmetic positions plus one shared-copy position. The shared hash/path
+composition, full16-level recurrence and final anchor remain under development.
 
 The desktop's certified prime field, actual point bound/doubling/torsion and
 exact eight-kernel/no16/odd-image endpoints are accepted. The newly qualified
@@ -30,6 +36,18 @@ OPEN. The exact runtime pin remains `844389ee069e1fb2e576708842d0b389b4d9a44a`.
 Status: **OPEN**. Current orchestration continues the same retained local **GPT-6.1 Sol / high** agent and existing desktop chat **Transfer proof**. The former orchestrator relays to the local agent when needed. Both workers own proof strategy, routine repairs, narrow bounded builds and continuation between milestones. The parent owns high-level endpoint review, cross-host integration, serialized publication and final certification. **Claude Opus 5.5** review is optional; parent review can proceed independently. Dated checkpoints below preserve history, not current stopping instructions.
 
 Latest accepted scope: the five-module Join15 endpoint supplies 73 audited declarations, arbitrary-assignment nested-hash soundness and a same-assignment constructor for 1,573 selected rows. Its exact sources and sealed summaries are published at `b52df7cccc9178c8e953c639a6e0f4e5c733e276`. The Mac worker continues the initial-row and registry construction. The corrected desktop eight-prerequisite and eight group/compiler packet passed scoped parent endpoint review and is published at `6ca89c9791800b9f2fc3315e3ba62b783e211b82`; desktop continues cardinality and semantic subgroup work. The earlier incomplete-import Group packet is withdrawn. Its 157 audited declarations establish scoped constructor/indexed/group interfaces, not global curve order or native correspondence. These scoped milestones leave full-row binding, complete legal-input construction, native/state correspondence and final certification OPEN. The Initial734 constructor is now accepted and published at `d253e55f80040e3a36d51de5b1d3a0ab5b90fbc9`: it derives the first 734 arithmetic rows and extends Join15 under one assignment while preserving all original inputs and fixed columns. The 16-module semantic/scalar/torsion packet is accepted and published at `25f22e4a2917256c266ba0a5a7480ce8fc05bc99`; it supplies symbolic row-derived scalar bounds, a selected mathematical subgroup interpretation, integer Euler residues and conditional torsion algebra. Concrete native correspondence and actual curve cardinality remain open. The smaller torsion/cardinality route is under development; its integer data is not a curve-order proof.
+
+Current resource clarification: machine crash prevention controls resource choices.
+Host RAM, Lean heap, RSS, commit-pressure, free-memory and single-process guards
+remain mandatory. Workers may choose finite non-memory artifact packaging/byte
+thresholds and package layouts when independently checked disk capacity supports
+them, through fresh guarded plans/runners and exact immutable provenance. This
+permits a valid polynomial certificate to remain one module when an old object
+packaging threshold alone would force extra splitting. Failed predecessors stay
+failed; complete theorem/axiom audits and proof correctness are still required.
+The parent reviews concrete guard deltas and serializes publication. Historical
+packaging counters and prior stage-approval instructions do not constrain current
+worker autonomy.
 
 ## Required result
 
