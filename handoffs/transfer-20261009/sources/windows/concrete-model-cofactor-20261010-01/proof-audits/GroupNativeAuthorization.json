@@ -1,0 +1,159 @@
+{
+  "module": "GroupNativeAuthorization",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.GroupNativeAuthorization.readPoint",
+      "full_type": "@ShielddSecurity.GroupNativeAuthorization.readPoint : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) \u2192\n      (x y : ShielddSecurity.GroupByteCodec.Bytes) \u2192 Option.{0} (ShielddSecurity.Group.Point F)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "29d55ed8a05351cd93040f68b85b6b5161fedee2ad4b0944d9c54a4715f3a5da"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeAuthorization.coordinate_read",
+      "full_type": "@ShielddSecurity.GroupNativeAuthorization.coordinate_read : \u2200 {F : Type} [inst : Field.{0} F]\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) (value : F) (bytes : ShielddSecurity.GroupByteCodec.Bytes)\n  (byteValues :\n    \u2200 (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n      @Eq.{1} Nat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) (bytes index))\n        (ShielddSecurity.GroupByteCodec.littleEndianByte\n          (@ShielddSecurity.TransferReduction.CanonicalField.decode F inst codec value)\n          (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index))),\n  @Eq.{1} (Option.{0} F)\n    (@ShielddSecurity.GroupByteCodec.BERead.decode F inst decoder (ShielddSecurity.GroupByteCodec.reverseBytes bytes))\n    (@Option.some.{0} F value)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "8f7828d1e04a6ea34f97a97be8c8aadc88f1c0e3a4de014e7494c11cadb78e84"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeAuthorization.read_point_coordinates",
+      "full_type": "@ShielddSecurity.GroupNativeAuthorization.read_point_coordinates : \u2200 {F : Type} [inst : Field.{0} F] {S : Type}\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) (coordinates : S \u2192 ShielddSecurity.Group.Point F)\n  (bytes : @ShielddSecurity.GroupNativeAuthorization.CoordinateBytes F inst S codec coordinates) (point : S),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.GroupNativeAuthorization.readPoint F inst decoder\n      (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.x F inst S codec coordinates bytes point)\n      (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.y F inst S codec coordinates bytes point))\n    (@Option.some.{0} (ShielddSecurity.Group.Point F) (coordinates point))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "57578563673829cf76c84da69eba6769241d745ed3db9fbfbc7978b6084cd722"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeAuthorization.nativeAuthorization",
+      "full_type": "@ShielddSecurity.GroupNativeAuthorization.nativeAuthorization : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (d : F) \u2192\n      {codec : @ShielddSecurity.TransferReduction.CanonicalField F inst} \u2192\n        (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) \u2192\n          (key spendAuth : ShielddSecurity.Group.Point F) \u2192 (randomizer : F) \u2192 ShielddSecurity.Group.Point F",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "93e8e712a6886263bb437f39a1ce02e581b73c3f93274a9db0e31373a14e21e7"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeAuthorization.native_authorization_coordinates",
+      "full_type": "@ShielddSecurity.GroupNativeAuthorization.native_authorization_coordinates : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {J : Type} [inst_2 : AddCommGroup.{0} J] (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) (d imaginary : F)\n  (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_2 d)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (key spendAuth : J) (randomizer : F),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.GroupNativeAuthorization.nativeAuthorization F inst d codec writer\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model key)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model spendAuth) randomizer)\n    (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model\n      (@HAdd.hAdd.{0, 0, 0} J J J\n        (@instHAdd.{0} J\n          (@AddCommMagma.toAdd.{0} J\n            (@AddCommSemigroup.toAddCommMagma.{0} J\n              (@AddCommMonoid.toAddCommSemigroup.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst_2)))))\n        key\n        (@HSMul.hSMul.{0, 0, 0} Nat J J\n          (@instHSMul.{0, 0} Nat J\n            (@AddMonoid.toNSMul.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J\n                (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n          (@ShielddSecurity.TransferReduction.CanonicalField.decode F inst codec randomizer) spendAuth)))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "de5780a20222a5e54e44d03d7659814307e696af555f26911091f1458a279fff"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeAuthorization.readAuthorization",
+      "full_type": "@ShielddSecurity.GroupNativeAuthorization.readAuthorization : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) \u2192\n      {codec : @ShielddSecurity.TransferReduction.CanonicalField F inst} \u2192\n        (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) \u2192\n          (d : F) \u2192\n            (keyX keyY spendX spendY : ShielddSecurity.GroupByteCodec.Bytes) \u2192\n              (randomizer : F) \u2192 Option.{0} (ShielddSecurity.Group.Point F)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a0229ccbe8add6296dc10f91982397de904a10f1baee443719bcafc0d3924a6f"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeAuthorization.read_authorization_coordinates",
+      "full_type": "@ShielddSecurity.GroupNativeAuthorization.read_authorization_coordinates : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {S J : Type} [inst_2 : AddCommGroup.{0} J] (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) (d imaginary : F)\n  (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_2 d) (embed : S \u2192 J)\n  (bytes :\n    @ShielddSecurity.GroupNativeAuthorization.CoordinateBytes F inst S codec fun (point : S) =>\n      @ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model (embed point))\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (key spendAuth : S) (randomizer : F),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.GroupNativeAuthorization.readAuthorization F inst decoder codec writer d\n      (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.x F inst S codec\n        (fun (point : S) => @ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model (embed point))\n        bytes key)\n      (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.y F inst S codec\n        (fun (point : S) => @ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model (embed point))\n        bytes key)\n      (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.x F inst S codec\n        (fun (point : S) => @ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model (embed point))\n        bytes spendAuth)\n      (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.y F inst S codec\n        (fun (point : S) => @ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model (embed point))\n        bytes spendAuth)\n      randomizer)\n    (@Option.some.{0} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model\n        (@HAdd.hAdd.{0, 0, 0} J J J\n          (@instHAdd.{0} J\n            (@AddCommMagma.toAdd.{0} J\n              (@AddCommSemigroup.toAddCommMagma.{0} J\n                (@AddCommMonoid.toAddCommSemigroup.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst_2)))))\n          (embed key)\n          (@HSMul.hSMul.{0, 0, 0} Nat J J\n            (@instHSMul.{0, 0} Nat J\n              (@AddMonoid.toNSMul.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n            (@ShielddSecurity.TransferReduction.CanonicalField.decode F inst codec randomizer) (embed spendAuth)))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "03c0dfee1fb1794b90d4c9e2af3cdba36c866c8328fa5c7771831b8cf427a9b8"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 11961,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\runs\\02-GroupNativeAuthorization\\stdout.txt",
+    "sha256": "ac3417e901b34d91b7f8b2ada2247d7ed31193e45e07d1705eb8ca2474f4b8fe"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.GroupNativeAuthorization.coordinate_read": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "8f7828d1e04a6ea34f97a97be8c8aadc88f1c0e3a4de014e7494c11cadb78e84"
+      },
+      "ShielddSecurity.GroupNativeAuthorization.nativeAuthorization": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "93e8e712a6886263bb437f39a1ce02e581b73c3f93274a9db0e31373a14e21e7"
+      },
+      "ShielddSecurity.GroupNativeAuthorization.native_authorization_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "de5780a20222a5e54e44d03d7659814307e696af555f26911091f1458a279fff"
+      },
+      "ShielddSecurity.GroupNativeAuthorization.readAuthorization": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "a0229ccbe8add6296dc10f91982397de904a10f1baee443719bcafc0d3924a6f"
+      },
+      "ShielddSecurity.GroupNativeAuthorization.readPoint": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "29d55ed8a05351cd93040f68b85b6b5161fedee2ad4b0944d9c54a4715f3a5da"
+      },
+      "ShielddSecurity.GroupNativeAuthorization.read_authorization_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "03c0dfee1fb1794b90d4c9e2af3cdba36c866c8328fa5c7771831b8cf427a9b8"
+      },
+      "ShielddSecurity.GroupNativeAuthorization.read_point_coordinates": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "57578563673829cf76c84da69eba6769241d745ed3db9fbfbc7978b6084cd722"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\project\\ShielddSecurity\\GroupNativeAuthorization.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\project\\ShielddSecurity\\GroupNativeAuthorization.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 199768,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\project\\ShielddSecurity\\GroupNativeAuthorization.olean",
+        "sha256": "084b3fbc0f1745ea52515f313bb8b5e95764778f16734f5ec0c02f99fd6684b7"
+      }
+    ],
+    "peak_rss_bytes": 1089687552,
+    "seconds": 13.767143699980807,
+    "status": "passed",
+    "stdout": {
+      "bytes": 11961,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\runs\\02-GroupNativeAuthorization\\stdout.txt",
+      "sha256": "ac3417e901b34d91b7f8b2ada2247d7ed31193e45e07d1705eb8ca2474f4b8fe"
+    }
+  }
+}

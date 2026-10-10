@@ -1,0 +1,181 @@
+{
+  "module": "EdwardsAdditionPilot01",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.addition",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.addition : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst) \u2192\n      (left right : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params) \u2192\n        @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "afb66466f65852b6e5e8b8afc911e5124ce61a18d99841b6ee2d22dd951d2616"
+    },
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.addition_identity",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.addition_identity : \u2200 {F : Type} [inst : Field.{0} F]\n  (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst)\n  (point : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params),\n  @Eq.{1} (@ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params)\n    (@ShielddSecurity.EdwardsAdditionPilot01.addition F inst params point\n      (@ShielddSecurity.EdwardsWeierstrassEquiv01.identity F inst params))\n    point",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "cb2e1d28fe01d790247a775324ed2287cfebfb43fa035ad9756bbd62b24f9669"
+    },
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.identity_addition",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.identity_addition : \u2200 {F : Type} [inst : Field.{0} F]\n  (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst)\n  (point : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params),\n  @Eq.{1} (@ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params)\n    (@ShielddSecurity.EdwardsAdditionPilot01.addition F inst params\n      (@ShielddSecurity.EdwardsWeierstrassEquiv01.identity F inst params) point)\n    point",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "751516e8ccf54527339d1cc2cf54d41feb85aa3f1b65aec3c067d314a9696262"
+    },
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.addition_comm",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.addition_comm : \u2200 {F : Type} [inst : Field.{0} F]\n  (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst)\n  (left right : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params),\n  @Eq.{1} (@ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params)\n    (@ShielddSecurity.EdwardsAdditionPilot01.addition F inst params left right)\n    (@ShielddSecurity.EdwardsAdditionPilot01.addition F inst params right left)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "11f52e8bebac4afff6752e960203df39222c68df06d012d386d619c5efc035bf"
+    },
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.addition_inverse",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.addition_inverse : \u2200 {F : Type} [inst : Field.{0} F]\n  (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst)\n  (point : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params),\n  @Eq.{1} (@ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params)\n    (@ShielddSecurity.EdwardsAdditionPilot01.addition F inst params point\n      (@ShielddSecurity.EdwardsWeierstrassEquiv01.edwardsNeg F inst params point))\n    (@ShielddSecurity.EdwardsWeierstrassEquiv01.identity F inst params)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "654d7ba83346b1a32e045ac6bab0419c695e6ff5cad2d1c2964bcdf95d6d7655"
+    },
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.torsionTranslate",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.torsionTranslate : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst) \u2192\n      (point : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params) \u2192\n        @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "cfc171b55baa9869a5cafdc214eab99e956c7d01405b60fca00f13e1120b8f7c"
+    },
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.torsion_addition",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.torsion_addition : \u2200 {F : Type} [inst : Field.{0} F]\n  (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst)\n  (point : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params),\n  @Eq.{1} (@ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params)\n    (@ShielddSecurity.EdwardsAdditionPilot01.addition F inst params\n      (@ShielddSecurity.EdwardsWeierstrassEquiv01.torsion F inst params) point)\n    (@ShielddSecurity.EdwardsAdditionPilot01.torsionTranslate F inst params point)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "71090a6dc64db29c455574a399d4ebcba0f762c706909e3ded77226363ad7961"
+    },
+    {
+      "declaration": "ShielddSecurity.EdwardsAdditionPilot01.addition_torsion",
+      "full_type": "@ShielddSecurity.EdwardsAdditionPilot01.addition_torsion : \u2200 {F : Type} [inst : Field.{0} F]\n  (params : @ShielddSecurity.EdwardsWeierstrassEquiv01.Parameters F inst)\n  (point : @ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params),\n  @Eq.{1} (@ShielddSecurity.EdwardsWeierstrassEquiv01.Edwards F inst params)\n    (@ShielddSecurity.EdwardsAdditionPilot01.addition F inst params point\n      (@ShielddSecurity.EdwardsWeierstrassEquiv01.torsion F inst params))\n    (@ShielddSecurity.EdwardsAdditionPilot01.torsionTranslate F inst params point)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a92a4a516f8d10378d66cef2c8d1a1008562490e8253818bd63fee98ddd63771"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 4701,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-08\\runs\\02-EdwardsAdditionPilot01\\stdout.txt",
+    "sha256": "946b57d70dbbf4f931abe18140402375a91777151c100059e0b2c3dd63ed5087"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.EdwardsAdditionPilot01.addition": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "afb66466f65852b6e5e8b8afc911e5124ce61a18d99841b6ee2d22dd951d2616"
+      },
+      "ShielddSecurity.EdwardsAdditionPilot01.addition_comm": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "11f52e8bebac4afff6752e960203df39222c68df06d012d386d619c5efc035bf"
+      },
+      "ShielddSecurity.EdwardsAdditionPilot01.addition_identity": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "cb2e1d28fe01d790247a775324ed2287cfebfb43fa035ad9756bbd62b24f9669"
+      },
+      "ShielddSecurity.EdwardsAdditionPilot01.addition_inverse": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "654d7ba83346b1a32e045ac6bab0419c695e6ff5cad2d1c2964bcdf95d6d7655"
+      },
+      "ShielddSecurity.EdwardsAdditionPilot01.addition_torsion": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "a92a4a516f8d10378d66cef2c8d1a1008562490e8253818bd63fee98ddd63771"
+      },
+      "ShielddSecurity.EdwardsAdditionPilot01.identity_addition": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "751516e8ccf54527339d1cc2cf54d41feb85aa3f1b65aec3c067d314a9696262"
+      },
+      "ShielddSecurity.EdwardsAdditionPilot01.torsionTranslate": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "cfc171b55baa9869a5cafdc214eab99e956c7d01405b60fca00f13e1120b8f7c"
+      },
+      "ShielddSecurity.EdwardsAdditionPilot01.torsion_addition": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "71090a6dc64db29c455574a399d4ebcba0f762c706909e3ded77226363ad7961"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-08\\project\\ShielddSecurity\\EdwardsAdditionPilot01.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-08\\project\\ShielddSecurity\\EdwardsAdditionPilot01.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 236880,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-08\\project\\ShielddSecurity\\EdwardsAdditionPilot01.olean",
+        "sha256": "210900ef9a0e2e15b8c3b68db89b2452abed8c53a2b082949fe489eb22109e5d"
+      }
+    ],
+    "peak_rss_bytes": 1094524928,
+    "seconds": 14.219402900023852,
+    "status": "passed",
+    "stdout": {
+      "bytes": 4701,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-08\\runs\\02-EdwardsAdditionPilot01\\stdout.txt",
+      "sha256": "946b57d70dbbf4f931abe18140402375a91777151c100059e0b2c3dd63ed5087"
+    }
+  }
+}

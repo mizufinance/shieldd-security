@@ -1,0 +1,203 @@
+{
+  "module": "GroupNativeCofactor",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.inverseEight",
+      "full_type": "ShielddSecurity.GroupNativeCofactor.inverseEight : Nat",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "4a1708efcc0614cc99ec98b0ee4e64d762e9f71e98778b198550854447d11b3b"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.inverse_eight_equation",
+      "full_type": "ShielddSecurity.GroupNativeCofactor.inverse_eight_equation : @Eq.{1} Nat\n  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n    (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) ShielddSecurity.GroupNativeCofactor.inverseEight)\n  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) ShielddSecurity.Scalar.order\n    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "deb4a146f00e8377ee4da3047fef623126137e83127136fb51873af945693687"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.inverse_eight_bound",
+      "full_type": "ShielddSecurity.GroupNativeCofactor.inverse_eight_bound : @LT.lt.{0} Nat instLTNat\n  ShielddSecurity.GroupNativeCofactor.inverseEight ShielddSecurity.Scalar.modulus",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "ff980b973cab6783382804d3061bfb81ed0133c726638aebcfa15efe2c236bf9"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.nativePreimage",
+      "full_type": "@ShielddSecurity.GroupNativeCofactor.nativePreimage : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (d : F) \u2192\n      (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst) \u2192\n        (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) \u2192\n          (point : ShielddSecurity.Group.Point F) \u2192 ShielddSecurity.Group.Point F",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "49a3d8879ee4860abd6d5d5d88a416e586a47a8fbd9c988276feb57aff5a79a4"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.native_preimage_coordinates",
+      "full_type": "@ShielddSecurity.GroupNativeCofactor.native_preimage_coordinates : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {J : Type} [inst_2 : AddCommGroup.{0} J] (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) (d imaginary : F)\n  (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_2 d)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (point : J),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point))\n    (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n        ShielddSecurity.GroupNativeCofactor.inverseEight point))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4db06315560257c44653fc1ff0477d316d1a7af98e7f768e0062bda89b295522"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.subgroup_eight_preimage",
+      "full_type": "@ShielddSecurity.GroupNativeCofactor.subgroup_eight_preimage : \u2200 {J : Type} [inst : AddCommGroup.{0} J] (point : J)\n  (subgroup :\n    @Eq.{1} J\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n        ShielddSecurity.Scalar.order point)\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst)))))))),\n  @Eq.{1} J\n    (@HSMul.hSMul.{0, 0, 0} Nat J J\n      (@instHSMul.{0, 0} Nat J\n        (@AddMonoid.toNSMul.{0} J\n          (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst)))))\n        ShielddSecurity.GroupNativeCofactor.inverseEight point))\n    point",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "ada928871757c9fd2bede4f0f8600aca82a521501efed133909ec4299af1b227"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.nativeEight",
+      "full_type": "@ShielddSecurity.GroupNativeCofactor.nativeEight : {F : Type} \u2192\n  [Field.{0} F] \u2192 (d : F) \u2192 (point : ShielddSecurity.Group.Point F) \u2192 ShielddSecurity.Group.Point F",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d54fb997b6e465cb96348bc584be1e9b9118ff60ee3c087510aef239c77eda66"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.native_eight_coordinates",
+      "full_type": "@ShielddSecurity.GroupNativeCofactor.native_eight_coordinates : \u2200 {F : Type} [inst : Field.{0} F] {J : Type}\n  [inst_1 : AddCommGroup.{0} J] (d imaginary : F) (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (point : J),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.GroupNativeCofactor.nativeEight F inst d\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model point))\n    (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n        (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) point))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "b68a4dc2bca9dfe1e3ab8aa0a79b25e321a9e5d69f2142200c12ff8a04226652"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.native_preimage_complete",
+      "full_type": "@ShielddSecurity.GroupNativeCofactor.native_preimage_complete : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {J : Type} [inst_2 : AddCommGroup.{0} J] (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) (d imaginary : F)\n  (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_2 d)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (point : J)\n  (subgroup :\n    @Eq.{1} J\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n        ShielddSecurity.Scalar.order point)\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_2)))))))),\n  And\n    (@ShielddSecurity.Group.OnCurve F inst d\n      (@ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer\n        (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point)))\n    (@Eq.{1} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.GroupNativeCofactor.nativeEight F inst d\n        (@ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer\n          (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point)))\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0366cfa3992e5a7dba46061440f4a373185e25873d8d034e8adb390b4f6e8e6c"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeCofactor.native_authorization_preimage_complete",
+      "full_type": "@ShielddSecurity.GroupNativeCofactor.native_authorization_preimage_complete : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {J : Type} [inst_2 : AddCommGroup.{0} J] (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) (d imaginary : F)\n  (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_2 d)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (key spendAuth : J)\n  (keySubgroup :\n    @Eq.{1} J\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n        ShielddSecurity.Scalar.order key)\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_2))))))))\n  (baseSubgroup :\n    @Eq.{1} J\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n        ShielddSecurity.Scalar.order spendAuth)\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_2))))))))\n  (randomizer : F),\n  have rk : ShielddSecurity.Group.Point F :=\n    @ShielddSecurity.GroupNativeAuthorization.nativeAuthorization F inst d codec writer\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model key)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model spendAuth) randomizer;\n  And\n    (@ShielddSecurity.Group.OnCurve F inst d\n      (@ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer rk))\n    (@Eq.{1} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.GroupNativeCofactor.nativeEight F inst d\n        (@ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer rk))\n      rk)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "140bf277bfd906f1b7c57271ae4ebb0295a52732bf605e5144dd8f667c9f0235"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 16950,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\runs\\03-GroupNativeCofactor\\stdout.txt",
+    "sha256": "99acedfc44250b3c9d9a8bbbae78f1a181273c7605dcbf37ea57f33c265aad84"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.GroupNativeCofactor.inverseEight": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "4a1708efcc0614cc99ec98b0ee4e64d762e9f71e98778b198550854447d11b3b"
+      },
+      "ShielddSecurity.GroupNativeCofactor.inverse_eight_bound": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "ff980b973cab6783382804d3061bfb81ed0133c726638aebcfa15efe2c236bf9"
+      },
+      "ShielddSecurity.GroupNativeCofactor.inverse_eight_equation": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "deb4a146f00e8377ee4da3047fef623126137e83127136fb51873af945693687"
+      },
+      "ShielddSecurity.GroupNativeCofactor.nativeEight": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "d54fb997b6e465cb96348bc584be1e9b9118ff60ee3c087510aef239c77eda66"
+      },
+      "ShielddSecurity.GroupNativeCofactor.nativePreimage": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "49a3d8879ee4860abd6d5d5d88a416e586a47a8fbd9c988276feb57aff5a79a4"
+      },
+      "ShielddSecurity.GroupNativeCofactor.native_authorization_preimage_complete": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "140bf277bfd906f1b7c57271ae4ebb0295a52732bf605e5144dd8f667c9f0235"
+      },
+      "ShielddSecurity.GroupNativeCofactor.native_eight_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "b68a4dc2bca9dfe1e3ab8aa0a79b25e321a9e5d69f2142200c12ff8a04226652"
+      },
+      "ShielddSecurity.GroupNativeCofactor.native_preimage_complete": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "0366cfa3992e5a7dba46061440f4a373185e25873d8d034e8adb390b4f6e8e6c"
+      },
+      "ShielddSecurity.GroupNativeCofactor.native_preimage_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "4db06315560257c44653fc1ff0477d316d1a7af98e7f768e0062bda89b295522"
+      },
+      "ShielddSecurity.GroupNativeCofactor.subgroup_eight_preimage": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "ada928871757c9fd2bede4f0f8600aca82a521501efed133909ec4299af1b227"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\project\\ShielddSecurity\\GroupNativeCofactor.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\project\\ShielddSecurity\\GroupNativeCofactor.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 141968,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\project\\ShielddSecurity\\GroupNativeCofactor.olean",
+        "sha256": "ddef5fb9e04ec959e923a7e24fd52ca833a84063f2f9f1c2a1c05b01f25cbd2e"
+      }
+    ],
+    "peak_rss_bytes": 1094316032,
+    "seconds": 13.962956000003032,
+    "status": "passed",
+    "stdout": {
+      "bytes": 16950,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-concrete-standard-model-20261010-22\\runs\\03-GroupNativeCofactor\\stdout.txt",
+      "sha256": "99acedfc44250b3c9d9a8bbbae78f1a181273c7605dcbf37ea57f33c265aad84"
+    }
+  }
+}
