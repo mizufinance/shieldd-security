@@ -1,0 +1,63 @@
+import ShielddSecurity.MerkleFamily32L02R1
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.MerkleFamily32Selection
+open Compiler CompilerCompletion CompilerSegmentCompletion11 CompilerColumnRenaming05 CompilerWindowRenaming05
+open CapturedInitial73419Generic01
+def offset (i : Fin 15) := 424*(i.val+1)
+def low (i : Fin 15) := 25460+offset i
+def high (i : Fin 15) := 25472+offset i
+/-- Four separate disjoint swaps: the previous output and fresh writes are adjacent,
+    so a single 446-column swap at offset424 would fail injectivity. -/
+def rename (i : Fin 15) (column : Nat) :=
+  swap 25460 12 (offset i) (swap 25438 22 (offset i)
+    (swap 184 2 (2*(i.val+1)) (swap 136 3 (3*(i.val+1)) column)))
+theorem injective (i : Fin 15) : Function.Injective (rename i) := by
+  exact (CompilerWindowRenaming05.injective 25460 12 (offset i) (by unfold offset;omega)).comp
+    ((CompilerWindowRenaming05.injective 25438 22 (offset i) (by unfold offset;omega)).comp
+    ((CompilerWindowRenaming05.injective 184 2 (2*(i.val+1)) (by omega)).comp
+      (CompilerWindowRenaming05.injective 136 3 (3*(i.val+1)) (by omega))))
+theorem zero_fixed (i : Fin 15) : rename i 0=0 := by
+  simp [rename,swap]
+theorem copy_fixed (i : Fin 15) : rename i copy=copy := by
+  have bound := i.isLt
+  have big : 33000≤copy := by decide
+  have s0 := above_fixed 136 3 (3*(i.val+1)) copy (by omega) (by omega)
+  have s1 := above_fixed 184 2 (2*(i.val+1)) copy (by omega) (by omega)
+  have s2 := above_fixed 25438 22 (offset i) copy (by unfold offset;omega) (by unfold offset;omega)
+  have s3 := above_fixed 25460 12 (offset i) copy (by unfold offset;omega) (by unfold offset;omega)
+  simp only [rename,s0,s1,s2,s3]
+def program (i : Fin 15) := steps (rename i) MerkleSelection26Data.steps
+def actualRows (i : Fin 15) := rows (rename i) MerkleSelection26Data.originalRows
+def outputs (i : Fin 15) (k : Fin 4) := linear (rename i) (MerkleSelection26Data.outputs k)
+def leaf (i : Fin 15) := linear (rename i) MerkleSelection26Semantic.leaf
+theorem writes_checked : (List.finRange 15).all (fun i => writeCheck (low i) (high i) (program i))=true := by decide +kernel
+theorem support_checked : (List.finRange 15).all (fun i => supportCheck (high i) (actualRows i))=true := by decide +kernel
+theorem counts (i : Fin 15) : (program i).length=7 ∧ (actualRows i).length=13 := by
+  simp only [program,actualRows,steps,rows,List.length_map]
+  exact ⟨MerkleSelection26Proof.counts.2.1,MerkleSelection26Proof.counts.2.2.2⟩
+variable {F : Type} [Field F] [CharP F p]
+theorem complete (i : Fin 15) (base : Nat → F) (linked : base copy=base 0) :
+    Satisfies (run base (program i)) (actualRows i) := by
+  apply completed_rows (rename i) (injective i)
+  apply MerkleSelection26Proof.completed
+  rw [copy_fixed,zero_fixed]
+  exact linked
+def segment (i : Fin 15) : Segment F copy :=
+  makeSegment (program i) (actualRows i) (low i) (high i)
+    (List.all_eq_true.mp writes_checked i (List.mem_finRange i))
+    (List.all_eq_true.mp support_checked i (List.mem_finRange i)) (complete i)
+theorem outside (i : Fin 15) (base : Nat → F) (column : Nat)
+    (bound : column<low i ∨ high i≤column) : run base (program i) column=base column :=
+  CompilerSegmentCompletion11.outside copy (segment i) base column bound
+theorem arbitrary (i : Fin 15) (rho : Nat → F) (linked : rho copy=rho 0)
+    (sat : Satisfies rho (actualRows i)) :
+    (fun k => eval rho (outputs i k))=MerkleSelection26Semantic.formula
+      (rho (rename i 184)) (rho (rename i 185)) (eval rho (leaf i))
+      (rho (rename i 136)) (rho (rename i 137)) (rho (rename i 138)) := by
+  have sourceSat := (satisfies_rows (rename i) rho MerkleSelection26Data.originalRows).mp sat
+  have sourceLink : rho (rename i copy)=rho (rename i 0) := by rw [copy_fixed,zero_fixed];exact linked
+  simpa only [outputs,leaf,eval_linear] using MerkleSelection26Semantic.arbitrary (fun c => rho (rename i c)) sourceLink sourceSat
+end ShielddSecurity.MerkleFamily32Selection
