@@ -1,0 +1,76 @@
+{
+  "plan": {
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prerequisite-floor-20261010-06\\plan.json",
+    "bytes": 74919,
+    "sha256": "304356e2952e00a2919043bec90f59e657be3fbd690ed475e2e566d4e41f413f"
+  },
+  "runner": {
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prerequisite-floor-20261010-06\\execute_bounded.py",
+    "bytes": 22259,
+    "sha256": "3d3617205f35e435ccddf22faf2486c695b49f8cdd9e92b993a43d4d60a7e4f4"
+  },
+  "targets": [
+    {
+      "module": "SpendGateInputs",
+      "imports": [
+        "Mathlib.Algebra.Field.Defs"
+      ]
+    },
+    {
+      "module": "Range",
+      "imports": [
+        "ShielddSecurity.SpendGateInputs",
+        "Mathlib.Algebra.Field.Basic",
+        "Mathlib.Tactic.Ring.RingNF",
+        "Lean.Elab.Tactic.Omega"
+      ]
+    },
+    {
+      "module": "Rows",
+      "imports": [
+        "ShielddSecurity.Range"
+      ]
+    },
+    {
+      "module": "Arithmetic",
+      "imports": [
+        "ShielddSecurity.Range",
+        "Mathlib.Algebra.CharP.Defs"
+      ]
+    },
+    {
+      "module": "Compiler",
+      "imports": [
+        "ShielddSecurity.Rows",
+        "ShielddSecurity.Arithmetic"
+      ]
+    },
+    {
+      "module": "ScalarCompletion",
+      "imports": [
+        "ShielddSecurity.Compiler"
+      ]
+    },
+    {
+      "module": "CompilerCompletion",
+      "imports": [
+        "ShielddSecurity.ScalarCompletion"
+      ]
+    },
+    {
+      "module": "CompilerCertificateTransport",
+      "imports": [
+        "ShielddSecurity.Compiler"
+      ]
+    }
+  ],
+  "external_floor": {
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-external-floor-complete-20261010-02\\external-floor.json",
+    "bytes": 9575003,
+    "sha256": "1bd247c0fd30f52b01cb422bafe919df2818f3d953f4e088a44b226a0d1e04a2",
+    "admission_ready": true
+  },
+  "guard_review": "Header validation and complete direct external membership added; prior safety, strict audits and finite limits retained.",
+  "import_tests": "Actual Range header lists all four imports; intentionally omitted external imports must be rejected before process launch.",
+  "admission": "Ready for fresh builds; old incomplete packet is not restored by inventory identity alone."
+}

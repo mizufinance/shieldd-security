@@ -1,0 +1,77 @@
+{
+  "plan": {
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-group-source47-20261010-02\\plan.json",
+    "bytes": 87341,
+    "sha256": "33e4a910cfe4e42e165d9b6f431fcb67ac7850fde81a2650d933510780c946a9"
+  },
+  "runner": {
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-group-source47-20261010-02\\execute_bounded.py",
+    "bytes": 19935,
+    "sha256": "5b82329444080122ac439c3ac2a42644c47886e6dbc75622029c657acc1db414"
+  },
+  "base_count": 8,
+  "targets": [
+    {
+      "module": "Group",
+      "audits": 12,
+      "imports": [
+        "ShielddSecurity.Compiler"
+      ]
+    },
+    {
+      "module": "GroupWindows",
+      "audits": 16,
+      "imports": [
+        "ShielddSecurity.Group"
+      ]
+    },
+    {
+      "module": "GroupExtended",
+      "audits": 23,
+      "imports": [
+        "ShielddSecurity.GroupWindows"
+      ]
+    },
+    {
+      "module": "GroupRowCompletion",
+      "audits": 12,
+      "imports": [
+        "ShielddSecurity.GroupExtended",
+        "ShielddSecurity.ScalarCompletion"
+      ]
+    },
+    {
+      "module": "CompilerLinearCompletion",
+      "audits": 4,
+      "imports": [
+        "ShielddSecurity.ScalarCompletion"
+      ]
+    },
+    {
+      "module": "GroupCircuitCompletion",
+      "audits": 15,
+      "imports": [
+        "ShielddSecurity.CompilerCompletion",
+        "ShielddSecurity.GroupRowCompletion",
+        "ShielddSecurity.CompilerLinearCompletion"
+      ]
+    },
+    {
+      "module": "GroupCircuitOrder",
+      "audits": 7,
+      "imports": [
+        "ShielddSecurity.GroupCircuitCompletion"
+      ]
+    },
+    {
+      "module": "CompilerIndexed01",
+      "audits": 25,
+      "imports": [
+        "ShielddSecurity.Compiler",
+        "ShielddSecurity.CompilerCertificateTransport"
+      ]
+    }
+  ],
+  "guard_review": "Prior finite limits, mutex, process inventory, cache, import, output, pressure and strict audit guards retained.",
+  "retained_bytes": 3377309
+}
