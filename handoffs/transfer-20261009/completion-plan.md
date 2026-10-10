@@ -1,16 +1,19 @@
 # Transfer proof completion plan — 9 October 2026
 
-Current additional accepted scope: RegistryWhole23 and RegistryInputJoin24 are
-published at `51bddc691daf4cca5076e1f6e9c2a63856843e9e` and
-`0eae7db65be4f0c076b35ca8a88ea30578c0b4ae`. They construct the selected
-registry leaf on the Initial734/Join15 assignment and derive its nested hash
-from original witness columns. The complete 325-source import closure for this
-scoped endpoint is available in Git and has been assembled without caches or
-verifier replay (`2d9a118d42730a1f4c53b4606bf37dc7fb15e7c6`). The reusable
-two-module segment/suffix transport has passed parent endpoint review; each
-new captured target still owns its row equality, prefix and seam. Actual global
-curve cardinality, full-row coverage, native/state joins and certification
-remain OPEN. These are scoped results, not a full Transfer completion claim.
+Current additional accepted scope: MerkleSelection26, MerkleHash27 and
+MerkleInputMeaning28 extend Initial734, Join15 and RegistryWhole23 on one
+assignment. MerkleHash27 is published at
+`a6016b330aef385b1904968809ba521203b8df66`; its six modules have 131 full
+type/standard-axiom audits and cover 413 selected positions. The separate
+MerkleInputMeaning28 endpoint supplies six audits joining the nested registry
+hash from original inputs to this first asset path hash. Boolean/deferred
+constraints and the remaining levels are still open. Parent generator and
+captured-row checks passed. The retained desktop has passed scoped actual
+point-set, two-torsion, eight-kernel-bound and doubling/no-half endpoints;
+actual global curve cardinality remains open until its remaining obligations
+are sealed and reviewed. The earlier 325-source scoped closure was assembled
+without caches or replay. Full relation coverage, independently legal full
+construction, native/state joins and final certification remain OPEN.
 
 Status: **OPEN**. Current orchestration continues the same retained local **GPT-6.1 Sol / high** agent and existing desktop chat **Transfer proof**. The former orchestrator relays to the local agent when needed. Both workers own proof strategy, routine repairs, narrow bounded builds and continuation between milestones. The parent owns high-level endpoint review, cross-host integration, serialized publication and final certification. **Claude Opus 5.5** review is optional; parent review can proceed independently. Dated checkpoints below preserve history, not current stopping instructions.
 

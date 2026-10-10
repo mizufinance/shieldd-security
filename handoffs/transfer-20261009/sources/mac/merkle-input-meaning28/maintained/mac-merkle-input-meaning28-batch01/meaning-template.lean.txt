@@ -1,0 +1,44 @@
+import ShielddSecurity.MerkleHash27Whole
+import ShielddSecurity.RegistryInputJoin24
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.MerkleInputMeaning28
+open Compiler Poseidon
+open CapturedInitial73419Generic01 (p copy)
+variable {F : Type} [Field F] [CharP F p]
+omit [CharP F p] in
+def registryMeaning (rho : Nat → F) : F := Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 25 (RegistryInputJoin24.semanticInputs rho)
+omit [CharP F p] in
+def pathMeaning (rho : Nat → F) : F :=
+  Poseidon.hash6 (castParameters MerkleHash27R0Data.parameters) 2
+    [1,MerkleSelection26Semantic.formula (rho 184) (rho 185) (registryMeaning rho) (rho 136) (rho 137) (rho 138) 0,
+       MerkleSelection26Semantic.formula (rho 184) (rho 185) (registryMeaning rho) (rho 136) (rho 137) (rho 138) 1,
+       MerkleSelection26Semantic.formula (rho 184) (rho 185) (registryMeaning rho) (rho 136) (rho 137) (rho 138) 2,
+       MerkleSelection26Semantic.formula (rho 184) (rho 185) (registryMeaning rho) (rho 136) (rho 137) (rho 138) 3]
+theorem arbitrary (rho : Nat → F) (one : rho 0=1)
+    (prior : Satisfies rho MerkleHash27Whole.priorRows) (hashRows : Satisfies rho MerkleHash27Whole.selectedRows) :
+    eval rho MerkleHash27Whole.actualResult=pathMeaning rho := by
+  have initial : Satisfies rho CapturedPriorRows16Frame01.capturedPriorRows := fun row member => prior row (List.mem_append_left _ (List.mem_append_left _ (List.mem_append_left _ member)))
+  have joined : Satisfies rho TransferPoseidonThreeCallJoin15Program01.originalRows := fun row member => prior row (List.mem_append_left _ (List.mem_append_left _ (List.mem_append_right _ member)))
+  have leaf : Satisfies rho RegistryWhole23.selectedRows := fun row member => prior row (List.mem_append_left _ (List.mem_append_right _ member))
+  have selection : Satisfies rho MerkleSelection26Data.originalRows := fun row member => prior row (List.mem_append_right _ member)
+  have registry := RegistryInputJoin24.arbitrary_registry rho one initial joined leaf
+  have result := MerkleHash27Whole.arbitrary_field_path rho one selection hashRows
+  rw [registry] at result
+  exact result
+theorem semantic_preserved (base : Nat → F) : RegistryInputJoin24.semanticInputs (MerkleHash27Whole.final base)=RegistryInputJoin24.semanticInputs base := by
+  have values (column : Nat) (below : column<22738) : MerkleHash27Whole.final base column=base column := MerkleHash27Whole.final_outside base column (Or.inl below)
+  simp only [RegistryInputJoin24.semanticInputs,values 11 (by decide),values 12 (by decide),values 13 (by decide),values 14 (by decide),values 15 (by decide),values 21 (by decide),values 22 (by decide),values 23 (by decide),values 24 (by decide),values 30 (by decide),values 31 (by decide),values 32 (by decide),values 33 (by decide),values 34 (by decide),values 35 (by decide),values 36 (by decide),values 42 (by decide),values 43 (by decide)]
+theorem meaning_preserved (base : Nat → F) : pathMeaning (MerkleHash27Whole.final base)=pathMeaning base := by
+  have values (column : Nat) (below : column<22738) : MerkleHash27Whole.final base column=base column := MerkleHash27Whole.final_outside base column (Or.inl below)
+  simp only [pathMeaning,registryMeaning,semantic_preserved,values 184 (by decide),values 185 (by decide),values 136 (by decide),values 137 (by decide),values 138 (by decide)]
+theorem total (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) :
+    Satisfies (MerkleHash27Whole.final base) MerkleHash27Whole.priorRows ∧
+    Satisfies (MerkleHash27Whole.final base) MerkleHash27Whole.selectedRows ∧
+    eval (MerkleHash27Whole.final base) MerkleHash27Whole.actualResult=pathMeaning base := by
+  have rows := MerkleHash27Whole.final_rows base linked
+  refine ⟨rows.1,rows.2,?_⟩
+  rw [arbitrary (MerkleHash27Whole.final base) ((MerkleHash27Whole.final_outside base 0 (Or.inl (by decide))).trans one) rows.1 rows.2,meaning_preserved]
+end ShielddSecurity.MerkleInputMeaning28
