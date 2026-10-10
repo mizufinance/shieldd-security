@@ -1,0 +1,137 @@
+{
+  "kind": "independent parsing of existing sealed source, objects, receipts and compiler output; no Lean replay",
+  "files_rehashed": 12,
+  "modules": [
+    {
+      "module": "ReusablePoseidonPhase31",
+      "source": {
+        "bytes": 7221,
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-reusable-poseidon-phase31-continuation04/source-root/ShielddSecurity/ReusablePoseidonPhase31.lean",
+        "sha256": "c988d0c03a497e7c0139cd207811090ec45bb696721e8ec78fde9a99ee4088fb"
+      },
+      "receipt": {
+        "bytes": 13768,
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-reusable-poseidon-phase31-continuation04/runtime/receipts/87-ReusablePoseidonPhase31.json",
+        "sha256": "c35471a2a129a2c02b86d6a702a0de988cd6f6faf9341d73a8152bfcc17a62aa"
+      },
+      "audits": [
+        {
+          "axioms": [],
+          "full_type": "ShielddSecurity.ReusablePoseidonPhase31.Data : (width : Nat) \u2192 Type",
+          "full_type_sha256": "b5d4eaae5c7b640f0cd8c5c687da4d09f4aa08812184b711fbe924876046cb76",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.Data"
+        },
+        {
+          "axioms": [],
+          "full_type": "ShielddSecurity.ReusablePoseidonPhase31.laneSteps : (input : ShielddSecurity.Linear) \u2192\n  (column : Nat) \u2192 List.{0} ShielddSecurity.CompilerCompletion.Step",
+          "full_type_sha256": "be9d0c4663d3824356b6dcb1e227392ffb207ee5ae150878e858cbadbb0a882c",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.laneSteps"
+        },
+        {
+          "axioms": [],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.materialized : {width : Nat} \u2192\n  (d : ShielddSecurity.ReusablePoseidonPhase31.Data width) \u2192 List.{0} ShielddSecurity.CompilerCompletion.Step",
+          "full_type_sha256": "dcd476208507b135808821c105c959e6ed1a0330d54ba513bf0325f21661245d",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.materialized"
+        },
+        {
+          "axioms": [],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.steps : {width : Nat} \u2192\n  (d : ShielddSecurity.ReusablePoseidonPhase31.Data width) \u2192 List.{0} ShielddSecurity.CompilerCompletion.Step",
+          "full_type_sha256": "351d2d02c3568a1047962cdf29ac2806382e85e3dd181fbfa431bd4b15b976d3",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.steps"
+        },
+        {
+          "axioms": [],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.hints : {width : Nat} \u2192\n  (d : ShielddSecurity.ReusablePoseidonPhase31.Data width) \u2192\n    (i : Fin width) \u2192 ShielddSecurity.PoseidonIndexedFolded02.FifthHint",
+          "full_type_sha256": "703b929bc04253d8eeeb2a84b484f079c51aa0a558c2b9894e4d6972f5333b0f",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.hints"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.Certificate : {width : Nat} \u2192\n  (d : ShielddSecurity.ReusablePoseidonPhase31.Data width) \u2192 Prop",
+          "full_type_sha256": "a12e16bc7924713b96a399ee86cbe3787010750d7dffc22c0dabedf71b84e658",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.Certificate"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.lane_legal : \u2200 {F : Type} [inst : Field.{0} F] (base : Nat \u2192 F)\n  (input : ShielddSecurity.Linear) (column : Nat),\n  @ShielddSecurity.CompilerCompletion.Legal F inst base (ShielddSecurity.ReusablePoseidonPhase31.laneSteps input column)",
+          "full_type_sha256": "58ad4ddb4a60a4ece8a5fffcdee86313a71200b06f305bc9df596c4b63760681",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.lane_legal"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.legal_flatmap : \u2200 {F : Type} [inst : Field.{0} F] {\u03b1 : Type}\n  (items : List.{0} \u03b1) (program : \u03b1 \u2192 List.{0} ShielddSecurity.CompilerCompletion.Step)\n  (each : \u2200 (item : \u03b1) (base : Nat \u2192 F), @ShielddSecurity.CompilerCompletion.Legal F inst base (program item))\n  (base : Nat \u2192 F),\n  @ShielddSecurity.CompilerCompletion.Legal F inst base\n    (@List.flatMap.{0, 0} \u03b1 ShielddSecurity.CompilerCompletion.Step program items)",
+          "full_type_sha256": "ce4506a9df3287978a524a4de08f196cd7b2dc431ca73a969f397b90fed323fb",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.legal_flatmap"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.legal : \u2200 {F : Type} [inst : Field.{0} F] {width : Nat}\n  (d : ShielddSecurity.ReusablePoseidonPhase31.Data width) (base : Nat \u2192 F),\n  @ShielddSecurity.CompilerCompletion.Legal F inst base (@ShielddSecurity.ReusablePoseidonPhase31.steps width d)",
+          "full_type_sha256": "ac1bd2d97b51e9732dd7dfb0d8c7d5a0f323f57c3ead3f7c94260f866b636147",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.legal"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.complete : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CapturedInitial73419Generic01.p]\n  {width : Nat} (d : ShielddSecurity.ReusablePoseidonPhase31.Data width)\n  (checked : @ShielddSecurity.ReusablePoseidonPhase31.Certificate width d) (base : Nat \u2192 F)\n  (linked :\n    @Eq.{1} F (base ShielddSecurity.CapturedInitial73419Generic01.copy)\n      (base (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))),\n  @ShielddSecurity.Satisfies F inst\n    (@ShielddSecurity.CompilerCompletion.run F inst base (@ShielddSecurity.ReusablePoseidonPhase31.steps width d))\n    (@ShielddSecurity.ReusablePoseidonPhase31.Data.rows width d)",
+          "full_type_sha256": "eab11ffc7c5c3514bc175e06b25568bb982ad028f883b9144bdac2d7ec83c654",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.complete"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.segment : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    [@CharP.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n          ShielddSecurity.CapturedInitial73419Generic01.p] \u2192\n      {width : Nat} \u2192\n        (d : ShielddSecurity.ReusablePoseidonPhase31.Data width) \u2192\n          (checked : @ShielddSecurity.ReusablePoseidonPhase31.Certificate width d) \u2192\n            @ShielddSecurity.CompilerSegmentCompletion11.Segment F inst\n              ShielddSecurity.CapturedInitial73419Generic01.copy",
+          "full_type_sha256": "30eacc0f484a2a81daccfeb9aa6376290774bb7c2bf9c283f98f8c3c5ec7c799",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.segment"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.outside : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CapturedInitial73419Generic01.p]\n  {width : Nat} (d : ShielddSecurity.ReusablePoseidonPhase31.Data width)\n  (checked : @ShielddSecurity.ReusablePoseidonPhase31.Certificate width d) (base : Nat \u2192 F) (column : Nat)\n  (bound :\n    Or (@LT.lt.{0} Nat instLTNat column (@ShielddSecurity.ReusablePoseidonPhase31.Data.low width d))\n      (@LE.le.{0} Nat instLENat (@ShielddSecurity.ReusablePoseidonPhase31.Data.high width d) column)),\n  @Eq.{1} F\n    (@ShielddSecurity.CompilerCompletion.run F inst base (@ShielddSecurity.ReusablePoseidonPhase31.steps width d)\n      column)\n    (base column)",
+          "full_type_sha256": "46f3d3b1e6d03fb7f0bbe7473674b2627217d4d992e3b0d79b259b8460b5b686",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.outside"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.arbitrary_round : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CapturedInitial73419Generic01.p]\n  {width : Nat} (d : ShielddSecurity.ReusablePoseidonPhase31.Data width)\n  (checked : @ShielddSecurity.ReusablePoseidonPhase31.Certificate width d) (rho : Nat \u2192 F)\n  (one :\n    @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} F (nat_lit 1)\n        (@One.toOfNat1.{0} F\n          (@AddMonoidWithOne.toOne.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n  (sat : @ShielddSecurity.Satisfies F inst rho (@ShielddSecurity.ReusablePoseidonPhase31.Data.rows width d)),\n  @Eq.{1} ((i : Fin width) \u2192 F)\n    (fun (i : Fin width) =>\n      @ShielddSecurity.eval F inst rho (@ShielddSecurity.ReusablePoseidonPhase31.Data.after width d i))\n    (@ShielddSecurity.Poseidon.round F inst width\n      (@ShielddSecurity.Poseidon.castParameters F inst width\n        (@ShielddSecurity.ReusablePoseidonPhase31.Data.parameters width d))\n      (@ShielddSecurity.ReusablePoseidonPhase31.Data.index width d) fun (i : Fin width) =>\n      @ShielddSecurity.eval F inst rho (@ShielddSecurity.ReusablePoseidonPhase31.Data.before width d i))",
+          "full_type_sha256": "12f25c3108507834ca9890fad46be6f104db83d8914059dc56645016ce52b20a",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.arbitrary_round"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.ReusablePoseidonPhase31.prior_frame : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CapturedInitial73419Generic01.p]\n  {width : Nat} (d : ShielddSecurity.ReusablePoseidonPhase31.Data width)\n  (checked : @ShielddSecurity.ReusablePoseidonPhase31.Certificate width d) (base : Nat \u2192 F)\n  (rows : List.{0} ShielddSecurity.Row) (sat : @ShielddSecurity.Satisfies F inst base rows)\n  (support :\n    \u2200 (row : ShielddSecurity.Row),\n      @Membership.mem.{0, 0} ShielddSecurity.Row (List.{0} ShielddSecurity.Row)\n          (@List.instMembership.{0} ShielddSecurity.Row) rows row \u2192\n        \u2200 (term : Prod.{0, 0} Nat Int),\n          @Membership.mem.{0, 0} (Prod.{0, 0} Nat Int) ShielddSecurity.Linear\n              (@List.instMembership.{0} (Prod.{0, 0} Nat Int))\n              (@HAppend.hAppend.{0, 0, 0} ShielddSecurity.Linear ShielddSecurity.Linear ShielddSecurity.Linear\n                (@instHAppendOfAppend.{0} ShielddSecurity.Linear (@List.instAppend.{0} (Prod.{0, 0} Nat Int)))\n                (ShielddSecurity.Row.a row) (ShielddSecurity.Row.b row))\n              term \u2192\n            Or\n              (@LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Int term)\n                (@ShielddSecurity.ReusablePoseidonPhase31.Data.low width d))\n              (@LE.le.{0} Nat instLENat (@ShielddSecurity.ReusablePoseidonPhase31.Data.high width d)\n                (@Prod.fst.{0, 0} Nat Int term))),\n  @ShielddSecurity.Satisfies F inst\n    (@ShielddSecurity.CompilerCompletion.run F inst base (@ShielddSecurity.ReusablePoseidonPhase31.steps width d)) rows",
+          "full_type_sha256": "950e3524702e83516dde8f96a9705bdd053797f79df6d0f1ff9116d8cbaeea39",
+          "name": "ShielddSecurity.ReusablePoseidonPhase31.prior_frame"
+        }
+      ]
+    }
+  ],
+  "declarations": 14,
+  "full_transfer": "OPEN",
+  "full_row_instance": "OPEN",
+  "native_correspondence": "OPEN"
+}
