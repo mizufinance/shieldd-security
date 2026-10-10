@@ -1,0 +1,7 @@
+Finite Call13 kernel stage completed:45 fresh modules,247 exact full-type and standard-axiom audits. Root closure43fresh/230audits+98inherited=141owned; Checked4 and Controls13 audits counted separately.47attempts includes TWO failed Program elaborations with ZERO proof credit. No accepted module rerun.
+
+The root proves the SAME final assignment satisfies417selectedrows after313steps (one shared copy) and its finalstate[1] equals independent width6hash domain36 on five original input columns34/35/36/42/43. Preconditions are generic Field of pinned characteristic, base0=1, basecopy=base0, and explicit4!=0. All22735original inputs, copy and outside-write columns are preserved. Prior rows have a support-conditioned frame only.
+
+13 actual controls are6R00LOCAL production refusals,4representative tail chunk row identity refusals,3fixed metadata refusals; no mutated semantic inequality or whole candidate guard claim. Exact raw/DB/RowSpool association is qualified DATA; captureIndices partition is a formal list equality, not full parent rowAt. raw21951/child association, childjoin/call1/native/global/fullTransfer remain OPEN.
+
+Closed14file maintained recipe in successor-source05 regenerates all45source bytes under-I-B-S, no Lean. Old plan/probe/source03/source04/source05 seals, original counter directory and failed source/receipts remain unchanged. Parent actual Opus/re-audit/publication remains required. Heavy lane quiescent; no Git writes.
