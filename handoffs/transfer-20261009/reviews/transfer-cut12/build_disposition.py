@@ -1,0 +1,16 @@
+"""Generate the final reviewed scope from immutable parent audits and repaired evidence."""
+import sys
+assert sys.flags.isolated and sys.flags.dont_write_bytecode and sys.flags.no_site
+import hashlib,json,shutil
+from pathlib import Path
+H=Path(__file__).resolve().parent;sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+math=json.loads((H/'opus55-review.json').read_bytes());prov=json.loads((H/'opus55-provenance-review.json').read_bytes())
+assert all(not d['is_error'] and 'claude-opus-5-5' in d['modelUsage'] for d in [math,prov])
+audit=json.loads((H/'packet-review01.json').read_bytes());repair=json.loads((H/'successor-review01.json').read_bytes())
+assert repair['status']=='passed' and audit['all_stage_audits']==61 and audit['root_new_audits']==39 and audit['root_inherited_modules']==308
+out=H/'structured-type-axiom-audit01.json';assert not out.exists();shutil.copyfile(H/'provenance-replay01/full-audits-successor01.json',out)
+records=json.loads(out.read_bytes());assert len(records)==61
+for t in records:assert hashlib.sha256(t['full_type'].encode()).hexdigest()==t['full_type_sha256']
+result=dict(status='accepted_scoped_checkpoint',actual_model='claude-opus-5-5',effort='high',math_review_sha256=sha(H/'opus55-review.json'),provenance_review_sha256=sha(H/'opus55-provenance-review.json'),parent_packet_audit_sha256=sha(H/'packet-review01.json'),parent_successor_audit_sha256=sha(H/'successor-review01.json'),structured_type_axiom_sha256=sha(out),scope=dict(all_stage_modules=7,all_stage_audits=61,root_new_modules=3,root_new_audits=39,root_inherited_modules=308,root_owned_modules=311,steps=867,rows=1157,field_premises='Field/CharP p, one, copy link and four nonzero explicit',semantics='All six selected source-expression formulas; same-final-rho mathematical hash3 domain18 of two-block domain17/arity9 hash6',construction='Cuts first, then inherited joined constructor; no old joined-base-row preservation premise',frames='All22735 original inputs/copy/zero/outside-union/explicit gap',checker='Parametric candidate-cut checker soundness and construction; only two cut formulas in checked bridge',controls='One positive, six production refusals, one mapping-size component refusal; addChecks fixed syntax DATA only'),original_structured_metadata='Two warning-prefixed records refused and superseded; original77+6sealed paths preserved',review_notes_resolved=dict(parser_controls='Five refusal scenarios exercise three refusal paths; no distinct-path or semantic-control claim',census='Parent independently computed root3/39 and311owned; worker literal counts agree',original_audit_hash='Old full-audits01.json is explicitly among original77sealed entries and rehashed',successor_hashes='Parent independently rehashed all11successor entries and reproduced61records exactly'),failed_Lean_attempts=3,failed_extractor_attempts=1,new_proof_credit_from_repairs=0,parent_kernel_runs=0,isolated_byte_replay_sources=7,open=['Formal larger parent page/full200770rowAt','native/rawconsumer/callsite identity','later consumers','whole joined candidate checker','fullTransfer'],final_certification_refresh=False,full_transfer='OPEN')
+p=H/'review-disposition01.json';assert not p.exists();p.write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(dict(status=result['status'],all_stage='7/61',root='3/39',steps=867,rows=1157,parent_kernel_runs=0)))
