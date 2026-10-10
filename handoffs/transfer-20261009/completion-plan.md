@@ -15,8 +15,16 @@ captured phases are now qualified for every asset path level; the remaining
 `fa7b86c4c32b097c189bd941dbdf4ac63ff0bc09`. All15 remaining actual selection
 body certificates, with both coverage directions and four checker controls,
 are published at `61fbb2b75fc9663136ecddd888fb41ce1d3a2b2c`. They cover180
-arithmetic positions plus one shared-copy position. The shared hash/path
-composition, full16-level recurrence and final anchor remain under development.
+arithmetic positions plus one shared-copy position. The shared field-polynomial
+sixteen-level recurrence, same-assignment constructor and literal final anchor
+are now accepted at `d733e581da2bd56bbad4ac67e7a937e05250eab6`: 22 modules and
+224 complete public declaration type/standard-axiom reports. Parent generator
+replay reproduced all22 sources and independently replayed the original anchor
+capture/exact RowSpool association. The legal-anchor condition is the original
+anchor equal to an independently defined input root, not existing row truth.
+Ordered Boolean-child interpretation at every level and full indexed literal
+tail/global row coverage remain under development. This is scoped field-path
+completion, not complete Transfer certification.
 
 The desktop's certified prime field, actual point bound/doubling/torsion and
 exact eight-kernel/no16/odd-image endpoints are accepted. The newly qualified
