@@ -1,0 +1,67 @@
+import ShielddSecurity.MerkleHash27Whole
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.MerkleHash27Controls
+open Compiler CompilerCompletion CompilerIndexed01 Poseidon
+open CapturedInitial73419Generic01 (p copy normalized)
+namespace D
+export MerkleHash27R0Data (originalRows steps parameters before shifted transformed hints)
+end D
+def production (rows : Array Row) (indices : Array Nat) (shift : State Linear 6) (output seam : Linear) (level : Nat) : Bool :=
+  checkOriginalCoverage p copy rows (emitted D.steps).toArray indices &&
+  PoseidonIndexedFolded02.checkColumn p copy rows D.parameters 0 D.before shift D.transformed D.hints 2 &&
+  decide (canonical p output=canonical p MerkleHash27Whole.actualResult) &&
+  decide (canonical p seam=canonical p (MerkleHash27R1Data.after 0)) && decide (level=1)
+def indices : Array Nat := (List.range 17).toArray
+def checked (rows : Array Row) (mapping : Array Nat) : Bool :=
+  production rows mapping D.shifted MerkleHash27Whole.actualResult (ReusableWideTail25.before 424 0) 1
+theorem positive : checked D.originalRows.toArray indices=true := by
+  simp only [checked,production,Bool.and_eq_true]
+  exact ⟨⟨⟨⟨MerkleHash27R0Proof.coverage_checked,MerkleHash27R0Proof.column2⟩,by decide +kernel⟩,by decide +kernel⟩,by decide⟩
+theorem coefficient_rejected : checked (D.originalRows.toArray.set! 0 ⟨(D.originalRows.toArray.getD 0 ⟨[],[]⟩).a++[(25460,1)],(D.originalRows.toArray.getD 0 ⟨[],[]⟩).b⟩) indices=false := by decide +kernel
+theorem existing_index_rejected : checked D.originalRows.toArray (indices.set! 0 1)=false := by decide +kernel
+theorem omission_rejected : checked (D.originalRows.take 16).toArray indices=false := by decide +kernel
+theorem copy_link_rejected : checked (D.originalRows.toArray.set! 16 ⟨[(0,1),(copy,-2)],[]⟩) indices=false := by decide +kernel
+theorem ark_rejected : production D.originalRows.toArray indices (fun i => if i.val=2 then D.shifted i++[(0,1)] else D.shifted i) MerkleHash27Whole.actualResult (ReusableWideTail25.before 424 0) 1=false := by decide +kernel
+theorem output_rejected : production D.originalRows.toArray indices D.shifted (ReusableWideTail25.after 424 0) (ReusableWideTail25.before 424 0) 1=false := by decide +kernel
+theorem seam_rejected : production D.originalRows.toArray indices D.shifted MerkleHash27Whole.actualResult (ReusableWideTail25.before 424 1) 1=false := by decide +kernel
+theorem level_rejected : production D.originalRows.toArray indices D.shifted MerkleHash27Whole.actualResult (ReusableWideTail25.before 424 0) 2=false := by decide +kernel
+end ShielddSecurity.MerkleHash27Controls
+
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.production
+#print axioms ShielddSecurity.MerkleHash27Controls.production
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.indices
+#print axioms ShielddSecurity.MerkleHash27Controls.indices
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.checked
+#print axioms ShielddSecurity.MerkleHash27Controls.checked
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.positive
+#print axioms ShielddSecurity.MerkleHash27Controls.positive
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.coefficient_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.coefficient_rejected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.existing_index_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.existing_index_rejected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.omission_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.omission_rejected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.copy_link_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.copy_link_rejected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.ark_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.ark_rejected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.output_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.output_rejected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.seam_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.seam_rejected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Controls.level_rejected
+#print axioms ShielddSecurity.MerkleHash27Controls.level_rejected

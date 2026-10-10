@@ -1,0 +1,330 @@
+import ShielddSecurity.MerkleHash27R1Proof
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.MerkleHash27Whole
+open Compiler CompilerCompletion CompilerSegmentCompletion11 Poseidon
+open CapturedInitial73419Generic01 (p copy)
+namespace D0
+export MerkleHash27R0Data (parameters before after inputTerms arithmeticRows originalRows steps)
+end D0
+namespace P0
+export MerkleHash27R0Proof (segment arbitrary_round)
+end P0
+namespace D1
+export MerkleHash27R1Data (before after arithmeticRows originalRows steps)
+end D1
+namespace P1
+export MerkleHash27R1Proof (segment arbitrary_round)
+end P1
+def ren := CompilerWindowRenaming05.swap 25064 396 424
+def tailRows := CompilerColumnRenaming05.rows ren R22.rows
+def tailArithmetic := CompilerColumnRenaming05.rows ren RegistryWhole23.tailArithmetic
+def aggregateRows := (D0.originalRows++D1.originalRows)++tailRows
+def selectedRows := (D0.arithmeticRows++D1.arithmeticRows)++tailArithmetic++[TransferPoseidonCall04Shared01.rawCopy]
+def resultTerms := ReusableWideTail25.after 424 1
+def actualResult : Linear := [(25862,5579934908212736977238010113730457006906792843192217773053283881663622591681),(25866,50978946942794420813356136484142315443152313428221265043903658432145007475423),(25870,51737743277955608982399432577620617083998176562860787771480331520415801857016),(25874,280754542936071555323583947036382301904172335755315562603417507239324752636),(25878,44773762128641970103070913747625047847186741019957383563700055475244115610384),(25882,28552781024861804928696238677004241170376447700649499575281496751792046985224)]
+def captureIndices := List.range' 2734 412++[200769]
+theorem tail_copy_fixed : CompilerColumnRenaming05.rows ren [TransferPoseidonCall04Shared01.rawCopy]=[TransferPoseidonCall04Shared01.rawCopy] := by decide +kernel
+theorem tail_split : tailRows=tailArithmetic++[TransferPoseidonCall04Shared01.rawCopy] := by
+  unfold tailRows
+  rw [RegistryWhole23.tail_split]
+  simp only [CompilerColumnRenaming05.rows,List.map_append]
+  change tailArithmetic++CompilerColumnRenaming05.rows ren [TransferPoseidonCall04Shared01.rawCopy]=_
+  rw [tail_copy_fixed]
+theorem membership (row : Row) : row∈aggregateRows ↔ row∈selectedRows := by
+  simp only [aggregateRows,selectedRows,D0.originalRows,D1.originalRows,tail_split,List.mem_append,List.mem_singleton]
+  constructor
+  · intro h
+    rcases h with ((h|h)|(h|h))|(h|h)
+    · exact Or.inl (Or.inl (Or.inl h))
+    · exact Or.inr h
+    · exact Or.inl (Or.inl (Or.inr h))
+    · exact Or.inr h
+    · exact Or.inl (Or.inr h)
+    · exact Or.inr h
+  · intro h
+    rcases h with ((h|h)|h)|h
+    · exact Or.inl (Or.inl (Or.inl h))
+    · exact Or.inl (Or.inr (Or.inl h))
+    · exact Or.inr (Or.inl h)
+    · exact Or.inr (Or.inr h)
+theorem seam_checked : (List.finRange 6).all (fun i => decide
+    (canonical p (ReusableWideTail25.before 424 i)=canonical p (D1.after i)))=true := by decide +kernel
+theorem result_exact : resultTerms=actualResult := by decide +kernel
+theorem row_count : selectedRows.length=413 ∧ captureIndices.length=413 := by
+  have a := MerkleHash27R0Proof.counts.2.2.1
+  have b := MerkleHash27R1Proof.counts.2.2.1
+  have c : tailArithmetic.length=372 := by
+    simp only [tailArithmetic,RegistryWhole23.tailArithmetic,CompilerColumnRenaming05.rows,List.length_map]
+    exact R22.counts.2.2.2
+  constructor
+  · simp only [selectedRows,List.length_append,List.length_singleton]
+    rw [a,b,c]
+  · decide +kernel
+variable {F : Type} [Field F] [CharP F p]
+def tail : Segment F copy := ReusableWideTail25.segment 424 (by decide) (by decide)
+def prefixSegment : Segment F copy := append copy (P0.segment (F:=F)) (P1.segment (F:=F))
+  (by change 25488≤25488;decide) (by change 25472≤25488;decide)
+  (by change 25488≤25512;decide) (by change 0<25472;decide)
+  (by change 25488≤200692 ∧ 25512≤200692;decide)
+def segment : Segment F copy := append copy (prefixSegment (F:=F)) (tail (F:=F))
+  (by change 25512≤25512;decide) (by change 25472≤25512;decide)
+  (by change 25512≤25884;decide) (by change 0<25472;decide)
+  (by change 25512≤200692 ∧ 25884≤200692;decide)
+def completed (base : Nat → F) := run base (segment (F:=F)).steps
+theorem aggregate_complete (base : Nat → F) (linked : base copy=base 0) : Satisfies (completed base) aggregateRows :=
+  (segment (F:=F)).complete base linked
+theorem selected_complete (base : Nat → F) (linked : base copy=base 0) : Satisfies (completed base) selectedRows :=
+  fun row member => aggregate_complete base linked row ((membership row).mpr member)
+theorem outside (base : Nat → F) (column : Nat) (bound : column<25472 ∨ 25884≤column) : completed base column=base column :=
+  CompilerSegmentCompletion11.outside copy (segment (F:=F)) base column bound
+theorem fixed (base : Nat → F) : completed base 0=base 0 ∧ completed base copy=base copy :=
+  ⟨outside base 0 (Or.inl (by decide)),outside base copy (Or.inr (by decide))⟩
+theorem originals (base : Nat → F) (input : Nat) (bound : input<22735) : completed base (3+input)=base (3+input) := outside base _ (Or.inl (by omega))
+theorem step_count : (segment (F:=F)).steps.length=312 := by
+  change ((D0.steps++D1.steps)++CompilerColumnRenaming05.steps ren R22.steps).length=312
+  simp only [List.length_append,CompilerColumnRenaming05.steps,List.length_map]
+  rw [MerkleHash27R0Proof.counts.2.1,MerkleHash27R1Proof.counts.2.1,R22.counts.1]
+theorem seam (rho : Nat → F) : (fun i => eval rho (ReusableWideTail25.before 424 i))=(fun i => eval rho (D1.after i)) := by
+  funext i
+  exact canonical_equal rho _ _ (of_decide_eq_true (List.all_eq_true.mp seam_checked i (List.mem_finRange i)))
+def inputs (rho : Nat → F) := [eval rho (D0.inputTerms (⟨0,by decide⟩ : Fin 5)),eval rho (D0.inputTerms (⟨1,by decide⟩ : Fin 5)),eval rho (D0.inputTerms (⟨2,by decide⟩ : Fin 5)),eval rho (D0.inputTerms (⟨3,by decide⟩ : Fin 5)),eval rho (D0.inputTerms (⟨4,by decide⟩ : Fin 5))]
+theorem input_binding : D0.inputTerms (⟨1,by decide⟩ : Fin 5)=MerkleSelection26Data.outputs 0 ∧
+    D0.inputTerms (⟨2,by decide⟩ : Fin 5)=MerkleSelection26Data.outputs 1 ∧ D0.inputTerms (⟨3,by decide⟩ : Fin 5)=MerkleSelection26Data.outputs 2 ∧
+    D0.inputTerms (⟨4,by decide⟩ : Fin 5)=MerkleSelection26Data.outputs 3 := by decide +kernel
+omit [CharP F p] in
+theorem literal_inputs (rho : Nat → F) (one : rho 0=1) : inputs rho=
+    [1,eval rho (MerkleSelection26Data.outputs 0),eval rho (MerkleSelection26Data.outputs 1),eval rho (MerkleSelection26Data.outputs 2),eval rho (MerkleSelection26Data.outputs 3)] := by
+  have native : eval rho (D0.inputTerms (⟨0,by decide⟩ : Fin 5))=1 := by simp [MerkleHash27R0Data.inputTerms,eval,one]
+  simp only [inputs]
+  rw [native,input_binding.1,input_binding.2.1,input_binding.2.2.1,input_binding.2.2.2]
+omit [CharP F p] in
+theorem absorption (rho : Nat → F) (one : rho 0=1) :
+  (fun i => eval rho (D0.before i))=Poseidon.absorb (Poseidon.initial 2 5) (inputs rho) := by
+  funext i
+  have cases : i=⟨0,by decide⟩ ∨ i=⟨1,by decide⟩ ∨ i=⟨2,by decide⟩ ∨ i=⟨3,by decide⟩ ∨ i=⟨4,by decide⟩ ∨ i=⟨5,by decide⟩ := by have h:=i.isLt;simp only [Fin.ext_iff];omega
+  rcases cases with rfl|rfl|rfl|rfl|rfl|rfl <;> simp [MerkleHash27R0Data.before,MerkleHash27R0Data.inputTerms,inputs,Poseidon.absorb,Poseidon.initial,eval,one]
+theorem arbitrary_hash (rho : Nat → F) (one : rho 0=1) (sat : Satisfies rho selectedRows) :
+  eval rho actualResult=Poseidon.hash6 (castParameters D0.parameters) 2 (inputs rho) := by
+  have all : Satisfies rho aggregateRows := fun row member => sat row ((membership row).mp member)
+  have a : Satisfies rho D0.originalRows := fun row member => all row (List.mem_append_left _ (List.mem_append_left _ member))
+  have b : Satisfies rho D1.originalRows := fun row member => all row (List.mem_append_left _ (List.mem_append_right _ member))
+  have c : Satisfies rho (tail (F:=F)).rows := fun row member => all row (List.mem_append_right _ member)
+  have result := ReusableWideTail25.suffix 424 (by decide) (by decide) rho one c
+  rw [seam rho,P1.arbitrary_round rho one b] at result
+  change (fun i => eval rho (ReusableWideTail25.after 424 i))=
+    PoseidonRoundSuffix05.roundsFrom (castParameters D0.parameters) 2 63
+      (Poseidon.round (castParameters D0.parameters) 1 (fun i => eval rho (D0.after i))) at result
+  rw [P0.arbitrary_round rho one a,RegistryWhole23.rounds_bridge,absorption rho one] at result
+  have hash := Poseidon.hash6_of_one_block (castParameters D0.parameters) 2 (inputs rho)
+    (Poseidon.initial 2 5) (fun i => eval rho (ReusableWideTail25.after 424 i)) (by rfl) (by rfl) result
+  simpa only [←result_exact,resultTerms] using hash
+theorem copy_from_selected (rho : Nat → F) (sat : Satisfies rho selectedRows) : rho copy=rho 0 := by
+  have copySat : Satisfies rho [TransferPoseidonCall04Shared01.rawCopy] := fun row member => sat row (List.mem_append_right _ member)
+  have check : checkRow p [TransferPoseidonCall04Shared01.rawCopy] ⟨[(0,1),(copy,-1)],[]⟩=true := by decide +kernel
+  have equal := checked_assertion_sound rho [TransferPoseidonCall04Shared01.rawCopy] [(0,1)] [(copy,1)] copySat
+    (by simpa [subtract,scaleLinear] using check)
+  simpa [eval] using equal.symm
+theorem arbitrary_field_path (rho : Nat → F) (one : rho 0=1)
+    (selection : Satisfies rho MerkleSelection26Data.originalRows) (hashRows : Satisfies rho selectedRows) :
+    eval rho actualResult=Poseidon.hash6 (castParameters D0.parameters) 2
+      [1,MerkleSelection26Semantic.formula (rho 184) (rho 185) (eval rho RegistryWhole23.actualResult) (rho 136) (rho 137) (rho 138) 0,
+       MerkleSelection26Semantic.formula (rho 184) (rho 185) (eval rho RegistryWhole23.actualResult) (rho 136) (rho 137) (rho 138) 1,
+       MerkleSelection26Semantic.formula (rho 184) (rho 185) (eval rho RegistryWhole23.actualResult) (rho 136) (rho 137) (rho 138) 2,
+       MerkleSelection26Semantic.formula (rho 184) (rho 185) (eval rho RegistryWhole23.actualResult) (rho 136) (rho 137) (rho 138) 3] := by
+  have hash := arbitrary_hash rho one hashRows
+  rw [literal_inputs rho one] at hash
+  have selected := MerkleSelection26Semantic.arbitrary rho (copy_from_selected rho hashRows) selection
+  rw [congrFun selected 0,congrFun selected 1,congrFun selected 2,congrFun selected 3] at hash
+  exact hash
+theorem input_support : (List.finRange 5).all (fun i => (D0.inputTerms i).all (fun term => decide (term.1<25472)))=true := by decide +kernel
+theorem inputs_preserved (base : Nat → F) : inputs (completed base)=inputs base := by
+  have values (i : Fin 5) : eval (completed base) (D0.inputTerms i)=eval base (D0.inputTerms i) := by
+    apply eval_agrees
+    intro term member
+    have bound := of_decide_eq_true (List.all_eq_true.mp (List.all_eq_true.mp input_support i (List.mem_finRange i)) term member)
+    exact outside base term.1 (Or.inl bound)
+  simp only [inputs,values]
+theorem total_hash (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) :
+  Satisfies (completed base) selectedRows ∧ eval (completed base) actualResult=Poseidon.hash6 (castParameters D0.parameters) 2 (inputs base) := by
+  refine ⟨selected_complete base linked,?_⟩
+  rw [arbitrary_hash (completed base) ((fixed base).1.trans one) (selected_complete base linked),inputs_preserved]
+def priorRows := ((CapturedPriorRows16Frame01.capturedPriorRows++TransferPoseidonThreeCallJoin15Program01.originalRows)++RegistryWhole23.selectedRows)++MerkleSelection26Data.originalRows
+include F in
+theorem prior_support (row : Row) (member : row∈priorRows) (term : Nat×Int) (present : term∈row.a++row.b) : term.1<25472 ∨ 25884≤term.1 := by
+  rcases List.mem_append.mp member with member|member
+  · rcases List.mem_append.mp member with member|member
+    · rcases List.mem_append.mp member with member|member
+      · have bound := CapturedPriorRows16Frame01.columns_below row member term present
+        exact Or.inl (by omega)
+      · rcases List.mem_append.mp member with member|member
+        · rcases (TransferPoseidonThreeCallJoin15Frame01.whole_segment (F:=F)).support row member term present with below|equal
+          · exact Or.inl (by change term.1<25044 at below;omega)
+          · exact Or.inr (by change term.1=200692 at equal;omega)
+        · have checked : CapturedInitial73419Generic01.supportCheck 25044 [TransferPoseidonWidth3Call08Shared01.rawCopy]=true := by decide +kernel
+          have bound := of_decide_eq_true (List.all_eq_true.mp (List.all_eq_true.mp checked row member) term present)
+          rcases bound with below|equal
+          · exact Or.inl (by omega)
+          · exact Or.inr (by change term.1=200692 at equal;omega)
+    · have found := (RegistryWhole23.membership row).mpr member
+      rcases (RegistryWhole23.segment (F:=F)).support row found term present with below|equal
+      · exact Or.inl (by change term.1<25460 at below;omega)
+      · exact Or.inr (by change term.1=200692 at equal;omega)
+  · rcases (MerkleSelection26Proof.segment (F:=F)).support row member term present with below|equal
+    · exact Or.inl below
+    · exact Or.inr (by change term.1=200692 at equal;omega)
+theorem preserves_prior (base : Nat → F) (sat : Satisfies base priorRows) : Satisfies (completed base) priorRows := by
+  exact CompilerSegmentCompletion11.prior_preserved copy (segment (F:=F)) base priorRows sat (prior_support (F:=F))
+theorem prior_outside (base : Nat → F) (column : Nat) (bound : column<22738 ∨ 25472≤column) : MerkleSelection26Semantic.final base column=base column := by
+  change run (RegistryWhole23.final base) MerkleSelection26Data.steps column=base column
+  rw [MerkleSelection26Proof.outside _ column (by omega),RegistryWhole23.final_outside base column (by omega)]
+def final (base : Nat → F) := completed (MerkleSelection26Semantic.final base)
+theorem final_rows (base : Nat → F) (linked : base copy=base 0) :
+  Satisfies (final base) priorRows ∧ Satisfies (final base) selectedRows := by
+  have old := MerkleSelection26Semantic.final_rows base linked
+  have combined : Satisfies (MerkleSelection26Semantic.final base) priorRows := by
+    intro row member
+    rcases List.mem_append.mp member with member|member
+    · rcases List.mem_append.mp member with member|member
+      · rcases List.mem_append.mp member with member|member
+        · exact old.1 row member
+        · exact old.2.1 row member
+      · exact old.2.2.1 row member
+    · exact old.2.2.2 row member
+  refine ⟨preserves_prior (MerkleSelection26Semantic.final base) combined,?_⟩
+  apply selected_complete
+  rw [prior_outside base copy (Or.inr (by decide)),prior_outside base 0 (Or.inl (by decide))]
+  exact linked
+theorem final_outside (base : Nat → F) (column : Nat) (bound : column<22738 ∨ 25884≤column) : final base column=base column := by
+  unfold final
+  rw [outside _ column (by omega),prior_outside base column (by omega)]
+end ShielddSecurity.MerkleHash27Whole
+
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.ren
+#print axioms ShielddSecurity.MerkleHash27Whole.ren
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.tailRows
+#print axioms ShielddSecurity.MerkleHash27Whole.tailRows
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.tailArithmetic
+#print axioms ShielddSecurity.MerkleHash27Whole.tailArithmetic
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.aggregateRows
+#print axioms ShielddSecurity.MerkleHash27Whole.aggregateRows
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.selectedRows
+#print axioms ShielddSecurity.MerkleHash27Whole.selectedRows
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.resultTerms
+#print axioms ShielddSecurity.MerkleHash27Whole.resultTerms
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.actualResult
+#print axioms ShielddSecurity.MerkleHash27Whole.actualResult
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.captureIndices
+#print axioms ShielddSecurity.MerkleHash27Whole.captureIndices
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.tail_copy_fixed
+#print axioms ShielddSecurity.MerkleHash27Whole.tail_copy_fixed
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.tail_split
+#print axioms ShielddSecurity.MerkleHash27Whole.tail_split
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.membership
+#print axioms ShielddSecurity.MerkleHash27Whole.membership
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.seam_checked
+#print axioms ShielddSecurity.MerkleHash27Whole.seam_checked
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.result_exact
+#print axioms ShielddSecurity.MerkleHash27Whole.result_exact
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.row_count
+#print axioms ShielddSecurity.MerkleHash27Whole.row_count
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.tail
+#print axioms ShielddSecurity.MerkleHash27Whole.tail
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.prefixSegment
+#print axioms ShielddSecurity.MerkleHash27Whole.prefixSegment
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.segment
+#print axioms ShielddSecurity.MerkleHash27Whole.segment
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.completed
+#print axioms ShielddSecurity.MerkleHash27Whole.completed
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.aggregate_complete
+#print axioms ShielddSecurity.MerkleHash27Whole.aggregate_complete
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.selected_complete
+#print axioms ShielddSecurity.MerkleHash27Whole.selected_complete
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.outside
+#print axioms ShielddSecurity.MerkleHash27Whole.outside
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.fixed
+#print axioms ShielddSecurity.MerkleHash27Whole.fixed
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.originals
+#print axioms ShielddSecurity.MerkleHash27Whole.originals
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.step_count
+#print axioms ShielddSecurity.MerkleHash27Whole.step_count
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.seam
+#print axioms ShielddSecurity.MerkleHash27Whole.seam
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.inputs
+#print axioms ShielddSecurity.MerkleHash27Whole.inputs
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.input_binding
+#print axioms ShielddSecurity.MerkleHash27Whole.input_binding
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.literal_inputs
+#print axioms ShielddSecurity.MerkleHash27Whole.literal_inputs
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.absorption
+#print axioms ShielddSecurity.MerkleHash27Whole.absorption
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.arbitrary_hash
+#print axioms ShielddSecurity.MerkleHash27Whole.arbitrary_hash
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.copy_from_selected
+#print axioms ShielddSecurity.MerkleHash27Whole.copy_from_selected
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.arbitrary_field_path
+#print axioms ShielddSecurity.MerkleHash27Whole.arbitrary_field_path
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.input_support
+#print axioms ShielddSecurity.MerkleHash27Whole.input_support
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.inputs_preserved
+#print axioms ShielddSecurity.MerkleHash27Whole.inputs_preserved
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.total_hash
+#print axioms ShielddSecurity.MerkleHash27Whole.total_hash
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.priorRows
+#print axioms ShielddSecurity.MerkleHash27Whole.priorRows
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.prior_support
+#print axioms ShielddSecurity.MerkleHash27Whole.prior_support
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.preserves_prior
+#print axioms ShielddSecurity.MerkleHash27Whole.preserves_prior
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.prior_outside
+#print axioms ShielddSecurity.MerkleHash27Whole.prior_outside
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.final
+#print axioms ShielddSecurity.MerkleHash27Whole.final
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.final_rows
+#print axioms ShielddSecurity.MerkleHash27Whole.final_rows
+set_option pp.all true in
+#check @ShielddSecurity.MerkleHash27Whole.final_outside
+#print axioms ShielddSecurity.MerkleHash27Whole.final_outside
