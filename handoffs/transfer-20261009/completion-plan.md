@@ -26,6 +26,17 @@ Ordered Boolean-child interpretation at every level and full indexed literal
 tail/global row coverage remain under development. This is scoped field-path
 completion, not complete Transfer certification.
 
+The ordered Boolean-child refinement is accepted at
+`feb08fe2fc98131fe0a7af9064e2f4be5564df1f` (one module/nine reports). It joins
+all32 checked bit values to ordered child insertion through16 levels; binding
+those existential bits to one recovered integer position remains a further
+join. The generic fresh arithmetic route is accepted at
+`9f511a89cbcb913bb90377eef4a73c0210fcad1b` (four modules/75 reports), including
+symbolic arbitrary-base construction and exact original-row probes at0..127
+and11032..11035, plus their shared copy. These132 distinct arithmetic positions
+are probes, not the complete177,954-row instance. The retained Mac worker owns
+the balanced indexed provider and full-relation instantiation autonomously.
+
 The desktop's certified prime field, actual point bound/doubling/torsion and
 exact eight-kernel/no16/odd-image endpoints are accepted. The newly qualified
 closed cardinality join definitionally binds the retained exact base order to
@@ -34,6 +45,16 @@ exponent without a base-order or cardinality premise. It is published at
 `5100abd1bc6e9f991f2108d60493906fb14d17b9`. Historical trace imports are retained
 qualified inputs, not freshly replayed claims. Native base and group-operation
 correspondence remain separate obligations.
+
+The actual concrete Edwards/Mathlib all-pairs addition model and closed cofactor
+join are now accepted at `6b7bcae41f3adb64a9094c325f88e0eb641bb4bb`
+(18 sources/92 complete type and standard-axiom reports). Parent reviewed all401
+selected import associations, exact polynomial regeneration and unchanged
+physical memory/process guards; the fresh packaging thresholds are8MiB per
+object and128MiB per artifact job. The mathematical byte-writer and admitted-key
+conditions remain explicit. SDK projective arithmetic, scalar-loop/admission,
+primitive byte/field correspondence and generator equality are in development
+in the same desktop session; no unreviewed later reports are counted here.
 
 The expanded336-source scoped closure through MerkleInputMeaning28 is assembled
 without caches or replay at `4815b4573b56997c1df01c1f728050b78903bda3`.
