@@ -1,5 +1,17 @@
 # Transfer proof completion plan — 9 October 2026
 
+Current additional accepted scope: RegistryWhole23 and RegistryInputJoin24 are
+published at `51bddc691daf4cca5076e1f6e9c2a63856843e9e` and
+`0eae7db65be4f0c076b35ca8a88ea30578c0b4ae`. They construct the selected
+registry leaf on the Initial734/Join15 assignment and derive its nested hash
+from original witness columns. The complete 325-source import closure for this
+scoped endpoint is available in Git and has been assembled without caches or
+verifier replay (`2d9a118d42730a1f4c53b4606bf37dc7fb15e7c6`). The reusable
+two-module segment/suffix transport has passed parent endpoint review; each
+new captured target still owns its row equality, prefix and seam. Actual global
+curve cardinality, full-row coverage, native/state joins and certification
+remain OPEN. These are scoped results, not a full Transfer completion claim.
+
 Status: **OPEN**. Current orchestration continues the same retained local **GPT-6.1 Sol / high** agent and existing desktop chat **Transfer proof**. The former orchestrator relays to the local agent when needed. Both workers own proof strategy, routine repairs, narrow bounded builds and continuation between milestones. The parent owns high-level endpoint review, cross-host integration, serialized publication and final certification. **Claude Opus 5.5** review is optional; parent review can proceed independently. Dated checkpoints below preserve history, not current stopping instructions.
 
 Latest accepted scope: the five-module Join15 endpoint supplies 73 audited declarations, arbitrary-assignment nested-hash soundness and a same-assignment constructor for 1,573 selected rows. Its exact sources and sealed summaries are published at `b52df7cccc9178c8e953c639a6e0f4e5c733e276`. The Mac worker continues the initial-row and registry construction. The corrected desktop eight-prerequisite and eight group/compiler packet passed scoped parent endpoint review and is published at `6ca89c9791800b9f2fc3315e3ba62b783e211b82`; desktop continues cardinality and semantic subgroup work. The earlier incomplete-import Group packet is withdrawn. Its 157 audited declarations establish scoped constructor/indexed/group interfaces, not global curve order or native correspondence. These scoped milestones leave full-row binding, complete legal-input construction, native/state correspondence and final certification OPEN. The Initial734 constructor is now accepted and published at `d253e55f80040e3a36d51de5b1d3a0ab5b90fbc9`: it derives the first 734 arithmetic rows and extends Join15 under one assignment while preserving all original inputs and fixed columns. The 16-module semantic/scalar/torsion packet is accepted and published at `25f22e4a2917256c266ba0a5a7480ce8fc05bc99`; it supplies symbolic row-derived scalar bounds, a selected mathematical subgroup interpretation, integer Euler residues and conditional torsion algebra. Concrete native correspondence and actual curve cardinality remain open. The smaller torsion/cardinality route is under development; its integer data is not a curve-order proof.

@@ -1,0 +1,40 @@
+import ShielddSecurity.CapturedRegistryTail22
+import ShielddSecurity.CompilerSegmentRenaming25
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.ReusableWideTail25
+open Compiler CompilerCompletion CompilerColumnRenaming05 CompilerWindowRenaming05
+open CapturedInitial73419Generic01 (p copy)
+variable {F : Type} [Field F] [CharP F p]
+def segment (offset : Nat) (separate : 396≤offset) (copyAbove : 25460+offset≤copy) :
+    CompilerSegmentCompletion11.Segment F copy :=
+  CompilerSegmentRenaming25.translated copy 25064 396 offset R22.segment separate
+    (by decide) (by change 25064≤25088;decide) (by change 25460≤25064+396;decide)
+    (by omega)
+def before (offset : Nat) (i : Fin 6) : Linear :=
+  linear (swap 25064 396 offset) (CapturedRegistryTail21R1Data01.after i)
+def after (offset : Nat) (i : Fin 6) : Linear :=
+  linear (swap 25064 396 offset) (linear R22.ren (TransferPoseidonCall04Semantic01.after 64 i))
+theorem completed (offset : Nat) (separate : 396≤offset) (copyAbove : 25460+offset≤copy)
+    (base : Nat → F) (linked : base copy=base 0) :
+    Satisfies (run base (segment (F:=F) offset separate copyAbove).steps) (segment (F:=F) offset separate copyAbove).rows :=
+  (segment (F:=F) offset separate copyAbove).complete base linked
+
+theorem outside (offset : Nat) (separate : 396≤offset) (copyAbove : 25460+offset≤copy)
+    (base : Nat → F) (column : Nat) (bound : column<25088+offset ∨ 25460+offset≤column) :
+    run base (segment (F:=F) offset separate copyAbove).steps column=base column :=
+  CompilerSegmentCompletion11.outside copy _ base column bound
+
+theorem suffix (offset : Nat) (separate : 396≤offset) (copyAbove : 25460+offset≤copy)
+    (rho : Nat → F) (one : rho 0=1) (sat : Satisfies rho (segment (F:=F) offset separate copyAbove).rows) :
+    (fun i => eval rho (after offset i))=
+      PoseidonRoundSuffix05.roundsFrom (Poseidon.castParameters CapturedRegistryTail21R1Data01.parameters) 2 63
+        (fun i => eval rho (before offset i)) := by
+  have source : Satisfies (fun c => rho (swap 25064 396 offset c)) R22.rows :=
+    (satisfies_rows _ rho R22.rows).mp sat
+  have result := R22.suffix (fun c => rho (swap 25064 396 offset c))
+    (by change rho (swap 25064 396 offset 0)=1;rw [below_fixed 25064 396 offset 0 (by decide)];exact one) source
+  simpa only [before,after,eval_linear] using result
+end ShielddSecurity.ReusableWideTail25
