@@ -1,0 +1,162 @@
+import ShielddSecurity.CapturedRegistryTail22
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.RegistryWhole23
+open Compiler CompilerCompletion CompilerSegmentCompletion11 Poseidon
+open CapturedInitial73419Generic01 (p copy)
+namespace D0
+export CapturedRegistryLeaf20R0Data01 (parameters before after inputTerms arithmeticRows originalRows steps)
+end D0
+namespace P0
+export CapturedRegistryLeaf20R0Proof01 (segment arbitrary_round)
+end P0
+namespace D1
+export CapturedRegistryTail21R1Data01 (before after arithmeticRows originalRows steps)
+end D1
+namespace P1
+export CapturedRegistryTail21R1Proof01 (segment arbitrary_round)
+end P1
+def tailArithmetic := CompilerColumnRenaming05.rows R22.ren TransferPoseidonTailTemplate05Program01.arithmeticRows
+def aggregateRows := (D0.originalRows++D1.originalRows)++R22.rows
+def selectedRows := (D0.arithmeticRows++D1.arithmeticRows)++tailArithmetic++[TransferPoseidonCall04Shared01.rawCopy]
+def resultTerms := CompilerColumnRenaming05.linear R22.ren (TransferPoseidonCall04Semantic01.after 64 1)
+def actualResult : Linear := [(25438,5579934908212736977238010113730457006906792843192217773053283881663622591681),(25442,50978946942794420813356136484142315443152313428221265043903658432145007475423),(25446,51737743277955608982399432577620617083998176562860787771480331520415801857016),(25450,280754542936071555323583947036382301904172335755315562603417507239324752636),(25454,44773762128641970103070913747625047847186741019957383563700055475244115610384),(25458,28552781024861804928696238677004241170376447700649499575281496751792046985224)]
+def captureIndices := List.range' 2306 416++[200769]
+theorem tail_split : R22.rows=tailArithmetic++[TransferPoseidonCall04Shared01.rawCopy] := by
+  simp only [R22.rows,tailArithmetic,TransferPoseidonTailTemplate05Program01.originalRows,CompilerColumnRenaming05.rows,List.map_append,List.map_cons,List.map_nil]
+  congr 1
+theorem membership (row : Row) : row∈aggregateRows ↔ row∈selectedRows := by
+  simp only [aggregateRows,selectedRows,D0.originalRows,D1.originalRows,tail_split,List.mem_append,List.mem_singleton]
+  constructor
+  · intro h
+    rcases h with ((h|h)|(h|h))|(h|h)
+    · exact Or.inl (Or.inl (Or.inl h))
+    · exact Or.inr h
+    · exact Or.inl (Or.inl (Or.inr h))
+    · exact Or.inr h
+    · exact Or.inl (Or.inr h)
+    · exact Or.inr h
+  · intro h
+    rcases h with ((h|h)|h)|h
+    · exact Or.inl (Or.inl (Or.inl h))
+    · exact Or.inl (Or.inr (Or.inl h))
+    · exact Or.inr (Or.inl h)
+    · exact Or.inr (Or.inr h)
+theorem result_exact : resultTerms=actualResult := by decide +kernel
+theorem row_count : selectedRows.length=417 ∧ captureIndices.length=417 := by
+  have a := CapturedRegistryLeaf20R0Proof01.counts.2.2.1
+  have b := CapturedRegistryTail21R1Proof01.counts.2.2.1
+  have c : tailArithmetic.length=372 := by
+    simp only [tailArithmetic,CompilerColumnRenaming05.rows,List.length_map]
+    exact R22.counts.2.2.2
+  constructor
+  · simp only [selectedRows,List.length_append,List.length_singleton]
+    rw [a,b,c]
+  · decide +kernel
+variable {F : Type} [Field F] [CharP F p]
+def prefixSegment : Segment F copy := append copy (P0.segment (F:=F)) (P1.segment (F:=F))
+  (by change 25064≤25064;decide) (by change 25044≤25064;decide)
+  (by change 25064≤25088;decide) (by change 0<25044;decide)
+  (by change 25064≤200692 ∧ 25088≤200692;decide)
+def segment : Segment F copy := append copy (prefixSegment (F:=F)) (R22.segment (F:=F))
+  (by change 25088≤25088;decide) (by change 25044≤25088;decide)
+  (by change 25088≤25460;decide) (by change 0<25044;decide)
+  (by change 25088≤200692 ∧ 25460≤200692;decide)
+def completed (base : Nat → F) := run base (segment (F:=F)).steps
+theorem aggregate_complete (base : Nat → F) (linked : base copy=base 0) : Satisfies (completed base) aggregateRows :=
+  (segment (F:=F)).complete base linked
+theorem selected_complete (base : Nat → F) (linked : base copy=base 0) : Satisfies (completed base) selectedRows := by
+  intro row member
+  exact aggregate_complete base linked row ((membership row).mpr member)
+theorem outside (base : Nat → F) (column : Nat) (bound : column<25044 ∨ 25460≤column) : completed base column=base column :=
+  CompilerSegmentCompletion11.outside copy (segment (F:=F)) base column bound
+theorem fixed (base : Nat → F) : completed base 0=base 0 ∧ completed base 1=base 1 ∧ completed base 2=base 2 ∧ completed base copy=base copy :=
+  ⟨outside base 0 (Or.inl (by decide)),outside base 1 (Or.inl (by decide)),outside base 2 (Or.inl (by decide)),outside base copy (Or.inr (by decide))⟩
+theorem originals (base : Nat → F) (input : Nat) (bound : input<22735) : completed base (3+input)=base (3+input) := outside base _ (Or.inl (by omega))
+theorem step_count : (segment (F:=F)).steps.length=315 := by
+  change ((D0.steps++D1.steps)++R22.steps).length=315
+  simp only [List.length_append]
+  rw [CapturedRegistryLeaf20R0Proof01.counts.2.1,CapturedRegistryTail21R1Proof01.counts.2.1,R22.counts.1]
+omit [CharP F p] in
+theorem rounds_bridge (parameters : Parameters F 6) (state : State F 6) (n : Nat) :
+  PoseidonRoundSuffix05.roundsFrom parameters 2 n (Poseidon.round parameters 1 (Poseidon.round parameters 0 state))=Poseidon.rounds parameters (2+n) state := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+    have count : 2+(n+1)=(2+n)+1 := by omega
+    rw [count]
+    change Poseidon.round parameters (2+n) (PoseidonRoundSuffix05.roundsFrom parameters 2 n (Poseidon.round parameters 1 (Poseidon.round parameters 0 state)))=
+      Poseidon.round parameters (2+n) (Poseidon.rounds parameters (2+n) state)
+    rw [ih]
+def inputs (rho : Nat → F) := [eval rho (D0.inputTerms 0),eval rho (D0.inputTerms 1),eval rho (D0.inputTerms 2),eval rho (D0.inputTerms 3),eval rho (D0.inputTerms 4)]
+omit [CharP F p] in
+theorem absorption (rho : Nat → F) (one : rho 0=1) :
+  (fun i => eval rho (D0.before i))=Poseidon.absorb (Poseidon.initial 25 5) (inputs rho) := by
+  funext i
+  have cases : i=⟨0,by decide⟩ ∨ i=⟨1,by decide⟩ ∨ i=⟨2,by decide⟩ ∨ i=⟨3,by decide⟩ ∨ i=⟨4,by decide⟩ ∨ i=⟨5,by decide⟩ := by have h:=i.isLt;simp only [Fin.ext_iff];omega
+  rcases cases with rfl|rfl|rfl|rfl|rfl|rfl <;> simp [CapturedRegistryLeaf20R0Data01.before,inputs,Poseidon.absorb,Poseidon.initial,eval,one]
+theorem arbitrary_hash (rho : Nat → F) (one : rho 0=1) (sat : Satisfies rho selectedRows) :
+  eval rho actualResult=Poseidon.hash6 (castParameters D0.parameters) 25 (inputs rho) := by
+  have all : Satisfies rho aggregateRows := fun row member => sat row ((membership row).mp member)
+  have a : Satisfies rho D0.originalRows := fun row member => all row (List.mem_append_left _ (List.mem_append_left _ member))
+  have b : Satisfies rho D1.originalRows := fun row member => all row (List.mem_append_left _ (List.mem_append_right _ member))
+  have c : Satisfies rho R22.rows := fun row member => all row (List.mem_append_right _ member)
+  have result := R22.suffix rho one c
+  rw [P1.arbitrary_round rho one b] at result
+  change (fun i => eval rho (CompilerColumnRenaming05.linear R22.ren (TransferPoseidonCall04Semantic01.after 64 i)))=
+    PoseidonRoundSuffix05.roundsFrom (castParameters D0.parameters) 2 63
+      (Poseidon.round (castParameters D0.parameters) 1 (fun i => eval rho (D0.after i))) at result
+  rw [P0.arbitrary_round rho one a,rounds_bridge,absorption rho one] at result
+  have hash := Poseidon.hash6_of_one_block (castParameters D0.parameters) 25 (inputs rho)
+    (Poseidon.initial 25 5) (fun i => eval rho (CompilerColumnRenaming05.linear R22.ren (TransferPoseidonCall04Semantic01.after 64 i)))
+    (by rfl) (by rfl) result
+  simpa only [←result_exact,resultTerms] using hash
+theorem input_support : (List.finRange 5).all (fun i => (D0.inputTerms i).all (fun term => decide (term.1<25044)))=true := by decide +kernel
+theorem inputs_preserved (base : Nat → F) : inputs (completed base)=inputs base := by
+  have values (i : Fin 5) : eval (completed base) (D0.inputTerms i)=eval base (D0.inputTerms i) := by
+    apply eval_agrees
+    intro term member
+    have bound := of_decide_eq_true (List.all_eq_true.mp (List.all_eq_true.mp input_support i (List.mem_finRange i)) term member)
+    exact outside base term.1 (Or.inl bound)
+  simp only [inputs,values]
+theorem total_hash (base : Nat → F) (one : base 0=1) (linked : base copy=base 0) :
+  Satisfies (completed base) selectedRows ∧ eval (completed base) actualResult=Poseidon.hash6 (castParameters D0.parameters) 25 (inputs base) := by
+  refine ⟨selected_complete base linked,?_⟩
+  rw [arbitrary_hash (completed base) ((fixed base).1.trans one) (selected_complete base linked),inputs_preserved]
+def final (base : Nat → F) := completed (CapturedInitial73419Completion01.final base)
+include F in
+theorem prior_support (row : Row) (member : row∈CapturedPriorRows16Frame01.capturedPriorRows++TransferPoseidonThreeCallJoin15Program01.originalRows)
+  (term : Nat×Int) (present : term∈row.a++row.b) : term.1<25044 ∨ 25460≤term.1 := by
+  rcases List.mem_append.mp member with member|member
+  · exact Or.inl (by have h:=CapturedPriorRows16Frame01.columns_below row member term present;omega)
+  · rcases List.mem_append.mp member with member|member
+    · have h := (TransferPoseidonThreeCallJoin15Frame01.whole_segment (F:=F)).support row member term present
+      rcases h with below|equal
+      · exact Or.inl below
+      · exact Or.inr (by change term.1=200692 at equal;omega)
+    · have checked : CapturedInitial73419Generic01.supportCheck 25044 [TransferPoseidonWidth3Call08Shared01.rawCopy]=true := by decide +kernel
+      have h := of_decide_eq_true (List.all_eq_true.mp (List.all_eq_true.mp checked row member) term present)
+      rcases h with below|equal
+      · exact Or.inl below
+      · exact Or.inr (by change term.1=200692 at equal;omega)
+theorem same_assignment_rows (base : Nat → F) (linked : base copy=base 0) :
+  Satisfies (final base) CapturedPriorRows16Frame01.capturedPriorRows ∧
+  Satisfies (final base) TransferPoseidonThreeCallJoin15Program01.originalRows ∧ Satisfies (final base) selectedRows := by
+  have prior:=CapturedInitial73419Completion01.same_assignment_rows base linked
+  have both : Satisfies (CapturedInitial73419Completion01.final base) (CapturedPriorRows16Frame01.capturedPriorRows++TransferPoseidonThreeCallJoin15Program01.originalRows) := by
+    intro row member
+    rcases List.mem_append.mp member with member|member
+    · exact prior.1 row member
+    · exact prior.2 row member
+  have preserved := CompilerSegmentCompletion11.prior_preserved copy (segment (F:=F)) _ _ both (prior_support (F:=F))
+  refine ⟨(fun row member => preserved row (List.mem_append_left _ member)),(fun row member => preserved row (List.mem_append_right _ member)),?_⟩
+  apply selected_complete
+  rw [CapturedInitial73419Completion01.final_outside base copy (Or.inr (by decide)),CapturedInitial73419Completion01.final_outside base 0 (Or.inl (by decide))]
+  exact linked
+theorem final_outside (base : Nat → F) (column : Nat) (bound : column<22738 ∨ 25460≤column) : final base column=base column := by
+  unfold final
+  rw [outside _ column (by omega)]
+  exact CapturedInitial73419Completion01.final_outside base column (by omega)
+end ShielddSecurity.RegistryWhole23
