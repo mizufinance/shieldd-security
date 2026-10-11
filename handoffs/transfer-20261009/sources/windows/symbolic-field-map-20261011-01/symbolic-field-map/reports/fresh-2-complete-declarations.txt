@@ -1,0 +1,20 @@
+@ShielddSecurity.TransferSymbolicFieldMap01.mapped_field_projection_equals_pointwise_reference : ∀
+  {Key Field Value : Type} (encode : Key → Field) (project : Field → Value) (reference : Key → Value)
+  (keys : List.{0} Key)
+  (pointwise :
+    ∀ (key : Key),
+      @Membership.mem.{0, 0} Key (List.{0} Key) (@List.instMembership.{0} Key) keys key →
+        @Eq.{1} Value (project (encode key)) (reference key)),
+  @Eq.{1} (List.{0} Value) (@List.map.{0, 0} Field Value project (@List.map.{0, 0} Key Field encode keys))
+    (@List.map.{0, 0} Key Value reference keys)
+'ShielddSecurity.TransferSymbolicFieldMap01.mapped_field_projection_equals_pointwise_reference' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferSymbolicFieldMap01.finite_field_list_roundtrip_follows_from_symbolic_pointwise_inverse : ∀
+  {Key Field : Type} (encode : Key → Field) (project : Field → Key) (keys : List.{0} Key)
+  (pointwise :
+    ∀ (key : Key),
+      @Membership.mem.{0, 0} Key (List.{0} Key) (@List.instMembership.{0} Key) keys key →
+        @Eq.{1} Key (project (encode key)) key),
+  @Eq.{1} (List.{0} Key) (@List.map.{0, 0} Field Key project (@List.map.{0, 0} Key Field encode keys)) keys
+'ShielddSecurity.TransferSymbolicFieldMap01.finite_field_list_roundtrip_follows_from_symbolic_pointwise_inverse' depends on axioms: [propext,
+ Quot.sound]
