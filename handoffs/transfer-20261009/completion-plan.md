@@ -107,6 +107,15 @@ dependencies. Physical memory/process safeguards are unchanged. The first40
 aggregate and full599 arithmetic provider are separate live obligations; this
 acceptance does not close full row coverage or Transfer semantics.
 
+The generic arithmetic uniqueness bridge is accepted at
+`f0655dce2a2521fa24526261554810dc266e59b7` (one source/six complete reports).
+Read-before-write support and equal seed/copy values propagate constructor
+agreement; combining that result with the satisfying-assignment fixed-point
+proof gives equality throughout the fresh block window for arbitrary satisfying
+assignments. Parent reviewed all six original reports, exact generation and16
+inherited dependency associations. This symbolic bridge still needs the full
+actual provider and independently defined Transfer algorithm/semantic join.
+
 The retained Mac worker has extracted the entire177,954-row arithmetic provider
 into599 bounded leaves and is qualifying its first production leaves and
 symbolic aggregators. These live results are not yet a sealed full-provider
