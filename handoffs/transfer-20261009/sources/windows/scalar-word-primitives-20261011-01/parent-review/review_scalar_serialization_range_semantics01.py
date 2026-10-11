@@ -1,0 +1,21 @@
+"""Independent exact failed-history/repair and complete recurrence contract review."""
+from pathlib import Path
+import ast,difflib,hashlib,json,re
+J=Path(__file__).parent;D=J/'windows-scalar-serialization-range-review01';P=D/'packet01';Q=P/'rejected/01';module='TransferScalarSerializationRange01'
+def pin(p):b=p.read_bytes();return dict(path=str(p),bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+source=P/'source/ShielddSecurity'/f'{module}.lean';old=(Q/'handwritten'/f'{module}.lean').read_text();new=source.read_text()
+assert old==(Q/'project/ShielddSecurity'/f'{module}.lean').read_text()
+plan=json.loads((Q/'plan.json').read_bytes());assert pin(Q/'handwritten'/f'{module}.lean')['sha256']==plan['targets'][0]['source']['sha256']
+headers=lambda t:[m.group(0).split(' := by')[0]for m in re.finditer(r'(?m)^theorem [\s\S]*?(?=^theorem |^set_option pp.all|\Z)',t)]
+assert len(headers(old))==5 and headers(old)==headers(new)
+assert old.split('theorem one_round')[0]==new.split('theorem one_round')[0]
+events=[json.loads(l)for l in(Q/'events.jsonl').read_text().splitlines()];assert len(events)==2
+failed=events[-1]['result'];assert failed['status']=='failed'and failed['reason']=='Lean exit 1'and 0<failed['seconds']<240
+log=Q/'runs'/('01-'+module)/'stdout.txt';freshplan=json.loads((P/'qualified/plan.json').read_bytes());originalLog=next(p for p in freshplan['pins'] if 'transfer-scalar-serialization-range-20261011-01' in p['path'] and p['path'].endswith('stdout.txt'));assert pin(log)['sha256']==originalLog['sha256'] and pin(log)['bytes']==originalLog['bytes']
+diagnostics=[l for l in log.read_text().splitlines()if 'error:'in l or 'warning:'in l];assert any('error:'in l for l in diagnostics)
+recipe=P/'qualified/prepare_recipe.py';nodes=ast.parse(recipe.read_text()).body
+start=next(i for i,n in enumerate(nodes)if isinstance(n,ast.Assign)and any(isinstance(t,ast.Name)and t.id=='a'for t in n.targets));chosen=nodes[start:start+3];assert isinstance(chosen[0],ast.Assign)and isinstance(chosen[1],ast.Assert)and isinstance(chosen[2],ast.Assign)
+assert ast.literal_eval(chosen[0].value)=='simp only [Nat.add_mul, Nat.mul_comm]'
+env={'s':old};exec(compile(ast.Module(body=chosen,type_ignores=[]),str(recipe),'exec'),env);assert env['s']==new
+scope=['The mathematical recurrence uses arbitrary finite word multipliers and natural floor division at each step. The one-round inequality decreases the radix exponent; induction proves the terminal accumulator below modulus+1.','The final conditional subtraction is canonical for positive modulus. Finite multiplier values provide word bounds; an initial packed raw value below radix^digits.length supplies the initial range.','The four-u64 result uses exact2^64 radix and the qualified exact nullifier field modulus, assuming only four finite multipliers and raw<radix^4. It does not prove modular cancellation/congruence, actual native Montgomery recurrence or field-object representation.','Rust widened mac/adc/sbb, unsigned overflow/carry threading, raw word packing, byte order and Scalar to_bytes correspondence remain owned OPEN. No curve/cardinality/primality replay is used; native controls and final selected combined replay remain UNRUN.']
+r=dict(status='PASSED',kind='Independent complete recurrence source/contract, preserved failed receipt and pure maintained repair review; no verifier/native launch',source=pin(source),recipe=pin(recipe),fresh_reports=8,definitions=3,theorems=5,all_model_definitions_and_five_contracts_unchanged=True,pure_repair_replay_exact=True,rejected=dict(source=pin(Q/'handwritten'/f'{module}.lean'),whole_attempt=failed,diagnostics=diagnostics,exact_delta=''.join(difflib.unified_diff(old.splitlines(True),new.splitlines(True)))),contracts=scope,full_transfer='OPEN',native_execution='UNRUN');(D/'semantic-source-review01.json').write_text(json.dumps(r,indent=2)+'\n');x=json.loads((D/'endpoint-audit-review01.json').read_bytes());x['semantic_scope']=scope;x['rejected']=[r['rejected']];x['precise_repair_review']=pin(D/'semantic-source-review01.json');(D/'endpoint-audit-review01.json').write_text(json.dumps(x,indent=2)+'\n');print(json.dumps(dict(status='PASSED',fresh_reports=8,all_contracts_unchanged=True,pure_repair_replay=True)))
