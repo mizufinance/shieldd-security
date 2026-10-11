@@ -643,3 +643,6 @@ Reviewed registry-value97..99 evidence `2976679ccbc324da7b5dbc602de4a86560d07891
 
 
 Reviewed deferred-count-walk evidence `9b83d706b1832b87bd4871f4e9993f110169b786` publishes one model with four original complete reports. Current-overlay reads and concrete mathematical u64 codec derive each successful increment; whole arbitrary walk success derives final count = initial count + queue length, strictly below 2^64. Exact 301-report/27-module union reuses shared cache source/object/12 reports once. Preparation census repair and proof-only failed predecessor are retained; one definition and three contracts unchanged. Runtime/native/durability/full Transfer remain OPEN.
+
+
+Reviewed deferred-count-flush evidence `f8e718c1f7507a8d2382539a9979f02b40467f1f` publishes three original complete theorem reports. Enabled nonempty modeled flush at a known height, original count observation and success derive initial+queue-length count/no wrap, consumed queue, original-parent V/object preservation and no index-child events. Frames follow from the modeled writer without caller callback-frame/poststate premises. Exact305inherited reports/28owned modules, guards and proof-only failed predecessor with three unchanged contracts reviewed. Runtime/native/Host/durability/full Transfer remain OPEN.
