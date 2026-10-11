@@ -1,0 +1,55 @@
+{
+  "status": "PASSED",
+  "kind": "Independent full source contract and precise two-failure maintained repair review; no Lean/native execution",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-raw-pending-review01/packet01/source/ShielddSecurity/TransferNativeRawPending01.lean",
+    "bytes": 6668,
+    "sha256": "b5c63b1c61184f51938ba6c487f9d0dcd2aebaaf9b71344aa57ea65ec508f650"
+  },
+  "fresh_reports": 3,
+  "rejected": [
+    {
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-raw-pending-review01/packet01/rejected/source01/handwritten/TransferNativeRawPending01.lean",
+        "bytes": 6355,
+        "sha256": "d4e48b3e5997c81b22e4996f603605c6be5c8986e13a2e369e92f3bc8e498af2"
+      },
+      "attempt": {
+        "reason": "Lean exit 1",
+        "seconds": 16.852415699977428,
+        "status": "failed"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-raw-pending-20261011-01\\project\\ShielddSecurity\\TransferNativeRawPending01.lean:42:6: error: Type mismatch",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-raw-pending-20261011-01\\project\\ShielddSecurity\\TransferNativeRawPending01.lean:74:2: error: Type mismatch: After simplification, term"
+      ],
+      "definitions_and_all_contracts_exact": true,
+      "exact_delta": "--- \n+++ \n@@ -37,7 +37,7 @@\n       cache = (putObject child objectKey (some (.inl (encodeNative (erase next))))).cache \u2227\n       (applyCache child.parent cache).objects objectKey = some (.inl (encodeNative (erase next))) := by\n   exact TransferNativePendingWrite01.successful_nonempty_primitive_writes_actual_supported_native_object\n-    (fun native => .inl (encodeNative native)) (nativeRaw encodeNative raw).nullifiers\n+    (fun native => (Sum.inl (encodeNative native) : ExtendedObject O)) (nativeRaw encodeNative raw).nullifiers\n     (fun pending _ lengthBound valueBound =>\n       TransferBoundedNativeCodec01.supported_pending_encoding_is_actual_native_branch encodeNative pending lengthBound valueBound)\n     wordMax objectKey sourceHasId child keys cache initial bounded inputs belowWord nonempty passed\n@@ -71,8 +71,12 @@\n     rw [TransferRawEffectsSource01.emitSpends_exact, written]\n     simp only [putObject, ite_true]\n   refine \u27e8next, inspected, nextInvariant, nextBounded, supported, ?_\u27e9\n-  simpa only [TransferRawEffectsSource01.reshape, TransferRawSourceFrames01.installNotes,\n-    TransferNoteManagerSource01.installNotes, nativeRaw, source, passed] using framed.trans staged\n+  have reshaped := TransferRawEffectsSource01.successful_nullify_emits_all_spends_before_notes\n+    (TransferRawSourceFrames01.installNotes (nativeRaw encodeNative raw) notes sct treeKey notesKey)\n+    wordMax blockCapacity pendingKey child inputs outputs sourceHasId cache source passed\n+  rw [reshaped]\n+  simpa only [TransferRawEffectsSource01.emitSpends_exact] using framed.trans staged\n+\n \n set_option pp.all true in\n #check @nativeRaw\n"
+    },
+    {
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-raw-pending-review01/packet01/rejected/source02/handwritten/TransferNativeRawPending01.lean",
+        "bytes": 6611,
+        "sha256": "5adef0e26cc3736c7e4581734960d0a76538883d4c47cbe4db48885bbffd5a77"
+      },
+      "attempt": {
+        "reason": "Lean exit 1",
+        "seconds": 16.54579730000114,
+        "status": "failed"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-raw-pending-20261011-02\\project\\ShielddSecurity\\TransferNativeRawPending01.lean:78:2: error: Type mismatch"
+      ],
+      "definitions_and_all_contracts_exact": true,
+      "exact_delta": "--- \n+++ \n@@ -75,7 +75,7 @@\n     (TransferRawSourceFrames01.installNotes (nativeRaw encodeNative raw) notes sct treeKey notesKey)\n     wordMax blockCapacity pendingKey child inputs outputs sourceHasId cache source passed\n   rw [reshaped]\n-  exact framed.trans staged\n+  simpa only [TransferRawEffectsSource01.emitSpends_exact] using framed.trans staged\n \n \n set_option pp.all true in\n"
+    }
+  ],
+  "exact_source03_recipe_replay": true,
+  "contracts": [
+    "Fixed raw nullifier encoder uses the qualified finite codec, deriving supported native branch for coherent/canonical/capacity pending writes without an additional encoder-equality hypothesis.",
+    "Given actual modeled primitive success, source identity, canonical inputs and distinct tree/notes/pending keys, all returned note/SCT/raw outcomes preserve the staged native pending object in the child cache. No later raw/commit success premise and no failed-child publication claim.",
+    "Backend.pending/getters, primitive native encoding, action inputs/typed/Clone/imbl, key representation, actual trace/ownership/reader/crypto/OS remain owned interfaces. Generic modeled error retention is accepted; native execution and full Transfer remain OPEN."
+  ],
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
