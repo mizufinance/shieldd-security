@@ -724,3 +724,8 @@ Typed roundtrip/injective key representation, request nonempty projections and s
 Reviewed10 public declarations of Store preparation against pinned runtime844389ee069e1fb2e576708842d0b389b4d9a44a. Successful block inputs and sealing derive capacity and uniqueness gates, and successful fallible session work supplies observed transition roots with the original accepted order. Native session refinement, witness validity, representation, ownership and durability remain OPEN. Complete failed predecessor diagnostics are retained.
 
 Evidence commit: 7e5ed6716274eb82040248376edd959043941f07
+
+
+Independent review accepted15modules153 complete original reports for the second comparison and legal registry gap. The same completed assignment satisfies all177954 arithmetic rows and1467 distinct assertions, with anchor178117 and21349 remaining assertions OPEN. Original generation, public census, import/guard/receipt history, captured extraction and independentSQL/signed row recipes passed. Native refinement and fullTransfer certification remain OPEN.
+
+Evidence commit: 405f047ae2436547ca198de51018114c2ca3440c
