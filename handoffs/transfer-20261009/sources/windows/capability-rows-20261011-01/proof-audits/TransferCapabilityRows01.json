@@ -1,0 +1,267 @@
+{
+  "module": "TransferCapabilityRows01",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.keys",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.keys : (rows :\n    List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) \u2192\n  List.{0} Nat",
+      "axioms": [],
+      "full_type_sha256": "0b3cfd62b89c5c78d6eb94a66a69c8f98faed1f9475a2bef944677c052841e4f"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.collect",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.collect : List.{0}\n    (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability) \u2192\n  List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability) \u2192\n    Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "31abf7b8b1652bffb517f544368d1e0ea8d7f9494436f81815f06bf8ee7ba64e"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.collect_success",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.collect_success : \u2200\n  (rows accumulated result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (unique : @List.Nodup.{0} Nat (ShielddSecurity.TransferCapabilityRows01.keys accumulated))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.collect rows accumulated)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result)),\n  And (@List.Nodup.{0} Nat (ShielddSecurity.TransferCapabilityRows01.keys result))\n    (@List.Perm.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability) result\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n        (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n        (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n        (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n          (@List.instAppend.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n        rows accumulated))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "795ee184f7b95e03ccfac6e6883325504194e9ecbd990c8fc43cdd3df3d0dd45"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.sortedKeys",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.sortedKeys : (rows :\n    List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) \u2192\n  List.{0} Nat",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4250ea86198d778c934963f3a3869eac4b273fb290e782f582d23c77e7f37228"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.checkBindings",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.checkBindings : (registry : Nat) \u2192\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) \u2192\n    (families : Nat \u2192 Nat) \u2192 List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability) \u2192 Option.{0} Unit",
+      "axioms": [],
+      "full_type_sha256": "5cb546c05e8e2c9e5a8c48598b164204f8156526e5c81dfc64da04cbb3a7f394"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.check_bindings_success",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.check_bindings_success : \u2200 (registry : Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat)\n  (rows : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} Unit) (ShielddSecurity.TransferCapabilityRows01.checkBindings registry expected families rows)\n      (@Option.some.{0} Unit Unit.unit))\n  (row : Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability),\n  @Membership.mem.{0, 0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n      (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      (@List.instMembership.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) rows row \u2192\n    And\n      (@Eq.{1} Nat\n        (ShielddSecurity.TransferAcceptance.Capability.registry\n          (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))\n        registry)\n      (And\n        (@Eq.{1} Nat\n          (ShielddSecurity.TransferAcceptance.Item.family\n            (ShielddSecurity.TransferAcceptance.Capability.item\n              (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row)))\n          (families (@Prod.fst.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row)))\n        (@Eq.{1} ShielddSecurity.TransferAcceptance.Item\n          (ShielddSecurity.TransferAcceptance.Capability.item\n            (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))\n          (expected (@Prod.fst.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "aee181d07dc04aa277dfb1f229e412a27814dd6d72bcf7dec65c84d037ea4846"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.validate",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.validate : (slots : List.{0} Nat) \u2192\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) \u2192\n    (families : Nat \u2192 Nat) \u2192\n      (registry : Nat) \u2192\n        (rows : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) \u2192\n          Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "bef392d143ca36cce1a80b7bc2b47eb1cd08b731119488ee2246b6401b64320b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.validation_success",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.validation_success : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result)),\n  And\n    (@Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.collect rows\n        (@List.nil.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))\n    (And\n      (@Eq.{1} (List.{0} Nat) (ShielddSecurity.TransferCapabilityRows01.sortedKeys result)\n        (@List.mergeSort.{0} Nat slots fun (left right : Nat) =>\n          @Decidable.decide (@LE.le.{0} Nat instLENat left right) (Nat.decLe left right)))\n      (@Eq.{1} (Option.{0} Unit)\n        (ShielddSecurity.TransferCapabilityRows01.checkBindings registry expected families result)\n        (@Option.some.{0} Unit Unit.unit)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "fc21b857fa9a3c7ed7d4d8d465afacc9cdacb3550124cb291ba11642caa77d01"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.validation_bound_result",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.validation_bound_result : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result)),\n  ShielddSecurity.TransferAcceptance.BoundRows slots expected result registry",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4f2bbfbb76f6cd12b52e900f288b4ea1705daf6b5ac93c404e8aef295624da50"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.validation_bound_input",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.validation_bound_input : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result)),\n  ShielddSecurity.TransferAcceptance.BoundRows slots expected rows registry",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "216a31345b91b0a7576419d25e9548ba7fc80f03129e17402fbc8b0e400b59af"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.every_result_family_checked",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.every_result_family_checked : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))\n  (row : Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability),\n  @Membership.mem.{0, 0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n      (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      (@List.instMembership.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result row \u2192\n    @Eq.{1} Nat\n      (ShielddSecurity.TransferAcceptance.Item.family\n        (ShielddSecurity.TransferAcceptance.Capability.item\n          (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row)))\n      (families (@Prod.fst.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "fae419fa10d2537ed40d87ce0321db79d5a4e6e7399f44f6e743c806c764d17d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.every_expected_slot_checked",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.every_expected_slot_checked : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))\n  (slot : Nat),\n  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) slots slot \u2192\n    @Exists.{1} ShielddSecurity.TransferAcceptance.Capability\n      fun (capability : ShielddSecurity.TransferAcceptance.Capability) =>\n      And\n        (@Membership.mem.{0, 0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n          (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n          (@List.instMembership.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) rows\n          (@Prod.mk.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability slot capability))\n        (And (@Eq.{1} Nat (ShielddSecurity.TransferAcceptance.Capability.registry capability) registry)\n          (@Eq.{1} ShielddSecurity.TransferAcceptance.Item\n            (ShielddSecurity.TransferAcceptance.Capability.item capability) (expected slot)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "677b2d4dd7560a6991e7519212b3b3b2c799ec29fac62bb8b9080631e9fac3c5"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.adjacent_duplicate_rejected",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.adjacent_duplicate_rejected : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry slot : Nat)\n  (first second : ShielddSecurity.TransferAcceptance.Capability)\n  (rest : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)),\n  @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n    (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry\n      (@List.cons.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n        (@Prod.mk.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability slot first)\n        (@List.cons.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n          (@Prod.mk.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability slot second) rest)))\n    (@Option.none.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ab0e61aa45a34c343124b9d282a22a7620f721f89c86c7a7127dc65c08ce41c6"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.wrong_registry_rejected",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.wrong_registry_rejected : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (row : Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n  (inside :\n    @Membership.mem.{0, 0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n      (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      (@List.instMembership.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) rows row)\n  (wrong :\n    @Ne.{1} Nat\n      (ShielddSecurity.TransferAcceptance.Capability.registry\n        (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))\n      registry),\n  Not\n    (@Exists.{1} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      fun (result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) =>\n      @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n        (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n        (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0baf6d83a0395fc9d729a129013ba1100c0743fe9233e619054d945054e97d1b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityRows01.wrong_item_rejected",
+      "full_type": "ShielddSecurity.TransferCapabilityRows01.wrong_item_rejected : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (row : Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n  (inside :\n    @Membership.mem.{0, 0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n      (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      (@List.instMembership.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) rows row)\n  (wrong :\n    @Ne.{1} ShielddSecurity.TransferAcceptance.Item\n      (ShielddSecurity.TransferAcceptance.Capability.item\n        (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))\n      (expected (@Prod.fst.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))),\n  Not\n    (@Exists.{1} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      fun (result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) =>\n      @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n        (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n        (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "7b9998a21df96e95b7bc951cdd306697d2c69dda05726ce6da3a44d8a762ddc5"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 14977,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-rows-20261010-01\\runs\\01-TransferCapabilityRows01\\stdout.txt",
+    "sha256": "a1280f59a150bd8ca742baad6ac93b77637cf435ccd67ae6a3b9f816d2ef559e"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.TransferCapabilityRows01.adjacent_duplicate_rejected": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "ab0e61aa45a34c343124b9d282a22a7620f721f89c86c7a7127dc65c08ce41c6"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.checkBindings": {
+        "axioms": [],
+        "full_type_sha256": "5cb546c05e8e2c9e5a8c48598b164204f8156526e5c81dfc64da04cbb3a7f394"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.check_bindings_success": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "aee181d07dc04aa277dfb1f229e412a27814dd6d72bcf7dec65c84d037ea4846"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.collect": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "31abf7b8b1652bffb517f544368d1e0ea8d7f9494436f81815f06bf8ee7ba64e"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.collect_success": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "795ee184f7b95e03ccfac6e6883325504194e9ecbd990c8fc43cdd3df3d0dd45"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.every_expected_slot_checked": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "677b2d4dd7560a6991e7519212b3b3b2c799ec29fac62bb8b9080631e9fac3c5"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.every_result_family_checked": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "fae419fa10d2537ed40d87ce0321db79d5a4e6e7399f44f6e743c806c764d17d"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.keys": {
+        "axioms": [],
+        "full_type_sha256": "0b3cfd62b89c5c78d6eb94a66a69c8f98faed1f9475a2bef944677c052841e4f"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.sortedKeys": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "4250ea86198d778c934963f3a3869eac4b273fb290e782f582d23c77e7f37228"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.validate": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "bef392d143ca36cce1a80b7bc2b47eb1cd08b731119488ee2246b6401b64320b"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.validation_bound_input": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "216a31345b91b0a7576419d25e9548ba7fc80f03129e17402fbc8b0e400b59af"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.validation_bound_result": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "4f2bbfbb76f6cd12b52e900f288b4ea1705daf6b5ac93c404e8aef295624da50"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.validation_success": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "fc21b857fa9a3c7ed7d4d8d465afacc9cdacb3550124cb291ba11642caa77d01"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.wrong_item_rejected": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "7b9998a21df96e95b7bc951cdd306697d2c69dda05726ce6da3a44d8a762ddc5"
+      },
+      "ShielddSecurity.TransferCapabilityRows01.wrong_registry_rejected": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "0baf6d83a0395fc9d729a129013ba1100c0743fe9233e619054d945054e97d1b"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-rows-20261010-01\\project\\ShielddSecurity\\TransferCapabilityRows01.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-rows-20261010-01\\project\\ShielddSecurity\\TransferCapabilityRows01.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 253464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-rows-20261010-01\\project\\ShielddSecurity\\TransferCapabilityRows01.olean",
+        "sha256": "a0b7a9f29f9caa3c78cd8b861446fcfe0a5415ece826745ccad220d2093f6e50"
+      }
+    ],
+    "peak_rss_bytes": 279764992,
+    "seconds": 2.3815352999954484,
+    "status": "passed",
+    "stdout": {
+      "bytes": 14977,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-rows-20261010-01\\runs\\01-TransferCapabilityRows01\\stdout.txt",
+      "sha256": "a1280f59a150bd8ca742baad6ac93b77637cf435ccd67ae6a3b9f816d2ef559e"
+    }
+  }
+}
