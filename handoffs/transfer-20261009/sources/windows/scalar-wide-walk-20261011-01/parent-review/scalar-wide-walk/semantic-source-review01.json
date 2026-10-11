@@ -1,0 +1,51 @@
+{
+  "status": "PASSED",
+  "kind": "Authenticated original handwritten bases, exact named audit augmentation and pure repair replay; kernel ancestry pending product",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-walk-review01/packet01/source/ShielddSecurity/TransferScalarWideWalk01.lean",
+    "bytes": 7151,
+    "sha256": "0487df371cbb0fe34656340f86b906d87a3b74fdbd72acaa2111a5e12324fbc8"
+  },
+  "fresh_reports": 7,
+  "review_helper": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/review_scalar_wide_histories22.py",
+    "bytes": 6632,
+    "sha256": "6d739c5b1daedd404b08cae7152da0e4ffec9b2fdb3c0caee85cd7b062a32ecb"
+  },
+  "rejected": [
+    {
+      "kind": "Original unselected failed attempt",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.899733099970035,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-walk-review01/packet01/unselected/01/handwritten/TransferScalarWideWalk01.lean",
+        "bytes": 7155,
+        "sha256": "cb8e3f1ba0636d70876018d4733ed4703b39fc3cd547f7815f8915b2d7cfc900"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-walk-20261011-01\\project\\ShielddSecurity\\TransferScalarWideWalk01.lean:35:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-walk-20261011-01\\project\\ShielddSecurity\\TransferScalarWideWalk01.lean:42:34: error: unexpected token '*'; expected ')', ',' or ':'",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-walk-20261011-01\\project\\ShielddSecurity\\TransferScalarWideWalk01.lean:91:63: error: Tactic `rfl` failed: equality lhs",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-walk-20261011-01\\project\\ShielddSecurity\\TransferScalarWideWalk01.lean:104:62: error: unexpected token '*'; expected ')', ',' or ':'",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-walk-20261011-01\\project\\ShielddSecurity\\TransferScalarWideWalk01.lean:100:19: error: unsolved goals",
+        " sorryAx,",
+        "    (sorryAx.{1} ((tag : Unit) \u2192 Prop) Bool.true",
+        " sorryAx]",
+        " sorryAx,",
+        " sorryAx,",
+        " sorryAx]"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -32,14 +32,14 @@\n     have nested : (words.drop 4).drop 1 = words.drop 5 := List.drop_drop\n     rw [dropped] at nested\n     have tailEqual : words.drop 5 = tail := nested.symm\n-    rw [dropped, tailEqual]\n+    rw [tailEqual]\n     exact split.symm\n \n theorem wide_round_derives_width_and_exact_integer_equation\n     (state : List UInt64 \u00d7 UInt64) (enough : 5 \u2264 state.1.length) :\n     (wideRound state).1.length = state.1.length - 1 \u2227\n       radix64 * wideValue (wideRound state) = wideValue state +\n-        (state.1.take 4 |>.headD 0 * inverseWord).toNat * nullifierModulus := by\n+        ((state.1.take 4).headD 0 * inverseWord).toNat * nullifierModulus := by\n   have four : (state.1.take 4).length = 4 := List.length_take_of_le (by omega)\n   have split := finite_words_split_at_actual_upper_limb state.1 enough\n   constructor\n@@ -88,7 +88,7 @@\n         simp only [Nat.mul_add, Nat.mul_one]; ac_rfl\n       _ \u2264 nullifierModulus * radix64 ^ (rounds + 1) + nullifierModulus * radix64 :=\n         Nat.add_le_add_left (Nat.mul_le_mul_left nullifierModulus limited) _\n-      _ = _ := by rw [Nat.pow_succ, Nat.mul_add, Nat.mul_one]; ac_rfl\n+      _ = _ := by simp only [Nat.pow_succ, Nat.mul_add, Nat.mul_one]; ac_rfl\n   exact Nat.lt_of_mul_lt_mul_left scaled\n \n theorem symbolic_wide_walk_derives_final_value_below_twice_modulus\n@@ -101,7 +101,7 @@\n     have step := wide_round_derives_width_and_exact_integer_equation state (by omega)\n     have nextWidth : (wideRound state).1.length = 4 + rounds := by rw [step.1, width]; omega\n     have nextBound := finite_multiplier_round_reduces_symbolic_range rounds (wideValue state)\n-      (wideValue (wideRound state)) (state.1.take 4 |>.headD 0 * inverseWord) step.2 bound\n+      (wideValue (wideRound state)) ((state.1.take 4).headD 0 * inverseWord) step.2 bound\n     exact ih (wideRound state) nextWidth nextBound\n \n set_option pp.all true in\n"
+    }
+  ],
+  "scope": "Source-shaped wide round recurrence derives four-word final width, radix-powered modular value and final less-than-two-modulus bound from explicit input width/range. No desired output premise. Actual Rust primitive/compiler/full execution binding remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "definitions_unchanged": true,
+  "accepted_full_type_authoritative": true,
+  "repair_classification": "Failed source coefficient grouping corrected in theorem expression and proof, plus list rewrite/distributivity; no claim of a qualified prior theorem",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
