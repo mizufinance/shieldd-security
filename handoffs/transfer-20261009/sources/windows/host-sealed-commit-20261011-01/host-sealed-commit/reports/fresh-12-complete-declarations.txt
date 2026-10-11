@@ -1,0 +1,292 @@
+ShielddSecurity.TransferHostSealedCommit01.HostPhase : Type
+'ShielddSecurity.TransferHostSealedCommit01.HostPhase' does not depend on any axioms
+ShielddSecurity.TransferHostSealedCommit01.Host : (O : Type) → Type
+'ShielddSecurity.TransferHostSealedCommit01.Host' does not depend on any axioms
+ShielddSecurity.TransferHostSealedCommit01.Io : (O : Type) → Type
+'ShielddSecurity.TransferHostSealedCommit01.Io' does not depend on any axioms
+ShielddSecurity.TransferHostSealedCommit01.Outcome : (O : Type) → Type
+'ShielddSecurity.TransferHostSealedCommit01.Outcome' does not depend on any axioms
+@ShielddSecurity.TransferHostSealedCommit01.reset : {O : Type} →
+  (io : ShielddSecurity.TransferHostSealedCommit01.Io O) →
+    (store : ShielddSecurity.TransferReadback.Store) → ShielddSecurity.TransferStateDelta.State O
+'ShielddSecurity.TransferHostSealedCommit01.reset' does not depend on any axioms
+@ShielddSecurity.TransferHostSealedCommit01.commitSealed : {O : Type} →
+  (io : ShielddSecurity.TransferHostSealedCommit01.Io O) →
+    (host : ShielddSecurity.TransferHostSealedCommit01.Host O) → ShielddSecurity.TransferHostSealedCommit01.Outcome O
+'ShielddSecurity.TransferHostSealedCommit01.commitSealed' depends on axioms: [propext]
+ShielddSecurity.TransferHostSealedCommit01.actual_writer_success_derives_sealed_completion_capacity_and_exact_physical_store : ∀
+  (io : ShielddSecurity.TransferStatefulParticipantRecovery01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.returned
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter io store phase))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+      (And
+        (@Eq.{1} Bool
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult.completed
+            (ShielddSecurity.TransferStatefulParticipantRecovery01.participants io store frozen))
+          Bool.true)
+        (And (@Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.capacity io frozen) Bool.true)
+          (And
+            (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned
+              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+            (And
+              (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.phase
+                  (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter io store phase))
+                (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready returned))
+              (@Eq.{1} ShielddSecurity.TransferReadback.Store
+                (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.store
+                  (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter io store phase))
+                (ShielddSecurity.TransferBankRecovery.Outcome.store
+                  (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen)))))))
+'ShielddSecurity.TransferHostSealedCommit01.actual_writer_success_derives_sealed_completion_capacity_and_exact_physical_store' depends on axioms: [propext]
+@ShielddSecurity.TransferHostSealedCommit01.other_host_phase_refuses_this_ordinary_branch : ∀ {O : Type}
+  (io : ShielddSecurity.TransferHostSealedCommit01.Io O) (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (unsealed :
+    @Ne.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.sealedBlock),
+  @Eq.{1} (ShielddSecurity.TransferHostSealedCommit01.Outcome O)
+    (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)
+    (@ShielddSecurity.TransferHostSealedCommit01.Outcome.mk O host (@Option.none.{0} Nat))
+'ShielddSecurity.TransferHostSealedCommit01.other_host_phase_refuses_this_ordinary_branch' depends on axioms: [propext]
+@ShielddSecurity.TransferHostSealedCommit01.actual_writer_error_interrupts_host_and_retains_observed_writer_and_store : ∀
+  {O : Type} (io : ShielddSecurity.TransferHostSealedCommit01.Io O)
+  (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (sealedHost :
+    @Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.sealedBlock)
+  (failed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.returned
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter
+          (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host)
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host)))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)),
+  And
+    (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O
+        (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+          (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.commitInterrupted)
+    (And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O
+          (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+            (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.phase
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter
+            (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host)
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host))))
+      (And
+        (@Eq.{1} ShielddSecurity.TransferReadback.Store
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+            (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+              (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.store
+            (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter
+              (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host)
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host))))
+        (And
+          (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.active O
+              (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.active O host))
+          (And
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O
+                (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                  (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O host))
+            (@Eq.{1} (Option.{0} Nat)
+              (@ShielddSecurity.TransferHostSealedCommit01.Outcome.root O
+                (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host))
+              (@Option.none.{0} Nat))))))
+'ShielddSecurity.TransferHostSealedCommit01.actual_writer_error_interrupts_host_and_retains_observed_writer_and_store' depends on axioms: [propext]
+@ShielddSecurity.TransferHostSealedCommit01.capacity_error_keeps_host_interrupted_but_writer_ready_with_completed_physical_state : ∀
+  {O : Type} (io : ShielddSecurity.TransferHostSealedCommit01.Io O)
+  (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (sealedHost :
+    @Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.sealedBlock)
+  (sealedWriter :
+    @Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host)
+      (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+  (completed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult.completed
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.participants
+          (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host) frozen))
+      Bool.true)
+  (capacity :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.capacity
+        (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io) frozen)
+      Bool.false),
+  And
+    (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O
+        (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+          (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.commitInterrupted)
+    (And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O
+          (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+            (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+      (And
+        (@Eq.{1} ShielddSecurity.TransferReadback.Store
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+            (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+              (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+          (ShielddSecurity.TransferBankRecovery.Outcome.store
+            (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered
+              (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host) frozen)))
+        (And
+          (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.active O
+              (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.active O host))
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O
+              (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O host)))))
+'ShielddSecurity.TransferHostSealedCommit01.capacity_error_keeps_host_interrupted_but_writer_ready_with_completed_physical_state' depends on axioms: [propext]
+@ShielddSecurity.TransferHostSealedCommit01.returned_host_root_derives_same_ready_writer_and_actual_reset : ∀ {O : Type}
+  (io : ShielddSecurity.TransferHostSealedCommit01.Io O) (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (root : Nat)
+  (success :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferHostSealedCommit01.Outcome.root O
+        (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host))
+      (@Option.some.{0} Nat root)),
+  And
+    (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.sealedBlock)
+    (@Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+      fun (boundary : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) =>
+      @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+        fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+        And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+            (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.returned
+              (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter
+                (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host)
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host)))
+            (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary))
+          (And
+            (@Eq.{1} (Option.{0} Nat)
+              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot boundary)
+              (@Option.some.{0} Nat root))
+            (And
+              (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host)
+                (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+              (And
+                (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+                (And
+                  (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+                    (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O
+                      (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                        (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+                    ShielddSecurity.TransferHostSealedCommit01.HostPhase.idle)
+                  (And
+                    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                      (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O
+                        (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                          (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+                      (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+                    (And
+                      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                        (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O
+                          (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                            (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+                        (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready boundary))
+                      (And
+                        (@Eq.{1} ShielddSecurity.TransferReadback.Store
+                          (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                            (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                              (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+                          (ShielddSecurity.TransferBankRecovery.Outcome.store
+                            (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered
+                              (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+                              (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host) frozen)))
+                        (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+                          (@ShielddSecurity.TransferHostSealedCommit01.Host.active O
+                            (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                              (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+                          (@ShielddSecurity.TransferHostSealedCommit01.reset O io
+                            (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                              (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                                (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))))))))))))
+'ShielddSecurity.TransferHostSealedCommit01.returned_host_root_derives_same_ready_writer_and_actual_reset' depends on axioms: [propext]
+@ShielddSecurity.TransferHostSealedCommit01.source_writer_success_guarantees_final_host_root_extraction : ∀ {O : Type}
+  (io : ShielddSecurity.TransferHostSealedCommit01.Io O) (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (boundary : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (sealedHost :
+    @Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.sealedBlock)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.returned
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter
+          (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O io)
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host)
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host)))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary)),
+  @Exists.{1} Nat fun (root : Nat) =>
+    And
+      (@Eq.{1} (Option.{0} Nat) (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot boundary)
+        (@Option.some.{0} Nat root))
+      (And
+        (@Eq.{1} (Option.{0} Nat)
+          (@ShielddSecurity.TransferHostSealedCommit01.Outcome.root O
+            (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host))
+          (@Option.some.{0} Nat root))
+        (And
+          (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+            (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O
+              (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+            ShielddSecurity.TransferHostSealedCommit01.HostPhase.idle)
+          (And
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O
+                (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                  (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+              (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+            (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.active O
+                (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                  (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host)))
+              (@ShielddSecurity.TransferHostSealedCommit01.reset O io
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                  (@ShielddSecurity.TransferHostSealedCommit01.Outcome.host O
+                    (@ShielddSecurity.TransferHostSealedCommit01.commitSealed O io host))))))))
+'ShielddSecurity.TransferHostSealedCommit01.source_writer_success_guarantees_final_host_root_extraction' depends on axioms: [propext]
