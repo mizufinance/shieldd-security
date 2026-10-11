@@ -1,0 +1,1 @@
+Scoped reviewed proof source/evidence for runtime844389ee069e1fb2e576708842d0b389b4d9a44a. See parent-review/endpoint-review.md for exact premises and remaining full Transfer obligations. Objects, toolchains, caches, captured workspaces and raw compiler logs are excluded. Full Transfer remains open.
