@@ -1,0 +1,60 @@
+ShielddSecurity.TransferPendingSetInvariant01.Coherent : (pending :
+    ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+  Prop
+'ShielddSecurity.TransferPendingSetInvariant01.Coherent' does not depend on any axioms
+ShielddSecurity.TransferPendingSetInvariant01.Invariant : (capacity : Nat) →
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending) → Prop
+'ShielddSecurity.TransferPendingSetInvariant01.Invariant' does not depend on any axioms
+ShielddSecurity.TransferPendingSetInvariant01.empty_pending_invariant : ∀ (capacity : Nat),
+  ShielddSecurity.TransferPendingSetInvariant01.Invariant capacity
+    ShielddSecurity.TransferCurrentPendingReplay01.emptyPending
+'ShielddSecurity.TransferPendingSetInvariant01.empty_pending_invariant' does not depend on any axioms
+ShielddSecurity.TransferPendingSetInvariant01.append_preserves_coherence : ∀
+  (previous : ShielddSecurity.TransferNullifierBatchSource01.Pending) (keys : List.{0} Nat)
+  (coherent : ShielddSecurity.TransferPendingSetInvariant01.Coherent previous),
+  ShielddSecurity.TransferPendingSetInvariant01.Coherent
+    (ShielddSecurity.TransferNullifierBatchSource01.appendPending previous keys)
+'ShielddSecurity.TransferPendingSetInvariant01.append_preserves_coherence' depends on axioms: [propext]
+ShielddSecurity.TransferPendingSetInvariant01.unique_loop_derives_nodup_and_fresh : ∀ (seen keys : List.{0} Nat)
+  (accepted : @Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop seen keys) Bool.true),
+  And (@List.Nodup.{0} Nat keys)
+    (∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        Not (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) seen key))
+'ShielddSecurity.TransferPendingSetInvariant01.unique_loop_derives_nodup_and_fresh' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferPendingSetInvariant01.admitted_append_nodup : ∀
+  (previous : ShielddSecurity.TransferNullifierBatchSource01.Pending) (keys : List.{0} Nat)
+  (coherent : ShielddSecurity.TransferPendingSetInvariant01.Coherent previous)
+  (oldNodup : @List.Nodup.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered previous))
+  (unique : @Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat) keys) Bool.true)
+  (fresh :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        @Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership previous key) Bool.false),
+  @List.Nodup.{0} Nat
+    (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+      (ShielddSecurity.TransferNullifierBatchSource01.appendPending previous keys))
+'ShielddSecurity.TransferPendingSetInvariant01.admitted_append_nodup' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferPendingSetInvariant01.successful_inspection_preserves_invariant : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (next : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (coherent :
+    ShielddSecurity.TransferPendingSetInvariant01.Coherent
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+  (oldNodup :
+    @List.Nodup.{0} Nat
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+        (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child)))
+  (belowWord : @LT.lt.{0} Nat instLTNat capacity wordMax)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending)
+      (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax capacity child keys)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending next)),
+  ShielddSecurity.TransferPendingSetInvariant01.Invariant capacity next
+'ShielddSecurity.TransferPendingSetInvariant01.successful_inspection_preserves_invariant' depends on axioms: [propext,
+ Quot.sound]
