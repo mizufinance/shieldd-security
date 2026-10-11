@@ -1,0 +1,127 @@
+ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes : (bytes : List.{0} UInt8) →
+  ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes' does not depend on any axioms
+ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes_valid : ∀ (bytes : List.{0} UInt8),
+  @Eq.{1} Bool
+    (ShielddSecurity.TransferIndexCountCodec01.validBytes
+      (ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes bytes))
+    Bool.true
+'ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes_valid' depends on axioms: [propext]
+ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes_length : ∀ (bytes : List.{0} UInt8),
+  @Eq.{1} Nat (@List.length.{0} Nat (ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes bytes))
+    (@List.length.{0} UInt8 bytes)
+'ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes_length' depends on axioms: [propext]
+ShielddSecurity.TransferOrdinaryCountCodecJoin01.real_bytes_decode_failure_iff_wrong_length : ∀
+  (bytes : List.{0} UInt8),
+  Iff
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+      (ShielddSecurity.TransferIndexWriterModel01.Codec.decodeCount ShielddSecurity.TransferIndexCountCodec01.codec
+        (ShielddSecurity.TransferOrdinaryCountCodecJoin01.realBytes bytes))
+      (@Option.none.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal))
+    (@Ne.{1} Nat (@List.length.{0} UInt8 bytes) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))
+'ShielddSecurity.TransferOrdinaryCountCodecJoin01.real_bytes_decode_failure_iff_wrong_length' depends on axioms: [propext]
+@ShielddSecurity.TransferOrdinaryCountCodecJoin01.wrong_length_parent_count_rejects_whole_ordinary_delivery : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (heightAvailable volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (decode : ShielddSecurity.TransferStateDelta.Bytes → Option.{0} Nat)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (entrySuffix daySuffix : ShielddSecurity.TransferStateDelta.Bytes)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity treeKey notesKey volumeKey payload nullifierKey height : Nat)
+  (action : A) (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (encodedHeight : ShielddSecurity.TransferStateDelta.Bytes)
+  (storedHeight :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent
+        (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes encodedHeight))
+  (decodedHeight : @Eq.{1} (Option.{0} Nat) (decode encodedHeight) (@Option.some.{0} Nat height))
+  (countBytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (storedCount :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes countBytes))
+  (wrongLength :
+    @Ne.{1} Nat (@List.length.{0} Nat countBytes) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+    (@ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        (@ShielddSecurity.TransferOrdinaryHeightSource01.withHeight O E A api heightAvailable decode
+          (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+        keys ShielddSecurity.TransferIndexCountCodec01.codec
+        (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+        (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct volumeAvailable
+          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+          (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix))
+          (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)) action item))
+      registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued)
+    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+'ShielddSecurity.TransferOrdinaryCountCodecJoin01.wrong_length_parent_count_rejects_whole_ordinary_delivery' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferOrdinaryCountCodecJoin01.wrong_length_parent_count_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (heightAvailable volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (decode : ShielddSecurity.TransferStateDelta.Bytes → Option.{0} Nat)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (entrySuffix daySuffix : ShielddSecurity.TransferStateDelta.Bytes)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity treeKey notesKey volumeKey payload nullifierKey height : Nat)
+  (action : A) (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (encodedHeight : ShielddSecurity.TransferStateDelta.Bytes)
+  (storedHeight :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent
+        (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes encodedHeight))
+  (decodedHeight : @Eq.{1} (Option.{0} Nat) (decode encodedHeight) (@Option.some.{0} Nat height))
+  (countBytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (storedCount :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes countBytes))
+  (wrongLength :
+    @Ne.{1} Nat (@List.length.{0} Nat countBytes) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))),
+  @Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+    (@ShielddSecurity.TransferStateDelta.finish O E A parent queued
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferOrdinaryHeightSource01.withHeight O E A api heightAvailable decode
+            (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+          keys ShielddSecurity.TransferIndexCountCodec01.codec
+          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+          (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct
+            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+            (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix))
+            (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)) action item))
+        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued))
+    (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued)
+'ShielddSecurity.TransferOrdinaryCountCodecJoin01.wrong_length_parent_count_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
