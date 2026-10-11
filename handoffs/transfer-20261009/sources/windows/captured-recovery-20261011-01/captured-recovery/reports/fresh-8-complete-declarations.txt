@@ -1,0 +1,68 @@
+ShielddSecurity.TransferCapturedRecovery01.ForwardPartitionFrames : (io : ShielddSecurity.TransferBankRecovery.Io) →
+  Prop
+'ShielddSecurity.TransferCapturedRecovery01.ForwardPartitionFrames' depends on axioms: [propext]
+ShielddSecurity.TransferCapturedRecovery01.capturedRollbacks : (io : ShielddSecurity.TransferBankRecovery.Io) →
+  (initial wanted : List.{0} Nat) → Nat → Nat → List.{0} Nat → ShielddSecurity.TransferBankRecovery.Physical
+'ShielddSecurity.TransferCapturedRecovery01.capturedRollbacks' depends on axioms: [propext]
+ShielddSecurity.TransferCapturedRecovery01.prepareCaptured : (io : ShielddSecurity.TransferBankRecovery.Io) →
+  (actual : List.{0} Nat) →
+    (committed : ShielddSecurity.TransferReadback.Boundary) →
+      (intent : ShielddSecurity.TransferBankRecovery.IntentRead) → ShielddSecurity.TransferBankRecovery.Physical
+'ShielddSecurity.TransferCapturedRecovery01.prepareCaptured' depends on axioms: [propext]
+ShielddSecurity.TransferCapturedRecovery01.recoverCaptured : (store : ShielddSecurity.TransferReadback.Store) →
+  (io : ShielddSecurity.TransferBankRecovery.Io) →
+    (committed : ShielddSecurity.TransferReadback.Boundary) →
+      (intent : ShielddSecurity.TransferBankRecovery.IntentRead) →
+        (history : ShielddSecurity.TransferBankRecovery.HistoryRead) → ShielddSecurity.TransferBankRecovery.Outcome
+'ShielddSecurity.TransferCapturedRecovery01.recoverCaptured' depends on axioms: [propext]
+ShielddSecurity.TransferCapturedRecovery01.captured_rollbacks_equal_original_under_forward_partition_frames : ∀
+  (io : ShielddSecurity.TransferBankRecovery.Io) (initial wanted : List.{0} Nat) (index remaining : Nat)
+  (current : List.{0} Nat) (frames : ShielddSecurity.TransferCapturedRecovery01.ForwardPartitionFrames io)
+  (tailSame :
+    ∀ (later : Nat),
+      @LE.le.{0} Nat instLENat index later →
+        @Eq.{1} Nat (@List.getD.{0} Nat current later (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+          (@List.getD.{0} Nat initial later (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))),
+  @Eq.{1} ShielddSecurity.TransferBankRecovery.Physical
+    (ShielddSecurity.TransferCapturedRecovery01.capturedRollbacks io initial wanted index remaining current)
+    (ShielddSecurity.TransferBankRecovery.rollbacks io wanted index remaining current)
+'ShielddSecurity.TransferCapturedRecovery01.captured_rollbacks_equal_original_under_forward_partition_frames' depends on axioms: [propext]
+ShielddSecurity.TransferCapturedRecovery01.failed_captured_rollback_retains_observed_progress_without_suffix : ∀
+  (io : ShielddSecurity.TransferBankRecovery.Io) (initial wanted current : List.{0} Nat) (index remaining : Nat)
+  (error : ShielddSecurity.TransferBankRecovery.Error)
+  (changed :
+    @Ne.{1} Nat (@List.getD.{0} Nat initial index (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@List.getD.{0} Nat wanted index (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+  (failed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+      (ShielddSecurity.TransferBankRecovery.Physical.error
+        (ShielddSecurity.TransferBankRecovery.Io.rollback io index current))
+      (@Option.some.{0} ShielddSecurity.TransferBankRecovery.Error error)),
+  @Eq.{1} ShielddSecurity.TransferBankRecovery.Physical
+    (ShielddSecurity.TransferCapturedRecovery01.capturedRollbacks io initial wanted index
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) remaining
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      current)
+    (ShielddSecurity.TransferBankRecovery.Physical.mk
+      (ShielddSecurity.TransferBankRecovery.Physical.roots
+        (ShielddSecurity.TransferBankRecovery.Io.rollback io index current))
+      (@Option.some.{0} ShielddSecurity.TransferBankRecovery.Error ShielddSecurity.TransferBankRecovery.Error.rollback))
+'ShielddSecurity.TransferCapturedRecovery01.failed_captured_rollback_retains_observed_progress_without_suffix' depends on axioms: [propext]
+ShielddSecurity.TransferCapturedRecovery01.captured_prepare_equals_original_only_under_forward_partition_contract : ∀
+  (io : ShielddSecurity.TransferBankRecovery.Io) (actual : List.{0} Nat)
+  (committed : ShielddSecurity.TransferReadback.Boundary) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)
+  (frames : ShielddSecurity.TransferCapturedRecovery01.ForwardPartitionFrames io),
+  @Eq.{1} ShielddSecurity.TransferBankRecovery.Physical
+    (ShielddSecurity.TransferCapturedRecovery01.prepareCaptured io actual committed intent)
+    (ShielddSecurity.TransferBankRecovery.prepare io actual committed intent)
+'ShielddSecurity.TransferCapturedRecovery01.captured_prepare_equals_original_only_under_forward_partition_contract' depends on axioms: [propext]
+ShielddSecurity.TransferCapturedRecovery01.captured_recovery_reuses_original_result_under_explicit_partition_frames : ∀
+  (store : ShielddSecurity.TransferReadback.Store) (io : ShielddSecurity.TransferBankRecovery.Io)
+  (committed : ShielddSecurity.TransferReadback.Boundary) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)
+  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)
+  (frames : ShielddSecurity.TransferCapturedRecovery01.ForwardPartitionFrames io),
+  @Eq.{1} ShielddSecurity.TransferBankRecovery.Outcome
+    (ShielddSecurity.TransferCapturedRecovery01.recoverCaptured store io committed intent history)
+    (ShielddSecurity.TransferBankRecovery.recover store io committed intent history)
+'ShielddSecurity.TransferCapturedRecovery01.captured_recovery_reuses_original_result_under_explicit_partition_frames' depends on axioms: [propext,
+ Quot.sound]
