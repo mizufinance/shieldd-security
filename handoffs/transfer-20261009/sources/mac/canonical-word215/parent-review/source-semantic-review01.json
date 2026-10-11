@@ -1,0 +1,33 @@
+{
+  "status": "PASSED",
+  "kind": "Independent generic canonical recovery contract and exact original failed-source repair review; no Lean execution",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-canonical-word215-source02/source-root/ShielddSecurity/CanonicalWord215.lean",
+    "bytes": 6647,
+    "sha256": "60d60bad6975b2541ef915c739c81636181f4634f8a7316a3a952b4eac1408b1"
+  },
+  "original_failed_source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-canonical-word215-source01/source-root/ShielddSecurity/CanonicalWord215.lean",
+    "bytes": 6649,
+    "sha256": "0784f4b53a082a32b9d748ca205c8c5c3fab642e5337b76a284098febd9617ed"
+  },
+  "original_failed_receipt": {
+    "bytes": 3604,
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution226/runtime/receipts/1225-CanonicalWord215.json",
+    "sha256": "3695cb2fa25566d555171a91d47a5b32f065d9852ae49f7c66b06a61edcfc8a3"
+  },
+  "diagnostics": [
+    "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-canonical-word215-source01/source-root/ShielddSecurity/CanonicalWord215.lean:26:53: warning: This simp argument is unused:",
+    "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-canonical-word215-source01/source-root/ShielddSecurity/CanonicalWord215.lean:74:74: error: Type mismatch",
+    "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-canonical-word215-source01/source-root/ShielddSecurity/CanonicalWord215.lean:72:100: error: unsolved goals",
+    "'ShielddSecurity.CanonicalWord215.comparison_bound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]",
+    " sorryAx,"
+  ],
+  "exact_delta": "--- \n+++ \n@@ -23,7 +23,7 @@\n  (decoded rho first,false)::entries.map (fun entry => (decoded rho entry.bitColumn,entry.maximumBit))\n theorem left_bits (rho : Nat \u2192 F) (first : Nat) (entries : List Entry) :\n  (pairs rho first entries).map Prod.fst=(columns first entries).map (decoded rho) := by\n- simp only [pairs,columns,List.map_cons,List.map_map,Prod.fst]\n+ simp only [pairs,columns,List.map_cons,List.map_map]\n  rfl\n theorem binary_meaning (rho : Nat \u2192 F) (first value : Nat) (entries : List Entry)\n  (booleans : \u2200 column\u2208columns first entries,Square (rho column) (rho column))\n@@ -71,7 +71,7 @@\n  (accepted : eval rho (output initial entries)=1) :\n  binary ((pairs rho first entries).map Prod.fst)\u2264binary ((pairs rho first entries).map Prod.snd) := by\n  have semantic := chain_compare rho first initial entries one initial_checked checked satisfied booleans\n- have result : BinaryComparison100.compare (pairs rho first entries)=1 := semantic.symm.trans accepted\n+ have result : BinaryComparison100.compare (F:=F) (pairs rho first entries)=1 := semantic.symm.trans accepted\n  rw [BinaryComparison100.compare_exact] at result\n  by_contra refused\n  rw [if_neg refused] at result\n",
+  "all_program_definitions_and_contracts_unchanged": true,
+  "proof_delta": "Only redundant simp projection removed and explicit field parameter supplied.",
+  "scope": "Decoded Boolean field assignment derives binary meaning and symbolic checked comparison bound. Generic recovery requires checked comparison rows/Booleanity, initial normalization, accepted final comparison, reconstruction and independently supplied exact p-1 maximum. Their bindings to all14 actual captured comparisons remain owned OPEN.",
+  "constructor_assertion_scope_unchanged": 1467,
+  "concrete14_instances": "OPEN",
+  "full_transfer": "OPEN"
+}
