@@ -1,5 +1,15 @@
 # Transfer proof completion plan — 9 October 2026
 
+The readback/recovery/writer-publication model replay is accepted at 35998917369a3d6479771403bba3f206a1a8ebb3:
+three exact existing sources/35 fresh complete theorem reports. Parent
+verified all original byte/type/axiom reports, dependency-order compilation
+with an empty retained owned floor, exact accepted2141-module external core
+metadata, unchanged guards and three pinned runtime sources. Models preserve
+unavailable reads, observed recovery progress and capacity failure after
+writer Ready. Concrete Host phase transitions and Rust/codec/hash/NOMT/full
+durability refinement remain OPEN; this adds no native execution or Transfer
+certificate. The compiled genuine controls still await physical admission.
+
 The first epoch hint endpoint is accepted at 7b5f9a05d8665ecc66da1fe9cc16fee3e12e6962:
 two fresh modules/42 complete reports, with arithmetic leafB0000 retained
 as inherited support/10 earlier reports. Parent verified exact maintained
