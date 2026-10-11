@@ -646,3 +646,6 @@ Reviewed deferred-count-walk evidence `9b83d706b1832b87bd4871f4e9993f110169b786`
 
 
 Reviewed deferred-count-flush evidence `f8e718c1f7507a8d2382539a9979f02b40467f1f` publishes three original complete theorem reports. Enabled nonempty modeled flush at a known height, original count observation and success derive initial+queue-length count/no wrap, consumed queue, original-parent V/object preservation and no index-child events. Frames follow from the modeled writer without caller callback-frame/poststate premises. Exact305inherited reports/28owned modules, guards and proof-only failed predecessor with three unchanged contracts reviewed. Runtime/native/Host/durability/full Transfer remain OPEN.
+
+
+Reviewed deferred-max-count evidence `83415b4c32369c71f90818669fe4eee63616750e` publishes three original complete theorem reports. Exact maximum-u64 parent bytes exclude all nonempty successful modeled deferred walks; enabled nonempty flush at known height yields an existential index error, original-parent preservation, consumed queue and empty same-instance retry. Earlier conversion/duplicate/read failures remain possible, so no unconditional semantic-overflow control is claimed. Exact308inherited reports/29owned modules and physical guards reviewed. Native/private-fault/runtime/durability/full Transfer remain OPEN.
