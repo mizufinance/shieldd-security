@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-sbb-primitive-review01/packet01/source/ShielddSecurity/TransferScalarSbbPrimitive01.lean",
+    "bytes": 5830,
+    "sha256": "8323c518cf595de4e803bb37a71ae02bbbceaa536bdc6ec01456064ca10a55b2"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-sbb-primitive-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 1989,
+    "sha256": "7e7b2a262c71fc5e9f17d0c24496ea211e240f65ef23424e4ec5e42472cb0ad8"
+  },
+  "fresh_reports": 9,
+  "definitions": 4,
+  "theorems": 5,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-sbb-primitive-review01/packet01/rejected/01/handwritten/TransferScalarSbbPrimitive01.lean",
+      "bytes": 5772,
+      "sha256": "41856f1515ab70780012869b79b15661567f27f7521d66cc878ca2c8b5eec584"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 17.317565999983344,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-sbb-primitive-20261011-01\\project\\ShielddSecurity\\TransferScalarSbbPrimitive01.lean:70:6: error: 'change' tactic failed, pattern",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-sbb-primitive-20261011-01\\project\\ShielddSecurity\\TransferScalarSbbPrimitive01.lean:80:6: error: 'change' tactic failed, pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -67,7 +67,8 @@\n       change (((2 ^ 128 - (b.toNat + borrowBit borrow)) + a.toNat) / radix64) % 2 ^ 64 = 2 ^ 64 - 1\n       unfold radix64\n       omega\n-    \u00b7 change (((2 ^ 128 - (b.toNat + borrowBit borrow)) + a.toNat) % 2 ^ 64) + b.toNat + borrowBit borrow = a.toNat + radix64 * 1\n+    \u00b7 rw [if_pos underflow]\n+      change (((2 ^ 128 - (b.toNat + borrowBit borrow)) + a.toNat) % 2 ^ 64) + b.toNat + borrowBit borrow = a.toNat + radix64 * 1\n       unfold radix64\n       omega\n   \u00b7 have enough : b.toNat + borrowBit borrow \u2264 a.toNat := Nat.le_of_not_gt underflow\n@@ -77,7 +78,8 @@\n       change ((a.toNat - (b.toNat + borrowBit borrow)) / radix64) % 2 ^ 64 = 0\n       unfold radix64\n       omega\n-    \u00b7 change (a.toNat - (b.toNat + borrowBit borrow)) % 2 ^ 64 + b.toNat + borrowBit borrow = a.toNat + radix64 * 0\n+    \u00b7 rw [if_neg underflow]\n+      change (a.toNat - (b.toNat + borrowBit borrow)) % 2 ^ 64 + b.toNat + borrowBit borrow = a.toNat + radix64 * 0\n       unfold radix64\n       omega\n \n"
+  },
+  "scope": "Source-shaped widened wrapping UInt64 subtraction derives exact next zero/all-ones borrow mask and low-word conservation from reachable Boolean incoming borrow. Actual Rust primitive/trace remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}

@@ -1,0 +1,104 @@
+ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask : (borrow : Bool) → UInt64
+'ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask' does not depend on any axioms
+ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit : (borrow : Bool) → Nat
+'ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit' does not depend on any axioms
+ShielddSecurity.TransferScalarSbbPrimitive01.sbb128 : (a b : UInt64) →
+  (borrow : Bool) → BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+'ShielddSecurity.TransferScalarSbbPrimitive01.sbb128' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSbbPrimitive01.sbb64 : (a b : UInt64) → (borrow : Bool) → Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferScalarSbbPrimitive01.sbb64' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSbbPrimitive01.reachable_borrow_mask_high_bit_is_exact_boolean : ∀ (borrow : Bool),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+        (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64)
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask borrow)
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 63) (@UInt64.instOfNat (nat_lit 63)))))
+    (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)
+'ShielddSecurity.TransferScalarSbbPrimitive01.reachable_borrow_mask_high_bit_is_exact_boolean' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSbbPrimitive01.widened_source_sbb_has_exact_wrapping_integer_form : ∀ (a b : UInt64)
+  (borrow : Bool),
+  @Eq.{1} Nat
+    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+      (ShielddSecurity.TransferScalarSbbPrimitive01.sbb128 a b borrow))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))))
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+            (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)))
+        (UInt64.toNat a))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))))
+'ShielddSecurity.TransferScalarSbbPrimitive01.widened_source_sbb_has_exact_wrapping_integer_form' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSbbPrimitive01.nonunderflowing_sbb_returns_small_difference : ∀ (a b : UInt64)
+  (borrow : Bool)
+  (enough :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow))
+      (UInt64.toNat a)),
+  @Eq.{1} Nat
+    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+      (ShielddSecurity.TransferScalarSbbPrimitive01.sbb128 a b borrow))
+    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (UInt64.toNat a)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)))
+'ShielddSecurity.TransferScalarSbbPrimitive01.nonunderflowing_sbb_returns_small_difference' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSbbPrimitive01.underflowing_sbb_returns_exact_wrapped_difference : ∀ (a b : UInt64)
+  (borrow : Bool)
+  (underflow :
+    @LT.lt.{0} Nat instLTNat (UInt64.toNat a)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow))),
+  @Eq.{1} Nat
+    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+      (ShielddSecurity.TransferScalarSbbPrimitive01.sbb128 a b borrow))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+          (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)))
+      (UInt64.toNat a))
+'ShielddSecurity.TransferScalarSbbPrimitive01.underflowing_sbb_returns_exact_wrapped_difference' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSbbPrimitive01.source_sbb_low_word_and_next_borrow_mask_are_exact : ∀ (a b : UInt64)
+  (borrow : Bool),
+  And
+    (@Eq.{1} UInt64 (@Prod.snd.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarSbbPrimitive01.sbb64 a b borrow))
+      (@ite.{1} UInt64
+        (@LT.lt.{0} Nat instLTNat (UInt64.toNat a)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+            (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)))
+        (Nat.decLt (UInt64.toNat a)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+            (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)))
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask Bool.true)
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask Bool.false)))
+    (@Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (UInt64.toNat
+            (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarSbbPrimitive01.sbb64 a b borrow)))
+          (UInt64.toNat b))
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@ite.{1} Nat
+            (@LT.lt.{0} Nat instLTNat (UInt64.toNat a)
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+                (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)))
+            (Nat.decLt (UInt64.toNat a)
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat b)
+                (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+'ShielddSecurity.TransferScalarSbbPrimitive01.source_sbb_low_word_and_next_borrow_mask_are_exact' depends on axioms: [propext,
+ Quot.sound]
