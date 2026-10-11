@@ -1,0 +1,173 @@
+@ShielddSecurity.TransferBlockPendingSequence01.parentPending : {O : Type} →
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+    (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+      (parent : ShielddSecurity.TransferStateDelta.State O) → ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferBlockPendingSequence01.parentPending' does not depend on any axioms
+@ShielddSecurity.TransferBlockPendingSequence01.bindPending : {O E K X Tree A : Type} →
+  (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A) →
+    (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O) →
+      (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+        (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+          ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A
+'ShielddSecurity.TransferBlockPendingSequence01.bindPending' does not depend on any axioms
+ShielddSecurity.TransferBlockPendingSequence01.Request : (O E K X Tree A : Type) → Type
+'ShielddSecurity.TransferBlockPendingSequence01.Request' does not depend on any axioms
+@ShielddSecurity.TransferBlockPendingSequence01.step : {O E K X Tree A : Type} →
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O) →
+    (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+      (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+        (request : ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A) →
+          (parent : ShielddSecurity.TransferStateDelta.State O) →
+            (queued : List.{0} A) → Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)
+'ShielddSecurity.TransferBlockPendingSequence01.step' depends on axioms: [propext]
+@ShielddSecurity.TransferBlockPendingSequence01.walk : {O E K X Tree A : Type} →
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O) →
+    (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+      (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+        (parent : ShielddSecurity.TransferStateDelta.State O) →
+          (queued : List.{0} A) →
+            List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A) →
+              Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+'ShielddSecurity.TransferBlockPendingSequence01.walk' depends on axioms: [propext]
+@ShielddSecurity.TransferBlockPendingSequence01.allInputs : {O E K X Tree A : Type} →
+  List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A) → List.{0} Nat
+'ShielddSecurity.TransferBlockPendingSequence01.allInputs' does not depend on any axioms
+@ShielddSecurity.TransferBlockPendingSequence01.absent_parent_derives_empty_invariant : ∀ {O : Type}
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (absent :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent
+        (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.none.{0} O)),
+  ShielddSecurity.TransferPendingSetInvariant01.Invariant
+    ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+    (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent)
+'ShielddSecurity.TransferBlockPendingSequence01.absent_parent_derives_empty_invariant' depends on axioms: [propext]
+@ShielddSecurity.TransferBlockPendingSequence01.whole_step_preserves_pending_invariant : ∀ {O E K X Tree A : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (request : ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (committed : ShielddSecurity.TransferStateDelta.Commit O E A)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent))
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferBlockPendingSequence01.step O E K X Tree A encode decode project request parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),
+  And
+    (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+        (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)))
+    (And
+      (@Eq.{1} (List.{0} Nat)
+        (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+          (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+            (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)))
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} Nat) (List.{0} Nat) (List.{0} Nat)
+          (@instHAppendOfAppend.{0} (List.{0} Nat) (@List.instAppend.{0} Nat))
+          (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+            (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent))
+          (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A
+            (@ShielddSecurity.TransferBlockPendingSequence01.Request.config O E K X Tree A request)
+            (@ShielddSecurity.TransferBlockPendingSequence01.Request.action O E K X Tree A request))))
+      (@Eq.{1} (Option.{0} O)
+        (@ShielddSecurity.TransferStateDelta.State.objects O
+          (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+          (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+        (@Option.some.{0} O
+          (encode
+            (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+              (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed))))))
+'ShielddSecurity.TransferBlockPendingSequence01.whole_step_preserves_pending_invariant' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBlockPendingSequence01.successful_walk_preserves_invariant_and_exact_input_order : ∀
+  {O E K X Tree A : Type} (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (final : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent))
+  (success :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk O E K X Tree A encode decode project parent queued requests)
+      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)) final)),
+  And
+    (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))
+    (@Eq.{1} (List.{0} Nat)
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+        (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+          (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} Nat) (List.{0} Nat) (List.{0} Nat)
+        (@instHAppendOfAppend.{0} (List.{0} Nat) (@List.instAppend.{0} Nat))
+        (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+          (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent))
+        (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests)))
+'ShielddSecurity.TransferBlockPendingSequence01.successful_walk_preserves_invariant_and_exact_input_order' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBlockPendingSequence01.absent_start_successful_block_derives_global_distinct_bounded_membership : ∀
+  {O E K X Tree A : Type} (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (final : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+  (absent :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent
+        (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.none.{0} O))
+  (success :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk O E K X Tree A encode decode project parent queued requests)
+      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)) final)),
+  And
+    (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))
+    (And
+      (@Eq.{1} (List.{0} Nat)
+        (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+          (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+            (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))
+        (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+      (And (@List.Nodup.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+        (And
+          (@LE.le.{0} Nat instLENat
+            (@List.length.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+          (∀ (key : Nat),
+            @Eq.{1} Bool
+              (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership
+                (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+                  (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final))
+                key)
+              (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+                (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests) key)))))
+'ShielddSecurity.TransferBlockPendingSequence01.absent_start_successful_block_derives_global_distinct_bounded_membership' depends on axioms: [propext,
+ Quot.sound]
