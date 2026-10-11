@@ -805,3 +805,6 @@ Authenticated boundary source model: nine original complete type/axiom reports i
 
 
 Writer recovery composition: six fresh complete type/axiom reports independently accepted over 570 exact inherited reports/57 modules, including exact original BankRecovery10 reused once. Returned source participant completion derives checked recovery boundary/roots/history and independently observed health; capacity error follows Ready, failed recovery blocks owner status. Native participant-to-recovery temporal state threading, current poison/partition frames, physical complete/recover/rollback/IO/durability and full Transfer/final replay remain OPEN. Guards unchanged. Evidence: c45c9b00fb8c34e8c15898fdaf175941c034aa42.
+
+
+Durable write source: eight fresh complete type/axiom reports independently accepted over 576 exact inherited reports/58 modules. Returned success derives ordered preceding actual model operations and same file handle; post-rename directory-sync failure retains its independently observed output and installed intent failure blocks model readback. Native file/path/options/descriptor/RAII/error-path closure/OS/concurrent memory/locks/physical roots/durability and full Transfer/final replay remain OPEN. Original guards unchanged. Evidence: 98d43c8606766171f8d63c192ff66dcd60944351.
