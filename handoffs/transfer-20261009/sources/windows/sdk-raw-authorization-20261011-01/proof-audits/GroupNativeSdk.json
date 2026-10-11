@@ -1,0 +1,305 @@
+{
+  "module": "GroupNativeSdk",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.FqBytes",
+      "full_type": "ShielddSecurity.GroupNativeSdk.FqBytes : (Q : Type) \u2192 Type",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "400a7fab4fc7a3204836666a4d7beef06aaed0cdd5ab1825d569e2c57e551326"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.FrBytes",
+      "full_type": "ShielddSecurity.GroupNativeSdk.FrBytes : (R : Type) \u2192 Type",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "073720d38440a4c9114bdf521ecfc23e05dd0c44cd68c3c1070c36bf35e42a71"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.Sdk",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.Sdk : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        (fq : ShielddSecurity.GroupNativeSdk.FqBytes Q) \u2192\n          (fr : ShielddSecurity.GroupNativeSdk.FrBytes R) \u2192\n            (d : F) \u2192 (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d) \u2192 Type",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4715e87f2bc23e4e60722c41b92476325629e64e75a90a78936b301b311e9793"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.readFq",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.readFq : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {Q : Type} \u2192\n      (fq : ShielddSecurity.GroupNativeSdk.FqBytes Q) \u2192\n        (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) \u2192 (value : Q) \u2192 Option.{0} F",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e068871f4b883e8109fddc992bfd705a9fff013936f54520b630f5f3c524576a"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.readScalar",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.readScalar : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {Q R : Type} \u2192\n      (fq : ShielddSecurity.GroupNativeSdk.FqBytes Q) \u2192\n        (fr : ShielddSecurity.GroupNativeSdk.FrBytes R) \u2192\n          (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) \u2192 (value : R) \u2192 Option.{0} F",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "f418af08c9560bbf17e9f308aaf491f544623156c71b713076dbeccc70e2a7bc"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.admissionGate",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.admissionGate : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) \u2192\n                  (bytes : ShielddSecurity.GroupByteCodec.Bytes) \u2192 Option.{0} S",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "41f99753e4da13e34412e6e91bdf16c619103ed34ea3fe6cff0501ace6ec666f"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.fq_read",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.fq_read : \u2200 {F : Type} [inst : Field.{0} F] {Q : Type}\n  (fq : ShielddSecurity.GroupNativeSdk.FqBytes Q) (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) (value : Q),\n  @Eq.{1} (Option.{0} F) (@ShielddSecurity.GroupNativeSdk.readFq F inst Q fq decoder value)\n    (@Option.some.{0} F\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.integer Q fq value)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "9128950fc4cc6219254b95e4ede398b72847ffea0e1dc809c47fcbab5795b827"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.scalar_read",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.scalar_read : \u2200 {F : Type} [inst : Field.{0} F] {Q R : Type}\n  (fq : ShielddSecurity.GroupNativeSdk.FqBytes Q) (fr : ShielddSecurity.GroupNativeSdk.FrBytes R)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) (value : R),\n  @Eq.{1} (Option.{0} F) (@ShielddSecurity.GroupNativeSdk.readScalar F inst Q R fq fr decoder value)\n    (@Option.some.{0} F\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr value)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "dd0721740933122394116d497e999d54937f76a58998572e003a35517bbb015c"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.scalar_canonical",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.scalar_canonical : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {Q R : Type} (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (fq : ShielddSecurity.GroupNativeSdk.FqBytes Q) (fr : ShielddSecurity.GroupNativeSdk.FrBytes R)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) (value : R),\n  And\n    (@Eq.{1} (Option.{0} F) (@ShielddSecurity.GroupNativeSdk.readScalar F inst Q R fq fr decoder value)\n      (@Option.some.{0} F\n        (@Nat.cast.{0} F\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr value))))\n    (@Eq.{1} Nat\n      (@ShielddSecurity.TransferReduction.CanonicalField.decode F inst codec\n        (@Nat.cast.{0} F\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr value)))\n      (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr value))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ef17ad904556d1eff56576ccd8c13a69c2321b49a74bc28960a06e1eb9f2c2b5"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.native_point_read",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.native_point_read : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst)\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (point : S),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.GroupNativeAuthorization.readPoint F inst decoder\n      (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n        (@ShielddSecurity.GroupNativeSdk.Sdk.x F inst E S R K Q J inst_1 fq fr d model sdk point))\n      (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n        (@ShielddSecurity.GroupNativeSdk.Sdk.y F inst E S R K Q J inst_1 fq fr d model sdk point)))\n    (@Option.some.{0} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n        (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "65c159578a2fa36fd6e20475c4faefdc466c36f81dd1c52b24d37727ac9f3a94"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.admission",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.admission : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model)\n  (bytes : ShielddSecurity.GroupByteCodec.Bytes) (point : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model sdk bytes)\n      (@Option.some.{0} S point)),\n  And\n    (@Eq.{1} ShielddSecurity.GroupByteCodec.Bytes\n      (@ShielddSecurity.GroupNativeSdk.Sdk.encode F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point))\n      bytes)\n    (And\n      (@Eq.{1} J\n        (@HSMul.hSMul.{0, 0, 0} Nat J J\n          (@instHSMul.{0, 0} Nat J\n            (@AddMonoid.toNSMul.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J\n                (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n          ShielddSecurity.Scalar.order\n          (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point)))\n        (@OfNat.ofNat.{0} J (nat_lit 0)\n          (@Zero.toOfNat0.{0} J\n            (@NegZeroClass.toZero.{0} J\n              (@SubNegZeroMonoid.toNegZeroClass.{0} J\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_1))))))))\n      (@Ne.{1} J\n        (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point))\n        (@OfNat.ofNat.{0} J (nat_lit 0)\n          (@Zero.toOfNat0.{0} J\n            (@NegZeroClass.toZero.{0} J\n              (@SubNegZeroMonoid.toNegZeroClass.{0} J\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_1)))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "617bd06c34fef6e6fd662fd33066a840de90f451bd60b74bcf058692fe953dd8"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.admitted_key",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.admitted_key : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (key : K) (point : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.keyBytes F inst E S R K Q J inst_1 fq fr d model sdk key))\n      (@Option.some.{0} S point)),\n  And\n    (@Eq.{1} J\n      (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point))\n      (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.keyPoint F inst E S R K Q J inst_1 fq fr d model sdk key)))\n    (And\n      (@Eq.{1} J\n        (@HSMul.hSMul.{0, 0, 0} Nat J J\n          (@instHSMul.{0, 0} Nat J\n            (@AddMonoid.toNSMul.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J\n                (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n          ShielddSecurity.Scalar.order\n          (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.keyPoint F inst E S R K Q J inst_1 fq fr d model sdk key)))\n        (@OfNat.ofNat.{0} J (nat_lit 0)\n          (@Zero.toOfNat0.{0} J\n            (@NegZeroClass.toZero.{0} J\n              (@SubNegZeroMonoid.toNegZeroClass.{0} J\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_1))))))))\n      (@Ne.{1} J\n        (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.keyPoint F inst E S R K Q J inst_1 fq fr d model sdk key))\n        (@OfNat.ofNat.{0} J (nat_lit 0)\n          (@Zero.toOfNat0.{0} J\n            (@NegZeroClass.toZero.{0} J\n              (@SubNegZeroMonoid.toNegZeroClass.{0} J\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_1)))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "144251ad1703611e6eec337e42b2e1de2615b4bf4b4d7dfa89f25622c822f50f"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.generator_embedding",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.generator_embedding : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model),\n  @Eq.{1} J\n    (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n      (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.generator F inst E S R K Q J inst_1 fq fr d model sdk)))\n    (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n      (@ShielddSecurity.GroupNativeSdk.Sdk.spendAuth F inst E S R K Q J inst_1 fq fr d model sdk))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "c38ebc39dbbaf3b9c717b2f9ed0bd89ade75032f1f9a463cba543f84eb11a8ad"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.randomize_embedding",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.randomize_embedding : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (key : K) (scalar : R),\n  @Eq.{1} J\n    (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n      (@ShielddSecurity.GroupNativeSdk.Sdk.keyPoint F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.randomize F inst E S R K Q J inst_1 fq fr d model sdk key scalar)))\n    (@HAdd.hAdd.{0, 0, 0} J J J\n      (@instHAdd.{0} J\n        (@AddCommMagma.toAdd.{0} J\n          (@AddCommSemigroup.toAddCommMagma.{0} J\n            (@AddCommMonoid.toAddCommSemigroup.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst_1)))))\n      (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.keyPoint F inst E S R K Q J inst_1 fq fr d model sdk key))\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n        (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr scalar)\n        (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.generator F inst E S R K Q J inst_1 fq fr d model sdk)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0d53b939180f98189a4e5166575c15deef7201e7df58d2d57f96eb0bdac097ad"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.randomized_admission",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.randomized_admission : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (key : K) (scalar : R) (point : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.keyBytes F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.randomize F inst E S R K Q J inst_1 fq fr d model sdk key scalar)))\n      (@Option.some.{0} S point)),\n  And\n    (@Eq.{1} J\n      (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point))\n      (@HAdd.hAdd.{0, 0, 0} J J J\n        (@instHAdd.{0} J\n          (@AddCommMagma.toAdd.{0} J\n            (@AddCommSemigroup.toAddCommMagma.{0} J\n              (@AddCommMonoid.toAddCommSemigroup.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst_1)))))\n        (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.keyPoint F inst E S R K Q J inst_1 fq fr d model sdk key))\n        (@HSMul.hSMul.{0, 0, 0} Nat J J\n          (@instHSMul.{0, 0} Nat J\n            (@AddMonoid.toNSMul.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J\n                (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n          (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr scalar)\n          (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk\n              (@ShielddSecurity.GroupNativeSdk.Sdk.generator F inst E S R K Q J inst_1 fq fr d model sdk))))))\n    (And\n      (@Eq.{1} J\n        (@HSMul.hSMul.{0, 0, 0} Nat J J\n          (@instHSMul.{0, 0} Nat J\n            (@AddMonoid.toNSMul.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J\n                (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n          ShielddSecurity.Scalar.order\n          (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point)))\n        (@OfNat.ofNat.{0} J (nat_lit 0)\n          (@Zero.toOfNat0.{0} J\n            (@NegZeroClass.toZero.{0} J\n              (@SubNegZeroMonoid.toNegZeroClass.{0} J\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_1))))))))\n      (@Ne.{1} J\n        (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point))\n        (@OfNat.ofNat.{0} J (nat_lit 0)\n          (@Zero.toOfNat0.{0} J\n            (@NegZeroClass.toZero.{0} J\n              (@SubNegZeroMonoid.toNegZeroClass.{0} J\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_1)))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "46134f8ee2125083a3198c90f6f84abe8d84a7877581936b5e014ca79284eb86"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdk.randomized_native_authorization",
+      "full_type": "@ShielddSecurity.GroupNativeSdk.randomized_native_authorization : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst)\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (imaginary : F)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (key : K) (scalar : R) (keyPoint randomizedPoint : S)\n  (keyAdmission :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.keyBytes F inst E S R K Q J inst_1 fq fr d model sdk key))\n      (@Option.some.{0} S keyPoint))\n  (randomizedAdmission :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.keyBytes F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.randomize F inst E S R K Q J inst_1 fq fr d model sdk key scalar)))\n      (@Option.some.{0} S randomizedPoint)),\n  And\n    (@Eq.{1} (Option.{0} F) (@ShielddSecurity.GroupNativeSdk.readScalar F inst Q R fq fr decoder scalar)\n      (@Option.some.{0} F\n        (@Nat.cast.{0} F\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr scalar))))\n    (@Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n      (@ShielddSecurity.GroupNativeAuthorization.readAuthorization F inst decoder codec writer d\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n          (@ShielddSecurity.GroupNativeSdk.Sdk.x F inst E S R K Q J inst_1 fq fr d model sdk keyPoint))\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n          (@ShielddSecurity.GroupNativeSdk.Sdk.y F inst E S R K Q J inst_1 fq fr d model sdk keyPoint))\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n          (@ShielddSecurity.GroupNativeSdk.Sdk.x F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.generator F inst E S R K Q J inst_1 fq fr d model sdk)))\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n          (@ShielddSecurity.GroupNativeSdk.Sdk.y F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.generator F inst E S R K Q J inst_1 fq fr d model sdk)))\n        (@Nat.cast.{0} F\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr scalar)))\n      (@Option.some.{0} (ShielddSecurity.Group.Point F)\n        (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n          (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk\n              randomizedPoint)))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a899d563c4659125175076cb439e13a5ec1b5cf8d7be4d92ed26b5afe2be83b0"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 24442,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\runs\\01-GroupNativeSdk\\stdout.txt",
+    "sha256": "067b22d7d9c44208ebb965d1a0a38a26a2b8804960b39161045e66c347094f41"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.GroupNativeSdk.FqBytes": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "400a7fab4fc7a3204836666a4d7beef06aaed0cdd5ab1825d569e2c57e551326"
+      },
+      "ShielddSecurity.GroupNativeSdk.FrBytes": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "073720d38440a4c9114bdf521ecfc23e05dd0c44cd68c3c1070c36bf35e42a71"
+      },
+      "ShielddSecurity.GroupNativeSdk.Sdk": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "4715e87f2bc23e4e60722c41b92476325629e64e75a90a78936b301b311e9793"
+      },
+      "ShielddSecurity.GroupNativeSdk.admission": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "617bd06c34fef6e6fd662fd33066a840de90f451bd60b74bcf058692fe953dd8"
+      },
+      "ShielddSecurity.GroupNativeSdk.admissionGate": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "41f99753e4da13e34412e6e91bdf16c619103ed34ea3fe6cff0501ace6ec666f"
+      },
+      "ShielddSecurity.GroupNativeSdk.admitted_key": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "144251ad1703611e6eec337e42b2e1de2615b4bf4b4d7dfa89f25622c822f50f"
+      },
+      "ShielddSecurity.GroupNativeSdk.fq_read": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "9128950fc4cc6219254b95e4ede398b72847ffea0e1dc809c47fcbab5795b827"
+      },
+      "ShielddSecurity.GroupNativeSdk.generator_embedding": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "c38ebc39dbbaf3b9c717b2f9ed0bd89ade75032f1f9a463cba543f84eb11a8ad"
+      },
+      "ShielddSecurity.GroupNativeSdk.native_point_read": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "65c159578a2fa36fd6e20475c4faefdc466c36f81dd1c52b24d37727ac9f3a94"
+      },
+      "ShielddSecurity.GroupNativeSdk.randomize_embedding": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "0d53b939180f98189a4e5166575c15deef7201e7df58d2d57f96eb0bdac097ad"
+      },
+      "ShielddSecurity.GroupNativeSdk.randomized_admission": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "46134f8ee2125083a3198c90f6f84abe8d84a7877581936b5e014ca79284eb86"
+      },
+      "ShielddSecurity.GroupNativeSdk.randomized_native_authorization": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "a899d563c4659125175076cb439e13a5ec1b5cf8d7be4d92ed26b5afe2be83b0"
+      },
+      "ShielddSecurity.GroupNativeSdk.readFq": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "e068871f4b883e8109fddc992bfd705a9fff013936f54520b630f5f3c524576a"
+      },
+      "ShielddSecurity.GroupNativeSdk.readScalar": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "f418af08c9560bbf17e9f308aaf491f544623156c71b713076dbeccc70e2a7bc"
+      },
+      "ShielddSecurity.GroupNativeSdk.scalar_canonical": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "ef17ad904556d1eff56576ccd8c13a69c2321b49a74bc28960a06e1eb9f2c2b5"
+      },
+      "ShielddSecurity.GroupNativeSdk.scalar_read": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "dd0721740933122394116d497e999d54937f76a58998572e003a35517bbb015c"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\project\\ShielddSecurity\\GroupNativeSdk.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\project\\ShielddSecurity\\GroupNativeSdk.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 852936,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\project\\ShielddSecurity\\GroupNativeSdk.olean",
+        "sha256": "22d379e2469dc0b05df43061d14d5d0a8fe0b6e755fa3c25e31812f81194eb7e"
+      }
+    ],
+    "peak_rss_bytes": 1125330944,
+    "seconds": 15.522319599986076,
+    "status": "passed",
+    "stdout": {
+      "bytes": 24442,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\runs\\01-GroupNativeSdk\\stdout.txt",
+      "sha256": "067b22d7d9c44208ebb965d1a0a38a26a2b8804960b39161045e66c347094f41"
+    }
+  }
+}

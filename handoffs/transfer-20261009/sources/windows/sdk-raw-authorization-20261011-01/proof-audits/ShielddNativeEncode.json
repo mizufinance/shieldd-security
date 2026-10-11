@@ -1,0 +1,165 @@
+{
+  "module": "ShielddNativeEncode",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.ShielddNativeEncode.Primitives",
+      "full_type": "@ShielddSecurity.ShielddNativeEncode.Primitives : {F Raw Encoded : Type} \u2192\n  [inst : Field.{0} F] \u2192 (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192 Type",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "3767468d04e538fad2fc73a774487cc04f48966ab988b82a540b2d76767ac5e1"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeEncode.asSlice",
+      "full_type": "@ShielddSecurity.ShielddNativeEncode.asSlice : {F Raw Encoded : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (primitives : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations) \u2192\n        (scalar : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) \u2192 ShielddSecurity.GroupByteCodec.Bytes",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "b04270efde0c7cd719a933b76bacf3d1a49a5f57b62ab6776b99fe68aa9bab3f"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeEncode.encode",
+      "full_type": "@ShielddSecurity.ShielddNativeEncode.encode : {F Raw Encoded : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (primitives : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations) \u2192\n        (scalar : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) \u2192 ShielddSecurity.GroupByteCodec.Bytes",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "7402181d1bd9e963e64308e69fb2ddb2e8bd4b390d934242d0a75d3d05cbfe7d"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeEncode.byte_value",
+      "full_type": "@ShielddSecurity.ShielddNativeEncode.byte_value : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (primitives : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations)\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (scalar : ShielddSecurity.ShielddNativeScalar.Wrapped Raw)\n  (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n  @Eq.{1} Nat\n    (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))\n      (@ShielddSecurity.ShielddNativeEncode.encode F Raw Encoded inst operations primitives scalar index))\n    (ShielddSecurity.GroupScalarCodec.bigEndianByte\n      (@ShielddSecurity.TransferReduction.CanonicalField.decode F inst codec\n        (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations scalar))\n      (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "6c9a128c03634b3c42e719d6f3810a5c51cc402f6a0f1c26e29d9bf8c2f0afad"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeEncode.encoded_reader",
+      "full_type": "@ShielddSecurity.ShielddNativeEncode.encoded_reader : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (primitives : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations)\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (scalar : ShielddSecurity.ShielddNativeScalar.Wrapped Raw),\n  @Eq.{1} (List.{0} Bool)\n    (ShielddSecurity.GroupByteCodec.reader\n      (@ShielddSecurity.ShielddNativeEncode.encode F Raw Encoded inst operations primitives scalar))\n    (ShielddSecurity.GroupScalarCodec.encodedBits\n      (@ShielddSecurity.TransferReduction.CanonicalField.decode F inst codec\n        (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations scalar)))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "51520989f6d29f234ffd038b2fbec507c4cca3e406e392c2c96fa896d81065b4"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeEncode.multiplyScalar",
+      "full_type": "@ShielddSecurity.ShielddNativeEncode.multiplyScalar : {F Raw Encoded : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (primitives : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations) \u2192\n        (base : ShielddSecurity.ShielddNativePoint.Point Raw) \u2192\n          (scalar : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) \u2192 ShielddSecurity.ShielddNativePoint.Point Raw",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "45da58244f41afa86d335b3d1b293a9232d43ff83156def9665ea60ef1b99ca0"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeEncode.multiply_scalar_coordinates",
+      "full_type": "@ShielddSecurity.ShielddNativeEncode.multiply_scalar_coordinates : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {J : Type} [inst_2 : AddCommGroup.{0} J] (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (primitives : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations)\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst) (imaginary : F)\n  (model :\n    @ShielddSecurity.Group.StandardCurveModel F inst J inst_2\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        (@Neg.neg.{0} F\n          (@NegZeroClass.toNeg.{0} F\n            (@SubNegZeroMonoid.toNegZeroClass.{0} F\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                    (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10240)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10240)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10238) (instOfNatNat (nat_lit 10238))))))))\n        (@Inv.inv.{0} F\n          (@InvOneClass.toInv.{0} F\n            (@DivInvOneMonoid.toInvOneClass.{0} F\n              (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                  (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                    (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10241)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10241)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10240) (instOfNatNat (nat_lit 10240)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239))))))))))\n  (nonSquare :\n    @ShielddSecurity.Group.NoUnitSquare F inst\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        (@Neg.neg.{0} F\n          (@NegZeroClass.toNeg.{0} F\n            (@SubNegZeroMonoid.toNegZeroClass.{0} F\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                    (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10240)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10240)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10238) (instOfNatNat (nat_lit 10238))))))))\n        (@Inv.inv.{0} F\n          (@InvOneClass.toInv.{0} F\n            (@DivInvOneMonoid.toInvOneClass.{0} F\n              (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                  (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                    (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10241)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10241)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10240) (instOfNatNat (nat_lit 10240)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239))))))))))\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (base : ShielddSecurity.ShielddNativePoint.Point Raw) (point : J)\n  (input :\n    @Eq.{1} (ShielddSecurity.Group.Point F) (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations base)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2\n        (@HMul.hMul.{0, 0, 0} F F F\n          (@instHMul.{0} F\n            (@Distrib.toMul.{0} F\n              (@instDistribOfSemiring.{0} F\n                (@DivisionSemiring.toSemiring.{0} F\n                  (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n          (@Neg.neg.{0} F\n            (@NegZeroClass.toNeg.{0} F\n              (@SubNegZeroMonoid.toNegZeroClass.{0} F\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                      (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n            (@OfNat.ofNat.{0} F (nat_lit 10240)\n              (@instOfNatAtLeastTwo.{0} F (nat_lit 10240)\n                (@AddMonoidWithOne.toNatCast.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))\n                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10238) (instOfNatNat (nat_lit 10238))))))))\n          (@Inv.inv.{0} F\n            (@InvOneClass.toInv.{0} F\n              (@DivInvOneMonoid.toInvOneClass.{0} F\n                (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                  (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                    (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                      (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n            (@OfNat.ofNat.{0} F (nat_lit 10241)\n              (@instOfNatAtLeastTwo.{0} F (nat_lit 10241)\n                (@AddMonoidWithOne.toNatCast.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10240) (instOfNatNat (nat_lit 10240)))\n                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))))))))\n        model point))\n  (scalar : ShielddSecurity.ShielddNativeScalar.Wrapped Raw),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations\n      (@ShielddSecurity.ShielddNativeEncode.multiplyScalar F Raw Encoded inst operations primitives base scalar))\n    (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        (@Neg.neg.{0} F\n          (@NegZeroClass.toNeg.{0} F\n            (@SubNegZeroMonoid.toNegZeroClass.{0} F\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                    (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10240)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10240)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10238) (instOfNatNat (nat_lit 10238))))))))\n        (@Inv.inv.{0} F\n          (@InvOneClass.toInv.{0} F\n            (@DivInvOneMonoid.toInvOneClass.{0} F\n              (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                  (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                    (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10241)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10241)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10240) (instOfNatNat (nat_lit 10240)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))))))))\n      model\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n        (@ShielddSecurity.TransferReduction.CanonicalField.decode F inst codec\n          (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations scalar))\n        point))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "25e006b37a10e313c0747b29e6ea4cbaad96d12828c266d4519a19ebf896ba21"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 16899,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-codec-20261010-01\\runs\\01-ShielddNativeEncode\\stdout.txt",
+    "sha256": "fa71536c753dfd5704b9e83dee7c2ecfa07a00f54710c45c0548d1f83d518c37"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.ShielddNativeEncode.Primitives": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "3767468d04e538fad2fc73a774487cc04f48966ab988b82a540b2d76767ac5e1"
+      },
+      "ShielddSecurity.ShielddNativeEncode.asSlice": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "b04270efde0c7cd719a933b76bacf3d1a49a5f57b62ab6776b99fe68aa9bab3f"
+      },
+      "ShielddSecurity.ShielddNativeEncode.byte_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "6c9a128c03634b3c42e719d6f3810a5c51cc402f6a0f1c26e29d9bf8c2f0afad"
+      },
+      "ShielddSecurity.ShielddNativeEncode.encode": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "7402181d1bd9e963e64308e69fb2ddb2e8bd4b390d934242d0a75d3d05cbfe7d"
+      },
+      "ShielddSecurity.ShielddNativeEncode.encoded_reader": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "51520989f6d29f234ffd038b2fbec507c4cca3e406e392c2c96fa896d81065b4"
+      },
+      "ShielddSecurity.ShielddNativeEncode.multiplyScalar": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "45da58244f41afa86d335b3d1b293a9232d43ff83156def9665ea60ef1b99ca0"
+      },
+      "ShielddSecurity.ShielddNativeEncode.multiply_scalar_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "25e006b37a10e313c0747b29e6ea4cbaad96d12828c266d4519a19ebf896ba21"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-codec-20261010-01\\project\\ShielddSecurity\\ShielddNativeEncode.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-codec-20261010-01\\project\\ShielddSecurity\\ShielddNativeEncode.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 176416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-codec-20261010-01\\project\\ShielddSecurity\\ShielddNativeEncode.olean",
+        "sha256": "8e68222735b0fadfca26fd2576ec0ac6b5ac1b2cc591a9014692cd1901b967a4"
+      }
+    ],
+    "peak_rss_bytes": 1098072064,
+    "seconds": 14.713946700037923,
+    "status": "passed",
+    "stdout": {
+      "bytes": 16899,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-codec-20261010-01\\runs\\01-ShielddNativeEncode\\stdout.txt",
+      "sha256": "fa71536c753dfd5704b9e83dee7c2ecfa07a00f54710c45c0548d1f83d518c37"
+    }
+  }
+}

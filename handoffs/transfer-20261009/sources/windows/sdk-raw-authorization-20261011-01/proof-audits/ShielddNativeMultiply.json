@@ -1,0 +1,237 @@
+{
+  "module": "ShielddNativeMultiply",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.bitScalar",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.bitScalar : {F Raw : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (bit : Bool) \u2192 ShielddSecurity.ShielddNativeScalar.Wrapped Raw",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "39cb981c54e5c7aaa6714cf398fe47d39be3a13e9f3fc081f53c7ab9b5d096bc"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.bit_value",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.bit_value : \u2200 {F Raw : Type} [inst : Field.{0} F]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) (bit : Bool),\n  @Eq.{1} F\n    (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations\n      (@ShielddSecurity.ShielddNativeMultiply.bitScalar F Raw inst operations bit))\n    (@ite.{1} F (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true)\n      (@OfNat.ofNat.{0} F (nat_lit 1)\n        (@One.toOfNat1.{0} F\n          (@AddMonoidWithOne.toOne.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "947bb3ca7440e4654f7f1edfa6573e811346abb509535e12de45b766ce395480"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.window",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.window : {F Raw : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (base twice triple : ShielddSecurity.ShielddNativePoint.Point Raw) \u2192\n        (pair : Prod.{0, 0} Bool Bool) \u2192 ShielddSecurity.ShielddNativePoint.Point Raw",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "5662ca8e236ef6abc3c0555fedfa3e9abc49dd80a309ebd74ceabf014657defd"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.window_value",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.window_value : \u2200 {F Raw : Type} [inst : Field.{0} F]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (base twice triple : ShielddSecurity.ShielddNativePoint.Point Raw) (pair : Prod.{0, 0} Bool Bool),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations\n      (@ShielddSecurity.ShielddNativeMultiply.window F Raw inst operations base twice triple pair))\n    (@ShielddSecurity.Group.windowPoint F inst\n      (@ite.{1} F (@Eq.{1} Bool (@Prod.fst.{0, 0} Bool Bool pair) Bool.true)\n        (instDecidableEqBool (@Prod.fst.{0, 0} Bool Bool pair) Bool.true)\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n        (@OfNat.ofNat.{0} F (nat_lit 0)\n          (@Zero.toOfNat0.{0} F\n            (@MulZeroClass.toZero.{0} F\n              (@instMulZeroClassOfSemiring.{0} F\n                (@DivisionSemiring.toSemiring.{0} F\n                  (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n      (@ite.{1} F (@Eq.{1} Bool (@Prod.snd.{0, 0} Bool Bool pair) Bool.true)\n        (instDecidableEqBool (@Prod.snd.{0, 0} Bool Bool pair) Bool.true)\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n        (@OfNat.ofNat.{0} F (nat_lit 0)\n          (@Zero.toOfNat0.{0} F\n            (@MulZeroClass.toZero.{0} F\n              (@instMulZeroClassOfSemiring.{0} F\n                (@DivisionSemiring.toSemiring.{0} F\n                  (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations base)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations twice)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations triple))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "5157dec7dbaed12b17ae1dd3092281bb69ebc6b9bd03b1b00322bc5fbc749ce7"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.step",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.step : {F Raw : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (d : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) \u2192\n        (base twice triple : ShielddSecurity.ShielddNativePoint.Point Raw) \u2192\n          (result : ShielddSecurity.ShielddNativePoint.Extended Raw) \u2192\n            (pair : Prod.{0, 0} Bool Bool) \u2192 ShielddSecurity.ShielddNativePoint.Extended Raw",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a70c1a0f0ff94ec7be6d3707bf39ed5f46c5605ad1b54290802ccfb48f236504"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.step_value",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.step_value : \u2200 {F Raw : Type} [inst : Field.{0} F]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (d : ShielddSecurity.ShielddNativeScalar.Wrapped Raw)\n  (base twice triple : ShielddSecurity.ShielddNativePoint.Point Raw)\n  (result : ShielddSecurity.ShielddNativePoint.Extended Raw) (pair : Prod.{0, 0} Bool Bool),\n  @Eq.{1} (ShielddSecurity.GroupExtended.Extended F)\n    (@ShielddSecurity.ShielddNativePoint.extendedValue F Raw inst operations\n      (@ShielddSecurity.ShielddNativeMultiply.step F Raw inst operations d base twice triple result pair))\n    (@ShielddSecurity.GroupNativeMultiply.nativeStep F inst\n      (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations d)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations base)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations twice)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations triple)\n      (@ShielddSecurity.ShielddNativePoint.extendedValue F Raw inst operations result) pair)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ee9b8cb929f88c5053993419cc327f006efdac53a3bb440103247b9c32caacc2"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.multiplyExtended",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.multiplyExtended : {F Raw : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (d : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) \u2192\n        (base : ShielddSecurity.ShielddNativePoint.Point Raw) \u2192\n          (bits : List.{0} Bool) \u2192 ShielddSecurity.ShielddNativePoint.Extended Raw",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "451c7039b18c1e1b04ae35611a81f41a5dbecb382c7dd30b455cf7e4aa33c322"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.multiply",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.multiply : {F Raw : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (d : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) \u2192\n        (base : ShielddSecurity.ShielddNativePoint.Point Raw) \u2192\n          (bits : List.{0} Bool) \u2192 ShielddSecurity.ShielddNativePoint.Point Raw",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "2666f480590d90bdbefbc7484413a2a3ea60616abb7b8d22ef1c333b2b5c2815"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.fold_value",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.fold_value : \u2200 {F Raw : Type} [inst : Field.{0} F]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (d : ShielddSecurity.ShielddNativeScalar.Wrapped Raw)\n  (base twice triple : ShielddSecurity.ShielddNativePoint.Point Raw) (pairs : List.{0} (Prod.{0, 0} Bool Bool))\n  (result : ShielddSecurity.ShielddNativePoint.Extended Raw),\n  @Eq.{1} (ShielddSecurity.GroupExtended.Extended F)\n    (@ShielddSecurity.ShielddNativePoint.extendedValue F Raw inst operations\n      (@List.foldl.{0, 0} (ShielddSecurity.ShielddNativePoint.Extended Raw) (Prod.{0, 0} Bool Bool)\n        (@ShielddSecurity.ShielddNativeMultiply.step F Raw inst operations d base twice triple) result pairs))\n    (@List.foldl.{0, 0} (ShielddSecurity.GroupExtended.Extended F) (Prod.{0, 0} Bool Bool)\n      (@ShielddSecurity.GroupNativeMultiply.nativeStep F inst\n        (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations d)\n        (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations base)\n        (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations twice)\n        (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations triple))\n      (@ShielddSecurity.ShielddNativePoint.extendedValue F Raw inst operations result) pairs)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4eca3585a270a4a03e66607f5a8b44301575573b6a9afd2c3c95e1f3eb8e540f"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.multiply_value",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.multiply_value : \u2200 {F Raw : Type} [inst : Field.{0} F]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (d : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) (base : ShielddSecurity.ShielddNativePoint.Point Raw)\n  (bits : List.{0} Bool),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations\n      (@ShielddSecurity.ShielddNativeMultiply.multiply F Raw inst operations d base bits))\n    (@ShielddSecurity.GroupNativeMultiply.nativeMultiply F inst\n      (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations d)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations base) bits)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "6dfe25c777859d82339f7debe5ebfc7d2cd709e10b095c884b2afcf94e2ea303"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeMultiply.multiply_coordinates",
+      "full_type": "@ShielddSecurity.ShielddNativeMultiply.multiply_coordinates : \u2200 {F Raw : Type} [inst : Field.{0} F] {J : Type}\n  [inst_1 : AddCommGroup.{0} J] (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (d : ShielddSecurity.ShielddNativeScalar.Wrapped Raw) (imaginary : F)\n  (model :\n    @ShielddSecurity.Group.StandardCurveModel F inst J inst_1\n      (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations d))\n  (nonSquare :\n    @ShielddSecurity.Group.NoUnitSquare F inst (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations d))\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (base : ShielddSecurity.ShielddNativePoint.Point Raw) (point : J)\n  (input :\n    @Eq.{1} (ShielddSecurity.Group.Point F) (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations base)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1\n        (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations d) model point))\n  (bits : List.{0} Bool),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations\n      (@ShielddSecurity.ShielddNativeMultiply.multiply F Raw inst operations d base bits))\n    (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1\n      (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations d) model\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n        (ShielddSecurity.binary bits) point))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "45a6d4e8049ca54713361245ebc2037a784f1d3adc7e5e1b0f7e88ea8e14cf35"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 12970,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\runs\\02-ShielddNativeMultiply\\stdout.txt",
+    "sha256": "854b8c9471638297b2cae1520146d7a3c3dfe8d29dd7d3ac10ec878f86a765f8"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.ShielddNativeMultiply.bitScalar": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "39cb981c54e5c7aaa6714cf398fe47d39be3a13e9f3fc081f53c7ab9b5d096bc"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.bit_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "947bb3ca7440e4654f7f1edfa6573e811346abb509535e12de45b766ce395480"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.fold_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "4eca3585a270a4a03e66607f5a8b44301575573b6a9afd2c3c95e1f3eb8e540f"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.multiply": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "2666f480590d90bdbefbc7484413a2a3ea60616abb7b8d22ef1c333b2b5c2815"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.multiplyExtended": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "451c7039b18c1e1b04ae35611a81f41a5dbecb382c7dd30b455cf7e4aa33c322"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.multiply_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "45a6d4e8049ca54713361245ebc2037a784f1d3adc7e5e1b0f7e88ea8e14cf35"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.multiply_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "6dfe25c777859d82339f7debe5ebfc7d2cd709e10b095c884b2afcf94e2ea303"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.step": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "a70c1a0f0ff94ec7be6d3707bf39ed5f46c5605ad1b54290802ccfb48f236504"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.step_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "ee9b8cb929f88c5053993419cc327f006efdac53a3bb440103247b9c32caacc2"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.window": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "5662ca8e236ef6abc3c0555fedfa3e9abc49dd80a309ebd74ceabf014657defd"
+      },
+      "ShielddSecurity.ShielddNativeMultiply.window_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "5157dec7dbaed12b17ae1dd3092281bb69ebc6b9bd03b1b00322bc5fbc749ce7"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\project\\ShielddSecurity\\ShielddNativeMultiply.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\project\\ShielddSecurity\\ShielddNativeMultiply.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 164960,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\project\\ShielddSecurity\\ShielddNativeMultiply.olean",
+        "sha256": "8541bb7851de68bc9969b35126619d5228c39efc9f9a654011df17e01c0bd40f"
+      }
+    ],
+    "peak_rss_bytes": 1093971968,
+    "seconds": 14.84422559995437,
+    "status": "passed",
+    "stdout": {
+      "bytes": 12970,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\runs\\02-ShielddNativeMultiply\\stdout.txt",
+      "sha256": "854b8c9471638297b2cae1520146d7a3c3dfe8d29dd7d3ac10ec878f86a765f8"
+    }
+  }
+}

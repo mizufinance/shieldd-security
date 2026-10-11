@@ -1,0 +1,145 @@
+{
+  "module": "ShielddScalarReader",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.ShielddScalarReader.Backend",
+      "full_type": "@ShielddSecurity.ShielddScalarReader.Backend : {F : Type} \u2192 [Field.{0} F] \u2192 (Encoded Native : Type) \u2192 Type",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "51bf4657273aa3f9a97af35afa86d0034c7ae0f9c7348056e9f8fc4a5b4d3464"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddScalarReader.ReadCfg",
+      "full_type": "ShielddSecurity.ShielddScalarReader.ReadCfg : Type",
+      "axioms": [],
+      "full_type_sha256": "630893a25e19ec791b536766925910c0cf72fe7db4315e32c9df75015417fd55"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddScalarReader.readCfg",
+      "full_type": "@ShielddSecurity.ShielddScalarReader.readCfg : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {Encoded Native : Type} \u2192\n      (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) \u2192\n        (cfg : ShielddSecurity.ShielddScalarReader.ReadCfg) \u2192\n          (bytes : ShielddSecurity.GroupByteCodec.Bytes) \u2192 Option.{0} Native",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "49f2d43b950eb8ca80f31e777e1dbc4eeb1075eb2601e066b35b615ba4bfe16e"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddScalarReader.decoder",
+      "full_type": "@ShielddSecurity.ShielddScalarReader.decoder : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {Encoded Native : Type} \u2192\n      (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) \u2192\n        @ShielddSecurity.GroupByteCodec.BERead F inst",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ce72455048bc7a26c0188a26b06874588120e7020755fb9b4201f2850bd4c050"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddScalarReader.allow_zero_canonical",
+      "full_type": "@ShielddSecurity.ShielddScalarReader.allow_zero_canonical : \u2200 {F : Type} [inst : Field.{0} F] {Encoded Native : Type}\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) (n : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat n ShielddSecurity.Scalar.modulus) (bytes : ShielddSecurity.GroupByteCodec.Bytes)\n  (canonical :\n    \u2200 (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n      @Eq.{1} Nat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) (bytes index))\n        (ShielddSecurity.GroupScalarCodec.bigEndianByte n\n          (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index))),\n  And\n    (@Eq.{1} (Option.{0} Native)\n      (@ShielddSecurity.ShielddScalarReader.readCfg F inst Encoded Native backend\n        ShielddSecurity.ShielddScalarReader.ReadCfg.allowZero bytes)\n      (@Option.some.{0} Native\n        (@ShielddSecurity.ShielddScalarReader.Backend.convert F inst Encoded Native backend\n          (@ShielddSecurity.ShielddScalarReader.Backend.fromBigEndian F inst Encoded Native backend bytes))))\n    (@Eq.{1} F\n      (@ShielddSecurity.ShielddScalarReader.Backend.value F inst Encoded Native backend\n        (@ShielddSecurity.ShielddScalarReader.Backend.convert F inst Encoded Native backend\n          (@ShielddSecurity.ShielddScalarReader.Backend.fromBigEndian F inst Encoded Native backend bytes)))\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        n))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "347683682259abdf17ed80bf23dede597c308d9af08a3bea6baf9a1bd5be694a"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddScalarReader.decoder_canonical",
+      "full_type": "@ShielddSecurity.ShielddScalarReader.decoder_canonical : \u2200 {F : Type} [inst : Field.{0} F] {Encoded Native : Type}\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) (n : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat n ShielddSecurity.Scalar.modulus) (bytes : ShielddSecurity.GroupByteCodec.Bytes)\n  (canonical :\n    \u2200 (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n      @Eq.{1} Nat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) (bytes index))\n        (ShielddSecurity.GroupScalarCodec.bigEndianByte n\n          (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index))),\n  @Eq.{1} (Option.{0} F)\n    (@ShielddSecurity.GroupByteCodec.BERead.decode F inst\n      (@ShielddSecurity.ShielddScalarReader.decoder F inst Encoded Native backend) bytes)\n    (@Option.some.{0} F\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        n))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "b3d7e2b45aa7c4adc91abfa2c94507634cf46ec96c9b2fd9e56054301d3018a9"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddScalarReader.reject_zero_exact",
+      "full_type": "@ShielddSecurity.ShielddScalarReader.reject_zero_exact : \u2200 {F : Type} [inst : Field.{0} F] {Encoded Native : Type}\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native)\n  (bytes : ShielddSecurity.GroupByteCodec.Bytes)\n  (within :\n    @LT.lt.{0} Nat instLTNat\n      (@ShielddSecurity.ShielddScalarReader.Backend.integer F inst Encoded Native backend\n        (@ShielddSecurity.ShielddScalarReader.Backend.fromBigEndian F inst Encoded Native backend bytes))\n      ShielddSecurity.Scalar.modulus),\n  Iff\n    (@Eq.{1} (Option.{0} Native)\n      (@ShielddSecurity.ShielddScalarReader.readCfg F inst Encoded Native backend\n        ShielddSecurity.ShielddScalarReader.ReadCfg.rejectZero bytes)\n      (@Option.none.{0} Native))\n    (@Eq.{1} F\n      (@ShielddSecurity.ShielddScalarReader.Backend.value F inst Encoded Native backend\n        (@ShielddSecurity.ShielddScalarReader.Backend.convert F inst Encoded Native backend\n          (@ShielddSecurity.ShielddScalarReader.Backend.fromBigEndian F inst Encoded Native backend bytes)))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "2cd264433aaf6ab72e3b33681d72098b45fc8e1d0a2d2cd39e2893b15dafa605"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 5547,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\runs\\02-ShielddScalarReader\\stdout.txt",
+    "sha256": "857c6bf5671ca7c4365f0b6358b184b1d8077e22ba979d57bd85fe88709c9114"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.ShielddScalarReader.Backend": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "51bf4657273aa3f9a97af35afa86d0034c7ae0f9c7348056e9f8fc4a5b4d3464"
+      },
+      "ShielddSecurity.ShielddScalarReader.ReadCfg": {
+        "axioms": [],
+        "full_type_sha256": "630893a25e19ec791b536766925910c0cf72fe7db4315e32c9df75015417fd55"
+      },
+      "ShielddSecurity.ShielddScalarReader.allow_zero_canonical": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "347683682259abdf17ed80bf23dede597c308d9af08a3bea6baf9a1bd5be694a"
+      },
+      "ShielddSecurity.ShielddScalarReader.decoder": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "ce72455048bc7a26c0188a26b06874588120e7020755fb9b4201f2850bd4c050"
+      },
+      "ShielddSecurity.ShielddScalarReader.decoder_canonical": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "b3d7e2b45aa7c4adc91abfa2c94507634cf46ec96c9b2fd9e56054301d3018a9"
+      },
+      "ShielddSecurity.ShielddScalarReader.readCfg": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "49f2d43b950eb8ca80f31e777e1dbc4eeb1075eb2601e066b35b615ba4bfe16e"
+      },
+      "ShielddSecurity.ShielddScalarReader.reject_zero_exact": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "2cd264433aaf6ab72e3b33681d72098b45fc8e1d0a2d2cd39e2893b15dafa605"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\project\\ShielddSecurity\\ShielddScalarReader.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\project\\ShielddSecurity\\ShielddScalarReader.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 258520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\project\\ShielddSecurity\\ShielddScalarReader.olean",
+        "sha256": "40ae65540aa79e244c35b8f31a793ffd5db0099114254581f5c6b29717de24bc"
+      }
+    ],
+    "peak_rss_bytes": 1090797568,
+    "seconds": 14.53117969998857,
+    "status": "passed",
+    "stdout": {
+      "bytes": 5547,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-program-prerequisites-20261010-01\\runs\\02-ShielddScalarReader\\stdout.txt",
+      "sha256": "857c6bf5671ca7c4365f0b6358b184b1d8077e22ba979d57bd85fe88709c9114"
+    }
+  }
+}

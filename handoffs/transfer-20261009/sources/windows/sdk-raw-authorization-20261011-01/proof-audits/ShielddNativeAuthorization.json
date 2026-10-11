@@ -1,0 +1,111 @@
+{
+  "module": "ShielddNativeAuthorization",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.ShielddNativeAuthorization.authorization",
+      "full_type": "@ShielddSecurity.ShielddNativeAuthorization.authorization : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                {Encoded Native : Type} \u2192\n                  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) \u2192\n                    (upstream :\n                        @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                      (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst) \u2192\n                        (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) \u2192\n                          (verification : K) \u2192 (randomizer : R) \u2192 Option.{0} (ShielddSecurity.Group.Point F)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "bb481e04328d6f0726367675a2da4ee23aa9a7a50f6da2558de0f99aac18d723"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeAuthorization.owned_authorization_coordinates",
+      "full_type": "@ShielddSecurity.ShielddNativeAuthorization.owned_authorization_coordinates : \u2200 {F : Type} [inst : Field.{0} F]\n  {E S R K Q Signing J : Type} [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {Encoded Native : Type} (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native)\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model)\n  (imaginary : F) (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (verification : K) (randomizer : R) (actionPoint : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.ShielddNativeSdk.nonidentity F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.keyBytes F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          verification))\n      (@Option.some.{0} S actionPoint)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.ShielddNativeAuthorization.authorization F inst E S R K Q Signing J inst_1 fq fr d model Encoded\n      Native backend upstream codec writer verification randomizer)\n    (@Option.some.{0} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n        (@HAdd.hAdd.{0, 0, 0} J J J\n          (@instHAdd.{0} J\n            (@AddCommMagma.toAdd.{0} J\n              (@AddCommSemigroup.toAddCommMagma.{0} J\n                (@AddCommMonoid.toAddCommSemigroup.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst_1)))))\n          (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n            (@ShielddSecurity.ShielddNativeSdk.Upstream.keyPoint F inst E S R K Q Signing J inst_1 fq fr d model\n              upstream verification))\n          (@HSMul.hSMul.{0, 0, 0} Nat J J\n            (@instHSMul.{0, 0} Nat J\n              (@AddMonoid.toNSMul.{0} J\n                (@SubNegMonoid.toAddMonoid.{0} J\n                  (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n            (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr randomizer)\n            (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n              (@ShielddSecurity.ShielddNativeSdk.Upstream.promote F inst E S R K Q Signing J inst_1 fq fr d model\n                upstream\n                (@ShielddSecurity.ShielddNativeSdk.Upstream.spendAuthSubgroup F inst E S R K Q Signing J inst_1 fq fr d\n                  model upstream)))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "50e5771bad54763239f0dfc0112f5acd42bd5ff1b5617fa8a15cef55026a67d1"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeAuthorization.production_authorization_agrees",
+      "full_type": "@ShielddSecurity.ShielddNativeAuthorization.production_authorization_agrees : \u2200 {F : Type} [inst : Field.{0} F]\n  {E S R K Q Signing J : Type} [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {Encoded Native : Type} (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native)\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model)\n  (imaginary : F) (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (verification : K) (randomizer : R) (actionPoint randomizedPoint : S)\n  (actionAdmission :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.ShielddNativeSdk.nonidentity F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.keyBytes F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          verification))\n      (@Option.some.{0} S actionPoint))\n  (randomizedAdmission :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.ShielddNativeSdk.nonidentity F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.keyBytes F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          (@ShielddSecurity.ShielddNativeSdk.planRk F inst E S R K Q Signing J inst_1 fq fr d model upstream\n            verification randomizer)))\n      (@Option.some.{0} S randomizedPoint)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.ShielddNativeAuthorization.authorization F inst E S R K Q Signing J inst_1 fq fr d model Encoded\n      Native backend upstream codec writer verification randomizer)\n    (@ShielddSecurity.ShielddNativeSdk.key F inst E S R K Q Signing J inst_1 fq fr d model Encoded Native backend\n      upstream\n      (@ShielddSecurity.ShielddNativeSdk.planRk F inst E S R K Q Signing J inst_1 fq fr d model upstream verification\n        randomizer))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "fedcb0fb680210795829d322bd5bdfca27c34f5c93211e24cc2d603404aa7f87"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeAuthorization.production_witness_constraints",
+      "full_type": "@ShielddSecurity.ShielddNativeAuthorization.production_witness_constraints : \u2200 {F : Type} [inst : Field.{0} F]\n  {E S R K Q Signing J : Type} [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {Encoded Native : Type} (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native)\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model)\n  (imaginary : F) (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (verification : K) (randomizer : R) (randomizedPoint : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.ShielddNativeSdk.nonidentity F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.keyBytes F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          (@ShielddSecurity.ShielddNativeSdk.planRk F inst E S R K Q Signing J inst_1 fq fr d model upstream\n            verification randomizer)))\n      (@Option.some.{0} S randomizedPoint)),\n  have publicPoint : ShielddSecurity.Group.Point F :=\n    @ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n      (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.keyPoint F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          (@ShielddSecurity.ShielddNativeSdk.planRk F inst E S R K Q Signing J inst_1 fq fr d model upstream\n            verification randomizer)));\n  have preimage : ShielddSecurity.Group.Point F :=\n    @ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer publicPoint;\n  have twice : ShielddSecurity.Group.Point F := @ShielddSecurity.GroupFixedWindows.nativeAdd F inst d preimage preimage;\n  have four : ShielddSecurity.Group.Point F := @ShielddSecurity.GroupFixedWindows.nativeAdd F inst d twice twice;\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n      (@ShielddSecurity.ShielddNativeSdk.key F inst E S R K Q Signing J inst_1 fq fr d model Encoded Native backend\n        upstream\n        (@ShielddSecurity.ShielddNativeSdk.planRk F inst E S R K Q Signing J inst_1 fq fr d model upstream verification\n          randomizer))\n      (@Option.some.{0} (ShielddSecurity.Group.Point F) publicPoint))\n    (And (@ShielddSecurity.Group.OnCurve F inst d preimage)\n      (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d preimage)\n        (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d twice)\n          (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d four)\n            (And\n              (@Eq.{1} (ShielddSecurity.Group.Point F)\n                (@ShielddSecurity.GroupNativeCofactor.nativeEight F inst d preimage) publicPoint)\n              (@Eq.{1} F\n                (@HMul.hMul.{0, 0, 0} F F F\n                  (@instHMul.{0} F\n                    (@Distrib.toMul.{0} F\n                      (@instDistribOfSemiring.{0} F\n                        (@DivisionSemiring.toSemiring.{0} F\n                          (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n                  (@ShielddSecurity.Group.Point.x F publicPoint)\n                  (@Inv.inv.{0} F\n                    (@InvOneClass.toInv.{0} F\n                      (@DivInvOneMonoid.toInvOneClass.{0} F\n                        (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                          (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                            (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                              (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n                    (@ShielddSecurity.Group.Point.x F publicPoint)))\n                (@OfNat.ofNat.{0} F (nat_lit 1)\n                  (@One.toOfNat1.{0} F\n                    (@AddMonoidWithOne.toOne.{0} F\n                      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                        (@Ring.toAddGroupWithOne.{0} F\n                          (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "42ccc4fc394ddd35884ec467ddd0613d52beb67d05782cf3d78d2b927b1dfdd2"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 17130,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-spend-auth-20261010-02\\runs\\02-ShielddNativeAuthorization\\stdout.txt",
+    "sha256": "b9066a7746d15c49ddd6d2a7222d38fca7eabdb19c7a1d4ffa302342862c31ae"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.ShielddNativeAuthorization.authorization": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "bb481e04328d6f0726367675a2da4ee23aa9a7a50f6da2558de0f99aac18d723"
+      },
+      "ShielddSecurity.ShielddNativeAuthorization.owned_authorization_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "50e5771bad54763239f0dfc0112f5acd42bd5ff1b5617fa8a15cef55026a67d1"
+      },
+      "ShielddSecurity.ShielddNativeAuthorization.production_authorization_agrees": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "fedcb0fb680210795829d322bd5bdfca27c34f5c93211e24cc2d603404aa7f87"
+      },
+      "ShielddSecurity.ShielddNativeAuthorization.production_witness_constraints": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "42ccc4fc394ddd35884ec467ddd0613d52beb67d05782cf3d78d2b927b1dfdd2"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-spend-auth-20261010-02\\project\\ShielddSecurity\\ShielddNativeAuthorization.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-spend-auth-20261010-02\\project\\ShielddSecurity\\ShielddNativeAuthorization.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 172672,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-spend-auth-20261010-02\\project\\ShielddSecurity\\ShielddNativeAuthorization.olean",
+        "sha256": "5f272dee2c10fb33af19148e1103a5a2c8c65d45c8bd21dacb0dd7508d89cd48"
+      }
+    ],
+    "peak_rss_bytes": 1096515584,
+    "seconds": 14.649852300004568,
+    "status": "passed",
+    "stdout": {
+      "bytes": 17130,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-spend-auth-20261010-02\\runs\\02-ShielddNativeAuthorization\\stdout.txt",
+      "sha256": "b9066a7746d15c49ddd6d2a7222d38fca7eabdb19c7a1d4ffa302342862c31ae"
+    }
+  }
+}

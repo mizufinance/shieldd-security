@@ -1,0 +1,111 @@
+{
+  "module": "GroupNativeSdkPreimage",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdkPreimage.readPreimage",
+      "full_type": "@ShielddSecurity.GroupNativeSdkPreimage.readPreimage : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst) \u2192\n      (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) \u2192\n        (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst) \u2192\n          (d : F) \u2192 (x y : ShielddSecurity.GroupByteCodec.Bytes) \u2192 Option.{0} (ShielddSecurity.Group.Point F)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "734faecbe09c9eb31af357e293ac3a7a41fc484c6f9da730f8403e9728747f52"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdkPreimage.read_preimage_coordinates",
+      "full_type": "@ShielddSecurity.GroupNativeSdkPreimage.read_preimage_coordinates : \u2200 {F : Type} [inst : Field.{0} F]\n  {E S R K Q J : Type} [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst)\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (imaginary : F)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (point : S),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.GroupNativeSdkPreimage.readPreimage F inst codec writer decoder d\n      (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n        (@ShielddSecurity.GroupNativeSdk.Sdk.x F inst E S R K Q J inst_1 fq fr d model sdk point))\n      (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n        (@ShielddSecurity.GroupNativeSdk.Sdk.y F inst E S R K Q J inst_1 fq fr d model sdk point)))\n    (@Option.some.{0} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n        (@HSMul.hSMul.{0, 0, 0} Nat J J\n          (@instHSMul.{0, 0} Nat J\n            (@AddMonoid.toNSMul.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J\n                (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n          ShielddSecurity.GroupNativeCofactor.inverseEight\n          (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n            (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point)))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4287fb2a8cb6c5bfa5eae774251de7822d96aaa3e541c2b0b6682351785a06ef"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdkPreimage.admitted_native_constraints",
+      "full_type": "@ShielddSecurity.GroupNativeSdkPreimage.admitted_native_constraints : \u2200 {F : Type} [inst : Field.{0} F]\n  {E S R K Q J : Type} [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst)\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (imaginary : F)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (bytes : ShielddSecurity.GroupByteCodec.Bytes) (point : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model sdk bytes)\n      (@Option.some.{0} S point)),\n  have publicPoint : ShielddSecurity.Group.Point F :=\n    @ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n      (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk point));\n  have preimage : ShielddSecurity.Group.Point F :=\n    @ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer publicPoint;\n  have twice : ShielddSecurity.Group.Point F := @ShielddSecurity.GroupFixedWindows.nativeAdd F inst d preimage preimage;\n  have four : ShielddSecurity.Group.Point F := @ShielddSecurity.GroupFixedWindows.nativeAdd F inst d twice twice;\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n      (@ShielddSecurity.GroupNativeSdkPreimage.readPreimage F inst codec writer decoder d\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n          (@ShielddSecurity.GroupNativeSdk.Sdk.x F inst E S R K Q J inst_1 fq fr d model sdk point))\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n          (@ShielddSecurity.GroupNativeSdk.Sdk.y F inst E S R K Q J inst_1 fq fr d model sdk point)))\n      (@Option.some.{0} (ShielddSecurity.Group.Point F) preimage))\n    (And (@ShielddSecurity.Group.OnCurve F inst d preimage)\n      (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d preimage)\n        (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d twice)\n          (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d four)\n            (And\n              (@Eq.{1} (ShielddSecurity.Group.Point F)\n                (@ShielddSecurity.GroupNativeCofactor.nativeEight F inst d preimage) publicPoint)\n              (@Eq.{1} F\n                (@HMul.hMul.{0, 0, 0} F F F\n                  (@instHMul.{0} F\n                    (@Distrib.toMul.{0} F\n                      (@instDistribOfSemiring.{0} F\n                        (@DivisionSemiring.toSemiring.{0} F\n                          (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n                  (@ShielddSecurity.Group.Point.x F publicPoint)\n                  (@Inv.inv.{0} F\n                    (@InvOneClass.toInv.{0} F\n                      (@DivInvOneMonoid.toInvOneClass.{0} F\n                        (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                          (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                            (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                              (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n                    (@ShielddSecurity.Group.Point.x F publicPoint)))\n                (@OfNat.ofNat.{0} F (nat_lit 1)\n                  (@One.toOfNat1.{0} F\n                    (@AddMonoidWithOne.toOne.{0} F\n                      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                        (@Ring.toAddGroupWithOne.{0} F\n                          (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "8e820b43121a9ca7dc56e448a4ce33d92282ebab9d8971262ffe9331f16eefb4"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSdkPreimage.randomized_read_preimage",
+      "full_type": "@ShielddSecurity.GroupNativeSdkPreimage.randomized_read_preimage : \u2200 {F : Type} [inst : Field.{0} F]\n  {E S R K Q J : Type} [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec)\n  (decoder : @ShielddSecurity.GroupByteCodec.BERead F inst)\n  (sdk : @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model) (imaginary : F)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (key : K) (scalar : R) (point : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model sdk\n        (@ShielddSecurity.GroupNativeSdk.Sdk.keyBytes F inst E S R K Q J inst_1 fq fr d model sdk\n          (@ShielddSecurity.GroupNativeSdk.Sdk.randomize F inst E S R K Q J inst_1 fq fr d model sdk key scalar)))\n      (@Option.some.{0} S point)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.GroupNativeSdkPreimage.readPreimage F inst codec writer decoder d\n      (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n        (@ShielddSecurity.GroupNativeSdk.Sdk.x F inst E S R K Q J inst_1 fq fr d model sdk point))\n      (@ShielddSecurity.GroupNativeSdk.FqBytes.bytes Q fq\n        (@ShielddSecurity.GroupNativeSdk.Sdk.y F inst E S R K Q J inst_1 fq fr d model sdk point)))\n    (@Option.some.{0} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n        (@HSMul.hSMul.{0, 0, 0} Nat J J\n          (@instHSMul.{0, 0} Nat J\n            (@AddMonoid.toNSMul.{0} J\n              (@SubNegMonoid.toAddMonoid.{0} J\n                (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n          ShielddSecurity.GroupNativeCofactor.inverseEight\n          (@HAdd.hAdd.{0, 0, 0} J J J\n            (@instHAdd.{0} J\n              (@AddCommMagma.toAdd.{0} J\n                (@AddCommSemigroup.toAddCommMagma.{0} J\n                  (@AddCommMonoid.toAddCommSemigroup.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst_1)))))\n            (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n              (@ShielddSecurity.GroupNativeSdk.Sdk.keyPoint F inst E S R K Q J inst_1 fq fr d model sdk key))\n            (@HSMul.hSMul.{0, 0, 0} Nat J J\n              (@instHSMul.{0, 0} Nat J\n                (@AddMonoid.toNSMul.{0} J\n                  (@SubNegMonoid.toAddMonoid.{0} J\n                    (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n              (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr scalar)\n              (@ShielddSecurity.GroupNativeSdk.Sdk.embed F inst E S R K Q J inst_1 fq fr d model sdk\n                (@ShielddSecurity.GroupNativeSdk.Sdk.promote F inst E S R K Q J inst_1 fq fr d model sdk\n                  (@ShielddSecurity.GroupNativeSdk.Sdk.generator F inst E S R K Q J inst_1 fq fr d model sdk))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "129aa8723756435cf76fb3e82baaee416642d6d301181b2da56a1597336494a3"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 16103,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\runs\\03-GroupNativeSdkPreimage\\stdout.txt",
+    "sha256": "acf0386b0d51582ca23827486eea766012e6a3daa3257e7711516c4b27cbb8a8"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.GroupNativeSdkPreimage.admitted_native_constraints": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "8e820b43121a9ca7dc56e448a4ce33d92282ebab9d8971262ffe9331f16eefb4"
+      },
+      "ShielddSecurity.GroupNativeSdkPreimage.randomized_read_preimage": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "129aa8723756435cf76fb3e82baaee416642d6d301181b2da56a1597336494a3"
+      },
+      "ShielddSecurity.GroupNativeSdkPreimage.readPreimage": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "734faecbe09c9eb31af357e293ac3a7a41fc484c6f9da730f8403e9728747f52"
+      },
+      "ShielddSecurity.GroupNativeSdkPreimage.read_preimage_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "4287fb2a8cb6c5bfa5eae774251de7822d96aaa3e541c2b0b6682351785a06ef"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\project\\ShielddSecurity\\GroupNativeSdkPreimage.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\project\\ShielddSecurity\\GroupNativeSdkPreimage.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 96248,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\project\\ShielddSecurity\\GroupNativeSdkPreimage.olean",
+        "sha256": "050b703117bf31cc00d8f325552967e5572ebcca3274daf68cb0b80c10b98bba"
+      }
+    ],
+    "peak_rss_bytes": 1089982464,
+    "seconds": 14.655144100019243,
+    "status": "passed",
+    "stdout": {
+      "bytes": 16103,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\runs\\03-GroupNativeSdkPreimage\\stdout.txt",
+      "sha256": "acf0386b0d51582ca23827486eea766012e6a3daa3257e7711516c4b27cbb8a8"
+    }
+  }
+}

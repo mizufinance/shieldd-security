@@ -1,0 +1,379 @@
+{
+  "module": "ShielddNativeSdk",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.Upstream",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.Upstream : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (E S R K Q Signing J : Type) \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        (fq : ShielddSecurity.GroupNativeSdk.FqBytes Q) \u2192\n          (fr : ShielddSecurity.GroupNativeSdk.FrBytes R) \u2192\n            (d : F) \u2192 (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d) \u2192 Type",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "dec7614e13d2923f4a7a7f0f55d11a37f303052c8004fef6d030b4896386af81"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.oneBytes",
+      "full_type": "ShielddSecurity.ShielddNativeSdk.oneBytes : ShielddSecurity.GroupByteCodec.Bytes",
+      "axioms": [],
+      "full_type_sha256": "51aa5f1edad47df75f1841c716ac70536ca89fe909882c83a0524bce1cbc6244"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.scalar_one_bytes",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.scalar_one_bytes : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q Signing J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model),\n  @Eq.{1} ShielddSecurity.GroupByteCodec.Bytes\n    (@ShielddSecurity.GroupNativeSdk.FrBytes.bytes R fr\n      (@ShielddSecurity.ShielddNativeSdk.Upstream.one F inst E S R K Q Signing J inst_1 fq fr d model upstream))\n    ShielddSecurity.ShielddNativeSdk.oneBytes",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "362476d9e9a05317f0cb7e18ae36e1295fc84658b481bde5c4a5cac06ba46969"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.spendAuthProgram",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.spendAuthProgram : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (upstream :\n                    @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                  Option.{0} S",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "f0362961564babacb42042770f5c45b7a2835b30b0e36660a34908be066fb0ee"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.spend_auth_program",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.spend_auth_program : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q Signing J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model),\n  @Eq.{1} (Option.{0} S)\n    (@ShielddSecurity.ShielddNativeSdk.spendAuthProgram F inst E S R K Q Signing J inst_1 fq fr d model upstream)\n    (@Option.some.{0} S\n      (@ShielddSecurity.ShielddNativeSdk.Upstream.spendAuthSubgroup F inst E S R K Q Signing J inst_1 fq fr d model\n        upstream))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "c4144641611cad3049555919bdf0e04d825510395a828d48917bf797ebab95f3"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.generator_parsed",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.generator_parsed : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q Signing J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model),\n  @Eq.{1} (Option.{0} S)\n    (@ShielddSecurity.ShielddNativeSdk.Upstream.decodePoint F inst E S R K Q Signing J inst_1 fq fr d model upstream\n      (@ShielddSecurity.ShielddNativeSdk.Upstream.encode F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.multiply F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          (@ShielddSecurity.ShielddNativeSdk.Upstream.spendAuth F inst E S R K Q Signing J inst_1 fq fr d model\n            upstream)\n          (@ShielddSecurity.ShielddNativeSdk.Upstream.one F inst E S R K Q Signing J inst_1 fq fr d model upstream))))\n    (@Option.some.{0} S\n      (@ShielddSecurity.ShielddNativeSdk.Upstream.spendAuthSubgroup F inst E S R K Q Signing J inst_1 fq fr d model\n        upstream))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "417a0cc76f9745317f90c19582582fbd159cc0b3cc83cdea24da88533b6d9839"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.coordinateX",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.coordinateX : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (upstream :\n                    @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                  (point : S) \u2192 Q",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e2cc67485203eb06ca6debf8866eada9340b76ae2ab0ee957b7ae71da89bb217"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.coordinateY",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.coordinateY : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (upstream :\n                    @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                  (point : S) \u2192 Q",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "cb2ff1c013041cf6bbb790f8b37c2ef3e5a0a52965cd25b3621e835efb19e478"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.sdk",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.sdk : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (upstream :\n                    @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                  @ShielddSecurity.GroupNativeSdk.Sdk F inst E S R K Q J inst_1 fq fr d model",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "46d9aa5aba5cb554b239acc94a5e92e20894e0257f96f8c32190a04fed8730a0"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.field",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.field : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {Q : Type} \u2192\n      {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n        {Encoded Native : Type} \u2192\n          (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) \u2192 (value : Q) \u2192 Option.{0} F",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e1175b47537e9a703cdcfc9d4d906b5c79711d4ec219384f923d7d7bda3b650f"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.nativePoint",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.nativePoint : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                {Encoded Native : Type} \u2192\n                  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) \u2192\n                    (upstream :\n                        @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                      (point : S) \u2192 Option.{0} (ShielddSecurity.Group.Point F)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "182bb7d0a210edd7b5eb1d8a2b5b89be9fc7793567bb48f9060a543ea5777c43"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.scalar",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.scalar : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {R Q : Type} \u2192\n      {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n        {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n          {Encoded Native : Type} \u2192\n            (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) \u2192 (value : R) \u2192 Option.{0} F",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a91bd8f36b89c99aee092abea7be5821d3306b7da5f5ea9fc19bb1f7bd025710"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.nonidentity",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.nonidentity : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (upstream :\n                    @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                  (bytes : ShielddSecurity.GroupByteCodec.Bytes) \u2192 Option.{0} S",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "43a58906a25478ac320862a47e98caf7c2ebd044b5d1e2c1e16614c419e1966d"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.key",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.key : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                {Encoded Native : Type} \u2192\n                  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) \u2192\n                    (upstream :\n                        @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                      (verification : K) \u2192 Option.{0} (ShielddSecurity.Group.Point F)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ab09c120cb85ceca0e5f013f97207f8d638f112553ea1f322f0c698a053f2ee8"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.planRk",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.planRk : {F : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (upstream :\n                    @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                  (verification : K) \u2192 (randomizer : R) \u2192 K",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "2d4228428fce9400a16b4d422e8f708f3f0f27f078295c80d55f9d04957b6ce1"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.field_read",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.field_read : \u2200 {F : Type} [inst : Field.{0} F] {Q : Type}\n  {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} {Encoded Native : Type}\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) (value : Q),\n  @Eq.{1} (Option.{0} F) (@ShielddSecurity.ShielddNativeSdk.field F inst Q fq Encoded Native backend value)\n    (@Option.some.{0} F\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (@ShielddSecurity.GroupNativeSdk.FqBytes.integer Q fq value)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "6cb5ac8b01309d6336ec185de2028634365d0b624f9b69394088c1dae1377d1d"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.scalar_read",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.scalar_read : \u2200 {F : Type} [inst : Field.{0} F] {R Q : Type}\n  {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} {fr : ShielddSecurity.GroupNativeSdk.FrBytes R}\n  {Encoded Native : Type} (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native) (value : R),\n  @Eq.{1} (Option.{0} F) (@ShielddSecurity.ShielddNativeSdk.scalar F inst R Q fq fr Encoded Native backend value)\n    (@Option.some.{0} F\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr value)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "8698e7590621953c6e6e25895a429d42f6eb9c73d6877b418e009235544ddec1"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.native_point_read",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.native_point_read : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q Signing J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {Encoded Native : Type} (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native)\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) (point : S),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.ShielddNativeSdk.nativePoint F inst E S R K Q Signing J inst_1 fq fr d model Encoded Native\n      backend upstream point)\n    (@Option.some.{0} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          (@ShielddSecurity.ShielddNativeSdk.Upstream.promote F inst E S R K Q Signing J inst_1 fq fr d model upstream\n            point))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "39d19cddd9de5faea24af105325827429e9defafee734f74b04189d517183198"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.admission_program",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.admission_program : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q Signing J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model)\n  (bytes : ShielddSecurity.GroupByteCodec.Bytes),\n  @Eq.{1} (Option.{0} S)\n    (@ShielddSecurity.ShielddNativeSdk.nonidentity F inst E S R K Q Signing J inst_1 fq fr d model upstream bytes)\n    (@ShielddSecurity.GroupNativeSdk.admissionGate F inst E S R K Q J inst_1 fq fr d model\n      (@ShielddSecurity.ShielddNativeSdk.sdk F inst E S R K Q Signing J inst_1 fq fr d model upstream) bytes)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "73388befa16ab3bdcec174a1f7b1015a5a9113610e63dba73de8941c8de28e93"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.key_read",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.key_read : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q Signing J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {Encoded Native : Type} (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (backend : @ShielddSecurity.ShielddScalarReader.Backend F inst Encoded Native)\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model)\n  (verification : K) (point : S)\n  (accepted :\n    @Eq.{1} (Option.{0} S)\n      (@ShielddSecurity.ShielddNativeSdk.nonidentity F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.keyBytes F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          verification))\n      (@Option.some.{0} S point)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@ShielddSecurity.ShielddNativeSdk.key F inst E S R K Q Signing J inst_1 fq fr d model Encoded Native backend\n      upstream verification)\n    (@Option.some.{0} (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_1 d model\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          (@ShielddSecurity.ShielddNativeSdk.Upstream.keyPoint F inst E S R K Q Signing J inst_1 fq fr d model upstream\n            verification))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "831e6795b7110bdca7af6f7aa328c58c92d3af136b1a132cc1ec5b5ea4afa03f"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeSdk.plan_randomization",
+      "full_type": "@ShielddSecurity.ShielddNativeSdk.plan_randomization : \u2200 {F : Type} [inst : Field.{0} F] {E S R K Q Signing J : Type}\n  [inst_1 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d}\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model)\n  (verification : K) (randomizer : R),\n  @Eq.{1} J\n    (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n      (@ShielddSecurity.ShielddNativeSdk.Upstream.keyPoint F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.planRk F inst E S R K Q Signing J inst_1 fq fr d model upstream verification\n          randomizer)))\n    (@HAdd.hAdd.{0, 0, 0} J J J\n      (@instHAdd.{0} J\n        (@AddCommMagma.toAdd.{0} J\n          (@AddCommSemigroup.toAddCommMagma.{0} J\n            (@AddCommMonoid.toAddCommSemigroup.{0} J (@AddCommGroup.toAddCommMonoid.{0} J inst_1)))))\n      (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.keyPoint F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          verification))\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_1)))))\n        (@ShielddSecurity.GroupNativeSdk.FrBytes.integer R fr randomizer)\n        (@ShielddSecurity.ShielddNativeSdk.Upstream.embed F inst E S R K Q Signing J inst_1 fq fr d model upstream\n          (@ShielddSecurity.ShielddNativeSdk.Upstream.promote F inst E S R K Q Signing J inst_1 fq fr d model upstream\n            (@ShielddSecurity.ShielddNativeSdk.Upstream.spendAuthSubgroup F inst E S R K Q Signing J inst_1 fq fr d\n              model upstream)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "16405771cd9cf04655e17c07c83ef45d4ec9df7e4b8f5ccb854e92895203e090"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 18424,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\runs\\01-ShielddNativeSdk\\stdout.txt",
+    "sha256": "cf3b7d80b94b0e83a025982a06f9d4e4e2ab7b18bf6b1da282a0a3bf933ecda2"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.ShielddNativeSdk.Upstream": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "dec7614e13d2923f4a7a7f0f55d11a37f303052c8004fef6d030b4896386af81"
+      },
+      "ShielddSecurity.ShielddNativeSdk.admission_program": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "73388befa16ab3bdcec174a1f7b1015a5a9113610e63dba73de8941c8de28e93"
+      },
+      "ShielddSecurity.ShielddNativeSdk.coordinateX": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "e2cc67485203eb06ca6debf8866eada9340b76ae2ab0ee957b7ae71da89bb217"
+      },
+      "ShielddSecurity.ShielddNativeSdk.coordinateY": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "cb2ff1c013041cf6bbb790f8b37c2ef3e5a0a52965cd25b3621e835efb19e478"
+      },
+      "ShielddSecurity.ShielddNativeSdk.field": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "e1175b47537e9a703cdcfc9d4d906b5c79711d4ec219384f923d7d7bda3b650f"
+      },
+      "ShielddSecurity.ShielddNativeSdk.field_read": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "6cb5ac8b01309d6336ec185de2028634365d0b624f9b69394088c1dae1377d1d"
+      },
+      "ShielddSecurity.ShielddNativeSdk.generator_parsed": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "417a0cc76f9745317f90c19582582fbd159cc0b3cc83cdea24da88533b6d9839"
+      },
+      "ShielddSecurity.ShielddNativeSdk.key": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "ab09c120cb85ceca0e5f013f97207f8d638f112553ea1f322f0c698a053f2ee8"
+      },
+      "ShielddSecurity.ShielddNativeSdk.key_read": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "831e6795b7110bdca7af6f7aa328c58c92d3af136b1a132cc1ec5b5ea4afa03f"
+      },
+      "ShielddSecurity.ShielddNativeSdk.nativePoint": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "182bb7d0a210edd7b5eb1d8a2b5b89be9fc7793567bb48f9060a543ea5777c43"
+      },
+      "ShielddSecurity.ShielddNativeSdk.native_point_read": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "39d19cddd9de5faea24af105325827429e9defafee734f74b04189d517183198"
+      },
+      "ShielddSecurity.ShielddNativeSdk.nonidentity": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "43a58906a25478ac320862a47e98caf7c2ebd044b5d1e2c1e16614c419e1966d"
+      },
+      "ShielddSecurity.ShielddNativeSdk.oneBytes": {
+        "axioms": [],
+        "full_type_sha256": "51aa5f1edad47df75f1841c716ac70536ca89fe909882c83a0524bce1cbc6244"
+      },
+      "ShielddSecurity.ShielddNativeSdk.planRk": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "2d4228428fce9400a16b4d422e8f708f3f0f27f078295c80d55f9d04957b6ce1"
+      },
+      "ShielddSecurity.ShielddNativeSdk.plan_randomization": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "16405771cd9cf04655e17c07c83ef45d4ec9df7e4b8f5ccb854e92895203e090"
+      },
+      "ShielddSecurity.ShielddNativeSdk.scalar": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "a91bd8f36b89c99aee092abea7be5821d3306b7da5f5ea9fc19bb1f7bd025710"
+      },
+      "ShielddSecurity.ShielddNativeSdk.scalar_one_bytes": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "362476d9e9a05317f0cb7e18ae36e1295fc84658b481bde5c4a5cac06ba46969"
+      },
+      "ShielddSecurity.ShielddNativeSdk.scalar_read": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "8698e7590621953c6e6e25895a429d42f6eb9c73d6877b418e009235544ddec1"
+      },
+      "ShielddSecurity.ShielddNativeSdk.sdk": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "46d9aa5aba5cb554b239acc94a5e92e20894e0257f96f8c32190a04fed8730a0"
+      },
+      "ShielddSecurity.ShielddNativeSdk.spendAuthProgram": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "f0362961564babacb42042770f5c45b7a2835b30b0e36660a34908be066fb0ee"
+      },
+      "ShielddSecurity.ShielddNativeSdk.spend_auth_program": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "c4144641611cad3049555919bdf0e04d825510395a828d48917bf797ebab95f3"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\project\\ShielddSecurity\\ShielddNativeSdk.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\project\\ShielddSecurity\\ShielddNativeSdk.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 882880,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\project\\ShielddSecurity\\ShielddNativeSdk.olean",
+        "sha256": "a405e918bb1eff7fa6ee26e3b82a615c7d466d4d590f157385bd1529bdd73938"
+      }
+    ],
+    "peak_rss_bytes": 1111658496,
+    "seconds": 15.156293599982746,
+    "status": "passed",
+    "stdout": {
+      "bytes": 18424,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-owned-programs-20261010-01\\runs\\01-ShielddNativeSdk\\stdout.txt",
+      "sha256": "cf3b7d80b94b0e83a025982a06f9d4e4e2ab7b18bf6b1da282a0a3bf933ecda2"
+    }
+  }
+}

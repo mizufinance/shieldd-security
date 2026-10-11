@@ -1,0 +1,93 @@
+{
+  "module": "ShielddNativeAuthorizationRaw",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.ShielddNativeAuthorizationRaw.authorization",
+      "full_type": "@ShielddSecurity.ShielddNativeAuthorizationRaw.authorization : {F Raw Encoded : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    {E S R K Q Signing J : Type} \u2192\n      [inst_1 : AddCommGroup.{0} J] \u2192\n        {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q} \u2192\n          {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} \u2192\n            {d : F} \u2192\n              {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_1 d} \u2192\n                (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n                  (read : @ShielddSecurity.ShielddNativeScalar.ReadPrimitives F inst Encoded Raw operations) \u2192\n                    (write : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations) \u2192\n                      (upstream :\n                          @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_1 fq fr d model) \u2192\n                        (verification : K) \u2192\n                          (randomizer : R) \u2192 Option.{0} (ShielddSecurity.ShielddNativePoint.Point Raw)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "5504ff1db0e85db3f2917cf71b1aaec0e6618693f2908f07072f326455d4226f"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeAuthorizationRaw.multiply_scalar_value",
+      "full_type": "@ShielddSecurity.ShielddNativeAuthorizationRaw.multiply_scalar_value : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (write : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations)\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (base : ShielddSecurity.ShielddNativePoint.Point Raw) (scalar : ShielddSecurity.ShielddNativeScalar.Wrapped Raw),\n  @Eq.{1} (ShielddSecurity.Group.Point F)\n    (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations\n      (@ShielddSecurity.ShielddNativeEncode.multiplyScalar F Raw Encoded inst operations write base scalar))\n    (@ShielddSecurity.GroupNativeMultiply.nativeMultiply F inst\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        (@Neg.neg.{0} F\n          (@NegZeroClass.toNeg.{0} F\n            (@SubNegZeroMonoid.toNegZeroClass.{0} F\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                    (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10240)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10240)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10238) (instOfNatNat (nat_lit 10238))))))))\n        (@Inv.inv.{0} F\n          (@InvOneClass.toInv.{0} F\n            (@DivInvOneMonoid.toInvOneClass.{0} F\n              (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                  (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                    (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10241)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10241)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10240) (instOfNatNat (nat_lit 10240)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))))))))\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations base)\n      (ShielddSecurity.GroupByteCodec.reader\n        (@ShielddSecurity.GroupByteCodec.BEWrite.encode F inst codec\n          (@ShielddSecurity.GroupByteCodec.canonicalWrite F inst codec)\n          (@ShielddSecurity.ShielddNativeScalar.value F inst Raw operations scalar))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "691d5090eac93a502fd11b66f531db5ce79413f143b2aaf7464af72069fabb4a"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeAuthorizationRaw.authorization_value",
+      "full_type": "@ShielddSecurity.ShielddNativeAuthorizationRaw.authorization_value : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {E S R K Q Signing J : Type} [inst_2 : AddCommGroup.{0} J] {fq : ShielddSecurity.GroupNativeSdk.FqBytes Q}\n  {fr : ShielddSecurity.GroupNativeSdk.FrBytes R} {d : F}\n  {model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_2 d}\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (read : @ShielddSecurity.ShielddNativeScalar.ReadPrimitives F inst Encoded Raw operations)\n  (write : @ShielddSecurity.ShielddNativeEncode.Primitives F Raw Encoded inst operations)\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (upstream : @ShielddSecurity.ShielddNativeSdk.Upstream F inst E S R K Q Signing J inst_2 fq fr d model)\n  (standardCoefficient :\n    @Eq.{1} F d\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        (@Neg.neg.{0} F\n          (@NegZeroClass.toNeg.{0} F\n            (@SubNegZeroMonoid.toNegZeroClass.{0} F\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                    (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10240)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10240)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10238) (instOfNatNat (nat_lit 10238))))))))\n        (@Inv.inv.{0} F\n          (@InvOneClass.toInv.{0} F\n            (@DivInvOneMonoid.toInvOneClass.{0} F\n              (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                  (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                    (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n          (@OfNat.ofNat.{0} F (nat_lit 10241)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 10241)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 10240) (instOfNatNat (nat_lit 10240)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 10239) (instOfNatNat (nat_lit 10239))))))))))\n  (verification : K) (randomizer : R),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@Option.map.{0, 0} (ShielddSecurity.ShielddNativePoint.Point Raw) (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations)\n      (@ShielddSecurity.ShielddNativeAuthorizationRaw.authorization F Raw Encoded inst E S R K Q Signing J inst_2 fq fr\n        d model operations read write upstream verification randomizer))\n    (@ShielddSecurity.ShielddNativeAuthorization.authorization F inst E S R K Q Signing J inst_2 fq fr d model Encoded\n      (ShielddSecurity.ShielddNativeScalar.Wrapped Raw)\n      (@ShielddSecurity.ShielddNativeScalar.readerBackend F inst Encoded Raw operations read) upstream codec\n      (@ShielddSecurity.GroupByteCodec.canonicalWrite F inst codec) verification randomizer)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "c7749852b1dae6d66388dd49958dc697535a8b9bb18d82971c2fc898c6e72c61"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 9008,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-authorization-20261010-01\\runs\\01-ShielddNativeAuthorizationRaw\\stdout.txt",
+    "sha256": "5def1f61b050bd0f485f048c2f3a3428c27694bfa0587cc7233fbd87e05250b1"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.ShielddNativeAuthorizationRaw.authorization": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "5504ff1db0e85db3f2917cf71b1aaec0e6618693f2908f07072f326455d4226f"
+      },
+      "ShielddSecurity.ShielddNativeAuthorizationRaw.authorization_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "c7749852b1dae6d66388dd49958dc697535a8b9bb18d82971c2fc898c6e72c61"
+      },
+      "ShielddSecurity.ShielddNativeAuthorizationRaw.multiply_scalar_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "691d5090eac93a502fd11b66f531db5ce79413f143b2aaf7464af72069fabb4a"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-authorization-20261010-01\\project\\ShielddSecurity\\ShielddNativeAuthorizationRaw.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-authorization-20261010-01\\project\\ShielddSecurity\\ShielddNativeAuthorizationRaw.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 201184,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-authorization-20261010-01\\project\\ShielddSecurity\\ShielddNativeAuthorizationRaw.olean",
+        "sha256": "79250aba594f3067fd615c2593f6cc053609ad6b86b6c28c97931b221ac0de00"
+      }
+    ],
+    "peak_rss_bytes": 1118367744,
+    "seconds": 14.678686600003857,
+    "status": "passed",
+    "stdout": {
+      "bytes": 9008,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-authorization-20261010-01\\runs\\01-ShielddNativeAuthorizationRaw\\stdout.txt",
+      "sha256": "5def1f61b050bd0f485f048c2f3a3428c27694bfa0587cc7233fbd87e05250b1"
+    }
+  }
+}

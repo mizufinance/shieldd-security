@@ -1,0 +1,111 @@
+{
+  "module": "ShielddNativeReadPoint",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.ShielddNativeReadPoint.readPoint",
+      "full_type": "@ShielddSecurity.ShielddNativeReadPoint.readPoint : {F Raw Encoded : Type} \u2192\n  [inst : Field.{0} F] \u2192\n    (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw) \u2192\n      (primitives : @ShielddSecurity.ShielddNativeScalar.ReadPrimitives F inst Encoded Raw operations) \u2192\n        (x y : ShielddSecurity.GroupByteCodec.Bytes) \u2192 Option.{0} (ShielddSecurity.ShielddNativePoint.Point Raw)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0a335567e6e05d30f81d6d2aaacc07e987bf06fe84b41caaf4aac4ea84bb16fa"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeReadPoint.read_point_value",
+      "full_type": "@ShielddSecurity.ShielddNativeReadPoint.read_point_value : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F]\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (primitives : @ShielddSecurity.ShielddNativeScalar.ReadPrimitives F inst Encoded Raw operations)\n  (x y : ShielddSecurity.GroupByteCodec.Bytes),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@Option.map.{0, 0} (ShielddSecurity.ShielddNativePoint.Point Raw) (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations)\n      (@ShielddSecurity.ShielddNativeReadPoint.readPoint F Raw Encoded inst operations primitives x y))\n    (@ShielddSecurity.GroupNativeAuthorization.readPoint F inst\n      (@ShielddSecurity.ShielddScalarReader.decoder F inst Encoded (ShielddSecurity.ShielddNativeScalar.Wrapped Raw)\n        (@ShielddSecurity.ShielddNativeScalar.readerBackend F inst Encoded Raw operations primitives))\n      x y)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "375405670cd9595852f785ac6e622596dc154e61e545e0e6cd304ebdea14df46"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeReadPoint.coordinate_read_value",
+      "full_type": "@ShielddSecurity.ShielddNativeReadPoint.coordinate_read_value : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F] {S : Type}\n  (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (primitives : @ShielddSecurity.ShielddNativeScalar.ReadPrimitives F inst Encoded Raw operations)\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst) (coordinates : S \u2192 ShielddSecurity.Group.Point F)\n  (bytes : @ShielddSecurity.GroupNativeAuthorization.CoordinateBytes F inst S codec coordinates) (point : S),\n  @Eq.{1} (Option.{0} (ShielddSecurity.Group.Point F))\n    (@Option.map.{0, 0} (ShielddSecurity.ShielddNativePoint.Point Raw) (ShielddSecurity.Group.Point F)\n      (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations)\n      (@ShielddSecurity.ShielddNativeReadPoint.readPoint F Raw Encoded inst operations primitives\n        (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.x F inst S codec coordinates bytes point)\n        (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.y F inst S codec coordinates bytes point)))\n    (@Option.some.{0} (ShielddSecurity.Group.Point F) (coordinates point))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e7949234e1a27b549a2e3457ea4e45d2c9178ef5c915b587f4c874dc52f52fac"
+    },
+    {
+      "declaration": "ShielddSecurity.ShielddNativeReadPoint.coordinate_read_succeeds",
+      "full_type": "@ShielddSecurity.ShielddNativeReadPoint.coordinate_read_succeeds : \u2200 {F Raw Encoded : Type} [inst : Field.{0} F]\n  {S : Type} (operations : @ShielddSecurity.ShielddNativeScalar.Operations F inst Raw)\n  (primitives : @ShielddSecurity.ShielddNativeScalar.ReadPrimitives F inst Encoded Raw operations)\n  (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst) (coordinates : S \u2192 ShielddSecurity.Group.Point F)\n  (bytes : @ShielddSecurity.GroupNativeAuthorization.CoordinateBytes F inst S codec coordinates) (point : S),\n  @Exists.{1} (ShielddSecurity.ShielddNativePoint.Point Raw)\n    fun (output : ShielddSecurity.ShielddNativePoint.Point Raw) =>\n    And\n      (@Eq.{1} (Option.{0} (ShielddSecurity.ShielddNativePoint.Point Raw))\n        (@ShielddSecurity.ShielddNativeReadPoint.readPoint F Raw Encoded inst operations primitives\n          (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.x F inst S codec coordinates bytes point)\n          (@ShielddSecurity.GroupNativeAuthorization.CoordinateBytes.y F inst S codec coordinates bytes point))\n        (@Option.some.{0} (ShielddSecurity.ShielddNativePoint.Point Raw) output))\n      (@Eq.{1} (ShielddSecurity.Group.Point F)\n        (@ShielddSecurity.ShielddNativePoint.pointValue F Raw inst operations output) (coordinates point))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "5ef6dd907b82ad6c1efcac5509a232d3756350bc2af402450584f19569c22cfc"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 4311,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\runs\\01-ShielddNativeReadPoint\\stdout.txt",
+    "sha256": "74b50dcff853b80a44bfaa2e78969ba1f3a7a5982882a7db97cca64d72e67864"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.ShielddNativeReadPoint.coordinate_read_succeeds": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "5ef6dd907b82ad6c1efcac5509a232d3756350bc2af402450584f19569c22cfc"
+      },
+      "ShielddSecurity.ShielddNativeReadPoint.coordinate_read_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "e7949234e1a27b549a2e3457ea4e45d2c9178ef5c915b587f4c874dc52f52fac"
+      },
+      "ShielddSecurity.ShielddNativeReadPoint.readPoint": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "0a335567e6e05d30f81d6d2aaacc07e987bf06fe84b41caaf4aac4ea84bb16fa"
+      },
+      "ShielddSecurity.ShielddNativeReadPoint.read_point_value": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "375405670cd9595852f785ac6e622596dc154e61e545e0e6cd304ebdea14df46"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\project\\ShielddSecurity\\ShielddNativeReadPoint.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\project\\ShielddSecurity\\ShielddNativeReadPoint.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 93736,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\project\\ShielddSecurity\\ShielddNativeReadPoint.olean",
+        "sha256": "1c44d859e90fbace4e28b9c462a8210a4e1e57f27f3c14b5393b165b5038e5b2"
+      }
+    ],
+    "peak_rss_bytes": 1093537792,
+    "seconds": 14.566264099965338,
+    "status": "passed",
+    "stdout": {
+      "bytes": 4311,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-raw-point-multiply-20261010-02\\runs\\01-ShielddNativeReadPoint\\stdout.txt",
+      "sha256": "74b50dcff853b80a44bfaa2e78969ba1f3a7a5982882a7db97cca64d72e67864"
+    }
+  }
+}
