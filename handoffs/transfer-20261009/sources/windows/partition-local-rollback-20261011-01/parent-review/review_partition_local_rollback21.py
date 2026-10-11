@@ -1,0 +1,4 @@
+from pathlib import Path
+import json,hashlib,re
+J=Path(__file__).resolve().parent;D=J/'windows-partition-local-rollback-review01';P=D/'packet01';S=P/'source/ShielddSecurity/TransferPartitionLocalRollback01.lean';b=S.read_bytes();assert hashlib.sha256(b).hexdigest()=='18f9efba2d41f526a24c86d2c19abdf7e8c8f979d9257f397e7a11c5aef79ca4';s=b.decode();assert len(re.findall(r'^(?:def|theorem) ',s,re.M))==4;assert 'current.set index (rootAfter index current), errorAfter index current' in s;assert 'List.getElem?_set_ne different' in s;assert '(Nat.ne_of_lt strictlyLater)'in s;assert '(partition_local_rollback_derives_forward_partition_frames rootAfter errorAfter base)'in s
+r=json.loads((D/'endpoint-audit-review01.json').read_text());assert r['status']=='PASSED'and r['fresh_reports']==4;scope=json.loads((D/'semantic-source-review01.json').read_text())['scope'];assert 'not assumed'in scope;print(json.dumps(dict(status='PASSED',reports=4,scope=scope)))
