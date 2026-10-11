@@ -1,0 +1,107 @@
+ShielddSecurity.TransferFinalizationObjectFrames01.otherKeys : List.{0} ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferFinalizationObjectFrames01.otherKeys' does not depend on any axioms
+ShielddSecurity.TransferFinalizationObjectFrames01.Mutation : (O : Type) → Type
+'ShielddSecurity.TransferFinalizationObjectFrames01.Mutation' does not depend on any axioms
+@ShielddSecurity.TransferFinalizationObjectFrames01.applyMutation : {O E : Type} →
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+    (delta : ShielddSecurity.TransferStateDelta.Delta O E) →
+      (mutation : ShielddSecurity.TransferFinalizationObjectFrames01.Mutation O) →
+        ShielddSecurity.TransferStateDelta.Delta O E
+'ShielddSecurity.TransferFinalizationObjectFrames01.applyMutation' does not depend on any axioms
+@ShielddSecurity.TransferFinalizationObjectFrames01.mutationWalk : {O E : Type} →
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+    ShielddSecurity.TransferStateDelta.Delta O E →
+      List.{0} (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation O) →
+        ShielddSecurity.TransferStateDelta.Delta O E
+'ShielddSecurity.TransferFinalizationObjectFrames01.mutationWalk' does not depend on any axioms
+ShielddSecurity.TransferFinalizationObjectFrames01.source_known_other_object_keys_are_all_separate_from_pending : @Eq.{1}
+  Bool
+  (@List.all.{0} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferFinalizationObjectFrames01.otherKeys
+    fun (key : ShielddSecurity.TransferStateDelta.Bytes) =>
+    @Decidable.decide
+      (@Ne.{1} ShielddSecurity.TransferStateDelta.Bytes key
+        ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+      (@instDecidableNot
+        (@Eq.{1} ShielddSecurity.TransferStateDelta.Bytes key
+          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+        (@instDecidableEqList.{0} Nat instDecidableEqNat key
+          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+  Bool.true
+'ShielddSecurity.TransferFinalizationObjectFrames01.source_known_other_object_keys_are_all_separate_from_pending' does not depend on any axioms
+@ShielddSecurity.TransferFinalizationObjectFrames01.single_known_object_put_or_delete_preserves_pending_observation : ∀
+  {O E : Type} (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (delta : ShielddSecurity.TransferStateDelta.Delta O E)
+  (mutation : ShielddSecurity.TransferFinalizationObjectFrames01.Mutation O),
+  @Eq.{1} (Option.{0} O)
+    (@ShielddSecurity.TransferStateDelta.State.objects O
+      (@ShielddSecurity.TransferStateDelta.applyCache O E
+        (@ShielddSecurity.TransferStateDelta.Delta.parent O E
+          (@ShielddSecurity.TransferFinalizationObjectFrames01.applyMutation O E project delta mutation))
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+          (@ShielddSecurity.TransferFinalizationObjectFrames01.applyMutation O E project delta mutation)))
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+    (@ShielddSecurity.TransferStateDelta.State.objects O
+      (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E delta)
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E delta))
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+'ShielddSecurity.TransferFinalizationObjectFrames01.single_known_object_put_or_delete_preserves_pending_observation' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferFinalizationObjectFrames01.symbolic_known_finalization_mutation_walk_preserves_pending_observation : ∀
+  {O E : Type} (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (delta : ShielddSecurity.TransferStateDelta.Delta O E)
+  (mutations : List.{0} (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation O)),
+  @Eq.{1} (Option.{0} O)
+    (@ShielddSecurity.TransferStateDelta.State.objects O
+      (@ShielddSecurity.TransferStateDelta.applyCache O E
+        (@ShielddSecurity.TransferStateDelta.Delta.parent O E
+          (@ShielddSecurity.TransferFinalizationObjectFrames01.mutationWalk O E project delta mutations))
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+          (@ShielddSecurity.TransferFinalizationObjectFrames01.mutationWalk O E project delta mutations)))
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+    (@ShielddSecurity.TransferStateDelta.State.objects O
+      (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E delta)
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E delta))
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+'ShielddSecurity.TransferFinalizationObjectFrames01.symbolic_known_finalization_mutation_walk_preserves_pending_observation' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferFinalizationObjectFrames01.known_finalization_mutation_walk_retains_the_same_sealed_native_object : ∀
+  {O E : Type} (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O) (inputs : List.{0} Nat)
+  (delta : ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E)
+  (mutations :
+    List.{0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)))
+  (sealed :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (@ShielddSecurity.TransferStateDelta.State.objects (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferStateDelta.applyCache (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          E
+          (@ShielddSecurity.TransferStateDelta.Delta.parent
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E delta)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E delta))
+        (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+          (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed inputs))))),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+    (@ShielddSecurity.TransferStateDelta.State.objects (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      (@ShielddSecurity.TransferStateDelta.applyCache (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferStateDelta.Delta.parent
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+          (@ShielddSecurity.TransferFinalizationObjectFrames01.mutationWalk
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E project delta mutations))
+        (@ShielddSecurity.TransferStateDelta.Delta.cache (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          E
+          (@ShielddSecurity.TransferFinalizationObjectFrames01.mutationWalk
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E project delta mutations)))
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+    (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+        (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed inputs))))
+'ShielddSecurity.TransferFinalizationObjectFrames01.known_finalization_mutation_walk_retains_the_same_sealed_native_object' depends on axioms: [propext,
+ Quot.sound]
