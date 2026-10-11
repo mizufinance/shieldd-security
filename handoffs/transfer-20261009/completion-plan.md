@@ -1,5 +1,19 @@
 # Transfer proof completion plan — 9 October 2026
 
+The nullifier-batch and corrected raw-effect source models are accepted at
+d9ecb16eb403e9079ecff299e37a83bbbb116348: two selected modules and43 complete
+reports. Batch success derives ordered pending append, capacity under the
+explicit machine-word bound, observed freshness of every input and one object
+write after all checks. Raw execution derives ordered spend events, note callback
+ordering, current ordinary-volume recheck and two marker writes. A late conflict
+retains earlier child effects; enclosing delivery rejection preserves parent and
+queue. The corrected branch names match the exact runtime Ordinary/FeeFunding
+enum; regulated disclosure is separate. Parent checked exact inherited reports,
+original source/types/axioms/runtime bytes and unchanged machine guards.
+Superseded raw packets remain historical context and are not counted again.
+Callback/SCT, Rust ownership/collections/codecs, native durability and complete
+Transfer correspondence and certification remain OPEN.
+
 The full relation/epoch/zero-test joins are accepted at
 62820f7a3509e520900096d78cdacb15ddba60d2: nine original module executions
 and196 complete reports across the 64/66/68 packets. The full200770-position
