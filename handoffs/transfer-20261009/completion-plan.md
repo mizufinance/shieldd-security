@@ -832,3 +832,6 @@ Reviewed full prior-row source soundness at 2123244ad621f9df30e08a9f2ebb9c0a78a9
 
 
 Reviewed ordinary sealed Host commit at 80febe035002d5fc530b79e1fd02f0c5c0ecb7dd: 12 complete original public reports. Whole modeled success derives exact writer boundary/root, Ready writer, observed recovered Store and Host reset to Idle. Writer errors retain interrupted Host/actual physical progress; capacity error may leave writer Ready. Final missing-root guard is unreachable under derived writer success and supplies no semantic negative control. Native intermediate pre-call phase/temporal ghost correspondence, typed snapshot/reader/ownership, genesis, partition isolation and OS durability remain explicit. Full Transfer OPEN.
+
+
+Reviewed ordinary Host end_block at 93778f30259df23b08a23453d2ba1c1b4e4bdfeb:10 complete original public reports. Actual finalized callback result feeds concrete transfer and exact transferred pending order into writer preparation. Successful return derives same Frozen/next boundary, EndedBlock and observed active state/queue/events; failed transfer or missing identity retains interrupted transfer progress. Native signed-height conversion and application end_block returned-state/queue/component/epoch/SCT/panic semantics remain explicit callback correspondences. No internal event erasure or rollback inferred. Full Transfer remains OPEN.
