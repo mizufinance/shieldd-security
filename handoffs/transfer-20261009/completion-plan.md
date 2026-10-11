@@ -76,6 +76,16 @@ guard runners. Rust field, byte, strict decoder and actual iterator refinement
 remain owned obligations. The same desktop worker is continuing them without
 waiting for per-module approval; this is not native or full Transfer certification.
 
+The four-module SDK codec source-model packet is accepted at
+`adcd2935d3fc6ded49c715d2b2cdcb4e96275918` (33 complete reports).
+It joins reversed canonical byte/bit traversal to the mathematical 252-bit
+reader and the source scalar fold; literal modulus testing is equivalent to
+scalar-order annihilation. Decoder root equations and canonical Y/sign derive
+the certified SDK base and its subgroup property. Parent matched every original
+output, all411 import associations and four unchanged guard runners. Actual
+Rust field/codec/iterator refinement and general encoding/authorization joins
+remain separate obligations being advanced by the same desktop worker.
+
 The retained Mac worker has extracted the entire177,954-row arithmetic provider
 into599 bounded leaves and is qualifying its first production leaves and
 symbolic aggregators. These live results are not yet a sealed full-provider
