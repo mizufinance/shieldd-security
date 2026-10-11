@@ -1107,3 +1107,6 @@ Publish independently reviewed scalar-wide-product original source model. 7 comp
 
 
 Publish independently reviewed scalar-wide-round original source model. 6 complete original reports; exact independently accepted ancestry. Four-limb source-shaped MAC round proves low-word cancellation, exact shifted integer conservation, and width. Upper ADC consumes pending and MAC carry; new carry retains radix^4 weight. No desired cancellation/output premise. Actual Rust primitive/compiler/full execution binding remains owned OPEN. Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed scalar-wide-walk original source model. 7 complete original reports; exact independently accepted ancestry. Source-shaped wide round recurrence derives four-word final width, radix-powered modular value and final less-than-two-modulus bound from explicit input width/range. No desired output premise. Actual Rust primitive/compiler/full execution binding remains owned OPEN. Combined replay and full Transfer remain OPEN.
