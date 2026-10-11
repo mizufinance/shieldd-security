@@ -679,3 +679,6 @@ Reviewed nextValue range/canonical/shared constructor, evidence 9f95356b6eb9d950
 
 
 Reviewed source consensus limit and whole reader refusal join, evidence 89856377b85aebea7411deb03e11080128501ffe:7+9 fresh complete reports, immutable guard/ancestry associations and exact producer regeneration. Kernel-proved32768 capacity bound for explicit supported32/64bit words replaces caller-selected capacity. Five observable Reader/boundary/lock/stale/authenticated-spent refusals preserve exact original parent/deferred queue through whole delivery finish in both contexts/every mode. Authenticated spent requires explicit Merkle soundness; actual typed/native/hash/codec/ownership/Host/durability and full Transfer remain OPEN. No new native or executed negative controls; physical guards unchanged.
+
+
+Reviewed pending set/list invariant, evidence 672f0d2631335738a9325b2cc4a414c90ba0fd10:7 fresh complete reports and395 exact inherited reports/40 owned modules. Successful actual inspect derives pending-list uniqueness/freshness, preserved membership coherence, capacity and unsealed status from old coherence/Nodup and explicit word bound; no desired next invariant premise. Empty pending establishes the base. Whole-delivery/block-sequence induction remains subsequent work. Typed/native/store/ownership/Host/durability/full Transfer OPEN; physical protections unchanged.
