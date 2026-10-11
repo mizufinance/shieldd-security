@@ -744,3 +744,8 @@ Evidence commit: 9649c51a5c6f3596094818d256843675206fa1a1
 Independent review accepted5modules24 complete original reverse comparison reports. Actual full captured relation implies first high/low comparison hint meanings under independent input limb meanings, and the actual gap polynomial is zero. Boolean decoding and canonical short-width recovery are proved; arbitrary255bit canonical/input/TransferSem recovery remains OPEN. Constructor coverage remains1467distinct assertions; native and final replay OPEN. Exact immutable original ledger snapshot and guard/storage identities independently verified.
 
 Evidence commit: 25be8233ae284ea39af032cf9360e0398b82b56a
+
+
+14 complete original reports independently accepted for source writer preparation. Success derives every prior call, Prepared phase, original exact accepted block-input order and observed insertion boundary/application root. Whole reachable finite-codec walk/freeze supplies global uniqueness and32768capacity. Failure preserves writer phase, with no disposable-state rollback claim. Native batch/async/ownership/session/Host and durable intent/commit/reopen remain OPEN.
+
+Evidence commit: c66d0069dd3a2dd831f69e8cceccf6bc8ff38079
