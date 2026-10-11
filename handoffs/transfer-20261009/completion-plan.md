@@ -734,3 +734,8 @@ Evidence commit: 405f047ae2436547ca198de51018114c2ca3440c
 12 complete original reports independently reviewed for finite pending enum erasure and coherent restoration. Open append and Sealed ordered-only ghost membership match the scoped enum behavior. Arbitrary model membership is never asserted to have a native codec. Native collections, typed objects, ownership and durability remain OPEN; whole-block restricted-codec successor reviewed separately.
 
 Evidence commit: ac32865ebec09dda4eee36dd85844c0adb756abe
+
+
+7 original complete reports independently accepted for the same whole-block walk and one-shot seal using only derived coherent pending codec restoration. The finite enum wrapper derives exact frozen global inputs, uniqueness/capacity, ensure, repeated refusal and later whole-request preservation from encoded default empty Open and actual walk success. Independent exact maintained generator replay passed. Native representation, scheduling, ownership, session/proof/Host/durability remain OPEN.
+
+Evidence commit: 9649c51a5c6f3596094818d256843675206fa1a1
