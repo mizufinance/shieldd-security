@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-adc-shift-review01/packet01/source/ShielddSecurity/TransferScalarAdcShift01.lean",
+    "bytes": 3661,
+    "sha256": "7b12e5256ec71c9679930254216ed3101726eb316b18e1f5c5622ca98f40e7a7"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-adc-shift-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 1772,
+    "sha256": "75c83575e496a4a4cd9e744eb90579833339ef3c8c099ba3866086a23a276262"
+  },
+  "fresh_reports": 8,
+  "definitions": 3,
+  "theorems": 5,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-adc-shift-review01/packet01/rejected/01/handwritten/TransferScalarAdcShift01.lean",
+      "bytes": 3663,
+      "sha256": "6f2bde54e0d92bb93d5414794781755b0ed359eec9d508ac4233a87faf30e8a8"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.880777499987744,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-adc-shift-20261011-01\\project\\ShielddSecurity\\TransferScalarAdcShift01.lean:20:41: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-adc-shift-20261011-01\\project\\ShielddSecurity\\TransferScalarAdcShift01.lean:28:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -20,11 +20,12 @@\n     sourceSplit128 ret = split128 ret := by\n   unfold sourceSplit128 split128\n   rw [BitVec.toNat_ushiftRight, Nat.shiftRight_eq_div_pow]\n+  rfl\n \n theorem widened_adc_is_unit_multiplier_mac (a b carry : UInt64) :\n     adc128 a b carry = mac128 a 1 b carry := by\n   change BitVec.ofNat 128 a.toNat + BitVec.ofNat 128 b.toNat + BitVec.ofNat 128 carry.toNat =\n-    BitVec.ofNat 128 a.toNat + (1 : BitVec 128) * BitVec.ofNat 128 b.toNat + BitVec.ofNat 128 carry.toNat\n+    BitVec.ofNat 128 a.toNat + (1#128) * BitVec.ofNat 128 b.toNat + BitVec.ofNat 128 carry.toNat\n   rw [BitVec.one_mul]\n \n theorem widened_adc_preserves_full_integer_sum (a b carry : UInt64) :\n"
+  },
+  "scope": "Exact BitVec128 fixed shift and UInt64 casts coincide with radix quotient split; source ADC conserves two words plus carry. Native Rust evaluation and field correspondence remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
