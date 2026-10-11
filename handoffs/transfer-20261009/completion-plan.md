@@ -962,3 +962,10 @@ The actual Rust trace, ADC/SBB, byte layout and modular/typed correspondences re
 Published `TransferScalarFourRoundWrapper01` with14original complete type/axiom reports in `sources/windows/scalar-four-round-wrapper-20261011-01`. Independent review verified exact source/runtime/guard/ancestry/load identities, the preserved failed01 attempt, unchanged five model definitions/nine contracts and the exact maintained repair of two reflexive inequalities. Exact pinned modulus/INV word constants and wrapped low-word multipliers drive the actual modeled carry calls. Four-word width and every multiplier bound/count derive from those calls, and the modeled four rounds pack to the preceding quotient recurrence. Mathematical conditional subtraction then gives canonical nullifier-field range for any four UInt64 inputs, with no input-field-range or caller-provided multiplier-vector premise.
 
 Actual Rust padded-eight-limb/ADC/SBB/carry trace, subtraction mask, byte order, field-type invariant and modular correspondence remain owned OPEN. This is the finite source model, not native Rust execution/full certification. Native controls and final selected combined replay remain UNRUN; full Transfer remains OPEN. The desktop agent continues its chosen native correspondence bridges autonomously.
+
+
+### Source-shaped fixed shift and ADC arithmetic, 2026-10-11
+
+Published `TransferScalarAdcShift01` with8original full type/axiom reports in `sources/windows/scalar-adc-shift-20261011-01`. Independent review verifies complete original guard/runtime/ancestry/receipt/load identities and exact maintained failed01 proof repair with every definition/contract preserved. Fixed high shift and UInt64 casts coincide with quotient split; finite ADC equals unit MAC and conserves both words, deriving the zero-upper-limb carry identity.
+
+Actual Rust trace/type/field interpretation, subtraction, byte order and Montgomery semantic correspondence remain owned OPEN. Native controls and final replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
