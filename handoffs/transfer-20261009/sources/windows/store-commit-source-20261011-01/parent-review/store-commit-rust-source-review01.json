@@ -1,0 +1,23 @@
+{
+  "status": "PASSED",
+  "kind": "Independent pinned Rust Store.commit branch pre-review; no candidate Lean/kernel/native execution claim",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/component/sct/src/permanent_nullifiers/store.rs",
+    "bytes": 32442,
+    "sha256": "434554cdb4bfb04f37a71707fb0c81ed77ffcf35677a5cab5aaaffd8832cb5a9"
+  },
+  "source_behavior": [
+    "ensure_ready then previous boundary and actual previous roots gate happen before intent read",
+    "File open/read_record errors and serialization errors return before ready=false; exact intent byte equality required",
+    "ready=false assigned before iterating Prepared.sessions in their original Vec order",
+    "Each (index, FinishedSession) commit is fallible and can leave earlier participants physically committed; no transactional rollback is performed by this function",
+    "First session failure skips later sessions and final next-root check; ready remains false",
+    "Only all session success reaches final independently observed actual_roots==transition.next.roots comparison",
+    "Successful returned Transition leaves ready=false and in-memory boundary unchanged; Store.complete invokes recover separately",
+    "Actual NOMT session behavior, participant indices/types/order provenance, roots, health/poison, representation, ownership, errors and physical persistence remain native interfaces for a functional model"
+  ],
+  "full_transfer": "OPEN",
+  "reviewed_lean_module": "TransferStoreCommitSource01",
+  "model_branch_projection_matches_pinned_source": true
+}
