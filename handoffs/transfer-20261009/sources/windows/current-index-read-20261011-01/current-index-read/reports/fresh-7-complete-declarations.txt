@@ -1,0 +1,191 @@
+@ShielddSecurity.TransferOrdinaryIndexReadSource01.readNV : {O E : Type} →
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) →
+    (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+      (key : Nat) → Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+'ShielddSecurity.TransferOrdinaryIndexReadSource01.readNV' does not depend on any axioms
+@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads : {O E A : Type} →
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded) →
+    (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) →
+      ShielddSecurity.TransferIndexWriterModel01.Backend O E A
+'ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads' does not depend on any axioms
+@ShielddSecurity.TransferOrdinaryIndexReadSource01.successful_nv_read_derives_available_current_value : ∀ {O E : Type}
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (key : Nat)
+  (value : Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+  (success :
+    @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (@ShielddSecurity.TransferOrdinaryIndexReadSource01.readNV O E available child key)
+      (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes) value)),
+  And (@Eq.{1} Bool (available child key) Bool.true)
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        key)
+      value)
+'ShielddSecurity.TransferOrdinaryIndexReadSource01.successful_nv_read_derives_available_current_value' depends on axioms: [propext]
+@ShielddSecurity.TransferOrdinaryIndexReadSource01.available_existing_id_derives_semantic_duplicate : ∀ {O E A : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (height : Nat) (action : A)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (encoded : ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (previous : ShielddSecurity.TransferStateDelta.Bytes)
+  (converted :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded) (convert action)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded encoded))
+  (readable :
+    @Eq.{1} Bool
+      (available child
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+          (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier encoded)))
+      Bool.true)
+  (present :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+          (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier encoded)))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes previous)),
+  @Eq.{1}
+    (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness)
+    (@ShielddSecurity.TransferIndexWriterModel01.inspect O E A keys codec
+      (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert available) height action child)
+    (@Except.error.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness
+      ShielddSecurity.TransferIndexWriterModel01.IndexError.duplicate)
+'ShielddSecurity.TransferOrdinaryIndexReadSource01.available_existing_id_derives_semantic_duplicate' depends on axioms: [propext]
+@ShielddSecurity.TransferOrdinaryIndexReadSource01.existing_id_excludes_index_success : ∀ {O E A : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (height : Nat) (action : A)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (encoded : ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (previous : ShielddSecurity.TransferStateDelta.Bytes)
+  (converted :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded) (convert action)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded encoded))
+  (present :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+          (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier encoded)))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes previous))
+  (witness : ShielddSecurity.TransferIndexWriterModel01.Witness),
+  @Ne.{1}
+    (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness)
+    (@ShielddSecurity.TransferIndexWriterModel01.inspect O E A keys codec
+      (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert available) height action child)
+    (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness witness)
+'ShielddSecurity.TransferOrdinaryIndexReadSource01.existing_id_excludes_index_success' depends on axioms: [propext]
+@ShielddSecurity.TransferOrdinaryIndexReadSource01.existing_parent_id_rejects_whole_ordinary_delivery : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (heightAvailable volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (decode : ShielddSecurity.TransferStateDelta.Bytes → Option.{0} Nat)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (entrySuffix daySuffix : ShielddSecurity.TransferStateDelta.Bytes)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity treeKey notesKey volumeKey payload nullifierKey height : Nat)
+  (action : A) (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (encoded : ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (previous encodedHeight : ShielddSecurity.TransferStateDelta.Bytes)
+  (converted :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded) (convert action)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded encoded))
+  (storedHeight :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent
+        (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes encodedHeight))
+  (decodedHeight : @Eq.{1} (Option.{0} Nat) (decode encodedHeight) (@Option.some.{0} Nat height))
+  (duplicate :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+          (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier encoded)))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes previous)),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+    (@ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        (@ShielddSecurity.TransferOrdinaryHeightSource01.withHeight O E A api heightAvailable decode
+          (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+        keys codec (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+        (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct volumeAvailable
+          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+          (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix))
+          (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)) action item))
+      registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued)
+    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+'ShielddSecurity.TransferOrdinaryIndexReadSource01.existing_parent_id_rejects_whole_ordinary_delivery' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferOrdinaryIndexReadSource01.existing_parent_id_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (heightAvailable volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (decode : ShielddSecurity.TransferStateDelta.Bytes → Option.{0} Nat)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (entrySuffix daySuffix : ShielddSecurity.TransferStateDelta.Bytes)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity treeKey notesKey volumeKey payload nullifierKey height : Nat)
+  (action : A) (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (encoded : ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (previous encodedHeight : ShielddSecurity.TransferStateDelta.Bytes)
+  (converted :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded) (convert action)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded encoded))
+  (storedHeight :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent
+        (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes encodedHeight))
+  (decodedHeight : @Eq.{1} (Option.{0} Nat) (decode encodedHeight) (@Option.some.{0} Nat height))
+  (duplicate :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+          (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier encoded)))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes previous)),
+  @Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+    (@ShielddSecurity.TransferStateDelta.finish O E A parent queued
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferOrdinaryHeightSource01.withHeight O E A api heightAvailable decode
+            (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+          keys codec (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+          (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct
+            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+            (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix))
+            (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)) action item))
+        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued))
+    (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued)
+'ShielddSecurity.TransferOrdinaryIndexReadSource01.existing_parent_id_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
