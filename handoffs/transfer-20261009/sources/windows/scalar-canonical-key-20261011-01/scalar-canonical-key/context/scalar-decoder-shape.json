@@ -1,0 +1,9 @@
+{
+  "library": {
+    "bytes": 36086,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bounded-native-codec-20261011-02\\context\\runtime-library\\bls12_381-0.8.0-scalar.rs",
+    "sha256": "986f81e7fcb783a668bc4ab55721b22d497c5860cd7136e3cc600d2d9c321475"
+  },
+  "scope": "Four finite LE word reads and four SBB canonical mask predicate; static exact library source association only. R2 multiplication and CtOption/Choice native semantics remain separate.",
+  "shape": "    pub fn from_bytes(bytes: &[u8; 32]) -> CtOption<Scalar> {\n        let mut tmp = Scalar([0, 0, 0, 0]);\n\n        tmp.0[0] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[0..8]).unwrap());\n        tmp.0[1] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[8..16]).unwrap());\n        tmp.0[2] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[16..24]).unwrap());\n        tmp.0[3] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[24..32]).unwrap());\n\n        // Try to subtract the modulus\n        let (_, borrow) = sbb(tmp.0[0], MODULUS.0[0], 0);\n        let (_, borrow) = sbb(tmp.0[1], MODULUS.0[1], borrow);\n        let (_, borrow) = sbb(tmp.0[2], MODULUS.0[2], borrow);\n        let (_, borrow) = sbb(tmp.0[3], MODULUS.0[3], borrow);\n\n        // If the element is smaller than MODULUS then the\n        // subtraction will underflow, producing a borrow value\n        // of 0xffff...ffff. Otherwise, it'll be zero.\n        let is_some = (borrow as u8) & 1;\n\n        // Convert to Montgomery form by computing\n        // (a.R^0 * R^2) / R = a.R\n        tmp *= &R2;\n\n        CtOption::new(tmp, Choice::from(is_some))\n    }\n\n"
+}

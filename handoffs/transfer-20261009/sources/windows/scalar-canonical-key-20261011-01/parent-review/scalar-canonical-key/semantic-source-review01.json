@@ -1,0 +1,53 @@
+{
+  "status": "PASSED",
+  "kind": "Exact authenticated handwritten/audit generation, complete original failed sources/repairs and semantic review",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-canonical-key-review01/packet01/source/ShielddSecurity/TransferScalarCanonicalKey01.lean",
+    "bytes": 6517,
+    "sha256": "21117bfc8ba9ff29c933590b3d3de636296ef1e75b39fc2963ffe06155eeb098"
+  },
+  "fresh_reports": 8,
+  "rejected": [
+    {
+      "kind": "Original failed elaboration attempt, unchanged limits",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 33.165027000010014,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-canonical-key-review01/packet01/unselected/01/handwritten/TransferScalarCanonicalKey01.lean",
+        "bytes": 6265,
+        "sha256": "8a6701dddf681f5528afa7a92ade41deecc2856692e891fe0dfe2a9ca907c057"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-canonical-key-20261011-01\\project\\ShielddSecurity\\TransferScalarCanonicalKey01.lean:64:10: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-canonical-key-20261011-01\\project\\ShielddSecurity\\TransferScalarCanonicalKey01.lean:56:133: error: (deterministic) timeout at `\u00abtactic execution\u00bb`, maximum number of heartbeats (200000) has been reached"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -3,6 +3,7 @@\n set_option maxRecDepth 4096\n set_option autoImplicit false\n namespace ShielddSecurity.TransferScalarCanonicalKey01\n+attribute [local irreducible] TransferScalarLittleEndianBytes01.scalarKey\n open TransferScalarLittleEndianBytes01 (encodeLE decodeLE serializerBytes scalarKey)\n open TransferScalarCanonicalDecoder01 (byteDecoderPayload sourceDecodeOption)\n open TransferCanonicalWordEquality01 (CanonicalScalar)\n@@ -57,11 +58,12 @@\n   let key : Fin nullifierModulus := \u27e8scalarKey scalar.words,\n     TransferScalarLittleEndianBytes01.fixed_four_word_source_scalar_projection_is_canonical scalar.words\u27e9\n   have projection := constructed_source_scalar_projects_to_exact_canonical_key key\n+  have projected : scalarKey (canonicalScalarForKey key).words = scalarKey scalar.words := projection\n+  have left := TransferScalarMontgomeryValue01.fixed_four_word_typed_serializer_has_exact_canonical_montgomery_value\n+    (canonicalScalarForKey key).words\n+  have right := TransferScalarMontgomeryValue01.fixed_four_word_typed_serializer_has_exact_canonical_montgomery_value scalar.words\n   have same : TransferScalarMontgomeryValue01.montgomeryValue (canonicalScalarForKey key).words =\n-      TransferScalarMontgomeryValue01.montgomeryValue scalar.words := by\n-    rw [\u2190 TransferScalarMontgomeryValue01.fixed_four_word_typed_serializer_has_exact_canonical_montgomery_value,\n-      \u2190 TransferScalarMontgomeryValue01.fixed_four_word_typed_serializer_has_exact_canonical_montgomery_value]\n-    exact projection\n+      TransferScalarMontgomeryValue01.montgomeryValue scalar.words := left.symm.trans (projected.trans right)\n   exact (TransferCanonicalWordEquality01.canonical_internal_math_values_equal_iff_raw_words_equal\n     (canonicalScalarForKey key) scalar).mp same\n \n"
+    },
+    {
+      "kind": "Original failed elaboration attempt, unchanged limits",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 32.66284410003573,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-canonical-key-review01/packet01/unselected/02/handwritten/TransferScalarCanonicalKey01.lean",
+        "bytes": 6442,
+        "sha256": "982e835cf420a11ae99f0ea24d76f6ae4f765fb37ce5f00dcf2e1aae76d73870"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-canonical-key-20261011-02\\project\\ShielddSecurity\\TransferScalarCanonicalKey01.lean:60:91: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -3,6 +3,7 @@\n set_option maxRecDepth 4096\n set_option autoImplicit false\n namespace ShielddSecurity.TransferScalarCanonicalKey01\n+attribute [local irreducible] TransferScalarLittleEndianBytes01.scalarKey\n open TransferScalarLittleEndianBytes01 (encodeLE decodeLE serializerBytes scalarKey)\n open TransferScalarCanonicalDecoder01 (byteDecoderPayload sourceDecodeOption)\n open TransferCanonicalWordEquality01 (CanonicalScalar)\n"
+    }
+  ],
+  "contracts_unchanged": true,
+  "local_irreducibility_only": true,
+  "scope": "Constructs every mathematical Fin field-modulus key as exact typed32byte LE encoding then modeled canonical R2 decoder payload. Projection, source decoder success, exact bytes, global inverse over canonical raw four-word vectors and key equality injection are derived. Two original heartbeat/elaboration failures retained; proof equality chain repaired and scalarKey local irreducibility changes elaboration only. Mathematical theorem contracts/definitions unchanged. Actual private Rust Scalar invariant/type/compiler/primitives/Choice/CtOption/collections and full native execution/Transfer remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}

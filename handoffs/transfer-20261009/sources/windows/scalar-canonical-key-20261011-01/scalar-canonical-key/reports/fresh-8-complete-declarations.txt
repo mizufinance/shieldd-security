@@ -1,0 +1,79 @@
+ShielddSecurity.TransferScalarCanonicalKey01.naturalKeyBytes : (value : Nat) →
+  Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+'ShielddSecurity.TransferScalarCanonicalKey01.naturalKeyBytes' depends on axioms: [propext]
+ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey : (key :
+    Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) →
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalKey01.canonical_natural_key_bytes_decode_to_exact_key : ∀
+  (key : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+        (ShielddSecurity.TransferScalarCanonicalKey01.naturalKeyBytes
+          (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus key))))
+    (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus key)
+'ShielddSecurity.TransferScalarCanonicalKey01.canonical_natural_key_bytes_decode_to_exact_key' depends on axioms: [propext]
+ShielddSecurity.TransferScalarCanonicalKey01.constructed_source_scalar_projects_to_exact_canonical_key : ∀
+  (key : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey key)))
+    (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus key)
+'ShielddSecurity.TransferScalarCanonicalKey01.constructed_source_scalar_projects_to_exact_canonical_key' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalKey01.constructed_source_scalar_serializes_to_exact_natural_key_bytes : ∀
+  (key : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} (List.{0} UInt8)
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+          (ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey key))))
+    (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+      (ShielddSecurity.TransferScalarCanonicalKey01.naturalKeyBytes
+        (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus key)))
+'ShielddSecurity.TransferScalarCanonicalKey01.constructed_source_scalar_serializes_to_exact_natural_key_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalKey01.actual_modeled_decoder_constructs_canonical_scalar_from_key_bytes : ∀
+  (key : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+    (ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption
+      (ShielddSecurity.TransferScalarCanonicalKey01.naturalKeyBytes
+        (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus key)))
+    (@Option.some.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey key)))
+'ShielddSecurity.TransferScalarCanonicalKey01.actual_modeled_decoder_constructs_canonical_scalar_from_key_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalKey01.canonical_source_key_constructor_recovers_every_canonical_raw_vector : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+      (ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey
+        (@Fin.mk ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.fixed_four_word_source_scalar_projection_is_canonical
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))))
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)
+'ShielddSecurity.TransferScalarCanonicalKey01.canonical_source_key_constructor_recovers_every_canonical_raw_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalKey01.constructed_canonical_raw_vectors_are_equal_exactly_when_natural_keys_are_equal : ∀
+  (left right : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  Iff
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey left))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarCanonicalKey01.canonicalScalarForKey right)))
+    (@Eq.{1} (Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) left right)
+'ShielddSecurity.TransferScalarCanonicalKey01.constructed_canonical_raw_vectors_are_equal_exactly_when_natural_keys_are_equal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
