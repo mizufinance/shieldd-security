@@ -1,0 +1,22 @@
+--- 
++++ 
+@@ -265,7 +265,9 @@
+     _CHECKED.clear()
+     carried_check(config)
+     for identity in config['static_records'].values(): read_pin(identity)
+-    for spec in config['modules'].values(): checked_pin(spec['source'])
++    for module_name,spec in config['modules'].items():
++        checked_pin(spec['source']);root=pathlib.Path(spec['source_root']);source=pathlib.Path(spec['source']['path'])
++        require(root.is_dir() and not root.is_symlink() and source==root/'ShielddSecurity'/(module_name+'.lean') and source.resolve()==source,'exact canonical per-module source root')
+     spec=config['modules'][config['_active_module']]
+     source_check(read_pin(spec['source']),spec)
+     closure=strict_json(read_pin(config['closure']))
+@@ -461,7 +463,7 @@
+         number=len(records)+config['carried_attempts']+1; spec=config['modules'][name]
+         stdout=runtime/'logs'/f'{number:02d}-{name}.stdout';stderr=runtime/'logs'/f'{number:02d}-{name}.stderr'
+         out=cache/'ShielddSecurity'/(name+'.olean')
+-        command=[config['lean'],'-j1','-M2048','-R',config['source_root'],'-o',str(out),spec['source']['path']]
++        command=[config['lean'],'-j1','-M2048','-R',spec['source_root'],'-o',str(out),spec['source']['path']]
+         receipt_path=runtime/'receipts'/f'{number:02d}-{name}.json'
+         oldmask=signal.pthread_sigmask(signal.SIG_BLOCK,TERMS)
+         started=time.monotonic();peak=0;failure=None;observations=[];audits=[];objects={}

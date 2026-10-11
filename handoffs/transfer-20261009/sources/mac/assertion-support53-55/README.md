@@ -1,0 +1,1 @@
+Reviewed generic assertion-pair and verifier-link proof sources and evidence. Runtime844389ee069e1fb2e576708842d0b389b4d9a44a; see parent-review/endpoint-review.md. Full Transfer remains OPEN. Compiler objects, raw logs, caches, toolchains, and composed workspaces are excluded.
