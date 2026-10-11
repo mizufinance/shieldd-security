@@ -1,0 +1,106 @@
+ShielddSecurity.TransferAuthenticatedBoundarySource01.Io : (O : Type) → Type
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.Io' does not depend on any axioms
+@ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKey : {O : Type} →
+  (io : ShielddSecurity.TransferAuthenticatedBoundarySource01.Io O) →
+    (root : Nat) → (key : ShielddSecurity.TransferStateDelta.Bytes) → Bool
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKey' does not depend on any axioms
+@ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKeys : {O : Type} →
+  (io : ShielddSecurity.TransferAuthenticatedBoundarySource01.Io O) →
+    (root : Nat) → List.{0} ShielddSecurity.TransferStateDelta.Bytes → Bool
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKeys' does not depend on any axioms
+ShielddSecurity.TransferAuthenticatedBoundarySource01.sourceReadKeys : List.{0} ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.sourceReadKeys' does not depend on any axioms
+@ShielddSecurity.TransferAuthenticatedBoundarySource01.readCommittedBoundary : {O : Type} →
+  (io : ShielddSecurity.TransferAuthenticatedBoundarySource01.Io O) →
+    (reader : ShielddSecurity.TransferBoundaryReaderSource01.Io O) →
+      (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+        (state : ShielddSecurity.TransferStateDelta.State O) →
+          (root : Nat) → Option.{0} ShielddSecurity.TransferReadback.Boundary
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.readCommittedBoundary' does not depend on any axioms
+@ShielddSecurity.TransferAuthenticatedBoundarySource01.actual_key_authentication_derives_observed_value_proof_and_verifier_success : ∀
+  {O : Type} (io : ShielddSecurity.TransferAuthenticatedBoundarySource01.Io O) (root : Nat)
+  (key : ShielddSecurity.TransferStateDelta.Bytes)
+  (success :
+    @Eq.{1} Bool (@ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKey O io root key) Bool.true),
+  @Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (value : ShielddSecurity.TransferStateDelta.Bytes) =>
+    @Exists.{1} Nat fun (proof : Nat) =>
+      And
+        (@Eq.{1} (Option.{0} (Prod.{0, 0} ShielddSecurity.TransferStateDelta.Bytes Nat))
+          (@ShielddSecurity.TransferAuthenticatedBoundarySource01.Io.getWithProof O io key)
+          (@Option.some.{0} (Prod.{0, 0} ShielddSecurity.TransferStateDelta.Bytes Nat)
+            (@Prod.mk.{0, 0} ShielddSecurity.TransferStateDelta.Bytes Nat value proof)))
+        (@Eq.{1} Bool (@ShielddSecurity.TransferAuthenticatedBoundarySource01.Io.verify O io root key value proof)
+          Bool.true)
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.actual_key_authentication_derives_observed_value_proof_and_verifier_success' depends on axioms: [propext]
+@ShielddSecurity.TransferAuthenticatedBoundarySource01.successful_key_walk_derives_each_actual_key_authentication : ∀
+  {O : Type} (io : ShielddSecurity.TransferAuthenticatedBoundarySource01.Io O) (root : Nat)
+  (keys : List.{0} ShielddSecurity.TransferStateDelta.Bytes)
+  (success :
+    @Eq.{1} Bool (@ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKeys O io root keys) Bool.true)
+  (key : ShielddSecurity.TransferStateDelta.Bytes),
+  @Membership.mem.{0, 0} ShielddSecurity.TransferStateDelta.Bytes (List.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@List.instMembership.{0} ShielddSecurity.TransferStateDelta.Bytes) keys key →
+    @Eq.{1} Bool (@ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKey O io root key) Bool.true
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.successful_key_walk_derives_each_actual_key_authentication' depends on axioms: [propext]
+@ShielddSecurity.TransferAuthenticatedBoundarySource01.whole_committed_read_success_derives_actual_snapshot_root_key_checks_boundary_and_height : ∀
+  {O : Type} (io : ShielddSecurity.TransferAuthenticatedBoundarySource01.Io O)
+  (reader : ShielddSecurity.TransferBoundaryReaderSource01.Io O)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) (state : ShielddSecurity.TransferStateDelta.State O)
+  (root : Nat) (boundary : ShielddSecurity.TransferReadback.Boundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (@ShielddSecurity.TransferAuthenticatedBoundarySource01.readCommittedBoundary O io reader project state root)
+      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary)),
+  And
+    (@Eq.{1} (Option.{0} Nat) (@ShielddSecurity.TransferAuthenticatedBoundarySource01.Io.snapshotRoot O io)
+      (@Option.some.{0} Nat root))
+    (And
+      (@Eq.{1} Bool
+        (@ShielddSecurity.TransferAuthenticatedBoundarySource01.authenticateKeys O io root
+          ShielddSecurity.TransferAuthenticatedBoundarySource01.sourceReadKeys)
+        Bool.true)
+      (And
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+          (@ShielddSecurity.TransferBoundaryReaderSource01.readBoundary O reader project state)
+          (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))
+        (@Exists.{1} Nat fun (height : Nat) =>
+          And
+            (@Eq.{1} (Option.{0} Nat) (@ShielddSecurity.TransferAuthenticatedBoundarySource01.Io.height O io state)
+              (@Option.some.{0} Nat height))
+            (@Eq.{1} (Option.{0} Nat) (ShielddSecurity.TransferReadback.Boundary.height boundary)
+              (@Option.some.{0} Nat height)))))
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.whole_committed_read_success_derives_actual_snapshot_root_key_checks_boundary_and_height' does not depend on any axioms
+@ShielddSecurity.TransferAuthenticatedBoundarySource01.whole_committed_read_binds_actual_raw_values_under_snapshot_and_verifier_contracts : ∀
+  {O : Type} (io : ShielddSecurity.TransferAuthenticatedBoundarySource01.Io O)
+  (reader : ShielddSecurity.TransferBoundaryReaderSource01.Io O)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) (state : ShielddSecurity.TransferStateDelta.State O)
+  (root : Nat) (boundary : ShielddSecurity.TransferReadback.Boundary)
+  (Member : Nat → ShielddSecurity.TransferStateDelta.Bytes → ShielddSecurity.TransferStateDelta.Bytes → Prop)
+  (consistent :
+    ∀ (key value : ShielddSecurity.TransferStateDelta.Bytes) (proof : Nat),
+      @Eq.{1} (Option.{0} (Prod.{0, 0} ShielddSecurity.TransferStateDelta.Bytes Nat))
+          (@ShielddSecurity.TransferAuthenticatedBoundarySource01.Io.getWithProof O io key)
+          (@Option.some.{0} (Prod.{0, 0} ShielddSecurity.TransferStateDelta.Bytes Nat)
+            (@Prod.mk.{0, 0} ShielddSecurity.TransferStateDelta.Bytes Nat value proof)) →
+        @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.State.verifiable O state (project key))
+          (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes value))
+  (sound :
+    ∀ (root : Nat) (key value : ShielddSecurity.TransferStateDelta.Bytes) (proof : Nat),
+      @Eq.{1} Bool (@ShielddSecurity.TransferAuthenticatedBoundarySource01.Io.verify O io root key value proof)
+          Bool.true →
+        Member root key value)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (@ShielddSecurity.TransferAuthenticatedBoundarySource01.readCommittedBoundary O io reader project state root)
+      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))
+  (key : ShielddSecurity.TransferStateDelta.Bytes),
+  @Membership.mem.{0, 0} ShielddSecurity.TransferStateDelta.Bytes (List.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@List.instMembership.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      ShielddSecurity.TransferAuthenticatedBoundarySource01.sourceReadKeys key →
+    ∀ (value : ShielddSecurity.TransferStateDelta.Bytes),
+      @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.State.verifiable O state (project key))
+          (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes value) →
+        Member root key value
+'ShielddSecurity.TransferAuthenticatedBoundarySource01.whole_committed_read_binds_actual_raw_values_under_snapshot_and_verifier_contracts' depends on axioms: [propext]
