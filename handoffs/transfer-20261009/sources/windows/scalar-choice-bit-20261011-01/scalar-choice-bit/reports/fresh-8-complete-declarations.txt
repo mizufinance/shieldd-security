@@ -1,0 +1,64 @@
+ShielddSecurity.TransferScalarChoiceBit01.borrowChoiceByte : (borrow : Bool) → UInt8
+'ShielddSecurity.TransferScalarChoiceBit01.borrowChoiceByte' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarChoiceBit01.source_borrow_choice_byte_is_exact_zero_or_one : ∀ (borrow : Bool),
+  @Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceBit01.borrowChoiceByte borrow)
+    (@ite.{1} UInt8 (@Eq.{1} Bool borrow Bool.true) (instDecidableEqBool borrow Bool.true)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarChoiceBit01.source_borrow_choice_byte_is_exact_zero_or_one' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceBit01.source_borrow_choice_byte_is_one_exactly_on_underflow : ∀ (borrow : Bool),
+  Iff
+    (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceBit01.borrowChoiceByte borrow)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1))))
+    (@Eq.{1} Bool borrow Bool.true)
+'ShielddSecurity.TransferScalarChoiceBit01.source_borrow_choice_byte_is_one_exactly_on_underflow' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceBit01.source_borrow_choice_byte_is_zero_exactly_without_underflow : ∀
+  (borrow : Bool),
+  Iff
+    (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceBit01.borrowChoiceByte borrow)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+    (@Eq.{1} Bool borrow Bool.false)
+'ShielddSecurity.TransferScalarChoiceBit01.source_borrow_choice_byte_is_zero_exactly_without_underflow' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceBit01.sourceCanonicalChoiceByte : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  UInt8
+'ShielddSecurity.TransferScalarChoiceBit01.sourceCanonicalChoiceByte' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarChoiceBit01.source_canonical_choice_byte_is_one_iff_parsed_integer_below_modulus : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  Iff
+    (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceBit01.sourceCanonicalChoiceByte bytes)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1))))
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarChoiceBit01.source_canonical_choice_byte_is_one_iff_parsed_integer_below_modulus' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceBit01.source_canonical_choice_byte_is_zero_iff_parsed_integer_is_noncanonical : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  Iff
+    (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceBit01.sourceCanonicalChoiceByte bytes)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+    (Not
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarChoiceBit01.source_canonical_choice_byte_is_zero_iff_parsed_integer_is_noncanonical' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceBit01.exact_source_serializer_bytes_derive_one_choice_byte : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (encoded :
+    @Eq.{1} (List.{0} UInt8)
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))),
+  @Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceBit01.sourceCanonicalChoiceByte bytes)
+    (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))
+'ShielddSecurity.TransferScalarChoiceBit01.exact_source_serializer_bytes_derive_one_choice_byte' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
