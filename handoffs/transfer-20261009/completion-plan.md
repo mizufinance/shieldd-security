@@ -1098,3 +1098,6 @@ Publish independently reviewed partition-local-rollback original source model. 4
 
 
 Publish independently reviewed scalar-byte-decode original source model. 7 complete original reports; exact independently accepted ancestry. Typed UInt8 eight-byte LE chunks derive UInt64 bound and exact full-width packed integer reconstruction. Four-word borrow accepts iff exact32byte integer below field modulus; exact source serializer bytes pass. Native from_le_bytes/SBB/Choice/CtOption/Scalar invariant/R2 Montgomery conversion/compiler/full trace bindings owned OPEN Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed scalar-choice-bit original source model. 8 complete original reports; exact independently accepted ancestry. Finite UInt64 zero/all-ones borrow mask cast to UInt8 and AND1 yields exact0/1; canonical success/refusal bit derives parsed integer below/at-or-above field modulus, exact serializer bytes derive one. Actual native Choice/CtOption/R2 payload conversion/Scalar invariant/primitives/compiler/full trace bindings owned OPEN Combined replay and full Transfer remain OPEN.
