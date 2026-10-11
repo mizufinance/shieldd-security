@@ -1,0 +1,62 @@
+{
+  "scope": "Parent source pre-review only; no execution or full Transfer acceptance",
+  "baseline": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-source01/maintained/guard.py",
+    "sha256": "e93d97e6af517d01ee08e72912b145725117ca93c7d2d88fdf70a93d96fc5b04"
+  },
+  "current": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution07/maintained/guard.py",
+    "sha256": "4e469e962b8a0d6e4b7b5f869415e4958bd5e95e2d6280c5c87dff1d5306c4c7"
+  },
+  "unchanged_functions": [
+    "append_event",
+    "audit_log",
+    "bytes_in",
+    "cancellation",
+    "cancelled",
+    "carried_check",
+    "checked_pin",
+    "cleanup",
+    "create",
+    "first_package_file",
+    "free_memory",
+    "initialize_overlay",
+    "main",
+    "official_header",
+    "overlay_map",
+    "own_keyset",
+    "owned",
+    "pin",
+    "processes",
+    "read_bound",
+    "read_pin",
+    "require",
+    "sha",
+    "source_check",
+    "state",
+    "strict_json",
+    "strip_comments"
+  ],
+  "changed_functions": [
+    "bounds",
+    "direct_imports",
+    "execute",
+    "fixed_check",
+    "launch_reserve"
+  ],
+  "added_functions": [
+    "uncached_direct_imports"
+  ],
+  "removed_functions": [],
+  "import_parser_body_unchanged_after_rename": true,
+  "findings": [
+    "Import-header memoization is keyed by SHA256 of complete source bytes and returns a fresh list; source pin reads and hashes remain checked each fixed_check.",
+    "All module source pins remain checked; full lexical proof checks apply to active owned module before execution.",
+    "Active module identity is assigned only after exact named-module admission.",
+    "Metadata upper bound moves 32 MiB to 128 MiB and launch reserve 27 MiB to 124 MiB, allowed non-memory packaging adjustments under user autonomy.",
+    "One GiB batch bound, disk minimum, free-memory threshold, Lean heap, RSS and single-process safeguards are unchanged."
+  ],
+  "residuals": [
+    "Execution receipts and resulting full provider remain separately subject to acceptance."
+  ]
+}
