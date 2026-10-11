@@ -1,0 +1,296 @@
+{
+  "kind": "Independent complete declaration/ancestor/source/runtime/unchanged guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 12,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.installVolume",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume : {O E X Tree : Type} \u2192\n  (raw :\n      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (manager :\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n        (treeKey pendingKey payload : Nat) \u2192\n          ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)",
+      "axioms": [],
+      "full_type_sha256": "671610d96b9ee392bb3ac6529f12ad649c0a4e8fc8bfe78cdb9e973f8b02312a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.installBoth",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.installBoth : {O E X Tree : Type} \u2192\n  (raw :\n      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (notes volume :\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n        (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n          (treeKey notesKey volumeKey payload entryKey : Nat) \u2192\n            ShielddSecurity.TransferRawEffectsSource01.Backend O E\n              (ShielddSecurity.TransferSctInsertionSource01.Error X)",
+      "axioms": [],
+      "full_type_sha256": "fe6f5d02a8c3e3eb2b45b4e02080b939c4aeb1de09f00c1dae8740b7fc7454f8"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.execute",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.execute : {O E X Tree : Type} \u2192\n  (raw :\n      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (notes volume :\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n        (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n          (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) \u2192\n            (exactMatched : Bool) \u2192\n              (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192\n                (inputs outputs : List.{0} Nat) \u2192\n                  ShielddSecurity.TransferRawStateProgram01.Outcome O E\n                    (ShielddSecurity.TransferRawEffectsSource01.EffectError\n                      (ShielddSecurity.TransferSctInsertionSource01.Error X))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "f18105d26906f5bf46da0348ca86198b76f38575675e1bcfe36a05ba776d91ab"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.volume_payload_preserves_input_write_domains",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.volume_payload_preserves_input_write_domains : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey payload : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (source : Bool),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumeInsert O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree raw manager sct treeKey\n              pendingKey payload)\n            child source)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumeInsert O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree raw manager sct treeKey\n              pendingKey payload)\n            child source)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "329706275e1cf62ca6670e710435019c3e58fcba33f450ff3f4a73807458fb3d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.tail_ignores_note_callback",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.tail_ignores_note_callback : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey entryKey dayKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X)))\n    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n      (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey) entryKey\n      dayKey Bool.true child)\n    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n      raw entryKey dayKey Bool.true child)",
+      "axioms": [],
+      "full_type_sha256": "f25c13086b4b16fe7fbd91729784ebfe40b6ef6d0313f5dc26093d913e12619b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.tail_installBoth",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.tail_installBoth : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (treeKey notesKey volumeKey payload entryKey dayKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X)))\n    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n      (@ShielddSecurity.TransferOrdinaryStorageSource01.installBoth O E X Tree raw notes volume sct available treeKey\n        notesKey volumeKey payload entryKey)\n      entryKey dayKey Bool.true child)\n    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n      (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n        (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n        volume sct treeKey volumeKey payload)\n      entryKey dayKey Bool.true child)",
+      "axioms": [],
+      "full_type_sha256": "33760daec53c80fa02c99cb6c974d45222886fbff588de4b576c7e0c8e9b2b50"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.fresh_tail_retains_two_writes_on_any_return",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.fresh_tail_retains_two_writes_on_any_return : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) (treeKey pendingKey payload entryKey dayKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (source : Bool)\n  (captured :\n    @Eq.{1} (Option.{0} Bool)\n      (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E\n        (ShielddSecurity.TransferSctInsertionSource01.Error X) raw child)\n      (@Option.some.{0} Bool source))\n  (fresh :\n    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferCurrentVolumeSource01.readVolume O E available entryKey child)\n      (@Option.some.{0} Bool Bool.false)),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n              (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n                (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n              manager sct treeKey pendingKey payload)\n            entryKey dayKey Bool.true child)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n          (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey\n            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))\n          dayKey\n          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n              (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n                (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n              manager sct treeKey pendingKey payload)\n            entryKey dayKey Bool.true child)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e4cbb280299a90a337fecabe018fcbe2bbb78484cc05d025ace626568e218f89"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.tail_preserves_nv_and_only_adds_volume_markers",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.tail_preserves_nv_and_only_adds_volume_markers : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) (treeKey pendingKey payload entryKey dayKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n              (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n                (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n              manager sct treeKey pendingKey payload)\n            entryKey dayKey Bool.true child)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (Or\n      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n            (ShielddSecurity.TransferRawEffectsSource01.EffectError\n              (ShielddSecurity.TransferSctInsertionSource01.Error X))\n            (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E\n              (ShielddSecurity.TransferSctInsertionSource01.Error X)\n              (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n                (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n                  (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n                manager sct treeKey pendingKey payload)\n              entryKey dayKey Bool.true child)))\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n            (ShielddSecurity.TransferRawEffectsSource01.EffectError\n              (ShielddSecurity.TransferSctInsertionSource01.Error X))\n            (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E\n              (ShielddSecurity.TransferSctInsertionSource01.Error X)\n              (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n                (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n                  (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n                manager sct treeKey pendingKey payload)\n              entryKey dayKey Bool.true child)))\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n            (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey\n              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))\n            dayKey\n            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "32931e1e4c73764d34a2aad4307dcf138fdef29b6df6be16d72f91ebfdd6077a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.successful_read_derives_availability_and_absence",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.successful_read_derives_availability_and_absence : \u2200 {O E : Type}\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) (entryKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (fresh :\n    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferCurrentVolumeSource01.readVolume O E available entryKey child)\n      (@Option.some.{0} Bool Bool.false)),\n  And (@Eq.{1} Bool (available child) Bool.true)\n    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n        entryKey)\n      (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "82b6748b2cd06737448d91dfb168c04c05631db0cc5607860643eb67ef7d1c00"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.successful_tail_derives_actual_read_and_markers",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.successful_tail_derives_actual_read_and_markers : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) (treeKey pendingKey payload entryKey dayKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (success :\n    @Eq.{1}\n      (Except.{0, 0}\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        Unit)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n            (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n              (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n            manager sct treeKey pendingKey payload)\n          entryKey dayKey Bool.true child))\n      (@Except.ok.{0, 0}\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        Unit Unit.unit)),\n  And\n    (@Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferCurrentVolumeSource01.readVolume O E available entryKey child)\n      (@Option.some.{0} Bool Bool.false))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.installVolume O E X Tree\n              (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n                (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n              manager sct treeKey pendingKey payload)\n            entryKey dayKey Bool.true child)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n          (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey\n            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))\n          dayKey\n          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0ebf5985206d332bcb5585aade12e40d55a91b1ff26279731592cfc7fa37ee2a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.execution_preserves_nv_and_only_adds_volume_markers",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.execution_preserves_nv_and_only_adds_volume_markers : \u2200\n  {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (exactMatched : Bool)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferOrdinaryStorageSource01.execute O E X Tree raw notes volume sct available wordMax\n            capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey exactMatched child inputs\n            outputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (Or\n      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n            (ShielddSecurity.TransferRawEffectsSource01.EffectError\n              (ShielddSecurity.TransferSctInsertionSource01.Error X))\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.execute O E X Tree raw notes volume sct available wordMax\n              capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey exactMatched child inputs\n              outputs)))\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n            (ShielddSecurity.TransferRawEffectsSource01.EffectError\n              (ShielddSecurity.TransferSctInsertionSource01.Error X))\n            (@ShielddSecurity.TransferOrdinaryStorageSource01.execute O E X Tree raw notes volume sct available wordMax\n              capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey exactMatched child inputs\n              outputs)))\n        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n          (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n            (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey\n              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))\n            dayKey\n            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "f30bb774c4af3473fe280d053ebf1fb981f37f1c5695c1180f2c308f33573f8b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryStorageSource01.execution_success_derives_fresh_input_and_two_writes",
+      "full_type": "@ShielddSecurity.TransferOrdinaryStorageSource01.execution_success_derives_fresh_input_and_two_writes : \u2200\n  {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (exactMatched : Bool)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat)\n  (success :\n    @Eq.{1}\n      (Except.{0, 0}\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        Unit)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferOrdinaryStorageSource01.execute O E X Tree raw notes volume sct available wordMax\n          capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey exactMatched child inputs outputs))\n      (@Except.ok.{0, 0}\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        Unit Unit.unit)),\n  And (@Eq.{1} Bool exactMatched Bool.true)\n    (And\n      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.State.verifiable O\n          (@ShielddSecurity.TransferStateDelta.applyCache O E\n            (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n          entryKey)\n        (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))\n      (And\n        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n          (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n              (ShielddSecurity.TransferRawEffectsSource01.EffectError\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              (@ShielddSecurity.TransferOrdinaryStorageSource01.execute O E X Tree raw notes volume sct available\n                wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey exactMatched child\n                inputs outputs)))\n          (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n            (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n              (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n                (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey\n                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))\n              dayKey\n              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))))\n        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n              (ShielddSecurity.TransferRawEffectsSource01.EffectError\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              (@ShielddSecurity.TransferOrdinaryStorageSource01.execute O E X Tree raw notes volume sct available\n                wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey exactMatched child\n                inputs outputs)))\n          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "43f34c311a53a85130abc10818e07d8f4f1c0083504aebb52970228da11f8d46"
+    }
+  ],
+  "inherited_reports": 126,
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "module": "TransferCurrentVolumeSource01",
+      "object": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "source": {
+        "bytes": 10987,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean",
+        "sha256": "3e34bb62ef0262f2f6ff6124da243b5332ae1e2e1102961e01521f3352f74b19"
+      }
+    }
+  ],
+  "manifest_entries": 28,
+  "generated_equality_instance_audited": false,
+  "guard_unchanged": true,
+  "rejected": {
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.325141899986193,
+      "status": "failed"
+    },
+    "all_predecessor_contracts_and_program_definitions_unchanged": true,
+    "new_helper_lemma": null,
+    "exact_delta": "--- \n+++ \n@@ -186,9 +186,16 @@\n   cases exactMatched with\n   | false => exact \u27e8rfl, Or.inl rfl\u27e9\n   | true =>\n-    have frames := TransferRawSourceFrames01.reshape_preserves_input_write_domains\n-      (installVolume (TransferCurrentVolumeSource01.withVolumeRead raw available entryKey)\n-        volume sct treeKey volumeKey payload) notes sct wordMax capacity treeKey notesKey nullifierKey child inputs outputs\n+    have frames :\n+        (TransferRawEffectsSource01.reshape\n+          (installBoth raw notes volume sct available treeKey notesKey volumeKey payload entryKey)\n+          wordMax capacity nullifierKey child inputs outputs).cache.verifiable = child.cache.verifiable \u2227\n+        (TransferRawEffectsSource01.reshape\n+          (installBoth raw notes volume sct available treeKey notesKey volumeKey payload entryKey)\n+          wordMax capacity nullifierKey child inputs outputs).cache.nonverifiable = child.cache.nonverifiable :=\n+      TransferRawSourceFrames01.reshape_preserves_input_write_domains\n+        (installVolume (TransferCurrentVolumeSource01.withVolumeRead raw available entryKey)\n+          volume sct treeKey volumeKey payload) notes sct wordMax capacity treeKey notesKey nullifierKey child inputs outputs\n     cases result : (TransferRawEffectsSource01.reshape\n       (installBoth raw notes volume sct available treeKey notesKey volumeKey payload entryKey)\n       wordMax capacity nullifierKey child inputs outputs).result with\n@@ -226,9 +233,16 @@\n   cases exactMatched with\n   | false => simp [execute, TransferRawEffectsSource01.executeTransfer] at success\n   | true =>\n-    have frames := TransferRawSourceFrames01.reshape_preserves_input_write_domains\n-      (installVolume (TransferCurrentVolumeSource01.withVolumeRead raw available entryKey)\n-        volume sct treeKey volumeKey payload) notes sct wordMax capacity treeKey notesKey nullifierKey child inputs outputs\n+    have frames :\n+        (TransferRawEffectsSource01.reshape\n+          (installBoth raw notes volume sct available treeKey notesKey volumeKey payload entryKey)\n+          wordMax capacity nullifierKey child inputs outputs).cache.verifiable = child.cache.verifiable \u2227\n+        (TransferRawEffectsSource01.reshape\n+          (installBoth raw notes volume sct available treeKey notesKey volumeKey payload entryKey)\n+          wordMax capacity nullifierKey child inputs outputs).cache.nonverifiable = child.cache.nonverifiable :=\n+      TransferRawSourceFrames01.reshape_preserves_input_write_domains\n+        (installVolume (TransferCurrentVolumeSource01.withVolumeRead raw available entryKey)\n+          volume sct treeKey volumeKey payload) notes sct wordMax capacity treeKey notesKey nullifierKey child inputs outputs\n     cases result : (TransferRawEffectsSource01.reshape\n       (installBoth raw notes volume sct available treeKey notesKey volumeKey payload entryKey)\n       wordMax capacity nullifierKey child inputs outputs).result with\n@@ -246,7 +260,7 @@\n         {child with cache := (TransferRawEffectsSource01.reshape\n           (installBoth raw notes volume sct available treeKey notesKey volumeKey payload entryKey)\n           wordMax capacity nullifierKey child inputs outputs).cache}\n-      refine \u27e8rfl, ?_, ?_, suffix.1.trans frames.2\u27e9\n+      refine \u27e8True.intro, ?_, ?_, suffix.1.trans frames.2\u27e9\n       \u00b7 simpa only [applyCache, frames.1] using fresh.2\n       \u00b7 simpa only [TransferRawEffectsSource01.putV, frames.1] using tail.2\n \n",
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean:210:8: error: Type mismatch: After simplification, term",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean:249:14: error: Application type mismatch: The argument",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean:250:8: error: Type mismatch: After simplification, term",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean:251:8: error: Type mismatch: After simplification, term"
+    ]
+  },
+  "interfaces": [
+    "Successfully loaded immutable SCT source branch; actual get_sct expect panic and Clone/COW remain distinct",
+    "Local tree insert, position extraction and commitment/payload/source/event encodings remain explicit modeled interfaces",
+    "Current volume get_raw availability and day/nullifier key projections require Rust/store correspondence",
+    "Nullifier pending getter and authenticated durable reader semantics remain inherited interfaces",
+    "Same exact action, proof context, token, public-item equality and cryptographic proof provenance remain upstream",
+    "Raw action cache framing does not imply block finalization, fee charging or participating-store durability",
+    "No native or compiler-error negative-control credit and no full Transfer certificate"
+  ],
+  "scope": "Both note and volume callbacks are executable SCT insertion and post-SCT pending-object append, without opaque callback frame premises. Arbitrary Ordinary execution returned results preserve input nonverifiable writes and either preserve verifiable writes or add exactly the two volume marker writes. Whole execution success derives exact capability match, initially absent current overlay entry, and both marker writes, without successful reshape or desired read/poststate premises. Earlier objects/events may remain altered on errors. Rust/tree/store/ownership/proof and full Transfer interfaces remain open. All three executable definitions and nine theorem contracts are unchanged from the failed attempt; successor proof annotations make the two reshape V/NV observations syntactically available at the installed backend alias and discharge a simplified True. Both markers persist after returned volume SCT/pending callback errors in this immutable model. Raw objects/events may remain altered. Successfully loaded immutable trees, actual getter panic, Clone/COW, key/value/event/source projections, tree and reader semantics, block finalization and durability remain explicit interfaces. Failed predecessor full zero credit.",
+  "full_transfer": "OPEN"
+}
