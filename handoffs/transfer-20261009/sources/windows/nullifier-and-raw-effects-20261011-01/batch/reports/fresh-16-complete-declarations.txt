@@ -1,0 +1,229 @@
+ShielddSecurity.TransferNullifierBatchSource01.Pending : Type
+'ShielddSecurity.TransferNullifierBatchSource01.Pending' does not depend on any axioms
+ShielddSecurity.TransferNullifierBatchSource01.BatchError : Type
+'ShielddSecurity.TransferNullifierBatchSource01.BatchError' does not depend on any axioms
+ShielddSecurity.TransferNullifierBatchSource01.Backend : (O E : Type) → Type
+'ShielddSecurity.TransferNullifierBatchSource01.Backend' does not depend on any axioms
+ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop : List.{0} Nat → List.{0} Nat → Bool
+'ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop' does not depend on any axioms
+ShielddSecurity.TransferNullifierBatchSource01.appendPending : (previous :
+    ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+  (keys : List.{0} Nat) → ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferNullifierBatchSource01.appendPending' does not depend on any axioms
+@ShielddSecurity.TransferNullifierBatchSource01.inspect : {O E : Type} →
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) →
+    (wordMax capacity : Nat) →
+      (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+        (keys : List.{0} Nat) →
+          Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferNullifierBatchSource01.inspect' depends on axioms: [propext]
+@ShielddSecurity.TransferNullifierBatchSource01.executeNullify : {O E : Type} →
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) →
+    (wordMax capacity objectKey : Nat) →
+      (sourceHasId : Bool) →
+        (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+          (keys : List.{0} Nat) →
+            ShielddSecurity.TransferRawStateProgram01.Outcome O E
+              ShielddSecurity.TransferNullifierBatchSource01.BatchError
+'ShielddSecurity.TransferNullifierBatchSource01.executeNullify' depends on axioms: [propext]
+ShielddSecurity.TransferNullifierBatchSource01.saturating_capacity_exact : ∀ (current requested wordMax capacity : Nat)
+  (belowWord : @LT.lt.{0} Nat instLTNat capacity wordMax)
+  (allowed :
+    @LE.le.{0} Nat instLENat
+      (Nat.min (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) current requested) wordMax) capacity),
+  @LE.le.{0} Nat instLENat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) current requested) capacity
+'ShielddSecurity.TransferNullifierBatchSource01.saturating_capacity_exact' depends on axioms: [propext]
+ShielddSecurity.TransferNullifierBatchSource01.duplicate_pair_refused : ∀ (key : Nat) (rest : List.{0} Nat),
+  @Eq.{1} Bool
+    (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat)
+      (@List.cons.{0} Nat key (@List.cons.{0} Nat key rest)))
+    Bool.false
+'ShielddSecurity.TransferNullifierBatchSource01.duplicate_pair_refused' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferNullifierBatchSource01.inspection_success_order : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (next : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending)
+      (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax capacity child keys)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending next)),
+  @Exists.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    fun (previous : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+    @Exists.{1} (List.{0} Bool) fun (flags : List.{0} Bool) =>
+      And
+        (@Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending previous
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+        (And
+          (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat) keys) Bool.true)
+          (And (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed previous) Bool.false)
+            (And
+              (@LE.le.{0} Nat instLENat
+                (Nat.min
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                    (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered previous))
+                    (@List.length.{0} Nat keys))
+                  wordMax)
+                capacity)
+              (And
+                (@Eq.{1} Bool
+                  (@List.all.{0} Nat keys fun (key : Nat) =>
+                    Bool.not (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership previous key))
+                  Bool.true)
+                (And
+                  (@Eq.{1} (Option.{0} (List.{0} Bool))
+                    (ShielddSecurity.TransferNullifierReaderVector01.contains
+                      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.readerGate O E backend child)
+                      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child)
+                      (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership previous) keys)
+                    (@Option.some.{0} (List.{0} Bool) flags))
+                  (And (@Eq.{1} Bool (ShielddSecurity.TransferNullifierReaderVector01.zipUnspent keys flags) Bool.true)
+                    (@Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending next
+                      (ShielddSecurity.TransferNullifierBatchSource01.appendPending previous keys))))))))
+'ShielddSecurity.TransferNullifierBatchSource01.inspection_success_order' depends on axioms: [propext]
+@ShielddSecurity.TransferNullifierBatchSource01.inspection_success_capacity_and_all_inputs : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (next : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (belowWord : @LT.lt.{0} Nat instLTNat capacity wordMax)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending)
+      (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax capacity child keys)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending next)),
+  And
+    (@Eq.{1} (List.{0} Nat) (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered next)
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} Nat) (List.{0} Nat) (List.{0} Nat)
+        (@instHAppendOfAppend.{0} (List.{0} Nat) (@List.instAppend.{0} Nat))
+        (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+        keys))
+    (And
+      (@LE.le.{0} Nat instLENat
+        (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered next)) capacity)
+      (And (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed next) Bool.false)
+        (∀ (key : Nat),
+          @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+            And
+              (@Eq.{1} (Option.{0} Bool)
+                (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child key)
+                (@Option.some.{0} Bool Bool.false))
+              (And
+                (@Eq.{1} Bool
+                  (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership
+                    (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child) key)
+                  Bool.false)
+                (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership next key)
+                  Bool.true)))))
+'ShielddSecurity.TransferNullifierBatchSource01.inspection_success_capacity_and_all_inputs' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNullifierBatchSource01.empty_batch_skips_source_and_reads : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity objectKey : Nat)
+  (sourceHasId : Bool) (child : ShielddSecurity.TransferStateDelta.Delta O E),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+    (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity objectKey sourceHasId
+      child (@List.nil.{0} Nat))
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E ShielddSecurity.TransferNullifierBatchSource01.BatchError
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))
+'ShielddSecurity.TransferNullifierBatchSource01.empty_batch_skips_source_and_reads' depends on axioms: [propext]
+@ShielddSecurity.TransferNullifierBatchSource01.nontransaction_source_refused : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (nonempty : @Eq.{1} Bool (@List.isEmpty.{0} Nat keys) Bool.false),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+    (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity objectKey Bool.false
+      child keys)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E ShielddSecurity.TransferNullifierBatchSource01.BatchError
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError.source))
+'ShielddSecurity.TransferNullifierBatchSource01.nontransaction_source_refused' depends on axioms: [propext]
+@ShielddSecurity.TransferNullifierBatchSource01.stage_failure_retains_input_cache : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (nonempty : @Eq.{1} Bool (@List.isEmpty.{0} Nat keys) Bool.false)
+  (error : ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+  (rejected :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending)
+      (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax capacity child keys)
+      (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending error)),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+    (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity objectKey Bool.true
+      child keys)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E ShielddSecurity.TransferNullifierBatchSource01.BatchError
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit error))
+'ShielddSecurity.TransferNullifierBatchSource01.stage_failure_retains_input_cache' depends on axioms: [propext]
+@ShielddSecurity.TransferNullifierBatchSource01.successful_nonempty_batch_single_object_write : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity objectKey : Nat)
+  (sourceHasId : Bool) (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (cache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (nonempty : @Eq.{1} Bool (@List.isEmpty.{0} Nat keys) Bool.false)
+  (success :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+      (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity objectKey sourceHasId
+        child keys)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError cache
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))),
+  And (@Eq.{1} Bool sourceHasId Bool.true)
+    (@Exists.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      fun (next : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+      And
+        (@Eq.{1}
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending)
+          (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax capacity child keys)
+          (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending next))
+        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) cache
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+            (@ShielddSecurity.TransferStateDelta.putObject O E child objectKey
+              (@Option.some.{0} O (@ShielddSecurity.TransferNullifierBatchSource01.Backend.encode O E backend next))))))
+'ShielddSecurity.TransferNullifierBatchSource01.successful_nonempty_batch_single_object_write' depends on axioms: [propext]
+@ShielddSecurity.TransferNullifierBatchSource01.successful_batch_frames_other_components : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity objectKey : Nat)
+  (sourceHasId : Bool) (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (cache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (nonempty : @Eq.{1} Bool (@List.isEmpty.{0} Nat keys) Bool.false)
+  (success :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+      (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity objectKey sourceHasId
+        child keys)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError cache
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E cache)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E cache)
+        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+      (And
+        (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E cache)
+          (@ShielddSecurity.TransferStateDelta.Cache.events O E
+            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+        (∀ (other : Nat),
+          @Ne.{1} Nat other objectKey →
+            @Eq.{1} (Option.{0} (Option.{0} O)) (@ShielddSecurity.TransferStateDelta.Cache.objects O E cache other)
+              (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+                (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) other))))
+'ShielddSecurity.TransferNullifierBatchSource01.successful_batch_frames_other_components' depends on axioms: [propext]

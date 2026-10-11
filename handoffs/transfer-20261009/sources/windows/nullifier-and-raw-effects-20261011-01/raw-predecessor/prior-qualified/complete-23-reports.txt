@@ -1,0 +1,303 @@
+ShielddSecurity.TransferRawEffectsSource01.EffectError : (X : Type) → Type
+'ShielddSecurity.TransferRawEffectsSource01.EffectError' does not depend on any axioms
+ShielddSecurity.TransferRawEffectsSource01.Backend : (O E X : Type) → Type
+'ShielddSecurity.TransferRawEffectsSource01.Backend' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.liftCallback : {O E X : Type} →
+  (returned : ShielddSecurity.TransferRawStateProgram01.Outcome O E X) →
+    ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+'ShielddSecurity.TransferRawEffectsSource01.liftCallback' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.emit : {O E : Type} →
+  (cache : ShielddSecurity.TransferStateDelta.Cache O E) → (event : E) → ShielddSecurity.TransferStateDelta.Cache O E
+'ShielddSecurity.TransferRawEffectsSource01.emit' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.emitSpends : {O E : Type} →
+  (event : Nat → E) →
+    ShielddSecurity.TransferStateDelta.Cache O E → List.{0} Nat → ShielddSecurity.TransferStateDelta.Cache O E
+'ShielddSecurity.TransferRawEffectsSource01.emitSpends' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.notes : {O E X : Type} →
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    ShielddSecurity.TransferStateDelta.Delta O E →
+      List.{0} Nat →
+        ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+'ShielddSecurity.TransferRawEffectsSource01.notes' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.putV : {O E : Type} →
+  (cache : ShielddSecurity.TransferStateDelta.Cache O E) →
+    (key : Nat) → (value : ShielddSecurity.TransferStateDelta.Bytes) → ShielddSecurity.TransferStateDelta.Cache O E
+'ShielddSecurity.TransferRawEffectsSource01.putV' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.recordVolume : {O E X : Type} →
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (entryKey dayKey : Nat) →
+      (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+        ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+'ShielddSecurity.TransferRawEffectsSource01.recordVolume' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.reshape : {O E X : Type} →
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (wordMax capacity pendingKey : Nat) →
+      (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+        (inputs outputs : List.{0} Nat) →
+          ShielddSecurity.TransferRawStateProgram01.Outcome O E
+            (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+'ShielddSecurity.TransferRawEffectsSource01.reshape' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.volumeTail : {O E X : Type} →
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (entryKey dayKey : Nat) →
+      (ordinary : Bool) →
+        (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+          ShielddSecurity.TransferRawStateProgram01.Outcome O E
+            (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+'ShielddSecurity.TransferRawEffectsSource01.volumeTail' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.executeTransfer : {O E X : Type} →
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (wordMax capacity pendingKey entryKey dayKey : Nat) →
+      (exactMatched ordinary : Bool) →
+        (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+          (inputs outputs : List.{0} Nat) →
+            ShielddSecurity.TransferRawStateProgram01.Outcome O E
+              (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+'ShielddSecurity.TransferRawEffectsSource01.executeTransfer' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.emitSpends_exact : ∀ {O E : Type} (event : Nat → E)
+  (cache : ShielddSecurity.TransferStateDelta.Cache O E) (keys : List.{0} Nat),
+  @Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E)
+    (@ShielddSecurity.TransferRawEffectsSource01.emitSpends O E event cache keys)
+    (@ShielddSecurity.TransferStateDelta.Cache.mk O E (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E cache)
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E cache)
+      (@ShielddSecurity.TransferStateDelta.Cache.objects O E cache)
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)
+        (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))
+        (@ShielddSecurity.TransferStateDelta.Cache.events O E cache) (@List.map.{0, 0} Nat E event keys)))
+'ShielddSecurity.TransferRawEffectsSource01.emitSpends_exact' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.failed_note_retains_cache_without_semantic_event : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output : Nat) (rest : List.{0} Nat)
+  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)
+  (failed :
+    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.noteInsert O E X backend child output)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.notes O E X backend child (@List.cons.{0} Nat output rest))
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X) failureCache
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.callback X error)))
+'ShielddSecurity.TransferRawEffectsSource01.failed_note_retains_cache_without_semantic_event' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.successful_note_emits_then_recurses : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output : Nat) (rest : List.{0} Nat)
+  (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (passed :
+    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.noteInsert O E X backend child output)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X updated (@Except.ok.{0, 0} X Unit Unit.unit))),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.notes O E X backend child (@List.cons.{0} Nat output rest))
+    (@ShielddSecurity.TransferRawEffectsSource01.notes O E X backend
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+        (@ShielddSecurity.TransferRawEffectsSource01.emit O E updated
+          (@ShielddSecurity.TransferRawEffectsSource01.Backend.noteEvent O E X backend output)))
+      rest)
+'ShielddSecurity.TransferRawEffectsSource01.successful_note_emits_then_recurses' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.missing_reshape_source_precedes_even_empty_input : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) (wordMax capacity pendingKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat)
+  (missing :
+    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X backend child)
+      (@Option.none.{0} Bool)),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.reshape O E X backend wordMax capacity pendingKey child inputs outputs)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.source X)))
+'ShielddSecurity.TransferRawEffectsSource01.missing_reshape_source_precedes_even_empty_input' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.successful_nullify_emits_all_spends_before_notes : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) (wordMax capacity pendingKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat) (sourceHasId : Bool)
+  (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (source :
+    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X backend child)
+      (@Option.some.{0} Bool sourceHasId))
+  (passed :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+      (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E X backend) wordMax capacity pendingKey
+        sourceHasId child inputs)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError updated
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.reshape O E X backend wordMax capacity pendingKey child inputs outputs)
+    (@ShielddSecurity.TransferRawEffectsSource01.notes O E X backend
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+        (@ShielddSecurity.TransferStateDelta.Cache.mk O E
+          (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated)
+          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E updated)
+          (@ShielddSecurity.TransferStateDelta.Cache.objects O E updated)
+          (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)
+            (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))
+            (@ShielddSecurity.TransferStateDelta.Cache.events O E updated)
+            (@List.map.{0, 0} Nat E (@ShielddSecurity.TransferRawEffectsSource01.Backend.spentEvent O E X backend)
+              inputs))))
+      outputs)
+'ShielddSecurity.TransferRawEffectsSource01.successful_nullify_emits_all_spends_before_notes' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.volume_conflict_is_readonly : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) (entryKey dayKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (spent :
+    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X backend child)
+      (@Option.some.{0} Bool Bool.true)),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.recordVolume O E X backend entryKey dayKey child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.volumeSpent X)))
+'ShielddSecurity.TransferRawEffectsSource01.volume_conflict_is_readonly' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.successful_volume_derives_read_and_two_writes : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) (entryKey dayKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+      (@ShielddSecurity.TransferRawEffectsSource01.recordVolume O E X backend entryKey dayKey child)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError X) updated
+        (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit))),
+  And
+    (@Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X backend child)
+      (@Option.some.{0} Bool Bool.false))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) updated
+      (@ShielddSecurity.TransferRawEffectsSource01.putV O E
+        (@ShielddSecurity.TransferRawEffectsSource01.putV O E
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey
+          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))
+        dayKey (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))
+'ShielddSecurity.TransferRawEffectsSource01.successful_volume_derives_read_and_two_writes' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.successful_volume_values_and_frame : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) (entryKey dayKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (different : @Ne.{1} Nat entryKey dayKey)
+  (success :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+      (@ShielddSecurity.TransferRawEffectsSource01.recordVolume O E X backend entryKey dayKey child)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError X) updated
+        (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit))),
+  And
+    (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated entryKey)
+      (@Option.some.{0} (Option.{0} (List.{0} Nat))
+        (@Option.some.{0} (List.{0} Nat)
+          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))))
+    (And
+      (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated dayKey)
+        (@Option.some.{0} (Option.{0} (List.{0} Nat))
+          (@Option.some.{0} (List.{0} Nat)
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))))
+      (And
+        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E updated)
+          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+        (And
+          (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes O)
+            (@ShielddSecurity.TransferStateDelta.Cache.objects O E updated)
+            (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+          (And
+            (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E updated)
+              (@ShielddSecurity.TransferStateDelta.Cache.events O E
+                (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+            (∀ (other : Nat),
+              @Ne.{1} Nat other entryKey →
+                @Ne.{1} Nat other dayKey →
+                  @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+                    (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated other)
+                    (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+                      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) other))))))
+'ShielddSecurity.TransferRawEffectsSource01.successful_volume_values_and_frame' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferRawEffectsSource01.capability_mismatch_precedes_effects : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (wordMax capacity pendingKey entryKey dayKey : Nat) (ordinary : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E X backend wordMax capacity pendingKey entryKey
+      dayKey Bool.false ordinary child inputs outputs)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.capability X)))
+'ShielddSecurity.TransferRawEffectsSource01.capability_mismatch_precedes_effects' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.regulated_skips_volume_tail : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) (entryKey dayKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E X backend entryKey dayKey Bool.false child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit))
+'ShielddSecurity.TransferRawEffectsSource01.regulated_skips_volume_tail' does not depend on any axioms
+@ShielddSecurity.TransferRawEffectsSource01.ordinary_conflict_suppresses_payload : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) (entryKey dayKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (sourceHasId : Bool)
+  (source :
+    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X backend child)
+      (@Option.some.{0} Bool sourceHasId))
+  (spent :
+    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X backend child)
+      (@Option.some.{0} Bool Bool.true)),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E X backend entryKey dayKey Bool.true child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.volumeSpent X)))
+'ShielddSecurity.TransferRawEffectsSource01.ordinary_conflict_suppresses_payload' depends on axioms: [propext]
+@ShielddSecurity.TransferRawEffectsSource01.actual_late_volume_conflict_keeps_earlier_raw_cache : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (wordMax capacity pendingKey entryKey dayKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (inputs outputs : List.{0} Nat) (middle : ShielddSecurity.TransferStateDelta.Cache O E) (sourceHasId : Bool)
+  (reshaped :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+      (@ShielddSecurity.TransferRawEffectsSource01.reshape O E X backend wordMax capacity pendingKey child inputs
+        outputs)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError X) middle
+        (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit)))
+  (source :
+    @Eq.{1} (Option.{0} Bool)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X backend
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          middle))
+      (@Option.some.{0} Bool sourceHasId))
+  (spent :
+    @Eq.{1} (Option.{0} Bool)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X backend
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          middle))
+      (@Option.some.{0} Bool Bool.true)),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E X backend wordMax capacity pendingKey entryKey
+      dayKey Bool.true Bool.true child inputs outputs)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X) middle
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.volumeSpent X)))
+'ShielddSecurity.TransferRawEffectsSource01.actual_late_volume_conflict_keeps_earlier_raw_cache' depends on axioms: [propext]
