@@ -789,3 +789,8 @@ Evidence commit: fe00d41d3a754b34a72c5467b4e26c24d137cdff
 Independent review accepted15 original complete reports for source boundary staging. Validation and observed genesis/later-parent gates are derived from success; next-boundary serialization precedes the exact three writes and frames other state. Installed-stage writer success derives original accepted inputs and application preparation on that exact staged state. Store.prepare alone retains the necessary default-genesis premise. Key separation, native typed values/StateRead/BTreeSet/serde/FORMAT/root commitment/read_boundary/ownership/async/batch/durability/fullTransfer remain OPEN. Original proof-only failed predecessor retained;518 inherited reports52owned modules are exact prior associations, with physical controls unchanged.
 
 Evidence commit: 1c3628c18532a916c8228ed4118aa02f0d2cc94b
+
+
+Independent review accepted11 complete original reports binding six exact pinned Rust ASCII key/FORMAT literals. Unmodified maintained generator replay reproduced exact generated source bytes. Byte separation derives three write-key inequalities under explicit injective representation; successful source-bound staging derives actual serialized next boundary, pinned FORMAT and observed root commitment bytes at those keys. Native projection/getter/serde/crypto/ownership/async/durability/fullTransfer remain OPEN. No fresh ancestor or native replay;533 inherited reports53owned modules are exact prior associations. Generated Lean is committed with evidence separately from maintained generators/review helpers; physical controls unchanged.
+
+Evidence commit: 07ea22bc96d8058e6cfd3c2860e8fd6de5955b4a
