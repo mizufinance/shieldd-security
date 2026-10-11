@@ -1,0 +1,38 @@
+{
+  "status": "PASSED",
+  "kind": "Exact retained failed source repair comparison, no requalification",
+  "failed_original": {
+    "receipt": {
+      "bytes": 2734,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution244/runtime/receipts/1280-SharedWordFlags220.json",
+      "sha256": "ebf9894e46a9915e8160c124f90d3414fc3cd707d618639a897204d6cce0b3d2"
+    },
+    "module": "SharedWordFlags220",
+    "source": {
+      "bytes": 5080,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-shared-word-flags220-source03/source-root/ShielddSecurity/SharedWordFlags220.lean",
+      "sha256": "96e53d54e7e0e49ef74cb7beec743450892e66a81f38b2535ec89b881d623f97"
+    },
+    "stdout": {
+      "bytes": 4554,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution244/runtime/logs/1280-SharedWordFlags220.stdout",
+      "sha256": "433f73df2c8133f8eb43e0e98465fd2bd86b7d24f607666ddeefc7230023f323"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution244/runtime/logs/1280-SharedWordFlags220.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "exit": 1,
+    "error": "RuntimeError('process/failure/cleanup refusal')",
+    "scope": "Rejected original attempt; no semantic control claim"
+  },
+  "selected_source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-shared-word-flags220-source04/source-root/ShielddSecurity/SharedWordFlags220.lean",
+    "bytes": 5150,
+    "sha256": "2565ab0963003131d7342b1cf6914cee67ab72f43a77bc40270d806a83c2c072"
+  },
+  "reason": "Definitional equality of selected head; definitions and theorem statements unchanged.",
+  "exact_delta": "--- \n+++ \n@@ -23,7 +23,8 @@\n    intro coherent member\n    rcases List.mem_cons.mp member with samePair|tail\n    \u00b7 subst pair\n-     simp only [chosen,if_pos rfl]\n+     change (if head.1=head.1 then head.2 else chosen rest fallback head.1)=head.2\n+     exact if_pos rfl\n    \u00b7 by_cases same : pair.1=head.1\n      \u00b7 exact (if_pos same).trans (coherent pair member head (List.mem_cons_self ..) same).symm\n      \u00b7 change (if pair.1=head.1 then head.2 else chosen rest fallback pair.1)=pair.2\n",
+  "full_transfer": "OPEN"
+}
