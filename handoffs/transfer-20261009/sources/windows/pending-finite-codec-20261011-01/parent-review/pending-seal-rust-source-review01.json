@@ -1,0 +1,19 @@
+{
+  "kind": "Independent pinned Rust branch review; no native execution or Lean result",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/component/sct/src/component/tree.rs",
+    "bytes": 48880,
+    "sha256": "d95558d2c9da8e16419ab1a43c27052d672c607c46bd41b40daa7e9fdf7b1a65"
+  },
+  "branches": {
+    "PendingNullifierBlock": "Open stores ordered vector and membership set. Sealed stores ordered vector only; its contains uses ordered.contains. Default is Open with both containers empty.",
+    "seal_nullifier_block": "Absent object is default Open empty and is stored as Sealed empty. Open freezes its exact ordered vector into Sealed. Sealed rejects before any object_put. This method performs no NOMT write.",
+    "ensure_nullifier_block_sealed": "Absence and Sealed return Ok. Explicit Open rejects. Thus absence is distinct from an explicitly open block for this guard.",
+    "stage_nullifiers": "Checks duplicate input keys, then rejects any Sealed object before capacity/old-membership/durable checks and object_put. Failed returned branch retains original stored object.",
+    "nullify_all": "Empty input returns Ok before seal or source-id checks. Any later-delivery refusal claim must cover the actual call branch and require nonempty input where this path is used.",
+    "end_sct_block": "Calls ensure_nullifier_block_sealed before obtaining height/tree and block/epoch finalization; downstream effects and panics are separate obligations."
+  },
+  "representation_boundary": "Typed object retrieval/encoding, host phases, persistence-owner state, NOMT commit/reopen, and whole native correspondence remain OPEN",
+  "full_transfer": "OPEN"
+}

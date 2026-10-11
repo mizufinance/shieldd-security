@@ -1,0 +1,101 @@
+ShielddSecurity.TransferPendingFiniteCodec01.NativePending : Type
+'ShielddSecurity.TransferPendingFiniteCodec01.NativePending' does not depend on any axioms
+ShielddSecurity.TransferPendingFiniteCodec01.restore : ShielddSecurity.TransferPendingFiniteCodec01.NativePending →
+  ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferPendingFiniteCodec01.restore' does not depend on any axioms
+ShielddSecurity.TransferPendingFiniteCodec01.erase : (pending :
+    ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+  ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+'ShielddSecurity.TransferPendingFiniteCodec01.erase' does not depend on any axioms
+@ShielddSecurity.TransferPendingFiniteCodec01.encode : {O : Type} →
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O) →
+    (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending) → O
+'ShielddSecurity.TransferPendingFiniteCodec01.encode' does not depend on any axioms
+@ShielddSecurity.TransferPendingFiniteCodec01.decode : {O : Type} →
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending) →
+    (object : O) → ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferPendingFiniteCodec01.decode' does not depend on any axioms
+ShielddSecurity.TransferPendingFiniteCodec01.restored_membership_has_finite_representation : ∀
+  (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+  @Exists.{1} (List.{0} Nat) fun (members : List.{0} Nat) =>
+    ∀ (key : Nat),
+      @Eq.{1} Bool
+        (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore native) key)
+        (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat) members key)
+'ShielddSecurity.TransferPendingFiniteCodec01.restored_membership_has_finite_representation' does not depend on any axioms
+ShielddSecurity.TransferPendingFiniteCodec01.erase_restore_is_order_based_canonicalization : ∀
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore (ShielddSecurity.TransferPendingFiniteCodec01.erase pending))
+    (ShielddSecurity.TransferNullifierBatchSource01.Pending.mk
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending)
+      (fun (key : Nat) =>
+        @List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+          (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending) key)
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed pending))
+'ShielddSecurity.TransferPendingFiniteCodec01.erase_restore_is_order_based_canonicalization' does not depend on any axioms
+ShielddSecurity.TransferPendingFiniteCodec01.coherent_pending_restores_after_erasure : ∀
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (coherent : ShielddSecurity.TransferPendingSetInvariant01.Coherent pending),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore (ShielddSecurity.TransferPendingFiniteCodec01.erase pending))
+    pending
+'ShielddSecurity.TransferPendingFiniteCodec01.coherent_pending_restores_after_erasure' depends on axioms: [Quot.sound]
+@ShielddSecurity.TransferPendingFiniteCodec01.typed_finite_codec_restores_coherent_pending : ∀ {O : Type}
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (typedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (coherent : ShielddSecurity.TransferPendingSetInvariant01.Coherent pending),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative
+      (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative pending))
+    pending
+'ShielddSecurity.TransferPendingFiniteCodec01.typed_finite_codec_restores_coherent_pending' depends on axioms: [Quot.sound]
+ShielddSecurity.TransferPendingFiniteCodec01.native_open_append_simulates_model_membership_union : ∀
+  (ordered members keys : List.{0} Nat),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} Nat) (List.{0} Nat) (List.{0} Nat)
+          (@instHAppendOfAppend.{0} (List.{0} Nat) (@List.instAppend.{0} Nat)) ordered keys)
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} Nat) (List.{0} Nat) (List.{0} Nat)
+          (@instHAppendOfAppend.{0} (List.{0} Nat) (@List.instAppend.{0} Nat)) members keys)))
+    (ShielddSecurity.TransferNullifierBatchSource01.appendPending
+      (ShielddSecurity.TransferPendingFiniteCodec01.restore
+        (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened ordered members))
+      keys)
+'ShielddSecurity.TransferPendingFiniteCodec01.native_open_append_simulates_model_membership_union' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferPendingFiniteCodec01.native_sealed_discards_set_and_restores_frozen_membership : ∀
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+  And
+    (@Eq.{1} ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+      (ShielddSecurity.TransferPendingFiniteCodec01.erase (ShielddSecurity.TransferPendingSealSource01.freeze pending))
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+        (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending)))
+    (And
+      (@Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore
+          (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+            (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending)))
+        (ShielddSecurity.TransferPendingSealSource01.freeze pending))
+      (ShielddSecurity.TransferPendingSetInvariant01.Coherent
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore
+          (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+            (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending)))))
+'ShielddSecurity.TransferPendingFiniteCodec01.native_sealed_discards_set_and_restores_frozen_membership' does not depend on any axioms
+ShielddSecurity.TransferPendingFiniteCodec01.native_default_open_restores_empty_pending : And
+  (@Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat)))
+    ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)
+  (@Eq.{1} ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+    (ShielddSecurity.TransferPendingFiniteCodec01.erase ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)
+    (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat)))
+'ShielddSecurity.TransferPendingFiniteCodec01.native_default_open_restores_empty_pending' does not depend on any axioms
