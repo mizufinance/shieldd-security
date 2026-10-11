@@ -637,3 +637,6 @@ Reviewed count-join-max evidence `15ab64b31bcfe368915b25eff845bdc391259ec7` publ
 
 
 Reviewed decodable-index evidence `b73af97ac8bef15ab9dd279e3d59064819162a31` publishes1whole-success theorem with its complete original full type and standard axioms. Concrete mathematical ordinalcodec/currentNVgetter installed on same-action Ordinary delivery derive exact3NVvalues, old/new ordinal decodings, eight-byte lengths/valid ranges,2Vmarkers/freshness/extraction/increment/queue preservation. Exact283ancestor reports25ownedmodule identities and guards verified. Runtime/native/durability and fullTransfer OPEN.
+
+
+Reviewed registry-value97..99 evidence `2976679ccbc324da7b5dbc602de4a86560d07891` publishes4modules32original complete reports. Exact255bit recipes/actual provider positions, arbitrary linked assignment soundness, bounded bit construction and shared frames derive all177954arith+420DISTINCT assertion positions(first163 plus178118..178374); anchor178117 OPEN, no contiguous421claim. Independent legalRegistrySem provides bound/value; no targettruth premise. All sources regenerate byte-exact; full827/830 original histories, exact customimports and unchanged physical guards reviewed. Remaining22396assertions/legalpreimage/native/fullTransfer/finalreplay OPEN.
