@@ -1095,3 +1095,6 @@ Publish independently reviewed byte-key-cache original source model. 7 complete 
 
 
 Publish independently reviewed partition-local-rollback original source model. 4 complete original reports; exact independently accepted ancestry. Installed rollback updates only selected root index and independently retains possible error; List.set frame preserves every different partition observation, derives forward frames and reuses original complete captured recovery recurrence. Own-root restoration/success/health/durability not assumed. Actual NOMT handle isolation/concurrent root observations/locks/compiler/native trace/ownership/filesystem/crash correspondence remains owned OPEN Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed scalar-byte-decode original source model. 7 complete original reports; exact independently accepted ancestry. Typed UInt8 eight-byte LE chunks derive UInt64 bound and exact full-width packed integer reconstruction. Four-word borrow accepts iff exact32byte integer below field modulus; exact source serializer bytes pass. Native from_le_bytes/SBB/Choice/CtOption/Scalar invariant/R2 Montgomery conversion/compiler/full trace bindings owned OPEN Combined replay and full Transfer remain OPEN.
