@@ -1,5 +1,16 @@
 # Transfer proof completion plan — 9 October 2026
 
+The composed first epoch hints are accepted at 8795df5014c2ca29556a67135e6377e13c523984:
+one fresh module/15 complete reports. It derives both the65 range and4
+nonzero actual assertions on one assignment after independently constructed
+arithmetic, explicit hint agreement, legal input bound/guard and constant/copy
+linkage. Canonical soundness derives the64-bit bound from independently
+canonical n<p, field meaning and actual range rows; the target bound is never
+a premise. Parent verified original full types/axioms, exact isolated source
+regeneration,35 selected published import associations and unchanged guards,
+and preserved the single failed predecessor. Full legal Transfer semantic
+construction, native refinement and certification remain OPEN.
+
 The readback/recovery/writer-publication model replay is accepted at 35998917369a3d6479771403bba3f206a1a8ebb3:
 three exact existing sources/35 fresh complete theorem reports. Parent
 verified all original byte/type/axiom reports, dependency-order compilation
