@@ -1,0 +1,30 @@
+import ShielddSecurity.CapturedAssertions50B0064
+import ShielddSecurity.CapturedAssertions50B0065
+import ShielddSecurity.CapturedAssertions50B0066
+import ShielddSecurity.CapturedAssertions50B0067
+import ShielddSecurity.CapturedAssertions50B0068
+import ShielddSecurity.CapturedAssertions50B0069
+import ShielddSecurity.CapturedAssertions50B0070
+import ShielddSecurity.CapturedAssertions50B0071
+import ShielddSecurity.CapturedAssertions50B0072
+import ShielddSecurity.CapturedAssertions50B0073
+import ShielddSecurity.CapturedAssertions50B0074
+import ShielddSecurity.CapturedAssertions50B0075
+import ShielddSecurity.CapturedAssertions50B0076
+import ShielddSecurity.CapturedAssertions50B0077
+import ShielddSecurity.CapturedAssertions50B0078
+import ShielddSecurity.CapturedAssertions50B0079
+import ShielddSecurity.CompilerAssertionBlock51
+import ShielddSecurity.CompilerArithmeticTransport41
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.CapturedAssertions54G04
+open CompilerAssertionBlock51 CompilerArithmeticTransport41
+noncomputable def block : Block p copy 4096 := (CompilerAssertionBlock51.append p copy 2048 2048 (CompilerAssertionBlock51.append p copy 1024 1024 (CompilerAssertionBlock51.append p copy 512 512 (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0064.block CapturedAssertions50B0065.block) (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0066.block CapturedAssertions50B0067.block)) (CompilerAssertionBlock51.append p copy 512 512 (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0068.block CapturedAssertions50B0069.block) (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0070.block CapturedAssertions50B0071.block))) (CompilerAssertionBlock51.append p copy 1024 1024 (CompilerAssertionBlock51.append p copy 512 512 (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0072.block CapturedAssertions50B0073.block) (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0074.block CapturedAssertions50B0075.block)) (CompilerAssertionBlock51.append p copy 512 512 (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0076.block CapturedAssertions50B0077.block) (CompilerAssertionBlock51.append p copy 256 256 CapturedAssertions50B0078.block CapturedAssertions50B0079.block))))
+end ShielddSecurity.CapturedAssertions54G04
+
+set_option pp.all true in
+#check @ShielddSecurity.CapturedAssertions54G04.block
+#print axioms ShielddSecurity.CapturedAssertions54G04.block

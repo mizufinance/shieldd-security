@@ -1,0 +1,6 @@
+{
+  "original_path": "guard-delta01.diff",
+  "bytes": 1141,
+  "sha256": "11ff6d6f5d85177b58c040cd902d0d8a5d7cb721b68a6b86b52b44747f4cb2d4",
+  "content_utf8": "--- accepted-a4bca248-guard.py\n+++ assertion-264a038f-guard.py\n@@ -341,14 +341,14 @@\n     aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=128*1024*1024, 'batch disk/metadata cap')\n+    require(total<=1024*1024*1024 and metadata<=256*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n     return {'free_memory_percent':memory,'free_disk_bytes':disk,'batch_bytes':total,'metadata_bytes':metadata}\n \n def launch_reserve(observation):\n-    require(observation['metadata_bytes']<=124*1024*1024, 'reserve streams/receipt metadata')\n+    require(observation['metadata_bytes']<=252*1024*1024, 'reserve streams/receipt metadata')\n     require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):\n"
+}
