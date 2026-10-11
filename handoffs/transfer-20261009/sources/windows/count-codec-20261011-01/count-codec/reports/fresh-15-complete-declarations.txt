@@ -1,0 +1,169 @@
+ShielddSecurity.TransferIndexCountCodec01.encodeBE : Nat → Nat → ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferIndexCountCodec01.encodeBE' does not depend on any axioms
+ShielddSecurity.TransferIndexCountCodec01.decodeBE : ShielddSecurity.TransferStateDelta.Bytes → Nat
+'ShielddSecurity.TransferIndexCountCodec01.decodeBE' does not depend on any axioms
+ShielddSecurity.TransferIndexCountCodec01.validBytes : (bytes : ShielddSecurity.TransferStateDelta.Bytes) → Bool
+'ShielddSecurity.TransferIndexCountCodec01.validBytes' does not depend on any axioms
+ShielddSecurity.TransferIndexCountCodec01.decodeCount : (bytes : ShielddSecurity.TransferStateDelta.Bytes) →
+  Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal
+'ShielddSecurity.TransferIndexCountCodec01.decodeCount' does not depend on any axioms
+ShielddSecurity.TransferIndexCountCodec01.codec : ShielddSecurity.TransferIndexWriterModel01.Codec
+'ShielddSecurity.TransferIndexCountCodec01.codec' does not depend on any axioms
+ShielddSecurity.TransferIndexCountCodec01.encode_length : ∀ (width value : Nat),
+  @Eq.{1} Nat (@List.length.{0} Nat (ShielddSecurity.TransferIndexCountCodec01.encodeBE width value)) width
+'ShielddSecurity.TransferIndexCountCodec01.encode_length' depends on axioms: [propext]
+ShielddSecurity.TransferIndexCountCodec01.encode_valid : ∀ (width value : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat value
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) width)),
+  @Eq.{1} Bool
+    (ShielddSecurity.TransferIndexCountCodec01.validBytes
+      (ShielddSecurity.TransferIndexCountCodec01.encodeBE width value))
+    Bool.true
+'ShielddSecurity.TransferIndexCountCodec01.encode_valid' depends on axioms: [propext]
+ShielddSecurity.TransferIndexCountCodec01.decode_valid_bound : ∀ (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (valid : @Eq.{1} Bool (ShielddSecurity.TransferIndexCountCodec01.validBytes bytes) Bool.true),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferIndexCountCodec01.decodeBE bytes)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+      (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) (@List.length.{0} Nat bytes))
+'ShielddSecurity.TransferIndexCountCodec01.decode_valid_bound' depends on axioms: [propext]
+ShielddSecurity.TransferIndexCountCodec01.decode_encode : ∀ (width value : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat value
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) width)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferIndexCountCodec01.decodeBE
+      (ShielddSecurity.TransferIndexCountCodec01.encodeBE width value))
+    value
+'ShielddSecurity.TransferIndexCountCodec01.decode_encode' depends on axioms: [propext]
+ShielddSecurity.TransferIndexCountCodec01.decode_success_iff : ∀ (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (ordinal : ShielddSecurity.TransferIndexWriterModel01.Ordinal),
+  Iff
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+      (ShielddSecurity.TransferIndexCountCodec01.decodeCount bytes)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal ordinal))
+    (And (@Eq.{1} Nat (@List.length.{0} Nat bytes) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))
+      (And (@Eq.{1} Bool (ShielddSecurity.TransferIndexCountCodec01.validBytes bytes) Bool.true)
+        (@Eq.{1} Nat (ShielddSecurity.TransferIndexCountCodec01.decodeBE bytes)
+          (@Fin.val
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+            ordinal))))
+'ShielddSecurity.TransferIndexCountCodec01.decode_success_iff' does not depend on any axioms
+ShielddSecurity.TransferIndexCountCodec01.codec_roundtrip : ∀
+  (ordinal : ShielddSecurity.TransferIndexWriterModel01.Ordinal),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+    (ShielddSecurity.TransferIndexWriterModel01.Codec.decodeCount ShielddSecurity.TransferIndexCountCodec01.codec
+      (ShielddSecurity.TransferIndexWriterModel01.Codec.encodeCount ShielddSecurity.TransferIndexCountCodec01.codec
+        ordinal))
+    (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal ordinal)
+'ShielddSecurity.TransferIndexCountCodec01.codec_roundtrip' depends on axioms: [propext]
+ShielddSecurity.TransferIndexCountCodec01.malformed_iff_wrong_length_for_real_bytes : ∀
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (valid : @Eq.{1} Bool (ShielddSecurity.TransferIndexCountCodec01.validBytes bytes) Bool.true),
+  Iff
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+      (ShielddSecurity.TransferIndexCountCodec01.decodeCount bytes)
+      (@Option.none.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal))
+    (@Ne.{1} Nat (@List.length.{0} Nat bytes) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))
+'ShielddSecurity.TransferIndexCountCodec01.malformed_iff_wrong_length_for_real_bytes' depends on axioms: [propext]
+ShielddSecurity.TransferIndexCountCodec01.absent_count_is_zero : @Eq.{1}
+  (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+  (ShielddSecurity.TransferIndexWriterModel01.countObservation ShielddSecurity.TransferIndexCountCodec01.codec
+    (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+  (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal
+    (@Fin.mk
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      (@of_decide_eq_true
+        (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+        (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+        (@id.{0}
+          (@Eq.{1} Bool
+            (@Decidable.decide
+              (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+              (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+            Bool.true)
+          (@Eq.refl.{1} Bool Bool.true)))))
+'ShielddSecurity.TransferIndexCountCodec01.absent_count_is_zero' does not depend on any axioms
+ShielddSecurity.TransferIndexCountCodec01.wrong_length_is_invalid_count : ∀
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (wrong : @Ne.{1} Nat (@List.length.{0} Nat bytes) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+    (ShielddSecurity.TransferIndexWriterModel01.countObservation ShielddSecurity.TransferIndexCountCodec01.codec
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+    (@Option.none.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+'ShielddSecurity.TransferIndexCountCodec01.wrong_length_is_invalid_count' depends on axioms: [propext]
+ShielddSecurity.TransferIndexCountCodec01.decoded_full_count_refuses_increment : @Eq.{1}
+  (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+  (ShielddSecurity.TransferIndexWriterModel01.nextOrdinal
+    (@Fin.mk
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (@of_decide_eq_true
+        (@LT.lt.{0} Nat instLTNat
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+        (Nat.decLt
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+        (@id.{0}
+          (@Eq.{1} Bool
+            (@Decidable.decide
+              (@LT.lt.{0} Nat instLTNat
+                (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+              (Nat.decLt
+                (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+            Bool.true)
+          (@Eq.refl.{1} Bool Bool.true)))))
+  (@Option.none.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+'ShielddSecurity.TransferIndexCountCodec01.decoded_full_count_refuses_increment' depends on axioms: [propext]
