@@ -990,3 +990,10 @@ Actual Rust trace, masked modulus add-back, byte order and field semantic corres
 Published `TransferScalarMaskedNormalization01` with10original full type/axiom reports. Independent guard/runtime/ancestry/receipt/load review and exact maintained failed01 proof-only projection repair preserve all two definitions/eight contracts. Derived final SBB borrow selects zero or modulus through each actual modeled UInt64 AND; retained unit MAC add-back computes the full sum modulo radix power. Four-word subtract/add-back equals single-modulus normalization for every finite input; composing the four carry rounds derives range below the exact nullifier modulus. No desired final borrow or result is supplied.
 
 Actual Rust trace, 32-byte encoding, Montgomery field semantics and native typed projection remain owned OPEN. Native controls/final selected replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
+
+
+### Normalization repair review reproduction correction, 2026-10-11
+
+Appended precise maintained failed01 source-replay review and corrected parent helper for the preceding `TransferScalarMaskedNormalization01` publication. The prior selector expected an inline replacement in its third AST node; this producer separately assigns literal b then performs the replacement in its fourth node. The corrected helper validates both and reproduces the accepted source exactly. All two model definitions/eight theorem contracts and failed diagnostics/log pins match; original source, kernel receipts, full reports and parent kernel review remain byte-identical and immutable. This completes the missing review bundle; no new kernel execution or reports counted.
+
+Actual native Rust/byte/Montgomery/type correspondence and final Transfer remain OPEN.
