@@ -52,7 +52,7 @@ manifest=[dict(path=str(p.relative_to(D)),bytes=p.stat().st_size,sha256=sha(p.re
 paths=[str(p.relative_to(G))for p in sorted(D.rglob('*'))if p.is_file()];hand=[p for p in paths if p.endswith(('.py','.md'))or'/template.lean'in p];evidence=[p for p in paths if p not in hand]
 a=G/'.gitattributes';entry=str(D.relative_to(G)/'parent-review/pending-mac-archived-metadata-guard-delta03.diff')+' whitespace=-blank-at-eof,-blank-at-eol';a.write_text(a.read_text()+'\n'+entry+'\n');hand.append('.gitattributes')
 for number in [184,186,187,188,190,195,198,199]:
- entry=str(D.relative_to(G)/f'parent-review/pending-mac-metadata-cache-guard-delta{number}.diff' if number in [198,199] else f'parent-review/pending-mac-archived-metadata-guard-delta{number}.diff')+' whitespace=-blank-at-eof,-blank-at-eol';a.write_text(a.read_text()+'\n'+entry+'\n')
+ entry=str(D.relative_to(G)/(f'parent-review/pending-mac-metadata-cache-guard-delta{number}.diff' if number in [198,199] else f'parent-review/pending-mac-archived-metadata-guard-delta{number}.diff'))+' whitespace=-blank-at-eof,-blank-at-eol';a.write_text(a.read_text()+'\n'+entry+'\n')
 for n,v in [('handwritten',hand),('evidence',evidence)]:(J/('prior-global170-'+n+'-pathspecs.txt')).write_text('\n'.join(v)+'\n')
 out=dict(path=str(D),files=len(paths),bytes=sum(p.stat().st_size for p in D.rglob('*')if p.is_file()),handwritten=len(hand),evidence=len(evidence),free_bytes=shutil.disk_usage(W).free)
 (J/'prior-global170-publication-payload01.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out))
