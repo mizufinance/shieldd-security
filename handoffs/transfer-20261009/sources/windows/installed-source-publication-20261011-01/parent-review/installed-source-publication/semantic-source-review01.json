@@ -1,0 +1,46 @@
+{
+  "status": "PASSED",
+  "kind": "Independent exact pure maintained source/repair generation and full failed history/model/contract review",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-installed-source-publication-review01/packet01/source/ShielddSecurity/TransferInstalledSourcePublication01.lean",
+    "bytes": 9124,
+    "sha256": "f1bb41331d9a002e3e6edd531f87e12f438b06f1d408ba1aab77b395942de57d"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-installed-source-publication-review01/packet01/qualified/recipe_source.py",
+    "bytes": 9912,
+    "sha256": "95841ccde09b52bfb4b592c737a2d6b95c89e6ed37192c577d5d0e598133a55c"
+  },
+  "fresh_reports": 7,
+  "rejected": [
+    {
+      "kind": "Rejected original kernel attempt, not semantic control evidence",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 19.457363500026986,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-installed-source-publication-review01/packet01/rejected-kernel/01/handwritten/TransferInstalledSourcePublication01.lean",
+        "bytes": 9164,
+        "sha256": "883ff41bb9391b46e4b68499380a153d8f9a564f360aa810e0ee10afa82f2588"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-installed-source-publication-20261011-01\\project\\ShielddSecurity\\TransferInstalledSourcePublication01.lean:29:4: error: expected '{' or indented tactic sequence",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-installed-source-publication-20261011-01\\project\\ShielddSecurity\\TransferInstalledSourcePublication01.lean:28:134: error: unsolved goals",
+        "'ShielddSecurity.TransferInstalledSourcePublication01.installRequest' depends on axioms: [propext, sorryAx, Quot.sound]",
+        "'ShielddSecurity.TransferInstalledSourcePublication01.installRequests' depends on axioms: [propext, sorryAx, Quot.sound]",
+        " sorryAx,",
+        " sorryAx,",
+        " sorryAx,",
+        " sorryAx,"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -25,10 +25,7 @@\n \n def installRequest {O E K X Tree A I : Type} (inputs : A \u2192 List I) (wordOf : I \u2192 Vector UInt64 4)\n     (request : SourceRequest O E K X Tree A I inputs) : Request O E K X Tree A :=\n-  {request.base with config := installTypedInputs request.base.config inputs wordOf, supported := request.base.supported, nonempty := by\n-    change ((inputs request.base.action).map (fun input => scalarKey (wordOf input))).isEmpty = false\n-    rw [List.isEmpty_map]\n-    exact request.sourceNonempty}\n+  {request.base with config := installTypedInputs request.base.config inputs wordOf, supported := request.base.supported, nonempty := (List.isEmpty_map (l := inputs request.base.action) (f := fun input => scalarKey (wordOf input))).trans request.sourceNonempty}\n \n def installRequests {O E K X Tree A I : Type} (inputs : A \u2192 List I) (wordOf : I \u2192 Vector UInt64 4)\n     (requests : List (SourceRequest O E K X Tree A I inputs)) : List (Request O E K X Tree A) :=\n",
+      "all_theorem_contracts_unchanged": true,
+      "pure_maintained_repair_exact": true
+    }
+  ],
+  "scope": "Installed typed requests derive every sourceProjection and ordered word vector; known finalizer derives retained pending object and publication/recovery under modeled success. Actual action/word selectors/nonempty/codec/getter/key injection and full native trace/runtime correspondence remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
