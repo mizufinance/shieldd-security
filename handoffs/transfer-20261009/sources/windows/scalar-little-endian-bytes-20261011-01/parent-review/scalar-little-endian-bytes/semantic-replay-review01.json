@@ -1,0 +1,40 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-little-endian-bytes-review01/packet01/source/ShielddSecurity/TransferScalarLittleEndianBytes01.lean",
+    "bytes": 7224,
+    "sha256": "307ce853e99de52c97b18d32496eb62912517bdc43f190af5b52c0a1e6f74c0b"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-little-endian-bytes-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 2050,
+    "sha256": "28602773dc87b65f82f0a3cf2be21ff5b6fa836fa01c902fde06bb432965f1dc"
+  },
+  "fresh_reports": 15,
+  "definitions": 6,
+  "theorems": 9,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-little-endian-bytes-review01/packet01/rejected/01/handwritten/TransferScalarLittleEndianBytes01.lean",
+      "bytes": 7202,
+      "sha256": "3c25e024a4ed95c1e1fd11d2969426721b705a3728039982cb69cb17c6c63f4d"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.798177000018768,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-little-endian-bytes-20261011-01\\project\\ShielddSecurity\\TransferScalarLittleEndianBytes01.lean:73:28: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-little-endian-bytes-20261011-01\\project\\ShielddSecurity\\TransferScalarLittleEndianBytes01.lean:83:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -70,7 +70,7 @@\n   | nil => rfl\n   | cons word rest ih =>\n     change (wordBytes word ++ wordsBytes rest).length = 8 * (rest.length + 1)\n-    rw [List.length_append, typed_little_endian_encoding_has_exact_width, ih, Nat.mul_add, Nat.mul_one]\n+    rw [List.length_append, wordBytes, typed_little_endian_encoding_has_exact_width, ih, Nat.mul_add, Nat.mul_one]\n     ac_rfl\n \n theorem serialized_word_vector_reconstructs_actual_packed_words (words : List UInt64) :\n@@ -80,7 +80,7 @@\n   | cons word rest ih =>\n     change decodeLE (wordBytes word ++ wordsBytes rest) = word.toNat + radix64 * packWords rest\n     rw [little_endian_append_preserves_positional_value, word_bytes_reconstruct_actual_finite_u64,\n-      typed_little_endian_encoding_has_exact_width, ih]\n+      wordBytes, typed_little_endian_encoding_has_exact_width, ih]\n     rfl\n \n theorem source_scalar_serialization_has_exact_32_byte_width (words : List UInt64) (four : words.length = 4) :\n"
+  },
+  "scope": "Typed UInt8 little-endian codec derives exact width and bounded integer reconstruction; finite UInt64 words reconstruct packing. Four-word source-shaped carry/sub/AND/add-back serializer derives exactly32bytes and decoded value below nullifier modulus; typed Vector UInt64 4 supplies width. Actual Rust to_le_bytes/trace, Scalar Montgomery interpretation and native typed projection remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "review_harness_predecessor": "Original selector expected three AST nodes; this recipe separately assigns b then calls replace in fourth node. Failed replay had no output artifact. Exact source/definitions/contracts unchanged; selector now validates both literal b and exact s.replace(a,b). Prior kernel review remained valid."
+}
