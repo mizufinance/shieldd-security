@@ -1110,3 +1110,6 @@ Publish independently reviewed scalar-wide-round original source model. 6 comple
 
 
 Publish independently reviewed scalar-wide-walk original source model. 7 complete original reports; exact independently accepted ancestry. Source-shaped wide round recurrence derives four-word final width, radix-powered modular value and final less-than-two-modulus bound from explicit input width/range. No desired output premise. Actual Rust primitive/compiler/full execution binding remains owned OPEN. Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed scalar-wide-reduction original source model. 8 complete original reports; exact independently accepted ancestry. Eight-word source-shaped four-round reduction derives zero final discarded carry, four-limb width, canonical result and Montgomery modular relation from explicit input bound. Canonical right operand derives full schoolbook-product input bound; exact borrowed-sub/masked-addback normalization used. Actual private Scalar invariant, primitive/compiler/full native execution binding remains owned OPEN. Combined replay and full Transfer remain OPEN.
