@@ -1,0 +1,9 @@
+The raw-state endpoint qualifies one fresh source with sixteen complete declaration reports and twelve exact retained TransferStateDelta reports. The parent independently verified all thirty-two original manifest entries, full theorem signatures and permitted standard axioms, the one selected retained custom object, the 2,141-module accepted Lean/Init closure, unchanged physical runner, three exact runtime source files, and the source repair.
+
+The arbitrary-list recurrence retains the failing callback's child cache and prevents suffix callbacks from executing. Successful-prefix composition is symbolic. The delivery adapter projects an error to none before indexing, parent apply, or deferred queue append, deriving parent and queue preservation. Premises about callback results remain explicit primitive program facts. This establishes no raw rollback: partial child writes may survive the raw call.
+
+The current Rust source performs proof-bound spend and note effects before Ordinary volume handling, and question-mark propagation does not rewind earlier child writes. Its concrete aliasing, Clone/COW behavior, primitive storage errors, extracted fields and Rust-to-functional refinement remain open. Native delayed-token and genuine Host fault controls remain unexecuted. Previously accepted delivery controls are separate finite evidence.
+
+The rejected predecessor is preserved through lossless source and compiler-output JSON, original plan and event metadata. It failed elaboration; it establishes no semantic negative result. The successful repair only alpha-renames reserved/constructor-like binders and corrects a proof application arity. Model contracts remain unchanged.
+
+No parent compiler or native process was launched. Full Transfer, concrete Host durability, and universal state refinement remain OPEN.

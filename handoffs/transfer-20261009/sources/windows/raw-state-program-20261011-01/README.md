@@ -1,0 +1,1 @@
+Reviewed failure-aware raw child-cache sequence and delivery adapter: one fresh module/sixteen declarations plus twelve exact retained declarations. No raw rollback claim. Native delayed-token and genuine Host fault controls UNRUN; Rust aliasing/storage/refinement, durability and full Transfer OPEN. See parent-review/endpoint-review.md.
