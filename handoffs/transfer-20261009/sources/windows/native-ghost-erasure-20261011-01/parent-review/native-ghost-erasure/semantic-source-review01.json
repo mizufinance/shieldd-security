@@ -1,0 +1,44 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contract and maintained pure repair replay; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-ghost-erasure-review01/packet01/source/ShielddSecurity/TransferNativeGhostErasure01.lean",
+    "bytes": 9602,
+    "sha256": "25d431bb3f11290a29a6d3ea77c8e9c6ab2e81ca70fb97a639940b792ea5faa7"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-ghost-erasure-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 3050,
+    "sha256": "883a583da1c8616631b94f4040d65c1c2223cef2ad10494b749d3ea0ad88b22f"
+  },
+  "fresh_reports": 5,
+  "definitions_and_all_four_contracts_unchanged": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-ghost-erasure-review01/packet01/rejected/source01/handwritten/TransferNativeGhostErasure01.lean",
+      "bytes": 10694,
+      "sha256": "ff0886b764310c2ba034c59dbf55be513d22b1a599412af0b56e12b4785dc6ef"
+    },
+    "whole_attempt": {
+      "reason": "Lean exit 1",
+      "seconds": 17.2620511999703,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-ghost-erasure-20261011-01\\project\\ShielddSecurity\\TransferNativeGhostErasure01.lean:90:47: error: unexpected identifier; expected '}'",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-ghost-erasure-20261011-01\\project\\ShielddSecurity\\TransferNativeGhostErasure01.lean:86:14: error: Invalid `\u27e8...\u27e9` notation: The expected type `Prop` is not an inductive type",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-ghost-erasure-20261011-01\\project\\ShielddSecurity\\TransferNativeGhostErasure01.lean:88:24: error: Invalid `\u27e8...\u27e9` notation: The expected type `Prop` is not an inductive type",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-ghost-erasure-20261011-01\\project\\ShielddSecurity\\TransferNativeGhostErasure01.lean:90:10: error: Type mismatch"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -82,30 +82,24 @@\n     (nativeInputs : \u2200 key \u2208 inputs, key < nullifierModulus) (belowWord : blockCapacity < wordMax) :\n     TransferRawEffectsSource01.reshape (nativeRaw encodeNative raw) wordMax blockCapacity objectKey child inputs outputs =\n       TransferRawEffectsSource01.reshape (nativeOnlyRaw encodeNative raw) wordMax blockCapacity objectKey child inputs outputs := by\n-  change (match raw.currentSource child with\n-    | none => \u27e8child.cache, .error .source\u27e9\n-    | some source => match (executeNullify (nativeRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey source child inputs).result with\n-      | .error error => \u27e8(executeNullify (nativeRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey source child inputs).cache, .error (.batch error)\u27e9\n-      | .ok () => TransferRawEffectsSource01.notes (nativeRaw encodeNative raw) source {child with cache :=\n-          TransferRawEffectsSource01.emitSpends raw.spentEvent (executeNullify (nativeRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey source child inputs).cache inputs} outputs) = _\n   cases source : raw.currentSource child with\n-  | none => rfl\n+  | none => simp only [TransferRawEffectsSource01.reshape, nativeRaw, nativeOnlyRaw, source]\n   | some sourceHasId =>\n     have primitive := bounded_primitive_ghost_erasure_preserves_every_returned_outcome\n       encodeNative raw wordMax objectKey sourceHasId child inputs initial bounded nativeInputs belowWord\n-    change (match (executeNullify (nativeRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey sourceHasId child inputs).result with\n-      | .error error => \u27e8(executeNullify (nativeRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey sourceHasId child inputs).cache, .error (.batch error)\u27e9\n-      | .ok () => TransferRawEffectsSource01.notes (nativeRaw encodeNative raw) sourceHasId {child with cache :=\n-          TransferRawEffectsSource01.emitSpends raw.spentEvent (executeNullify (nativeRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey sourceHasId child inputs).cache inputs} outputs) = _\n+    have extendedSource : (nativeRaw encodeNative raw).currentSource child = some sourceHasId := source\n+    have onlySource : (nativeOnlyRaw encodeNative raw).currentSource child = some sourceHasId := source\n+    simp only [TransferRawEffectsSource01.reshape, extendedSource, onlySource]\n     rw [primitive]\n-    cases result : (executeNullify (nativeOnlyRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey sourceHasId child inputs).result with\n-    | error error => simp only [TransferRawEffectsSource01.reshape, nativeOnlyRaw, source, result]\n-    | ok returnedUnit =>\n-      cases returnedUnit\n-      simpa only [TransferRawEffectsSource01.reshape, nativeOnlyRaw, source, result] using\n-        notes_ignore_the_erased_nullifier_encoder encodeNative raw sourceHasId\n-          {child with cache := TransferRawEffectsSource01.emitSpends raw.spentEvent\n-            (executeNullify (nativeOnlyRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey sourceHasId child inputs).cache inputs} outputs\n+    cases observed : executeNullify (nativeOnlyRaw encodeNative raw).nullifiers wordMax blockCapacity objectKey sourceHasId child inputs with\n+    | mk cache result =>\n+      cases result with\n+      | error error => rfl\n+      | ok returnedUnit =>\n+        cases returnedUnit\n+        exact notes_ignore_the_erased_nullifier_encoder encodeNative raw sourceHasId\n+          {child with cache := TransferRawEffectsSource01.emitSpends raw.spentEvent cache inputs} outputs\n+\n \n theorem bounded_raw_transfer_ghost_erasure_preserves_every_returned_outcome {O E X : Type}\n     (encodeNative : NativePending \u2192 O) (raw : TransferRawEffectsSource01.Backend (ExtendedObject O) E X)\n"
+  },
+  "contracts": [
+    "Both comparison programs share the same ExtendedObject state, pending getter and primitive/native encodeNative, and all callbacks. Only the pending encoder differs: supported finite codec versus always-native sum branch. This is encoder/model outcome equality, not deletion of the entire ExtendedObject state type or a native Rust execution theorem.",
+    "Given canonical input/start bounds and coherent/open/capacity invariant, all modeled primitive outcomes are identical, including errors and every returned cache. Successful inspection derives support, so unsupported encoder branch is unused.",
+    "Note recursion ignores nullifier encoding; reshape and raw Transfer preserve every returned outcome with the same callbacks and observed effects. No successful-body or desired-result premise is supplied.",
+    "Native typed codec/getter/Clone/imbl inputs/callback/key/trace/ownership/OS remain owned OPEN correspondence. Capability/delivery/index wrappers and whole reachable traces remain successor obligations. Full Transfer/native controls/final replay are not qualified here."
+  ],
+  "source_replay_exact": true,
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}

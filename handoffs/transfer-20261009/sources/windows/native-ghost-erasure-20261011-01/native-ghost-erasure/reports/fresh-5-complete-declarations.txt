@@ -1,0 +1,151 @@
+@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw : {O E X : Type} →
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O) →
+    (raw :
+        ShielddSecurity.TransferRawEffectsSource01.Backend
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X) →
+      ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        E X
+'ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw' does not depend on any axioms
+@ShielddSecurity.TransferNativeGhostErasure01.bounded_primitive_ghost_erasure_preserves_every_returned_outcome : ∀
+  {O E X : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (raw :
+    ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      X)
+  (wordMax objectKey : Nat) (sourceHasId : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E)
+  (keys : List.{0} Nat)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (inputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+    (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X
+        (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E X encodeNative raw))
+      wordMax ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey sourceHasId child keys)
+    (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X
+        (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E X encodeNative raw))
+      wordMax ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey sourceHasId child keys)
+'ShielddSecurity.TransferNativeGhostErasure01.bounded_primitive_ghost_erasure_preserves_every_returned_outcome' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNativeGhostErasure01.notes_ignore_the_erased_nullifier_encoder : ∀ {O E X : Type}
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (raw :
+    ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      X)
+  (source : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E)
+  (outputs : List.{0} Nat),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.notes (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      X (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E X encodeNative raw) source child outputs)
+    (@ShielddSecurity.TransferRawEffectsSource01.notes (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      X (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E X encodeNative raw) source child outputs)
+'ShielddSecurity.TransferNativeGhostErasure01.notes_ignore_the_erased_nullifier_encoder' depends on axioms: [propext]
+@ShielddSecurity.TransferNativeGhostErasure01.bounded_raw_reshape_ghost_erasure_preserves_every_returned_outcome : ∀
+  {O E X : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (raw :
+    ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      X)
+  (wordMax objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E)
+  (inputs outputs : List.{0} Nat)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (nativeInputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) inputs key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.reshape (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E X (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E X encodeNative raw) wordMax
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey child inputs outputs)
+    (@ShielddSecurity.TransferRawEffectsSource01.reshape (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E X (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E X encodeNative raw) wordMax
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey child inputs outputs)
+'ShielddSecurity.TransferNativeGhostErasure01.bounded_raw_reshape_ghost_erasure_preserves_every_returned_outcome' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNativeGhostErasure01.bounded_raw_transfer_ghost_erasure_preserves_every_returned_outcome : ∀
+  {O E X : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (raw :
+    ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      X)
+  (wordMax objectKey entryKey dayKey : Nat) (exactMatched ordinary : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E)
+  (inputs outputs : List.{0} Nat)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (nativeInputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) inputs key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X
+      (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E X encodeNative raw) wordMax
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey entryKey dayKey exactMatched ordinary
+      child inputs outputs)
+    (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X
+      (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E X encodeNative raw) wordMax
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey entryKey dayKey exactMatched ordinary
+      child inputs outputs)
+'ShielddSecurity.TransferNativeGhostErasure01.bounded_raw_transfer_ghost_erasure_preserves_every_returned_outcome' depends on axioms: [propext,
+ Quot.sound]
