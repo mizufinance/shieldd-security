@@ -1,0 +1,95 @@
+{
+  "kind": "independent parsing of existing sealed source, objects, receipts and compiler output; no Lean replay",
+  "files_rehashed": 13,
+  "modules": [
+    {
+      "module": "CompilerRowSlice63",
+      "source": {
+        "bytes": 4854,
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-indexed-row-slice63-source01/source-root/ShielddSecurity/CompilerRowSlice63.lean",
+        "sha256": "93136989be76d0aa7fc106ff211756c1376d59c2daa7098536c639ffec6189ec"
+      },
+      "receipt": {
+        "bytes": 9526,
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution19/runtime/receipts/601-CompilerRowSlice63.json",
+        "sha256": "18e6a568045dfac0acf81b966a64016696b7014e7ac66d1f6bae7da83ebdf88e"
+      },
+      "audits": [
+        {
+          "axioms": [
+            "propext"
+          ],
+          "full_type": "ShielddSecurity.CompilerRowSlice63.check : (parent : Nat \u2192 Option.{0} ShielddSecurity.Row) \u2192\n  (start length : Nat) \u2192 (actual : List.{0} ShielddSecurity.Row) \u2192 Bool",
+          "full_type_sha256": "8b07a434814201e3918d236f4c8820f6c2e6da6b6dd7fdc0bd625353b7250f10",
+          "name": "ShielddSecurity.CompilerRowSlice63.check"
+        },
+        {
+          "axioms": [
+            "propext"
+          ],
+          "full_type": "ShielddSecurity.CompilerRowSlice63.count : \u2200 (parent : Nat \u2192 Option.{0} ShielddSecurity.Row) (start length : Nat)\n  (actual : List.{0} ShielddSecurity.Row)\n  (checked : @Eq.{1} Bool (ShielddSecurity.CompilerRowSlice63.check parent start length actual) Bool.true),\n  @Eq.{1} Nat (@List.length.{0} ShielddSecurity.Row actual) length",
+          "full_type_sha256": "601223870bed8630054600b5eacc2b18805367978854c228951fab59e2163885",
+          "name": "ShielddSecurity.CompilerRowSlice63.count"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "ShielddSecurity.CompilerRowSlice63.position : \u2200 (parent : Nat \u2192 Option.{0} ShielddSecurity.Row) (start length : Nat)\n  (actual : List.{0} ShielddSecurity.Row)\n  (checked : @Eq.{1} Bool (ShielddSecurity.CompilerRowSlice63.check parent start length actual) Bool.true) (index : Nat)\n  (bound : @LT.lt.{0} Nat instLTNat index length),\n  @Eq.{1} (Option.{0} ShielddSecurity.Row)\n    (parent (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) start index))\n    (@GetElem?.getElem?.{0, 0, 0} (List.{0} ShielddSecurity.Row) Nat ShielddSecurity.Row\n      (fun (as : List.{0} ShielddSecurity.Row) (i : Nat) =>\n        @LT.lt.{0} Nat instLTNat i (@List.length.{0} ShielddSecurity.Row as))\n      (@List.instGetElem?NatLtLength.{0} ShielddSecurity.Row) actual index)",
+          "full_type_sha256": "84dd00e01ad766c2dac00d151ce567904153bb56104238f58cd97662d0415fc4",
+          "name": "ShielddSecurity.CompilerRowSlice63.position"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "ShielddSecurity.CompilerRowSlice63.every_position : \u2200 (parent : Nat \u2192 Option.{0} ShielddSecurity.Row)\n  (start length : Nat) (actual : List.{0} ShielddSecurity.Row)\n  (checked : @Eq.{1} Bool (ShielddSecurity.CompilerRowSlice63.check parent start length actual) Bool.true) (index : Nat)\n  (bound : @LT.lt.{0} Nat instLTNat index length),\n  @Exists.{1} ShielddSecurity.Row fun (row : ShielddSecurity.Row) =>\n    @Eq.{1} (Option.{0} ShielddSecurity.Row)\n      (parent (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) start index))\n      (@Option.some.{0} ShielddSecurity.Row row)",
+          "full_type_sha256": "cd70da47a9326436e641375397338a1db6c6073a2b9856d3cd30c278c815c25d",
+          "name": "ShielddSecurity.CompilerRowSlice63.every_position"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.CompilerRowSlice63.list_indexed_iff : \u2200 {F : Type} [inst : Field.{0} F] (rho : Nat \u2192 F)\n  (actual : List.{0} ShielddSecurity.Row),\n  Iff (@ShielddSecurity.Satisfies F inst rho actual)\n    (@ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho\n      (fun (index : Nat) =>\n        @GetElem?.getElem?.{0, 0, 0} (List.{0} ShielddSecurity.Row) Nat ShielddSecurity.Row\n          (fun (as : List.{0} ShielddSecurity.Row) (i : Nat) =>\n            @LT.lt.{0} Nat instLTNat i (@List.length.{0} ShielddSecurity.Row as))\n          (@List.instGetElem?NatLtLength.{0} ShielddSecurity.Row) actual index)\n      (@List.length.{0} ShielddSecurity.Row actual))",
+          "full_type_sha256": "1c918f1961903564261cdd44784ef7e5b7beab66f5d678f1bbb84b3a4bb0f924",
+          "name": "ShielddSecurity.CompilerRowSlice63.list_indexed_iff"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.CompilerRowSlice63.selected_satisfies_iff : \u2200 {F : Type} [inst : Field.{0} F]\n  (parent : Nat \u2192 Option.{0} ShielddSecurity.Row) (start length : Nat) (actual : List.{0} ShielddSecurity.Row)\n  (checked : @Eq.{1} Bool (ShielddSecurity.CompilerRowSlice63.check parent start length actual) Bool.true)\n  (rho : Nat \u2192 F),\n  Iff (@ShielddSecurity.Satisfies F inst rho actual)\n    (@ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho\n      (fun (index : Nat) => parent (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) start index))\n      length)",
+          "full_type_sha256": "4cd2550ea2c9abbe3fe0872f4b593da42d7169d4f2c098a114d4533e048858a3",
+          "name": "ShielddSecurity.CompilerRowSlice63.selected_satisfies_iff"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.CompilerRowSlice63.of_full_satisfies : \u2200 {F : Type} [inst : Field.{0} F]\n  (parent : Nat \u2192 Option.{0} ShielddSecurity.Row) (fullLength start length : Nat)\n  (actual : List.{0} ShielddSecurity.Row)\n  (checked : @Eq.{1} Bool (ShielddSecurity.CompilerRowSlice63.check parent start length actual) Bool.true)\n  (inside :\n    @LE.le.{0} Nat instLENat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) start length) fullLength)\n  (rho : Nat \u2192 F) (sat : @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho parent fullLength),\n  @ShielddSecurity.Satisfies F inst rho actual",
+          "full_type_sha256": "96c824e32aef9ad3e1184b6f0be1e968c7a62a9f0fdf9a3e09e91475a415375e",
+          "name": "ShielddSecurity.CompilerRowSlice63.of_full_satisfies"
+        },
+        {
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ],
+          "full_type": "@ShielddSecurity.CompilerRowSlice63.of_full_indexed : \u2200 {F : Type} [inst : Field.{0} F]\n  (parent : Nat \u2192 Option.{0} ShielddSecurity.Row) (fullLength start length : Nat)\n  (actual : List.{0} ShielddSecurity.Row)\n  (checked : @Eq.{1} Bool (ShielddSecurity.CompilerRowSlice63.check parent start length actual) Bool.true)\n  (inside :\n    @LE.le.{0} Nat instLENat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) start length) fullLength)\n  (rho : Nat \u2192 F) (sat : @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho parent fullLength),\n  @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho\n    (fun (index : Nat) =>\n      @GetElem?.getElem?.{0, 0, 0} (List.{0} ShielddSecurity.Row) Nat ShielddSecurity.Row\n        (fun (as : List.{0} ShielddSecurity.Row) (i : Nat) =>\n          @LT.lt.{0} Nat instLTNat i (@List.length.{0} ShielddSecurity.Row as))\n        (@List.instGetElem?NatLtLength.{0} ShielddSecurity.Row) actual index)\n    length",
+          "full_type_sha256": "0963ef4fb9f7788f35faa24ee59f971fb8119ab2051b50a7044228398e1e7402",
+          "name": "ShielddSecurity.CompilerRowSlice63.of_full_indexed"
+        }
+      ]
+    }
+  ],
+  "declarations": 8,
+  "full_transfer": "OPEN",
+  "full_row_instance": "OPEN",
+  "native_correspondence": "OPEN"
+}
