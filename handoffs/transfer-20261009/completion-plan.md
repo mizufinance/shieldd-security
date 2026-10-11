@@ -1,5 +1,11 @@
 # Transfer proof completion plan — 9 October 2026
 
+The22 original Windows Lean source variants are now preserved with exact
+accepted437-pool identities at ffa54a6. Together with the earlier415 exact
+sources, this closes the current source transport gap. The five shared
+Mac/Windows foundation variants still need final selection and scoped replay;
+this source-only supplement adds no kernel or runtime proof result.
+
 Retained runtime evidence is reviewed at4c6bfbb:23 named tests and17 genuine
 Transfer branch proofs, with exact overlay/source/binary/registry associations
 and finite fixture boundaries. All52 overlay paths match retained identities.
