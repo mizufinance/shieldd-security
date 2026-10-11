@@ -1,0 +1,41 @@
+"""Seal default Open initialization/block sequence/one-shot freeze join."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-block-pending-sequence-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-block-pending-sequence-20261011-01'", "CURRENT = DIAG / 'transfer-block-seal-join-20261011-01'")
+s=s.replace('transfer-block-pending-sequence-checkpoint-20261011-01','transfer-block-seal-join-checkpoint-20261011-01')
+s=s.replace('block-pending-sequence-endpoint','block-seal-join-endpoint')
+replace("MODULE = 'TransferBlockPendingSequence01'", "MODULE = 'TransferBlockSealJoin01'")
+replace('assert len(fresh) == 10','assert len(fresh) == 5')
+replace("assert pool['objects'] == 41 and len(pool['inherited_public_reports']) == 402", "assert pool['objects'] == 43 and len(pool['inherited_public_reports']) == 425")
+replace("manager_endpoint = DIAG / 'transfer-pending-set-invariant-endpoint-20261011-02'", "manager_endpoint = DIAG / 'transfer-pending-seal-source-endpoint-20261011-03'")
+replace("manager_archive = manager_endpoint / 'portable-windows-pending-set-invariant-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-pending-seal-source-endpoint01.tar.xz'")
+replace('d9311b43c7b2fc91b2cedf2ba9eb62b6d9021059d5bb5e571dbeb0468081508f','a93fe392cd82840fc4bb60b20ffc34c6f121e2655a71d05b37044325bba1ff2b')
+replace("tar.extractfile('reports/fresh-7-complete-declarations.txt')", "tar.extractfile('reports/fresh-13-complete-declarations.txt')")
+replace('assert len(manager_reports) == 7','assert len(manager_reports) == 13')
+replace("'module': 'TransferPendingSetInvariant01'", "'module': 'TransferPendingSealSource01'")
+replace('assert len(combined_reports) == 402','assert len(combined_reports) == 425')
+replace('assert len(manager_selected) == 41','assert len(manager_selected) == 43')
+replace("reference = {'pending_set_invariant':", "reference = {'pending_seal_source':")
+replace("'imported_complete_reports': 7", "'imported_complete_reports': 13")
+replace("'complete_owned_modules': 41, 'inherited_complete_reports': 402", "'complete_owned_modules': 43, 'inherited_complete_reports': 425")
+s=s.replace('Exact forty-one-module whole/current pending/durable reader/source capacity/list invariant closure, with 402 original inherited complete reports; shared StateDelta and seventeen Readback reports included once.', 'Exact forty-three-module whole/current pending/durable reader/source capacity/global block/one-shot seal closure, with 425 original inherited complete reports; shared StateDelta and seventeen Readback reports included once.')
+replace("add(stdout, 'reports/fresh-10-complete-declarations.txt'", "add(stdout, 'reports/fresh-5-complete-declarations.txt'")
+s=s.replace('current parent pending/static-key whole binding/request/full step/finite walk/input concatenation and four invariant/global block theorems','five typed encoded-default/global block/open gate/one-shot frozen global input/refusal join proofs')
+s=s.replace('complete forty-one-module first import root','complete forty-three-module first import root')
+s=s.replace('verified 402 inherited reports','verified 425 inherited reports')
+s=s.replace('WHOLE_TRANSFER_BLOCK_SEQUENCE_DERIVES_GLOBAL_DISTINCT_BOUNDED_PENDING_MEMBERSHIP_QUALIFIED','SOURCE_DEFAULT_OPEN_BLOCK_WALK_AND_ONE_SHOT_SEAL_DERIVE_FROZEN_GLOBAL_INPUTS_QUALIFIED')
+replace("'fresh_definition_audits': 6", "'fresh_definition_audits': 0")
+replace("'fresh_theorem_audits': 4", "'fresh_theorem_audits': 5")
+replace("'fresh_complete_public_audits': 10", "'fresh_complete_public_audits': 5")
+replace("'inherited_complete_public_audits': 402", "'inherited_complete_public_audits': 425")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All five theorems have complete original type/axiom reports. Default typed object encoding derives the empty initialization read, matching SCT begin_block source, and all block/one-shot freeze/parent frame/ensure/refusal properties derive on the same complete program. Actual phase/scheduling/Arc/Clone/owner/durability interfaces stay explicit; no native/control/full certification credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 10, 'inherited_audits': 402", "'fresh_audits': 5, 'inherited_audits': 425")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':5,'inherited_reports':425,'owned_modules':43})
