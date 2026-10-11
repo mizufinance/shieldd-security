@@ -1,0 +1,41 @@
+"""Seal derived typed scalar input bounds and exact ordinary publication join."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-scalar-montgomery-value-endpoint-20261011-03/assemble.py').read_text()
+def replace(a,b,count=1):
+    global s
+    assert s.count(a)==count,(a,s.count(a))
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-scalar-montgomery-value-20261011-03'", "CURRENT = DIAG / 'transfer-typed-scalar-publication-20261011-01'")
+s=s.replace('transfer-scalar-montgomery-value-checkpoint-20261011-03','transfer-typed-scalar-publication-checkpoint-20261011-01').replace('scalar-montgomery-value-endpoint','typed-scalar-publication-endpoint')
+replace("MODULE = 'TransferScalarMontgomeryValue01'", "MODULE = 'TransferTypedScalarPublication01'")
+replace('assert len(fresh) == 13','assert len(fresh) == 3')
+replace("assert pool['objects'] == 87 and len(pool['inherited_public_reports']) == 826", "assert pool['objects'] == 88 and len(pool['inherited_public_reports']) == 839")
+replace("manager_endpoint = DIAG / 'transfer-scalar-little-endian-bytes-endpoint-20261011-02'", "manager_endpoint = DIAG / 'transfer-scalar-montgomery-value-endpoint-20261011-03'")
+replace("manager_archive = manager_endpoint / 'portable-windows-scalar-little-endian-bytes-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-scalar-montgomery-value-endpoint01.tar.xz'")
+replace('f1b880a3e10f1185e104962f83bc2616b69a5304791b41011708f7097c285b1e','c48723ab396d4170e0bf0cbc8ca4f950ea06b24af7d912f22bf0c4a9a7d165b6')
+replace("tar.extractfile('reports/fresh-15-complete-declarations.txt')", "tar.extractfile('reports/fresh-13-complete-declarations.txt')")
+replace('assert len(manager_reports) == 15','assert len(manager_reports) == 13')
+replace("'module': 'TransferScalarLittleEndianBytes01'", "'module': 'TransferScalarMontgomeryValue01'")
+replace('assert len(combined_reports) == 826','assert len(combined_reports) == 839')
+replace('assert len(manager_selected) == 87','assert len(manager_selected) == 88')
+replace("reference = {'scalar_little_endian_bytes':", "reference = {'scalar_montgomery_value':")
+replace("'imported_complete_reports': 15", "'imported_complete_reports': 13")
+replace("'complete_owned_modules': 87, 'inherited_complete_reports': 826", "'complete_owned_modules': 88, 'inherited_complete_reports': 839")
+s=s.replace('eighty-seven-module','eighty-eight-module').replace('826 original inherited','839 original inherited').replace('verified 826 inherited','verified 839 inherited')
+replace("'fresh_definition_audits': 2", "'fresh_definition_audits': 0")
+replace("'fresh_theorem_audits': 11", "'fresh_theorem_audits': 3")
+replace("'fresh_complete_public_audits': 13", "'fresh_complete_public_audits': 3")
+replace("'inherited_complete_public_audits': 826", "'inherited_complete_public_audits': 839")
+replace("'fresh_audits': 13, 'inherited_audits': 826", "'fresh_audits': 3, 'inherited_audits': 839",2)
+replace("'rejected_attempts': 2", "'rejected_attempts': 0")
+s=s.replace('SOURCE_SCALAR_EXACT_CANONICAL_MONTGOMERY_VALUE_QUALIFIED','SOURCE_TYPED_SCALAR_EXACT_PUBLICATION_JOIN_QUALIFIED')
+start=s.index("add(CURRENT/'recipe_source.py'");end=s.index("add(stdout, 'reports/fresh-13-complete-declarations.txt'",start)
+s=s[:start]+s[end:]
+replace("add(stdout, 'reports/fresh-13-complete-declarations.txt'", "add(stdout, 'reports/fresh-3-complete-declarations.txt'")
+start=s.index("    'scope': mapping['scope'] + ");end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' Three complete full type/axiom reports retained. Canonical input range derived from typed four-word source projection; exact ordered mathematical Montgomery values carried through source native-only pending/seal/accepted vector/application root/Ready writer/Idle Host/actual recovered boundary. Projection/native codec/getter/finalization and all external runtime interfaces remain explicit. No ancestor/native replay. Full Transfer OPEN; zero native/control/certification credit.'}"+s[end:]
+replace('derived source INV cancellation, exact divisible round equation, symbolic modular walk and exact canonical Montgomery scalar value','typed action projection derives canonical key bounds and exact ordered mathematical input/publication vector')
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':3,'inherited_reports':839,'owned_modules':88,'fresh_rejected_attempts':0})
