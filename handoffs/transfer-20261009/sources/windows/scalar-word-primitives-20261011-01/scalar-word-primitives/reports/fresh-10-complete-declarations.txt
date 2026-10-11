@@ -1,0 +1,75 @@
+ShielddSecurity.TransferScalarWordPrimitives01.packWords : List.{0} UInt64 → Nat
+'ShielddSecurity.TransferScalarWordPrimitives01.packWords' does not depend on any axioms
+ShielddSecurity.TransferScalarWordPrimitives01.mac128 : (a b c carry : UInt64) →
+  BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+'ShielddSecurity.TransferScalarWordPrimitives01.mac128' does not depend on any axioms
+ShielddSecurity.TransferScalarWordPrimitives01.split128 : (ret :
+    BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))) →
+  Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferScalarWordPrimitives01.split128' does not depend on any axioms
+ShielddSecurity.TransferScalarWordPrimitives01.scalarReduction : (raw multipliers : List.{0} UInt64) → Nat
+'ShielddSecurity.TransferScalarWordPrimitives01.scalarReduction' does not depend on any axioms
+ShielddSecurity.TransferScalarWordPrimitives01.packed_u64_vector_is_below_radix_power : ∀ (words : List.{0} UInt64),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+'ShielddSecurity.TransferScalarWordPrimitives01.packed_u64_vector_is_below_radix_power' does not depend on any axioms
+ShielddSecurity.TransferScalarWordPrimitives01.multiply_accumulate_of_four_words_fits_double_width : ∀
+  (radix a b c carry : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)
+  (ha : @LT.lt.{0} Nat instLTNat a radix) (hb : @LT.lt.{0} Nat instLTNat b radix)
+  (hc : @LT.lt.{0} Nat instLTNat c radix) (hd : @LT.lt.{0} Nat instLTNat carry radix),
+  @LT.lt.{0} Nat instLTNat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) a
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) b c))
+      carry)
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix radix)
+'ShielddSecurity.TransferScalarWordPrimitives01.multiply_accumulate_of_four_words_fits_double_width' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_preserves_full_integer : ∀ (a b c carry : UInt64),
+  @Eq.{1} Nat
+    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+      (ShielddSecurity.TransferScalarWordPrimitives01.mac128 a b c carry))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat b) (UInt64.toNat c)))
+      (UInt64.toNat carry))
+'ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_preserves_full_integer' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWordPrimitives01.split_double_word_preserves_full_integer : ∀
+  (ret : BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarWordPrimitives01.split128 ret)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (UInt64.toNat (@Prod.snd.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarWordPrimitives01.split128 ret)))))
+    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) ret)
+'ShielddSecurity.TransferScalarWordPrimitives01.split_double_word_preserves_full_integer' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_low_word_and_carry_conserve_value : ∀
+  (a b c carry : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferScalarWordPrimitives01.split128
+            (ShielddSecurity.TransferScalarWordPrimitives01.mac128 a b c carry))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (UInt64.toNat
+          (@Prod.snd.{0, 0} UInt64 UInt64
+            (ShielddSecurity.TransferScalarWordPrimitives01.split128
+              (ShielddSecurity.TransferScalarWordPrimitives01.mac128 a b c carry))))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat b) (UInt64.toNat c)))
+      (UInt64.toNat carry))
+'ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_low_word_and_carry_conserve_value' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWordPrimitives01.four_actual_u64_inputs_and_multipliers_reduce_into_canonical_field : ∀
+  (raw multipliers : List.{0} UInt64)
+  (fourRaw : @Eq.{1} Nat (@List.length.{0} UInt64 raw) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (fourMultipliers :
+    @Eq.{1} Nat (@List.length.{0} UInt64 multipliers) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWordPrimitives01.scalarReduction raw multipliers)
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarWordPrimitives01.four_actual_u64_inputs_and_multipliers_reduce_into_canonical_field' depends on axioms: [propext,
+ Quot.sound]

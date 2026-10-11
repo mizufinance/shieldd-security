@@ -1,0 +1,23 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete UInt64/BitVec128 source contracts, exact preserved failure and maintained pure repair; no verifier/native launch",
+  "fresh_reports": 10,
+  "definitions": 4,
+  "theorems": 6,
+  "all_contracts_and_definitions_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 17.02572869998403,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-word-primitives-20261011-02\\project\\ShielddSecurity\\TransferScalarWordPrimitives01.lean:61:74: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-word-primitives-20261011-02\\project\\ShielddSecurity\\TransferScalarWordPrimitives01.lean:69:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -58,14 +58,14 @@\n   have bounded := multiply_accumulate_of_four_words_fits_double_width radix64\n     a.toNat b.toNat c.toNat carry.toNat (by decide) a.toNat_lt b.toNat_lt c.toNat_lt carry.toNat_lt\n   change (((a.toNat % 2 ^ 128 + (b.toNat % 2 ^ 128 * (c.toNat % 2 ^ 128)) % 2 ^ 128) % 2 ^ 128) + carry.toNat % 2 ^ 128) % 2 ^ 128 = _\n-  rw [Nat.mod_add_mod, Nat.add_mod_mod, Nat.mod_mul_mod, Nat.mul_mod_mod, Nat.mod_add_mod, Nat.add_mod_mod]\n+  simp only [Nat.mod_add_mod, Nat.add_mod_mod, Nat.mod_mul_mod, Nat.mul_mod_mod]\n   exact Nat.mod_eq_of_lt bounded\n \n theorem split_double_word_preserves_full_integer (ret : BitVec 128) :\n     (split128 ret).1.toNat + radix64 * (split128 ret).2.toNat = ret.toNat := by\n   have bounded : ret.toNat < radix64 * radix64 := ret.isLt\n   have carryBound : ret.toNat / radix64 < radix64 := (Nat.div_lt_iff_lt_mul (by decide)).2 bounded\n-  change ret.toNat % 2 ^ 64 + radix64 * ((ret.toNat / radix64) % 2 ^ 64) = ret.toNat\n+  change ret.toNat % radix64 + radix64 * ((ret.toNat / radix64) % radix64) = ret.toNat\n   rw [Nat.mod_eq_of_lt carryBound]\n   exact Nat.mod_add_div ret.toNat radix64\n \n"
+  },
+  "scope": "Finite actual Lean UInt64 packing supplies raw radix bound; widened BitVec128 MAC cannot overflow for four UInt64 inputs; low/high quotient split conserves full integer and yields canonical mathematical four-round reduction. Actual pinned Rust primitive semantics/carry schedule/subtraction/endian/to_bytes/congruence/type invariants remain owned OPEN. No native Rust execution or full certification.",
+  "full_transfer": "OPEN"
+}
