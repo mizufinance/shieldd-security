@@ -826,3 +826,6 @@ Captured-root recovery: eight fresh complete reports over622 inherited62modules 
 
 
 Reviewed application state transfer published at e7b3130b46ac1a4b1bcc0298815edb2f85bde203: 11 original complete public reports. Actual modeled success derives seal, concrete deferred flush, observed unwrap success, and exact post-flush returned state. Failed unwrap restores post-flush state/current queue; index failure consumes queue and discards child. Native Arc, typed objects, snapshot, ownership/concurrency and durability correspondences remain explicit. Full Transfer remains OPEN.
+
+
+Reviewed full prior-row source soundness at 2123244ad621f9df30e08a9f2ebb9c0a78a9297f: 6 modules and 37 complete original public reports. Full captured 200770-row satisfaction derives all 734 captured prior rows: first322 exact indexed integer constant/copy checks joined to previously accepted412 Call04 positions. No desired local-row/hash premise. Exact original source regeneration, import/receipt history and metadata-only parser cache/history traversal changes reviewed with physical limits unchanged. Constructor coverage stays1467 distinct assertions. Remaining global consumers, path/public64/blinding, legal all-row construction, native correspondence and full Transfer final replay remain OPEN.
