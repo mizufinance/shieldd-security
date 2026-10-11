@@ -1,5 +1,14 @@
 # Transfer proof completion plan — 9 October 2026
 
+Retained runtime evidence is reviewed at4c6bfbb:23 named tests and17 genuine
+Transfer branch proofs, with exact overlay/source/binary/registry associations
+and finite fixture boundaries. All52 overlay paths match retained identities.
+Synthetic queue tests show a failed flush drains its queue and same-instance
+retry can commit an empty diagnostic block; genuine Transfer retry safety and
+phase-sensitive writer recovery remain explicit obligations. The delayed-token
+interleaving successor is being executed separately. This is retained finite
+execution evidence, with no new parent replay or full certification.
+
 The retained-envelope/capability constructor join is accepted at
 f8e8fdb99ede5b3c5b5d190b1d0fdffd7cbb7bc1 (three handwritten sources/35
 complete reports). Successful individual or separately fresh-batch framing
@@ -15,8 +24,8 @@ link equivalence derives copy linkage and the seed preserves all original
 inputs. Actual captured provider qualification and independent legal-input
 truth remain separate. The revised90-block generator has an exact parent
 source/DATA/coefficient pre-review, while its serial kernel qualification is
-underway. Retained Windows runtime receipts are under parent review and are
-not yet promoted into this publication. Full Transfer remains OPEN.
+underway. At that support integration, retained Windows runtime receipts were
+still under parent review; their later acceptance is recorded above. Full Transfer remains OPEN.
 
 Latest scoped integration (11 October UTC): the generic assertion block helper
 is accepted at 4103d8c73e9f16f08f8d34ce67c82e80bc4a865c (one module,
