@@ -1,0 +1,95 @@
+ShielddSecurity.TransferScalarCanonicalDecoder01.parsedRawWords : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarCanonicalDecoder01.parsedRawWords' depends on axioms: [propext]
+ShielddSecurity.TransferScalarCanonicalDecoder01.byteDecoderPayload : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarCanonicalDecoder01.byteDecoderPayload' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalDecoder01.parsed_four_raw_words_reconstruct_exact_input_bytes : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferScalarCanonicalDecoder01.parsedRawWords bytes)))
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+'ShielddSecurity.TransferScalarCanonicalDecoder01.parsed_four_raw_words_reconstruct_exact_input_bytes' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalDecoder01.source_byte_decoder_payload_has_derived_range_and_serialized_value : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferScalarCanonicalDecoder01.byteDecoderPayload bytes)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferScalarCanonicalDecoder01.byteDecoderPayload bytes))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarCanonicalDecoder01.source_byte_decoder_payload_has_derived_range_and_serialized_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalDecoder01.source_decoder_success_projection_accepts_exactly_canonical_bytes : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  Iff
+    (@Exists.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      fun (payload : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+      @Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+        (ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption bytes)
+        (@Option.some.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) payload))
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarCanonicalDecoder01.source_decoder_success_projection_accepts_exactly_canonical_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalDecoder01.accepted_canonical_bytes_decode_and_reserialize_exactly : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (canonical :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  And
+    (@Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+      (ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption bytes)
+      (@Option.some.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferScalarCanonicalDecoder01.byteDecoderPayload bytes)))
+    (@Eq.{1} (List.{0} UInt8)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferScalarCanonicalDecoder01.byteDecoderPayload bytes)))
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+'ShielddSecurity.TransferScalarCanonicalDecoder01.accepted_canonical_bytes_decode_and_reserialize_exactly' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalDecoder01.canonical_raw_scalar_source_serialization_decodes_to_original_raw_vector : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (encoded :
+    @Eq.{1} (List.{0} UInt8)
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))),
+  @Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+    (ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption bytes)
+    (@Option.some.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+'ShielddSecurity.TransferScalarCanonicalDecoder01.canonical_raw_scalar_source_serialization_decodes_to_original_raw_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
