@@ -1,0 +1,73 @@
+{
+  "status": "PASSED",
+  "kind": "Authenticated original handwritten bases, exact named audit augmentation and pure repair replay; kernel ancestry pending product",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-round-review01/packet01/source/ShielddSecurity/TransferScalarWideRound01.lean",
+    "bytes": 7067,
+    "sha256": "6b270cff1a1948fe1d64c8a734638bf784e59d3bafab5f2f8f6b0c59f1eb0dcb"
+  },
+  "fresh_reports": 6,
+  "review_helper": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/review_scalar_wide_histories22.py",
+    "bytes": 6632,
+    "sha256": "6d739c5b1daedd404b08cae7152da0e4ffec9b2fdb3c0caee85cd7b062a32ecb"
+  },
+  "rejected": [
+    {
+      "kind": "Original handwritten setup source UNRUN, no kernel credit",
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-round-review01/packet01/unselected/01/handwritten/TransferScalarWideRound01.lean",
+        "bytes": 6129,
+        "sha256": "7349d1602e5b01fec64beec5f26fed4e5eac5a13a65fd7dbec98b73b6cbd88ec"
+      },
+      "exact_delta": "--- \n+++ \n@@ -31,8 +31,10 @@\n     (low.headD 0 * inverseWord) modulusWords low (by decide) four\n   rw [TransferScalarFourRoundWrapper01.modulus_words_pack_to_actual_nullifier_modulus] at row\n   have modulo := congrArg (fun value => value % radix64) row\n-  rw [Nat.add_mul_mod_self_left,\n-    Nat.mod_eq_of_lt ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat_lt,\n+  dsimp only at modulo\n+  have lowBound : ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat < radix64 :=\n+    ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat_lt\n+  rw [Nat.add_mul_mod_self_left, Nat.mod_eq_of_lt lowBound,\n     TransferScalarMontgomeryValue01.derived_round_numerator_is_divisible_by_radix] at modulo\n   exact modulo\n \n@@ -86,12 +88,30 @@\n   calc\n     _ = radix64 * packWords (output.1.drop 1) + radix64 ^ 4 *\n         (shifted.1.toNat + radix64 * shifted.2.toNat) + radix64 ^ 5 * packWords tail := by\n-      simp only [Nat.pow_succ, Nat.mul_add, Nat.add_mul]; ac_rfl\n+      simp only [Nat.pow_succ, Nat.mul_add]; ac_rfl\n     _ = radix64 * packWords (output.1.drop 1) + radix64 ^ 4 *\n         (upper.toNat + pending.toNat + output.2.toNat) + radix64 ^ 5 * packWords tail := by rw [carry]\n     _ = radix64 * (packWords (output.1.drop 1) + radix64 ^ 3 * output.2.toNat) +\n         radix64 ^ 4 * (upper.toNat + pending.toNat) + radix64 ^ 5 * packWords tail := by\n-      simp only [Nat.pow_succ, Nat.mul_add, Nat.add_mul]; ac_rfl\n-    _ = _ := by rw [row]; simp only [Nat.pow_succ, Nat.mul_add, Nat.add_mul]; ac_rfl\n+      simp only [Nat.pow_succ, Nat.mul_add]; ac_rfl\n+    _ = _ := by rw [row]; simp only [Nat.pow_succ, Nat.mul_add]; ac_rfl\n \n+set_option pp.all true in\n+#check @wideValue\n+#print axioms wideValue\n+set_option pp.all true in\n+#check @wideRoundParts\n+#print axioms wideRoundParts\n+set_option pp.all true in\n+#check @actual_mac_low_word_is_zero\n+#print axioms actual_mac_low_word_is_zero\n+set_option pp.all true in\n+#check @four_low_words_and_mac_carry_have_exact_shifted_equation\n+#print axioms four_low_words_and_mac_carry_have_exact_shifted_equation\n+set_option pp.all true in\n+#check @wide_round_preserves_remaining_word_count\n+#print axioms wide_round_preserves_remaining_word_count\n+set_option pp.all true in\n+#check @wide_round_derives_exact_integer_equation_with_deferred_carry\n+#print axioms wide_round_derives_exact_integer_equation_with_deferred_carry\n end ShielddSecurity.TransferScalarWideRound01\n"
+    },
+    {
+      "kind": "Original unselected failed attempt",
+      "result": {
+        "reason": "Physical memory pressure",
+        "seconds": 22.415505899989512,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-round-review01/packet01/unselected/02/handwritten/TransferScalarWideRound01.lean",
+        "bytes": 6960,
+        "sha256": "2f502d0f782839f018cdf7006da7e90a22a31dc4cbe6fd876e80468e59b4490c"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-round-20261011-02\\project\\ShielddSecurity\\TransferScalarWideRound01.lean:34:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        " sorryAx,",
+        " sorryAx,",
+        " sorryAx,"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -31,8 +31,10 @@\n     (low.headD 0 * inverseWord) modulusWords low (by decide) four\n   rw [TransferScalarFourRoundWrapper01.modulus_words_pack_to_actual_nullifier_modulus] at row\n   have modulo := congrArg (fun value => value % radix64) row\n-  rw [Nat.add_mul_mod_self_left,\n-    Nat.mod_eq_of_lt ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat_lt,\n+  dsimp only at modulo\n+  have lowBound : ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat < radix64 :=\n+    ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat_lt\n+  rw [Nat.add_mul_mod_self_left, Nat.mod_eq_of_lt lowBound,\n     TransferScalarMontgomeryValue01.derived_round_numerator_is_divisible_by_radix] at modulo\n   exact modulo\n \n@@ -86,13 +88,13 @@\n   calc\n     _ = radix64 * packWords (output.1.drop 1) + radix64 ^ 4 *\n         (shifted.1.toNat + radix64 * shifted.2.toNat) + radix64 ^ 5 * packWords tail := by\n-      simp only [Nat.pow_succ, Nat.mul_add, Nat.add_mul]; ac_rfl\n+      simp only [Nat.pow_succ, Nat.mul_add]; ac_rfl\n     _ = radix64 * packWords (output.1.drop 1) + radix64 ^ 4 *\n         (upper.toNat + pending.toNat + output.2.toNat) + radix64 ^ 5 * packWords tail := by rw [carry]\n     _ = radix64 * (packWords (output.1.drop 1) + radix64 ^ 3 * output.2.toNat) +\n         radix64 ^ 4 * (upper.toNat + pending.toNat) + radix64 ^ 5 * packWords tail := by\n-      simp only [Nat.pow_succ, Nat.mul_add, Nat.add_mul]; ac_rfl\n-    _ = _ := by rw [row]; simp only [Nat.pow_succ, Nat.mul_add, Nat.add_mul]; ac_rfl\n+      simp only [Nat.pow_succ, Nat.mul_add]; ac_rfl\n+    _ = _ := by rw [row]; simp only [Nat.pow_succ, Nat.mul_add]; ac_rfl\n \n set_option pp.all true in\n #check @wideValue\n"
+    },
+    {
+      "kind": "Original unselected failed attempt",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.831003699975554,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-round-review01/packet01/unselected/03/handwritten/TransferScalarWideRound01.lean",
+        "bytes": 6945,
+        "sha256": "1d73531f0786cfb309721013eabd4478df038a5555c49b3181553c3aec0907c5"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-round-20261011-03\\project\\ShielddSecurity\\TransferScalarWideRound01.lean:36:4: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        " sorryAx,",
+        " sorryAx,",
+        " sorryAx,"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -32,8 +32,9 @@\n   rw [TransferScalarFourRoundWrapper01.modulus_words_pack_to_actual_nullifier_modulus] at row\n   have modulo := congrArg (fun value => value % radix64) row\n   dsimp only at modulo\n-  rw [Nat.add_mul_mod_self_left,\n-    Nat.mod_eq_of_lt ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat_lt,\n+  have lowBound : ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat < radix64 :=\n+    ((macLoop (low.headD 0 * inverseWord) 0 (low.zip modulusWords)).1.headD 0).toNat_lt\n+  rw [Nat.add_mul_mod_self_left, Nat.mod_eq_of_lt lowBound,\n     TransferScalarMontgomeryValue01.derived_round_numerator_is_divisible_by_radix] at modulo\n   exact modulo\n \n"
+    }
+  ],
+  "scope": "Four-limb source-shaped MAC round proves low-word cancellation, exact shifted integer conservation, and width. Upper ADC consumes pending and MAC carry; new carry retains radix^4 weight. No desired cancellation/output premise. Actual Rust primitive/compiler/full execution binding remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "definitions_unchanged": true,
+  "accepted_full_type_authoritative": true,
+  "repair_classification": "Explicit definitional reduction/typed bounds/distributivity only",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
