@@ -640,3 +640,6 @@ Reviewed decodable-index evidence `b73af97ac8bef15ab9dd279e3d59064819162a31` pub
 
 
 Reviewed registry-value97..99 evidence `2976679ccbc324da7b5dbc602de4a86560d07891` publishes4modules32original complete reports. Exact255bit recipes/actual provider positions, arbitrary linked assignment soundness, bounded bit construction and shared frames derive all177954arith+420DISTINCT assertion positions(first163 plus178118..178374); anchor178117 OPEN, no contiguous421claim. Independent legalRegistrySem provides bound/value; no targettruth premise. All sources regenerate byte-exact; full827/830 original histories, exact customimports and unchanged physical guards reviewed. Remaining22396assertions/legalpreimage/native/fullTransfer/finalreplay OPEN.
+
+
+Reviewed deferred-count-walk evidence `9b83d706b1832b87bd4871f4e9993f110169b786` publishes one model with four original complete reports. Current-overlay reads and concrete mathematical u64 codec derive each successful increment; whole arbitrary walk success derives final count = initial count + queue length, strictly below 2^64. Exact 301-report/27-module union reuses shared cache source/object/12 reports once. Preparation census repair and proof-only failed predecessor are retained; one definition and three contracts unchanged. Runtime/native/durability/full Transfer remain OPEN.
