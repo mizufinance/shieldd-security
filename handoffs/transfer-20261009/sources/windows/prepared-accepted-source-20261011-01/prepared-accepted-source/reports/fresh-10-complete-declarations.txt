@@ -1,0 +1,235 @@
+ShielddSecurity.TransferPreparedAcceptedSource01.Backend : Type
+'ShielddSecurity.TransferPreparedAcceptedSource01.Backend' does not depend on any axioms
+ShielddSecurity.TransferPreparedAcceptedSource01.Prepared : Type
+'ShielddSecurity.TransferPreparedAcceptedSource01.Prepared' does not depend on any axioms
+ShielddSecurity.TransferPreparedAcceptedSource01.Consecutive : (previous : ShielddSecurity.TransferReadback.Boundary) →
+  (height :
+      Fin
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+    Bool
+'ShielddSecurity.TransferPreparedAcceptedSource01.Consecutive' does not depend on any axioms
+ShielddSecurity.TransferPreparedAcceptedSource01.Gate : (backend :
+    ShielddSecurity.TransferPreparedAcceptedSource01.Backend) →
+  (previous : ShielddSecurity.TransferReadback.Boundary) →
+    (height :
+        Fin
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+      (accepted : List.{0} Nat) → Prop
+'ShielddSecurity.TransferPreparedAcceptedSource01.Gate' does not depend on any axioms
+ShielddSecurity.TransferPreparedAcceptedSource01.prepare : (backend :
+    ShielddSecurity.TransferPreparedAcceptedSource01.Backend) →
+  (previous : ShielddSecurity.TransferReadback.Boundary) →
+    (height :
+        Fin
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+      (blockId accepted : List.{0} Nat) → Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared
+'ShielddSecurity.TransferPreparedAcceptedSource01.prepare' does not depend on any axioms
+ShielddSecurity.TransferPreparedAcceptedSource01.nodup_fresh_accepts_unique_loop : ∀ (seen keys : List.{0} Nat)
+  (nodup : @List.Nodup.{0} Nat keys)
+  (fresh :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        Not (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) seen key)),
+  @Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop seen keys) Bool.true
+'ShielddSecurity.TransferPreparedAcceptedSource01.nodup_fresh_accepts_unique_loop' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferPreparedAcceptedSource01.successful_prepare_derives_gate_and_exact_transition : ∀
+  (backend : ShielddSecurity.TransferPreparedAcceptedSource01.Backend)
+  (previous : ShielddSecurity.TransferReadback.Boundary)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (result : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+      (ShielddSecurity.TransferPreparedAcceptedSource01.prepare backend previous height blockId accepted)
+      (@Option.some.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared result)),
+  And (ShielddSecurity.TransferPreparedAcceptedSource01.Gate backend previous height accepted)
+    (And (@List.Nodup.{0} Nat accepted)
+      (@Exists.{1} (List.{0} Nat) fun (observedRoots : List.{0} Nat) =>
+        And
+          (@Eq.{1} (Option.{0} (List.{0} Nat))
+            (ShielddSecurity.TransferPreparedAcceptedSource01.Backend.sessions backend previous accepted)
+            (@Option.some.{0} (List.{0} Nat) observedRoots))
+          (And
+            (@Eq.{1} ShielddSecurity.TransferReadback.Boundary
+              (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous result) previous)
+            (And
+              (@Eq.{1} (Option.{0} Nat)
+                (ShielddSecurity.TransferReadback.Boundary.height
+                  (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next result))
+                (@Option.some.{0} Nat
+                  (@Fin.val
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                    height)))
+              (And
+                (@Eq.{1} (List.{0} Nat)
+                  (ShielddSecurity.TransferReadback.Boundary.blockId
+                    (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next result))
+                  blockId)
+                (And
+                  (@Eq.{1} (List.{0} Nat)
+                    (ShielddSecurity.TransferReadback.Boundary.roots
+                      (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next result))
+                    observedRoots)
+                  (@Eq.{1} (List.{0} Nat) (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted result)
+                    accepted)))))))
+'ShielddSecurity.TransferPreparedAcceptedSource01.successful_prepare_derives_gate_and_exact_transition' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferPreparedAcceptedSource01.capacity_or_duplicate_refuses_before_sessions : ∀
+  (backend : ShielddSecurity.TransferPreparedAcceptedSource01.Backend)
+  (previous : ShielddSecurity.TransferReadback.Boundary)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat)
+  (invalid :
+    Or
+      (@LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+        (@List.length.{0} Nat accepted))
+      (Not (@List.Nodup.{0} Nat accepted))),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+    (ShielddSecurity.TransferPreparedAcceptedSource01.prepare backend previous height blockId accepted)
+    (@Option.none.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+'ShielddSecurity.TransferPreparedAcceptedSource01.capacity_or_duplicate_refuses_before_sessions' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferPreparedAcceptedSource01.whole_block_frozen_inputs_pass_capacity_and_duplicate_gates : ∀
+  {O E K X Tree A : Type} (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (final : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+  (emptyStart :
+    @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent)
+      ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)
+  (success :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk O E K X Tree A encode decode project parent queued requests)
+      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)) final)),
+  have output :
+    ShielddSecurity.TransferRawStateProgram01.Outcome O Unit ShielddSecurity.TransferPendingSealSource01.SealError :=
+    @ShielddSecurity.TransferPendingSealSource01.sealOnce O Unit encode decode
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O Unit
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+        (@ShielddSecurity.TransferStateDelta.empty O Unit));
+  have accepted : List.{0} Nat :=
+    ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+        (@ShielddSecurity.TransferStateDelta.applyCache O Unit
+          (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O Unit
+            ShielddSecurity.TransferPendingSealSource01.SealError output)));
+  And
+    (@Eq.{1} (List.{0} Nat) accepted
+      (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+    (And (@List.Nodup.{0} Nat accepted)
+      (And
+        (@LE.le.{0} Nat instLENat (@List.length.{0} Nat accepted)
+          ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+        (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat) accepted)
+          Bool.true)))
+'ShielddSecurity.TransferPreparedAcceptedSource01.whole_block_frozen_inputs_pass_capacity_and_duplicate_gates' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferPreparedAcceptedSource01.whole_block_prepare_assembles_exact_observed_transition : ∀
+  {O E K X Tree A : Type} (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (final : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+  (emptyStart :
+    @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent)
+      ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)
+  (success :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk O E K X Tree A encode decode project parent queued requests)
+      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)) final))
+  (backend : ShielddSecurity.TransferPreparedAcceptedSource01.Backend)
+  (previous : ShielddSecurity.TransferReadback.Boundary)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId observedRoots : List.{0} Nat)
+  (ready :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferReadback.Store.ready
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Backend.store backend))
+      Bool.true)
+  (healthy :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferReadback.Store.healthy
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Backend.store backend))
+      Bool.true)
+  (noIntent : @Eq.{1} Bool (ShielddSecurity.TransferPreparedAcceptedSource01.Backend.intentPending backend) Bool.false)
+  (roots :
+    @Eq.{1} (List.{0} Nat)
+      (ShielddSecurity.TransferReadback.Store.actualRoots
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Backend.store backend))
+      (ShielddSecurity.TransferReadback.Boundary.roots previous))
+  (boundary :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (ShielddSecurity.TransferReadback.Store.boundary
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Backend.store backend))
+      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary previous))
+  (consecutive : @Eq.{1} Bool (ShielddSecurity.TransferPreparedAcceptedSource01.Consecutive previous height) Bool.true)
+  (sessions :
+    @Eq.{1} (Option.{0} (List.{0} Nat))
+      (ShielddSecurity.TransferPreparedAcceptedSource01.Backend.sessions backend previous
+        (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+      (@Option.some.{0} (List.{0} Nat) observedRoots)),
+  have output :
+    ShielddSecurity.TransferRawStateProgram01.Outcome O Unit ShielddSecurity.TransferPendingSealSource01.SealError :=
+    @ShielddSecurity.TransferPendingSealSource01.sealOnce O Unit encode decode
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O Unit
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+        (@ShielddSecurity.TransferStateDelta.empty O Unit));
+  have accepted : List.{0} Nat :=
+    ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project
+        (@ShielddSecurity.TransferStateDelta.applyCache O Unit
+          (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O Unit
+            ShielddSecurity.TransferPendingSealSource01.SealError output)));
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+    (ShielddSecurity.TransferPreparedAcceptedSource01.prepare backend previous height blockId accepted)
+    (@Option.some.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared
+      (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.mk previous
+        (ShielddSecurity.TransferReadback.Boundary.mk
+          (@Option.some.{0} Nat
+            (@Fin.val
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+              height))
+          blockId observedRoots)
+        (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests)))
+'ShielddSecurity.TransferPreparedAcceptedSource01.whole_block_prepare_assembles_exact_observed_transition' depends on axioms: [propext,
+ Quot.sound]

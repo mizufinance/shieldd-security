@@ -1,0 +1,19 @@
+{
+  "status": "PASSED",
+  "kind": "Independent pinned Store::prepare source review; no native execution",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/component/sct/src/permanent_nullifiers/store.rs",
+    "bytes": 32442,
+    "sha256": "434554cdb4bfb04f37a71707fb0c81ed77ffcf35677a5cab5aaaffd8832cb5a9"
+  },
+  "findings": [
+    "ensure_ready enforces ready and all partitions not poisoned",
+    "Intent absence, max32768 and BTreeSet nullifier uniqueness precede actual-root and boundary/consecutive checks",
+    "Consecutive is height0 at genesis or checked_add1 on u64; the Fin64 model preserves overflow rejection",
+    "Native partition keys are hashed, partitioned, sorted and collision-checked; read absence, finish, witness presence and verify_insertions are fallible",
+    "Native transition retains original ordered nullifier vector and observed finished roots; partitions without inserts preserve roots"
+  ],
+  "scope": "The model deliberately packages key/session/witness work into a fallible sessions interface. No witness validity, exact16 roots width, native key/hash/partition/vector/representation bridge, persistence, Host ownership or durability certification",
+  "full_transfer": "OPEN"
+}
