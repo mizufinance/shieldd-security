@@ -1,0 +1,143 @@
+{
+  "module": "SDKCodecJoin01",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.SDKCodecJoin01.sourceMultiply",
+      "full_type": "ShielddSecurity.SDKCodecJoin01.sourceMultiply : (point :\n    ShielddSecurity.SDKJubjubExtended01.Extended ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (bytes : List.{0} Nat) \u2192 ShielddSecurity.SDKJubjubExtended01.Extended ShielddSecurity.ConcreteJubjubField01.F",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "11bac103ecbec915f0f0278986c37d20ef3da99d4c8e7691f40dcdb1ef24baab"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKCodecJoin01.source_canonical",
+      "full_type": "ShielddSecurity.SDKCodecJoin01.source_canonical : \u2200\n  (point : ShielddSecurity.SDKJubjubExtended01.Extended ShielddSecurity.ConcreteJubjubField01.F) (value : Nat),\n  @Eq.{1} (ShielddSecurity.SDKJubjubExtended01.Extended ShielddSecurity.ConcreteJubjubField01.F)\n    (ShielddSecurity.SDKCodecJoin01.sourceMultiply point\n      (ShielddSecurity.SDKByteIterator01.canonicalBytes (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n        value))\n    (ShielddSecurity.SDKJubjubMultiply01.multiply point (ShielddSecurity.SDKJubjubMultiply01.encodedBits value))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "90d216a102b5b40217167e7e7918f1dacfbdf57a71ba8b528b46ffd623756c50"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKCodecJoin01.source_canonical_coordinates",
+      "full_type": "ShielddSecurity.SDKCodecJoin01.source_canonical_coordinates : \u2200\n  (point : ShielddSecurity.SDKJubjubExtended01.Extended ShielddSecurity.ConcreteJubjubField01.F)\n  (p :\n    @WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n  (represented :\n    @ShielddSecurity.SDKJubjubExtended01.Represents ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) point\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@WeierstrassCurve.Affine.Point.instAddCommGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n            ShielddSecurity.TorsionCertifiedField01.primeFact)\n          ShielddSecurity.ConcretePointTorsion01.curve (ZMod.decidableEq ShielddSecurity.TorsionEulerInteger49.modulus))\n        ShielddSecurity.ConcreteJubjubField01.coefficient ShielddSecurity.ConcreteCofactorModel01.model p))\n  (value : Nat)\n  (width :\n    @LT.lt.{0} Nat instLTNat value\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 252) (instOfNatNat (nat_lit 252))))),\n  @Eq.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n    (@ShielddSecurity.SDKJubjubExtended01.normalize ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (ShielddSecurity.SDKCodecJoin01.sourceMultiply point\n        (ShielddSecurity.SDKByteIterator01.canonicalBytes\n          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value)))\n    (@ShielddSecurity.Group.StandardCurveModel.coordinates ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n      (@WeierstrassCurve.Affine.Point.instAddCommGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n          ShielddSecurity.TorsionCertifiedField01.primeFact)\n        ShielddSecurity.ConcretePointTorsion01.curve (ZMod.decidableEq ShielddSecurity.TorsionEulerInteger49.modulus))\n      ShielddSecurity.ConcreteJubjubField01.coefficient ShielddSecurity.ConcreteCofactorModel01.model\n      (@HSMul.hSMul.{0, 0, 0} Nat\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@instHSMul.{0, 0} Nat\n          (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n          (@AddMonoid.toNSMul.{0}\n            (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n              ShielddSecurity.ConcretePointTorsion01.curve)\n            (@SubNegMonoid.toAddMonoid.{0}\n              (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                ShielddSecurity.ConcretePointTorsion01.curve)\n              (@AddGroup.toSubNegMonoid.{0}\n                (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                  ShielddSecurity.ConcretePointTorsion01.curve)\n                (@AddCommGroup.toAddGroup.{0}\n                  (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                    ShielddSecurity.ConcretePointTorsion01.curve)\n                  (@WeierstrassCurve.Affine.Point.instAddCommGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact)\n                    ShielddSecurity.ConcretePointTorsion01.curve\n                    (ZMod.decidableEq ShielddSecurity.TorsionEulerInteger49.modulus)))))))\n        value p))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "632dd6f725365db0a702299431da9d81d69a6f1c20ac81ba81cfceedab6f2fba"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKCodecJoin01.modulus_canonical",
+      "full_type": "ShielddSecurity.SDKCodecJoin01.modulus_canonical : @Eq.{1} (List.{0} Nat)\n  (ShielddSecurity.SDKByteIterator01.canonicalBytes (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n    ShielddSecurity.Scalar.order)\n  ShielddSecurity.SDKJubjubMultiply01.modulusBytes",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "1f5e3e3cf1e56a0e1e2ba573e76bace38a66d29fd1f2f9b52f07b12a96887de8"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKCodecJoin01.source_modulus_test_iff",
+      "full_type": "ShielddSecurity.SDKCodecJoin01.source_modulus_test_iff : \u2200\n  (point : ShielddSecurity.SDKJubjubExtended01.Extended ShielddSecurity.ConcreteJubjubField01.F)\n  (p :\n    @WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n  (represented :\n    @ShielddSecurity.SDKJubjubExtended01.Represents ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) point\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@WeierstrassCurve.Affine.Point.instAddCommGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n            ShielddSecurity.TorsionCertifiedField01.primeFact)\n          ShielddSecurity.ConcretePointTorsion01.curve (ZMod.decidableEq ShielddSecurity.TorsionEulerInteger49.modulus))\n        ShielddSecurity.ConcreteJubjubField01.coefficient ShielddSecurity.ConcreteCofactorModel01.model p)),\n  Iff\n    (@ShielddSecurity.SDKJubjubExtended01.isIdentity ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (ShielddSecurity.SDKCodecJoin01.sourceMultiply point ShielddSecurity.SDKJubjubMultiply01.modulusBytes))\n    (@Eq.{1}\n      (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n      (@HSMul.hSMul.{0, 0, 0} Nat\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@instHSMul.{0, 0} Nat\n          (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n          (@AddMonoid.toNSMul.{0}\n            (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n              ShielddSecurity.ConcretePointTorsion01.curve)\n            (@SubNegMonoid.toAddMonoid.{0}\n              (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                ShielddSecurity.ConcretePointTorsion01.curve)\n              (@AddGroup.toSubNegMonoid.{0}\n                (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                  ShielddSecurity.ConcretePointTorsion01.curve)\n                (@AddCommGroup.toAddGroup.{0}\n                  (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                    ShielddSecurity.ConcretePointTorsion01.curve)\n                  (@WeierstrassCurve.Affine.Point.instAddCommGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n                    (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                      ShielddSecurity.TorsionCertifiedField01.primeFact)\n                    ShielddSecurity.ConcretePointTorsion01.curve\n                    (ZMod.decidableEq ShielddSecurity.TorsionEulerInteger49.modulus)))))))\n        ShielddSecurity.Scalar.order p)\n      (@OfNat.ofNat.{0}\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (nat_lit 0)\n        (@Zero.toOfNat0.{0}\n          (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n          (@WeierstrassCurve.Affine.Point.instZero.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n            ShielddSecurity.ConcretePointTorsion01.curve))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d0f9c439ff0899e97884b608e83db46c670a3d059d34f5aedb3cf664e086670b"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKCodecJoin01.decoded_sdk_subgroup",
+      "full_type": "ShielddSecurity.SDKCodecJoin01.decoded_sdk_subgroup : \u2200\n  (point :\n    @WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n  (decoded :\n    ShielddSecurity.SDKCompressedDecoder01.Decoded\n      (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n        ShielddSecurity.SDKSpendAuthCertificates01.sdkY)\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@WeierstrassCurve.Affine.Point.instAddCommGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n            ShielddSecurity.TorsionCertifiedField01.primeFact)\n          ShielddSecurity.ConcretePointTorsion01.curve (ZMod.decidableEq ShielddSecurity.TorsionEulerInteger49.modulus))\n        ShielddSecurity.ConcreteJubjubField01.coefficient ShielddSecurity.ConcreteCofactorModel01.model point)),\n  @Eq.{1}\n    (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n      (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n    (@HSMul.hSMul.{0, 0, 0} Nat\n      (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n      (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n      (@instHSMul.{0, 0} Nat\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@AddMonoid.toNSMul.{0}\n          (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n            (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n          (@SubNegMonoid.toAddMonoid.{0}\n            (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n              (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n              ShielddSecurity.ConcretePointTorsion01.curve)\n            (@AddGroup.toSubNegMonoid.{0}\n              (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                ShielddSecurity.ConcretePointTorsion01.curve)\n              (@AddCommGroup.toAddGroup.{0}\n                (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus)\n                  ShielddSecurity.ConcretePointTorsion01.curve)\n                (@WeierstrassCurve.Affine.Point.instAddCommGroup.{0} ShielddSecurity.TorsionCertifiedField01.F\n                  (@ZMod.instField ShielddSecurity.TorsionEulerInteger49.modulus\n                    ShielddSecurity.TorsionCertifiedField01.primeFact)\n                  ShielddSecurity.ConcretePointTorsion01.curve\n                  (ZMod.decidableEq ShielddSecurity.TorsionEulerInteger49.modulus)))))))\n      ShielddSecurity.Scalar.order point)\n    (@OfNat.ofNat.{0}\n      (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n        (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n      (nat_lit 0)\n      (@Zero.toOfNat0.{0}\n        (@WeierstrassCurve.Affine.Point.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)\n        (@WeierstrassCurve.Affine.Point.instZero.{0} ShielddSecurity.TorsionCertifiedField01.F\n          (ZMod.commRing ShielddSecurity.TorsionEulerInteger49.modulus) ShielddSecurity.ConcretePointTorsion01.curve)))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d9cbe7f4994bb08a743bfd637c27e5798f2099246f20702c12b612596ca91310"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 17053,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-codec-join-20261010-01\\runs\\01-SDKCodecJoin01\\stdout.txt",
+    "sha256": "3176b83fa5c3f14bf3a2fe2f961ee42e65727e000e289a1d1aa5a3763feb8943"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.SDKCodecJoin01.decoded_sdk_subgroup": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "d9cbe7f4994bb08a743bfd637c27e5798f2099246f20702c12b612596ca91310"
+      },
+      "ShielddSecurity.SDKCodecJoin01.modulus_canonical": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "1f5e3e3cf1e56a0e1e2ba573e76bace38a66d29fd1f2f9b52f07b12a96887de8"
+      },
+      "ShielddSecurity.SDKCodecJoin01.sourceMultiply": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "11bac103ecbec915f0f0278986c37d20ef3da99d4c8e7691f40dcdb1ef24baab"
+      },
+      "ShielddSecurity.SDKCodecJoin01.source_canonical": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "90d216a102b5b40217167e7e7918f1dacfbdf57a71ba8b528b46ffd623756c50"
+      },
+      "ShielddSecurity.SDKCodecJoin01.source_canonical_coordinates": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "632dd6f725365db0a702299431da9d81d69a6f1c20ac81ba81cfceedab6f2fba"
+      },
+      "ShielddSecurity.SDKCodecJoin01.source_modulus_test_iff": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "d0f9c439ff0899e97884b608e83db46c670a3d059d34f5aedb3cf664e086670b"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-codec-join-20261010-01\\project\\ShielddSecurity\\SDKCodecJoin01.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-codec-join-20261010-01\\project\\ShielddSecurity\\SDKCodecJoin01.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 42896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-codec-join-20261010-01\\project\\ShielddSecurity\\SDKCodecJoin01.olean",
+        "sha256": "07afd5b4e900bdbaec5ab297319ae03bf695e6ceefea91330eb5766f0100a3ff"
+      }
+    ],
+    "peak_rss_bytes": 1570000896,
+    "seconds": 23.298971300013363,
+    "status": "passed",
+    "stdout": {
+      "bytes": 17053,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-codec-join-20261010-01\\runs\\01-SDKCodecJoin01\\stdout.txt",
+      "sha256": "3176b83fa5c3f14bf3a2fe2f961ee42e65727e000e289a1d1aa5a3763feb8943"
+    }
+  }
+}

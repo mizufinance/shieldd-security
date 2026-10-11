@@ -1,0 +1,203 @@
+{
+  "module": "SDKByteIterator01",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.byteBits",
+      "full_type": "ShielddSecurity.SDKByteIterator01.byteBits : (byte : Nat) \u2192 List.{0} Bool",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "99d22ce1e2c70b0640ccee7f5073572cddba39f5ea21100162b2c63426575868"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.ascending",
+      "full_type": "ShielddSecurity.SDKByteIterator01.ascending : (bytes : List.{0} Nat) \u2192 List.{0} Bool",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "99a44ae3c24c8956b8d131083a21271941c44555df837201aef1651cd320179c"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.descending",
+      "full_type": "ShielddSecurity.SDKByteIterator01.descending : (bytes : List.{0} Nat) \u2192 List.{0} Bool",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "fe1a14a65273d69600a2ffa052e6e4e0c1fec1edecea7d0a0fdd3d247b4d09ba"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.retained",
+      "full_type": "ShielddSecurity.SDKByteIterator01.retained : (bytes : List.{0} Nat) \u2192 List.{0} Bool",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "da27f82a6581347d971aee08c5f30a050f13ee2cd6262bdee6ab36cce96f8035"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.canonicalBytes",
+      "full_type": "ShielddSecurity.SDKByteIterator01.canonicalBytes : (count value : Nat) \u2192 List.{0} Nat",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "48a1cf122f4e29b127a3d9ab96d6def566f1022c7bd73b2981aec3cc1bfac002"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.range_blocks",
+      "full_type": "ShielddSecurity.SDKByteIterator01.range_blocks : \u2200 (count width : Nat),\n  @Eq.{1} (List.{0} Nat)\n    (@List.flatMap.{0, 0} Nat Nat\n      (fun (block : Nat) =>\n        @List.map.{0, 0} Nat Nat\n          (fun (offset : Nat) =>\n            @HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) block width) offset)\n          (List.range width))\n      (List.range count))\n    (List.range (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) count width))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "d6a934be18a20fa422242844688483742869d4aff612396e53415e6bbd4c09e4"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.descending_reverse",
+      "full_type": "ShielddSecurity.SDKByteIterator01.descending_reverse : \u2200 (bytes : List.{0} Nat),\n  @Eq.{1} (List.{0} Bool) (ShielddSecurity.SDKByteIterator01.descending bytes)\n    (@List.reverse.{0} Bool (ShielddSecurity.SDKByteIterator01.ascending bytes))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e7feadf90a573b2f140d87a260bcdf597ee5de185ec18520480fa05bb84fc993"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.byte_bit_formula",
+      "full_type": "ShielddSecurity.SDKByteIterator01.byte_bit_formula : \u2200 (value block offset : Nat)\n  (bound : @LT.lt.{0} Nat instLTNat offset (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n          (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value\n            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) block)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) offset))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) block\n              (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))\n            offset)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e529d23f59211fb4de15e4c6f37c5b10879ed309d5791a17cc8fe07e098bb502"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.ascending_canonical",
+      "full_type": "ShielddSecurity.SDKByteIterator01.ascending_canonical : \u2200 (count value : Nat),\n  @Eq.{1} (List.{0} Bool)\n    (ShielddSecurity.SDKByteIterator01.ascending (ShielddSecurity.SDKByteIterator01.canonicalBytes count value))\n    (@List.map.{0, 0} Nat Bool\n      (fun (index : Nat) =>\n        @Decidable.decide\n          (@Eq.{1} Nat\n            (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n              (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value\n                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) index))\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n          (instDecidableEqNat\n            (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n              (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value\n                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) index))\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))\n      (List.range\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) count\n          (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "77802cfb367c05f64429dd73aac73bfcd56d4f67a30e2e4a505f38e7bc616666"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.range_reader",
+      "full_type": "ShielddSecurity.SDKByteIterator01.range_reader : \u2200 (width value : Nat),\n  @Eq.{1} (List.{0} Bool)\n    (@List.map.{0, 0} Nat Bool\n      (fun (index : Nat) =>\n        @Decidable.decide\n          (@Eq.{1} Nat\n            (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n              (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value\n                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) index))\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n          (instDecidableEqNat\n            (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n              (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value\n                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) index))\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))\n      (List.range width))\n    (ShielddSecurity.GroupScalarCodec.readBits width value)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "7d7d942208e2d02a5df228fa82761fada7c6e8237619a8dbe2d9b37f97aaa74a"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKByteIterator01.retained_canonical",
+      "full_type": "ShielddSecurity.SDKByteIterator01.retained_canonical : \u2200 (value : Nat),\n  @Eq.{1} (List.{0} Bool)\n    (ShielddSecurity.SDKByteIterator01.retained\n      (ShielddSecurity.SDKByteIterator01.canonicalBytes (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n        value))\n    (@List.reverse.{0} Bool\n      (ShielddSecurity.GroupScalarCodec.readBits (@OfNat.ofNat.{0} Nat (nat_lit 252) (instOfNatNat (nat_lit 252)))\n        value))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "b93c6823c86a086077df75e71df26fae26abd5f3fde5018a0e1aa273df697436"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 7377,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-byte-iterator-model-20261010-02\\runs\\01-SDKByteIterator01\\stdout.txt",
+    "sha256": "c82a26cf6b8447f32850bbff3531a154b307163487fad0ffd4c9a43399006f40"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.SDKByteIterator01.ascending": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "99a44ae3c24c8956b8d131083a21271941c44555df837201aef1651cd320179c"
+      },
+      "ShielddSecurity.SDKByteIterator01.ascending_canonical": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "77802cfb367c05f64429dd73aac73bfcd56d4f67a30e2e4a505f38e7bc616666"
+      },
+      "ShielddSecurity.SDKByteIterator01.byteBits": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "99d22ce1e2c70b0640ccee7f5073572cddba39f5ea21100162b2c63426575868"
+      },
+      "ShielddSecurity.SDKByteIterator01.byte_bit_formula": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "e529d23f59211fb4de15e4c6f37c5b10879ed309d5791a17cc8fe07e098bb502"
+      },
+      "ShielddSecurity.SDKByteIterator01.canonicalBytes": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "48a1cf122f4e29b127a3d9ab96d6def566f1022c7bd73b2981aec3cc1bfac002"
+      },
+      "ShielddSecurity.SDKByteIterator01.descending": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "fe1a14a65273d69600a2ffa052e6e4e0c1fec1edecea7d0a0fdd3d247b4d09ba"
+      },
+      "ShielddSecurity.SDKByteIterator01.descending_reverse": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "e7feadf90a573b2f140d87a260bcdf597ee5de185ec18520480fa05bb84fc993"
+      },
+      "ShielddSecurity.SDKByteIterator01.range_blocks": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "d6a934be18a20fa422242844688483742869d4aff612396e53415e6bbd4c09e4"
+      },
+      "ShielddSecurity.SDKByteIterator01.range_reader": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "7d7d942208e2d02a5df228fa82761fada7c6e8237619a8dbe2d9b37f97aaa74a"
+      },
+      "ShielddSecurity.SDKByteIterator01.retained": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "da27f82a6581347d971aee08c5f30a050f13ee2cd6262bdee6ab36cce96f8035"
+      },
+      "ShielddSecurity.SDKByteIterator01.retained_canonical": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "b93c6823c86a086077df75e71df26fae26abd5f3fde5018a0e1aa273df697436"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-byte-iterator-model-20261010-02\\project\\ShielddSecurity\\SDKByteIterator01.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-byte-iterator-model-20261010-02\\project\\ShielddSecurity\\SDKByteIterator01.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 123136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-byte-iterator-model-20261010-02\\project\\ShielddSecurity\\SDKByteIterator01.olean",
+        "sha256": "01cbc76a2e7ea080c1644c33e5d21fc571fb386fd85a853647aeb1e957b3a8fa"
+      }
+    ],
+    "peak_rss_bytes": 1060016128,
+    "seconds": 14.481994599977043,
+    "status": "passed",
+    "stdout": {
+      "bytes": 7377,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-byte-iterator-model-20261010-02\\runs\\01-SDKByteIterator01\\stdout.txt",
+      "sha256": "c82a26cf6b8447f32850bbff3531a154b307163487fad0ffd4c9a43399006f40"
+    }
+  }
+}
