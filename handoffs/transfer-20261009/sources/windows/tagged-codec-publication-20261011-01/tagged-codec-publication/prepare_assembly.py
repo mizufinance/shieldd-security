@@ -1,0 +1,38 @@
+"""Seal concrete tagged source model codec with kernel-proved roundtrip."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-native-getter-publication-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b,count=1):
+    global s
+    assert s.count(a)==count,(a,s.count(a))
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-native-getter-publication-20261011-01'", "CURRENT = DIAG / 'transfer-tagged-codec-publication-20261011-01'")
+s=s.replace('transfer-native-getter-publication-checkpoint-20261011-01','transfer-tagged-codec-publication-checkpoint-20261011-01').replace('native-getter-publication-endpoint','tagged-codec-publication-endpoint')
+replace("MODULE = 'TransferNativeGetterPublication01'", "MODULE = 'TransferTaggedCodecPublication01'")
+replace('assert len(fresh) == 3','assert len(fresh) == 8')
+replace("assert pool['objects'] == 97 and len(pool['inherited_public_reports']) == 894", "assert pool['objects'] == 98 and len(pool['inherited_public_reports']) == 897")
+replace("manager_endpoint = DIAG / 'transfer-fixed-finalizer-publication-endpoint-20261011-01'", "manager_endpoint = DIAG / 'transfer-native-getter-publication-endpoint-20261011-01'")
+replace("manager_archive = manager_endpoint / 'portable-windows-fixed-finalizer-publication-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-native-getter-publication-endpoint01.tar.xz'")
+replace('98a1b7a06cbfefb773174c15f48a0f775e7f4d35eca7fbd23dd38b39b5c315cb','0dde710cc65edb5e044b70362f3c799d753ec68e6cbf8b5da8761e8766087715')
+replace("tar.extractfile('reports/fresh-8-complete-declarations.txt')", "tar.extractfile('reports/fresh-3-complete-declarations.txt')")
+replace('assert len(manager_reports) == 8','assert len(manager_reports) == 3')
+replace("'module': 'TransferFixedFinalizerPublication01'", "'module': 'TransferNativeGetterPublication01'")
+replace('assert len(combined_reports) == 894','assert len(combined_reports) == 897')
+replace('assert len(manager_selected) == 97','assert len(manager_selected) == 98')
+replace("reference = {'fixed_finalizer_publication':", "reference = {'native_getter_publication':")
+replace("'imported_complete_reports': 8", "'imported_complete_reports': 3")
+replace("'complete_owned_modules': 97, 'inherited_complete_reports': 894", "'complete_owned_modules': 98, 'inherited_complete_reports': 897")
+s=s.replace('ninety-seven-module','ninety-eight-module').replace('894 original inherited','897 original inherited').replace('verified 894 inherited','verified 897 inherited')
+replace("'fresh_definition_audits': 1", "'fresh_definition_audits': 5")
+replace("'fresh_structure_audits': 0", "'fresh_structure_audits': 1")
+replace("'fresh_complete_public_audits': 3", "'fresh_complete_public_audits': 8")
+replace("'inherited_complete_public_audits': 894", "'inherited_complete_public_audits': 897")
+replace("'fresh_audits': 3, 'inherited_audits': 894", "'fresh_audits': 8, 'inherited_audits': 897",2)
+s=s.replace('SOURCE_WALK_DERIVED_NATIVE_GETTER_PUBLICATION_QUALIFIED','SOURCE_CONCRETE_TAGGED_NATIVE_MODEL_CODEC_PUBLICATION_QUALIFIED')
+replace("add(stdout, 'reports/fresh-3-complete-declarations.txt'", "add(stdout, 'reports/fresh-8-complete-declarations.txt'")
+start=s.index("    'scope': mapping['scope'] + ");end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' Eight complete full type/axiom reports retained. Native-model object sum encode/decode restores exact enum by kernel rfl; cached tree uses distinct other-object tag; whole publication instantiates proved codec, eliminating caller roundtrip. Native Any/downcast/Clone/finite enum/field/cache/String/selectors/full trace/ownership/OS binding remains explicit. Old extended ghost carrier persists, with no global ghost erasure claim. No ancestor/native replay. Full Transfer OPEN; zero native/control/certification credit.'}"+s[end:]
+replace('walk-derived supported global sealed enum and installed finite native decoder derive getter result within whole source publication','concrete heterogeneous typed model object codec and other-object cached tree tag derive roundtrip and whole source publication without caller codec hypothesis')
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':8,'inherited_reports':897,'owned_modules':98,'rejected_kernel':0})
