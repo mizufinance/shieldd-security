@@ -1,5 +1,16 @@
 # Transfer proof completion plan — 9 October 2026
 
+The failure-aware raw child-cache program is accepted at ae307b2af3c98242cc6a3be82e5673d89b54f9c4:
+one fresh source/sixteen complete declaration reports and twelve exact retained
+cache-model reports. Arbitrary-list composition retains the failing child
+cache and suppresses suffix callbacks; the delivery adapter projects error
+before index preparation, parent apply and deferred append, deriving enclosing
+parent/queue preservation. Parent verified all original bytes, full types and
+standard axioms, selected custom/core imports, the exact source repair and
+unchanged physical runner. Rust aliasing/storage/refinement, native delayed
+token and genuine Host fault controls, durability and full Transfer remain
+OPEN. The rejected elaboration predecessor adds no semantic negative result.
+
 The exact indexed row-slice helper is accepted at 5148f7dc07ff0770484cc2c16b96ae7516cee687:
 one fresh module/eight complete reports. The finite length/body checker
 transports arbitrary full indexed satisfaction to a selected local list or
