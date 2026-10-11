@@ -1,0 +1,38 @@
+"""Seal exact full modeled wide reduction, retaining the failed core proof."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent;DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-scalar-wide-walk-endpoint-20261011-02/assemble.py').read_text()
+def replace(a,b,count=1):
+    global s
+    assert s.count(a)==count,(a,s.count(a));s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-scalar-wide-walk-20261011-02'", "CURRENT = DIAG / 'transfer-scalar-wide-reduction-20261011-02'")
+s=s.replace('transfer-scalar-wide-walk-checkpoint-20261011-02','transfer-scalar-wide-reduction-checkpoint-20261011-02').replace('scalar-wide-walk-endpoint','scalar-wide-reduction-endpoint')
+replace("MODULE = 'TransferScalarWideWalk01'", "MODULE = 'TransferScalarWideReduction01'")
+replace('assert len(fresh) == 7','assert len(fresh) == 8')
+replace("assert pool['objects'] == 111 and len(pool['inherited_public_reports']) == 975", "assert pool['objects'] == 112 and len(pool['inherited_public_reports']) == 982")
+replace("manager_endpoint = DIAG / 'transfer-scalar-wide-round-endpoint-20261011-04'", "manager_endpoint = DIAG / 'transfer-scalar-wide-walk-endpoint-20261011-02'")
+replace("manager_archive = manager_endpoint / 'portable-windows-scalar-wide-round-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-scalar-wide-walk-endpoint01.tar.xz'")
+replace('1be40946950021de2eedf9ddf83647b4c0df14e4790359fb8f424bd503f8fe01','84b545606b983add064733468051e4462b6a8e82fed6d24b31e9c91cbbfdffdb')
+replace("tar.extractfile('reports/fresh-6-complete-declarations.txt')", "tar.extractfile('reports/fresh-7-complete-declarations.txt')")
+replace('assert len(manager_reports) == 6','assert len(manager_reports) == 7')
+replace("'module': 'TransferScalarWideRound01'", "'module': 'TransferScalarWideWalk01'")
+replace('assert len(combined_reports) == 975','assert len(combined_reports) == 982')
+replace('assert len(manager_selected) == 111','assert len(manager_selected) == 112')
+replace("reference = {'scalar_wide_round':", "reference = {'scalar_wide_walk':")
+replace("'imported_complete_reports': 6", "'imported_complete_reports': 7")
+replace("'complete_owned_modules': 111, 'inherited_complete_reports': 975", "'complete_owned_modules': 112, 'inherited_complete_reports': 982")
+s=s.replace('one-hundred-eleven-module','one-hundred-twelve-module').replace('975 original inherited','982 original inherited').replace('verified 975 inherited','verified 982 inherited')
+replace("'fresh_theorem_audits': 5", "'fresh_theorem_audits': 6")
+replace("'fresh_complete_public_audits': 7", "'fresh_complete_public_audits': 8")
+replace("'inherited_complete_public_audits': 975", "'inherited_complete_public_audits': 982")
+replace("'fresh_audits': 7, 'inherited_audits': 975", "'fresh_audits': 8, 'inherited_audits': 982",2)
+replace("add(stdout, 'reports/fresh-7-complete-declarations.txt'", "add(stdout, 'reports/fresh-8-complete-declarations.txt'")
+s=s.replace('SOURCE_SYMBOLIC_WIDE_WALK_MODULAR_VALUE_AND_RANGE_QUALIFIED','SOURCE_FULL_WIDE_REDUCTION_ZERO_DISCARDED_CARRY_CANONICAL_PRODUCT_QUALIFIED')
+s=s.replace("failed=DIAG/'transfer-scalar-wide-walk-20261011-01'","failed=DIAG/'transfer-scalar-wide-reduction-20261011-01'")
+s=s.replace('handwritten/TransferScalarWideWalk01.lean','handwritten/TransferScalarWideReduction01.lean').replace('project/ShielddSecurity/TransferScalarWideWalk01.lean','project/ShielddSecurity/TransferScalarWideReduction01.lean').replace('runs/01-TransferScalarWideWalk01/stdout.txt','runs/01-TransferScalarWideReduction01/stdout.txt')
+start=s.index("    'scope': mapping['scope'] + ");end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' Eight complete full type/axiom reports retained. Fresh02 passes after compiler failure01; original ten raw files retained/pinned with zero credit. Explicit Nat transitivity and finite carry case split preserve eight contracts, no added dependency. Canonical rhs product bound derives final discarded carry zero, exact four-word width/canonical range and Montgomery product relation through actual modeled MAC/ADC/subtraction recurrence. Native private Scalar/compiler/primitive/full trace and R2 decoder payload remain explicit. No ancestor/native replay. Full Transfer OPEN; zero native/control/certification credit.'}"+s[end:]
+s=s.replace('symbolic wide-state recurrence derives width/modular value and shrinking final range','full modeled wide reduction derives zero discarded carry/canonical range/exact product relation')
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':8,'inherited_reports':982,'owned_modules':112,'failed_kernel_attempts':1})
