@@ -634,3 +634,6 @@ Reviewed count-codec evidence `bb8aa04d1d63fd06b38a08b451b24ba4f01f2d39` publish
 
 
 Reviewed count-join-max evidence `15ab64b31bcfe368915b25eff845bdc391259ec7` publishes2source modules12fresh complete original reports. UInt8 range/length validates symbolic codec; malformed-length and exact eight255bytes(maxu64) original counts imply whole modeled Ordinary refusal and parent/queue preservation. Exact isolated generators,271/277ancestor reports, original guards and proof-only failed predecessor reviewed. Runtime/native/durable correspondence and fullTransfer remain OPEN.
+
+
+Reviewed decodable-index evidence `b73af97ac8bef15ab9dd279e3d59064819162a31` publishes1whole-success theorem with its complete original full type and standard axioms. Concrete mathematical ordinalcodec/currentNVgetter installed on same-action Ordinary delivery derive exact3NVvalues, old/new ordinal decodings, eight-byte lengths/valid ranges,2Vmarkers/freshness/extraction/increment/queue preservation. Exact283ancestor reports25ownedmodule identities and guards verified. Runtime/native/durability and fullTransfer OPEN.
