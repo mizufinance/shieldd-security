@@ -1,0 +1,129 @@
+{
+  "module": "TransferEnvelopeSourceBridge",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.TransferEnvelopeSourceBridge.decodeEntries",
+      "full_type": "ShielddSecurity.TransferEnvelopeSourceBridge.decodeEntries : (decode :\n    List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext) \u2192\n  List.{0} ShielddSecurity.TransferAcceptance.Item \u2192\n    Option.{0} (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)",
+      "axioms": [],
+      "full_type_sha256": "788e49d7df29c0735600d31009cd13c0873aa48ace0937dd86172fd3271ed8bf"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedIndividual",
+      "full_type": "ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedIndividual : (decode :\n    List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext) \u2192\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) \u2192\n    (item : ShielddSecurity.TransferAcceptance.Item) \u2192\n      (individualVerified : Bool) \u2192 Option.{0} ShielddSecurity.TransferAcceptance.Capability",
+      "axioms": [],
+      "full_type_sha256": "47f6c36ab64cff97c64aca1dacf3e6b109410539f0bf6954ab3e170d0a470f70"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedBatch",
+      "full_type": "ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedBatch : (decode :\n    List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext) \u2192\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) \u2192\n    (items : List.{0} ShielddSecurity.TransferAcceptance.Item) \u2192\n      (batchVerified : Bool) \u2192 Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability)",
+      "axioms": [],
+      "full_type_sha256": "f559ebc0946189d5afc642340756c8eaa89906e5f31bc091f10d3f38fd7611b6"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferEnvelopeSourceBridge.decoded_entries_same_source",
+      "full_type": "ShielddSecurity.TransferEnvelopeSourceBridge.decoded_entries_same_source : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (items : List.{0} ShielddSecurity.TransferAcceptance.Item)\n  (entries : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry))\n      (ShielddSecurity.TransferEnvelopeSourceBridge.decodeEntries decode items)\n      (@Option.some.{0} (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) entries)),\n  And\n    (@Eq.{1} (List.{0} ShielddSecurity.TransferAcceptance.Item)\n      (@List.map.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry ShielddSecurity.TransferAcceptance.Item\n        ShielddSecurity.TransferProofAdmissionModel.Entry.item entries)\n      items)\n    (\u2200 (entry : ShielddSecurity.TransferProofAdmissionModel.Entry),\n      @Membership.mem.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n          (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n          (@List.instMembership.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) entries entry \u2192\n        @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n          (decode\n            (ShielddSecurity.TransferAcceptance.Item.envelope\n              (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry)))\n          (@Option.some.{0} ShielddSecurity.TransferAcceptance.ClaimContext\n            (ShielddSecurity.TransferProofAdmissionModel.Entry.claim entry)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0d96d3f2a5a4bb3c6615996ee8c569c2ac8daf23dcbe85bfde4157a3427eefb6"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferEnvelopeSourceBridge.invalid_envelope_unavailable",
+      "full_type": "ShielddSecurity.TransferEnvelopeSourceBridge.invalid_envelope_unavailable : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) (item : ShielddSecurity.TransferAcceptance.Item)\n  (individualVerified : Bool)\n  (invalid :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n      (decode (ShielddSecurity.TransferAcceptance.Item.envelope item))\n      (@Option.none.{0} ShielddSecurity.TransferAcceptance.ClaimContext)),\n  @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n    (ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedIndividual decode registry item individualVerified)\n    (@Option.none.{0} ShielddSecurity.TransferAcceptance.Capability)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "e98e151b5dfa5da5c846ba585a4cc3b71c2e944ed62c179f127e7f4bc37e973a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferEnvelopeSourceBridge.individual_envelope_join",
+      "full_type": "ShielddSecurity.TransferEnvelopeSourceBridge.individual_envelope_join : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) (item : ShielddSecurity.TransferAcceptance.Item)\n  (individualVerified : Bool) (capability : ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n      (ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedIndividual decode registry item individualVerified)\n      (@Option.some.{0} ShielddSecurity.TransferAcceptance.Capability capability)),\n  @Exists.{1} ShielddSecurity.TransferAcceptance.ClaimContext\n    fun (claim : ShielddSecurity.TransferAcceptance.ClaimContext) =>\n    @Exists.{1} Nat fun (relation : Nat) =>\n      And\n        (@Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n          (decode (ShielddSecurity.TransferAcceptance.Item.envelope item))\n          (@Option.some.{0} ShielddSecurity.TransferAcceptance.ClaimContext claim))\n        (And\n          (@Eq.{1} (Option.{0} Nat)\n            (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n              (ShielddSecurity.TransferAcceptance.Item.family item))\n            (@Option.some.{0} Nat relation))\n          (And\n            (ShielddSecurity.TransferAcceptance.ClaimBound (ShielddSecurity.TransferAcceptance.Item.family item)\n              relation (ShielddSecurity.TransferAcceptance.Item.statement item) claim)\n            (And (@Eq.{1} Bool individualVerified Bool.true)\n              (And\n                (@Eq.{1} Nat (ShielddSecurity.TransferAcceptance.Capability.registry capability)\n                  (ShielddSecurity.TransferProofAdmissionModel.Registry.identity registry))\n                (@Eq.{1} ShielddSecurity.TransferAcceptance.Item\n                  (ShielddSecurity.TransferAcceptance.Capability.item capability) item)))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "c858225b4aac1a5ebb4520ea29ffc248b784f439de82a78d98c09007b80ceeb4"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferEnvelopeSourceBridge.batch_envelope_join",
+      "full_type": "ShielddSecurity.TransferEnvelopeSourceBridge.batch_envelope_join : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (items : List.{0} ShielddSecurity.TransferAcceptance.Item) (batchVerified : Bool)\n  (capabilities : List.{0} ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n      (ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedBatch decode registry items batchVerified)\n      (@Option.some.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities)),\n  @Exists.{1} ShielddSecurity.TransferProofAdmissionModel.Entry\n    fun (first : ShielddSecurity.TransferProofAdmissionModel.Entry) =>\n    @Exists.{1} (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n      fun (rest : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) =>\n      @Exists.{1} Nat fun (relation : Nat) =>\n        And\n          (@Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry))\n            (ShielddSecurity.TransferEnvelopeSourceBridge.decodeEntries decode items)\n            (@Option.some.{0} (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n              (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest)))\n          (And\n            (@Eq.{1} (List.{0} ShielddSecurity.TransferAcceptance.Item)\n              (@List.map.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n                ShielddSecurity.TransferAcceptance.Item ShielddSecurity.TransferProofAdmissionModel.Entry.item\n                (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest))\n              items)\n            (And\n              (\u2200 (entry : ShielddSecurity.TransferProofAdmissionModel.Entry),\n                @Membership.mem.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n                    (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n                    (@List.instMembership.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n                    (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) entry \u2192\n                  @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n                    (decode\n                      (ShielddSecurity.TransferAcceptance.Item.envelope\n                        (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry)))\n                    (@Option.some.{0} ShielddSecurity.TransferAcceptance.ClaimContext\n                      (ShielddSecurity.TransferProofAdmissionModel.Entry.claim entry)))\n              (And\n                (@Eq.{1} (Option.{0} Nat)\n                  (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n                    (ShielddSecurity.TransferAcceptance.Item.family\n                      (ShielddSecurity.TransferProofAdmissionModel.Entry.item first)))\n                  (@Option.some.{0} Nat relation))\n                (And\n                  (\u2200 (entry : ShielddSecurity.TransferProofAdmissionModel.Entry),\n                    @Membership.mem.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n                        (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n                        (@List.instMembership.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n                        (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) entry \u2192\n                      ShielddSecurity.TransferProofAdmissionModel.ContextBound\n                        (ShielddSecurity.TransferAcceptance.Item.family\n                          (ShielddSecurity.TransferProofAdmissionModel.Entry.item first))\n                        relation entry)\n                  (And (@Eq.{1} Bool batchVerified Bool.true)\n                    (And\n                      (@Eq.{1} (List.{0} ShielddSecurity.TransferAcceptance.Item)\n                        (@List.map.{0, 0} ShielddSecurity.TransferAcceptance.Capability\n                          ShielddSecurity.TransferAcceptance.Item ShielddSecurity.TransferAcceptance.Capability.item\n                          capabilities)\n                        items)\n                      (\u2200 (capability : ShielddSecurity.TransferAcceptance.Capability),\n                        @Membership.mem.{0, 0} ShielddSecurity.TransferAcceptance.Capability\n                            (List.{0} ShielddSecurity.TransferAcceptance.Capability)\n                            (@List.instMembership.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities\n                            capability \u2192\n                          @Eq.{1} Nat (ShielddSecurity.TransferAcceptance.Capability.registry capability)\n                            (ShielddSecurity.TransferProofAdmissionModel.Registry.identity registry))))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "23975f16fa45477db4d10ed360d704fc06ce6b27bc81dda29418652f3db81b58"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 11062,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-envelope-source-bridge-20261010-01\\runs\\01-TransferEnvelopeSourceBridge\\stdout.txt",
+    "sha256": "e91aa35836e270caea02a6dee63feb8596ca0b24398bfa454f8010e4bedb6f22"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.TransferEnvelopeSourceBridge.batch_envelope_join": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "23975f16fa45477db4d10ed360d704fc06ce6b27bc81dda29418652f3db81b58"
+      },
+      "ShielddSecurity.TransferEnvelopeSourceBridge.decodeEntries": {
+        "axioms": [],
+        "full_type_sha256": "788e49d7df29c0735600d31009cd13c0873aa48ace0937dd86172fd3271ed8bf"
+      },
+      "ShielddSecurity.TransferEnvelopeSourceBridge.decoded_entries_same_source": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "0d96d3f2a5a4bb3c6615996ee8c569c2ac8daf23dcbe85bfde4157a3427eefb6"
+      },
+      "ShielddSecurity.TransferEnvelopeSourceBridge.individual_envelope_join": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "c858225b4aac1a5ebb4520ea29ffc248b784f439de82a78d98c09007b80ceeb4"
+      },
+      "ShielddSecurity.TransferEnvelopeSourceBridge.invalid_envelope_unavailable": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "e98e151b5dfa5da5c846ba585a4cc3b71c2e944ed62c179f127e7f4bc37e973a"
+      },
+      "ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedBatch": {
+        "axioms": [],
+        "full_type_sha256": "f559ebc0946189d5afc642340756c8eaa89906e5f31bc091f10d3f38fd7611b6"
+      },
+      "ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedIndividual": {
+        "axioms": [],
+        "full_type_sha256": "47f6c36ab64cff97c64aca1dacf3e6b109410539f0bf6954ab3e170d0a470f70"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-envelope-source-bridge-20261010-01\\project\\ShielddSecurity\\TransferEnvelopeSourceBridge.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-envelope-source-bridge-20261010-01\\project\\ShielddSecurity\\TransferEnvelopeSourceBridge.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 204856,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-envelope-source-bridge-20261010-01\\project\\ShielddSecurity\\TransferEnvelopeSourceBridge.olean",
+        "sha256": "c0faa17c2ccd1771177a4ffe517b648db19201063f7eed59b4c52c7eff55a55c"
+      }
+    ],
+    "peak_rss_bytes": 277762048,
+    "seconds": 2.2936637999955565,
+    "status": "passed",
+    "stdout": {
+      "bytes": 11062,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-envelope-source-bridge-20261010-01\\runs\\01-TransferEnvelopeSourceBridge\\stdout.txt",
+      "sha256": "e91aa35836e270caea02a6dee63feb8596ca0b24398bfa454f8010e4bedb6f22"
+    }
+  }
+}

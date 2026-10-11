@@ -1,0 +1,133 @@
+{
+  "module": "TransferCapabilityEnvelope01",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityEnvelope01.Origin",
+      "full_type": "ShielddSecurity.TransferCapabilityEnvelope01.Origin : (decode :\n    List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext) \u2192\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) \u2192\n    (capability : ShielddSecurity.TransferAcceptance.Capability) \u2192 Prop",
+      "axioms": [],
+      "full_type_sha256": "4d41b60501009db0e436454a4a7a0b73f52fdab4634611d46e0850b13b407060"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityEnvelope01.individual_origin",
+      "full_type": "ShielddSecurity.TransferCapabilityEnvelope01.individual_origin : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) (item : ShielddSecurity.TransferAcceptance.Item)\n  (verified : Bool) (capability : ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n      (ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedIndividual decode registry item verified)\n      (@Option.some.{0} ShielddSecurity.TransferAcceptance.Capability capability)),\n  ShielddSecurity.TransferCapabilityEnvelope01.Origin decode registry capability",
+      "axioms": [],
+      "full_type_sha256": "1fcc63da7b1cea72be680882cef97611a5dc54a5730d2fc32a58e0c4dcce22bc"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityEnvelope01.batch_origin",
+      "full_type": "ShielddSecurity.TransferCapabilityEnvelope01.batch_origin : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (items : List.{0} ShielddSecurity.TransferAcceptance.Item) (verified : Bool)\n  (capabilities : List.{0} ShielddSecurity.TransferAcceptance.Capability)\n  (capability : ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n      (ShielddSecurity.TransferEnvelopeSourceBridge.verifyEncodedBatch decode registry items verified)\n      (@Option.some.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities))\n  (inside :\n    @Membership.mem.{0, 0} ShielddSecurity.TransferAcceptance.Capability\n      (List.{0} ShielddSecurity.TransferAcceptance.Capability)\n      (@List.instMembership.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities capability),\n  ShielddSecurity.TransferCapabilityEnvelope01.Origin decode registry capability",
+      "axioms": [],
+      "full_type_sha256": "87f96a7bf3534dc15aa437e0d2163256008967d27e7dfe120acc8f39ae0bcf8c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityEnvelope01.origin_bound",
+      "full_type": "ShielddSecurity.TransferCapabilityEnvelope01.origin_bound : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (capability : ShielddSecurity.TransferAcceptance.Capability)\n  (origin : ShielddSecurity.TransferCapabilityEnvelope01.Origin decode registry capability),\n  @Exists.{1} ShielddSecurity.TransferAcceptance.ClaimContext\n    fun (claim : ShielddSecurity.TransferAcceptance.ClaimContext) =>\n    @Exists.{1} Nat fun (relation : Nat) =>\n      And\n        (@Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n          (decode\n            (ShielddSecurity.TransferAcceptance.Item.envelope\n              (ShielddSecurity.TransferAcceptance.Capability.item capability)))\n          (@Option.some.{0} ShielddSecurity.TransferAcceptance.ClaimContext claim))\n        (And\n          (@Eq.{1} (Option.{0} Nat)\n            (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n              (ShielddSecurity.TransferAcceptance.Item.family\n                (ShielddSecurity.TransferAcceptance.Capability.item capability)))\n            (@Option.some.{0} Nat relation))\n          (And\n            (ShielddSecurity.TransferAcceptance.ClaimBound\n              (ShielddSecurity.TransferAcceptance.Item.family\n                (ShielddSecurity.TransferAcceptance.Capability.item capability))\n              relation\n              (ShielddSecurity.TransferAcceptance.Item.statement\n                (ShielddSecurity.TransferAcceptance.Capability.item capability))\n              claim)\n            (@Eq.{1} Nat (ShielddSecurity.TransferAcceptance.Capability.registry capability)\n              (ShielddSecurity.TransferProofAdmissionModel.Registry.identity registry))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "f2b65b83840674bfa17de967562d7dca2c8948af4376c948cc4562da0d453e94"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityEnvelope01.input_family_checked",
+      "full_type": "ShielddSecurity.TransferCapabilityEnvelope01.input_family_checked : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry : Nat)\n  (rows result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))\n  (row : Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability),\n  @Membership.mem.{0, 0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n      (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      (@List.instMembership.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) rows row \u2192\n    @Eq.{1} Nat\n      (ShielddSecurity.TransferAcceptance.Item.family\n        (ShielddSecurity.TransferAcceptance.Capability.item\n          (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row)))\n      (families (@Prod.fst.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "edcabb35d9e496d8b730586533bae0488d9c1725cac821a42a2ad96dbbabae9b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityEnvelope01.location_family_mismatch_rejected",
+      "full_type": "ShielddSecurity.TransferCapabilityEnvelope01.location_family_mismatch_rejected : \u2200 (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat) (registry slot : Nat)\n  (rows : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (present : @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) slots slot)\n  (wrong : @Ne.{1} Nat (ShielddSecurity.TransferAcceptance.Item.family (expected slot)) (families slot)),\n  Not\n    (@Exists.{1} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n      fun (result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) =>\n      @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n        (ShielddSecurity.TransferCapabilityRows01.validate slots expected families registry rows)\n        (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "1289e94a324e2322d5721013ee30f298f8a4638493350ae7591c9a8418a8eb8f"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilityEnvelope01.constructor_envelope_join",
+      "full_type": "ShielddSecurity.TransferCapabilityEnvelope01.constructor_envelope_join : \u2200\n  (decode : List.{0} Nat \u2192 Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) (slots : List.{0} Nat)\n  (expected : Nat \u2192 ShielddSecurity.TransferAcceptance.Item) (families : Nat \u2192 Nat)\n  (rows result : List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)))\n      (ShielddSecurity.TransferCapabilityRows01.validate slots expected families\n        (ShielddSecurity.TransferProofAdmissionModel.Registry.identity registry) rows)\n      (@Option.some.{0} (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) result))\n  (origins :\n    \u2200 (row : Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability),\n      @Membership.mem.{0, 0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)\n          (List.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability))\n          (@List.instMembership.{0} (Prod.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability)) rows row \u2192\n        ShielddSecurity.TransferCapabilityEnvelope01.Origin decode registry\n          (@Prod.snd.{0, 0} Nat ShielddSecurity.TransferAcceptance.Capability row))\n  (slot : Nat),\n  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) slots slot \u2192\n    @Exists.{1} ShielddSecurity.TransferAcceptance.ClaimContext\n      fun (claim : ShielddSecurity.TransferAcceptance.ClaimContext) =>\n      @Exists.{1} Nat fun (relation : Nat) =>\n        And\n          (@Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.ClaimContext)\n            (decode (ShielddSecurity.TransferAcceptance.Item.envelope (expected slot)))\n            (@Option.some.{0} ShielddSecurity.TransferAcceptance.ClaimContext claim))\n          (And\n            (@Eq.{1} (Option.{0} Nat)\n              (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry (families slot))\n              (@Option.some.{0} Nat relation))\n            (ShielddSecurity.TransferAcceptance.ClaimBound (families slot) relation\n              (ShielddSecurity.TransferAcceptance.Item.statement (expected slot)) claim))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "96a1bbb46196dc2789eab0eb0659163e34ba06faee5823bf805096639ab961df"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 9160,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-envelope-join-20261010-01\\runs\\01-TransferCapabilityEnvelope01\\stdout.txt",
+    "sha256": "3d79005f4941552293225cf9d99968232a7fc8b0e570099c2c13b949af8e9016"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.TransferCapabilityEnvelope01.Origin": {
+        "axioms": [],
+        "full_type_sha256": "4d41b60501009db0e436454a4a7a0b73f52fdab4634611d46e0850b13b407060"
+      },
+      "ShielddSecurity.TransferCapabilityEnvelope01.batch_origin": {
+        "axioms": [],
+        "full_type_sha256": "87f96a7bf3534dc15aa437e0d2163256008967d27e7dfe120acc8f39ae0bcf8c"
+      },
+      "ShielddSecurity.TransferCapabilityEnvelope01.constructor_envelope_join": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "96a1bbb46196dc2789eab0eb0659163e34ba06faee5823bf805096639ab961df"
+      },
+      "ShielddSecurity.TransferCapabilityEnvelope01.individual_origin": {
+        "axioms": [],
+        "full_type_sha256": "1fcc63da7b1cea72be680882cef97611a5dc54a5730d2fc32a58e0c4dcce22bc"
+      },
+      "ShielddSecurity.TransferCapabilityEnvelope01.input_family_checked": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "edcabb35d9e496d8b730586533bae0488d9c1725cac821a42a2ad96dbbabae9b"
+      },
+      "ShielddSecurity.TransferCapabilityEnvelope01.location_family_mismatch_rejected": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "1289e94a324e2322d5721013ee30f298f8a4638493350ae7591c9a8418a8eb8f"
+      },
+      "ShielddSecurity.TransferCapabilityEnvelope01.origin_bound": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "f2b65b83840674bfa17de967562d7dca2c8948af4376c948cc4562da0d453e94"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-envelope-join-20261010-01\\project\\ShielddSecurity\\TransferCapabilityEnvelope01.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-envelope-join-20261010-01\\project\\ShielddSecurity\\TransferCapabilityEnvelope01.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 141952,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-envelope-join-20261010-01\\project\\ShielddSecurity\\TransferCapabilityEnvelope01.olean",
+        "sha256": "50d7794c9e07f2ab14ba844d6cd05a42c3ed94aa263452439e13ea3693189d69"
+      }
+    ],
+    "peak_rss_bytes": 238002176,
+    "seconds": 2.2941108000231907,
+    "status": "passed",
+    "stdout": {
+      "bytes": 9160,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-envelope-join-20261010-01\\runs\\01-TransferCapabilityEnvelope01\\stdout.txt",
+      "sha256": "3d79005f4941552293225cf9d99968232a7fc8b0e570099c2c13b949af8e9016"
+    }
+  }
+}

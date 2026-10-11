@@ -1,0 +1,313 @@
+{
+  "module": "TransferProofAdmissionModel",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.Registry",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.Registry : Type",
+      "axioms": [],
+      "full_type_sha256": "155cb9b151f8604e4cccc06c97d2f43b7575f1c7b3bdc1a9fc152d407f96a8e6"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.Entry",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.Entry : Type",
+      "axioms": [],
+      "full_type_sha256": "c74464c04abfbeb1bde3b02494f9c93b287802da00d373e6b32ec7f4ca0232ee"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.mint",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.mint : (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) \u2192\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) \u2192 ShielddSecurity.TransferAcceptance.Capability",
+      "axioms": [],
+      "full_type_sha256": "5d0df41c4c5c88d9c1259a440f34ec72d18367e88bd1a908395f7628101eb979"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.ContextBound",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.ContextBound : (family relation : Nat) \u2192\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) \u2192 Prop",
+      "axioms": [],
+      "full_type_sha256": "fb863af00e21c47d46b733c5887b01cc03bca2697507b68c3bbd4816e2fce55b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.checkContexts",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.checkContexts : (family relation : Nat) \u2192\n  List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry \u2192 Option.{0} Unit",
+      "axioms": [],
+      "full_type_sha256": "b3e2813efd491f9d9510156baf927449ec6355f4a50263a6905457222442f5bb"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.verifyIndividual",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.verifyIndividual : (registry :\n    ShielddSecurity.TransferProofAdmissionModel.Registry) \u2192\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) \u2192\n    (individualVerified : Bool) \u2192 Option.{0} ShielddSecurity.TransferAcceptance.Capability",
+      "axioms": [],
+      "full_type_sha256": "06b57796acc108a2a21045c8eb3cef9d09736188fb85458216f8eddde7ac8137"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.verifyBatch",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.verifyBatch : (registry :\n    ShielddSecurity.TransferProofAdmissionModel.Registry) \u2192\n  (entries : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) \u2192\n    (batchVerified : Bool) \u2192 Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability)",
+      "axioms": [],
+      "full_type_sha256": "497b9cf0519ecba354cf5ea99fd33d7bee9c95aef40d1ba0268512dbae954727"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.check_contexts_success",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.check_contexts_success : \u2200 (family relation : Nat)\n  (entries : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (success :\n    @Eq.{1} (Option.{0} Unit) (ShielddSecurity.TransferProofAdmissionModel.checkContexts family relation entries)\n      (@Option.some.{0} Unit Unit.unit))\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry),\n  @Membership.mem.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n      (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n      (@List.instMembership.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) entries entry \u2192\n    ShielddSecurity.TransferProofAdmissionModel.ContextBound family relation entry",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4f0d9fec5bcee90bc53caec1d98f9179f911a266d1b979093bf2481c0f74de21"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.missing_individual_key_unavailable",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.missing_individual_key_unavailable : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) (individualVerified : Bool)\n  (missing :\n    @Eq.{1} (Option.{0} Nat)\n      (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n        (ShielddSecurity.TransferAcceptance.Item.family (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry)))\n      (@Option.none.{0} Nat)),\n  @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n    (ShielddSecurity.TransferProofAdmissionModel.verifyIndividual registry entry individualVerified)\n    (@Option.none.{0} ShielddSecurity.TransferAcceptance.Capability)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "3ac41352fc0f4a0a0d37a4585a70f8c6acddf649970752278eac84a77720f35c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.individual_success",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.individual_success : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) (individualVerified : Bool)\n  (capability : ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n      (ShielddSecurity.TransferProofAdmissionModel.verifyIndividual registry entry individualVerified)\n      (@Option.some.{0} ShielddSecurity.TransferAcceptance.Capability capability)),\n  @Exists.{1} Nat fun (relation : Nat) =>\n    And\n      (@Eq.{1} (Option.{0} Nat)\n        (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n          (ShielddSecurity.TransferAcceptance.Item.family\n            (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry)))\n        (@Option.some.{0} Nat relation))\n      (And\n        (ShielddSecurity.TransferAcceptance.ClaimBound\n          (ShielddSecurity.TransferAcceptance.Item.family\n            (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry))\n          relation\n          (ShielddSecurity.TransferAcceptance.Item.statement\n            (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry))\n          (ShielddSecurity.TransferProofAdmissionModel.Entry.claim entry))\n        (And (@Eq.{1} Bool individualVerified Bool.true)\n          (@Eq.{1} ShielddSecurity.TransferAcceptance.Capability capability\n            (ShielddSecurity.TransferProofAdmissionModel.mint registry entry))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "4ae075bf4733f27a79a28dc1d433762d34fa3bc7983bdc1b5d4588d52f5bc148"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.individual_exact_capability",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.individual_exact_capability : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) (individualVerified : Bool)\n  (capability : ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n      (ShielddSecurity.TransferProofAdmissionModel.verifyIndividual registry entry individualVerified)\n      (@Option.some.{0} ShielddSecurity.TransferAcceptance.Capability capability)),\n  And\n    (@Eq.{1} Nat (ShielddSecurity.TransferAcceptance.Capability.registry capability)\n      (ShielddSecurity.TransferProofAdmissionModel.Registry.identity registry))\n    (@Eq.{1} ShielddSecurity.TransferAcceptance.Item (ShielddSecurity.TransferAcceptance.Capability.item capability)\n      (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "4a69b629e2b90c6b5263ccc15706e9ecb4e244d980aade7873f66ef9aea7b432"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.empty_batch_unavailable",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.empty_batch_unavailable : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry) (batchVerified : Bool),\n  @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n    (ShielddSecurity.TransferProofAdmissionModel.verifyBatch registry\n      (@List.nil.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) batchVerified)\n    (@Option.none.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))",
+      "axioms": [],
+      "full_type_sha256": "b2976cfd7af50852ea6fb62ede0b2efc09b6528c15ea7a456d5bde7e1591dd1d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.missing_batch_key_unavailable",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.missing_batch_key_unavailable : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (first : ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (rest : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) (batchVerified : Bool)\n  (missing :\n    @Eq.{1} (Option.{0} Nat)\n      (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n        (ShielddSecurity.TransferAcceptance.Item.family (ShielddSecurity.TransferProofAdmissionModel.Entry.item first)))\n      (@Option.none.{0} Nat)),\n  @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n    (ShielddSecurity.TransferProofAdmissionModel.verifyBatch registry\n      (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) batchVerified)\n    (@Option.none.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "1ccbdf3176b21a6c3753b9df72148b8a0ee943811d298da87de285732726071e"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.batch_success",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.batch_success : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (first : ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (rest : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) (batchVerified : Bool)\n  (capabilities : List.{0} ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n      (ShielddSecurity.TransferProofAdmissionModel.verifyBatch registry\n        (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) batchVerified)\n      (@Option.some.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities)),\n  @Exists.{1} Nat fun (relation : Nat) =>\n    And\n      (@Eq.{1} (Option.{0} Nat)\n        (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n          (ShielddSecurity.TransferAcceptance.Item.family\n            (ShielddSecurity.TransferProofAdmissionModel.Entry.item first)))\n        (@Option.some.{0} Nat relation))\n      (And\n        (\u2200 (entry : ShielddSecurity.TransferProofAdmissionModel.Entry),\n          @Membership.mem.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n              (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n              (@List.instMembership.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n              (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) entry \u2192\n            ShielddSecurity.TransferProofAdmissionModel.ContextBound\n              (ShielddSecurity.TransferAcceptance.Item.family\n                (ShielddSecurity.TransferProofAdmissionModel.Entry.item first))\n              relation entry)\n        (And (@Eq.{1} Bool batchVerified Bool.true)\n          (@Eq.{1} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities\n            (@List.map.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n              ShielddSecurity.TransferAcceptance.Capability (ShielddSecurity.TransferProofAdmissionModel.mint registry)\n              (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "569167cb73a566fd925377b69f200ac72046420f8c0a29f9721a69340e277771"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.batch_exact_order",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.batch_exact_order : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (first : ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (rest : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) (batchVerified : Bool)\n  (capabilities : List.{0} ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n      (ShielddSecurity.TransferProofAdmissionModel.verifyBatch registry\n        (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) batchVerified)\n      (@Option.some.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities)),\n  And\n    (@Eq.{1} (List.{0} ShielddSecurity.TransferAcceptance.Item)\n      (@List.map.{0, 0} ShielddSecurity.TransferAcceptance.Capability ShielddSecurity.TransferAcceptance.Item\n        ShielddSecurity.TransferAcceptance.Capability.item capabilities)\n      (@List.map.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry ShielddSecurity.TransferAcceptance.Item\n        ShielddSecurity.TransferProofAdmissionModel.Entry.item\n        (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest)))\n    (@Eq.{1} Nat (@List.length.{0} ShielddSecurity.TransferAcceptance.Capability capabilities)\n      (@List.length.{0} ShielddSecurity.TransferProofAdmissionModel.Entry\n        (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "77eac809811b38d434cc7cf8cb048ddc6f5c6eb72d36b30bb73407f273bb8e7d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.batch_exact_registry",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.batch_exact_registry : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (first : ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (rest : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) (batchVerified : Bool)\n  (capabilities : List.{0} ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n      (ShielddSecurity.TransferProofAdmissionModel.verifyBatch registry\n        (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) batchVerified)\n      (@Option.some.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities))\n  (capability : ShielddSecurity.TransferAcceptance.Capability),\n  @Membership.mem.{0, 0} ShielddSecurity.TransferAcceptance.Capability\n      (List.{0} ShielddSecurity.TransferAcceptance.Capability)\n      (@List.instMembership.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities capability \u2192\n    @Eq.{1} Nat (ShielddSecurity.TransferAcceptance.Capability.registry capability)\n      (ShielddSecurity.TransferProofAdmissionModel.Registry.identity registry)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "20cad8caf00c89bb0fc47fb605076157f371a9db317ff86ca0e6266f639a9b41"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.batch_family_gate",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.batch_family_gate : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (first : ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (rest : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) (batchVerified : Bool)\n  (capabilities : List.{0} ShielddSecurity.TransferAcceptance.Capability)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n      (ShielddSecurity.TransferProofAdmissionModel.verifyBatch registry\n        (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) batchVerified)\n      (@Option.some.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities)),\n  ShielddSecurity.TransferAcceptance.FamilyBatch\n    (ShielddSecurity.TransferAcceptance.Item.family (ShielddSecurity.TransferProofAdmissionModel.Entry.item first))\n    (@List.map.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry ShielddSecurity.TransferAcceptance.Item\n      ShielddSecurity.TransferProofAdmissionModel.Entry.item\n      (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "b7ca9f98786b1e0f958237bca3f71cd7aacfd19476e0af18cd46a1c5a6663957"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_relation_refused",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_relation_refused : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) (individualVerified : Bool) (relation : Nat)\n  (lookup :\n    @Eq.{1} (Option.{0} Nat)\n      (ShielddSecurity.TransferProofAdmissionModel.Registry.relation registry\n        (ShielddSecurity.TransferAcceptance.Item.family (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry)))\n      (@Option.some.{0} Nat relation))\n  (wrong :\n    @Ne.{1} Nat\n      (ShielddSecurity.TransferAcceptance.ClaimContext.relation\n        (ShielddSecurity.TransferProofAdmissionModel.Entry.claim entry))\n      relation),\n  Not\n    (@Exists.{1} ShielddSecurity.TransferAcceptance.Capability\n      fun (capability : ShielddSecurity.TransferAcceptance.Capability) =>\n      @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n        (ShielddSecurity.TransferProofAdmissionModel.verifyIndividual registry entry individualVerified)\n        (@Option.some.{0} ShielddSecurity.TransferAcceptance.Capability capability))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "6648d77b1b88890cb349ab21afb016d3d3d14134497e756135a408c5b1aee995"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_public_refused",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_public_refused : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) (individualVerified : Bool)\n  (wrong :\n    @Ne.{1} (List.{0} Nat)\n      (ShielddSecurity.TransferAcceptance.ClaimContext.publicInputs\n        (ShielddSecurity.TransferProofAdmissionModel.Entry.claim entry))\n      (@List.cons.{0} Nat\n        (ShielddSecurity.TransferAcceptance.Item.statement\n          (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry))\n        (@List.nil.{0} Nat))),\n  Not\n    (@Exists.{1} ShielddSecurity.TransferAcceptance.Capability\n      fun (capability : ShielddSecurity.TransferAcceptance.Capability) =>\n      @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n        (ShielddSecurity.TransferProofAdmissionModel.verifyIndividual registry entry individualVerified)\n        (@Option.some.{0} ShielddSecurity.TransferAcceptance.Capability capability))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "2819ebd3c13a2b7c04804ebd6e28d145ceaf94675905ffc6aeb32177ea256ea2"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_commitment_shape_refused",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_commitment_shape_refused : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (entry : ShielddSecurity.TransferProofAdmissionModel.Entry) (individualVerified : Bool)\n  (wrong :\n    @Ne.{1} Nat\n      (@List.length.{0} Nat\n        (ShielddSecurity.TransferAcceptance.ClaimContext.commitments\n          (ShielddSecurity.TransferProofAdmissionModel.Entry.claim entry)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  Not\n    (@Exists.{1} ShielddSecurity.TransferAcceptance.Capability\n      fun (capability : ShielddSecurity.TransferAcceptance.Capability) =>\n      @Eq.{1} (Option.{0} ShielddSecurity.TransferAcceptance.Capability)\n        (ShielddSecurity.TransferProofAdmissionModel.verifyIndividual registry entry individualVerified)\n        (@Option.some.{0} ShielddSecurity.TransferAcceptance.Capability capability))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "6716d4182412cdc21830a25bc72810557292b7b4297b1e6223ab07b20ab8f34f"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferProofAdmissionModel.batch_wrong_family_refused",
+      "full_type": "ShielddSecurity.TransferProofAdmissionModel.batch_wrong_family_refused : \u2200\n  (registry : ShielddSecurity.TransferProofAdmissionModel.Registry)\n  (first entry : ShielddSecurity.TransferProofAdmissionModel.Entry)\n  (rest : List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry) (batchVerified : Bool)\n  (inside :\n    @Membership.mem.{0, 0} ShielddSecurity.TransferProofAdmissionModel.Entry\n      (List.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n      (@List.instMembership.{0} ShielddSecurity.TransferProofAdmissionModel.Entry)\n      (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) entry)\n  (wrong :\n    @Ne.{1} Nat\n      (ShielddSecurity.TransferAcceptance.Item.family (ShielddSecurity.TransferProofAdmissionModel.Entry.item entry))\n      (ShielddSecurity.TransferAcceptance.Item.family (ShielddSecurity.TransferProofAdmissionModel.Entry.item first))),\n  Not\n    (@Exists.{1} (List.{0} ShielddSecurity.TransferAcceptance.Capability)\n      fun (capabilities : List.{0} ShielddSecurity.TransferAcceptance.Capability) =>\n      @Eq.{1} (Option.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability))\n        (ShielddSecurity.TransferProofAdmissionModel.verifyBatch registry\n          (@List.cons.{0} ShielddSecurity.TransferProofAdmissionModel.Entry first rest) batchVerified)\n        (@Option.some.{0} (List.{0} ShielddSecurity.TransferAcceptance.Capability) capabilities))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0c388de23cd43568117378384cb9f90f9494ea42875629149d7745211090b6ef"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 19244,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-proof-admission-20261010-02\\runs\\01-TransferProofAdmissionModel\\stdout.txt",
+    "sha256": "718cc5fa0cf26f159612420ef9439c2122a47f4ea11ebfb8a37b1c9319215e13"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.TransferProofAdmissionModel.ContextBound": {
+        "axioms": [],
+        "full_type_sha256": "fb863af00e21c47d46b733c5887b01cc03bca2697507b68c3bbd4816e2fce55b"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.Entry": {
+        "axioms": [],
+        "full_type_sha256": "c74464c04abfbeb1bde3b02494f9c93b287802da00d373e6b32ec7f4ca0232ee"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.Registry": {
+        "axioms": [],
+        "full_type_sha256": "155cb9b151f8604e4cccc06c97d2f43b7575f1c7b3bdc1a9fc152d407f96a8e6"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.batch_exact_order": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "77eac809811b38d434cc7cf8cb048ddc6f5c6eb72d36b30bb73407f273bb8e7d"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.batch_exact_registry": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "20cad8caf00c89bb0fc47fb605076157f371a9db317ff86ca0e6266f639a9b41"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.batch_family_gate": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "b7ca9f98786b1e0f958237bca3f71cd7aacfd19476e0af18cd46a1c5a6663957"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.batch_success": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "569167cb73a566fd925377b69f200ac72046420f8c0a29f9721a69340e277771"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.batch_wrong_family_refused": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "0c388de23cd43568117378384cb9f90f9494ea42875629149d7745211090b6ef"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.checkContexts": {
+        "axioms": [],
+        "full_type_sha256": "b3e2813efd491f9d9510156baf927449ec6355f4a50263a6905457222442f5bb"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.check_contexts_success": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "4f0d9fec5bcee90bc53caec1d98f9179f911a266d1b979093bf2481c0f74de21"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.empty_batch_unavailable": {
+        "axioms": [],
+        "full_type_sha256": "b2976cfd7af50852ea6fb62ede0b2efc09b6528c15ea7a456d5bde7e1591dd1d"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.individual_exact_capability": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "4a69b629e2b90c6b5263ccc15706e9ecb4e244d980aade7873f66ef9aea7b432"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.individual_success": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "4ae075bf4733f27a79a28dc1d433762d34fa3bc7983bdc1b5d4588d52f5bc148"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_commitment_shape_refused": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "6716d4182412cdc21830a25bc72810557292b7b4297b1e6223ab07b20ab8f34f"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_public_refused": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "2819ebd3c13a2b7c04804ebd6e28d145ceaf94675905ffc6aeb32177ea256ea2"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.individual_wrong_relation_refused": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "6648d77b1b88890cb349ab21afb016d3d3d14134497e756135a408c5b1aee995"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.mint": {
+        "axioms": [],
+        "full_type_sha256": "5d0df41c4c5c88d9c1259a440f34ec72d18367e88bd1a908395f7628101eb979"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.missing_batch_key_unavailable": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "1ccbdf3176b21a6c3753b9df72148b8a0ee943811d298da87de285732726071e"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.missing_individual_key_unavailable": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "3ac41352fc0f4a0a0d37a4585a70f8c6acddf649970752278eac84a77720f35c"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.verifyBatch": {
+        "axioms": [],
+        "full_type_sha256": "497b9cf0519ecba354cf5ea99fd33d7bee9c95aef40d1ba0268512dbae954727"
+      },
+      "ShielddSecurity.TransferProofAdmissionModel.verifyIndividual": {
+        "axioms": [],
+        "full_type_sha256": "06b57796acc108a2a21045c8eb3cef9d09736188fb85458216f8eddde7ac8137"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-proof-admission-20261010-02\\project\\ShielddSecurity\\TransferProofAdmissionModel.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-proof-admission-20261010-02\\project\\ShielddSecurity\\TransferProofAdmissionModel.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 324816,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-proof-admission-20261010-02\\project\\ShielddSecurity\\TransferProofAdmissionModel.olean",
+        "sha256": "76d29b943e5d57609211f014f745e9fd4dcd7c65512b826824492d882d969d22"
+      }
+    ],
+    "peak_rss_bytes": 274665472,
+    "seconds": 2.513243999972474,
+    "status": "passed",
+    "stdout": {
+      "bytes": 19244,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-proof-admission-20261010-02\\runs\\01-TransferProofAdmissionModel\\stdout.txt",
+      "sha256": "718cc5fa0cf26f159612420ef9439c2122a47f4ea11ebfb8a37b1c9319215e13"
+    }
+  }
+}
