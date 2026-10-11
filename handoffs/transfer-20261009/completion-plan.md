@@ -1,5 +1,15 @@
 # Transfer proof completion plan — 9 October 2026
 
+The exact indexed row-slice helper is accepted at 5148f7dc07ff0770484cc2c16b96ae7516cee687:
+one fresh module/eight complete reports. The finite length/body checker
+transports arbitrary full indexed satisfaction to a selected local list or
+indexed slice under its exact successful check and positional bound. Parent
+verified original full reports, exact maintained source replay and six
+selected inherited import associations. Its guard changes only the finite
+on-disk metadata cap256to512MiB/reserve252to508MiB; all physical protections
+remain unchanged. Every concrete captured-instance check, full semantics,
+legal construction, native refinement and Transfer certification remain OPEN.
+
 The composed first epoch hints are accepted at 8795df5014c2ca29556a67135e6377e13c523984:
 one fresh module/15 complete reports. It derives both the65 range and4
 nonzero actual assertions on one assignment after independently constructed
