@@ -794,3 +794,8 @@ Evidence commit: 1c3628c18532a916c8228ed4118aa02f0d2cc94b
 Independent review accepted11 complete original reports binding six exact pinned Rust ASCII key/FORMAT literals. Unmodified maintained generator replay reproduced exact generated source bytes. Byte separation derives three write-key inequalities under explicit injective representation; successful source-bound staging derives actual serialized next boundary, pinned FORMAT and observed root commitment bytes at those keys. Native projection/getter/serde/crypto/ownership/async/durability/fullTransfer remain OPEN. No fresh ancestor or native replay;533 inherited reports53owned modules are exact prior associations. Generated Lean is committed with evidence separately from maintained generators/review helpers; physical controls unchanged.
 
 Evidence commit: 07ea22bc96d8058e6cfd3c2860e8fd6de5955b4a
+
+
+Independent review accepted7 complete original boundary-reader reports. Whole return derives actual available boundary bytes, pinned FORMAT, successful decode, present height and observed aggregate-root equality. Missing data cannot become a default boundary. Installing this reader into source staging derives the same previous-boundary observations for successful noninitial staging. Native getter/key/serde/typed values/crypto/owner/async/durability and independent consensus snapshot/ICS23 authentication remain OPEN. Original failed proof retained, with only line wrap and branch/Boolean proof repairs;544 inherited reports54owned modules are exact previous associations. No native or final combined replay; physical controls unchanged.
+
+Evidence commit: 5af2609b9f28c41f7ee51b6c87e8c8c61ce71812
