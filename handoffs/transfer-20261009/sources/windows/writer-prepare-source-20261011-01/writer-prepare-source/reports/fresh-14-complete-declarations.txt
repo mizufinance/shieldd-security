@@ -1,0 +1,389 @@
+ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary : Type
+'ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary' does not depend on any axioms
+ShielddSecurity.TransferWriterPrepareSource01.Frozen : Type
+'ShielddSecurity.TransferWriterPrepareSource01.Frozen' does not depend on any axioms
+ShielddSecurity.TransferWriterPrepareSource01.Phase : Type
+'ShielddSecurity.TransferWriterPrepareSource01.Phase' does not depend on any axioms
+ShielddSecurity.TransferWriterPrepareSource01.Backend : (O : Type) → Type
+'ShielddSecurity.TransferWriterPrepareSource01.Backend' does not depend on any axioms
+ShielddSecurity.TransferWriterPrepareSource01.Outcome : Type
+'ShielddSecurity.TransferWriterPrepareSource01.Outcome' does not depend on any axioms
+@ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen : {O : Type} →
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O) →
+    (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) →
+      (state : ShielddSecurity.TransferStateDelta.State O) →
+        (height :
+            Fin
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+          (blockId accepted : List.{0} Nat) → Option.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+'ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter : {O : Type} →
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O) →
+    (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) →
+      (state : ShielddSecurity.TransferStateDelta.State O) →
+        (height :
+            Fin
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+          (blockId accepted : List.{0} Nat) → ShielddSecurity.TransferWriterPrepareSource01.Outcome
+'ShielddSecurity.TransferWriterPrepareSource01.prepareWriter' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterPrepareSource01.unready_refuses_before_height : ∀ {O : Type}
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat)
+  (unready :
+    ∀ (previous : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary),
+      @Ne.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready previous)),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+    (@ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen O backend phase state height blockId accepted)
+    (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+'ShielddSecurity.TransferWriterPrepareSource01.unready_refuses_before_height' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterPrepareSource01.wrong_application_height_refuses_before_store : ∀ {O : Type}
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (previous : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (actualHeight : Nat)
+  (read :
+    @Eq.{1} (Option.{0} Nat) (@ShielddSecurity.TransferWriterPrepareSource01.Backend.height O backend state)
+      (@Option.some.{0} Nat actualHeight))
+  (different :
+    @Ne.{1} Nat actualHeight
+      (@Fin.val
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+        height)),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+    (@ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen O backend
+      (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready previous) state height blockId accepted)
+    (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+'ShielddSecurity.TransferWriterPrepareSource01.wrong_application_height_refuses_before_store' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterPrepareSource01.successful_frozen_derives_every_prior_call : ∀ {O : Type}
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+      (@ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen O backend phase state height blockId accepted)
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen frozen)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+    fun (previous : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) =>
+    @Exists.{1} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared
+      fun (insertions : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) =>
+      @Exists.{1} (ShielddSecurity.TransferStateDelta.State O)
+        fun (staged : ShielddSecurity.TransferStateDelta.State O) =>
+        @Exists.{1} Nat fun (root : Nat) =>
+          And
+            (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+              (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready previous))
+            (And
+              (@Eq.{1} (Option.{0} Nat) (@ShielddSecurity.TransferWriterPrepareSource01.Backend.height O backend state)
+                (@Option.some.{0} Nat
+                  (@Fin.val
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                    height)))
+              (And (@Eq.{1} Bool (@ShielddSecurity.TransferWriterPrepareSource01.Backend.readLock O backend) Bool.true)
+                (And
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+                    (ShielddSecurity.TransferPreparedAcceptedSource01.prepare
+                      (@ShielddSecurity.TransferWriterPrepareSource01.Backend.store O backend)
+                      (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers previous) height blockId
+                      accepted)
+                    (@Option.some.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared insertions))
+                  (And
+                    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+                      (@ShielddSecurity.TransferWriterPrepareSource01.Backend.stageBoundary O backend state insertions)
+                      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) staged))
+                    (And
+                      (@Eq.{1} (Option.{0} Nat)
+                        (@ShielddSecurity.TransferWriterPrepareSource01.Backend.prepareApplication O backend staged)
+                        (@Option.some.{0} Nat root))
+                      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen frozen
+                        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.mk insertions root previous
+                          (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.mk
+                            (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next insertions)
+                            (@Option.some.{0} Nat root)))))))))
+'ShielddSecurity.TransferWriterPrepareSource01.successful_frozen_derives_every_prior_call' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWriterPrepareSource01.failed_prepare_preserves_writer_phase : ∀ {O : Type}
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat)
+  (failed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+      (@ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen O backend phase state height blockId accepted)
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)),
+  And
+    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase state height blockId accepted))
+      phase)
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase state height blockId accepted))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+'ShielddSecurity.TransferWriterPrepareSource01.failed_prepare_preserves_writer_phase' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterPrepareSource01.successful_writer_derives_prepared_phase_exact_inputs_and_observed_root : ∀
+  {O : Type} (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase state height blockId accepted))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen O backend phase state height blockId accepted)
+        (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen frozen))
+      (And
+        (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+          (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+            (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase state height blockId
+              accepted))
+          (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))
+        (And
+          (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned
+            (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+          (And
+            (@Eq.{1} (List.{0} Nat)
+              (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+              accepted)
+            (And
+              (@Eq.{1} ShielddSecurity.TransferReadback.Boundary
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)
+                (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen)))
+              (@Eq.{1} (Option.{0} Nat)
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot returned)
+                (@Option.some.{0} Nat
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.applicationRoot frozen)))))))
+'ShielddSecurity.TransferWriterPrepareSource01.successful_writer_derives_prepared_phase_exact_inputs_and_observed_root' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWriterPrepareSource01.successful_block_writer_handoff_retains_exact_global_input_order : ∀
+  {O E K X Tree A : Type} (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      ShielddSecurity.TransferPendingSetInvariant01.Coherent pending →
+        @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (final : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+  (emptyStart :
+    @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent)
+      ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)
+  (walkSuccess :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk O E K X Tree A encode decode project parent queued requests)
+      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)) final))
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId : List.{0} Nat) (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    have output :
+      ShielddSecurity.TransferRawStateProgram01.Outcome O Unit ShielddSecurity.TransferPendingSealSource01.SealError :=
+      @ShielddSecurity.TransferPendingSealSource01.sealOnce O Unit encode decode
+        (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O Unit
+          (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+          (@ShielddSecurity.TransferStateDelta.empty O Unit));
+    have sealedState : ShielddSecurity.TransferStateDelta.State O :=
+      @ShielddSecurity.TransferStateDelta.applyCache O Unit
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O Unit
+          ShielddSecurity.TransferPendingSealSource01.SealError output);
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase sealedState height blockId
+          (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+            (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project sealedState))))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),
+  have output :
+    ShielddSecurity.TransferRawStateProgram01.Outcome O Unit ShielddSecurity.TransferPendingSealSource01.SealError :=
+    @ShielddSecurity.TransferPendingSealSource01.sealOnce O Unit encode decode
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O Unit
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+        (@ShielddSecurity.TransferStateDelta.empty O Unit));
+  have sealedState : ShielddSecurity.TransferStateDelta.State O :=
+    @ShielddSecurity.TransferStateDelta.applyCache O Unit
+      (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O Unit
+        ShielddSecurity.TransferPendingSealSource01.SealError output);
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+          (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase sealedState height blockId
+            (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+              (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project sealedState))))
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))
+      (And
+        (@Eq.{1} (List.{0} Nat)
+          (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+            (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+          (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+        (And (@List.Nodup.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+          (And
+            (@LE.le.{0} Nat instLENat
+              (@List.length.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+              ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+            (And
+              (@Eq.{1} ShielddSecurity.TransferReadback.Boundary
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)
+                (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen)))
+              (@Eq.{1} (Option.{0} Nat)
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot returned)
+                (@Option.some.{0} Nat
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.applicationRoot frozen)))))))
+'ShielddSecurity.TransferWriterPrepareSource01.successful_block_writer_handoff_retains_exact_global_input_order' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWriterPrepareSource01.finite_codec_default_writer_handoff_retains_exact_global_inputs : ∀
+  {O E K X Tree A : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (typedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (final : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+  (storedDefault :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent
+        (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} O
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative
+          ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)))
+  (walkSuccess :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk O E K X Tree A
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative) project parent queued requests)
+      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)) final))
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId : List.{0} Nat) (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    have output :
+      ShielddSecurity.TransferRawStateProgram01.Outcome O Unit ShielddSecurity.TransferPendingSealSource01.SealError :=
+      @ShielddSecurity.TransferPendingSealSource01.sealOnce O Unit
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative)
+        (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O Unit
+          (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+          (@ShielddSecurity.TransferStateDelta.empty O Unit));
+    have sealedState : ShielddSecurity.TransferStateDelta.State O :=
+      @ShielddSecurity.TransferStateDelta.applyCache O Unit
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O Unit
+          ShielddSecurity.TransferPendingSealSource01.SealError output);
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase sealedState height blockId
+          (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+            (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O
+              (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative) project sealedState))))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),
+  have output :
+    ShielddSecurity.TransferRawStateProgram01.Outcome O Unit ShielddSecurity.TransferPendingSealSource01.SealError :=
+    @ShielddSecurity.TransferPendingSealSource01.sealOnce O Unit
+      (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative)
+      (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative)
+      (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O Unit
+        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+        (@ShielddSecurity.TransferStateDelta.empty O Unit));
+  have sealedState : ShielddSecurity.TransferStateDelta.State O :=
+    @ShielddSecurity.TransferStateDelta.applyCache O Unit
+      (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O Unit
+        ShielddSecurity.TransferPendingSealSource01.SealError output);
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+          (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O backend phase sealedState height blockId
+            (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+              (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O
+                (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative) project sealedState))))
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))
+      (And
+        (@Eq.{1} (List.{0} Nat)
+          (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+            (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+          (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+        (And (@List.Nodup.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+          (And
+            (@LE.le.{0} Nat instLENat
+              (@List.length.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+              ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+            (And
+              (@Eq.{1} ShielddSecurity.TransferReadback.Boundary
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)
+                (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen)))
+              (@Eq.{1} (Option.{0} Nat)
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot returned)
+                (@Option.some.{0} Nat
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.applicationRoot frozen)))))))
+'ShielddSecurity.TransferWriterPrepareSource01.finite_codec_default_writer_handoff_retains_exact_global_inputs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
