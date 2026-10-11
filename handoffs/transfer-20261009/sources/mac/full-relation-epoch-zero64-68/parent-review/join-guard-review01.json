@@ -1,0 +1,394 @@
+{
+  "kind": "Read-only original guard/delta and parser review; synthetic parser refusals are not semantic negative controls",
+  "guards": [
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution26/maintained/guard.py",
+      "bytes": 33611,
+      "sha256": "b7d1ce67b936b0cdcd6e1805fe299eee42f3f49cbc64f2d6fd9ab15deb829dce",
+      "changed_functions": [
+        "fixed_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution26\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution27/maintained/guard.py",
+      "bytes": 33855,
+      "sha256": "9d8d0213859b0f21fbfd608d0f43de42a032511b36a2c9a96f39c26a9443e98a",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution27\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,7 +339,11 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n     require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution28/maintained/guard.py",
+      "bytes": 33907,
+      "sha256": "f106617013ef1e0b7572bb76f9325d943429647aaafa47e018c48afe5b67a002",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution28\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+r['module'] for r in records} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,7 +339,11 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n     require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution29/maintained/guard.py",
+      "bytes": 33937,
+      "sha256": "001e8ac59f7791acf3757bb6f1262014180186aed9e116ffd59e4554105fb42e",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check",
+        "source_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution29\n@@ -140,7 +140,7 @@\n     forbidden=r'\\b(?:sorry|admit|axiom|unsafe|implemented_by|extern|native_decide|run_tac|elab|initialize|macro|IO|ofReduceBool|skipKernelTC)\\b|decide\\s*\\+native|#(?:eval|reduce|run|compile)|\\bimport\\s+all\\b'\n     require(not re.search(forbidden,source), 'forbidden source feature')\n     options=re.findall(r'(?m)^\\s*set_option\\s+(\\S+)\\s+([^\\n]+)',source)\n-    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in'}\n+    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in','linter.dupNamespace':'false'}\n     require(all(key in allowed and val.strip()==allowed[key] for key,val in options), 'finite option whitelist')\n     require(sum(key=='maxHeartbeats' for key,_ in options)==1 and sum(key=='maxRecDepth' for key,_ in options)==1, 'finite option count')\n     imports=re.findall(r'(?m)^import ([A-Za-z0-9_.]+)\\s*$',source)\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+r['module'] for r in records} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,7 +339,11 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n     require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution30/maintained/guard.py",
+      "bytes": 33937,
+      "sha256": "001e8ac59f7791acf3757bb6f1262014180186aed9e116ffd59e4554105fb42e",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check",
+        "source_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution30\n@@ -140,7 +140,7 @@\n     forbidden=r'\\b(?:sorry|admit|axiom|unsafe|implemented_by|extern|native_decide|run_tac|elab|initialize|macro|IO|ofReduceBool|skipKernelTC)\\b|decide\\s*\\+native|#(?:eval|reduce|run|compile)|\\bimport\\s+all\\b'\n     require(not re.search(forbidden,source), 'forbidden source feature')\n     options=re.findall(r'(?m)^\\s*set_option\\s+(\\S+)\\s+([^\\n]+)',source)\n-    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in'}\n+    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in','linter.dupNamespace':'false'}\n     require(all(key in allowed and val.strip()==allowed[key] for key,val in options), 'finite option whitelist')\n     require(sum(key=='maxHeartbeats' for key,_ in options)==1 and sum(key=='maxRecDepth' for key,_ in options)==1, 'finite option count')\n     imports=re.findall(r'(?m)^import ([A-Za-z0-9_.]+)\\s*$',source)\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+r['module'] for r in records} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,7 +339,11 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n     require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution31/maintained/guard.py",
+      "bytes": 33952,
+      "sha256": "bb83b7be30a6bc61e0c5fe80318f66d2661077114171d33a8bd501543d757888",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check",
+        "launch_reserve",
+        "source_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution31\n@@ -140,7 +140,7 @@\n     forbidden=r'\\b(?:sorry|admit|axiom|unsafe|implemented_by|extern|native_decide|run_tac|elab|initialize|macro|IO|ofReduceBool|skipKernelTC)\\b|decide\\s*\\+native|#(?:eval|reduce|run|compile)|\\bimport\\s+all\\b'\n     require(not re.search(forbidden,source), 'forbidden source feature')\n     options=re.findall(r'(?m)^\\s*set_option\\s+(\\S+)\\s+([^\\n]+)',source)\n-    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in'}\n+    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in','linter.dupNamespace':'false'}\n     require(all(key in allowed and val.strip()==allowed[key] for key,val in options), 'finite option whitelist')\n     require(sum(key=='maxHeartbeats' for key,_ in options)==1 and sum(key=='maxRecDepth' for key,_ in options)==1, 'finite option count')\n     imports=re.findall(r'(?m)^import ([A-Za-z0-9_.]+)\\s*$',source)\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+n for n in config['order'][:len(records)]} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,10 +339,14 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n+    require(total<=2*1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n@@ -349,7 +354,7 @@\n \n def launch_reserve(observation):\n     require(observation['metadata_bytes']<=508*1024*1024, 'reserve streams/receipt metadata')\n-    require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n+    require(observation['batch_bytes']<=2032*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):\n     runtime=pathlib.Path(config['runtime']); ledger=runtime/'ledger.jsonl'\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution32/maintained/guard.py",
+      "bytes": 33952,
+      "sha256": "bb83b7be30a6bc61e0c5fe80318f66d2661077114171d33a8bd501543d757888",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check",
+        "launch_reserve",
+        "source_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution32\n@@ -140,7 +140,7 @@\n     forbidden=r'\\b(?:sorry|admit|axiom|unsafe|implemented_by|extern|native_decide|run_tac|elab|initialize|macro|IO|ofReduceBool|skipKernelTC)\\b|decide\\s*\\+native|#(?:eval|reduce|run|compile)|\\bimport\\s+all\\b'\n     require(not re.search(forbidden,source), 'forbidden source feature')\n     options=re.findall(r'(?m)^\\s*set_option\\s+(\\S+)\\s+([^\\n]+)',source)\n-    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in'}\n+    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in','linter.dupNamespace':'false'}\n     require(all(key in allowed and val.strip()==allowed[key] for key,val in options), 'finite option whitelist')\n     require(sum(key=='maxHeartbeats' for key,_ in options)==1 and sum(key=='maxRecDepth' for key,_ in options)==1, 'finite option count')\n     imports=re.findall(r'(?m)^import ([A-Za-z0-9_.]+)\\s*$',source)\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+n for n in config['order'][:len(records)]} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,10 +339,14 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n+    require(total<=2*1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n@@ -349,7 +354,7 @@\n \n def launch_reserve(observation):\n     require(observation['metadata_bytes']<=508*1024*1024, 'reserve streams/receipt metadata')\n-    require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n+    require(observation['batch_bytes']<=2032*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):\n     runtime=pathlib.Path(config['runtime']); ledger=runtime/'ledger.jsonl'\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution33/maintained/guard.py",
+      "bytes": 33952,
+      "sha256": "bb83b7be30a6bc61e0c5fe80318f66d2661077114171d33a8bd501543d757888",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check",
+        "launch_reserve",
+        "source_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution33\n@@ -140,7 +140,7 @@\n     forbidden=r'\\b(?:sorry|admit|axiom|unsafe|implemented_by|extern|native_decide|run_tac|elab|initialize|macro|IO|ofReduceBool|skipKernelTC)\\b|decide\\s*\\+native|#(?:eval|reduce|run|compile)|\\bimport\\s+all\\b'\n     require(not re.search(forbidden,source), 'forbidden source feature')\n     options=re.findall(r'(?m)^\\s*set_option\\s+(\\S+)\\s+([^\\n]+)',source)\n-    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in'}\n+    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in','linter.dupNamespace':'false'}\n     require(all(key in allowed and val.strip()==allowed[key] for key,val in options), 'finite option whitelist')\n     require(sum(key=='maxHeartbeats' for key,_ in options)==1 and sum(key=='maxRecDepth' for key,_ in options)==1, 'finite option count')\n     imports=re.findall(r'(?m)^import ([A-Za-z0-9_.]+)\\s*$',source)\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+n for n in config['order'][:len(records)]} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,10 +339,14 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n+    require(total<=2*1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n@@ -349,7 +354,7 @@\n \n def launch_reserve(observation):\n     require(observation['metadata_bytes']<=508*1024*1024, 'reserve streams/receipt metadata')\n-    require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n+    require(observation['batch_bytes']<=2032*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):\n     runtime=pathlib.Path(config['runtime']); ledger=runtime/'ledger.jsonl'\n"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution34/maintained/guard.py",
+      "bytes": 33952,
+      "sha256": "bb83b7be30a6bc61e0c5fe80318f66d2661077114171d33a8bd501543d757888",
+      "changed_functions": [
+        "audit_log",
+        "bounds",
+        "fixed_check",
+        "launch_reserve",
+        "source_check"
+      ],
+      "exact_delta": "--- accepted-execution21\n+++ mac-full-arithmetic45-execution34\n@@ -140,7 +140,7 @@\n     forbidden=r'\\b(?:sorry|admit|axiom|unsafe|implemented_by|extern|native_decide|run_tac|elab|initialize|macro|IO|ofReduceBool|skipKernelTC)\\b|decide\\s*\\+native|#(?:eval|reduce|run|compile)|\\bimport\\s+all\\b'\n     require(not re.search(forbidden,source), 'forbidden source feature')\n     options=re.findall(r'(?m)^\\s*set_option\\s+(\\S+)\\s+([^\\n]+)',source)\n-    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in'}\n+    allowed={'autoImplicit':'false','maxHeartbeats':'900000','maxRecDepth':'8192','pp.all':'true in','linter.dupNamespace':'false'}\n     require(all(key in allowed and val.strip()==allowed[key] for key,val in options), 'finite option whitelist')\n     require(sum(key=='maxHeartbeats' for key,_ in options)==1 and sum(key=='maxRecDepth' for key,_ in options)==1, 'finite option count')\n     imports=re.findall(r'(?m)^import ([A-Za-z0-9_.]+)\\s*$',source)\n@@ -153,7 +153,7 @@\n \n def audit_log(data, names):\n     text=data.decode('utf-8'); remaining=text; records=[]\n-    require(not re.search(r'\\b(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n+    require(not re.search(r'(?m)^(?:/[^\\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')\n     for name in names:\n         pattern=r'^@?'+re.escape(name)+r'\\s*:[\\s\\S]*?^\\''+re.escape(name)+r\"' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)\\s*$\"\n         matches=list(re.finditer(pattern,remaining,re.M))\n@@ -275,6 +275,7 @@\n     closure['modules'].update(config['qualified_batch_imports'])\n     official=strict_json(read_pin(config['official']))\n     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')\n+    require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+n for n in config['order'][:len(records)]} | set(official['official_modules']), 'complete fresh module custom/official imports')\n     package_root=pathlib.Path(config['project'])/'.lake/packages'\n     tool_root=pathlib.Path(config['lean']).resolve().parents[1]\n     for relative,digest in official['manifest']['files'].items():\n@@ -338,10 +339,14 @@\n     return total,metadata\n \n def bounds(config):\n-    aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n+    def history_aliases(identity):\n+        h=strict_json(read_pin(identity)); result={}\n+        for parent in h.get('parents',[]): result.update(history_aliases(parent))\n+        result.update(h.get('historical_aliases',{}));return result\n+    aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n+    require(total<=2*1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n@@ -349,7 +354,7 @@\n \n def launch_reserve(observation):\n     require(observation['metadata_bytes']<=508*1024*1024, 'reserve streams/receipt metadata')\n-    require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n+    require(observation['batch_bytes']<=2032*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):\n     runtime=pathlib.Path(config['runtime']); ledger=runtime/'ledger.jsonl'\n"
+    }
+  ],
+  "physical_changes": "None: one thread/M2048/4GiB RSS/240seconds/15percent RAM/2GiB disk floor/finite heartbeats remain unchanged",
+  "diagnostic_change": "Anchored diagnostic detection avoids the ordinary trace binder while complete output parsing still rejects unexplained output",
+  "style_option": "Only linter.dupNamespace=false added",
+  "import_check": "Fresh module must have every custom/official import in the exact protected closure or an already completed owned module",
+  "history_change": "Recursive exact-pinned parent manifests avoid copying historical aliases; all alias collisions checked equal",
+  "history_manifests": [
+    {
+      "bytes": 384,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-source01/protected-history01.json",
+      "sha256": "b56995a2267239a4c444670a4f6eeb5a6fe87d7bcfd7afb4d276796f6e1744c4"
+    },
+    {
+      "bytes": 974395,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-group46-source01/protected-history01.json",
+      "sha256": "4fe687a2eb084018d0cb29eb122b7e0a2161dd1699815836e2076addebf734d1"
+    },
+    {
+      "bytes": 540178,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-group46-source02/protected-history01.json",
+      "sha256": "4f6d95aa1faf4b5400cd94fd1bdede0ff70d9cb7a9ac9718edbaaa098e12da2a"
+    },
+    {
+      "bytes": 540816,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-group46-source03/protected-history01.json",
+      "sha256": "cd6ec7dbd5ffd7281bc105814977e8a2702368fb1db7a4ba44413510b0fe43f7"
+    },
+    {
+      "bytes": 1099986,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution03/protected-history01.json",
+      "sha256": "61e4feec30aa1e1e1a248a66767ee57cc98a1a4be74eefac8ac4ef017dcddafb"
+    },
+    {
+      "bytes": 1292138,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution04/protected-history01.json",
+      "sha256": "1725b2f3e484da192d448ad6ce607a35fada2ceca8590620b6f0aebdb16d50f0"
+    },
+    {
+      "bytes": 1557902,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-first40-group47-source01/protected-history01.json",
+      "sha256": "2224c1a258aec69c94e277e83a6e3dbab4b81ca62bb0c16d9e5b627890b129ba"
+    },
+    {
+      "bytes": 1720845,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-first40-group47-source02/protected-history01.json",
+      "sha256": "d0ca98a5bb956bf8c1d7d1e5e4fb9b749d57ed90eb843a6d94d4e89f4fdd0d4f"
+    },
+    {
+      "bytes": 1926139,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution05/protected-history01.json",
+      "sha256": "bb5aeb1b04e4d1a71a00c42179f52bb2d56bb385bdcd83374ef8989ca08a6928"
+    },
+    {
+      "bytes": 2139631,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-fixed48-source01/protected-history01.json",
+      "sha256": "a9a9e7e2e0bc2bc60af5ebdcd816b4a5704cceddef5202f220025cf988d02cf1"
+    },
+    {
+      "bytes": 2332701,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-fixed48-source02/protected-history01.json",
+      "sha256": "6cc202868264bbd6ec4b6cde668fd6601da4b8482aba7af5870e503e518df834"
+    },
+    {
+      "bytes": 2537642,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-fixed48-source03/protected-history01.json",
+      "sha256": "38ac8adc1dff1d7cd01ad232d830be4181a1aa68630dbda49b87aca756ff9669"
+    },
+    {
+      "bytes": 2742193,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution06/protected-history01.json",
+      "sha256": "8da73b510e281bc8ff4a01962dd295164bb80619a3dc7fb1dc9ed7a675c03cae"
+    },
+    {
+      "bytes": 2361011,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution07/protected-history01.json",
+      "sha256": "0999261ee1fcc38ce238e1ca307cae34c84415a771c6a85af3725ea7ae7f4a32"
+    },
+    {
+      "bytes": 3029912,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-arithmetic-uniqueness49-source02/protected-history01.json",
+      "sha256": "8ccab594f628f673549fc623ede7d2d2e9858891930c022c0deee30de2ce6328"
+    },
+    {
+      "bytes": 3205765,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution08/protected-history01.json",
+      "sha256": "3e4bd069add8cf4ff021ef128cffa8f28b13774c98e26ce1d6cc1869fb1993a9"
+    },
+    {
+      "bytes": 3584455,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-block51-source01/protected-history01.json",
+      "sha256": "ba76b241255708b8e0c46542abab5016406b55a28cff026e21fe11e77627ac80"
+    },
+    {
+      "bytes": 3723150,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-block51-source02/protected-history01.json",
+      "sha256": "35a169f1ee9888d2a4c9d503670402cbaa7d66fba575d60ed03535cbe00231ef"
+    },
+    {
+      "bytes": 3965500,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution09/protected-history01.json",
+      "sha256": "7e95f05828ba004253f375b2864ca5e0b8ef7b7bf63205757f03e9a42d53a1e3"
+    },
+    {
+      "bytes": 4377338,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution01/protected-history01.json",
+      "sha256": "0f7dcb513611383b7d4b16001ae9d5cba0ec012719d73ab617fc77366b0ce958"
+    },
+    {
+      "bytes": 4553594,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution10/protected-history01.json",
+      "sha256": "9f6c5fb9d8428a5bfadb6c3e89c559855774b525a48ba91adc3e13c8250d50bd"
+    },
+    {
+      "bytes": 4899622,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution02/protected-history01.json",
+      "sha256": "e4abacb1de26d908fd8b60b63dade16fff4935cead7bd8245d27dcefd59f09af"
+    },
+    {
+      "bytes": 5146696,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution03/protected-history01.json",
+      "sha256": "1ffe79d17295ab1aad9d3af03e4c87699c338f411701541e997ab56746db6fdd"
+    },
+    {
+      "bytes": 5428183,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution04/protected-history01.json",
+      "sha256": "de914bd98379595a15e24e2e4e2b1bd4e9239c483aa62d134c478fdcc7c12c6f"
+    },
+    {
+      "bytes": 5717236,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution05/protected-history01.json",
+      "sha256": "509872e3b35371ce2a13fca54c8c8bb525df1aeca586615493b4016e77cf6a20"
+    },
+    {
+      "bytes": 6005056,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution11/protected-history01.json",
+      "sha256": "7a9ba8d371cedc3109d103a71e34b3b02efcdd53cc73f012d03c04f758eee542"
+    },
+    {
+      "bytes": 6365499,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution06/protected-history01.json",
+      "sha256": "38efeae848ca58c58da42f59506eeb607ad50d5507f0a6f7a12a4f7875b4ffc6"
+    },
+    {
+      "bytes": 6696464,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution07/protected-history01.json",
+      "sha256": "2fef4c2275206acdbbab4407ea61824b7e5fc6d56062f287fa9e281570bbda03"
+    },
+    {
+      "bytes": 6072383,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution08/protected-history01.json",
+      "sha256": "9782077079536bc53ed8fcc1bf0bb0815729eb1c8dd0a9180f6d46672127a861"
+    },
+    {
+      "bytes": 6960081,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution09/protected-history01.json",
+      "sha256": "d6e36cae844483582717f658bf1540380957fe6c0ccc6260c1951060393da91f"
+    },
+    {
+      "bytes": 7441545,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-execution10/protected-history01.json",
+      "sha256": "5d997027dd76813fc9213aaa5fd405d15674c665f28a0d2345df7f52453a246f"
+    },
+    {
+      "bytes": 7687256,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution12/protected-history01.json",
+      "sha256": "76c624ac82c3e6100a35fa6f0fef60552a603239a382dd8c5bacf444a7d37a57"
+    },
+    {
+      "bytes": 8343637,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution13/protected-history01.json",
+      "sha256": "32b40c099fdf45d85d530c4a504dddcd30244e1e0b88b3ecff03bcc286849335"
+    },
+    {
+      "bytes": 8525067,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution14/protected-history01.json",
+      "sha256": "33c2ae2910854ea38d559ee5f464a1c35c013a68ef1d249fae337254f177a4d2"
+    },
+    {
+      "bytes": 8916046,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution16/protected-history01.json",
+      "sha256": "0bb12930d16c301604e6597b94efc206ce89a0f081768bd4aee3c8147007821b"
+    },
+    {
+      "bytes": 9387084,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution17/protected-history01.json",
+      "sha256": "ac87451c49f944e76c2c7fcc6e36c9dd3bf4623ba37ac13a1417f6031fad57f7"
+    },
+    {
+      "bytes": 9737019,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution18/protected-history01.json",
+      "sha256": "fa6fcb5383741fc6be5d89d3ca3d2209aaad9be1fc8b5f45b065f14810e5a0c4"
+    },
+    {
+      "bytes": 10220109,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution19/protected-history01.json",
+      "sha256": "49273ecb22cb588ed86c53b9840be27e8ab48d4d2487af9548a68eeba02a1540"
+    },
+    {
+      "bytes": 10665492,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution20/protected-history01.json",
+      "sha256": "469e39b95662b0b06573717f25f85327575b065ece06519adc8c4d26100adcd3"
+    },
+    {
+      "bytes": 11321451,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution21/protected-history01.json",
+      "sha256": "e2c90659c2452e6174c7da639ed10239746dc107c7bdd025081b35c34856c29b"
+    },
+    {
+      "bytes": 11618963,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution22/protected-history01.json",
+      "sha256": "9432f62d97d2dda84efbe24575fca1eac75249fd0fb3cffd9ed5cb9137ee7895"
+    },
+    {
+      "bytes": 12089830,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution23/protected-history01.json",
+      "sha256": "feb93b61e84aec699687f241df486e3eb17bada09db7a5cb9c6ea239f74c0718"
+    },
+    {
+      "bytes": 12561084,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution24/protected-history01.json",
+      "sha256": "ce2f36a56eda9ebbe2c7f07aa5db2565366cefde994d0fc008d9b4e2660c1c52"
+    },
+    {
+      "bytes": 13033430,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution25/protected-history01.json",
+      "sha256": "cbc7d9705933415d9f9b6207f5006cb38e999ab3733bc1b14ada1a9c9b86c375"
+    },
+    {
+      "bytes": 13501440,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution26/protected-history01.json",
+      "sha256": "24202124e2a6ffd91522a945ad4391a388c2d5458ecc5d9a31ff38db57207651"
+    },
+    {
+      "bytes": 1531105,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution27/protected-history01.json",
+      "sha256": "7e76d04605708dd8610e50d3bc04b3de2a2b3ef5de1017da521474759416bd9d"
+    },
+    {
+      "bytes": 1531694,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution28/protected-history01.json",
+      "sha256": "215b86108eed793a9220aa745ef12693bc4d42afe3a991adc735b8fd8ebb2936"
+    },
+    {
+      "bytes": 1532611,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution29/protected-history01.json",
+      "sha256": "8fb83114f2be4ad21d217be034bbf5992dab308391df34e088bf8c55e3f70c35"
+    },
+    {
+      "bytes": 1530740,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution30/protected-history01.json",
+      "sha256": "238ca75ad99d63582712b66cca4056f65997c563a7ba9eafe3fc7c9136aba03b"
+    },
+    {
+      "bytes": 1532848,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution31/protected-history01.json",
+      "sha256": "176cf298888db85a54751a7a97579218b3a06d6e89941c2f3ca0bab1cc527536"
+    },
+    {
+      "bytes": 1537830,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution32/protected-history01.json",
+      "sha256": "2aee86fda1fa8448bd4b0b99358782e816e1a29478a75fcd21f7b3a1f86ea556"
+    },
+    {
+      "bytes": 1536048,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution33/protected-history01.json",
+      "sha256": "db6924a4456f816105934ced5916cd29130f62dc703361f5723fc633184adc11"
+    },
+    {
+      "bytes": 1537497,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution34/protected-history01.json",
+      "sha256": "e819ece95d3cc9923583533148bd9fc7697be2bef3d06e7ae15138837a958aec"
+    }
+  ],
+  "history_aliases": 39628,
+  "finite_disk_metadata_change": "Batch file cap1to2GiB and matching launch reserve1008to2032MiB; physical disk floor and RAM/RSS constraints unchanged",
+  "parser_original_reports": 30,
+  "parser_refusals": [
+    "/tmp/exact.lean:1:1: error: malformed",
+    "warning: unexpected",
+    "trace: diagnostic",
+    "uncaught exception"
+  ],
+  "full_transfer": "OPEN"
+}
