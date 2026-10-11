@@ -1,0 +1,249 @@
+ShielddSecurity.TransferHostEndBlock01.ApplicationResult : (O E A : Type) → Type
+'ShielddSecurity.TransferHostEndBlock01.ApplicationResult' does not depend on any axioms
+ShielddSecurity.TransferHostEndBlock01.Io : (O E A : Type) → Type
+'ShielddSecurity.TransferHostEndBlock01.Io' does not depend on any axioms
+ShielddSecurity.TransferHostEndBlock01.Outcome : (O E A : Type) → Type
+'ShielddSecurity.TransferHostEndBlock01.Outcome' does not depend on any axioms
+@ShielddSecurity.TransferHostEndBlock01.finalized : {O E A : Type} →
+  (io : ShielddSecurity.TransferHostEndBlock01.Io O E A) →
+    (host : ShielddSecurity.TransferHostSealedCommit01.Host O) →
+      (height :
+          Fin
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+        (queued : List.{0} A) → ShielddSecurity.TransferHostEndBlock01.ApplicationResult O E A
+'ShielddSecurity.TransferHostEndBlock01.finalized' does not depend on any axioms
+@ShielddSecurity.TransferHostEndBlock01.transferred : {O E A : Type} →
+  (io : ShielddSecurity.TransferHostEndBlock01.Io O E A) →
+    (host : ShielddSecurity.TransferHostSealedCommit01.Host O) →
+      (height :
+          Fin
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+        (queued : List.{0} A) → ShielddSecurity.TransferTakeCommitState01.Outcome O A
+'ShielddSecurity.TransferHostEndBlock01.transferred' does not depend on any axioms
+@ShielddSecurity.TransferHostEndBlock01.endBlock : {O E A : Type} →
+  (io : ShielddSecurity.TransferHostEndBlock01.Io O E A) →
+    (host : ShielddSecurity.TransferHostSealedCommit01.Host O) →
+      (height :
+          Fin
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))) →
+        (queued : List.{0} A) → ShielddSecurity.TransferHostEndBlock01.Outcome O E A
+'ShielddSecurity.TransferHostEndBlock01.endBlock' depends on axioms: [propext]
+@ShielddSecurity.TransferHostEndBlock01.actual_height_mismatch_refuses_before_application_and_interruption : ∀
+  {O E A : Type} (io : ShielddSecurity.TransferHostEndBlock01.Io O E A)
+  (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (queued : List.{0} A)
+  (inBlock :
+    @Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.inBlock)
+  (different :
+    @Ne.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferHostEndBlock01.Io.currentHeight O E A io
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.active O host))
+      (@Option.some.{0} Nat
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          height))),
+  @Eq.{1} (ShielddSecurity.TransferHostEndBlock01.Outcome O E A)
+    (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued)
+    (@ShielddSecurity.TransferHostEndBlock01.Outcome.mk O E A host queued
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) (@List.nil.{0} E))
+'ShielddSecurity.TransferHostEndBlock01.actual_height_mismatch_refuses_before_application_and_interruption' depends on axioms: [propext]
+@ShielddSecurity.TransferHostEndBlock01.failed_actual_state_transfer_keeps_host_interrupted_and_transfer_progress : ∀
+  {O E A : Type} (io : ShielddSecurity.TransferHostEndBlock01.Io O E A)
+  (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (queued : List.{0} A)
+  (inBlock :
+    @Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.inBlock)
+  (sameHeight :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferHostEndBlock01.Io.currentHeight O E A io
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.active O host))
+      (@Option.some.{0} Nat
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          height)))
+  (failed :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned O A
+        (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued))
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.State O))),
+  @Eq.{1} (ShielddSecurity.TransferHostEndBlock01.Outcome O E A)
+    (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued)
+    (@ShielddSecurity.TransferHostEndBlock01.Outcome.mk O E A
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.mk O
+        ShielddSecurity.TransferHostSealedCommit01.HostPhase.commitInterrupted
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host)
+        (@ShielddSecurity.TransferTakeCommitState01.Outcome.active O A
+          (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued))
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O host)
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host))
+      (@ShielddSecurity.TransferTakeCommitState01.Outcome.queued O A
+        (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) (@List.nil.{0} E))
+'ShielddSecurity.TransferHostEndBlock01.failed_actual_state_transfer_keeps_host_interrupted_and_transfer_progress' depends on axioms: [propext]
+@ShielddSecurity.TransferHostEndBlock01.missing_block_identity_refuses_after_actual_state_transfer : ∀ {O E A : Type}
+  (io : ShielddSecurity.TransferHostEndBlock01.Io O E A) (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (queued : List.{0} A) (state : ShielddSecurity.TransferStateDelta.State O)
+  (inBlock :
+    @Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.inBlock)
+  (sameHeight :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferHostEndBlock01.Io.currentHeight O E A io
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.active O host))
+      (@Option.some.{0} Nat
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          height)))
+  (taken :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned O A
+        (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued))
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) state))
+  (missing :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O host)
+      (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)),
+  @Eq.{1} (ShielddSecurity.TransferHostEndBlock01.Outcome O E A)
+    (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued)
+    (@ShielddSecurity.TransferHostEndBlock01.Outcome.mk O E A
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.mk O
+        ShielddSecurity.TransferHostSealedCommit01.HostPhase.commitInterrupted
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host)
+        (@ShielddSecurity.TransferTakeCommitState01.Outcome.active O A
+          (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued))
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O host)
+        (@ShielddSecurity.TransferHostSealedCommit01.Host.store O host))
+      (@ShielddSecurity.TransferTakeCommitState01.Outcome.queued O A
+        (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) (@List.nil.{0} E))
+'ShielddSecurity.TransferHostEndBlock01.missing_block_identity_refuses_after_actual_state_transfer' depends on axioms: [propext]
+@ShielddSecurity.TransferHostEndBlock01.whole_end_block_success_derives_actual_transfer_exact_pending_inputs_and_prepared_owner : ∀
+  {O E A : Type} (io : ShielddSecurity.TransferHostEndBlock01.Io O E A)
+  (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (queued : List.{0} A) (boundary : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (@ShielddSecurity.TransferHostEndBlock01.Outcome.prepared O E A
+        (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary)),
+  And
+    (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O host)
+      ShielddSecurity.TransferHostSealedCommit01.HostPhase.inBlock)
+    (And
+      (@Eq.{1} (Option.{0} Nat)
+        (@ShielddSecurity.TransferHostEndBlock01.Io.currentHeight O E A io
+          (@ShielddSecurity.TransferHostSealedCommit01.Host.active O host))
+        (@Option.some.{0} Nat
+          (@Fin.val
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+            height)))
+      (@Exists.{1} (ShielddSecurity.TransferStateDelta.State O)
+        fun (state : ShielddSecurity.TransferStateDelta.State O) =>
+        @Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (blockId : ShielddSecurity.TransferStateDelta.Bytes) =>
+          @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+            fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+            And
+              (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+                (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned O A
+                  (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued))
+                (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) state))
+              (And
+                (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                  (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId O host)
+                  (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes blockId))
+                (And
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+                    (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+                      (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O
+                        (@ShielddSecurity.TransferHostEndBlock01.Io.writer O E A io)
+                        (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O host) state height blockId
+                        (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+                          (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O
+                            (@ShielddSecurity.TransferHostEndBlock01.Io.decodePending O E A io)
+                            (@ShielddSecurity.TransferHostEndBlock01.Io.project O E A io) state))))
+                    (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary))
+                  (And
+                    (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+                      (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O
+                        (@ShielddSecurity.TransferHostEndBlock01.Outcome.host O E A
+                          (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued)))
+                      ShielddSecurity.TransferHostSealedCommit01.HostPhase.endedBlock)
+                    (And
+                      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                        (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O
+                          (@ShielddSecurity.TransferHostEndBlock01.Outcome.host O E A
+                            (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued)))
+                        (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))
+                      (And
+                        (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary
+                          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+                        (And
+                          (@Eq.{1} (List.{0} Nat)
+                            (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+                              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+                            (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+                              (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O
+                                (@ShielddSecurity.TransferHostEndBlock01.Io.decodePending O E A io)
+                                (@ShielddSecurity.TransferHostEndBlock01.Io.project O E A io) state)))
+                          (And
+                            (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+                              (@ShielddSecurity.TransferHostSealedCommit01.Host.active O
+                                (@ShielddSecurity.TransferHostEndBlock01.Outcome.host O E A
+                                  (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued)))
+                              (@ShielddSecurity.TransferTakeCommitState01.Outcome.active O A
+                                (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued)))
+                            (And
+                              (@Eq.{1} (List.{0} A)
+                                (@ShielddSecurity.TransferHostEndBlock01.Outcome.queued O E A
+                                  (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued))
+                                (@ShielddSecurity.TransferTakeCommitState01.Outcome.queued O A
+                                  (@ShielddSecurity.TransferHostEndBlock01.transferred O E A io host height queued)))
+                              (@Eq.{1} (List.{0} E)
+                                (@ShielddSecurity.TransferHostEndBlock01.Outcome.events O E A
+                                  (@ShielddSecurity.TransferHostEndBlock01.endBlock O E A io host height queued))
+                                (@ShielddSecurity.TransferHostEndBlock01.ApplicationResult.events O E A
+                                  (@ShielddSecurity.TransferHostEndBlock01.finalized O E A io host height
+                                    queued)))))))))))))
+'ShielddSecurity.TransferHostEndBlock01.whole_end_block_success_derives_actual_transfer_exact_pending_inputs_and_prepared_owner' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
