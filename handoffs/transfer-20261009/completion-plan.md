@@ -983,3 +983,10 @@ Actual Rust evaluation and trace, whole subtraction/add-back, byte order and fie
 Published `TransferScalarBorrowWalk01` with7original full type/axiom reports. Independent original guard/runtime/ancestry/receipt/load review and exact pure maintained source regeneration passed. The recurrence derives next borrow from the exact source-shaped SBB mask, retains word count, conserves full positional subtraction and derives final underflow from finite output bounds. No desired final branch is supplied. First strict run passed.
 
 Actual Rust trace, masked modulus add-back, byte order and field semantic correspondence remain owned OPEN. Native controls/final replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
+
+
+### Derived mask and exact four-limb normalization, 2026-10-11
+
+Published `TransferScalarMaskedNormalization01` with10original full type/axiom reports. Independent guard/runtime/ancestry/receipt/load review and exact maintained failed01 proof-only projection repair preserve all two definitions/eight contracts. Derived final SBB borrow selects zero or modulus through each actual modeled UInt64 AND; retained unit MAC add-back computes the full sum modulo radix power. Four-word subtract/add-back equals single-modulus normalization for every finite input; composing the four carry rounds derives range below the exact nullifier modulus. No desired final borrow or result is supplied.
+
+Actual Rust trace, 32-byte encoding, Montgomery field semantics and native typed projection remain owned OPEN. Native controls/final selected replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
