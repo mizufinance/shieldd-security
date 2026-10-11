@@ -1092,3 +1092,6 @@ Publish independently reviewed scalar reversed-byte ordering source model. Eight
 
 
 Publish independently reviewed byte-key-cache original source model. 7 complete original reports; exact independently accepted ancestry. Exact byte-key observation of symbolic Nat-key cache via derived global keyCode injection. Put/deletion tombstone, no-write overlay and latest-write merge preserved. Byte key renaming model; actual Rust String/UTF8/hash-map/Any/Clone/ownership/compiler/cache/full trace bindings owned OPEN Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed partition-local-rollback original source model. 4 complete original reports; exact independently accepted ancestry. Installed rollback updates only selected root index and independently retains possible error; List.set frame preserves every different partition observation, derives forward frames and reuses original complete captured recovery recurrence. Own-root restoration/success/health/durability not assumed. Actual NOMT handle isolation/concurrent root observations/locks/compiler/native trace/ownership/filesystem/crash correspondence remains owned OPEN Combined replay and full Transfer remain OPEN.
