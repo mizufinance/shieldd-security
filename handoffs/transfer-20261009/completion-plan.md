@@ -21,6 +21,13 @@ Randomized-output nonidentity remains a necessary independent gate. The
 retained desktop owns verifier/envelope/state/native integration autonomously.
 All G2/G3/G4/G5/G7 full-Transfer completion obligations remain OPEN.
 
+The executable capability-slot constructor packet is accepted at
+6286b743c0850ddcf1983fd4515082182925e1cd (two sources/43 reports).
+Successful duplicate-rejecting collection, sorted coverage and independent
+registry/location-family/full-item checks derive BoundRows for returned and
+original input rows. Cryptographic verified-capability contracts, actual Rust
+container/slot/codec refinement, envelope and state joins remain OPEN.
+
 Current accepted scope (10 October 2026): Initial734, Join15, RegistryWhole23,
 RegistryInputJoin24, MerkleSelection26, MerkleHash27 and MerkleInputMeaning28
 compose the original-input registry and first asset-path hash on one assignment.
