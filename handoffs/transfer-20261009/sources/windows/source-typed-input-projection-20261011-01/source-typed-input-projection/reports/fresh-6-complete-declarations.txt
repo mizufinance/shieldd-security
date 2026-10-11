@@ -1,0 +1,53 @@
+@ShielddSecurity.TransferSourceTypedInputProjection01.typedWords : {I A : Type} →
+  (inputs : A → List.{0} I) →
+    (wordOf : I → Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+      (action : A) → List.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferSourceTypedInputProjection01.typedWords' does not depend on any axioms
+@ShielddSecurity.TransferSourceTypedInputProjection01.sourceKeys : {I A : Type} →
+  (inputs : A → List.{0} I) →
+    (wordOf : I → Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+      (action : A) → List.{0} Nat
+'ShielddSecurity.TransferSourceTypedInputProjection01.sourceKeys' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferSourceTypedInputProjection01.installTypedInputs : {O E K X Tree A I : Type} →
+  (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A) →
+    (inputs : A → List.{0} I) →
+      (wordOf : I → Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+        ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A
+'ShielddSecurity.TransferSourceTypedInputProjection01.installTypedInputs' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferSourceTypedInputProjection01.installed_config_inputs_are_exact_ordered_typed_scalar_projection : ∀
+  {O E K X Tree A I : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (inputs : A → List.{0} I)
+  (wordOf : I → Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (action : A),
+  @Eq.{1} (List.{0} Nat)
+    (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A
+      (@ShielddSecurity.TransferSourceTypedInputProjection01.installTypedInputs O E K X Tree A I config inputs wordOf)
+      action)
+    (@List.map.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat
+      ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+      (@ShielddSecurity.TransferSourceTypedInputProjection01.typedWords I A inputs wordOf action))
+'ShielddSecurity.TransferSourceTypedInputProjection01.installed_config_inputs_are_exact_ordered_typed_scalar_projection' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferSourceTypedInputProjection01.source_keys_are_exact_ordered_mathematical_montgomery_values : ∀
+  {I A : Type} (inputs : A → List.{0} I)
+  (wordOf : I → Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (action : A),
+  @Eq.{1} (List.{0} Nat) (@ShielddSecurity.TransferSourceTypedInputProjection01.sourceKeys I A inputs wordOf action)
+    (@List.map.{0, 0} I Nat
+      (fun (input : I) => ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue (wordOf input))
+      (inputs action))
+'ShielddSecurity.TransferSourceTypedInputProjection01.source_keys_are_exact_ordered_mathematical_montgomery_values' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferSourceTypedInputProjection01.installed_config_derives_every_input_key_in_canonical_nullifier_domain : ∀
+  {O E K X Tree A I : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (inputs : A → List.{0} I)
+  (wordOf : I → Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (action : A)
+  (key : Nat),
+  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A
+        (@ShielddSecurity.TransferSourceTypedInputProjection01.installTypedInputs O E K X Tree A I config inputs wordOf)
+        action)
+      key →
+    @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferSourceTypedInputProjection01.installed_config_derives_every_input_key_in_canonical_nullifier_domain' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

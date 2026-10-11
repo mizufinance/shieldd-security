@@ -1,0 +1,65 @@
+{
+  "status": "PASSED",
+  "kind": "Independent full source/model/contract and exact two-rejection history/maintained pure repair-chain review",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-source-typed-input-projection-review01/packet01/source/ShielddSecurity/TransferSourceTypedInputProjection01.lean",
+    "bytes": 3950,
+    "sha256": "9f89aa98aad99507c1840c8bdb4bcb694ca40c135d8b5de3bcdaafdd656b0dcd"
+  },
+  "fresh_reports": 6,
+  "definitions": 3,
+  "theorems": 3,
+  "rejected": [
+    {
+      "attempt": "01",
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-source-typed-input-projection-review01/packet01/rejected/01/handwritten/TransferSourceTypedInputProjection01.lean",
+        "bytes": 3917,
+        "sha256": "54aa233d7e25e874300f07e803b1540c64c8040f118869f18d6156cc7863393d"
+      },
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.155879999976605,
+        "status": "failed"
+      },
+      "recipe": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-source-typed-input-projection-review01/packet01/rejected/02/prepare_recipe.py",
+        "bytes": 1939,
+        "sha256": "573c1600883fc6887db8e2a0270bd7f87bea3e0ea96cb187bb9d0cae752f1dc2"
+      },
+      "pure_repair_exact": true,
+      "all_definitions_contracts_unchanged": true,
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-source-typed-input-projection-20261011-01\\project\\ShielddSecurity\\TransferSourceTypedInputProjection01.lean:30:113: error: unsolved goals"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -30,6 +30,7 @@\n     (installTypedInputs config inputs wordOf).inputs action = (typedWords inputs wordOf action).map scalarKey := by\n   change (inputs action).map (fun input => scalarKey (wordOf input)) = ((inputs action).map wordOf).map scalarKey\n   rw [List.map_map]\n+  rfl\n \n theorem source_keys_are_exact_ordered_mathematical_montgomery_values {I A : Type}\n     (inputs : A \u2192 List I) (wordOf : I \u2192 Vector UInt64 4) (action : A) :\n"
+    },
+    {
+      "attempt": "02",
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-source-typed-input-projection-review01/packet01/rejected/02/handwritten/TransferSourceTypedInputProjection01.lean",
+        "bytes": 3924,
+        "sha256": "1fb719f5cfd81df3c6a8f5e177cc2499ec8aea9bf410dc18f458b5918b4fcc33"
+      },
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 32.920980800001416,
+        "status": "failed"
+      },
+      "recipe": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-source-typed-input-projection-review01/packet01/qualified/prepare_recipe.py",
+        "bytes": 1947,
+        "sha256": "5211123eca4145b14ba704ff29698d84f4af28d3a5a819a568a1c7bae9eaac3d"
+      },
+      "pure_repair_exact": true,
+      "all_definitions_contracts_unchanged": true,
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-source-typed-input-projection-20261011-02\\project\\ShielddSecurity\\TransferSourceTypedInputProjection01.lean:33:2: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -30,7 +30,7 @@\n     (installTypedInputs config inputs wordOf).inputs action = (typedWords inputs wordOf action).map scalarKey := by\n   change (inputs action).map (fun input => scalarKey (wordOf input)) = ((inputs action).map wordOf).map scalarKey\n   rw [List.map_map]\n-  rfl\n+  simp only [Function.comp_def]\n \n theorem source_keys_are_exact_ordered_mathematical_montgomery_values {I A : Type}\n     (inputs : A \u2192 List I) (wordOf : I \u2192 Vector UInt64 4) (action : A) :\n"
+    }
+  ],
+  "scope": "Installed configuration derives exact ordered all-slot nullifier word projection, mathematical Montgomery keys and canonical range. Inputs/wordOf are arbitrary typed selectors requiring actual pinned Rust iterator/accessor/field/library/byte/compiler/trace correspondence; this model configuration definition supplies no desired key vector/range premise. Full Transfer/native remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
