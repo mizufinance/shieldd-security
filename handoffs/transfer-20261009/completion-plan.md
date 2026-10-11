@@ -997,3 +997,10 @@ Actual Rust trace, 32-byte encoding, Montgomery field semantics and native typed
 Appended precise maintained failed01 source-replay review and corrected parent helper for the preceding `TransferScalarMaskedNormalization01` publication. The prior selector expected an inline replacement in its third AST node; this producer separately assigns literal b then performs the replacement in its fourth node. The corrected helper validates both and reproduces the accepted source exactly. All two model definitions/eight theorem contracts and failed diagnostics/log pins match; original source, kernel receipts, full reports and parent kernel review remain byte-identical and immutable. This completes the missing review bundle; no new kernel execution or reports counted.
 
 Actual native Rust/byte/Montgomery/type correspondence and final Transfer remain OPEN.
+
+
+### Typed little-endian32-byte reconstruction and field range, 2026-10-11
+
+Published `TransferScalarLittleEndianBytes01` with15original full type/axiom reports. Independent guard/runtime/ancestry/receipt/load review, precise maintained failed01 repair and unchanged six definitions/nine theorem contracts passed. Typed UInt8 encoding derives width/reconstruction, finite UInt64 chunks reconstruct positional packing, and composing the exact carry/sub/AND/add-back model derives32bytes and a decoded value below the exact nullifier modulus. Vector UInt64 4 supplies actual modeled width; no desired byte validity or canonical raw range is assumed. Exact Scalar/util bytes were independently matched to the crate authenticated by pinned Cargo.lock; internal four-u64 type and ordered four8byte slices matched.
+
+Actual Rust to_le_bytes/native trace, Montgomery field semantics and runtime typed projection remain owned OPEN. Native controls/final replay UNRUN; full Transfer OPEN. Same workers continue freely.
