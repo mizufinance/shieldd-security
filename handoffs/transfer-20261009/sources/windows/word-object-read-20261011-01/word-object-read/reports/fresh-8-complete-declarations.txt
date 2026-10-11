@@ -1,0 +1,89 @@
+@ShielddSecurity.TransferWordObjectRead01.checkedObject : {Other : Type} →
+  Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) →
+    Except.{0, 0} Unit (Option.{0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+'ShielddSecurity.TransferWordObjectRead01.checkedObject' does not depend on any axioms
+ShielddSecurity.TransferWordObjectRead01.defaultPending : Option.{0}
+    ShielddSecurity.TransferCanonicalWordPending01.WordNativePending →
+  ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+'ShielddSecurity.TransferWordObjectRead01.defaultPending' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordObjectRead01.sourcePending : {Other : Type} →
+  (object : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+'ShielddSecurity.TransferWordObjectRead01.sourcePending' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordObjectRead01.absent_or_tombstone_reaches_empty_pending_default : ∀ {Other : Type},
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+      (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat)))
+'ShielddSecurity.TransferWordObjectRead01.absent_or_tombstone_reaches_empty_pending_default' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordObjectRead01.present_wrong_type_cannot_reach_empty_default : ∀ {Other : Type}
+  (other : Other),
+  And
+    (@Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+      (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other)))
+      (@Except.error.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending Unit.unit))
+    (@Ne.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+      (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other)))
+      (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+        (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat))))
+'ShielddSecurity.TransferWordObjectRead01.present_wrong_type_cannot_reach_empty_default' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordObjectRead01.canonical_bounded_sealed_object_checked_read_recovers_exact_pending : ∀
+  {Other : Type} (ordered : List.{0} Nat)
+  (capacity :
+    @LE.le.{0} Nat instLENat (@List.length.{0} Nat ordered)
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+  (canonical :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ordered key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@ShielddSecurity.TransferWordObjectCodec01.encodeNative Other
+          (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed ordered))))
+    (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed ordered))
+'ShielddSecurity.TransferWordObjectRead01.canonical_bounded_sealed_object_checked_read_recovers_exact_pending' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWordObjectRead01.successful_checked_getter_agrees_with_existing_projection_only_on_success : ∀
+  {Other : Type} (object : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (pending : ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (returned :
+    @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+      (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other object)
+      (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending pending)),
+  @Eq.{1} ShielddSecurity.TransferPendingFiniteCodec01.NativePending pending
+    (@Option.getD.{0} ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+      (@Option.map.{0, 0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+        (@ShielddSecurity.TransferWordObjectCodec01.decodeNative Other) object)
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat)))
+'ShielddSecurity.TransferWordObjectRead01.successful_checked_getter_agrees_with_existing_projection_only_on_success' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordObjectRead01.checked_object_overlay_uses_latest_entry_without_typed_fallback : ∀
+  {Other : Type}
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+      (@ShielddSecurity.TransferStateDelta.overlay (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        parent writes key))
+    (@ShielddSecurity.TransferWordObjectRead01.checked_object_overlay_uses_latest_entry_without_typed_fallback.match_1.{1}
+      Other
+      (fun (x : Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) =>
+        Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+      (writes key) (fun (_ : Unit) => @ShielddSecurity.TransferWordObjectRead01.sourcePending Other (parent key))
+      fun (value : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) =>
+      @ShielddSecurity.TransferWordObjectRead01.sourcePending Other value)
+'ShielddSecurity.TransferWordObjectRead01.checked_object_overlay_uses_latest_entry_without_typed_fallback' depends on axioms: [propext,
+ Quot.sound]
