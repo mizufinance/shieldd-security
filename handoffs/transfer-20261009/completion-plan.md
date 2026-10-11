@@ -769,3 +769,8 @@ Evidence commit: e1b15c86769fae04abf04f27aecd410f8a3ff7b3
 Independent review accepted9 original complete reports for exact source writer commit ordering. Participant completion derives prior calls and observed root match; pre-completion failure interrupts owner status, while a later capacity error preserves new Ready/committed state. Successful prepare/seal/commit retains original accepted inputs and prepared boundary. Native participant/owner/version/batch/recovery/durability and fullTransfer remain OPEN.
 
 Evidence commit: f481bce2ee0ca354903de23f01419367a3e657ef
+
+
+Independent review accepted7 modules/33 complete original public reports. From actual full captured relation and rho0=1, registry value/asset/next canonical naturals, original field casts, bit/limb meanings and role-dependent strict order or regulated equality are derived. Actual assertion163 binds retained path-output LC to anchor column4. Generic checked indexed copy-normalization transport derives target rows from parent satisfaction; specialized hash/path consumers remain subsequent work. Exact maintained regeneration/public census/types/imports/objects/receipts/history and immutable archival guard successors passed. Constructor1467distinct assertions unchanged; anchor constructor and remaining witness/public64/hash/native/total constructor/fullTransfer/final combined replay remain OPEN. Physical controls unchanged.
+
+Evidence commit: 37f803408597f254eac0260a7b50f4c5845fe3ae
