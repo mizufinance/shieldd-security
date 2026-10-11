@@ -838,3 +838,6 @@ Reviewed ordinary Host end_block at 93778f30259df23b08a23453d2ba1c1b4e4bdfeb:10 
 
 
 Reviewed symbolic Merkle body helper at 8e2db1dfad140e823a3b62b0d1129927664891ea:1module12 complete original public reports. Field-independent body exactly projects qualified Fin15 Merkle family and composes arithmetic/copy partitions. Copy satisfaction derives from full captured relation under explicit finite copyCheck; final theorem also retains arithmeticRows satisfaction. Actual indexed instance checks/full path/hash binding remain required and are not inferred from this helper. Exact original generation/receipt/import/history reviewed; map18-only guard successor preserves physical protections. Full Transfer OPEN.
+
+
+Reviewed ordinary Host seal and endBlock→seal join at a28cb2ed1e182f927841c859bb27fa73fcb109fe:7 complete original public reports. Successful return derives actual lock/intent observations and same prepared/sealed Frozen, next boundary and exact transferred pending ordered inputs. Both success/failure thread independently observed post-seal Store; failure leaves Host interrupted. Native intermediate phase/ghost Store, typed ownership/locks/filesystem/OS durability correspondences remain explicit. Failed reserved-field attempt retained; only field seal consistently renamed backend. Full Transfer OPEN.
