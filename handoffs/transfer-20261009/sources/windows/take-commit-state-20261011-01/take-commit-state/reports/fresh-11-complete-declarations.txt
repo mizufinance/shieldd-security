@@ -1,0 +1,252 @@
+ShielddSecurity.TransferTakeCommitState01.Io : (O : Type) → Type
+'ShielddSecurity.TransferTakeCommitState01.Io' does not depend on any axioms
+ShielddSecurity.TransferTakeCommitState01.Outcome : (O A : Type) → Type
+'ShielddSecurity.TransferTakeCommitState01.Outcome' does not depend on any axioms
+@ShielddSecurity.TransferTakeCommitState01.replacement : {O : Type} →
+  (io : ShielddSecurity.TransferTakeCommitState01.Io O) →
+    (current : ShielddSecurity.TransferStateDelta.State O) → ShielddSecurity.TransferStateDelta.State O
+'ShielddSecurity.TransferTakeCommitState01.replacement' does not depend on any axioms
+@ShielddSecurity.TransferTakeCommitState01.flushFor : {O E A : Type} →
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) →
+    (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded) →
+      (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) →
+        (deferred exclusive : Bool) →
+          (height : Option.{0} Nat) →
+            (parent : ShielddSecurity.TransferStateDelta.State O) →
+              (queued : List.{0} A) →
+                ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A
+                  ShielddSecurity.TransferIndexWriterModel01.IndexError
+'ShielddSecurity.TransferTakeCommitState01.flushFor' does not depend on any axioms
+@ShielddSecurity.TransferTakeCommitState01.takeState : {O E A : Type} →
+  (io : ShielddSecurity.TransferTakeCommitState01.Io O) →
+    (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+      (pendingKey : Nat) →
+        (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) →
+          (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded) →
+            (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) →
+              (deferred exclusive : Bool) →
+                (height : Option.{0} Nat) →
+                  (parent : ShielddSecurity.TransferStateDelta.State O) →
+                    (queued : List.{0} A) → ShielddSecurity.TransferTakeCommitState01.Outcome O A
+'ShielddSecurity.TransferTakeCommitState01.takeState' does not depend on any axioms
+@ShielddSecurity.TransferTakeCommitState01.whole_transfer_success_derives_sealed_flush_exclusive_and_exact_transferred_state : ∀
+  {O E A : Type} (io : ShielddSecurity.TransferTakeCommitState01.Io O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (pendingKey : Nat)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (deferred exclusive : Bool)
+  (height : Option.{0} Nat) (parent returned : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned O A
+        (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available deferred
+          exclusive height parent queued))
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) returned)),
+  And
+    (@Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+      (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode pendingKey
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit))
+    (And
+      (@Eq.{1}
+        (Option.{0}
+          (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+            ShielddSecurity.TransferIndexWriterModel01.IndexError))
+        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.error O E A
+          ShielddSecurity.TransferIndexWriterModel01.IndexError
+          (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+            parent queued))
+        (@Option.none.{0}
+          (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+            ShielddSecurity.TransferIndexWriterModel01.IndexError)))
+      (And
+        (@Eq.{1} Bool
+          (@ShielddSecurity.TransferTakeCommitState01.Io.unwrapSucceeded O io
+            (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+              ShielddSecurity.TransferIndexWriterModel01.IndexError
+              (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive
+                height parent queued)))
+          Bool.true)
+        (And
+          (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O) returned
+            (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+              ShielddSecurity.TransferIndexWriterModel01.IndexError
+              (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive
+                height parent queued)))
+          (And
+            (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+              (@ShielddSecurity.TransferTakeCommitState01.Outcome.active O A
+                (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available
+                  deferred exclusive height parent queued))
+              (@ShielddSecurity.TransferTakeCommitState01.replacement O io
+                (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+                  ShielddSecurity.TransferIndexWriterModel01.IndexError
+                  (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive
+                    height parent queued))))
+            (@Eq.{1} (List.{0} A)
+              (@ShielddSecurity.TransferTakeCommitState01.Outcome.queued O A
+                (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available
+                  deferred exclusive height parent queued))
+              (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E A
+                ShielddSecurity.TransferIndexWriterModel01.IndexError
+                (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive
+                  height parent queued)))))))
+'ShielddSecurity.TransferTakeCommitState01.whole_transfer_success_derives_sealed_flush_exclusive_and_exact_transferred_state' depends on axioms: [propext]
+@ShielddSecurity.TransferTakeCommitState01.failed_unwrap_restores_post_flush_state_and_current_queue : ∀ {O E A : Type}
+  (io : ShielddSecurity.TransferTakeCommitState01.Io O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (pendingKey : Nat)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (deferred exclusive : Bool)
+  (height : Option.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (ensured :
+    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+      (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode pendingKey
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit))
+  (flushed :
+    @Eq.{1}
+      (Option.{0}
+        (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+          ShielddSecurity.TransferIndexWriterModel01.IndexError))
+      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.error O E A
+        ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+          parent queued))
+      (@Option.none.{0}
+        (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+          ShielddSecurity.TransferIndexWriterModel01.IndexError)))
+  (shared :
+    @Eq.{1} Bool
+      (@ShielddSecurity.TransferTakeCommitState01.Io.unwrapSucceeded O io
+        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+          ShielddSecurity.TransferIndexWriterModel01.IndexError
+          (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+            parent queued)))
+      Bool.false),
+  @Eq.{1} (ShielddSecurity.TransferTakeCommitState01.Outcome O A)
+    (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available deferred
+      exclusive height parent queued)
+    (@ShielddSecurity.TransferTakeCommitState01.Outcome.mk O A
+      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+        ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+          parent queued))
+      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E A
+        ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+          parent queued))
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.State O)))
+'ShielddSecurity.TransferTakeCommitState01.failed_unwrap_restores_post_flush_state_and_current_queue' depends on axioms: [propext]
+@ShielddSecurity.TransferTakeCommitState01.ensure_failure_precedes_flush_and_replacement : ∀ {O E A : Type}
+  (io : ShielddSecurity.TransferTakeCommitState01.Io O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (pendingKey : Nat)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (deferred exclusive : Bool)
+  (height : Option.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (error : ShielddSecurity.TransferPendingSealSource01.SealError)
+  (failed :
+    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+      (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode pendingKey
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (@Except.error.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit error)),
+  @Eq.{1} (ShielddSecurity.TransferTakeCommitState01.Outcome O A)
+    (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available deferred
+      exclusive height parent queued)
+    (@ShielddSecurity.TransferTakeCommitState01.Outcome.mk O A parent queued
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.State O)))
+'ShielddSecurity.TransferTakeCommitState01.ensure_failure_precedes_flush_and_replacement' depends on axioms: [propext]
+@ShielddSecurity.TransferTakeCommitState01.concrete_index_failure_keeps_delivered_parent_consumes_queue_and_refuses_transfer : ∀
+  {O E A : Type} (io : ShielddSecurity.TransferTakeCommitState01.Io O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (pendingKey : Nat)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (height : Nat)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (error : ShielddSecurity.TransferIndexWriterModel01.IndexError)
+  (ensured :
+    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+      (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode pendingKey
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit))
+  (nonempty : @Ne.{1} (List.{0} A) queued (@List.nil.{0} A))
+  (failed :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (ShielddSecurity.TransferStateDelta.Cache O E))
+      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E A
+        ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferDeferredCountWalk01.queueWriter O E A keys convert available parent) height
+        (@ShielddSecurity.TransferStateDelta.empty O E) queued)
+      (@Except.error.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (ShielddSecurity.TransferStateDelta.Cache O E) error)),
+  @Eq.{1} (ShielddSecurity.TransferTakeCommitState01.Outcome O A)
+    (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available Bool.true
+      Bool.true (@Option.some.{0} Nat height) parent queued)
+    (@ShielddSecurity.TransferTakeCommitState01.Outcome.mk O A parent (@List.nil.{0} A)
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.State O)))
+'ShielddSecurity.TransferTakeCommitState01.concrete_index_failure_keeps_delivered_parent_consumes_queue_and_refuses_transfer' depends on axioms: [propext]
+@ShielddSecurity.TransferTakeCommitState01.successful_nonempty_transferred_state_retains_original_pending_objects : ∀
+  {O E A : Type} (io : ShielddSecurity.TransferTakeCommitState01.Io O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (pendingKey : Nat)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (height : Nat)
+  (parent returned : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (initial : ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+  (nonempty : @Ne.{1} (List.{0} A) queued (@List.nil.{0} A))
+  (observed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+      (ShielddSecurity.TransferIndexWriterModel01.countObservation ShielddSecurity.TransferIndexCountCodec01.codec
+        (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent
+          (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height)))
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal initial))
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned O A
+        (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available
+          Bool.true Bool.true (@Option.some.{0} Nat height) parent queued))
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) returned)),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View O) (@ShielddSecurity.TransferStateDelta.State.objects O returned)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O returned)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O parent))
+      (@Eq.{1} (List.{0} A)
+        (@ShielddSecurity.TransferTakeCommitState01.Outcome.queued O A
+          (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available
+            Bool.true Bool.true (@Option.some.{0} Nat height) parent queued))
+        (@List.nil.{0} A)))
+'ShielddSecurity.TransferTakeCommitState01.successful_nonempty_transferred_state_retains_original_pending_objects' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferTakeCommitState01.replacement_contains_only_current_reader_and_latest_snapshot_bytes : ∀
+  {O : Type} (io : ShielddSecurity.TransferTakeCommitState01.Io O)
+  (current : ShielddSecurity.TransferStateDelta.State O),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferTakeCommitState01.replacement O io current))
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferTakeCommitState01.Io.latestSnapshot O io current)))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+          (@ShielddSecurity.TransferTakeCommitState01.replacement O io current))
+        (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+          (@ShielddSecurity.TransferTakeCommitState01.Io.latestSnapshot O io current)))
+      (And
+        (@Eq.{1} (Option.{0} O)
+          (@ShielddSecurity.TransferStateDelta.State.objects O
+            (@ShielddSecurity.TransferTakeCommitState01.replacement O io current)
+            (@ShielddSecurity.TransferTakeCommitState01.Io.readerKey O io))
+          (@Option.some.{0} O (@ShielddSecurity.TransferTakeCommitState01.Io.reader O io)))
+        (∀ (key : Nat),
+          @Ne.{1} Nat key (@ShielddSecurity.TransferTakeCommitState01.Io.readerKey O io) →
+            @Eq.{1} (Option.{0} O)
+              (@ShielddSecurity.TransferStateDelta.State.objects O
+                (@ShielddSecurity.TransferTakeCommitState01.replacement O io current) key)
+              (@Option.none.{0} O))))
+'ShielddSecurity.TransferTakeCommitState01.replacement_contains_only_current_reader_and_latest_snapshot_bytes' depends on axioms: [propext]
