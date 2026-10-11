@@ -764,3 +764,8 @@ Evidence commit: 54faecd0511863ff9c2960da4eefedddefd83de6
 Independent review accepted3modules11 original complete reports deriving canonical original registry value from full captured relation and constant-one binding. Actual255bit rows decode and reconstruct the value; actual max-comparison rows derive its bound below p. No supplied desired bound or bit meaning. Asset/next decoder join, remaining semantics/total constructor/native/fullTransfer/final replay remain OPEN.
 
 Evidence commit: e1b15c86769fae04abf04f27aecd410f8a3ff7b3
+
+
+Independent review accepted9 original complete reports for exact source writer commit ordering. Participant completion derives prior calls and observed root match; pre-completion failure interrupts owner status, while a later capacity error preserves new Ready/committed state. Successful prepare/seal/commit retains original accepted inputs and prepared boundary. Native participant/owner/version/batch/recovery/durability and fullTransfer remain OPEN.
+
+Evidence commit: f481bce2ee0ca354903de23f01419367a3e657ef
