@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independent pure exact original source generation, repair and complete failed-attempt review",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-word-equality-review01/packet01/source/ShielddSecurity/TransferCanonicalWordEquality01.lean",
+    "bytes": 6009,
+    "sha256": "1be81b160532b8c421414d4c9fb3a73ec3989cfb205b879645ce5bdc6f8d07c9"
+  },
+  "fresh_reports": 6,
+  "rejected": [
+    {
+      "kind": "Original failed beta-expression rewrite attempt, unselected",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.205381700012367,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-word-equality-review01/packet01/rejected-kernel/01/handwritten/TransferCanonicalWordEquality01.lean",
+        "bytes": 5764,
+        "sha256": "56794ddd048cf4db49bdf03f2f48ed0f8fc226c43f0e04a8cf8e51dd6bab9520"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-canonical-word-equality-20261011-01\\project\\ShielddSecurity\\TransferCanonicalWordEquality01.lean:45:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-canonical-word-equality-20261011-01\\project\\ShielddSecurity\\TransferCanonicalWordEquality01.lean:66:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        " sorryAx,",
+        " sorryAx,",
+        "'ShielddSecurity.TransferCanonicalWordEquality01.canonical_internal_math_values_equal_iff_raw_words_equal' depends on axioms: [sorryAx]",
+        " sorryAx,"
+      ],
+      "all_definitions_and_theorem_contracts_unchanged": true,
+      "proof_only_repair_exact": true,
+      "exact_delta": "--- \n+++ \n@@ -42,6 +42,7 @@\n       simp only [TransferScalarMontgomeryValue01.packed_vector_modulo_radix_is_actual_low_word, List.headD_cons] at heads\n       have headEq : head = other := UInt64.toNat_inj.mp heads\n       have tails := congrArg (fun value => value / radix64) packed\n+      change packWords (head :: rest) / radix64 = packWords (other :: tail) / radix64 at tails\n       rw [packed_word_cons_division_recovers_exact_tail, packed_word_cons_division_recovers_exact_tail] at tails\n       exact (congrArg (fun word : UInt64 => word :: rest) headEq).trans (congrArg (List.cons other) (ih tail lengths tails))\n \n@@ -63,6 +64,7 @@\n     change (radix64 ^ 4 * scalarKey right.words) % nullifierModulus = packWords right.words.toList % nullifierModulus at rightRelation\n     rw [TransferScalarMontgomeryValue01.fixed_four_word_typed_serializer_has_exact_canonical_montgomery_value] at leftRelation rightRelation\n     have packed := congrArg (fun value => radix64 ^ 4 * value % nullifierModulus) same\n+    change (radix64 ^ 4 * montgomeryValue left.words) % nullifierModulus = (radix64 ^ 4 * montgomeryValue right.words) % nullifierModulus at packed\n     rw [leftRelation, rightRelation, Nat.mod_eq_of_lt left.canonical, Nat.mod_eq_of_lt right.canonical] at packed\n     exact (packed_fixed_word_vectors_equal_iff_raw_vectors_equal left.words right.words).mp packed\n   \u00b7 intro same\n"
+    }
+  ],
+  "scope": "Equal-width UInt64 packing injection, fixed four-word vector raw equality, canonical internal raw domain proves Montgomery mathematical value equality iff raw word equality iff exact serialized source bytes. Canonical raw bound is explicit; arbitrary raw modulo aliases excluded. Actual native private Scalar invariant/PartialEq/constant-time primitives/word selector/Clone/hash/collection/full trace bindings remain owned OPEN",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
