@@ -1071,3 +1071,6 @@ Absent-start model publication independently accepted: four complete original re
 
 
 Complete block driver model independently accepted: two complete original reports; exact authenticated source regeneration and retained failed case-split witness repair, definitions/contracts unchanged. Returned model program derives walk/reached active host and exact mathematical input/publication witness, eliminating caller walk/current-state equations. None has no failure-prefix/rollback claim. Native loop/cache/types/selectors/ownership/component/OS/full trace and predecessor native-order gap remain owned OPEN. Evidence a35f017ffe46c04484c9d73920f799ed91c94cef. Native controls, combined replay, full Transfer OPEN.
+
+
+Canonical word equality model independently accepted: six complete original reports, pure maintained generation and retained original failed attempt; two beta-expression proof repairs leave contracts unchanged. Equal-width packing injective; canonical internal raw bound yields raw word equality iff Montgomery mathematical value equality iff exact source bytes. Arbitrary raw aliases excluded. Actual native Scalar invariant/PartialEq/constant-time primitives/selector/Clone/hash/collection/full trace remains owned OPEN. Evidence f1d88c3e04d2ab95024e0229d7dfa7faa540ec64. Native controls, combined replay, full Transfer OPEN.
