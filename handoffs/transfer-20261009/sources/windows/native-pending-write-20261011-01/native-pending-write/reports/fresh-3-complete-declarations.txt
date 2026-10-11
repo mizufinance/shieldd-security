@@ -1,0 +1,163 @@
+@ShielddSecurity.TransferNativePendingWrite01.successful_primitive_inspection_derives_supported_native_next : ∀
+  {O E : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (keys : List.{0} Nat)
+  (next : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+  (inputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax)
+  (checked :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending)
+      (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax
+        ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity child keys)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending next)),
+  And
+    (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity next)
+    (And (ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending next)
+      (@Eq.{1} Bool
+        (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported
+          (ShielddSecurity.TransferPendingFiniteCodec01.erase next))
+        Bool.true))
+'ShielddSecurity.TransferNativePendingWrite01.successful_primitive_inspection_derives_supported_native_next' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNativePendingWrite01.successful_nonempty_primitive_writes_actual_supported_native_object : ∀
+  {O E : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (nativeEncoding :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      ShielddSecurity.TransferPendingSetInvariant01.Coherent pending →
+        @LE.le.{0} Nat instLENat
+            (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending))
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity →
+          ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending pending →
+            @Eq.{1} O (@ShielddSecurity.TransferNullifierBatchSource01.Backend.encode O E backend pending)
+              (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.erase pending)))
+  (wordMax objectKey : Nat) (sourceHasId : Bool) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (keys : List.{0} Nat) (cache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+  (inputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax)
+  (nonempty : @Eq.{1} Bool (@List.isEmpty.{0} Nat keys) Bool.false)
+  (success :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+      (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax
+        ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey sourceHasId child keys)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError cache
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))),
+  And (@Eq.{1} Bool sourceHasId Bool.true)
+    (@Exists.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      fun (next : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+      And
+        (@Eq.{1}
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending)
+          (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity child keys)
+          (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending next))
+        (And
+          (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity next)
+          (And (ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending next)
+            (And
+              (@Eq.{1} Bool
+                (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported
+                  (ShielddSecurity.TransferPendingFiniteCodec01.erase next))
+                Bool.true)
+              (And
+                (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) cache
+                  (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+                    (@ShielddSecurity.TransferStateDelta.putObject O E child objectKey
+                      (@Option.some.{0} O (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.erase next))))))
+                (@Eq.{1} (Option.{0} O)
+                  (@ShielddSecurity.TransferStateDelta.State.objects O
+                    (@ShielddSecurity.TransferStateDelta.applyCache O E
+                      (@ShielddSecurity.TransferStateDelta.Delta.parent O E child) cache)
+                    objectKey)
+                  (@Option.some.{0} O (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.erase next)))))))))
+'ShielddSecurity.TransferNativePendingWrite01.successful_nonempty_primitive_writes_actual_supported_native_object' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNativePendingWrite01.every_modeled_primitive_branch_retains_cache_or_writes_supported_native : ∀
+  {O E : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (nativeEncoding :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      ShielddSecurity.TransferPendingSetInvariant01.Coherent pending →
+        @LE.le.{0} Nat instLENat
+            (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending))
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity →
+          ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending pending →
+            @Eq.{1} O (@ShielddSecurity.TransferNullifierBatchSource01.Backend.encode O E backend pending)
+              (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.erase pending)))
+  (wordMax objectKey : Nat) (sourceHasId : Bool) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (keys : List.{0} Nat)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E backend child))
+  (inputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax),
+  Or
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax
+          ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey sourceHasId child keys))
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+    (@Exists.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      fun (next : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+      And
+        (@Eq.{1}
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending)
+          (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E backend wordMax
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity child keys)
+          (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending next))
+        (And
+          (@Eq.{1} Bool
+            (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported
+              (ShielddSecurity.TransferPendingFiniteCodec01.erase next))
+            Bool.true)
+          (@Eq.{1}
+            (ShielddSecurity.TransferRawStateProgram01.Outcome O E
+              ShielddSecurity.TransferNullifierBatchSource01.BatchError)
+            (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax
+              ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity objectKey sourceHasId child keys)
+            (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+              ShielddSecurity.TransferNullifierBatchSource01.BatchError
+              (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+                (@ShielddSecurity.TransferStateDelta.putObject O E child objectKey
+                  (@Option.some.{0} O (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.erase next)))))
+              (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)))))
+'ShielddSecurity.TransferNativePendingWrite01.every_modeled_primitive_branch_retains_cache_or_writes_supported_native' depends on axioms: [propext,
+ Quot.sound]
