@@ -1,5 +1,19 @@
 # Transfer proof completion plan — 9 October 2026
 
+The connected coordinate-exclusion, regulated Boolean and registry-position
+constructor family is accepted at1287bbc258d1c329b068ebd8e8d4eb5838ecd588:
+nine original module executions and88 complete reports. Independent RegistrySem
+with explicit actual sink interpretation, input-role and constant bindings
+constructs one assignment satisfying all177954 arithmetic positions and139
+actual assertions: row177954 and rows177979..178116. The ten coordinate zero
+primitives and five regulated exclusions are derived from actual captured rows;
+the position join derives the32-bit bound and duplicate reconstruction. Parent
+verified95 original DB rows,72 nodes,35 assertions,45 constants, exact maintained
+generation, selected imports and unchanged physical guards. Original attempt
+histories remain separately associated. Hint columns change; only the stated
+outside frame is preserved. The24 point assertions, remaining assertion families,
+full TransferSem soundness/construction, native refinement and final replay remain OPEN.
+
 The nullifier-batch and corrected raw-effect source models are accepted at
 d9ecb16eb403e9079ecff299e37a83bbbb116348: two selected modules and43 complete
 reports. Batch success derives ordered pending append, capacity under the
