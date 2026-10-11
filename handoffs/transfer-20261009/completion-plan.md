@@ -1089,3 +1089,6 @@ Actual Boolean family independently accepted:59modules421complete original repor
 
 
 Publish independently reviewed scalar reversed-byte ordering source model. Eight original complete reports, exact104module928report ancestry and both original failed proof attempts retained. Native binding, combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed byte-key-cache original source model. 7 complete original reports; exact independently accepted ancestry. Exact byte-key observation of symbolic Nat-key cache via derived global keyCode injection. Put/deletion tombstone, no-write overlay and latest-write merge preserved. Byte key renaming model; actual Rust String/UTF8/hash-map/Any/Clone/ownership/compiler/cache/full trace bindings owned OPEN Combined replay and full Transfer remain OPEN.
