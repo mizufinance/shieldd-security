@@ -1,0 +1,107 @@
+{
+  "kind": "Structured complete original declaration output; parent verifies full raw report hashes",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.Failure",
+      "full_type": "ShielddSecurity.TransferDeferredQueueSourceModel01.Failure : (X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "404905bdc9ce2c929ad5e01bafb4fd7449f3c49b52b12b9b767a37da3767aea8"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome",
+      "full_type": "ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome : (O E T X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "80ac761b652538ff6d6ca2098a94fd7c3c3d505a9c050aa5016b0b5e251e5305"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter",
+      "full_type": "ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter : (O E T X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "34997e16dc03ad2a9a65d1610883a96c9d80427108c50f0cec2abf27caa5f304"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.walk",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.walk : {O E T X : Type} \u2192\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) \u2192\n    (height : Nat) \u2192\n      ShielddSecurity.TransferStateDelta.Cache O E \u2192\n        List.{0} T \u2192 Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E)",
+      "axioms": [],
+      "full_type_sha256": "ef4ca6ae6908bb348a924be7b9d71e061058afb5bc89f3bd31514e674d540c97"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged : {O E T X : Type} \u2192\n  (parent : ShielddSecurity.TransferStateDelta.State O) \u2192\n    (queued : List.{0} T) \u2192 ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X",
+      "axioms": [],
+      "full_type_sha256": "7fdfad258805b57625786666af20ab6a0722eeba1271bdd9093397c5f356afa7"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.refused",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.refused : {O E T X : Type} \u2192\n  (parent : ShielddSecurity.TransferStateDelta.State O) \u2192\n    (queued : List.{0} T) \u2192\n      (error : ShielddSecurity.TransferDeferredQueueSourceModel01.Failure X) \u2192\n        ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X",
+      "axioms": [],
+      "full_type_sha256": "85f3e88032a97e475dd7d0c02e5c14a465b5727b87954b13f7a6718aa702668a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.nonempty_test",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.nonempty_test : \u2200 {T : Type} (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)), @Eq.{1} Bool (@List.isEmpty.{0} T queued) Bool.false",
+      "axioms": [],
+      "full_type_sha256": "6c4716035f4186f017606541e1bb152d714ade35480c8812f9f67cf69a44ae12"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.flush",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.flush : {O E T X : Type} \u2192\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) \u2192\n    (deferred exclusive : Bool) \u2192\n      (height : Option.{0} Nat) \u2192\n        (parent : ShielddSecurity.TransferStateDelta.State O) \u2192\n          (queued : List.{0} T) \u2192 ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X",
+      "axioms": [],
+      "full_type_sha256": "350be0ca4c76e547a83d5b6675a9af208f05e0b6b3b5d128166ae9099c558afe"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.other_mode_preserves_queue",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.other_mode_preserves_queue : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (exclusive : Bool)\n  (height : Option.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.false exclusive height parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E T X parent queued)",
+      "axioms": [],
+      "full_type_sha256": "9ebb9cc605f58d21c9e2a555647f3dc2fc3bec7dca4882055ed24b19ce511238"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.empty_queue_shortcuts_all_fallible_calls",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.empty_queue_shortcuts_all_fallible_calls : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (deferred exclusive : Bool)\n  (height : Option.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put deferred exclusive height parent\n      (@List.nil.{0} T))\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E T X parent (@List.nil.{0} T))",
+      "axioms": [],
+      "full_type_sha256": "accb94ba16810625844de2593ce34ba5370a3cb773aba54b5163af2bd3e80faf"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.exclusive_failure_precedes_take",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.exclusive_failure_precedes_take : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Option.{0} Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.false height parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent queued\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.exclusive X))",
+      "axioms": [],
+      "full_type_sha256": "aa14ef4699038e744153e118f89ec5f27604e1afdd9b7b8c305bd80c80429768"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.height_failure_precedes_take",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.height_failure_precedes_take : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true (@Option.none.{0} Nat)\n      parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent queued\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.height X))",
+      "axioms": [],
+      "full_type_sha256": "8e259c6f9e5a26cb0f2d1b78aa90d590a82d1ee219268f1aac672ecf6d63383a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.post_take_dispatch",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.post_take_dispatch : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk.match_1.{1} O E X\n      (fun (x : Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E)) =>\n        ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (fun (error : X) =>\n        @ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent (@List.nil.{0} T)\n          (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.index X error))\n      fun (child : ShielddSecurity.TransferStateDelta.Cache O E) =>\n      @ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.mk O E T X\n        (@ShielddSecurity.TransferStateDelta.applyCache O E parent child) (@List.nil.{0} T)\n        (@ShielddSecurity.TransferStateDelta.Cache.events O E child)\n        (@Option.none.{0} (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure X)))",
+      "axioms": [],
+      "full_type_sha256": "1d34f2d0b92389141ed72b0573bd21b22665b635a31dae99831fc60afca19c30"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_discards_child_and_consumes_queue",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_discards_child_and_consumes_queue : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T) (error : X)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (failed :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.error.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) error)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent (@List.nil.{0} T)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.index X error))",
+      "axioms": [],
+      "full_type_sha256": "69dfc2669217eb19b9e89091073e65cd42df0d7fe4ff7f104fbc0e0022749bcf"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_preserves_preexisting_effect_state",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_preserves_preexisting_effect_state : \u2200\n  {O E T X : Type} (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T) (error : X)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (failed :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.error.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) error)),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E T X\n        (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n          (@Option.some.{0} Nat height) parent queued))\n      parent)\n    (And\n      (@Eq.{1} (List.{0} T)\n        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E T X\n          (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n            (@Option.some.{0} Nat height) parent queued))\n        (@List.nil.{0} T))\n      (@Eq.{1} (List.{0} E)\n        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.events O E T X\n          (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n            (@Option.some.{0} Nat height) parent queued))\n        (@List.nil.{0} E)))",
+      "axioms": [],
+      "full_type_sha256": "cd46b4b95707459acdc18fb7df593d4f5b3676fee08c02ef1db289889c46b5a3"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.same_instance_retry_cannot_recreate_consumed_queue",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.same_instance_retry_cannot_recreate_consumed_queue : \u2200\n  {O E T X : Type} (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T) (error : X)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (failed :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.error.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) error))\n  (retryPut : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (retryExclusive : Bool)\n  (retryHeight : Option.{0} Nat),\n  have interrupted : ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X :=\n    @ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued;\n  have retried : ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X :=\n    @ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X retryPut Bool.true retryExclusive retryHeight\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E T X interrupted)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E T X interrupted);\n  And\n    (@Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X) retried\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E T X parent (@List.nil.{0} T)))\n    (@Ne.{1} (List.{0} T) (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E T X retried) queued)",
+      "axioms": [],
+      "full_type_sha256": "51493422ea3f31a5739bc75c03b17d25d659fa367b85d81344b02fbff322600e"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.successful_flush_applies_index_child_to_original_parent",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.successful_flush_applies_index_child_to_original_parent : \u2200\n  {O E T X : Type} (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (child : ShielddSecurity.TransferStateDelta.Cache O E) (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (success :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.ok.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) child)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.mk O E T X\n      (@ShielddSecurity.TransferStateDelta.applyCache O E parent child) (@List.nil.{0} T)\n      (@ShielddSecurity.TransferStateDelta.Cache.events O E child)\n      (@Option.none.{0} (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure X)))",
+      "axioms": [],
+      "full_type_sha256": "1933e7d9b930bee559d25758766cc22f79669bf5f343ce14adddff4f5c1709d8"
+    }
+  ]
+}

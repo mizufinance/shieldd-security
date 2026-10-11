@@ -1,0 +1,234 @@
+{
+  "kind": "Parent independent full original bytes/types/axioms, first-package context and unchanged guard review; no Lean or native replay",
+  "files_rehashed": 32,
+  "plan_pin_records_matched": 25,
+  "fresh_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.Failure",
+      "full_type": "ShielddSecurity.TransferDeferredQueueSourceModel01.Failure : (X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "404905bdc9ce2c929ad5e01bafb4fd7449f3c49b52b12b9b767a37da3767aea8"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome",
+      "full_type": "ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome : (O E T X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "80ac761b652538ff6d6ca2098a94fd7c3c3d505a9c050aa5016b0b5e251e5305"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter",
+      "full_type": "ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter : (O E T X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "34997e16dc03ad2a9a65d1610883a96c9d80427108c50f0cec2abf27caa5f304"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.walk",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.walk : {O E T X : Type} \u2192\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) \u2192\n    (height : Nat) \u2192\n      ShielddSecurity.TransferStateDelta.Cache O E \u2192\n        List.{0} T \u2192 Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E)",
+      "axioms": [],
+      "full_type_sha256": "ef4ca6ae6908bb348a924be7b9d71e061058afb5bc89f3bd31514e674d540c97"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged : {O E T X : Type} \u2192\n  (parent : ShielddSecurity.TransferStateDelta.State O) \u2192\n    (queued : List.{0} T) \u2192 ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X",
+      "axioms": [],
+      "full_type_sha256": "7fdfad258805b57625786666af20ab6a0722eeba1271bdd9093397c5f356afa7"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.refused",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.refused : {O E T X : Type} \u2192\n  (parent : ShielddSecurity.TransferStateDelta.State O) \u2192\n    (queued : List.{0} T) \u2192\n      (error : ShielddSecurity.TransferDeferredQueueSourceModel01.Failure X) \u2192\n        ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X",
+      "axioms": [],
+      "full_type_sha256": "85f3e88032a97e475dd7d0c02e5c14a465b5727b87954b13f7a6718aa702668a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.nonempty_test",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.nonempty_test : \u2200 {T : Type} (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)), @Eq.{1} Bool (@List.isEmpty.{0} T queued) Bool.false",
+      "axioms": [],
+      "full_type_sha256": "6c4716035f4186f017606541e1bb152d714ade35480c8812f9f67cf69a44ae12"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.flush",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.flush : {O E T X : Type} \u2192\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) \u2192\n    (deferred exclusive : Bool) \u2192\n      (height : Option.{0} Nat) \u2192\n        (parent : ShielddSecurity.TransferStateDelta.State O) \u2192\n          (queued : List.{0} T) \u2192 ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X",
+      "axioms": [],
+      "full_type_sha256": "350be0ca4c76e547a83d5b6675a9af208f05e0b6b3b5d128166ae9099c558afe"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.other_mode_preserves_queue",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.other_mode_preserves_queue : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (exclusive : Bool)\n  (height : Option.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.false exclusive height parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E T X parent queued)",
+      "axioms": [],
+      "full_type_sha256": "9ebb9cc605f58d21c9e2a555647f3dc2fc3bec7dca4882055ed24b19ce511238"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.empty_queue_shortcuts_all_fallible_calls",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.empty_queue_shortcuts_all_fallible_calls : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (deferred exclusive : Bool)\n  (height : Option.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put deferred exclusive height parent\n      (@List.nil.{0} T))\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E T X parent (@List.nil.{0} T))",
+      "axioms": [],
+      "full_type_sha256": "accb94ba16810625844de2593ce34ba5370a3cb773aba54b5163af2bd3e80faf"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.exclusive_failure_precedes_take",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.exclusive_failure_precedes_take : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Option.{0} Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.false height parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent queued\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.exclusive X))",
+      "axioms": [],
+      "full_type_sha256": "aa14ef4699038e744153e118f89ec5f27604e1afdd9b7b8c305bd80c80429768"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.height_failure_precedes_take",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.height_failure_precedes_take : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true (@Option.none.{0} Nat)\n      parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent queued\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.height X))",
+      "axioms": [],
+      "full_type_sha256": "8e259c6f9e5a26cb0f2d1b78aa90d590a82d1ee219268f1aac672ecf6d63383a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.post_take_dispatch",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.post_take_dispatch : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk.match_1.{1} O E X\n      (fun (x : Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E)) =>\n        ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (fun (error : X) =>\n        @ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent (@List.nil.{0} T)\n          (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.index X error))\n      fun (child : ShielddSecurity.TransferStateDelta.Cache O E) =>\n      @ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.mk O E T X\n        (@ShielddSecurity.TransferStateDelta.applyCache O E parent child) (@List.nil.{0} T)\n        (@ShielddSecurity.TransferStateDelta.Cache.events O E child)\n        (@Option.none.{0} (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure X)))",
+      "axioms": [],
+      "full_type_sha256": "1d34f2d0b92389141ed72b0573bd21b22665b635a31dae99831fc60afca19c30"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_discards_child_and_consumes_queue",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_discards_child_and_consumes_queue : \u2200 {O E T X : Type}\n  (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T) (error : X)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (failed :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.error.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) error)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E T X parent (@List.nil.{0} T)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.index X error))",
+      "axioms": [],
+      "full_type_sha256": "69dfc2669217eb19b9e89091073e65cd42df0d7fe4ff7f104fbc0e0022749bcf"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_preserves_preexisting_effect_state",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.index_failure_preserves_preexisting_effect_state : \u2200\n  {O E T X : Type} (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T) (error : X)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (failed :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.error.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) error)),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E T X\n        (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n          (@Option.some.{0} Nat height) parent queued))\n      parent)\n    (And\n      (@Eq.{1} (List.{0} T)\n        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E T X\n          (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n            (@Option.some.{0} Nat height) parent queued))\n        (@List.nil.{0} T))\n      (@Eq.{1} (List.{0} E)\n        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.events O E T X\n          (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n            (@Option.some.{0} Nat height) parent queued))\n        (@List.nil.{0} E)))",
+      "axioms": [],
+      "full_type_sha256": "cd46b4b95707459acdc18fb7df593d4f5b3676fee08c02ef1db289889c46b5a3"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.same_instance_retry_cannot_recreate_consumed_queue",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.same_instance_retry_cannot_recreate_consumed_queue : \u2200\n  {O E T X : Type} (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T) (error : X)\n  (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (failed :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.error.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) error))\n  (retryPut : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (retryExclusive : Bool)\n  (retryHeight : Option.{0} Nat),\n  have interrupted : ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X :=\n    @ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued;\n  have retried : ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X :=\n    @ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X retryPut Bool.true retryExclusive retryHeight\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E T X interrupted)\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E T X interrupted);\n  And\n    (@Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X) retried\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E T X parent (@List.nil.{0} T)))\n    (@Ne.{1} (List.{0} T) (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E T X retried) queued)",
+      "axioms": [],
+      "full_type_sha256": "51493422ea3f31a5739bc75c03b17d25d659fa367b85d81344b02fbff322600e"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredQueueSourceModel01.successful_flush_applies_index_child_to_original_parent",
+      "full_type": "@ShielddSecurity.TransferDeferredQueueSourceModel01.successful_flush_applies_index_child_to_original_parent : \u2200\n  {O E T X : Type} (put : ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E T X) (height : Nat)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (child : ShielddSecurity.TransferStateDelta.Cache O E) (nonempty : @Ne.{1} (List.{0} T) queued (@List.nil.{0} T))\n  (success :\n    @Eq.{1} (Except.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E))\n      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E T X put height\n        (@ShielddSecurity.TransferStateDelta.empty O E) queued)\n      (@Except.ok.{0, 0} X (ShielddSecurity.TransferStateDelta.Cache O E) child)),\n  @Eq.{1} (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E T X)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E T X put Bool.true Bool.true\n      (@Option.some.{0} Nat height) parent queued)\n    (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.mk O E T X\n      (@ShielddSecurity.TransferStateDelta.applyCache O E parent child) (@List.nil.{0} T)\n      (@ShielddSecurity.TransferStateDelta.Cache.events O E child)\n      (@Option.none.{0} (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure X)))",
+      "axioms": [],
+      "full_type_sha256": "1933e7d9b930bee559d25758766cc22f79669bf5f343ce14adddff4f5c1709d8"
+    }
+  ],
+  "inherited_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.overlay_merge",
+      "full_type": "@ShielddSecurity.TransferStateDelta.overlay_merge : \u2200 {V : Type} (base : ShielddSecurity.TransferStateDelta.View V)\n  (older newer : ShielddSecurity.TransferStateDelta.Writes V),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.View V)\n    (@ShielddSecurity.TransferStateDelta.overlay V base (@ShielddSecurity.TransferStateDelta.mergeWrites V older newer))\n    (@ShielddSecurity.TransferStateDelta.overlay V (@ShielddSecurity.TransferStateDelta.overlay V base older) newer)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4cc6deb484bd9f8726dd100e2d01c177553d6644966270412a5840fced10bb92"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.apply_empty",
+      "full_type": "@ShielddSecurity.TransferStateDelta.apply_empty : \u2200 {O E : Type} (base : ShielddSecurity.TransferStateDelta.State O),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n    (@ShielddSecurity.TransferStateDelta.applyCache O E base (@ShielddSecurity.TransferStateDelta.empty O E)) base",
+      "axioms": [],
+      "full_type_sha256": "fba779ad978df4d73e8a5e0cd4f31f0669dc99dc58286a1a95ed88108ea2fb8a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.apply_merge",
+      "full_type": "@ShielddSecurity.TransferStateDelta.apply_merge : \u2200 {O E : Type} (base : ShielddSecurity.TransferStateDelta.State O)\n  (older newer : ShielddSecurity.TransferStateDelta.Cache O E),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n    (@ShielddSecurity.TransferStateDelta.applyCache O E base\n      (@ShielddSecurity.TransferStateDelta.merge O E older newer))\n    (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.applyCache O E base older)\n      newer)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "9f5c344946fcbb683e2a17ac1d2547533e4a6c6e9959cb489c6aaff4fa40269d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.flatten_applies_in_order",
+      "full_type": "@ShielddSecurity.TransferStateDelta.flatten_applies_in_order : \u2200 {O E : Type}\n  (base : ShielddSecurity.TransferStateDelta.State O) (layers : List.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n  (accumulated : ShielddSecurity.TransferStateDelta.Cache O E),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n    (@ShielddSecurity.TransferStateDelta.applyCache O E base\n      (@ShielddSecurity.TransferStateDelta.flatten O E accumulated layers))\n    (@ShielddSecurity.TransferStateDelta.applyLayers O E\n      (@ShielddSecurity.TransferStateDelta.applyCache O E base accumulated) layers)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "dc5eb55c557e6a2c88696ee63b9a19e2bf923be62921a4c0c61b0c60ee06e6d9"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.object_write_preserves_parent",
+      "full_type": "@ShielddSecurity.TransferStateDelta.object_write_preserves_parent : \u2200 {O E : Type}\n  (delta : ShielddSecurity.TransferStateDelta.Delta O E) (key : Nat) (value : Option.{0} O),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n    (@ShielddSecurity.TransferStateDelta.Delta.parent O E\n      (@ShielddSecurity.TransferStateDelta.putObject O E delta key value))\n    (@ShielddSecurity.TransferStateDelta.Delta.parent O E delta)",
+      "axioms": [],
+      "full_type_sha256": "83191056781caed432c754ba21ef82cd9b6f10b2b4b13f5dc432790048cbf5ef"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.object_write_visible_in_child",
+      "full_type": "@ShielddSecurity.TransferStateDelta.object_write_visible_in_child : \u2200 {O E : Type}\n  (delta : ShielddSecurity.TransferStateDelta.Delta O E) (key : Nat) (value : Option.{0} O),\n  @Eq.{1} (Option.{0} O)\n    (@ShielddSecurity.TransferStateDelta.State.objects O\n      (@ShielddSecurity.TransferStateDelta.applyCache O E\n        (@ShielddSecurity.TransferStateDelta.Delta.parent O E\n          (@ShielddSecurity.TransferStateDelta.putObject O E delta key value))\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n          (@ShielddSecurity.TransferStateDelta.putObject O E delta key value)))\n      key)\n    value",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "06d94f7c1a0af3b886efa1ed114f5035bb8655532fcb1c9ca07f9ee4dda367d0"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.object_write_frames_other_key",
+      "full_type": "@ShielddSecurity.TransferStateDelta.object_write_frames_other_key : \u2200 {O E : Type}\n  (delta : ShielddSecurity.TransferStateDelta.Delta O E) (key other : Nat) (value : Option.{0} O)\n  (different : @Ne.{1} Nat other key),\n  @Eq.{1} (Option.{0} O)\n    (@ShielddSecurity.TransferStateDelta.State.objects O\n      (@ShielddSecurity.TransferStateDelta.applyCache O E\n        (@ShielddSecurity.TransferStateDelta.Delta.parent O E\n          (@ShielddSecurity.TransferStateDelta.putObject O E delta key value))\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n          (@ShielddSecurity.TransferStateDelta.putObject O E delta key value)))\n      other)\n    (@ShielddSecurity.TransferStateDelta.State.objects O\n      (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E delta)\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E delta))\n      other)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "71ca77b7c6cb1ff1ddf2e11fc4ece69641bf83a26f272ca6d68b466629a8c0b1"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.shared_parent_refused",
+      "full_type": "@ShielddSecurity.TransferStateDelta.shared_parent_refused : \u2200 {O E : Type}\n  (parent : ShielddSecurity.TransferStateDelta.State O),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Delta O E))\n    (@ShielddSecurity.TransferStateDelta.begin O E Bool.false parent)\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Delta O E))",
+      "axioms": [],
+      "full_type_sha256": "c31a9c8991d5b399cc7f15f1fa252685e1e1f29b1a611ea013fde5a3c58a2242"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.index_preparation_preserves_parent",
+      "full_type": "@ShielddSecurity.TransferStateDelta.index_preparation_preserves_parent : \u2200 {O E T : Type}\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) (mode : ShielddSecurity.TransferStateDelta.IndexMode)\n  (transaction : T) (delta : ShielddSecurity.TransferStateDelta.Delta O E)\n  (prepared : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T))\n  (success :\n    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)))\n      (@ShielddSecurity.TransferStateDelta.prepareIndex O E T api mode transaction delta)\n      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)) prepared)),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n    (@ShielddSecurity.TransferStateDelta.Delta.parent O E\n      (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T) prepared))\n    (@ShielddSecurity.TransferStateDelta.Delta.parent O E delta)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "bead69f9ea604bc853ba5ec3c6164ceeffa48c96a2c6f2b4ed1378caa578a351"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.delivery_failure_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferStateDelta.delivery_failure_preserves_parent_and_queue : \u2200 {O E T : Type}\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (transaction : T)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (failed :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))\n      (@ShielddSecurity.TransferStateDelta.run O E T api registryMatches exclusive mode transaction parent queued)\n      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))),\n  @Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T))\n    (@ShielddSecurity.TransferStateDelta.finish O E T parent queued\n      (@ShielddSecurity.TransferStateDelta.run O E T api registryMatches exclusive mode transaction parent queued))\n    (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T) parent queued)",
+      "axioms": [],
+      "full_type_sha256": "6cc28432f46f4e26f2038c9b6ef0c49749d644efb86c751ced1458a1f7a1e51f"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.successful_delivery_order",
+      "full_type": "@ShielddSecurity.TransferStateDelta.successful_delivery_order : \u2200 {O E T : Type}\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (transaction : T)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (committed : ShielddSecurity.TransferStateDelta.Commit O E T)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))\n      (@ShielddSecurity.TransferStateDelta.run O E T api registryMatches exclusive mode transaction parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E T) committed)),\n  And (@Eq.{1} Bool registryMatches Bool.true)\n    (And (@Eq.{1} Bool exclusive Bool.true)\n      (@Exists.{1} (ShielddSecurity.TransferStateDelta.Cache O E)\n        fun (executed : ShielddSecurity.TransferStateDelta.Cache O E) =>\n        @Exists.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T))\n          fun (prepared : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)) =>\n          And\n            (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n              (@ShielddSecurity.TransferStateDelta.Api.execute O E T api\n                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                  (@ShielddSecurity.TransferStateDelta.empty O E)))\n              (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Cache O E) executed))\n            (And\n              (@Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)))\n                (@ShielddSecurity.TransferStateDelta.prepareIndex O E T api mode transaction\n                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent executed))\n                (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)) prepared))\n              (And\n                (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n                  (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed)\n                  (@ShielddSecurity.TransferStateDelta.applyCache O E\n                    (@ShielddSecurity.TransferStateDelta.Delta.parent O E\n                      (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T) prepared))\n                    (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n                      (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T) prepared))))\n                (And\n                  (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Commit.events O E T committed)\n                    (@ShielddSecurity.TransferStateDelta.Cache.events O E\n                      (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n                        (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T) prepared))))\n                  (@Eq.{1} (List.{0} T) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E T committed)\n                    (@HAppend.hAppend.{0, 0, 0} (List.{0} T) (List.{0} T) (List.{0} T)\n                      (@instHAppendOfAppend.{0} (List.{0} T) (@List.instAppend.{0} T)) queued\n                      (@Option.toList.{0} T\n                        (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)\n                          prepared)))))))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "1e3354d6fff5a5c0d631fc9b71d23dca0285e9063a35f3d805f59f4d83bf783a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferStateDelta.successful_delivery_applies_child_to_original_parent",
+      "full_type": "@ShielddSecurity.TransferStateDelta.successful_delivery_applies_child_to_original_parent : \u2200 {O E T : Type}\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (transaction : T)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (committed : ShielddSecurity.TransferStateDelta.Commit O E T)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))\n      (@ShielddSecurity.TransferStateDelta.run O E T api registryMatches exclusive mode transaction parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E T) committed)),\n  @Exists.{1} (ShielddSecurity.TransferStateDelta.Cache O E)\n    fun (executed : ShielddSecurity.TransferStateDelta.Cache O E) =>\n    @Exists.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T))\n      fun (prepared : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)) =>\n      And\n        (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n          (@ShielddSecurity.TransferStateDelta.Api.execute O E T api\n            (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))\n          (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Cache O E) executed))\n        (And\n          (@Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)))\n            (@ShielddSecurity.TransferStateDelta.prepareIndex O E T api mode transaction\n              (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent executed))\n            (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T)) prepared))\n          (And\n            (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n              (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed)\n              (@ShielddSecurity.TransferStateDelta.applyCache O E parent\n                (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n                  (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T) prepared))))\n            (@Eq.{1} (List.{0} T) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E T committed)\n              (@HAppend.hAppend.{0, 0, 0} (List.{0} T) (List.{0} T) (List.{0} T)\n                (@instHAppendOfAppend.{0} (List.{0} T) (@List.instAppend.{0} T)) queued\n                (@Option.toList.{0} T\n                  (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.Delta O E) (Option.{0} T) prepared))))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "4fdd98761af851f61d164014803637f7e9c3756c5b0a9fef3c1c6f069d346615"
+    }
+  ],
+  "first_package_custom_associations": 1,
+  "external_core_modules": 2141,
+  "external_pin_records": 12846,
+  "external_physical_rehash": "Producer original retained closure; runner checks all reachable pins before/after. Parent verifies record closure, not Windows artifacts.",
+  "unchanged_runner": true,
+  "runtime_source_files_exact": 2,
+  "rejected_attempts": [
+    {
+      "attempt": "01",
+      "status": "failed",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 25.38793650001753,
+        "status": "failed"
+      },
+      "source_sha256": "7e0d02078cf880413a72e41744f63d4c2cebd1479a9c897249adebc78c3a4d5d"
+    },
+    {
+      "attempt": "02",
+      "status": "failed",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 23.536395899951458,
+        "status": "failed"
+      },
+      "source_sha256": "03b539d0dab69cdb95d76ada03227223a312fab04be053c186fa9fe18ec33c8b"
+    }
+  ],
+  "native_execution": "UNRUN",
+  "Rust_refinement": "OPEN",
+  "durable_recovery": "OPEN",
+  "full_transfer": "OPEN"
+}
