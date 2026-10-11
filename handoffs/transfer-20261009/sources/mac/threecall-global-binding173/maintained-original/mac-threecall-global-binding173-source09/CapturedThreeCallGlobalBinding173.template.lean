@@ -1,0 +1,137 @@
+import ShielddSecurity.CapturedJoinPack179Pilot32
+import ShielddSecurity.CapturedThreeCallGlobalBinding173D000
+import ShielddSecurity.CapturedThreeCallGlobalBinding173D001
+import ShielddSecurity.CapturedThreeCallGlobalBinding173D002
+import ShielddSecurity.CapturedThreeCallGlobalBinding173D003
+import ShielddSecurity.CapturedThreeCallGlobalBinding173D004
+import ShielddSecurity.CapturedThreeCallGlobalBinding173D005
+import ShielddSecurity.CapturedThreeCallGlobalBinding173F0
+import ShielddSecurity.CapturedThreeCallGlobalBinding173F1
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H000
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H001
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H002
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H003
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H004
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H005
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H006
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H007
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H008
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H009
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H010
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H011
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H012
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H013
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H014
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H015
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H016
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H017
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H018
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H019
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H020
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H021
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H022
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H023
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H024
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H025
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H026
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H027
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H028
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H029
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H030
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H031
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H032
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H033
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H034
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H035
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H036
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H037
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H038
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H039
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H040
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H041
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H042
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H043
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H044
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H045
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H046
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H047
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H048
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H049
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H050
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H051
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H052
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H053
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H054
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H055
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H056
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H057
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H058
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H059
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H060
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H061
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H062
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H063
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H064
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H065
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H066
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H067
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H068
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H069
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H070
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H071
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H072
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H073
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H074
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H075
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H076
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H077
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H078
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H079
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H080
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H081
+import ShielddSecurity.CapturedThreeCallGlobalBinding173H082
+import ShielddSecurity.CompilerSelectedChunks172
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.CapturedThreeCallGlobalBinding173
+open Compiler CompilerAssertionBlock51 CompilerArithmeticTransport41 CompilerSelectedChunks172
+open TransferPoseidonThreeCallJoin15Program01 (arithmeticRows originalRows)
+theorem count : arithmeticRows.length=1572 := by decide +kernel
+def indexedSlices (rows : List Row) (offset : Nat) : List Nat → List (List Row)
+  | [] => []
+  | width::widths => (rows.drop offset).take width :: indexedSlices rows (offset+width) widths
+theorem indexed_slices (rows : List Row) (offset : Nat) (widths : List Nat) :
+    indexedSlices rows offset widths=slices (rows.drop offset) widths := by
+  induction widths generalizing offset with
+  | nil => rfl
+  | cons width widths ih => rw [indexedSlices,slices,ih,List.drop_drop]
+noncomputable def chunks : List (List Row) := indexedSlices arithmeticRows 0 [32,32,32,32,32,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,4]
+theorem partition : chunks.flatten=arithmeticRows := by
+  rw [chunks,indexed_slices,List.drop_zero,slices_flatten]
+  have total : [32,32,32,32,32,32,32,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,4].sum=1572 := by decide +kernel
+  rw [total]
+  apply List.take_of_length_le
+  exact Nat.le_of_eq count
+noncomputable def copyCheck : Bool := CompilerIndexedCopyConstant178.rowCheck copy
+  CapturedFullRelation58.rowAt 200770 200769 TransferPoseidonWidth3Call08Shared01.rawCopy
+theorem copy_checked : copyCheck=true := by decide +kernel
+variable {F : Type} [Field F] [CharP F p]
+theorem arithmetic_sound (rho : Nat → F) (satisfied : SatisfiesAt rho CapturedFullRelation58.rowAt 200770) :
+    Satisfies rho arithmeticRows := by
+  rw [←partition]
+  apply flatten_sound rho chunks
+  change AllSatisfied rho [CapturedJoinPack179Pilot32.rows,CapturedThreeCallGlobalBinding173D000.rows,CapturedThreeCallGlobalBinding173D001.rows,CapturedThreeCallGlobalBinding173D002.rows,CapturedThreeCallGlobalBinding173D003.rows,CapturedThreeCallGlobalBinding173D004.rows,CapturedThreeCallGlobalBinding173D005.rows,CapturedThreeCallGlobalBinding173F0.rows,CapturedThreeCallGlobalBinding173F1.rows,CapturedThreeCallGlobalBinding173H000.rows,CapturedThreeCallGlobalBinding173H001.rows,CapturedThreeCallGlobalBinding173H002.rows,CapturedThreeCallGlobalBinding173H003.rows,CapturedThreeCallGlobalBinding173H004.rows,CapturedThreeCallGlobalBinding173H005.rows,CapturedThreeCallGlobalBinding173H006.rows,CapturedThreeCallGlobalBinding173H007.rows,CapturedThreeCallGlobalBinding173H008.rows,CapturedThreeCallGlobalBinding173H009.rows,CapturedThreeCallGlobalBinding173H010.rows,CapturedThreeCallGlobalBinding173H011.rows,CapturedThreeCallGlobalBinding173H012.rows,CapturedThreeCallGlobalBinding173H013.rows,CapturedThreeCallGlobalBinding173H014.rows,CapturedThreeCallGlobalBinding173H015.rows,CapturedThreeCallGlobalBinding173H016.rows,CapturedThreeCallGlobalBinding173H017.rows,CapturedThreeCallGlobalBinding173H018.rows,CapturedThreeCallGlobalBinding173H019.rows,CapturedThreeCallGlobalBinding173H020.rows,CapturedThreeCallGlobalBinding173H021.rows,CapturedThreeCallGlobalBinding173H022.rows,CapturedThreeCallGlobalBinding173H023.rows,CapturedThreeCallGlobalBinding173H024.rows,CapturedThreeCallGlobalBinding173H025.rows,CapturedThreeCallGlobalBinding173H026.rows,CapturedThreeCallGlobalBinding173H027.rows,CapturedThreeCallGlobalBinding173H028.rows,CapturedThreeCallGlobalBinding173H029.rows,CapturedThreeCallGlobalBinding173H030.rows,CapturedThreeCallGlobalBinding173H031.rows,CapturedThreeCallGlobalBinding173H032.rows,CapturedThreeCallGlobalBinding173H033.rows,CapturedThreeCallGlobalBinding173H034.rows,CapturedThreeCallGlobalBinding173H035.rows,CapturedThreeCallGlobalBinding173H036.rows,CapturedThreeCallGlobalBinding173H037.rows,CapturedThreeCallGlobalBinding173H038.rows,CapturedThreeCallGlobalBinding173H039.rows,CapturedThreeCallGlobalBinding173H040.rows,CapturedThreeCallGlobalBinding173H041.rows,CapturedThreeCallGlobalBinding173H042.rows,CapturedThreeCallGlobalBinding173H043.rows,CapturedThreeCallGlobalBinding173H044.rows,CapturedThreeCallGlobalBinding173H045.rows,CapturedThreeCallGlobalBinding173H046.rows,CapturedThreeCallGlobalBinding173H047.rows,CapturedThreeCallGlobalBinding173H048.rows,CapturedThreeCallGlobalBinding173H049.rows,CapturedThreeCallGlobalBinding173H050.rows,CapturedThreeCallGlobalBinding173H051.rows,CapturedThreeCallGlobalBinding173H052.rows,CapturedThreeCallGlobalBinding173H053.rows,CapturedThreeCallGlobalBinding173H054.rows,CapturedThreeCallGlobalBinding173H055.rows,CapturedThreeCallGlobalBinding173H056.rows,CapturedThreeCallGlobalBinding173H057.rows,CapturedThreeCallGlobalBinding173H058.rows,CapturedThreeCallGlobalBinding173H059.rows,CapturedThreeCallGlobalBinding173H060.rows,CapturedThreeCallGlobalBinding173H061.rows,CapturedThreeCallGlobalBinding173H062.rows,CapturedThreeCallGlobalBinding173H063.rows,CapturedThreeCallGlobalBinding173H064.rows,CapturedThreeCallGlobalBinding173H065.rows,CapturedThreeCallGlobalBinding173H066.rows,CapturedThreeCallGlobalBinding173H067.rows,CapturedThreeCallGlobalBinding173H068.rows,CapturedThreeCallGlobalBinding173H069.rows,CapturedThreeCallGlobalBinding173H070.rows,CapturedThreeCallGlobalBinding173H071.rows,CapturedThreeCallGlobalBinding173H072.rows,CapturedThreeCallGlobalBinding173H073.rows,CapturedThreeCallGlobalBinding173H074.rows,CapturedThreeCallGlobalBinding173H075.rows,CapturedThreeCallGlobalBinding173H076.rows,CapturedThreeCallGlobalBinding173H077.rows,CapturedThreeCallGlobalBinding173H078.rows,CapturedThreeCallGlobalBinding173H079.rows,CapturedThreeCallGlobalBinding173H080.rows,CapturedThreeCallGlobalBinding173H081.rows,CapturedThreeCallGlobalBinding173H082.rows]
+  exact ⟨CapturedJoinPack179Pilot32.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173D000.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173D001.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173D002.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173D003.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173D004.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173D005.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173F0.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173F1.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H000.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H001.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H002.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H003.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H004.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H005.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H006.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H007.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H008.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H009.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H010.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H011.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H012.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H013.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H014.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H015.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H016.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H017.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H018.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H019.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H020.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H021.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H022.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H023.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H024.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H025.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H026.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H027.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H028.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H029.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H030.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H031.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H032.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H033.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H034.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H035.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H036.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H037.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H038.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H039.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H040.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H041.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H042.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H043.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H044.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H045.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H046.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H047.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H048.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H049.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H050.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H051.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H052.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H053.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H054.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H055.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H056.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H057.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H058.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H059.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H060.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H061.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H062.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H063.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H064.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H065.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H066.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H067.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H068.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H069.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H070.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H071.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H072.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H073.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H074.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H075.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H076.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H077.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H078.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H079.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H080.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H081.sound rho satisfied,⟨CapturedThreeCallGlobalBinding173H082.sound rho satisfied,True.intro⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩⟩
+
+theorem sound (rho : Nat → F) (satisfied : SatisfiesAt rho CapturedFullRelation58.rowAt 200770) :
+    Satisfies rho originalRows := by
+  have copying:=CompilerIndexedCopyConstant178.row_sound copy CapturedFullRelation58.rowAt 200770 200769
+    TransferPoseidonWidth3Call08Shared01.rawCopy copy_checked rho
+    ((CapturedFullRelation58.verifier_links rho satisfied).2.2) satisfied
+  intro row member
+  rcases List.mem_append.mp member with member|member
+  · exact arithmetic_sound rho satisfied row member
+  · exact copying row member
+end ShielddSecurity.CapturedThreeCallGlobalBinding173

@@ -1,0 +1,50 @@
+--- guard220.py
++++ guard223.py
+@@ -308,7 +308,8 @@
+     def verify_tree(shape):
+         roots,items,_,_=shape
+         actual={p for root in roots for p in phase_files(root)}
+-        actual.update(key for key in preserved_configs() if any(pathlib.Path(key).is_relative_to(pathlib.Path(root)) for root in roots))
++        require(all(root.startswith('/') and '..' not in root.split('/') and '//' not in root and not root.endswith('/') for root in roots), 'canonical historical directory roots')
++        actual.update(key for key in preserved_configs() if any(key.startswith(root+'/') for root in roots))
+         keys={roots[parent]+'/'+relative for parent,relative,_,_ in items}
+         additions=config['history_closed_keyset_additions']
+         require(set(additions)=={'/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution186/config01.json'}, 'exact single archived-keyset repair')
+@@ -515,6 +516,14 @@
+     read_pin(item['nested'])
+     return {expected:{'path':target}}
+ 
++def physical_preflight(config):
++    # Early admission only; full artifact census remains immediately pre-Popen
++    # under owned lock and after compilation and final receipt publication.
++    stat=os.statvfs(config['batch_root']); disk=stat.f_bavail*stat.f_frsize
++    memory=free_memory()
++    require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')
++    return {'free_memory_percent':memory,'free_disk_bytes':disk}
++
+ def bounds(config):
+     def history_aliases(identity):
+         h=strict_json(read_pin(identity)); result={}
+@@ -622,7 +631,7 @@
+     require(admission['prior_ledger_sha256']==digest and admission['prior_passed']==len(records), 'complete externally anchored prior state')
+     require(name==config['order'][len(records)], 'next exact named module; no replay')
+     require(admission['carried_failure_sha256']==config['carried_failure']['sha256'], 'externally anchored known failure')
+-    cancelled();pre=bounds(config);launch_reserve(pre)
++    cancelled();physical_preflight(config)
+     require(not any(pathlib.Path(p['comm']).name in {'lean','lake','cargo','rustc'} for p in processes().values()), 'one heavy physical-host lane')
+     runtime=pathlib.Path(config['runtime'])
+     if not runtime.exists():
+@@ -635,10 +644,11 @@
+         fcntl.flock(lockfd,fcntl.LOCK_EX|fcntl.LOCK_NB);locked=True
+         records,digest=state(config)
+         require(admission['prior_ledger_sha256']==digest and admission['prior_passed']==len(records), 'under-lock state')
+-        cancelled();pre=bounds(config);launch_reserve(pre)
++        cancelled();physical_preflight(config)
+         require(not any(pathlib.Path(p['comm']).name in {'lean','lake','cargo','rustc'} for p in processes().values()), 'under-lock host lane')
+         cache=pathlib.Path(config['own_cache'])
+-        if not cache.exists(): initialize_overlay(config)
++        if not cache.exists():
++            pre=bounds(config);launch_reserve(pre);initialize_overlay(config)
+         fixed_check(config,records) # actual PACKAGE lookup after layout exists, under held lock
+         cancelled();pre=bounds(config);launch_reserve(pre)
+         require(not any(pathlib.Path(p['comm']).name in {'lean','lake','cargo','rustc'} for p in processes().values()), 'immediate host lane')
