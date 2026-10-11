@@ -1,0 +1,146 @@
+ShielddSecurity.TransferBoundaryReaderSource01.Io : (O : Type) → Type
+'ShielddSecurity.TransferBoundaryReaderSource01.Io' does not depend on any axioms
+@ShielddSecurity.TransferBoundaryReaderSource01.readBoundary : {O : Type} →
+  (io : ShielddSecurity.TransferBoundaryReaderSource01.Io O) →
+    (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+      (state : ShielddSecurity.TransferStateDelta.State O) → Option.{0} ShielddSecurity.TransferReadback.Boundary
+'ShielddSecurity.TransferBoundaryReaderSource01.readBoundary' does not depend on any axioms
+@ShielddSecurity.TransferBoundaryReaderSource01.installReader : {O : Type} →
+  (stage : ShielddSecurity.TransferStageBoundarySource01.Io O) →
+    (io : ShielddSecurity.TransferBoundaryReaderSource01.Io O) →
+      (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) → ShielddSecurity.TransferStageBoundarySource01.Io O
+'ShielddSecurity.TransferBoundaryReaderSource01.installReader' does not depend on any axioms
+@ShielddSecurity.TransferBoundaryReaderSource01.successful_boundary_read_derives_actual_bytes_format_decode_height_and_roots : ∀
+  {O : Type} (io : ShielddSecurity.TransferBoundaryReaderSource01.Io O)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) (state : ShielddSecurity.TransferStateDelta.State O)
+  (boundary : ShielddSecurity.TransferReadback.Boundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (@ShielddSecurity.TransferBoundaryReaderSource01.readBoundary O io project state)
+      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary)),
+  @Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>
+    And
+      (@Eq.{1} Bool
+        (@ShielddSecurity.TransferBoundaryReaderSource01.Io.available O io state
+          (project ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes))
+        Bool.true)
+      (And
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+            (project ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes))
+          (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+        (And
+          (@Eq.{1} Bool
+            (@ShielddSecurity.TransferBoundaryReaderSource01.Io.available O io state
+              (project ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes))
+            Bool.true)
+          (And
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+              (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+                (project ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes))
+              (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                ShielddSecurity.TransferBoundaryKeyBinding01.formatValueBytes))
+            (And
+              (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                (@ShielddSecurity.TransferBoundaryReaderSource01.Io.decode O io bytes)
+                (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))
+              (And
+                (@Eq.{1} Bool (@Option.isSome.{0} Nat (ShielddSecurity.TransferReadback.Boundary.height boundary))
+                  Bool.true)
+                (And
+                  (@Eq.{1} Bool
+                    (@ShielddSecurity.TransferBoundaryReaderSource01.Io.available O io state
+                      (project ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes))
+                    Bool.true)
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                    (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+                      (project ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes))
+                    (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                      (@ShielddSecurity.TransferBoundaryReaderSource01.Io.commitment O io
+                        (ShielddSecurity.TransferReadback.Boundary.roots boundary))))))))))
+'ShielddSecurity.TransferBoundaryReaderSource01.successful_boundary_read_derives_actual_bytes_format_decode_height_and_roots' does not depend on any axioms
+@ShielddSecurity.TransferBoundaryReaderSource01.missing_boundary_refuses_without_default : ∀ {O : Type}
+  (io : ShielddSecurity.TransferBoundaryReaderSource01.Io O) (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (state : ShielddSecurity.TransferStateDelta.State O)
+  (missing :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+        (project ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes))
+      (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+    (@ShielddSecurity.TransferBoundaryReaderSource01.readBoundary O io project state)
+    (@Option.none.{0} ShielddSecurity.TransferReadback.Boundary)
+'ShielddSecurity.TransferBoundaryReaderSource01.missing_boundary_refuses_without_default' does not depend on any axioms
+@ShielddSecurity.TransferBoundaryReaderSource01.wrong_format_refuses_before_decoded_boundary : ∀ {O : Type}
+  (io : ShielddSecurity.TransferBoundaryReaderSource01.Io O) (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (state : ShielddSecurity.TransferStateDelta.State O)
+  (wrong :
+    @Ne.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+        (project ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+        ShielddSecurity.TransferBoundaryKeyBinding01.formatValueBytes)),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+    (@ShielddSecurity.TransferBoundaryReaderSource01.readBoundary O io project state)
+    (@Option.none.{0} ShielddSecurity.TransferReadback.Boundary)
+'ShielddSecurity.TransferBoundaryReaderSource01.wrong_format_refuses_before_decoded_boundary' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBoundaryReaderSource01.successful_noninitial_source_stage_derives_previous_application_format_and_root_bytes : ∀
+  {O : Type} (stage : ShielddSecurity.TransferStageBoundarySource01.Io O)
+  (io : ShielddSecurity.TransferBoundaryReaderSource01.Io O) (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (state : ShielddSecurity.TransferStateDelta.State O)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (staged : ShielddSecurity.TransferStateDelta.State O)
+  (noninitial :
+    @Eq.{1} Bool
+      (@Option.isSome.{0} Nat
+        (ShielddSecurity.TransferReadback.Boundary.height
+          (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous prepared)))
+      Bool.true)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferStageBoundarySource01.stageBoundary O
+        (@ShielddSecurity.TransferBoundaryReaderSource01.installReader O stage io project)
+        (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project) state prepared)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) staged)),
+  And (ShielddSecurity.TransferStageBoundarySource01.ValidTransition prepared)
+    (@Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>
+      And
+        (@Eq.{1} Bool
+          (@ShielddSecurity.TransferBoundaryReaderSource01.Io.available O io state
+            (project ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes))
+          Bool.true)
+        (And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+              (project ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes))
+            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+          (And
+            (@Eq.{1} Bool
+              (@ShielddSecurity.TransferBoundaryReaderSource01.Io.available O io state
+                (project ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes))
+              Bool.true)
+            (And
+              (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+                  (project ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes))
+                (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                  ShielddSecurity.TransferBoundaryKeyBinding01.formatValueBytes))
+              (And
+                (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                  (@ShielddSecurity.TransferBoundaryReaderSource01.Io.decode O io bytes)
+                  (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                    (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous prepared)))
+                (And
+                  (@Eq.{1} Bool
+                    (@ShielddSecurity.TransferBoundaryReaderSource01.Io.available O io state
+                      (project ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes))
+                    Bool.true)
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                    (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+                      (project ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes))
+                    (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                      (@ShielddSecurity.TransferBoundaryReaderSource01.Io.commitment O io
+                        (ShielddSecurity.TransferReadback.Boundary.roots
+                          (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous prepared)))))))))))
+'ShielddSecurity.TransferBoundaryReaderSource01.successful_noninitial_source_stage_derives_previous_application_format_and_root_bytes' does not depend on any axioms
