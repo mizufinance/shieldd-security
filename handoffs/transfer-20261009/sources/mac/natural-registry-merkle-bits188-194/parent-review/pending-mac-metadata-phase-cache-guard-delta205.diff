@@ -1,0 +1,20 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution202/maintained/guard.py
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution205/maintained/guard.py
+@@ -27,7 +27,7 @@
+     return json.loads(data, object_pairs_hook=pairs)
+ 
+ # Bounded lossless storage of inactive configuration JSON; proof inputs unchanged.
+-_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-18/archive-map01.json', 'bytes': 115712, 'sha256': 'c1c1d059e8e39ae1874556b33606715bbbee2251f5871407986321b066e8a935'}
++_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-19/archive-map01.json', 'bytes': 117560, 'sha256': '82690ba5a3478f336554e7f519c494ed576a77f55bfc1b295bed78d14dcd073b'}
+ _STORAGE = None
+ def preserved_configs():
+     global _STORAGE
+@@ -336,7 +336,7 @@
+ def fixed_check(config, records):
+     _CHECKED.clear()
+     carried_check(config)
+-    for identity in config['static_records'].values(): read_pin(identity)
++    for identity in config['static_records'].values(): checked_pin(identity)
+     for module_name,spec in config['modules'].items():
+         checked_pin(spec['source']);root=pathlib.Path(spec['source_root']);source=pathlib.Path(spec['source']['path'])
+         require(root.is_dir() and not root.is_symlink() and source==root/'ShielddSecurity'/(module_name+'.lean') and source.resolve()==source,'exact canonical per-module source root')

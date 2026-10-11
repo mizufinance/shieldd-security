@@ -1,0 +1,33 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution195/maintained/guard.py
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution198/maintained/guard.py
+@@ -197,7 +197,7 @@
+     commands=re.findall(r'(?m)^\s*(#[A-Za-z_]+)',source)
+     require(set(commands)<= {'#check','#print'}, 'source command whitelist')
+ 
+-def audit_log(data, names):
++def _parse_audit_log(data, names):
+     text=data.decode('utf-8'); remaining=text; records=[]
+     require(not re.search(r'(?m)^(?:/[^\n]*:[0-9]+:[0-9]+: *| *)(?:warning|info|trace|error|panic)\s*:|sorryAx|uncaught exception|internal exception',text,re.I), 'diagnostic refusal')
+     for name in names:
+@@ -210,6 +210,21 @@
+         records.append({'name':name,'full_type':full,'full_type_sha256':sha(full.encode()),'axioms':axioms})
+         remaining=remaining[:m.start()]+remaining[m.end():]
+     require(not remaining.strip(), 'unexplained/duplicate stdout')
++    return records
++
++_AUDIT_CACHE={}
++_AUDIT_CACHE_BYTES=0
++def audit_log(data,names):
++    global _AUDIT_CACHE_BYTES
++    key=(sha(data),tuple(names))
++    if key in _AUDIT_CACHE:
++        return strict_json(_AUDIT_CACHE[key])
++    records=_parse_audit_log(data,names)
++    encoded=json.dumps(records,sort_keys=True,separators=(',',':')).encode()
++    charge=len(encoded)+512+sum(len(n) for n in names)
++    if len(_AUDIT_CACHE)<2048 and _AUDIT_CACHE_BYTES+charge<=32*1024*1024:
++        _AUDIT_CACHE[key]=encoded
++        _AUDIT_CACHE_BYTES+=charge
+     return records
+ 
+ def carried_check(config):

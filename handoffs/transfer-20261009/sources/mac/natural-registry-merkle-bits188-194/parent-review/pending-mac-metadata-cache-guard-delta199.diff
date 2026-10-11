@@ -1,0 +1,23 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution198/maintained/guard.py
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution199/maintained/guard.py
+@@ -232,7 +232,6 @@
+     require(history['consumed_attempts']==config['carried_attempts'] and
+             history['consumed_lean_seconds']==config['carried_lean_seconds'], 'exact protected previous consumption')
+     def verify_tree(h):
+-        for parent in h.get('parents',[]): verify_tree(strict_json(read_pin(parent)))
+         actual={str(p) for root in h['roots'] for p in pathlib.Path(root).rglob('*')
+                 if p.is_file() or p.is_symlink()}
+         actual.update(key for key in preserved_configs() if any(pathlib.Path(key).is_relative_to(pathlib.Path(root)) for root in h['roots']))
+@@ -250,7 +249,11 @@
+                 require(p.is_symlink() and os.readlink(p)==identity['symlink_target'], 'protected historical symlink')
+                 checked_pin(identity['target'])
+             else: checked_pin(identity)
+-    verify_tree(history)
++    pending=[config['carried_failure']]
++    while pending:
++        h=strict_json(read_pin(pending.pop()))
++        verify_tree(h)
++        pending.extend(h.get('parents',[]))
+     receipts=[strict_json(read_pin(p)) for p in history['receipts']]
+     require([r['status'] for r in receipts]==history['expected_statuses'], 'only exact protected failures; no new failure exception')
+     require(len(receipts)==config['carried_attempts'] and sum(r['lean_seconds'] for r in receipts)==config['carried_lean_seconds'], 'complete previous attempt/time carry')

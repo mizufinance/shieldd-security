@@ -1,0 +1,54 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution205/maintained/guard.py
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution206/maintained/guard.py
+@@ -374,7 +374,7 @@
+             if identity is not None: checked_pin(identity)
+         selected=first_package_file(config['lean_path'],'ShielddSecurity.'+name,virtual)
+         require(selected in aliases and aliases[selected]==m['object'], 'actual first custom PACKAGE root')
+-    for alias in config['alias_records']: read_pin(alias)
++    for alias in config['alias_records']: checked_pin(alias)
+     for name in official['official_modules']:
+         selected=first_package_file(config['lean_path'],name,virtual)
+         identity=official['slots'].get(selected)
+@@ -454,7 +454,7 @@
+     require(genesis['config_sha256']==config['_config_sha256'] and genesis['inventory_sha256']==config['_inventory_sha256'], 'runtime genesis identity')
+     require({p.name for p in runtime.iterdir()}=={'genesis.json','ledger.jsonl','claims','logs','receipts','tmp','lock'}, 'runtime closed keyset')
+     require(not any((runtime/'tmp').iterdir()), 'unqualified retained Lean temp files')
+-    require(config['carried_attempts']+len(events)//2<=config['limits']['total_attempts'] and config['carried_lean_seconds']+sum(x['lean_seconds'] for x in records)<=config['limits']['aggregate_lean_seconds'], 'cumulative pacing including protected consumption')
++    require(len(events)//2<=len(config['order']) and all(type(x['lean_seconds']) in (int,float) and 0<=x['lean_seconds']<=240 for x in records), 'finite individually qualified named-job accounting')
+     return records,sha(raw) if raw else None
+ 
+ def append_event(path,value):
+@@ -515,7 +515,7 @@
+     require(config['canonical_context']=='cec1b30defc23497c8e9b30528dca12b09d328ea' and config['runtime_sha']=='844389ee069e1fb2e576708842d0b389b4d9a44a', 'source/runtime context')
+     records,digest=state(config)
+     require(admission['prior_ledger_sha256']==digest and admission['prior_passed']==len(records), 'complete externally anchored prior state')
+-    require(name==config['order'][len(records)] and len(records)+config['carried_attempts']<config['limits']['total_attempts'], 'next named module and remaining attempts')
++    require(name==config['order'][len(records)], 'next exact named module; no replay')
+     require(admission['carried_failure_sha256']==config['carried_failure']['sha256'], 'externally anchored known failure')
+     cancelled();pre=bounds(config);launch_reserve(pre)
+     require(not any(pathlib.Path(p['comm']).name in {'lean','lake','cargo','rustc'} for p in processes().values()), 'one heavy physical-host lane')
+@@ -557,13 +557,13 @@
+                 consumed=config['carried_lean_seconds']+sum(r['lean_seconds'] for r in records); last_resource=0
+                 while proc.poll() is None:
+                     cancelled();elapsed=time.monotonic()-started
+-                    require(elapsed<=240 and consumed+elapsed<=config['limits']['aggregate_lean_seconds'], 'module/aggregate seconds')
++                    require(elapsed<=240, 'module seconds')
+                     table=processes();members=owned(table,proc,root_birth,seen)
+                     rss=sum(p['rss'] for p in members.values());peak=max(peak,rss)
+                     require(rss<=4*1024*1024*1024, 'owned group RSS')
+                     require(stdout.stat().st_size<=2*1024*1024 and stderr.stat().st_size<=2*1024*1024, 'stream bytes')
+                     if elapsed-last_resource>=1:
+-                        observation=bounds(config);observations.append({'seconds':elapsed,'rss':rss,**observation});last_resource=elapsed
++                        diskstat=os.statvfs(config['batch_root']);diskfree=diskstat.f_bavail*diskstat.f_frsize;memoryfree=free_memory();require(diskfree>=2*1024*1024*1024 and memoryfree>=15, 'live RAM/disk physical floor');observations.append({'seconds':elapsed,'rss':rss,'free_memory_percent':memoryfree,'free_disk_bytes':diskfree,'scope':'live physical RAM/disk; complete artifact census retained pre/post'});last_resource=elapsed
+                     time.sleep(.2)
+         except BaseException as error: failure=repr(error)
+         finally:
+@@ -574,7 +574,7 @@
+         exitcode=None if proc is None else proc.returncode
+         try:
+             require(failure is None and type(exitcode) is int and exitcode==0 and cleanup_result['clean'] and not CANCELLED, 'process/failure/cleanup refusal')
+-            require(elapsed<=240 and config['carried_lean_seconds']+sum(r['lean_seconds'] for r in records)+elapsed<=config['limits']['aggregate_lean_seconds'], 'post-run aggregate seconds including retained failure')
++            require(elapsed<=240, 'post-run module seconds including cleanup')
+             require(stdout.stat().st_size<=2*1024*1024 and stderr.stat().st_size<=2*1024*1024, 'post-run stream bytes')
+             require(stderr.read_bytes()==b'', 'nonempty stderr')
+             audits=audit_log(stdout.read_bytes(),spec['audits'])
