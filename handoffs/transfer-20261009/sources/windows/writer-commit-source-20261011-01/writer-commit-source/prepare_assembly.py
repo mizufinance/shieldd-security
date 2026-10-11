@@ -1,0 +1,41 @@
+"""Seal source writer commit call ordering, interrupted owner and post-Ready capacity failure."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-writer-seal-discard-source-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-writer-seal-discard-source-20261011-01'", "CURRENT = DIAG / 'transfer-writer-commit-source-20261011-01'")
+s=s.replace('transfer-writer-seal-discard-source-checkpoint-20261011-01','transfer-writer-commit-source-checkpoint-20261011-01')
+s=s.replace('writer-seal-discard-source-endpoint','writer-commit-source-endpoint')
+replace("MODULE = 'TransferWriterSealDiscardSource01'", "MODULE = 'TransferWriterCommitSource01'")
+replace('assert len(fresh) == 13','assert len(fresh) == 9')
+replace("assert pool['objects'] == 48 and len(pool['inherited_public_reports']) == 473", "assert pool['objects'] == 49 and len(pool['inherited_public_reports']) == 486")
+replace("manager_endpoint = DIAG / 'transfer-writer-prepare-source-endpoint-20261011-02'", "manager_endpoint = DIAG / 'transfer-writer-seal-discard-source-endpoint-20261011-02'")
+replace("manager_archive = manager_endpoint / 'portable-windows-writer-prepare-source-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-writer-seal-discard-source-endpoint01.tar.xz'")
+replace('c8f1414f05eb69e1811c30d64619aa970023addf1e5ebe94ebed599111928262','eb36c3b1ec22e0bc8a63d0496795cd38098835713072e248fbaf13d33e45e7ad')
+replace("tar.extractfile('reports/fresh-14-complete-declarations.txt')", "tar.extractfile('reports/fresh-13-complete-declarations.txt')")
+replace('assert len(manager_reports) == 14','assert len(manager_reports) == 13')
+replace("'module': 'TransferWriterPrepareSource01'", "'module': 'TransferWriterSealDiscardSource01'")
+replace('assert len(combined_reports) == 473','assert len(combined_reports) == 486')
+replace('assert len(manager_selected) == 48','assert len(manager_selected) == 49')
+replace("reference = {'writer_prepare_source':", "reference = {'writer_seal_discard_source':")
+replace("'imported_complete_reports': 14", "'imported_complete_reports': 13")
+replace("'complete_owned_modules': 48, 'inherited_complete_reports': 473", "'complete_owned_modules': 49, 'inherited_complete_reports': 486")
+s=s.replace('Exact forty-eight-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source prepare/finite codec/reachable block/writer preparation/seal-discard/status closure, with 473 original inherited complete reports', 'Exact forty-nine-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source prepare/finite codec/reachable block/writer preparation/seal-discard/status/commit closure, with 486 original inherited complete reports')
+replace("add(stdout, 'reports/fresh-13-complete-declarations.txt'", "add(stdout, 'reports/fresh-9-complete-declarations.txt'")
+s=s.replace('source writer seal/discard/committed/status definitions and eight source branch/refusal/same-frozen input proofs','source writer commit program definitions and six ordered call/phase/owner refusal/post-Ready capacity/same-frozen input proofs')
+s=s.replace('complete forty-eight-module first import root','complete forty-nine-module first import root')
+s=s.replace('verified 473 inherited reports','verified 486 inherited reports')
+s=s.replace('SOURCE_WRITER_SEAL_DISCARD_COMMITTED_AND_OWNER_STATUS_GATES_QUALIFIED','SOURCE_WRITER_COMMIT_ORDER_INTERRUPTION_AND_POST_READY_CAPACITY_ERROR_QUALIFIED')
+replace("'fresh_definition_audits': 5", "'fresh_definition_audits': 3")
+replace("'fresh_theorem_audits': 8", "'fresh_theorem_audits': 6")
+replace("'fresh_complete_public_audits': 13", "'fresh_complete_public_audits': 9")
+replace("'inherited_complete_public_audits': 473", "'inherited_complete_public_audits': 486")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All nine declarations have original complete type/axiom reports. Participant completion derives prior calls and observed root match; pre-completion failure interrupts owner reads, while capacity error after completion preserves Ready/new committed boundary. Successful prepare/seal/commit retains original accepted inputs and prepared returned boundary. Native physical I/O/partial roots/batches/recovery/locks/owner/phase/durability remain interfaces; zero native/control/full certification credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 13, 'inherited_audits': 473", "'fresh_audits': 9, 'inherited_audits': 486")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':9,'inherited_reports':486,'owned_modules':49})
