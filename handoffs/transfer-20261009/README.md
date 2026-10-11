@@ -6,8 +6,7 @@ Full Transfer assurance remains OPEN.
 
 The desktop chat **Transfer proof** owns Windows proof/native builds. The new
 local GPT-6.1 Sol/high subagent owns the Mac build lane. This parent chat
-orchestrates integration and evidence acceptance; local Claude Opus 5.5 performs
-independent review. The stopped predecessor chats remain historical context.
+orchestrates integration and evidence acceptance; the parent performs independent review and local Claude Opus 5.5 is optional. The stopped predecessor chats remain historical context.
 One bounded heavy verification job may run on each physical machine, as
 explicitly authorized by the user. See [the completion plan](completion-plan.md).
 
@@ -68,3 +67,14 @@ local Sol 6.1/high, the desktop **Transfer proof** chat, and local Opus 5.5.
 This supersedes the earlier parent-only Mac arrangement. The former M15 worker
 remains retired; the new worker is a separate agent. Parent serializes pushes
 and verifies received source identities. No recurring coordination automation.
+
+## Active coordination update — 2026-10-11
+
+The same retained local Sol 6.1/high worker and desktop **Transfer proof** session
+own proof strategy, repairs and safe serial scheduling until full completion.
+The parent handles high-level review, exact evidence integration, serialized
+publication and final acceptance. Routine reviews and optional Opus do not gate
+worker progress. Existing physical memory, single-process, thread, heap, time
+and disk guards remain unchanged. Historical pause instructions have been
+revoked by the user. See the latest dated coordinator observation for current
+source selections and remaining interfaces; full Transfer remains OPEN.
