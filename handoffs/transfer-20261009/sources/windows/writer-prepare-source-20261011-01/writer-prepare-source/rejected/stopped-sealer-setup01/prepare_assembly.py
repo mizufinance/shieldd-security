@@ -1,0 +1,41 @@
+"""Seal exact source writer preparation call-order/phase and finite block input handoff."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-block-seal-join-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-block-seal-join-20261011-01'", "CURRENT = DIAG / 'transfer-writer-prepare-source-20261011-01'")
+s=s.replace('transfer-block-seal-join-checkpoint-20261011-01','transfer-writer-prepare-source-checkpoint-20261011-01')
+s=s.replace('block-seal-join-endpoint','writer-prepare-source-endpoint')
+replace("MODULE = 'TransferBlockSealJoin01'", "MODULE = 'TransferWriterPrepareSource01'")
+replace('assert len(fresh) == 5','assert len(fresh) == 14')
+replace("assert pool['objects'] == 43 and len(pool['inherited_public_reports']) == 425", "assert pool['objects'] == 47 and len(pool['inherited_public_reports']) == 459")
+replace("manager_endpoint = DIAG / 'transfer-pending-seal-source-endpoint-20261011-03'", "manager_endpoint = DIAG / 'transfer-reachable-pending-block-endpoint-20261011-03'")
+replace("manager_archive = manager_endpoint / 'portable-windows-pending-seal-source-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-reachable-pending-block-endpoint01.tar.xz'")
+replace('a93fe392cd82840fc4bb60b20ffc34c6f121e2655a71d05b37044325bba1ff2b','205fbb81ddd84f988c5659a4ca2f6dccf17b868869b5be90bf867b0ed716d147')
+replace("tar.extractfile('reports/fresh-13-complete-declarations.txt')", "tar.extractfile('reports/fresh-7-complete-declarations.txt')")
+replace('assert len(manager_reports) == 13','assert len(manager_reports) == 7')
+replace("'module': 'TransferPendingSealSource01'", "'module': 'TransferReachablePendingBlock01'")
+replace('assert len(combined_reports) == 425','assert len(combined_reports) == 459')
+replace('assert len(manager_selected) == 43','assert len(manager_selected) == 47')
+replace("reference = {'pending_seal_source':", "reference = {'reachable_pending_block':")
+replace("'imported_complete_reports': 13", "'imported_complete_reports': 7")
+replace("'complete_owned_modules': 43, 'inherited_complete_reports': 425", "'complete_owned_modules': 47, 'inherited_complete_reports': 459")
+s=s.replace('Exact forty-three-module whole/current pending/durable reader/source capacity/global block/one-shot seal closure, with 425 original inherited complete reports', 'Exact forty-seven-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source prepare/finite codec/reachable block/source writer preparation closure, with 459 original inherited complete reports')
+replace("add(stdout, 'reports/fresh-5-complete-declarations.txt'", "add(stdout, 'reports/fresh-14-complete-declarations.txt'")
+s=s.replace('five typed encoded-default/global block/open gate/one-shot frozen global input/refusal join proofs','source writer phase/data/program definitions and seven call-order/failure/exact finite global input handoff proofs')
+s=s.replace('complete forty-three-module first import root','complete forty-seven-module first import root')
+s=s.replace('verified 425 inherited reports','verified 459 inherited reports')
+s=s.replace('SOURCE_DEFAULT_OPEN_BLOCK_WALK_AND_ONE_SHOT_SEAL_DERIVE_FROZEN_GLOBAL_INPUTS_QUALIFIED','SOURCE_WRITER_PREPARE_CALL_ORDER_PHASE_AND_EXACT_FINITE_BLOCK_INPUT_HANDOFF_QUALIFIED')
+replace("'fresh_definition_audits': 0", "'fresh_definition_audits': 7")
+replace("'fresh_theorem_audits': 5", "'fresh_theorem_audits': 7")
+replace("'fresh_complete_public_audits': 5", "'fresh_complete_public_audits': 14")
+replace("'inherited_complete_public_audits': 425", "'inherited_complete_public_audits': 459")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All fourteen declarations have original complete type/axiom reports. Whole successful writer preparation derives all prior calls and observed transition/application-root outputs before its Prepared phase assignment; original accepted order and finite codec block global inputs follow. Failure phase preservation does not assert rollback of owned disposable state. Native typed values/async/phase/ownership/staged batch and durable intent/commit remain interfaces; zero native/control/full certification credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 5, 'inherited_audits': 425", "'fresh_audits': 14, 'inherited_audits': 459")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':14,'inherited_reports':459,'owned_modules':47})
