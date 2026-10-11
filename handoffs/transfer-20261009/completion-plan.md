@@ -1101,3 +1101,6 @@ Publish independently reviewed scalar-byte-decode original source model. 7 compl
 
 
 Publish independently reviewed scalar-choice-bit original source model. 8 complete original reports; exact independently accepted ancestry. Finite UInt64 zero/all-ones borrow mask cast to UInt8 and AND1 yields exact0/1; canonical success/refusal bit derives parsed integer below/at-or-above field modulus, exact serializer bytes derive one. Actual native Choice/CtOption/R2 payload conversion/Scalar invariant/primitives/compiler/full trace bindings owned OPEN Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed scalar-wide-product original source model. 7 complete original reports; exact independently accepted ancestry. Four-word schoolbook MAC rows produce exactly eight UInt64 words, their full integer product and radix^8 bound. Native sixteen-call shape and operand/retained-prefix row association independently matched exact authenticated library source; arithmetic model does not supply desired product/carry conclusions. Actual native primitive/compiler/library representation/full execution and Transfer remain owned OPEN. Combined replay and full Transfer remain OPEN.
