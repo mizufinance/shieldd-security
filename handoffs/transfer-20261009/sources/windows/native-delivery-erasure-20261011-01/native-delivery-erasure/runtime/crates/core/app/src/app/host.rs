@@ -1,0 +1,2427 @@
+use super::*;
+use shieldd_sdk_sct::CommitmentSource;
+
+use anyhow::{ensure, Context as _};
+use shieldd_sdk_asset::{asset, Value};
+use shieldd_sdk_compliance::{
+    AuditEffect, AuditEffectRecord, AuditLogWrite as _, AuditSource, ComplianceRegistryRead as _,
+    ComplianceRegistryWrite as _, UserAssetStatus, UserAssetStatusAction,
+};
+use shieldd_sdk_keys::Address;
+use shieldd_sdk_num::Amount;
+use shieldd_sdk_proto::execution_client::v1::{
+    apply_compliance_action_request, ApplyComplianceActionRequest, ApplyComplianceActionResponse,
+    DepositRequest, DepositResponse, HostSource as ProtoHostSource, SeizeNoteRequest,
+};
+use shieldd_sdk_sct::component::tree::VerificationExt as _;
+use shieldd_sdk_shielded_pool::component::{
+    AssetRegistry as _, AssetRegistryRead as _, NoteManager as _,
+};
+use shieldd_sdk_shielded_pool::{CapsuleReleaseRequest, HostWithdrawalDestination, NoteSeizure};
+use std::str::FromStr as _;
+
+const HOST_ACTION_SOURCE_PREFIX: &str = "application/host_action/source";
+const HOST_DEPOSIT_DOMAIN: &[u8] = b"shieldd.host_deposit";
+const HOST_COMPLIANCE_ACTION_DOMAIN: &[u8] = b"shieldd.host_compliance_action";
+const HOST_NOTE_SEIZURE_DOMAIN: &[u8] = b"shieldd.host_note_seizure";
+
+#[derive(Clone, Debug)]
+pub struct HostBlock {
+    pub block_id: [u8; 32],
+    pub height: i64,
+    pub time: Time,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum HostExecutionPhase {
+    Idle,
+    InitializedGenesis,
+    InitializedCheckpointGenesis,
+    InBlock,
+    EndedBlock,
+    SealedBlock,
+    CommitInterrupted,
+}
+
+#[derive(Clone, Debug, Default)]
+pub struct HostExecutionResponse {
+    pub events: Vec<abci::Event>,
+}
+
+#[derive(Clone, Debug, Default)]
+pub struct HostTxResponse {
+    pub code: u32,
+    pub data: Vec<u8>,
+    pub log: String,
+    pub info: String,
+    pub gas_wanted: i64,
+    pub gas_used: i64,
+    pub events: Vec<abci::Event>,
+    pub codespace: String,
+    pub withdrawals: Vec<HostWithdrawal>,
+}
+
+impl HostTxResponse {
+    pub const STALE_COMPLIANCE_SNAPSHOT: u32 = 2;
+
+    fn accepted(events: Vec<abci::Event>, withdrawals: Vec<HostWithdrawal>) -> Self {
+        Self {
+            events,
+            withdrawals,
+            ..Default::default()
+        }
+    }
+
+    fn rejected(error: anyhow::Error) -> Self {
+        Self {
+            code: if error.is::<shieldd_sdk_compliance::admission::StaleComplianceSnapshot>() {
+                Self::STALE_COMPLIANCE_SNAPSHOT
+            } else {
+                1
+            },
+            info: if error.is::<shieldd_sdk_compliance::admission::StaleComplianceSnapshot>() {
+                "stale_compliance_snapshot: explicit retry required".to_owned()
+            } else {
+                String::new()
+            },
+            log: format!("{error:#}"),
+            codespace: "shieldd".to_owned(),
+            ..Default::default()
+        }
+    }
+}
+
+/// Host-chain work emitted by an accepted shielded withdrawal.
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
+pub struct HostWithdrawal {
+    pub denom: String,
+    pub amount: Amount,
+    pub destination: HostWithdrawalDestination,
+}
+
+#[derive(Clone, Debug)]
+pub struct HostCommit {
+    pub root_hash: Vec<u8>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct HostCommittedState {
+    pub block_id: [u8; 32],
+    pub height: u64,
+    pub root_hash: Vec<u8>,
+}
+
+/// Drives Shieldd execution from a host chain.
+///
+/// This adapter uses host-only lifecycle hooks and leaves IBC to the host chain.
+pub struct HostExecution {
+    storage: Storage,
+    app: App,
+    stateless_cache: Arc<StatelessCache>,
+    phase: HostExecutionPhase,
+    writer: PermanentWriter,
+    block_id: Option<[u8; 32]>,
+}
+
+pub struct HostEndBlock {
+    pub events: Vec<abci::Event>,
+    pub prepared: CommitBoundary,
+}
+
+#[derive(Debug)]
+pub struct HostDepositResult {
+    pub response: DepositResponse,
+    pub events: Vec<abci::Event>,
+}
+
+#[derive(Debug)]
+pub struct HostComplianceActionResult {
+    pub response: ApplyComplianceActionResponse,
+    pub events: Vec<abci::Event>,
+}
+
+#[derive(Debug)]
+pub struct HostNoteSeizureResult {
+    pub source: ProtoHostSource,
+    pub replayed: bool,
+    pub withdrawal: HostWithdrawal,
+    pub current_status: UserAssetStatus,
+    pub freeze_generation: u64,
+    pub events: Vec<abci::Event>,
+}
+
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
+struct HostActionReceipt {
+    request_digest: [u8; 32],
+    result: HostActionReceiptResult,
+}
+
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
+enum HostActionReceiptResult {
+    Deposit {
+        deposit_id: [u8; 32],
+    },
+    Compliance {
+        previous_status: UserAssetStatus,
+        current_status: UserAssetStatus,
+        freeze_generation: u64,
+    },
+    NoteSeizure {
+        withdrawal: HostWithdrawal,
+        current_status: UserAssetStatus,
+        freeze_generation: u64,
+    },
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
+struct HostSource {
+    height: u64,
+    tx_hash: [u8; 32],
+    msg_index: u32,
+    tx_index: u32,
+}
+
+impl HostSource {
+    fn validate_height(&self, current_height: u64) -> Result<()> {
+        ensure!(
+            self.height == current_height,
+            "host source height {} does not match active block height {current_height}",
+            self.height
+        );
+        Ok(())
+    }
+
+    fn source_key(&self, chain_id: &str) -> String {
+        format!(
+            "{HOST_ACTION_SOURCE_PREFIX}/{}/{:020}/{:010}/{:010}",
+            hex::encode(chain_id.as_bytes()),
+            self.height,
+            self.tx_index,
+            self.msg_index,
+        )
+    }
+
+    fn hash_into(&self, hasher: &mut sha2::Sha256) {
+        hasher.update(self.height.to_be_bytes());
+        hasher.update(self.tx_index.to_be_bytes());
+        hash_bytes(hasher, &self.tx_hash);
+        hasher.update(self.msg_index.to_be_bytes());
+    }
+
+    fn audit_source(&self, chain_id: String, effect_index: u32) -> AuditSource {
+        AuditSource::Host {
+            chain_id,
+            height: self.height,
+            tx_hash: self.tx_hash,
+            tx_index: self.tx_index,
+            message_index: self.msg_index,
+            effect_index,
+        }
+    }
+}
+
+impl TryFrom<ProtoHostSource> for HostSource {
+    type Error = anyhow::Error;
+
+    fn try_from(source: ProtoHostSource) -> Result<Self> {
+        let tx_hash = source.tx_hash.try_into().map_err(|bytes: Vec<u8>| {
+            anyhow::anyhow!("host source tx_hash must be 32 bytes, got {}", bytes.len())
+        })?;
+        Ok(Self {
+            height: source.height,
+            tx_hash,
+            msg_index: source.msg_index,
+            tx_index: source.tx_index,
+        })
+    }
+}
+
+impl From<HostSource> for ProtoHostSource {
+    fn from(source: HostSource) -> Self {
+        Self {
+            height: source.height,
+            tx_hash: source.tx_hash.to_vec(),
+            msg_index: source.msg_index,
+            tx_index: source.tx_index,
+        }
+    }
+}
+
+impl HostExecution {
+    pub async fn new(storage: Storage, registry: Arc<Registry>) -> Result<Self> {
+        Self::with_cache(storage, Arc::new(StatelessCache::new()), registry).await
+    }
+
+    pub async fn with_cache(
+        storage: Storage,
+        stateless_cache: Arc<StatelessCache>,
+        registry: Arc<Registry>,
+    ) -> Result<Self> {
+        let config = if cfg!(test) {
+            shieldd_sdk_sct::permanent_nullifiers::Config {
+                buckets: 1024,
+                cache_mib: 1,
+                preallocate: false,
+            }
+        } else {
+            Default::default()
+        };
+        Self::with_config(storage, stateless_cache, registry, &config).await
+    }
+
+    pub async fn with_config(
+        storage: Storage,
+        stateless_cache: Arc<StatelessCache>,
+        registry: Arc<Registry>,
+        config: &shieldd_sdk_sct::permanent_nullifiers::Config,
+    ) -> Result<Self> {
+        crate::app_version::check_app_version(&storage).await?;
+        let writer = PermanentWriter::open(storage.clone(), config).await?;
+        Self::from_writer(storage, stateless_cache, registry, writer).await
+    }
+
+    #[cfg(test)]
+    pub(super) async fn with_reader(
+        storage: Storage,
+        stateless_cache: Arc<StatelessCache>,
+        registry: Arc<Registry>,
+        reader: shieldd_sdk_sct::permanent_nullifiers::Reader,
+    ) -> Result<Self> {
+        let writer = PermanentWriter::from_reader(storage.clone(), reader).await?;
+        Self::from_writer(storage, stateless_cache, registry, writer).await
+    }
+
+    async fn from_writer(
+        storage: Storage,
+        stateless_cache: Arc<StatelessCache>,
+        registry: Arc<Registry>,
+        writer: PermanentWriter,
+    ) -> Result<Self> {
+        let mut app = App::new(storage.latest_snapshot(), registry, writer.reader()).await?;
+        app.set_block_tx_indexing_mode(BlockTxIndexingMode::DeferredBatch);
+        Ok(Self {
+            storage,
+            app,
+            stateless_cache,
+            phase: HostExecutionPhase::Idle,
+            writer,
+            block_id: None,
+        })
+    }
+
+    pub fn nullifier_reader(&self) -> shieldd_sdk_sct::permanent_nullifiers::Reader {
+        self.writer.reader()
+    }
+
+    pub fn phase(&self) -> HostExecutionPhase {
+        self.phase
+    }
+
+    /// Initializes execution state from content genesis or verifies a checkpoint root.
+    ///
+    /// Content genesis initializes only host-supported execution components.
+    pub async fn init_genesis(&mut self, genesis: AppState) -> Result<()> {
+        ensure!(
+            self.phase == HostExecutionPhase::Idle,
+            "init_genesis called while host execution phase is {:?}",
+            self.phase
+        );
+
+        match &genesis {
+            AppState::Content(_) => {
+                ensure!(
+                    self.storage.latest_version() == u64::MAX,
+                    "database already initialized"
+                );
+                self.app.init_chain(&genesis).await;
+                self.phase = HostExecutionPhase::InitializedGenesis;
+            }
+            AppState::Checkpoint(expected_root_hash) => {
+                crate::app_version::check_app_version(&self.storage).await?;
+                ensure!(
+                    self.storage.latest_version() != u64::MAX,
+                    "checkpoint genesis requires initialized storage"
+                );
+                let expected_root_hash: [u8; 32] = expected_root_hash
+                    .as_slice()
+                    .try_into()
+                    .context("checkpoint genesis root hash must be 32 bytes")?;
+                let actual_root_hash = self.storage.latest_snapshot().root_hash().await?;
+                ensure!(
+                    actual_root_hash.0 == expected_root_hash,
+                    "checkpoint genesis root hash does not match storage root"
+                );
+                self.app.init_chain(&genesis).await;
+                self.phase = HostExecutionPhase::InitializedCheckpointGenesis;
+            }
+        }
+
+        Ok(())
+    }
+
+    pub async fn export_genesis(&self) -> Result<AppState> {
+        ensure!(
+            self.phase == HostExecutionPhase::Idle,
+            "export_genesis called while host execution phase is {:?}",
+            self.phase
+        );
+        ensure!(
+            self.storage.latest_version() != u64::MAX,
+            "cannot export genesis from uninitialized storage"
+        );
+
+        let root_hash = self.storage.latest_snapshot().root_hash().await?;
+        Ok(AppState::Checkpoint(root_hash.0.to_vec()))
+    }
+
+    /// Returns the host height and application root from the latest durable state.
+    pub async fn committed_state(&self) -> Result<HostCommittedState> {
+        ensure!(
+            self.storage.latest_version() != u64::MAX,
+            "cannot get committed state from uninitialized storage"
+        );
+
+        let snapshot = self.storage.latest_snapshot();
+        let height = snapshot.get_block_height().await?;
+        let root_hash = snapshot.root_hash().await?;
+        Ok(HostCommittedState {
+            block_id: shieldd_sdk_sct::permanent_nullifiers::read_boundary(&snapshot)
+                .await?
+                .block_id,
+            height,
+            root_hash: root_hash.0.to_vec(),
+        })
+    }
+
+    /// Starts execution from host-supplied height and time.
+    pub async fn begin_block(&mut self, block: HostBlock) -> Result<HostExecutionResponse> {
+        ensure!(
+            matches!(
+                self.phase,
+                HostExecutionPhase::Idle | HostExecutionPhase::InitializedCheckpointGenesis
+            ),
+            "begin_block called while host execution phase is {:?}",
+            self.phase
+        );
+
+        ensure!(
+            self.storage.latest_version() != u64::MAX,
+            "host storage must be initialized before begin_block"
+        );
+        crate::app_version::check_app_version(&self.storage).await?;
+        ensure!(block.height > 0, "begin_block height must be positive");
+        let height = u64::try_from(block.height).context("converting host block height")?;
+        let committed_height = self.storage.latest_snapshot().get_block_height().await?;
+        let expected_height = committed_height
+            .checked_add(1)
+            .context("host block height overflow")?;
+        ensure!(
+            height == expected_height,
+            "begin_block height must be {expected_height}, got {height}"
+        );
+        ensure!(
+            block.time.unix_timestamp() >= 0,
+            "begin_block time must not precede the Unix epoch"
+        );
+        let begin_block = cnidarium_component::BlockContext {
+            height,
+            time: block.time,
+        };
+        let events = self.app.begin_block(&begin_block).await?;
+        self.block_id = Some(block.block_id);
+        self.phase = HostExecutionPhase::InBlock;
+        Ok(HostExecutionResponse { events })
+    }
+
+    pub async fn deposit(&mut self, deposit: DepositRequest) -> Result<HostDepositResult> {
+        ensure!(
+            self.phase == HostExecutionPhase::InBlock,
+            "deposit called while host execution phase is {:?}",
+            self.phase
+        );
+
+        self.app.deposit(deposit).await
+    }
+
+    pub async fn apply_compliance_action(
+        &mut self,
+        request: ApplyComplianceActionRequest,
+    ) -> Result<HostComplianceActionResult> {
+        ensure!(
+            self.phase == HostExecutionPhase::InBlock,
+            "compliance action called while host execution phase is {:?}",
+            self.phase
+        );
+        self.app.apply_compliance_action(request).await
+    }
+
+    pub async fn seize_note(&mut self, request: SeizeNoteRequest) -> Result<HostNoteSeizureResult> {
+        ensure!(
+            self.phase == HostExecutionPhase::InBlock,
+            "note seizure called while host execution phase is {:?}",
+            self.phase
+        );
+        self.app.seize_note(request).await
+    }
+
+    pub async fn check_tx(&self, tx_bytes: &[u8]) -> Result<HostTxResponse> {
+        ensure!(
+            self.storage.latest_version() != u64::MAX,
+            "check_tx requires initialized storage"
+        );
+
+        Self::check_tx_at(
+            self.storage.latest_snapshot(),
+            self.app.registry.clone(),
+            self.stateless_cache.clone(),
+            self.writer.reader(),
+            tx_bytes,
+        )
+        .await
+    }
+
+    /// Validate against a caller-selected committed snapshot, never execution's pending delta.
+    pub async fn check_tx_at(
+        snapshot: cnidarium::Snapshot,
+        registry: Arc<Registry>,
+        cache: Arc<StatelessCache>,
+        reader: shieldd_sdk_sct::permanent_nullifiers::Reader,
+        tx_bytes: &[u8],
+    ) -> Result<HostTxResponse> {
+        let mut app = App::new(snapshot, registry, reader).await?;
+        app.set_block_tx_indexing_mode(BlockTxIndexingMode::NoIndex);
+        Ok(
+            match app.deliver_tx_bytes(tx_bytes, Some(cache.as_ref())).await {
+                Ok(events) => HostTxResponse::accepted(events, Vec::new()),
+                Err(error) => HostTxResponse::rejected(error),
+            },
+        )
+    }
+
+    pub async fn deliver_tx(&mut self, tx_bytes: &[u8]) -> Result<HostTxResponse> {
+        ensure!(
+            self.phase == HostExecutionPhase::InBlock,
+            "deliver_tx called while host execution phase is {:?}",
+            self.phase
+        );
+
+        let tx = match super::delivery::DecodedTransaction::decode(tx_bytes) {
+            Ok(tx) => tx,
+            Err(error) => return Ok(HostTxResponse::rejected(error)),
+        };
+        let withdrawals = match self.resolve_host_withdrawals(tx.tx()).await {
+            Ok(withdrawals) => withdrawals,
+            Err(error) => return Ok(HostTxResponse::rejected(error)),
+        };
+
+        Ok(
+            match self
+                .app
+                .deliver_decoded_tx(tx, Some(self.stateless_cache.as_ref()))
+                .await
+            {
+                Ok(events) => HostTxResponse::accepted(events, withdrawals),
+                Err(error) => HostTxResponse::rejected(error),
+            },
+        )
+    }
+
+    async fn resolve_host_withdrawals(&self, tx: &Transaction) -> Result<Vec<HostWithdrawal>> {
+        let mut withdrawals = Vec::new();
+        for action in tx.shielded_host_withdrawals() {
+            let value = action.body.withdrawal.value;
+            let metadata = self
+                .app
+                .state
+                .denom_metadata_by_asset(&value.asset_id)
+                .await
+                .ok_or_else(|| anyhow::anyhow!("host withdrawal asset is not registered"))?;
+            withdrawals.push(HostWithdrawal {
+                denom: metadata.base_denom().denom,
+                amount: value.amount,
+                destination: action.body.withdrawal.destination.clone(),
+            });
+        }
+        Ok(withdrawals)
+    }
+
+    /// Finishes the current host block without producing validator set updates.
+    pub async fn end_block(&mut self, height: i64) -> Result<HostEndBlock> {
+        ensure!(
+            self.phase == HostExecutionPhase::InBlock,
+            "end_block called while host execution phase is {:?}",
+            self.phase
+        );
+
+        let height = u64::try_from(height).context("invalid end block height")?;
+        ensure!(
+            height == self.app.state.get_block_height().await?,
+            "end_block height differs from the open block"
+        );
+        let events = self.app.end_block(height).await;
+        self.phase = HostExecutionPhase::CommitInterrupted;
+        let state = self.app.take_commit_state(&self.storage).await?;
+        let accepted = state.pending_nullifiers().iter().copied().collect();
+        let prepared = self
+            .writer
+            .prepare(
+                state,
+                height,
+                self.block_id.context("active block identity is missing")?,
+                accepted,
+            )
+            .await?;
+        self.phase = HostExecutionPhase::EndedBlock;
+        Ok(HostEndBlock { events, prepared })
+    }
+
+    pub fn prepared_commit(&self) -> Result<&CommitBoundary> {
+        self.writer.prepared()
+    }
+    pub fn previous_commit(&self) -> Result<&CommitBoundary> {
+        self.writer.committed()
+    }
+
+    /// Persist recovery intent before Bankd makes any durable change.
+    pub fn seal_commit(&mut self) -> Result<CommitBoundary> {
+        ensure!(
+            self.phase == HostExecutionPhase::EndedBlock,
+            "seal_commit requires a finalized block"
+        );
+        self.phase = HostExecutionPhase::CommitInterrupted;
+        let next = self.writer.seal()?;
+        self.phase = HostExecutionPhase::SealedBlock;
+        Ok(next)
+    }
+
+    /// Commit the exact root already authenticated and committed by Bankd.
+    pub async fn commit(&mut self) -> Result<HostCommit> {
+        ensure!(
+            matches!(
+                self.phase,
+                HostExecutionPhase::InitializedGenesis | HostExecutionPhase::SealedBlock
+            ),
+            "commit called while host execution phase is {:?}",
+            self.phase
+        );
+        let genesis = self.phase == HostExecutionPhase::InitializedGenesis;
+        self.phase = HostExecutionPhase::CommitInterrupted;
+        #[cfg(test)]
+        if let Some(extracted) = self.app.commit_extracted.take() {
+            extracted.notify_one();
+            std::future::pending::<()>().await;
+        }
+        if genesis {
+            let state = self.app.take_commit_state(&self.storage).await?;
+            let accepted = state.pending_nullifiers().iter().copied().collect();
+            // Genesis is the distinguished height-zero boundary, before a block hash exists.
+            self.writer.prepare(state, 0, [0; 32], accepted).await?;
+            self.writer.seal()?;
+        }
+        let committed = self.writer.commit()?;
+        self.app
+            .reset_committed(&self.storage, self.writer.reader());
+        self.block_id = None;
+        self.phase = HostExecutionPhase::Idle;
+        Ok(HostCommit {
+            root_hash: committed
+                .application_root
+                .context("committed application root is missing")?
+                .to_vec(),
+        })
+    }
+
+    pub async fn rollback(&mut self) -> Result<()> {
+        self.writer.recover_current().await?;
+        let mut app = App::new(
+            self.storage.latest_snapshot(),
+            self.app.registry.clone(),
+            self.writer.reader(),
+        )
+        .await?;
+        app.set_block_tx_indexing_mode(BlockTxIndexingMode::DeferredBatch);
+        self.app = app;
+        self.block_id = None;
+        self.phase = HostExecutionPhase::Idle;
+        Ok(())
+    }
+
+    /// Drops application snapshots before shutting down Cnidarium and RocksDB.
+    pub async fn release(self) {
+        let Self {
+            storage,
+            app,
+            stateless_cache,
+            phase: _,
+            writer,
+            block_id: _,
+        } = self;
+        drop(app);
+        drop(writer);
+        drop(stateless_cache);
+        storage.release().await;
+    }
+}
+
+impl App {
+    pub async fn deposit(&mut self, deposit: DepositRequest) -> Result<HostDepositResult> {
+        let mut state_tx = StateDelta::new(self.state.clone());
+        let chain_id = state_tx.get_chain_id().await?;
+        let parsed = ParsedHostDeposit::parse(chain_id, deposit)?;
+        let source_key = parsed.source_key();
+        let current_height = state_tx.get_block_height().await?;
+        parsed.source.validate_height(current_height)?;
+
+        if let Some(receipt) = load_host_action_receipt(&state_tx, &source_key).await? {
+            ensure!(
+                receipt.request_digest == parsed.deposit_id,
+                "host source was already used by a different request"
+            );
+            let HostActionReceiptResult::Deposit { deposit_id } = receipt.result else {
+                anyhow::bail!("host source was already used by a different action kind");
+            };
+            return Ok(HostDepositResult {
+                response: DepositResponse {
+                    deposit_id: deposit_id.to_vec(),
+                },
+                events: Vec::new(),
+            });
+        }
+
+        let deposit_id = parsed.deposit_id;
+        store_host_action_receipt(
+            &mut state_tx,
+            source_key,
+            &HostActionReceipt {
+                request_digest: parsed.deposit_id,
+                result: HostActionReceiptResult::Deposit { deposit_id },
+            },
+        )?;
+
+        state_tx.register_denom(&parsed.denom).await;
+        if state_tx.is_asset_regulated(parsed.value().asset_id).await? {
+            let leaf = state_tx
+                .get_user_leaf(&parsed.recipient, parsed.value().asset_id)
+                .await?
+                .ok_or_else(|| anyhow::anyhow!("regulated deposit recipient is not registered"))?;
+            ensure!(
+                leaf.status == UserAssetStatus::Active,
+                "regulated deposit recipient is not active"
+            );
+        }
+        state_tx
+            .mint_note(
+                parsed.value(),
+                &parsed.recipient,
+                // TODO(fdymylja): understand host-deposit indexing. This is a
+                // bankd tx effect, but compact blocks currently strip tx ids and
+                // clients do not know how to fetch the corresponding bankd tx.
+                CommitmentSource::Transaction {
+                    id: Some(deposit_id),
+                },
+            )
+            .await
+            .context("minting host deposit note")?;
+        state_tx
+            .append_audit_effect(AuditEffectRecord {
+                source: parsed.source.audit_source(parsed.chain_id.clone(), 0),
+                effect: AuditEffect::PublicDeposit {
+                    asset_id: parsed.value().asset_id,
+                    amount: parsed.amount.value(),
+                    recipient: parsed.recipient.clone(),
+                },
+            })
+            .await?;
+
+        let events = self.apply(state_tx);
+        Ok(HostDepositResult {
+            response: DepositResponse {
+                deposit_id: deposit_id.to_vec(),
+            },
+            events,
+        })
+    }
+
+    pub async fn apply_compliance_action(
+        &mut self,
+        request: ApplyComplianceActionRequest,
+    ) -> Result<HostComplianceActionResult> {
+        let mut state_tx = StateDelta::new(self.state.clone());
+        let chain_id = state_tx.get_chain_id().await?;
+        let parsed = ParsedHostComplianceAction::parse(chain_id, request)?;
+        let current_height = state_tx.get_block_height().await?;
+        parsed.source.validate_height(current_height)?;
+        let source_key = parsed.source_key();
+
+        if let Some(receipt) = load_host_action_receipt(&state_tx, &source_key).await? {
+            ensure!(
+                receipt.request_digest == parsed.request_digest,
+                "host source was already used by a different request"
+            );
+            let HostActionReceiptResult::Compliance {
+                previous_status,
+                current_status,
+                freeze_generation,
+            } = receipt.result
+            else {
+                anyhow::bail!("host source was already used by a different action kind");
+            };
+            return Ok(HostComplianceActionResult {
+                response: compliance_action_response(
+                    &parsed.source,
+                    previous_status,
+                    current_status,
+                    freeze_generation,
+                    true,
+                ),
+                events: Vec::new(),
+            });
+        }
+
+        let event = state_tx
+            .apply_user_status_action(
+                &parsed.address,
+                parsed.asset_id,
+                parsed.action,
+                parsed.source.height,
+            )
+            .await?;
+        let current_status = event.leaf.status;
+        let freeze_generation = event.leaf.freeze_generation;
+        state_tx
+            .append_audit_effect(AuditEffectRecord {
+                source: parsed.source.audit_source(parsed.chain_id.clone(), 0),
+                effect: AuditEffect::UserStatusChanged {
+                    asset_id: parsed.asset_id,
+                    address: parsed.address.clone(),
+                    status: event.leaf.status,
+                    freeze_generation: event.leaf.freeze_generation,
+                    frozen_since_height: event.leaf.frozen_since_height,
+                },
+            })
+            .await?;
+        store_host_action_receipt(
+            &mut state_tx,
+            source_key,
+            &HostActionReceipt {
+                request_digest: parsed.request_digest,
+                result: HostActionReceiptResult::Compliance {
+                    previous_status: event.previous_status,
+                    current_status,
+                    freeze_generation,
+                },
+            },
+        )?;
+
+        let response = compliance_action_response(
+            &parsed.source,
+            event.previous_status,
+            current_status,
+            freeze_generation,
+            false,
+        );
+        let events = self.apply(state_tx);
+        Ok(HostComplianceActionResult { response, events })
+    }
+
+    pub async fn seize_note(&mut self, request: SeizeNoteRequest) -> Result<HostNoteSeizureResult> {
+        let mut state_tx = StateDelta::new(self.state.clone());
+        let chain_id = state_tx.get_chain_id().await?;
+        let parsed = ParsedNoteSeizure::parse(chain_id, request)?;
+        let current_height = state_tx.get_block_height().await?;
+        parsed.source.validate_height(current_height)?;
+        let source_key = parsed.source_key();
+
+        if let Some(receipt) = load_host_action_receipt(&state_tx, &source_key).await? {
+            ensure!(
+                receipt.request_digest == parsed.request_digest,
+                "host source was already used by a different request"
+            );
+            let HostActionReceiptResult::NoteSeizure {
+                withdrawal,
+                current_status,
+                freeze_generation,
+            } = receipt.result
+            else {
+                anyhow::bail!("host source was already used by a different action kind");
+            };
+            return Ok(HostNoteSeizureResult {
+                source: parsed.source.into(),
+                replayed: true,
+                withdrawal,
+                current_status,
+                freeze_generation,
+                events: Vec::new(),
+            });
+        }
+
+        let seizure = &parsed.seizure;
+        let authorization = &seizure.authorization;
+        ensure!(
+            authorization.chain_id == parsed.chain_id,
+            "note seizure authorization is for a different chain"
+        );
+        ensure!(
+            current_height <= authorization.expiry_height,
+            "note seizure authorization has expired"
+        );
+
+        let policy = state_tx
+            .get_asset_policy(authorization.asset_id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("note seizure asset is not regulated"))?;
+        let seizure_authority = policy
+            .seizure_authority_vk
+            .as_ref()
+            .ok_or_else(|| anyhow::anyhow!("regulated asset has no seizure authority"))?;
+        authorization.verify_signature(seizure_authority, &seizure.authority_signature)?;
+
+        let leaf = state_tx
+            .get_user_leaf(&authorization.address, authorization.asset_id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("note seizure address is not registered for asset"))?;
+        ensure!(
+            matches!(
+                leaf.status,
+                UserAssetStatus::Frozen | UserAssetStatus::Seized
+            ),
+            "note seizure target is not frozen or seized"
+        );
+        ensure!(
+            leaf.freeze_generation == authorization.freeze_generation
+                && leaf.frozen_since_height == authorization.frozen_since_height,
+            "note seizure authorization does not match the current freeze generation"
+        );
+        ensure!(
+            leaf.rnk_commitment == seizure.rnk_commitment,
+            "note seizure RNK commitment differs from the current compliance leaf"
+        );
+
+        state_tx.check_claimed_anchor(seizure.anchor).await?;
+
+        let authorization_commitment = authorization.commitment()?;
+        let release = CapsuleReleaseRequest {
+            chain_id: authorization.chain_id.clone(),
+            ring_id: policy.ring.ring_id.clone(),
+            policy_id: policy.ring.policy_id.clone(),
+            permission: policy.ring.permission.clone(),
+            resource: policy.ring.resource.clone(),
+            ring_pk: policy.ring.ring_pk,
+            asset_id: authorization.asset_id,
+            address: authorization.address.clone(),
+            payload_key: policy.ring.audit_keys.payload,
+            audit_epoch: policy.ring.audit_keys.epoch,
+            note_commitment: authorization.note_commitment,
+            recovery_commitment: seizure.recovery_capsule.commitment(),
+            capsule_epk: seizure.recovery_capsule.epk,
+            authority_instruction_commitment: authorization_commitment,
+            expiry_height: authorization.expiry_height,
+        };
+        let recovered_shared = seizure.capsule_release.verify(&release)?;
+        let recovery_seed = seizure.recovery_capsule.c2
+            - shieldd_sdk_compliance::crypto::shared_secret(&recovered_shared);
+
+        seizure
+            .proof
+            .verify(&seizure.proof_public(recovery_seed), &self.registry)?;
+        state_tx
+            .check_nullifier_unspent(authorization.nullifier)
+            .await?;
+
+        let metadata = state_tx
+            .denom_metadata_by_asset(&authorization.asset_id)
+            .await
+            .ok_or_else(|| anyhow::anyhow!("note seizure asset has no host denomination"))?;
+        let withdrawal = HostWithdrawal {
+            denom: metadata.base_denom().denom,
+            amount: authorization.amount,
+            destination: authorization.withdrawal.destination.clone(),
+        };
+        let lifecycle = state_tx
+            .admit_note_seizure(
+                &authorization.address,
+                authorization.asset_id,
+                authorization.freeze_generation,
+                authorization.frozen_since_height,
+            )
+            .await?;
+        state_tx
+            .nullify(
+                authorization.nullifier,
+                CommitmentSource::Transaction {
+                    id: Some(parsed.request_digest),
+                },
+            )
+            .await?;
+        state_tx
+            .append_audit_effect(AuditEffectRecord {
+                source: parsed.source.audit_source(parsed.chain_id.clone(), 0),
+                effect: AuditEffect::NoteSeized {
+                    asset_id: authorization.asset_id,
+                    address: authorization.address.clone(),
+                    nullifier: authorization.nullifier.into(),
+                    amount: authorization.amount.value(),
+                    freeze_generation: authorization.freeze_generation,
+                    authorization_commitment,
+                },
+            })
+            .await?;
+        if lifecycle.status_change.is_some() {
+            state_tx
+                .append_audit_effect(AuditEffectRecord {
+                    source: parsed.source.audit_source(parsed.chain_id.clone(), 1),
+                    effect: AuditEffect::UserStatusChanged {
+                        asset_id: lifecycle.leaf.asset_id,
+                        address: lifecycle.leaf.address.clone(),
+                        status: lifecycle.leaf.status,
+                        freeze_generation: lifecycle.leaf.freeze_generation,
+                        frozen_since_height: lifecycle.leaf.frozen_since_height,
+                    },
+                })
+                .await?;
+        }
+        store_host_action_receipt(
+            &mut state_tx,
+            source_key,
+            &HostActionReceipt {
+                request_digest: parsed.request_digest,
+                result: HostActionReceiptResult::NoteSeizure {
+                    withdrawal: withdrawal.clone(),
+                    current_status: lifecycle.leaf.status,
+                    freeze_generation: lifecycle.leaf.freeze_generation,
+                },
+            },
+        )?;
+
+        let result = HostNoteSeizureResult {
+            source: parsed.source.into(),
+            replayed: false,
+            withdrawal,
+            current_status: lifecycle.leaf.status,
+            freeze_generation: lifecycle.leaf.freeze_generation,
+            events: self.apply(state_tx),
+        };
+        Ok(result)
+    }
+}
+
+struct ParsedHostDeposit {
+    chain_id: String,
+    source: HostSource,
+    denom: asset::Metadata,
+    amount: Amount,
+    recipient: Address,
+    deposit_id: [u8; 32],
+}
+
+impl ParsedHostDeposit {
+    fn parse(chain_id: String, deposit: DepositRequest) -> Result<Self> {
+        let source = deposit
+            .source
+            .context("host deposit source is required")?
+            .try_into()
+            .context("invalid host deposit source")?;
+
+        let denom: asset::Metadata = deposit
+            .denom
+            .as_str()
+            .try_into()
+            .with_context(|| format!("invalid host deposit denom {}", deposit.denom))?;
+        let amount = Amount::try_from(deposit.amount.clone())
+            .with_context(|| format!("invalid host deposit amount {}", deposit.amount))?;
+        ensure!(
+            amount > Amount::zero(),
+            "host deposit amount must be nonzero"
+        );
+        let recipient = Address::from_str(&deposit.recipient)
+            .with_context(|| "invalid host deposit recipient address")?;
+
+        let deposit_id = derive_deposit_id(&chain_id, &source, &denom, amount, &recipient);
+
+        Ok(Self {
+            chain_id,
+            source,
+            denom,
+            amount,
+            recipient,
+            deposit_id,
+        })
+    }
+
+    fn value(&self) -> Value {
+        Value {
+            amount: self.amount,
+            asset_id: self.denom.id(),
+        }
+    }
+
+    fn source_key(&self) -> String {
+        self.source.source_key(&self.chain_id)
+    }
+}
+
+struct ParsedHostComplianceAction {
+    chain_id: String,
+    source: HostSource,
+    address: Address,
+    asset_id: asset::Id,
+    action: UserAssetStatusAction,
+    request_digest: [u8; 32],
+}
+
+impl ParsedHostComplianceAction {
+    fn parse(chain_id: String, request: ApplyComplianceActionRequest) -> Result<Self> {
+        let source = request
+            .source
+            .context("host compliance action source is required")?
+            .try_into()
+            .context("invalid host compliance action source")?;
+        let (address, asset_id, action) = match request
+            .action
+            .context("host compliance action is required")?
+        {
+            apply_compliance_action_request::Action::Freeze(action) => (
+                action
+                    .address
+                    .context("freeze address is required")?
+                    .try_into()
+                    .context("invalid freeze address")?,
+                action
+                    .asset_id
+                    .context("freeze asset ID is required")?
+                    .try_into()
+                    .context("invalid freeze asset ID")?,
+                UserAssetStatusAction::Freeze,
+            ),
+            apply_compliance_action_request::Action::Unfreeze(action) => (
+                action
+                    .address
+                    .context("unfreeze address is required")?
+                    .try_into()
+                    .context("invalid unfreeze address")?,
+                action
+                    .asset_id
+                    .context("unfreeze asset ID is required")?
+                    .try_into()
+                    .context("invalid unfreeze asset ID")?,
+                UserAssetStatusAction::Unfreeze,
+            ),
+        };
+        let request_digest =
+            derive_compliance_action_digest(&chain_id, &source, &address, asset_id, action);
+        Ok(Self {
+            chain_id,
+            source,
+            address,
+            asset_id,
+            action,
+            request_digest,
+        })
+    }
+
+    fn source_key(&self) -> String {
+        self.source.source_key(&self.chain_id)
+    }
+}
+
+struct ParsedNoteSeizure {
+    chain_id: String,
+    source: HostSource,
+    seizure: NoteSeizure,
+    request_digest: [u8; 32],
+}
+
+impl ParsedNoteSeizure {
+    fn parse(chain_id: String, request: SeizeNoteRequest) -> Result<Self> {
+        let source = request
+            .source
+            .context("host note seizure source is required")?
+            .try_into()
+            .context("invalid host note seizure source")?;
+        let seizure_proto = request
+            .seizure
+            .context("host note seizure evidence is required")?;
+        let request_digest =
+            derive_note_seizure_digest(&chain_id, &source, &seizure_proto.encode_to_vec());
+        let seizure = seizure_proto
+            .try_into()
+            .context("invalid host note seizure evidence")?;
+        Ok(Self {
+            chain_id,
+            source,
+            seizure,
+            request_digest,
+        })
+    }
+
+    fn source_key(&self) -> String {
+        self.source.source_key(&self.chain_id)
+    }
+}
+
+async fn load_host_action_receipt<S: StateRead + ?Sized>(
+    state: &S,
+    key: &str,
+) -> Result<Option<HostActionReceipt>> {
+    state
+        .get_raw(key)
+        .await?
+        .map(|bytes| serde_json::from_slice(&bytes).context("decoding host action receipt"))
+        .transpose()
+}
+
+fn store_host_action_receipt<S: StateWrite + ?Sized>(
+    state: &mut S,
+    key: String,
+    receipt: &HostActionReceipt,
+) -> Result<()> {
+    state.put_raw(
+        key,
+        serde_json::to_vec(receipt).context("encoding host action receipt")?,
+    );
+    Ok(())
+}
+
+fn compliance_action_response(
+    source: &HostSource,
+    previous_status: UserAssetStatus,
+    current_status: UserAssetStatus,
+    freeze_generation: u64,
+    replayed: bool,
+) -> ApplyComplianceActionResponse {
+    ApplyComplianceActionResponse {
+        source: Some(source.clone().into()),
+        previous_status: shieldd_sdk_proto::core::component::compliance::v1::UserAssetStatus::from(
+            previous_status,
+        ) as i32,
+        current_status: shieldd_sdk_proto::core::component::compliance::v1::UserAssetStatus::from(
+            current_status,
+        ) as i32,
+        replayed,
+        freeze_generation,
+    }
+}
+
+fn derive_deposit_id(
+    chain_id: &str,
+    source: &HostSource,
+    denom: &asset::Metadata,
+    amount: Amount,
+    recipient: &Address,
+) -> [u8; 32] {
+    let mut hasher = sha2::Sha256::new();
+    hash_bytes(&mut hasher, HOST_DEPOSIT_DOMAIN);
+    hash_bytes(&mut hasher, chain_id.as_bytes());
+    source.hash_into(&mut hasher);
+    hash_bytes(&mut hasher, denom.to_string().as_bytes());
+    hash_bytes(&mut hasher, amount.to_string().as_bytes());
+    hash_bytes(&mut hasher, recipient.to_string().as_bytes());
+    hasher.finalize().into()
+}
+
+fn derive_compliance_action_digest(
+    chain_id: &str,
+    source: &HostSource,
+    address: &Address,
+    asset_id: asset::Id,
+    action: UserAssetStatusAction,
+) -> [u8; 32] {
+    let mut hasher = sha2::Sha256::new();
+    hash_bytes(&mut hasher, HOST_COMPLIANCE_ACTION_DOMAIN);
+    hash_bytes(&mut hasher, chain_id.as_bytes());
+    source.hash_into(&mut hasher);
+    hash_bytes(&mut hasher, &address.to_vec());
+    hash_bytes(&mut hasher, &asset_id.0.to_bytes());
+    hasher.update([match action {
+        UserAssetStatusAction::Freeze => 1,
+        UserAssetStatusAction::Unfreeze => 2,
+    }]);
+    hasher.finalize().into()
+}
+
+fn derive_note_seizure_digest(chain_id: &str, source: &HostSource, seizure: &[u8]) -> [u8; 32] {
+    let mut hasher = sha2::Sha256::new();
+    hash_bytes(&mut hasher, HOST_NOTE_SEIZURE_DOMAIN);
+    hash_bytes(&mut hasher, chain_id.as_bytes());
+    source.hash_into(&mut hasher);
+    hash_bytes(&mut hasher, seizure);
+    hasher.finalize().into()
+}
+
+fn hash_bytes(hasher: &mut sha2::Sha256, bytes: &[u8]) {
+    hasher.update((bytes.len() as u64).to_be_bytes());
+    hasher.update(bytes);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::genesis::{AppState, Content};
+    use crate::SUBSTORE_PREFIXES;
+    use cnidarium::TempStorage;
+    use cnidarium_component::ActionHandler as _;
+    use group::Group;
+    use reddsa::{sapling::SpendAuth, SigningKey};
+    use shieldd_sdk_asset::BASE_ASSET_DENOM;
+    use shieldd_sdk_compliance::{
+        compliance_nullifier_key_commitment, encrypt_withdrawal_with_material, AssetPolicy,
+        AuditLogRead as _, ComplianceLeaf, UNREGULATED_RING,
+    };
+    use shieldd_sdk_crypto::{Fr, SubgroupPoint as Element};
+    use shieldd_sdk_keys::keys::NullifierKey;
+    use shieldd_sdk_keys::symmetric::{OvkWrappedKey, WrappedMemoKey};
+    use shieldd_sdk_keys::test_keys;
+    use shieldd_sdk_proto::execution_client::v1::{FreezeUserAsset, UnfreezeUserAsset};
+    use shieldd_sdk_sct::component::tree::{SctManager as _, SctRead as _};
+    use shieldd_sdk_shielded_pool::{
+        CapsuleReleaseEvidence, CapsuleReleaseRequest, EvmCall,
+        HostExecution as DomainHostExecution, HostTransfer, HostWithdrawal as DomainHostWithdrawal,
+        NotePayload, NoteSeizure, NoteSeizureAuthorizationBody, NoteSeizureProofPrivate,
+        NoteSeizureProofPublic, RecoveryCapsule, Rseed, ShieldedHostWithdrawal,
+        ShieldedHostWithdrawalBody, ShieldedWithdrawalChangeBody, ShieldedWithdrawalFamilyId,
+        ShieldedWithdrawalProof,
+    };
+    use shieldd_sdk_tct as tct;
+    use std::ops::Deref as _;
+
+    async fn temp_storage() -> TempStorage {
+        TempStorage::new_with_prefixes(SUBSTORE_PREFIXES.to_vec())
+            .await
+            .expect("temp storage")
+    }
+
+    fn host_genesis() -> AppState {
+        AppState::Content(Content::default().with_chain_id("bankd-local".to_owned()))
+    }
+
+    fn host_block(height: i64) -> HostBlock {
+        HostBlock {
+            block_id: [height as u8; 32],
+            height,
+            time: Time::from_unix_timestamp(1_700_000_000, 0).expect("valid host block time"),
+        }
+    }
+
+    fn host_source_at(height: u64, msg_index: u32) -> ProtoHostSource {
+        ProtoHostSource {
+            height,
+            tx_hash: [7u8; 32].to_vec(),
+            tx_index: 0,
+            msg_index,
+        }
+    }
+
+    fn host_source(msg_index: u32) -> ProtoHostSource {
+        host_source_at(1, msg_index)
+    }
+
+    fn deposit_request(msg_index: u32) -> DepositRequest {
+        DepositRequest {
+            denom: BASE_ASSET_DENOM.to_string(),
+            amount: "100".to_owned(),
+            recipient: test_keys::ADDRESS_0.to_string(),
+            source: Some(host_source(msg_index)),
+        }
+    }
+
+    fn regulated_test_denom() -> asset::Metadata {
+        "host_regulated_test_asset"
+            .try_into()
+            .expect("custom test denom should parse as a base denom")
+    }
+
+    fn regulated_deposit_request(msg_index: u32) -> DepositRequest {
+        DepositRequest {
+            denom: regulated_test_denom().to_string(),
+            ..deposit_request(msg_index)
+        }
+    }
+
+    fn compliance_request(
+        source: ProtoHostSource,
+        action: UserAssetStatusAction,
+    ) -> ApplyComplianceActionRequest {
+        let address = Some(test_keys::ADDRESS_0.deref().clone().into());
+        let asset_id = Some(regulated_test_denom().id().into());
+        let action = match action {
+            UserAssetStatusAction::Freeze => {
+                apply_compliance_action_request::Action::Freeze(FreezeUserAsset {
+                    address,
+                    asset_id,
+                })
+            }
+            UserAssetStatusAction::Unfreeze => {
+                apply_compliance_action_request::Action::Unfreeze(UnfreezeUserAsset {
+                    address,
+                    asset_id,
+                })
+            }
+        };
+        ApplyComplianceActionRequest {
+            source: Some(source),
+            action: Some(action),
+        }
+    }
+
+    async fn register_regulated_test_user(host: &mut HostExecution) -> Result<()> {
+        let mut state_tx = StateDelta::new(host.app.state.clone());
+        let asset_id = regulated_test_denom().id();
+        state_tx
+            .test_only_register_asset(
+                asset_id,
+                AssetPolicy::for_test(
+                    shieldd_sdk_crypto::SubgroupPoint::generator(),
+                    u128::MAX,
+                    shieldd_sdk_crypto::SubgroupPoint::generator(),
+                ),
+                true,
+            )
+            .await?;
+        state_tx
+            .test_only_add_compliance_leaf(ComplianceLeaf::registered_for_test(
+                test_keys::ADDRESS_0.deref().clone(),
+                asset_id,
+            ))
+            .await?;
+        host.app.apply(state_tx);
+        Ok(())
+    }
+
+    fn host_withdrawal_action() -> ShieldedHostWithdrawal {
+        ShieldedHostWithdrawal {
+            body: ShieldedHostWithdrawalBody {
+                rk: *shieldd_sdk_keys::test_keys::FULL_VIEWING_KEY.spend_verification_key(),
+                family_id: ShieldedWithdrawalFamilyId::Canonical,
+                anchor: shieldd_sdk_tct::Tree::default().root(),
+                balance_commitment: Default::default(),
+                inputs: Vec::new(),
+                withdrawal: DomainHostWithdrawal {
+                    value: Value {
+                        amount: 42u64.into(),
+                        asset_id: BASE_ASSET_DENOM.id(),
+                    },
+                    destination: HostWithdrawalDestination::Transfer(HostTransfer {
+                        recipient: "bank1recipient".to_owned(),
+                    }),
+                },
+                change_output: ShieldedWithdrawalChangeBody {
+                    note_payload: NotePayload::dummy(),
+                    wrapped_memo_key: WrappedMemoKey([0u8; 48]),
+                    ovk_wrapped_key: OvkWrappedKey([0u8; 48]),
+                },
+                target_timestamp: 0,
+                compliance_anchor: shieldd_sdk_tct::StateCommitment(shieldd_sdk_crypto::Fq::from(
+                    0u64,
+                )),
+                asset_anchor: shieldd_sdk_tct::StateCommitment(shieldd_sdk_crypto::Fq::from(0u64)),
+                routing_tag: Default::default(),
+                routing_parameter_set_id: shieldd_sdk_crypto::Fq::from(0u64),
+                withdrawal_compliance_ciphertext: encrypt_withdrawal_with_material(
+                    *UNREGULATED_RING,
+                    test_keys::ADDRESS_0.deref(),
+                    shieldd_sdk_crypto::Fq::from(1u64),
+                    shieldd_sdk_crypto::Fr::from(1u64),
+                )
+                .expect("valid test withdrawal compliance ciphertext")
+                .ciphertext,
+                volume_accumulator:
+                    shieldd_sdk_shielded_pool::VolumeAccumulatorPayload::canonical_fee_funding(),
+            },
+            auth_sig: [0; 64].into(),
+            proof: ShieldedWithdrawalProof::default(),
+        }
+    }
+
+    fn host_withdrawal_transaction() -> Transaction {
+        let mut tx = Transaction::default();
+        tx.transaction_body.actions =
+            vec![Action::ShieldedHostWithdrawal(host_withdrawal_action())];
+        tx
+    }
+
+    #[tokio::test]
+    async fn rollback_does_not_import_another_registry() -> Result<()> {
+        use cnidarium::{StateDelta, StateRead, StateWrite};
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        let mut changed = StateDelta::new(storage.latest_snapshot());
+        changed.put_raw(crate::registry_binding::KEY.into(), vec![0; 32]);
+        storage.commit(changed).await?;
+        assert!(host.rollback().await.is_err());
+        assert!(host
+            .app
+            .state
+            .get_raw(crate::registry_binding::KEY)
+            .await?
+            .is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn note_seizure_receipt_survives_storage_roundtrip() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut state = StateDelta::new(storage.latest_snapshot());
+        let receipt = HostActionReceipt {
+            request_digest: [7u8; 32],
+            result: HostActionReceiptResult::NoteSeizure {
+                withdrawal: HostWithdrawal {
+                    denom: regulated_test_denom().to_string(),
+                    amount: Amount::from(42u64),
+                    destination: HostWithdrawalDestination::Transfer(HostTransfer {
+                        recipient: "bank1seizureauthority".to_owned(),
+                    }),
+                },
+                current_status: UserAssetStatus::Seized,
+                freeze_generation: 1,
+            },
+        };
+        store_host_action_receipt(&mut state, "test/receipt".to_owned(), &receipt)?;
+        storage.commit(state).await?;
+        let loaded = load_host_action_receipt(&storage.latest_snapshot(), "test/receipt")
+            .await?
+            .context("stored receipt")?;
+        assert_eq!(loaded.request_digest, receipt.request_digest);
+        let HostActionReceiptResult::NoteSeizure {
+            withdrawal,
+            current_status,
+            freeze_generation,
+        } = loaded.result
+        else {
+            anyhow::bail!("wrong receipt kind");
+        };
+        assert_eq!(withdrawal.amount, Amount::from(42u64));
+        assert_eq!(current_status, UserAssetStatus::Seized);
+        assert_eq!(freeze_generation, 1);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn begin_block_rejects_pre_epoch_time_without_mutation() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        let stored_version = storage.latest_version();
+        let mut block = host_block(1);
+        block.time = Time::from_unix_timestamp(-1, 0)?;
+        assert!(host.begin_block(block).await.is_err());
+        assert_eq!(host.phase(), HostExecutionPhase::Idle);
+        assert_eq!(host.app.state.get_block_height().await?, 0);
+        assert_eq!(storage.latest_version(), stored_version);
+        host.begin_block(host_block(1)).await?;
+        assert_eq!(host.phase(), HostExecutionPhase::InBlock);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn begin_block_rejects_backward_time_and_rolls_back_genesis_snapshot() -> Result<()> {
+        use shieldd_sdk_compliance::admission::state as admission;
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        assert!(admission::current(&*host.app.state).await?.is_none());
+        let mut first = host_block(1);
+        first.time = Time::from_unix_timestamp(1000, 0)?;
+        host.begin_block(first).await?;
+        assert_eq!(
+            admission::current(&*host.app.state)
+                .await?
+                .unwrap()
+                .observed_time_seconds,
+            1000
+        );
+        host.rollback().await?;
+        assert!(admission::current(&*host.app.state).await?.is_none());
+        let mut first = host_block(1);
+        first.time = Time::from_unix_timestamp(2000, 0)?;
+        host.begin_block(first).await?;
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        let version = storage.latest_version();
+        let mut next = host_block(2);
+        next.time = Time::from_unix_timestamp(1999, 0)?;
+        assert!(host
+            .begin_block(next)
+            .await
+            .unwrap_err()
+            .to_string()
+            .contains("parent block time"));
+        assert!(
+            host.app
+                .begin_block(&cnidarium_component::BlockContext {
+                    height: 2,
+                    time: Time::from_unix_timestamp(1999, 0)?,
+                })
+                .await
+                .is_err(),
+            "direct execution must also reject backward time"
+        );
+        assert_eq!(host.app.state.get_block_height().await?, 1);
+        assert_eq!(host.phase(), HostExecutionPhase::Idle);
+        assert_eq!(storage.latest_version(), version);
+        let mut next = host_block(2);
+        next.time = Time::from_unix_timestamp(2000, 0)?;
+        host.begin_block(next).await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn begin_block_rejects_incompatible_state_without_mutation() -> Result<()> {
+        use cnidarium::StateWrite;
+        use shieldd_sdk_proto::StateWriteProto;
+        for version in [None, Some(crate::APP_VERSION - 1)] {
+            let storage = temp_storage().await;
+            let mut host =
+                HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+            host.init_genesis(host_genesis()).await?;
+            host.commit().await?;
+            drop(host);
+            let mut state = StateDelta::new(storage.latest_snapshot());
+            let key = crate::app::state_key::app_version::safeguard()
+                .as_bytes()
+                .to_vec();
+            match version {
+                Some(version) => state.nonverifiable_put_proto(key, version),
+                None => state.nonverifiable_delete(key),
+            }
+            storage.commit(state).await?;
+            let stored_version = storage.latest_version();
+            assert!(
+                HostExecution::new(storage.deref().clone(), crate::app::tests::registry())
+                    .await
+                    .is_err(),
+                "incompatible state must be rejected before opening execution"
+            );
+            assert_eq!(storage.latest_version(), stored_version);
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn deposit_mints_note_and_exact_replay_returns_same_result() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+
+        let mut request = deposit_request(0);
+        request.source = Some(host_source_at(1, 0));
+        let first = host.deposit(request.clone()).await?;
+        assert_eq!(first.response.deposit_id.len(), 32);
+        assert!(!first.events.is_empty());
+
+        let replay = host.deposit(request).await?;
+        assert_eq!(replay.response.deposit_id, first.response.deposit_id);
+        assert!(replay.events.is_empty());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn compliance_actions_are_typed_atomic_and_replay_safe() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+        use shieldd_sdk_compliance::admission::state as admission;
+        let genesis_pair = admission::current(&*host.app.state)
+            .await?
+            .context("genesis pair stamped at begin block")?;
+        register_regulated_test_user(&mut host).await?;
+
+        // Registration leaves the recorded old nonmembership snapshot usable.
+        admission::validate(
+            &*host.app.state,
+            &genesis_pair.user_root,
+            &genesis_pair.asset_root,
+        )
+        .await?;
+        let failed_source = host_source_at(1, 0);
+        let failed = host
+            .apply_compliance_action(compliance_request(
+                failed_source.clone(),
+                UserAssetStatusAction::Unfreeze,
+            ))
+            .await
+            .expect_err("an active user cannot be unfrozen");
+        assert!(failed.to_string().contains("only a frozen user asset"));
+
+        let first = host
+            .apply_compliance_action(compliance_request(
+                failed_source.clone(),
+                UserAssetStatusAction::Freeze,
+            ))
+            .await?;
+        assert_eq!(first.response.source, Some(failed_source.clone()));
+        assert_eq!(first.response.previous_status, 1);
+        assert_eq!(first.response.current_status, 2);
+        assert!(!first.response.replayed);
+
+        assert_eq!(admission::epoch(&*host.app.state).await?, 1);
+        let stale = admission::validate(
+            &*host.app.state,
+            &genesis_pair.user_root,
+            &genesis_pair.asset_root,
+        )
+        .await
+        .unwrap_err();
+        let rejected = HostTxResponse::rejected(stale.context("executing cached transaction"));
+        assert_eq!(rejected.code, 2);
+        assert!(rejected.log.contains("reprove and reauthorize"));
+        let replay = host
+            .apply_compliance_action(compliance_request(
+                failed_source.clone(),
+                UserAssetStatusAction::Freeze,
+            ))
+            .await?;
+        assert_eq!(replay.response.source, Some(failed_source));
+        assert!(replay.response.replayed);
+        assert!(replay.events.is_empty());
+
+        let conflict = host
+            .apply_compliance_action(compliance_request(
+                host_source_at(1, 0),
+                UserAssetStatusAction::Unfreeze,
+            ))
+            .await
+            .expect_err("a host source cannot name a different successful action");
+        assert!(conflict.to_string().contains("different request"));
+
+        let frozen_deposit = host.deposit(regulated_deposit_request(1)).await;
+        assert!(frozen_deposit
+            .expect_err("regulated deposits to frozen users must fail")
+            .to_string()
+            .contains("not active"));
+
+        let unfreeze = host
+            .apply_compliance_action(compliance_request(
+                host_source_at(1, 2),
+                UserAssetStatusAction::Unfreeze,
+            ))
+            .await?;
+        assert_eq!(unfreeze.response.previous_status, 2);
+        assert_eq!(unfreeze.response.current_status, 1);
+        assert_eq!(
+            admission::epoch(&*host.app.state).await?,
+            1,
+            "replay and unfreeze do not advance the barrier"
+        );
+        assert!(admission::validate(
+            &*host.app.state,
+            &genesis_pair.user_root,
+            &genesis_pair.asset_root
+        )
+        .await
+        .is_err());
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        let checkpoint = host.export_genesis().await?;
+        let saved_pair = admission::current(&storage.latest_snapshot())
+            .await?
+            .context("committed pair")?;
+        drop(host);
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(checkpoint).await?;
+        assert_eq!(
+            admission::current(&*host.app.state).await?,
+            Some(saved_pair.clone())
+        );
+        assert_eq!(admission::epoch(&*host.app.state).await?, 1);
+        // Abandon a real freeze, then replay it from the same parent.
+        host.begin_block(host_block(2)).await?;
+        let request = compliance_request(host_source_at(2, 0), UserAssetStatusAction::Freeze);
+        host.apply_compliance_action(request.clone()).await?;
+        assert_eq!(admission::epoch(&*host.app.state).await?, 2);
+        host.rollback().await?;
+        assert_eq!(admission::epoch(&*host.app.state).await?, 1);
+        assert_eq!(
+            admission::current(&*host.app.state).await?,
+            Some(saved_pair)
+        );
+        host.begin_block(host_block(2)).await?;
+        host.apply_compliance_action(request).await?;
+        assert_eq!(admission::epoch(&*host.app.state).await?, 2);
+        host.end_block(2).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[ignore = "requires local Pari keys and actual proof generation"]
+    async fn note_seizure_verifies_capsule_release_and_commits_once() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+
+        let address = test_keys::ADDRESS_0.deref().clone();
+        let denom = regulated_test_denom();
+        let asset_id = denom.id();
+        let amount = Amount::from(42u64);
+        let payload_secret = shieldd_sdk_crypto::Fr::from(201u64);
+        let payload_key = *shieldd_sdk_crypto::generators::SPEND_AUTH * payload_secret;
+        let rnk = shieldd_sdk_crypto::Fq::from(1u64);
+        let authority_sk = SigningKey::<SpendAuth>::try_from(Fr::from(1u64).to_bytes()).unwrap();
+        let policy = AssetPolicy::for_test(Element::generator(), u128::MAX, Element::generator());
+        let leaf = ComplianceLeaf::registered_for_test(address.clone(), asset_id);
+
+        let rseed = Rseed([17u8; 32]);
+        let note_blinding = rseed.derive_note_blinding();
+        let (recovery_capsule, opening) =
+            RecoveryCapsule::encrypt(amount, note_blinding, payload_key, rseed)?;
+        let note_commitment = shieldd_sdk_shielded_pool::note::commitment_from_address(
+            address.clone(),
+            Value { amount, asset_id },
+            note_blinding,
+            recovery_capsule.commitment(),
+        );
+
+        let mut state_tx = StateDelta::new(host.app.state.clone());
+        state_tx.register_denom(&denom).await;
+        state_tx
+            .test_only_register_asset(asset_id, policy.clone(), true)
+            .await?;
+        state_tx.test_only_add_compliance_leaf(leaf).await?;
+        let mut witness_tree = state_tx.get_sct().await;
+        witness_tree.insert(tct::Witness::Keep, note_commitment)?;
+        state_tx.write_sct_cache(witness_tree);
+        host.app.apply(state_tx);
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        let state_commitment_proof = host
+            .app
+            .state
+            .get_sct()
+            .await
+            .witness(note_commitment)
+            .context("witnessing the seized note")?;
+        host.begin_block(host_block(2)).await?;
+        let mut state_tx = StateDelta::new(host.app.state.clone());
+        let leaf = state_tx
+            .apply_user_status_action(&address, asset_id, UserAssetStatusAction::Freeze, 2)
+            .await?
+            .leaf;
+        host.app.apply(state_tx);
+
+        let nullifier = shieldd_sdk_sct::Nullifier::derive(
+            &NullifierKey(rnk),
+            state_commitment_proof.position(),
+            &note_commitment,
+        );
+        let authorization = NoteSeizureAuthorizationBody {
+            chain_id: "bankd-local".to_owned(),
+            note_commitment,
+            nullifier,
+            address: address.clone(),
+            asset_id,
+            amount,
+            freeze_generation: leaf.freeze_generation,
+            frozen_since_height: leaf.frozen_since_height,
+            withdrawal: DomainHostWithdrawal {
+                value: Value { amount, asset_id },
+                destination: HostWithdrawalDestination::Transfer(HostTransfer {
+                    recipient: "bank1seizureauthority".to_owned(),
+                }),
+            },
+            expiry_height: 20,
+        };
+        let authority_instruction_commitment = authorization.commitment()?;
+        let release_request = CapsuleReleaseRequest {
+            chain_id: authorization.chain_id.clone(),
+            ring_id: policy.ring.ring_id.clone(),
+            policy_id: policy.ring.policy_id.clone(),
+            permission: policy.ring.permission.clone(),
+            resource: policy.ring.resource.clone(),
+            ring_pk: policy.ring.ring_pk,
+            asset_id,
+            address: address.clone(),
+            payload_key,
+            audit_epoch: policy.ring.audit_keys.epoch,
+            note_commitment,
+            recovery_commitment: recovery_capsule.commitment(),
+            capsule_epk: recovery_capsule.epk,
+            authority_instruction_commitment,
+            expiry_height: authorization.expiry_height,
+        };
+        let capsule_release =
+            CapsuleReleaseEvidence::from_payload_secret_for_test(&release_request, payload_secret);
+        let proof_public = NoteSeizureProofPublic {
+            authorization: authorization.clone(),
+            anchor: state_commitment_proof.root(),
+            recovery_capsule: recovery_capsule.clone(),
+            recovery_seed: opening.seed,
+            rnk_commitment: compliance_nullifier_key_commitment(rnk),
+        };
+        let proof_private = NoteSeizureProofPrivate {
+            note_blinding,
+            state_commitment_proof,
+            rnk,
+        };
+        let proof = shieldd_sdk_shielded_pool::NoteSeizureProof::prove(
+            proof_public.clone(),
+            proof_private,
+            &crate::app::tests::registry(),
+        )?;
+        let seizure = NoteSeizure {
+            authorization: authorization.clone(),
+            authority_signature: authority_sk
+                .sign(rand_core::OsRng, &authorization.signing_bytes()?),
+            anchor: proof_public.anchor,
+            recovery_capsule,
+            rnk_commitment: proof_public.rnk_commitment,
+            capsule_release,
+            proof,
+        };
+        let before_audit = host.app.state.get_audit_log_state().await?;
+        let mut invalid_seizure = seizure.clone();
+        invalid_seizure.capsule_release.recovered_point += Element::generator();
+        let invalid = SeizeNoteRequest {
+            source: Some(host_source_at(2, 0)),
+            seizure: Some(invalid_seizure.into()),
+        };
+        let error = host
+            .seize_note(invalid)
+            .await
+            .expect_err("an invalid capsule release must not consume the note");
+        assert!(error.to_string().contains("DLEQ"));
+        host.app.state.check_nullifier_unspent(nullifier).await?;
+        assert_eq!(host.app.state.get_audit_log_state().await?, before_audit);
+        assert_eq!(
+            host.app
+                .state
+                .get_user_leaf(&address, asset_id)
+                .await?
+                .context("registered seizure target")?
+                .status,
+            UserAssetStatus::Frozen
+        );
+
+        let request = SeizeNoteRequest {
+            source: Some(host_source_at(2, 0)),
+            seizure: Some(seizure.into()),
+        };
+
+        let first = host.seize_note(request.clone()).await?;
+        assert!(!first.replayed);
+        assert_eq!(first.withdrawal.amount, amount);
+        assert_eq!(first.current_status, UserAssetStatus::Seized);
+        assert_eq!(
+            host.app.state.verify_audit_log().await?.length,
+            before_audit.length + 2
+        );
+
+        let mut duplicate = request.clone();
+        duplicate.source = Some(host_source_at(2, 1));
+        assert!(host
+            .seize_note(duplicate)
+            .await
+            .expect_err("a new source cannot spend the same note again")
+            .to_string()
+            .contains("already spent"));
+
+        let replay = host.seize_note(request).await?;
+        assert!(replay.replayed);
+        assert!(replay.events.is_empty());
+        assert_eq!(
+            host.app.state.verify_audit_log().await?.length,
+            before_audit.length + 2
+        );
+
+        host.end_block(2).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        let boundary =
+            shieldd_sdk_sct::permanent_nullifiers::read_boundary(&storage.latest_snapshot())
+                .await?;
+        let status = host.nullifier_reader().status(nullifier, &boundary)?;
+        status.verify(&boundary)?;
+        assert!(status.spent);
+        drop(host);
+        let reopened =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        let status = reopened.nullifier_reader().status(nullifier, &boundary)?;
+        status.verify(&boundary)?;
+        assert!(status.spent);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn cancelled_block_commit_requires_rollback_and_replay() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        let committed = host.committed_state().await?;
+        host.begin_block(host_block(1)).await?;
+        let request = deposit_request(0);
+        let parsed =
+            ParsedHostDeposit::parse(host.app.state.get_chain_id().await?, request.clone())?;
+        host.deposit(request.clone()).await?;
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        cancel_extracted_commit(&mut host).await?;
+
+        assert!(
+            host.commit().await.is_err(),
+            "cancelled commit must not commit an empty replacement delta"
+        );
+        assert_eq!(host.committed_state().await?, committed);
+        assert!(
+            load_host_action_receipt(&storage.latest_snapshot(), &parsed.source_key())
+                .await?
+                .is_none()
+        );
+        host.rollback().await?;
+        host.begin_block(host_block(1)).await?;
+        let replay = host.deposit(request.clone()).await?;
+        assert!(!replay.events.is_empty());
+        assert!(host.deposit(request).await?.events.is_empty());
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        drop(host);
+        let host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        assert_eq!(host.committed_state().await?.height, 1);
+        let receipt = load_host_action_receipt(&storage.latest_snapshot(), &parsed.source_key())
+            .await?
+            .expect("replayed deposit must be durable");
+        assert_eq!(receipt.request_digest, parsed.deposit_id);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn failed_storage_commit_requires_rollback_before_replay() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        storage
+            .commit(StateDelta::new(storage.latest_snapshot()))
+            .await?;
+        let committed = host.committed_state().await?;
+        let error = host
+            .commit()
+            .await
+            .expect_err("stale application snapshot must fail");
+        assert!(
+            format!("{error:#}").contains("application changed after commit preparation"),
+            "{error:#}"
+        );
+        assert_eq!(host.phase(), HostExecutionPhase::CommitInterrupted);
+        assert!(host.commit().await.is_err());
+        assert_eq!(host.committed_state().await?, committed);
+        host.rollback().await?;
+        host.begin_block(host_block(1)).await?;
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        assert_eq!(host.committed_state().await?.height, 1);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn cancelled_genesis_commit_requires_rollback_and_reinitialization() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        cancel_extracted_commit(&mut host).await?;
+        assert!(
+            host.commit().await.is_err(),
+            "cancelled genesis must not commit empty state"
+        );
+        assert_eq!(storage.latest_version(), u64::MAX);
+        host.rollback().await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        assert_eq!(host.committed_state().await?.height, 0);
+        assert!(App::is_ready(storage.latest_snapshot()).await);
+        Ok(())
+    }
+
+    async fn cancel_extracted_commit(host: &mut HostExecution) -> Result<()> {
+        let extracted = Arc::new(tokio::sync::Notify::new());
+        host.app.commit_extracted = Some(extracted.clone());
+        let mut commit = Box::pin(host.commit());
+        tokio::select! {
+            result = &mut commit => panic!("commit completed before cancellation checkpoint: {result:?}"),
+            result = tokio::time::timeout(Duration::from_secs(5), extracted.notified()) => result?,
+        }
+        drop(commit);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn begin_block_before_genesis_rejects_without_mutation() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        let error = host
+            .begin_block(host_block(1))
+            .await
+            .expect_err("virgin storage must reject begin block");
+        assert!(error.to_string().contains("initialized"), "{error:#}");
+        assert_eq!(host.phase, HostExecutionPhase::Idle);
+        assert_eq!(storage.latest_version(), u64::MAX);
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn begin_block_requires_increasing_committed_height() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        for height in [1, 2] {
+            host.begin_block(host_block(height)).await?;
+            host.end_block(height).await?;
+            host.seal_commit()?;
+            host.commit().await?;
+        }
+        let committed = host.committed_state().await?;
+        for rejected in [2, 1] {
+            assert!(host.begin_block(host_block(rejected)).await.is_err());
+            assert_eq!(host.phase(), HostExecutionPhase::Idle);
+            assert_eq!(host.app.state.get_block_height().await?, 2);
+            assert_eq!(host.committed_state().await?, committed);
+        }
+        host.begin_block(host_block(3)).await?;
+        host.end_block(3).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        assert_eq!(host.committed_state().await?.height, 3);
+        Ok(())
+    }
+
+    async fn assert_height_gap_rejected(committed_height: i64, supplied_height: i64) -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        for height in 1..=committed_height {
+            host.begin_block(host_block(height)).await?;
+            host.end_block(height).await?;
+            host.seal_commit()?;
+            host.commit().await?;
+        }
+        let committed = host.committed_state().await?;
+        let epoch = host.app.state.get_current_epoch().await?;
+        assert!(host.begin_block(host_block(supplied_height)).await.is_err());
+        assert_eq!(host.phase(), HostExecutionPhase::Idle);
+        assert_eq!(host.app.state.get_block_height().await?, committed.height);
+        assert_eq!(host.app.state.get_current_epoch().await?, epoch);
+        assert!(host
+            .app
+            .state
+            .get_block_timestamp(supplied_height as u64)
+            .await
+            .is_err());
+        assert_eq!(host.committed_state().await?, committed);
+        let next = committed_height + 1;
+        host.begin_block(host_block(next)).await?;
+        host.rollback().await?;
+        drop(host);
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.begin_block(host_block(next)).await?;
+        host.end_block(next).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        assert_eq!(host.committed_state().await?.height, next as u64);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn begin_block_rejects_initial_height_gap() -> Result<()> {
+        assert_height_gap_rejected(0, 7).await
+    }
+
+    #[tokio::test]
+    async fn begin_block_rejects_committed_height_gap() -> Result<()> {
+        assert_height_gap_rejected(2, 5).await
+    }
+
+    #[tokio::test]
+    async fn host_end_block_rejects_mismatched_height_without_closing_block() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+        assert!(host.end_block(2).await.is_err());
+        assert_eq!(host.phase(), HostExecutionPhase::InBlock);
+        host.end_block(1).await?;
+        host.seal_commit()?;
+        host.commit().await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_lifecycle_publishes_only_committed_state_and_refreshes_snapshot() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+
+        assert!(host.committed_state().await.is_err());
+        assert!(host.commit().await.is_err());
+
+        host.init_genesis(host_genesis()).await?;
+        assert_eq!(host.phase(), HostExecutionPhase::InitializedGenesis);
+        assert!(host.app.state.host_withdrawals_enabled().await?);
+        assert!(host.deposit(deposit_request(0)).await.is_err());
+        let genesis_commit = host.commit().await?;
+        assert_eq!(host.phase(), HostExecutionPhase::Idle);
+        assert_eq!(genesis_commit.root_hash.len(), 32);
+        assert!(App::is_ready(storage.latest_snapshot()).await);
+        assert_eq!(
+            host.app.snapshot_version,
+            storage.latest_snapshot().version()
+        );
+        assert!(matches!(host.export_genesis().await?,
+            AppState::Checkpoint(root) if root == genesis_commit.root_hash));
+        let committed = host.committed_state().await?;
+        assert_eq!(committed.height, 0);
+        assert_eq!(committed.root_hash, genesis_commit.root_hash);
+
+        let block = host_block(1);
+        let time = block.time;
+        host.begin_block(block).await?;
+        assert_eq!(host.phase(), HostExecutionPhase::InBlock);
+        assert_eq!(host.app.state.get_block_height().await?, 1);
+        assert_eq!(host.app.state.get_block_timestamp(1).await?, time);
+        assert_eq!(host.app.state.get_chain_id().await?, "bankd-local");
+        let still_committed = host.committed_state().await?;
+        assert_eq!(still_committed, committed);
+
+        host.end_block(1).await?;
+        assert_eq!(host.phase(), HostExecutionPhase::EndedBlock);
+        assert!(
+            host.commit().await.is_err(),
+            "commit requires durable recovery intent"
+        );
+        host.seal_commit()?;
+        assert_eq!(host.phase(), HostExecutionPhase::SealedBlock);
+        let block_commit = host.commit().await?;
+        assert_eq!(block_commit.root_hash.len(), 32);
+        assert_eq!(host.phase(), HostExecutionPhase::Idle);
+        assert_eq!(
+            host.app.snapshot_version,
+            storage.latest_snapshot().version()
+        );
+        let committed = host.committed_state().await?;
+        assert_eq!(committed.height, 1);
+        assert_eq!(committed.root_hash, block_commit.root_hash);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_execution_check_tx_rejects_invalid_tx_without_entering_block() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+
+        let response = host.check_tx(b"not a shieldd transaction").await?;
+
+        assert_eq!(response.code, 1);
+        assert!(response.log.contains("decoding transaction"));
+        assert_eq!(host.phase(), HostExecutionPhase::Idle);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_execution_check_tx_requires_initialized_storage() {
+        let storage = temp_storage().await;
+        let host = HostExecution::new(storage.deref().clone(), crate::app::tests::registry())
+            .await
+            .unwrap();
+
+        let err = host
+            .check_tx(&[])
+            .await
+            .expect_err("uninitialized storage should be rejected");
+
+        assert!(err.to_string().contains("initialized storage"));
+    }
+
+    #[tokio::test]
+    async fn host_withdrawals_resolve_registered_asset_to_base_denom() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+        host.deposit(deposit_request(0)).await?;
+
+        let withdrawals = host
+            .resolve_host_withdrawals(&host_withdrawal_transaction())
+            .await?;
+
+        assert_eq!(withdrawals.len(), 1);
+        assert!(matches!(
+            &withdrawals[0].destination,
+            HostWithdrawalDestination::Transfer(HostTransfer { recipient })
+                if recipient == "bank1recipient"
+        ));
+        assert_eq!(withdrawals[0].denom, BASE_ASSET_DENOM.base_denom().denom);
+        assert_eq!(withdrawals[0].amount, 42u64.into());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_withdrawals_preserve_withdrawal_order() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+        host.deposit(deposit_request(0)).await?;
+
+        let transfer = host_withdrawal_action();
+        let mut execution = host_withdrawal_action();
+        execution.body.withdrawal.destination =
+            HostWithdrawalDestination::Execution(DomainHostExecution {
+                refund_address: test_keys::ADDRESS_0.deref().clone(),
+                gas_limit: 200_000,
+                calls: vec![EvmCall {
+                    contract: [7u8; 20],
+                    calldata: vec![0xaa],
+                }],
+            });
+        let mut tx = Transaction::default();
+        tx.transaction_body.actions = vec![
+            Action::ShieldedHostWithdrawal(transfer),
+            Action::ShieldedHostWithdrawal(execution),
+        ];
+
+        let withdrawals = host.resolve_host_withdrawals(&tx).await?;
+
+        assert!(matches!(
+            withdrawals[0].destination,
+            HostWithdrawalDestination::Transfer(_)
+        ));
+        assert!(matches!(
+            withdrawals[1].destination,
+            HostWithdrawalDestination::Execution(_)
+        ));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_execution_accepts_withdrawals_for_registered_assets() -> Result<()> {
+        let storage = temp_storage().await;
+        let mut host =
+            HostExecution::new(storage.deref().clone(), crate::app::tests::registry()).await?;
+
+        host.init_genesis(host_genesis()).await?;
+        host.commit().await?;
+        host.begin_block(host_block(1)).await?;
+        host.deposit(deposit_request(0)).await?;
+
+        host_withdrawal_action()
+            .check_historical(host.app.state.clone())
+            .await?;
+
+        Ok(())
+    }
+
+    #[test]
+    fn deposit_id_changes_with_host_message_index() {
+        let recipient = test_keys::ADDRESS_0.clone();
+        let first = derive_deposit_id(
+            "bankd-local",
+            &HostSource::try_from(host_source(0)).unwrap(),
+            &BASE_ASSET_DENOM,
+            100u64.into(),
+            &recipient,
+        );
+        let second = derive_deposit_id(
+            "bankd-local",
+            &HostSource::try_from(host_source(1)).unwrap(),
+            &BASE_ASSET_DENOM,
+            100u64.into(),
+            &recipient,
+        );
+
+        assert_ne!(first, second);
+    }
+
+    #[test]
+    fn source_key_scopes_host_position_while_deposit_id_binds_contents() {
+        let first = ParsedHostDeposit::parse("bankd-local".into(), deposit_request(3)).unwrap();
+        let mut changed = deposit_request(3);
+        changed.amount = "200".into();
+        let second = ParsedHostDeposit::parse("bankd-local".into(), changed).unwrap();
+        assert_eq!(first.source_key(), second.source_key());
+        assert_ne!(first.deposit_id, second.deposit_id);
+        for source in [
+            ProtoHostSource {
+                height: 2,
+                ..host_source(3)
+            },
+            ProtoHostSource {
+                tx_index: 1,
+                ..host_source(3)
+            },
+            host_source(4),
+        ] {
+            let mut request = deposit_request(3);
+            request.source = Some(source);
+            let different = ParsedHostDeposit::parse("bankd-local".into(), request).unwrap();
+            assert_ne!(first.source_key(), different.source_key());
+        }
+        let other_chain =
+            ParsedHostDeposit::parse("other-chain".into(), deposit_request(3)).unwrap();
+        assert_ne!(first.source_key(), other_chain.source_key());
+    }
+
+    #[test]
+    fn host_source_requires_32_byte_tx_hash() {
+        let source = ProtoHostSource {
+            height: 42,
+            tx_hash: [7u8; 31].to_vec(),
+            tx_index: 0,
+            msg_index: 0,
+        };
+
+        assert!(HostSource::try_from(source).is_err());
+    }
+}
