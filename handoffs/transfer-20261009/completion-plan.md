@@ -1018,3 +1018,10 @@ Actual Rust/native trace, Scalar Montgomery interpretation and action typed proj
 Published `TransferTypedScalarPublication01` with3original complete theorem reports. Independent exact guard/runtime/ancestry/receipt/load review and pure maintained source regeneration passed; the reused upstream NativeOnlyPublication header matches its pinned original source. Given the explicit sourceProjection into typed four-word serialization, canonical input bounds and the exact ordered global Montgomery vector are derived. The existing native-only modeled default walk/publication theorem then composes through sealed object, accepted inputs, application root, Ready writer, Idle Host and recovered boundary without a supplied canonical numeric range. First strict run passed.
 
 The sourceProjection itself, native codec/getter/finalization and actual Rust/type/Clone/trace/ownership/OS/snapshot/ICS23 bindings remain owned OPEN. No interface is promoted to a legitimate external assumption. Native controls/final replay UNRUN; full Transfer OPEN. Same agents continue freely.
+
+
+### Padded MAC/ADC schedule and derived zero discarded carries, 2026-10-11
+
+Published `TransferScalarPaddedCarry01` with6original complete reports. Independent guard/runtime/ancestry/receipt/load and precise history review passed. Explicit padded rounds run four modeled low MACs and the actual modeled next-upper-word ADC, retaining its low word and recording outgoing carry. Symbolic zero-padding induction derives exact four-word wrapper and every discarded carry zero; the32byte exact canonical Montgomery result follows. No desired carry/result is assumed. Pressure-stopped01 source is byte-identical to02 and all limits/runner unchanged; failedLean02 and exact proof-only let-reduction repair are preserved.
+
+Actual Rust/compiler/native field/type/trace bindings remain owned OPEN. Native controls/final replay UNRUN; full Transfer OPEN. A parent helper-lineage annotation clarification for the byte review is included; it changes no source/kernel/report counts.
