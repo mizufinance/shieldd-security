@@ -835,3 +835,6 @@ Reviewed ordinary sealed Host commit at 80febe035002d5fc530b79e1fd02f0c5c0ecb7dd
 
 
 Reviewed ordinary Host end_block at 93778f30259df23b08a23453d2ba1c1b4e4bdfeb:10 complete original public reports. Actual finalized callback result feeds concrete transfer and exact transferred pending order into writer preparation. Successful return derives same Frozen/next boundary, EndedBlock and observed active state/queue/events; failed transfer or missing identity retains interrupted transfer progress. Native signed-height conversion and application end_block returned-state/queue/component/epoch/SCT/panic semantics remain explicit callback correspondences. No internal event erasure or rollback inferred. Full Transfer remains OPEN.
+
+
+Reviewed symbolic Merkle body helper at 8e2db1dfad140e823a3b62b0d1129927664891ea:1module12 complete original public reports. Field-independent body exactly projects qualified Fin15 Merkle family and composes arithmetic/copy partitions. Copy satisfaction derives from full captured relation under explicit finite copyCheck; final theorem also retains arithmeticRows satisfaction. Actual indexed instance checks/full path/hash binding remain required and are not inferred from this helper. Exact original generation/receipt/import/history reviewed; map18-only guard successor preserves physical protections. Full Transfer OPEN.
