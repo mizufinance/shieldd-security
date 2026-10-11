@@ -1,0 +1,38 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-carry-schedule-review01/packet01/source/ShielddSecurity/TransferScalarCarrySchedule01.lean",
+    "bytes": 6847,
+    "sha256": "cf85ec08528a4494b9c856d86cb927ad7a64998f3bb0c22c020bf375ce197d17"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-carry-schedule-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 1939,
+    "sha256": "0484afaddd0fa29ab8316a01f8e21217ff91d1c830a2f534f1ac12f8f538fdb2"
+  },
+  "fresh_reports": 7,
+  "definitions": 2,
+  "theorems": 5,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-carry-schedule-review01/packet01/rejected/01/handwritten/TransferScalarCarrySchedule01.lean",
+      "bytes": 6778,
+      "sha256": "a4bbe9df5d48e260de7854167e321e3ddb5f8ce4e719249f1049c9cfe667e9bc"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 17.233896799967624,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-carry-schedule-20261011-01\\project\\ShielddSecurity\\TransferScalarCarrySchedule01.lean:84:20: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -81,7 +81,9 @@\n       rw [Nat.pow_succ, Nat.mul_add]\n       ac_rfl\n     _ = low.toNat / radix64 + (packWords rest + radix64 ^ rest.length * carry.toNat) := Nat.add_mul_div_left _ _ (by decide)\n-    _ = _ := by rw [Nat.div_eq_of_lt low.toNat_lt, Nat.zero_add]\n+    _ = _ := by\n+      have lowBound : low.toNat < radix64 := low.toNat_lt\n+      rw [Nat.div_eq_of_lt lowBound, Nat.zero_add]\n \n theorem nonempty_mac_walk_drops_to_exact_quotient\n     (multiplier carry : UInt64) (pairs : List (UInt64 \u00d7 UInt64)) (nonempty : pairs \u2260 []) :\n@@ -92,7 +94,7 @@\n   cases output : (macLoop multiplier carry pairs).1 with\n   | nil =>\n     rw [output, List.length_nil] at length\n-    exact False.elim (nonempty (List.length_eq_zero.mp length.symm))\n+    exact False.elim (nonempty (List.eq_nil_of_length_eq_zero length.symm))\n   | cons low rest =>\n     change packWords ((macLoop multiplier carry pairs).1.drop 1 ++ [(macLoop multiplier carry pairs).2]) = _\n     rw [output]\n"
+  },
+  "scope": "Model UInt64 MAC loop preserves exact limb count and full positional integer including final carry. Dropping low output and appending final carry derives exact radix quotient for any nonempty vector; no supplied quotient premise. Actual Rust trace/ADC/SBB/byte layout remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
