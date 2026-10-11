@@ -1,0 +1,49 @@
+ShielddSecurity.TransferScalarByteDecode01.decodeLEWords : Nat → List.{0} UInt8 → List.{0} UInt64
+'ShielddSecurity.TransferScalarByteDecode01.decodeLEWords' does not depend on any axioms
+ShielddSecurity.TransferScalarByteDecode01.typed_byte_decode_is_below_positional_width : ∀ (bytes : List.{0} UInt8),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE bytes)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+      (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) (@List.length.{0} UInt8 bytes))
+'ShielddSecurity.TransferScalarByteDecode01.typed_byte_decode_is_below_positional_width' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarByteDecode01.decoded_word_list_has_exact_requested_width : ∀ (count : Nat)
+  (bytes : List.{0} UInt8),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarByteDecode01.decodeLEWords count bytes)) count
+'ShielddSecurity.TransferScalarByteDecode01.decoded_word_list_has_exact_requested_width' does not depend on any axioms
+ShielddSecurity.TransferScalarByteDecode01.full_width_word_decoder_reconstructs_exact_little_endian_value : ∀
+  (count : Nat) (bytes : List.{0} UInt8)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt8 bytes)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) count)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarByteDecode01.decodeLEWords count bytes))
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE bytes)
+'ShielddSecurity.TransferScalarByteDecode01.full_width_word_decoder_reconstructs_exact_little_endian_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarByteDecode01.sourceCanonicalBorrowAccepts : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  Bool
+'ShielddSecurity.TransferScalarByteDecode01.sourceCanonicalBorrowAccepts' depends on axioms: [propext]
+ShielddSecurity.TransferScalarByteDecode01.source_four_word_byte_decode_accepts_exact_canonical_integer : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  Iff (@Eq.{1} Bool (ShielddSecurity.TransferScalarByteDecode01.sourceCanonicalBorrowAccepts bytes) Bool.true)
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarByteDecode01.source_four_word_byte_decode_accepts_exact_canonical_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarByteDecode01.exact_source_serializer_bytes_pass_the_source_canonical_borrow_predicate : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (encoded :
+    @Eq.{1} (List.{0} UInt8)
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))),
+  @Eq.{1} Bool (ShielddSecurity.TransferScalarByteDecode01.sourceCanonicalBorrowAccepts bytes) Bool.true
+'ShielddSecurity.TransferScalarByteDecode01.exact_source_serializer_bytes_pass_the_source_canonical_borrow_predicate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
