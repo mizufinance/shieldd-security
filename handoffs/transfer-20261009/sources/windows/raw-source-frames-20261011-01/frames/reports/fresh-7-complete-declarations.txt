@@ -1,0 +1,174 @@
+@ShielddSecurity.TransferRawSourceFrames01.installNotes : {O E X Tree : Type} →
+  (raw :
+      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+    (manager :
+        ShielddSecurity.TransferNoteManagerSource01.Backend O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) →
+        (treeKey pendingKey : Nat) →
+          ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+'ShielddSecurity.TransferRawSourceFrames01.installNotes' does not depend on any axioms
+@ShielddSecurity.TransferRawSourceFrames01.sct_insertion_preserves_input_write_domains : ∀ {O E X Tree : Type}
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment : Nat) (source : Bool),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)
+          (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree sct treeKey child tree commitment
+            source)))
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)
+          (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree sct treeKey child tree commitment
+            source)))
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+'ShielddSecurity.TransferRawSourceFrames01.sct_insertion_preserves_input_write_domains' depends on axioms: [propext]
+@ShielddSecurity.TransferRawSourceFrames01.manager_preserves_input_write_domains : ∀ {O E X Tree : Type}
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (source : Bool),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)
+          (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager sct treeKey) pendingKey child
+            payload source)))
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)
+          (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager sct treeKey) pendingKey child
+            payload source)))
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+'ShielddSecurity.TransferRawSourceFrames01.manager_preserves_input_write_domains' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferRawSourceFrames01.all_note_outputs_preserve_input_write_domains : ∀ {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat) (source : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (outputs : List.{0} Nat),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferRawEffectsSource01.EffectError
+            (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)
+            source child outputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferRawEffectsSource01.EffectError
+            (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)
+            source child outputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+'ShielddSecurity.TransferRawSourceFrames01.all_note_outputs_preserve_input_write_domains' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferRawSourceFrames01.nullifier_batch_preserves_input_write_domains : ∀ {O E : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity pendingKey : Nat)
+  (source : Bool) (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs : List.{0} Nat),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity pendingKey source
+            child inputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity pendingKey source
+            child inputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+'ShielddSecurity.TransferRawSourceFrames01.nullifier_batch_preserves_input_write_domains' depends on axioms: [propext]
+@ShielddSecurity.TransferRawSourceFrames01.reshape_preserves_input_write_domains : ∀ {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (wordMax capacity treeKey pendingKey nullifierKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (inputs outputs : List.{0} Nat),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferRawEffectsSource01.EffectError
+            (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferRawEffectsSource01.reshape O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)
+            wordMax capacity nullifierKey child inputs outputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferRawEffectsSource01.EffectError
+            (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferRawEffectsSource01.reshape O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)
+            wordMax capacity nullifierKey child inputs outputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+'ShielddSecurity.TransferRawSourceFrames01.reshape_preserves_input_write_domains' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferRawSourceFrames01.fee_funding_preserves_input_write_domains_on_any_return : ∀
+  {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) (exactMatched : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferRawEffectsSource01.EffectError
+            (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)
+            wordMax capacity nullifierKey entryKey dayKey exactMatched Bool.false child inputs outputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+          (ShielddSecurity.TransferRawEffectsSource01.EffectError
+            (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X)
+            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)
+            wordMax capacity nullifierKey entryKey dayKey exactMatched Bool.false child inputs outputs)))
+      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+'ShielddSecurity.TransferRawSourceFrames01.fee_funding_preserves_input_write_domains_on_any_return' depends on axioms: [propext,
+ Quot.sound]

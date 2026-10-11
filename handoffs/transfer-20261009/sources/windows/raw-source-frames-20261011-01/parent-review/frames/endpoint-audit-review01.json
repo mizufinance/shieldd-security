@@ -1,0 +1,233 @@
+{
+  "kind": "Independent complete declaration/ancestor/source/runtime/unchanged guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 7,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferRawSourceFrames01.installNotes",
+      "full_type": "@ShielddSecurity.TransferRawSourceFrames01.installNotes : {O E X Tree : Type} \u2192\n  (raw :\n      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (manager :\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n        (treeKey pendingKey : Nat) \u2192\n          ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)",
+      "axioms": [],
+      "full_type_sha256": "d8acced1ab171f08c818355c96e6dead536a43aeabc7904440baac33cf49d170"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawSourceFrames01.sct_insertion_preserves_input_write_domains",
+      "full_type": "@ShielddSecurity.TransferRawSourceFrames01.sct_insertion_preserves_input_write_domains : \u2200 {O E X Tree : Type}\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment : Nat) (source : Bool),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree sct treeKey child tree commitment\n            source)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree sct treeKey child tree commitment\n            source)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "a651355df06abf089f4d8cd3e847bad13a82e9e4cd7b85734331d4044e7ee399"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawSourceFrames01.manager_preserves_input_write_domains",
+      "full_type": "@ShielddSecurity.TransferRawSourceFrames01.manager_preserves_input_write_domains : \u2200 {O E X Tree : Type}\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (source : Bool),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager sct treeKey) pendingKey child\n            payload source)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager sct treeKey) pendingKey child\n            payload source)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "204fc272d46f79863ab22810243a7d3448ee5a9406febb37dcaba59f3118f712"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawSourceFrames01.all_note_outputs_preserve_input_write_domains",
+      "full_type": "@ShielddSecurity.TransferRawSourceFrames01.all_note_outputs_preserve_input_write_domains : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat) (source : Bool)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (outputs : List.{0} Nat),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)\n            source child outputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)\n            source child outputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "cc8d9d541f44c89799e68b64279f7baaac7ff0bd5a0a0331f349b646b0dedef3"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawSourceFrames01.nullifier_batch_preserves_input_write_domains",
+      "full_type": "@ShielddSecurity.TransferRawSourceFrames01.nullifier_batch_preserves_input_write_domains : \u2200 {O E : Type}\n  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) (wordMax capacity pendingKey : Nat)\n  (source : Bool) (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs : List.{0} Nat),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity pendingKey source\n            child inputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (@ShielddSecurity.TransferNullifierBatchSource01.executeNullify O E backend wordMax capacity pendingKey source\n            child inputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "fd1bd673ffac62d3eedfdd54860a1c2c557a8a582aad4d2ecf3e404397d96b78"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawSourceFrames01.reshape_preserves_input_write_domains",
+      "full_type": "@ShielddSecurity.TransferRawSourceFrames01.reshape_preserves_input_write_domains : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (wordMax capacity treeKey pendingKey nullifierKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (inputs outputs : List.{0} Nat),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.reshape O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)\n            wordMax capacity nullifierKey child inputs outputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.reshape O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)\n            wordMax capacity nullifierKey child inputs outputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e251036c9312d5b69bbed89258ed724aff134d6be01860264819b223b158dad9"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawSourceFrames01.fee_funding_preserves_input_write_domains_on_any_return",
+      "full_type": "@ShielddSecurity.TransferRawSourceFrames01.fee_funding_preserves_input_write_domains_on_any_return : \u2200\n  {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) (exactMatched : Bool)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)\n            wordMax capacity nullifierKey entryKey dayKey exactMatched Bool.false child inputs outputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n          (ShielddSecurity.TransferRawEffectsSource01.EffectError\n            (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)\n            (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree raw manager sct treeKey pendingKey)\n            wordMax capacity nullifierKey entryKey dayKey exactMatched Bool.false child inputs outputs)))\n      (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ccbcef8fadd58c30d075428a51e76f5db1acfbdc2bba13c767d4c620c7b39696"
+    }
+  ],
+  "inherited_reports": 110,
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    }
+  ],
+  "manifest_entries": 28,
+  "generated_equality_instance_audited": false,
+  "guard_unchanged": true,
+  "rejected": {
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.108977900003083,
+      "status": "failed"
+    },
+    "contracts_and_definitions_unchanged": true,
+    "exact_delta": "--- \n+++ \n@@ -27,14 +27,14 @@\n     (TransferSctInsertionSource01.insertLoaded sct treeKey child tree commitment source).cache.verifiable = child.cache.verifiable \u2227\n       (TransferSctInsertionSource01.insertLoaded sct treeKey child tree commitment source).cache.nonverifiable = child.cache.nonverifiable := by\n   cases capacity : TransferSctInsertionSource01.checkCapacity (X := X) (sct.position tree) with\n-  | error error => simp only [TransferSctInsertionSource01.insertLoaded, capacity]\n+  | error error => simp [TransferSctInsertionSource01.insertLoaded, capacity]\n   | ok returnedUnit =>\n     cases returnedUnit\n     cases inserted : sct.localInsert tree commitment with\n-    | error error => simp only [TransferSctInsertionSource01.insertLoaded, capacity, inserted]\n+    | error error => simp [TransferSctInsertionSource01.insertLoaded, capacity, inserted]\n     | ok pair =>\n       rcases pair with \u27e8updatedTree, position\u27e9\n-      simp only [TransferSctInsertionSource01.insertLoaded, capacity, inserted,\n+      simp [TransferSctInsertionSource01.insertLoaded, capacity, inserted,\n         TransferRawEffectsSource01.emit, putObject]\n \n theorem manager_preserves_input_write_domains {O E X Tree : Type}\n@@ -70,9 +70,9 @@\n         TransferRawEffectsSource01.liftCallback, result, next] using frames\n     | ok returnedUnit =>\n       cases returnedUnit\n-      have suffix := ih {child with cache := TransferRawEffectsSource01.emit\n+      have suffix := ih {child with cache := (TransferRawEffectsSource01.emit\n         (TransferNoteManagerSource01.insertPayload (TransferSctInsertionSource01.installSct manager sct treeKey)\n-          pendingKey child output source).cache (raw.noteEvent output)}\n+          pendingKey child output source).cache (raw.noteEvent output))}\n       refine \u27e8?_, ?_\u27e9\n       \u00b7 simpa only [TransferRawEffectsSource01.notes, installNotes, TransferNoteManagerSource01.installNotes,\n           TransferRawEffectsSource01.liftCallback, result, next] using suffix.1.trans frames.1\n@@ -85,14 +85,14 @@\n     (TransferNullifierBatchSource01.executeNullify backend wordMax capacity pendingKey source child inputs).cache.verifiable = child.cache.verifiable \u2227\n       (TransferNullifierBatchSource01.executeNullify backend wordMax capacity pendingKey source child inputs).cache.nonverifiable = child.cache.nonverifiable := by\n   cases empty : inputs.isEmpty with\n-  | true => simp only [TransferNullifierBatchSource01.executeNullify, empty, \u2193reduceIte]\n+  | true => simp [TransferNullifierBatchSource01.executeNullify, empty]\n   | false =>\n     cases source with\n-    | false => simp only [TransferNullifierBatchSource01.executeNullify, empty, \u2193reduceIte]\n+    | false => simp [TransferNullifierBatchSource01.executeNullify, empty]\n     | true =>\n       cases checked : TransferNullifierBatchSource01.inspect backend wordMax capacity child inputs with\n-      | error error => simp only [TransferNullifierBatchSource01.executeNullify, empty, \u2193reduceIte, checked]\n-      | ok pending => simp only [TransferNullifierBatchSource01.executeNullify, empty, \u2193reduceIte, checked, putObject]\n+      | error error => simp [TransferNullifierBatchSource01.executeNullify, empty, checked]\n+      | ok pending => simp [TransferNullifierBatchSource01.executeNullify, empty, checked, putObject]\n \n theorem reshape_preserves_input_write_domains {O E X Tree : Type}\n     (raw : TransferRawEffectsSource01.Backend O E (TransferSctInsertionSource01.Error X))\n@@ -104,7 +104,7 @@\n       (TransferRawEffectsSource01.reshape (installNotes raw manager sct treeKey pendingKey)\n         wordMax capacity nullifierKey child inputs outputs).cache.nonverifiable = child.cache.nonverifiable := by\n   cases source : raw.currentSource child with\n-  | none => simp only [TransferRawEffectsSource01.reshape, installNotes, TransferNoteManagerSource01.installNotes, source]\n+  | none => simp [TransferRawEffectsSource01.reshape, installNotes, TransferNoteManagerSource01.installNotes, source]\n   | some sourceHasId =>\n     have frames := nullifier_batch_preserves_input_write_domains raw.nullifiers wordMax capacity nullifierKey sourceHasId child inputs\n     cases result : (TransferNullifierBatchSource01.executeNullify raw.nullifiers wordMax capacity nullifierKey sourceHasId child inputs).result with\n@@ -115,8 +115,8 @@\n       have emitted := TransferRawEffectsSource01.emitSpends_exact raw.spentEvent\n         (TransferNullifierBatchSource01.executeNullify raw.nullifiers wordMax capacity nullifierKey sourceHasId child inputs).cache inputs\n       have notesFrame := all_note_outputs_preserve_input_write_domains raw manager sct treeKey pendingKey sourceHasId\n-        {child with cache := TransferRawEffectsSource01.emitSpends raw.spentEvent\n-          (TransferNullifierBatchSource01.executeNullify raw.nullifiers wordMax capacity nullifierKey sourceHasId child inputs).cache inputs} outputs\n+        {child with cache := (TransferRawEffectsSource01.emitSpends raw.spentEvent\n+          (TransferNullifierBatchSource01.executeNullify raw.nullifiers wordMax capacity nullifierKey sourceHasId child inputs).cache inputs)} outputs\n       rw [emitted] at notesFrame\n       refine \u27e8?_, ?_\u27e9\n       \u00b7 simpa only [TransferRawEffectsSource01.reshape, installNotes, TransferNoteManagerSource01.installNotes, source, result, emitted] using notesFrame.1.trans frames.1\n",
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:30:16: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:34:18: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:35:14: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:73:76: error: unexpected token '('; expected '}'",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:73:45: error: Type mismatch",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:71:22: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:88:9: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:91:12: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:94:20: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:95:19: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:91:80: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:118:81: error: unexpected token '('; expected '}'",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:107:9: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:118:29: error: Type mismatch",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-01\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean:113:22: error: unsolved goals"
+    ]
+  },
+  "interfaces": [
+    "The installed SCT backend models a successfully loaded immutable local tree; actual getter panic and Clone/COW isolation remain inherited interfaces",
+    "Current pending getter and tree/object encodings, key projection, local insertion/position semantics and event codecs remain explicit",
+    "Qualified nullifier reader/status/equality/capacity interfaces remain inherited",
+    "Results concern the raw action child cache before index writing, SCT/block persistence and participating-store durability",
+    "False ordinary flag is FeeFunding; fee charging outside this raw action and other actions/block finalization are not framed",
+    "No Rust/store/Merkle semantic refinement, runtime negative-control credit, hash injectivity or full Transfer certificate follows"
+  ],
+  "scope": "Unbounded functional source composition derives V/NV cache preservation for SCT insertion, pending payload update, arbitrary note-output recurrence, public nullifier batch, complete note reshape and FeeFunding raw action, across all returned errors and success. No opaque callback-domain-frame premise is supplied. This relies on the explicitly scoped successfully loaded immutable SCT model and other named representation interfaces; native/durable/full Transfer closure remains open. Verifiable and nonverifiable cache writes are derived unchanged for all returned primitive and arbitrary-list note results, including errors, from their executable object/event-only writes. No opaque callback frame is a premise. The complete note reshape and FeeFunding raw action inherit this result; earlier objects/events may remain altered on an error and are not claimed rolled back. The supplied cache can include earlier body Volume writes, which FeeFunding preserves. Actual getter panics, Clone/COW, key/value/event codecs, tree and reader semantics, fee charging outside this raw action, block finalization and participating-store durability remain distinct interfaces. Original rejected elaboration is zero credit.",
+  "full_transfer": "OPEN"
+}
