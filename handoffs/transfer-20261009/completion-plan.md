@@ -823,3 +823,6 @@ Stateful participant/recovery: seventeen fresh complete reports over605 inherite
 
 
 Captured-root recovery: eight fresh complete reports over622 inherited62modules independently accepted. Actual immutable initial-root selection recurrence equals original changing-root model only under named ForwardPartitionFrames; this does not imply own-root restoration, rollback success, health or durability. Failed rollback retains observed progress without suffix/frame assumptions. Both original failed attempts and exact proof-only repairs preserved. Native NOMT/ownership/lock/partition-frame/current-root/health/typed/serde/file I-O/Host/durability/full Transfer/final replay remain OPEN. Original guards unchanged. Evidence: f56fc4848ce7659eff2873137e44e14f4c724e1c.
+
+
+Reviewed application state transfer published at e7b3130b46ac1a4b1bcc0298815edb2f85bde203: 11 original complete public reports. Actual modeled success derives seal, concrete deferred flush, observed unwrap success, and exact post-flush returned state. Failed unwrap restores post-flush state/current queue; index failure consumes queue and discards child. Native Arc, typed objects, snapshot, ownership/concurrency and durability correspondences remain explicit. Full Transfer remains OPEN.
