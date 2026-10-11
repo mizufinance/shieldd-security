@@ -1,0 +1,40 @@
+"""Seal finite pending enum erasure and coherence-restricted codec lemmas."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-prepared-accepted-source-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-prepared-accepted-source-20261011-01'", "CURRENT = DIAG / 'transfer-pending-finite-codec-20261011-01'")
+s=s.replace('transfer-prepared-accepted-source-checkpoint-20261011-01','transfer-pending-finite-codec-checkpoint-20261011-01')
+s=s.replace('prepared-accepted-source-endpoint','pending-finite-codec-endpoint')
+replace("MODULE = 'TransferPreparedAcceptedSource01'", "MODULE = 'TransferPendingFiniteCodec01'")
+replace('assert len(fresh) == 10','assert len(fresh) == 12')
+replace("assert pool['objects'] == 44 and len(pool['inherited_public_reports']) == 430", "assert pool['objects'] == 45 and len(pool['inherited_public_reports']) == 440")
+replace("manager_endpoint = DIAG / 'transfer-block-seal-join-endpoint-20261011-01'", "manager_endpoint = DIAG / 'transfer-prepared-accepted-source-endpoint-20261011-02'")
+replace("manager_archive = manager_endpoint / 'portable-windows-block-seal-join-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-prepared-accepted-source-endpoint01.tar.xz'")
+replace('978d6839763bb73c904e9b3c1d5ead620a70ef04c2e38cb2bde485c32f74079a','beb9cf8125eac5f4b25a008106f2121e451dab1f912be9224446ad4219759d2f')
+replace("tar.extractfile('reports/fresh-5-complete-declarations.txt')", "tar.extractfile('reports/fresh-10-complete-declarations.txt')")
+replace('assert len(manager_reports) == 5','assert len(manager_reports) == 10')
+replace("'module': 'TransferBlockSealJoin01'", "'module': 'TransferPreparedAcceptedSource01'")
+replace('assert len(combined_reports) == 430','assert len(combined_reports) == 440')
+replace('assert len(manager_selected) == 44','assert len(manager_selected) == 45')
+replace("reference = {'block_seal_join':", "reference = {'prepared_accepted_source':")
+replace("'imported_complete_reports': 5", "'imported_complete_reports': 10")
+replace("'complete_owned_modules': 44, 'inherited_complete_reports': 430", "'complete_owned_modules': 45, 'inherited_complete_reports': 440")
+s=s.replace('Exact forty-four-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source accepted prepare closure, with 430 original inherited complete reports', 'Exact forty-five-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source accepted prepare/finite pending codec closure, with 440 original inherited complete reports')
+replace("add(stdout, 'reports/fresh-10-complete-declarations.txt'", "add(stdout, 'reports/fresh-12-complete-declarations.txt'")
+s=s.replace('source prepare structures/checked height/gates/transition assembly and five exact accepted input/gate/refusal join proofs','finite enum/restoration/erasure/typed codec definitions and seven finite representation/coherent roundtrip/append/freeze/default proofs')
+s=s.replace('complete forty-four-module first import root','complete forty-five-module first import root')
+s=s.replace('verified 430 inherited reports','verified 440 inherited reports')
+s=s.replace('SOURCE_FROZEN_GLOBAL_INPUTS_DISCHARGE_STORE_PREPARE_CAPACITY_AND_DUPLICATE_GATES_QUALIFIED','FINITE_PENDING_ENUM_ERASURE_GHOST_AND_REACHABLE_COHERENT_CODEC_QUALIFIED')
+replace("'fresh_theorem_audits': 5", "'fresh_theorem_audits': 7")
+replace("'fresh_complete_public_audits': 10", "'fresh_complete_public_audits': 12")
+replace("'inherited_complete_public_audits': 430", "'inherited_complete_public_audits': 440")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All twelve declarations have complete original type/axiom reports. Sealed order-only erasure and reconstructed ghost membership proven; arbitrary model functions are not asserted to have native codecs. Whole walk still needs a coherence-restricted codec join. Native typed embedding/finite collections/actual nullifier values remain explicit; no native/control/full certification credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 10, 'inherited_audits': 430", "'fresh_audits': 12, 'inherited_audits': 440")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':12,'inherited_reports':440,'owned_modules':45})
