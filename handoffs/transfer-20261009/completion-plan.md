@@ -1,5 +1,16 @@
 # Transfer proof completion plan — 9 October 2026
 
+The ordered nullifier-reader vector model is accepted at
+2aae019bc518264d59e4d0ba590ada1d478c91f5: one fresh source/thirteen complete
+reports, with seventeen separately associated prior readback reports. Success
+derives ordered verified observations and exact vector length; pending zip
+preserves that length, so successful unspent checking covers every input and
+derives false durable/current pending observations. Parent checked all original
+bytes, complete public types/standard axioms, exact accepted core metadata,
+unchanged physical guards, two rejected predecessors and pinned runtime sources.
+Reader availability/status authentication and Rust Vec/store/Merkle correspondence
+remain explicit upstream interfaces. Native execution and full Transfer remain OPEN.
+
 The complete arithmetic constructor is accepted at
 02b41b7d81b3a052ee585b65fca1aa2518b32f38: 599 unique leaves, ten groups
 and one root, with 6,012 complete original declaration reports. It covers all
