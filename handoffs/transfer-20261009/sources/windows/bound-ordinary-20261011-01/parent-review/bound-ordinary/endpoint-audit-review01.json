@@ -1,0 +1,353 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete type/source/runtime/ancestor/guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 12,
+  "inherited_reports": 162,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.executeBound",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.executeBound : {O E K X Tree A : Type} \u2192\n  (raw :\n      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (notes volume :\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n        (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n          (extract :\n              A \u2192\n                ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n                  Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) \u2192\n            (inputs outputs : A \u2192 List.{0} Nat) \u2192\n              (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) \u2192\n                (action : A) \u2192\n                  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) \u2192\n                    (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192\n                      ShielddSecurity.TransferRawStateProgram01.Outcome O E\n                        (ShielddSecurity.TransferCapabilitySource01.Error K\n                          (ShielddSecurity.TransferSctInsertionSource01.Error X))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "9fa077670bff42c554b0669af936cbe277668885844c1222c3e2dc6a0febb30a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.liftRaw_preserves_cache_selection",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.liftRaw_preserves_cache_selection : \u2200 {O E K X : Type}\n  (returned :\n    ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n    (@ShielddSecurity.TransferRawStateProgram01.asCache O E (ShielddSecurity.TransferCapabilitySource01.Error K X)\n      (@ShielddSecurity.TransferCapabilitySource01.liftRaw O E K X returned))\n    (@ShielddSecurity.TransferRawStateProgram01.asCache O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X)\n      returned)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "0916c431bc50dca17d5985d99529582d3c473658e84bf225b00de34a006101ee"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.any_return_preserves_input_nonverifiable_writes",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.any_return_preserves_input_nonverifiable_writes : \u2200\n  {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action\n          item child)))\n    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ea7717eb616a314292e47cfd170a08e993d636ea05f6a71062aa49f2214565b1"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.family_mismatch_precedes_every_effect",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.family_mismatch_precedes_every_effect : \u2200 {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item current : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (observed :\n    @Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n      (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)\n      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item current))\n  (different :\n    @Ne.{1} Nat (ShielddSecurity.TransferVerificationEqualitySource01.Item.family current)\n      (ShielddSecurity.TransferVerificationEqualitySource01.Item.family item)),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)))\n    (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available extract\n      inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action item child)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0}\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) Unit\n        (@ShielddSecurity.TransferCapabilitySource01.Error.mismatch K\n          (ShielddSecurity.TransferSctInsertionSource01.Error X))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "cb27bf1e651cb68f19e40c476e768f0e3a9379ee789b916220506e48aa013678"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.statement_scalar_mismatch_precedes_every_effect",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.statement_scalar_mismatch_precedes_every_effect : \u2200\n  {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item current : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (observed :\n    @Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n      (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)\n      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item current))\n  (different :\n    @Ne.{1} Nat (ShielddSecurity.TransferVerificationEqualitySource01.Item.statement current)\n      (ShielddSecurity.TransferVerificationEqualitySource01.Item.statement item)),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)))\n    (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available extract\n      inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action item child)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0}\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) Unit\n        (@ShielddSecurity.TransferCapabilitySource01.Error.mismatch K\n          (ShielddSecurity.TransferSctInsertionSource01.Error X))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "583004765c15fe901045b1a812fe1e6bdb3572cb5bec6762bdc1a429e3c43a0b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.envelope_mismatch_precedes_every_effect",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.envelope_mismatch_precedes_every_effect : \u2200 {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item current : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (observed :\n    @Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n      (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)\n      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item current))\n  (different :\n    @Ne.{1} (List.{0} Nat) (ShielddSecurity.TransferVerificationEqualitySource01.Item.envelope current)\n      (ShielddSecurity.TransferVerificationEqualitySource01.Item.envelope item)),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)))\n    (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available extract\n      inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action item child)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0}\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) Unit\n        (@ShielddSecurity.TransferCapabilitySource01.Error.mismatch K\n          (ShielddSecurity.TransferSctInsertionSource01.Error X))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "63d019d73dc6f0885f077340db2bbdc0794c0e6cfa5c745846333cd13ae5ef73"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.successful_body_derives_reextraction_freshness_and_markers",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.successful_body_derives_reextraction_freshness_and_markers : \u2200\n  {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (success :\n    @Eq.{1}\n      (Except.{0, 0}\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        Unit)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action\n          item child))\n      (@Except.ok.{0, 0}\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) Unit\n        Unit.unit)),\n  And\n    (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n      (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)\n      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))\n    (And\n      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.State.verifiable O\n          (@ShielddSecurity.TransferStateDelta.applyCache O E\n            (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n          entryKey)\n        (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))\n      (And\n        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n          (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n              (ShielddSecurity.TransferCapabilitySource01.Error K\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n                extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n                action item child)))\n          (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n            (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n              (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n                (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey\n                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))\n              dayKey\n              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))))\n        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n              (ShielddSecurity.TransferCapabilitySource01.Error K\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n                extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n                action item child)))\n          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "af6fd8dcd06e739580c17e2d79088da9870a0ab7ef897815349583af1e9d4612"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.successful_body_derives_visible_marker_values",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.successful_body_derives_visible_marker_values : \u2200 {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (different : @Ne.{1} Nat entryKey dayKey)\n  (success :\n    @Eq.{1}\n      (Except.{0, 0}\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        Unit)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action\n          item child))\n      (@Except.ok.{0, 0}\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) Unit\n        Unit.unit)),\n  And\n    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n            (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n            (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n              extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n              action item child)))\n        entryKey)\n      (@Option.some.{0} (List.{0} Nat)\n        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))\n    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n            (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n            (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n              extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n              action item child)))\n        dayKey)\n      (@Option.some.{0} (List.{0} Nat)\n        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0075910908002156647034cd11fabee9be2ee58631661281762c1c67a3e5c28b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.existing_current_entry_rejects_bound_body",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.existing_current_entry_rejects_bound_body : \u2200 {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n        entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n    (@ShielddSecurity.TransferRawStateProgram01.asCache O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available extract\n        inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action item\n        child))\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Cache O E))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "3e210a7ed6fda4198d19ac021ab9e255dcee7362b5574a682c5e6c075d37f249"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.deliveryApi",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.deliveryApi : {O E K X Tree A T : Type} \u2192\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) \u2192\n    (raw :\n        ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (notes volume :\n          ShielddSecurity.TransferNoteManagerSource01.Backend O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n        (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n          (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n            (extract :\n                A \u2192\n                  ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n                    Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) \u2192\n              (inputs outputs : A \u2192 List.{0} Nat) \u2192\n                (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) \u2192\n                  (action : A) \u2192\n                    (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) \u2192\n                      ShielddSecurity.TransferStateDelta.Api O E T",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "4043f65df8dfcb33bacc2860c3f406dc28120a997c1fa0c59d7addfc7d444d64"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.existing_parent_entry_rejects_bound_delivery",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.existing_parent_entry_rejects_bound_delivery : \u2200\n  {O E K X Tree A T : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (transaction : T)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))\n    (@ShielddSecurity.TransferStateDelta.run O E T\n      (@ShielddSecurity.TransferBoundOrdinarySource01.deliveryApi O E K X Tree A T api raw notes volume sct available\n        extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action\n        item)\n      registryMatches exclusive mode transaction parent queued)\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "7bfb931da3927fac78ebdbbaed325a4bd16300f5a57be5dbf3651f43ad43e916"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferBoundOrdinarySource01.existing_parent_entry_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferBoundOrdinarySource01.existing_parent_entry_preserves_parent_and_queue : \u2200\n  {O E K X Tree A T : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (transaction : T)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T))\n    (@ShielddSecurity.TransferStateDelta.finish O E T parent queued\n      (@ShielddSecurity.TransferStateDelta.run O E T\n        (@ShielddSecurity.TransferBoundOrdinarySource01.deliveryApi O E K X Tree A T api raw notes volume sct available\n          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action\n          item)\n        registryMatches exclusive mode transaction parent queued))\n    (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T) parent queued)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "4f279003d531d0b6c429db29814889c9ce19e6745b1ac650f97ba995c8fc67e1"
+    }
+  ],
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "module": "TransferCurrentVolumeSource01",
+      "object": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "source": {
+        "bytes": 10987,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean",
+        "sha256": "3e34bb62ef0262f2f6ff6124da243b5332ae1e2e1102961e01521f3352f74b19"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "module": "TransferOrdinaryStorageSource01",
+      "object": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "source": {
+        "bytes": 21000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean",
+        "sha256": "a16cf823a1d57f6f770ba1952a59f9fb843fc47a8e9a48d7172c4bad0ae75c66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "module": "TransferCapabilitySource01",
+      "object": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "source": {
+        "bytes": 7320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.lean",
+        "sha256": "3b75e03b3801ab4717a720d351a2cb74200f4ba087ee1b15792d51951bfc2416"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "module": "TransferVerificationEqualitySource01",
+      "object": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "source": {
+        "bytes": 5810,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.lean",
+        "sha256": "70604d840acd8c0ea7a397337ac2f7dd35ab2285d41f30b047b2aab2252b9a37"
+      }
+    }
+  ],
+  "manifest_entries": 27,
+  "guard_unchanged": true,
+  "rejected": {
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.708394999965094,
+      "status": "failed"
+    },
+    "all_program_definitions_and_predecessor_contracts_unchanged": true,
+    "exact_delta": "--- \n+++ \n@@ -174,7 +174,7 @@\n   | ok current =>\n     by_cases matched : current = item\n     \u00b7 rw [matched] at observed\n-      rw [TransferCapabilitySource01.exact_rebinding_dispatches_projected_action _ extract inputs outputs\n+      rw [executeBound, TransferCapabilitySource01.exact_rebinding_dispatches_projected_action _ extract inputs outputs\n         wordMax capacity nullifierKey entryKey dayKey action \u27e8item, .ordinary\u27e9 child observed]\n       rw [liftRaw_preserves_cache_selection]\n       exact rejected\n",
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-01\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.lean:177:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ]
+  },
+  "interfaces": [
+    "Ordinary token is explicit; actual stateless extractor, state/proof validation and registry gate provenance remain upstream",
+    "Item statement denotes compared scalar value, envelope denotes serialized bytes; neither implies preimage semantic truth or cryptographic validity",
+    "ensure_binds does not inspect registry_id; registry provenance is a separate enclosing gate",
+    "Current overlay read availability/key/store correspondence and immutable successfully loaded SCT/tree/CloneCOW/codecs remain inherited",
+    "Returned-result child discard is modeled; Rust panic, Host retry/publication and participating-store durability remain separate",
+    "No native tests or semantic negative controls and no full Transfer certificate"
+  ],
+  "scope": "Whole Ordinary body performs stateless re-extraction and complete Item equality before both installed SCT/pending payload callbacks. Any returned result preserves input nonverifiable writes; family/scalar/envelope mismatch stops before every raw effect. Whole success derives exact re-extraction, initial current-overlay absence, both marker writes and visible marker values under explicit key separation. Existing current or parent entry prevents successful body/delivery and preserves original parent/queue without desired match, reshape, spent-read or rollback premises. Token/extractor/cryptographic/Rust/tree/store/native/durability interfaces and full Transfer remain open. All two program definitions and ten theorem contracts are unchanged from rejected01; only one proof rewrite now exposes executeBound before the existing dispatch lemma. Same Ordinary context/action/Item appears in extraction, comparison and raw projections. Success inversion derives the compared Item and marker results from the whole modeled body. Initial existing entry refusal needs no desired match, successful reshape, spent read or parent rollback premise. Original compiler rejection receives full zero credit; no native control or certificate.",
+  "full_transfer": "OPEN"
+}
