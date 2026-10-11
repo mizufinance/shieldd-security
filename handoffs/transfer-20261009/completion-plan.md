@@ -628,3 +628,6 @@ Reviewed actual-field certificate reuse: evidence `8a03d5a7a5c138cbe1b3c78350ec6
 
 
 Reviewed regulated-asset95/96 evidence `4f4c9032d3d42a9275dc03317495d6e85b50abf7` adds actual assertion178118 to the same shared assignment, total164distinct assertions with anchor178117 OPEN; all177954arith rows remain constructed. Exact source regeneration,16full original reports,822historical attempts, guards and narrow readonly3node/3row/2constant DATA comparison passed. No new replay/native/fullTransfer certification.
+
+
+Reviewed count-codec evidence `bb8aa04d1d63fd06b38a08b451b24ba4f01f2d39` publishes2source modules with21fresh complete original reports. Whole Ordinary invalid-parent-count refusal and symbolic eight-byte big-endian codec roundtrip/range/length properties are proved in the source models; actual UInt8/runtime/native/durable correspondence and fullTransfer OPEN. Exact original ancestor types,5unchanged codec definitions modulo binder rename,10unchanged theorem contracts and physical guards reviewed.
