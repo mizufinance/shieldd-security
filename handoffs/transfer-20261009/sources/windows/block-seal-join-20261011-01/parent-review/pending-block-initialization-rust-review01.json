@@ -1,0 +1,13 @@
+{
+  "kind": "Pinned native initialization branch source review; no new execution",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/component/sct/src/component/sct.rs",
+    "bytes": 3753,
+    "sha256": "af39cbcc15669165ab7940dcd5be099e12a3ddc2407ec946bfca47ac5585c005"
+  },
+  "branch": "SCT Component.begin_block writes block height and timestamp, then object_put at the source-derived pending_block key of PendingNullifierBlock.default, which is explicit Open with empty ordered vector and membership set. Native block initialization therefore supplies present empty Open rather than actual object absence. It then deletes the block-materialization object. Arc::get_mut is guarded by an expect and may panic if ownership is not exclusive; this source review does not discharge that ownership condition.",
+  "integration_requirement": "The whole block/seal join must derive default initial coherent/unsealed/empty-order invariants from this encoded object. Earlier absence-start proof remains a separately scoped result.",
+  "scope_boundary": "Typed object/key/Clone/collection/height/timestamp/Host scheduling correspondence and persistent state remain separate obligations",
+  "full_transfer": "OPEN"
+}
