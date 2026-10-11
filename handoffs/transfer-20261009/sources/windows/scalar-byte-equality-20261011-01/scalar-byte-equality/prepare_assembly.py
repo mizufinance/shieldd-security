@@ -1,0 +1,41 @@
+"""Seal finite byte-key equality and exact mathematical scalar equality equivalence."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-scalar-padded-carry-endpoint-20261011-03/assemble.py').read_text()
+def replace(a,b,count=1):
+    global s
+    assert s.count(a)==count,(a,s.count(a))
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-scalar-padded-carry-20261011-03'", "CURRENT = DIAG / 'transfer-scalar-byte-equality-20261011-01'")
+s=s.replace('transfer-scalar-padded-carry-checkpoint-20261011-03','transfer-scalar-byte-equality-checkpoint-20261011-01').replace('scalar-padded-carry-endpoint','scalar-byte-equality-endpoint')
+replace("MODULE = 'TransferScalarPaddedCarry01'", "MODULE = 'TransferScalarByteEquality01'")
+replace('assert len(fresh) == 6','assert len(fresh) == 4')
+replace("assert pool['objects'] == 89 and len(pool['inherited_public_reports']) == 842", "assert pool['objects'] == 90 and len(pool['inherited_public_reports']) == 848")
+replace("manager_endpoint = DIAG / 'transfer-typed-scalar-publication-endpoint-20261011-01'", "manager_endpoint = DIAG / 'transfer-scalar-padded-carry-endpoint-20261011-03'")
+replace("manager_archive = manager_endpoint / 'portable-windows-typed-scalar-publication-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-scalar-padded-carry-endpoint01.tar.xz'")
+replace('ac74e64e72236e0afa9700349fbfba007c3a8d7b6b8e68663eed51f3659fce57','c01c30c9ce719a65eac427328322b895868ebbfd146f3e641dfbf8381c41e175')
+replace("tar.extractfile('reports/fresh-3-complete-declarations.txt')", "tar.extractfile('reports/fresh-6-complete-declarations.txt')")
+replace('assert len(manager_reports) == 3','assert len(manager_reports) == 6')
+replace("'module': 'TransferTypedScalarPublication01'", "'module': 'TransferScalarPaddedCarry01'")
+replace('assert len(combined_reports) == 842','assert len(combined_reports) == 848')
+replace('assert len(manager_selected) == 89','assert len(manager_selected) == 90')
+replace("reference = {'typed_scalar_publication':", "reference = {'scalar_padded_carry':")
+replace("'imported_complete_reports': 3", "'imported_complete_reports': 6")
+replace("'complete_owned_modules': 89, 'inherited_complete_reports': 842", "'complete_owned_modules': 90, 'inherited_complete_reports': 848")
+s=s.replace('eighty-nine-module','ninety-module').replace('842 original inherited','848 original inherited').replace('verified 842 inherited','verified 848 inherited')
+replace("'fresh_definition_audits': 3", "'fresh_definition_audits': 0")
+replace("'fresh_theorem_audits': 3", "'fresh_theorem_audits': 4")
+replace("'fresh_complete_public_audits': 6", "'fresh_complete_public_audits': 4")
+replace("'inherited_complete_public_audits': 842", "'inherited_complete_public_audits': 848")
+replace("'fresh_audits': 6, 'inherited_audits': 842", "'fresh_audits': 4, 'inherited_audits': 848",2)
+replace("'rejected_attempts': 2", "'rejected_attempts': 0")
+s=s.replace('SOURCE_SCALAR_EXPLICIT_PADDED_MAC_ADC_CARRY_SCHEDULE_QUALIFIED','SOURCE_SCALAR_TYPED_BYTE_KEY_VALUE_EQUALITY_QUALIFIED')
+start=s.index("add(CURRENT/'recipe_source.py'");end=s.index("add(stdout, 'reports/fresh-6-complete-declarations.txt'",start)
+s=s[:start]+s[end:]
+replace("add(stdout, 'reports/fresh-6-complete-declarations.txt'", "add(stdout, 'reports/fresh-4-complete-declarations.txt'")
+start=s.index("    'scope': mapping['scope'] + ");end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' Four complete full type/axiom reports retained. Typed finite bytes derive exact numeric head/tail observations and symbolic equal-width decoder injectivity. Source serializer 32-byte keys equal iff mathematical Montgomery values equal. No Rust/native trace or cryptographic hash collision correspondence inferred. No ancestor/native replay. Full Transfer OPEN; zero native/control/certification credit.'}"+s[end:]
+replace('explicit padded MAC/ADC source schedule derives all zero ignored carries, exact 32-byte canonical Montgomery serializer','finite typed LE key equality iff exact mathematical Montgomery scalar equality')
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':4,'inherited_reports':848,'owned_modules':90,'fresh_rejected_attempts':0})
