@@ -1,0 +1,120 @@
+import ShielddSecurity.TransferOrdinaryHeightSource01
+
+set_option maxHeartbeats 200000
+set_option maxRecDepth 4096
+
+namespace ShielddSecurity.TransferVolumeHeightKeys01
+
+open TransferStateDelta TransferRawStateProgram01
+open TransferIndexWriterModel01 (Keys Codec Backend Witness)
+open TransferVerificationEqualitySource01 (Item)
+
+/-! Exact ASCII key prefixes from the locked runtime. Suffixes are arbitrary,
+so their formatting does not affect namespace separation. Equality-preserving
+projection into this Nat-keyed model remains an explicit representation
+interface. These facts close the earlier key-separation premises and do not
+prove store/codecs/ownership/crypto/native/durable correspondence. -/
+
+def heightBytes : Bytes := [115, 99, 116, 47, 98, 108, 111, 99, 107, 95, 109, 97, 110, 97, 103, 101, 114, 47, 98, 108, 111, 99, 107, 95, 104, 101, 105, 103, 104, 116]
+def volumeRoot : Bytes := [115, 104, 105, 101, 108, 100, 101, 100, 95, 112, 111, 111, 108, 47, 118, 111, 108, 117, 109, 101, 95, 110, 117, 108, 108, 105, 102, 105, 101, 114, 115, 47]
+def entryBytes (suffix : Bytes) : Bytes := volumeRoot ++ ([101, 110, 116, 114, 105, 101, 115, 47] ++ suffix)
+def dayBytes (suffix : Bytes) : Bytes := volumeRoot ++ ([100, 97, 121, 115, 47] ++ suffix)
+
+theorem height_entry_separate (suffix : Bytes) : heightBytes ≠ entryBytes suffix := by
+  intro equal
+  have impossible : (99 : Nat) = 104 := (List.cons.inj (List.cons.inj equal).2).1
+  contradiction
+
+theorem height_day_separate (suffix : Bytes) : heightBytes ≠ dayBytes suffix := by
+  intro equal
+  have impossible : (99 : Nat) = 104 := (List.cons.inj (List.cons.inj equal).2).1
+  contradiction
+
+theorem entry_day_separate (entrySuffix daySuffix : Bytes) : entryBytes entrySuffix ≠ dayBytes daySuffix := by
+  intro equal
+  have suffix := (List.append_right_inj volumeRoot).mp equal
+  have impossible : (101 : Nat) = 100 := (List.cons.inj suffix).1
+  contradiction
+
+theorem projected_source_keys_separate (project : Bytes → Nat) (injection : Function.Injective project)
+    (entrySuffix daySuffix : Bytes) :
+    project heightBytes ≠ project (entryBytes entrySuffix) ∧
+      project heightBytes ≠ project (dayBytes daySuffix) ∧
+      project (entryBytes entrySuffix) ≠ project (dayBytes daySuffix) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro equal
+    exact height_entry_separate entrySuffix (injection equal)
+  · intro equal
+    exact height_day_separate daySuffix (injection equal)
+  · intro equal
+    exact entry_day_separate entrySuffix daySuffix (injection equal)
+
+theorem source_keys_whole_indexed_success_derives_height_and_volume {O E K X Tree A : Type}
+    (api : Api O E A) (keys : Keys) (codec : Codec) (index : Backend O E A)
+    (project : Bytes → Nat) (injection : Function.Injective project) (entrySuffix daySuffix : Bytes)
+    (heightAvailable volumeAvailable : Delta O E → Bool) (decode : Bytes → Option Nat)
+    (raw : TransferRawEffectsSource01.Backend O E (TransferSctInsertionSource01.Error X))
+    (notes volume : TransferNoteManagerSource01.Backend O E (TransferSctInsertionSource01.Error X))
+    (sct : TransferSctInsertionSource01.Backend O E X Tree)
+    (extract : A → TransferCapabilitySource01.ProofContext → Except K Item) (inputs outputs : A → List Nat)
+    (wordMax capacity treeKey notesKey volumeKey payload nullifierKey : Nat)
+    (action : A) (item : Item) (registryMatches exclusive : Bool) (parent : State O)
+    (queued : List A) (committed : Commit O E A)
+    (success : run (TransferOrdinaryIndexDelivery01.combinedApi
+      (TransferOrdinaryHeightSource01.withHeight api heightAvailable decode (project heightBytes)) keys codec index
+      (TransferBoundOrdinarySource01.executeBound raw notes volume sct volumeAvailable extract inputs outputs wordMax capacity
+        treeKey notesKey volumeKey payload nullifierKey (project (entryBytes entrySuffix)) (project (dayBytes daySuffix)) action item))
+      registryMatches exclusive .perTransaction action parent queued = some committed) :
+    extract action .ordinary = .ok item ∧ parent.verifiable (project (entryBytes entrySuffix)) = none ∧
+      committed.parent.verifiable (project (entryBytes entrySuffix)) = some [1] ∧
+      committed.parent.verifiable (project (dayBytes daySuffix)) = some [1] ∧
+      ∃ (height : Nat) (bytes : Bytes) (witness : Witness),
+        parent.verifiable (project heightBytes) = some bytes ∧ decode bytes = some height ∧
+        TransferIndexWriterModel01.inspect keys codec index height action
+          ⟨parent, (TransferBoundOrdinarySource01.executeBound raw notes volume sct volumeAvailable extract inputs outputs
+            wordMax capacity treeKey notesKey volumeKey payload nullifierKey (project (entryBytes entrySuffix))
+            (project (dayBytes daySuffix)) action item ⟨parent, empty⟩).cache⟩ = .ok witness ∧
+        committed.parent.verifiable (project heightBytes) = some bytes := by
+  have separate := projected_source_keys_separate project injection entrySuffix daySuffix
+  obtain ⟨reextracted, absent, entry, day, _⟩ :=
+    TransferOrdinaryIndexDelivery01.bound_ordinary_per_transaction_success_derives_markers
+      (TransferOrdinaryHeightSource01.withHeight api heightAvailable decode (project heightBytes)) keys codec index
+      raw notes volume sct volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload
+      nullifierKey (project (entryBytes entrySuffix)) (project (dayBytes daySuffix)) action item
+      registryMatches exclusive action parent queued committed separate.2.2 success
+  obtain ⟨height, bytes, witness, original, decoded, _, inspected, final⟩ :=
+    TransferOrdinaryHeightSource01.whole_indexed_success_derives_original_parent_height api keys codec index
+      heightAvailable volumeAvailable decode raw notes volume sct extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload
+      nullifierKey (project (entryBytes entrySuffix)) (project (dayBytes daySuffix)) (project heightBytes)
+      action item registryMatches exclusive parent queued committed separate.1 separate.2.1 success
+  exact ⟨reextracted, absent, entry, day, height, bytes, witness, original, decoded, inspected, final⟩
+
+set_option pp.all true in
+#check @heightBytes
+#print axioms heightBytes
+set_option pp.all true in
+#check @volumeRoot
+#print axioms volumeRoot
+set_option pp.all true in
+#check @entryBytes
+#print axioms entryBytes
+set_option pp.all true in
+#check @dayBytes
+#print axioms dayBytes
+set_option pp.all true in
+#check @height_entry_separate
+#print axioms height_entry_separate
+set_option pp.all true in
+#check @height_day_separate
+#print axioms height_day_separate
+set_option pp.all true in
+#check @entry_day_separate
+#print axioms entry_day_separate
+set_option pp.all true in
+#check @projected_source_keys_separate
+#print axioms projected_source_keys_separate
+set_option pp.all true in
+#check @source_keys_whole_indexed_success_derives_height_and_volume
+#print axioms source_keys_whole_indexed_success_derives_height_and_volume
+
+end ShielddSecurity.TransferVolumeHeightKeys01
