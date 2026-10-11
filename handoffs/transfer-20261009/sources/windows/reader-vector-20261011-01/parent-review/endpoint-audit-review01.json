@@ -1,0 +1,146 @@
+{
+  "kind": "Independent original source/full-type/axiom/core closure/guard/runtime review; no compiler or native replay",
+  "manifest_entries": 30,
+  "plan_pins_matched": 9,
+  "fresh_modules": 1,
+  "fresh_reports": 13,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.Aligned",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.Aligned : (lookup : Nat \u2192 Option.{0} Bool) \u2192\n  List.{0} Nat \u2192 List.{0} Bool \u2192 Prop",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "5d657a528a54455364680f544dac776b3adafd6faab8a0881560c3b4a8408fd6"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.lookupAll",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.lookupAll : (lookup : Nat \u2192 Option.{0} Bool) \u2192\n  List.{0} Nat \u2192 Option.{0} (List.{0} Bool)",
+      "axioms": [],
+      "full_type_sha256": "2b341deb8f18133aa1c6cc73b724681c175ecec1f67e23eaaa138e95ae624b6c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.joinPending",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.joinPending : (pending : Nat \u2192 Bool) \u2192\n  List.{0} Nat \u2192 List.{0} Bool \u2192 List.{0} Bool",
+      "axioms": [],
+      "full_type_sha256": "01166c54c7aec4bd87a6aa1d1f3cb0e6e261ac7931f8d96415ef882fde97ca88"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.zipUnspent",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.zipUnspent : List.{0} Nat \u2192 List.{0} Bool \u2192 Bool",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "39238b2c1f9f833d62294f45ad3260740e32bda873704dfaa18f8c78ce49bfab"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.contains",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.contains : (readerGate : Bool) \u2192\n  (lookup : Nat \u2192 Option.{0} Bool) \u2192 (pending : Nat \u2192 Bool) \u2192 (keys : List.{0} Nat) \u2192 Option.{0} (List.{0} Bool)",
+      "axioms": [],
+      "full_type_sha256": "81efa0adcb80e54ca942ee8bdca77c6e275b7dcfe39fe3f8372792631854cb0b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.lookup_success_alignment",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.lookup_success_alignment : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys flags",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0f96f7ae85226b5d66f128733b5885fac93499acbbb7e7afcc2cc09b2ce9c9f2"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.aligned_length",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.aligned_length : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (aligned : ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys flags),\n  @Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "3ca5dde78ef099e26a9ba8f3f656bcb91e1aebf66a2a96cdd52b2b2a2cd2417b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.lookup_success_length",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.lookup_success_length : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  @Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d3b879fc3adc97e4a82cfdc7400706ef32ec63d07faf406d5bfb4955ce7c3dc6"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.joinPending_length",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.joinPending_length : \u2200 (pending : Nat \u2192 Bool) (keys : List.{0} Nat)\n  (flags : List.{0} Bool),\n  @Eq.{1} Nat (@List.length.{0} Bool (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys flags))\n    (@List.length.{0} Bool flags)",
+      "axioms": [],
+      "full_type_sha256": "c171a1f20456ecd318a8c32cb9378000a290fb1238d5fd7b0a1aed7db5938117"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.contains_success_actual_vector",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.contains_success_actual_vector : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool))\n      (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  And (@Eq.{1} Bool readerGate Bool.true)\n    (@Exists.{1} (List.{0} Bool) fun (durable : List.{0} Bool) =>\n      And\n        (@Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n          (@Option.some.{0} (List.{0} Bool) durable))\n        (And (ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys durable)\n          (And\n            (@Eq.{1} (List.{0} Bool) flags\n              (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys durable))\n            (@Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a24f873263f158fd6fe8a50d2adfb7a38e289d9d2797108ec8230b7641fdbe5b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.aligned_zip_unspent",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.aligned_zip_unspent : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (durable : List.{0} Bool)\n  (aligned : ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys durable)\n  (unspent :\n    @Eq.{1} Bool\n      (ShielddSecurity.TransferNullifierReaderVector01.zipUnspent keys\n        (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys durable))\n      Bool.true)\n  (key : Nat),\n  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key \u2192\n    And (@Eq.{1} (Option.{0} Bool) (lookup key) (@Option.some.{0} Bool Bool.false))\n      (@Eq.{1} Bool (pending key) Bool.false)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "4ddd200497ccd98da155c1167073b8b3bc1b8a6f0a4679c44f39bc03be3737da"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.contains_success_unspent",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.contains_success_unspent : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool))\n      (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n      (@Option.some.{0} (List.{0} Bool) flags))\n  (unspent : @Eq.{1} Bool (ShielddSecurity.TransferNullifierReaderVector01.zipUnspent keys flags) Bool.true),\n  And (@Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys))\n    (\u2200 (key : Nat),\n      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key \u2192\n        And (@Eq.{1} (Option.{0} Bool) (lookup key) (@Option.some.{0} Bool Bool.false))\n          (@Eq.{1} Bool (pending key) Bool.false))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "8a3a89599eb77bc12fb60649918dced7c5690693d2eab6ea466c2543ea4333dd"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNullifierReaderVector01.lookup_error_refuses_contains",
+      "full_type": "ShielddSecurity.TransferNullifierReaderVector01.lookup_error_refuses_contains : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat)\n  (failed :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.none.{0} (List.{0} Bool))),\n  @Eq.{1} (Option.{0} (List.{0} Bool))\n    (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n    (@Option.none.{0} (List.{0} Bool))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "c54feb65535300212761dc76b95f1cfc939948a1a1561f3eac9e1221b178d439"
+    }
+  ],
+  "separate_status_context_reports": 17,
+  "custom_imports": 0,
+  "core_modules": 2141,
+  "guard_unchanged": true,
+  "rejected_attempts": [
+    {
+      "attempt": 1,
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 15.983047600020654,
+        "status": "failed"
+      },
+      "source_sha256": "66e44b6880a7f348a9870da4879b67e4d2a2d4c7ce7ff5e70e2ffddc7ae965c5",
+      "compiler_output": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-01\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean:91:45: error(lean.unknownIdentifier): Unknown constant `Bool.true_eq_true`\nC:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-01\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean:94:44: error(lean.unknownIdentifier): Unknown constant `Bool.true_eq_true`\nC:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-01\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean:112:8: error: Type mismatch: After simplification, term\n  unspent\n has type\n  (!(flag || pending head)) = true \u2227 zipUnspent rest (joinPending pending rest remaining) = true\nbut is expected to have type\n  (flag || pending head) = false \u2227 zipUnspent rest (joinPending pending rest remaining) = true\nC:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-01\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean:135:72: error(lean.unknownIdentifier): Unknown constant `Bool.true_eq_true`\nC:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-01\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean:135:72: error(lean.unknownIdentifier): Unknown constant `Bool.true_eq_true`\nShielddSecurity.TransferNullifierReaderVector01.Aligned : (lookup : Nat \u2192 Option.{0} Bool) \u2192\n  List.{0} Nat \u2192 List.{0} Bool \u2192 Prop\n'ShielddSecurity.TransferNullifierReaderVector01.Aligned' depends on axioms: [propext]\nShielddSecurity.TransferNullifierReaderVector01.lookupAll : (lookup : Nat \u2192 Option.{0} Bool) \u2192\n  List.{0} Nat \u2192 Option.{0} (List.{0} Bool)\n'ShielddSecurity.TransferNullifierReaderVector01.lookupAll' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.joinPending : (pending : Nat \u2192 Bool) \u2192\n  List.{0} Nat \u2192 List.{0} Bool \u2192 List.{0} Bool\n'ShielddSecurity.TransferNullifierReaderVector01.joinPending' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.zipUnspent : List.{0} Nat \u2192 List.{0} Bool \u2192 Bool\n'ShielddSecurity.TransferNullifierReaderVector01.zipUnspent' depends on axioms: [propext]\nShielddSecurity.TransferNullifierReaderVector01.contains : (readerGate : Bool) \u2192\n  (lookup : Nat \u2192 Option.{0} Bool) \u2192 (pending : Nat \u2192 Bool) \u2192 (keys : List.{0} Nat) \u2192 Option.{0} (List.{0} Bool)\n'ShielddSecurity.TransferNullifierReaderVector01.contains' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.lookup_success_alignment : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys flags\n'ShielddSecurity.TransferNullifierReaderVector01.lookup_success_alignment' depends on axioms: [propext, Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.aligned_length : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (aligned : ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys flags),\n  @Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)\n'ShielddSecurity.TransferNullifierReaderVector01.aligned_length' depends on axioms: [propext]\nShielddSecurity.TransferNullifierReaderVector01.lookup_success_length : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  @Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)\n'ShielddSecurity.TransferNullifierReaderVector01.lookup_success_length' depends on axioms: [propext, Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.joinPending_length : \u2200 (pending : Nat \u2192 Bool) (keys : List.{0} Nat)\n  (flags : List.{0} Bool),\n  @Eq.{1} Nat (@List.length.{0} Bool (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys flags))\n    (@List.length.{0} Bool flags)\n'ShielddSecurity.TransferNullifierReaderVector01.joinPending_length' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.contains_success_actual_vector : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool))\n      (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  And (@Eq.{1} Bool readerGate Bool.true)\n    (@Exists.{1} (List.{0} Bool) fun (durable : List.{0} Bool) =>\n      And\n        (@Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n          (@Option.some.{0} (List.{0} Bool) durable))\n        (And (ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys durable)\n          (And\n            (@Eq.{1} (List.{0} Bool) flags\n              (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys durable))\n            (@Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)))))\n'ShielddSecurity.TransferNullifierReaderVector01.contains_success_actual_vector' depends on axioms: [propext,\n Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.aligned_zip_unspent : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (durable : List.{0} Bool)\n  (aligned : ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys durable)\n  (unspent :\n    @Eq.{1} Bool\n      (ShielddSecurity.TransferNullifierReaderVector01.zipUnspent keys\n        (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys durable))\n      Bool.true)\n  (key : Nat),\n  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key \u2192\n    And (@Eq.{1} (Option.{0} Bool) (lookup key) (@Option.some.{0} Bool Bool.false))\n      (@Eq.{1} Bool (pending key) Bool.false)\n'ShielddSecurity.TransferNullifierReaderVector01.aligned_zip_unspent' depends on axioms: [propext, sorryAx]\nShielddSecurity.TransferNullifierReaderVector01.contains_success_unspent : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool))\n      (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n      (@Option.some.{0} (List.{0} Bool) flags))\n  (unspent : @Eq.{1} Bool (ShielddSecurity.TransferNullifierReaderVector01.zipUnspent keys flags) Bool.true),\n  And (@Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys))\n    (\u2200 (key : Nat),\n      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key \u2192\n        And (@Eq.{1} (Option.{0} Bool) (lookup key) (@Option.some.{0} Bool Bool.false))\n          (@Eq.{1} Bool (pending key) Bool.false))\n'ShielddSecurity.TransferNullifierReaderVector01.contains_success_unspent' depends on axioms: [propext,\n sorryAx,\n Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.lookup_error_refuses_contains : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat)\n  (failed :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.none.{0} (List.{0} Bool))),\n  @Eq.{1} (Option.{0} (List.{0} Bool))\n    (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n    (@Option.none.{0} (List.{0} Bool))\n'ShielddSecurity.TransferNullifierReaderVector01.lookup_error_refuses_contains' depends on axioms: [propext]\n",
+      "scope": "Rejected elaboration; no semantic negative result"
+    },
+    {
+      "attempt": 2,
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.068163499992806,
+        "status": "failed"
+      },
+      "source_sha256": "18f4b82ab761d24aeb28993c42ad75b412345a0b521eeea57ce179cd62a02f18",
+      "compiler_output": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-02\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean:88:41: error: No goals to be solved\nC:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-02\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean:91:52: error: No goals to be solved\nShielddSecurity.TransferNullifierReaderVector01.Aligned : (lookup : Nat \u2192 Option.{0} Bool) \u2192\n  List.{0} Nat \u2192 List.{0} Bool \u2192 Prop\n'ShielddSecurity.TransferNullifierReaderVector01.Aligned' depends on axioms: [propext]\nShielddSecurity.TransferNullifierReaderVector01.lookupAll : (lookup : Nat \u2192 Option.{0} Bool) \u2192\n  List.{0} Nat \u2192 Option.{0} (List.{0} Bool)\n'ShielddSecurity.TransferNullifierReaderVector01.lookupAll' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.joinPending : (pending : Nat \u2192 Bool) \u2192\n  List.{0} Nat \u2192 List.{0} Bool \u2192 List.{0} Bool\n'ShielddSecurity.TransferNullifierReaderVector01.joinPending' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.zipUnspent : List.{0} Nat \u2192 List.{0} Bool \u2192 Bool\n'ShielddSecurity.TransferNullifierReaderVector01.zipUnspent' depends on axioms: [propext]\nShielddSecurity.TransferNullifierReaderVector01.contains : (readerGate : Bool) \u2192\n  (lookup : Nat \u2192 Option.{0} Bool) \u2192 (pending : Nat \u2192 Bool) \u2192 (keys : List.{0} Nat) \u2192 Option.{0} (List.{0} Bool)\n'ShielddSecurity.TransferNullifierReaderVector01.contains' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.lookup_success_alignment : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys flags\n'ShielddSecurity.TransferNullifierReaderVector01.lookup_success_alignment' depends on axioms: [propext, Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.aligned_length : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (aligned : ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys flags),\n  @Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)\n'ShielddSecurity.TransferNullifierReaderVector01.aligned_length' depends on axioms: [propext]\nShielddSecurity.TransferNullifierReaderVector01.lookup_success_length : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  @Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)\n'ShielddSecurity.TransferNullifierReaderVector01.lookup_success_length' depends on axioms: [propext, Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.joinPending_length : \u2200 (pending : Nat \u2192 Bool) (keys : List.{0} Nat)\n  (flags : List.{0} Bool),\n  @Eq.{1} Nat (@List.length.{0} Bool (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys flags))\n    (@List.length.{0} Bool flags)\n'ShielddSecurity.TransferNullifierReaderVector01.joinPending_length' does not depend on any axioms\nShielddSecurity.TransferNullifierReaderVector01.contains_success_actual_vector : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool))\n      (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n      (@Option.some.{0} (List.{0} Bool) flags)),\n  And (@Eq.{1} Bool readerGate Bool.true)\n    (@Exists.{1} (List.{0} Bool) fun (durable : List.{0} Bool) =>\n      And\n        (@Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n          (@Option.some.{0} (List.{0} Bool) durable))\n        (And (ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys durable)\n          (And\n            (@Eq.{1} (List.{0} Bool) flags\n              (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys durable))\n            (@Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys)))))\n'ShielddSecurity.TransferNullifierReaderVector01.contains_success_actual_vector' depends on axioms: [propext,\n sorryAx,\n Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.aligned_zip_unspent : \u2200 (lookup : Nat \u2192 Option.{0} Bool)\n  (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (durable : List.{0} Bool)\n  (aligned : ShielddSecurity.TransferNullifierReaderVector01.Aligned lookup keys durable)\n  (unspent :\n    @Eq.{1} Bool\n      (ShielddSecurity.TransferNullifierReaderVector01.zipUnspent keys\n        (ShielddSecurity.TransferNullifierReaderVector01.joinPending pending keys durable))\n      Bool.true)\n  (key : Nat),\n  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key \u2192\n    And (@Eq.{1} (Option.{0} Bool) (lookup key) (@Option.some.{0} Bool Bool.false))\n      (@Eq.{1} Bool (pending key) Bool.false)\n'ShielddSecurity.TransferNullifierReaderVector01.aligned_zip_unspent' depends on axioms: [propext]\nShielddSecurity.TransferNullifierReaderVector01.contains_success_unspent : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat) (flags : List.{0} Bool)\n  (success :\n    @Eq.{1} (Option.{0} (List.{0} Bool))\n      (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n      (@Option.some.{0} (List.{0} Bool) flags))\n  (unspent : @Eq.{1} Bool (ShielddSecurity.TransferNullifierReaderVector01.zipUnspent keys flags) Bool.true),\n  And (@Eq.{1} Nat (@List.length.{0} Bool flags) (@List.length.{0} Nat keys))\n    (\u2200 (key : Nat),\n      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key \u2192\n        And (@Eq.{1} (Option.{0} Bool) (lookup key) (@Option.some.{0} Bool Bool.false))\n          (@Eq.{1} Bool (pending key) Bool.false))\n'ShielddSecurity.TransferNullifierReaderVector01.contains_success_unspent' depends on axioms: [propext,\n sorryAx,\n Quot.sound]\nShielddSecurity.TransferNullifierReaderVector01.lookup_error_refuses_contains : \u2200 (readerGate : Bool)\n  (lookup : Nat \u2192 Option.{0} Bool) (pending : Nat \u2192 Bool) (keys : List.{0} Nat)\n  (failed :\n    @Eq.{1} (Option.{0} (List.{0} Bool)) (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup keys)\n      (@Option.none.{0} (List.{0} Bool))),\n  @Eq.{1} (Option.{0} (List.{0} Bool))\n    (ShielddSecurity.TransferNullifierReaderVector01.contains readerGate lookup pending keys)\n    (@Option.none.{0} (List.{0} Bool))\n'ShielddSecurity.TransferNullifierReaderVector01.lookup_error_refuses_contains' depends on axioms: [propext]\n",
+      "scope": "Rejected elaboration; no semantic negative result"
+    }
+  ],
+  "interfaces": [
+    "readerGate represents successful boundary/read-lock/object availability preconditions",
+    "lookup captures an individually status-verified observation at that exact boundary; source/codec/NOMT/Merkle correspondence remains upstream",
+    "pending is the current Open membership or Sealed ordered membership observation, not a validation snapshot",
+    "Rust iteration/Vec/zip and snapshot/alias correspondence"
+  ],
+  "scope": "Success derives exact vector alignment/length and exhaustive observed durable/pending freshness; status authentication and actual Rust Vec/store/Merkle refinement remain upstream",
+  "native_execution": "UNRUN",
+  "full_transfer": "OPEN"
+}

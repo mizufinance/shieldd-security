@@ -1,0 +1,30 @@
+{
+  "interfaces": [
+    "readerGate represents successful boundary/read-lock/object availability preconditions",
+    "lookup captures an individually status-verified observation at that exact boundary; source/codec/NOMT/Merkle correspondence remains upstream",
+    "pending is the current Open membership or Sealed ordered membership observation, not a validation snapshot",
+    "Rust iteration/Vec/zip and snapshot/alias correspondence"
+  ],
+  "pending": "contains_nullifiers joins current pending membership into the existing durable vector via in-place zip. joinPending preserves unmatched vector suffixes and proves vector length unchanged even without input-length equality.",
+  "reader": "Reader.contains captures the boundary and read lock, then iterates every input, obtains status, verifies it against that boundary, and collects one spent flag per successful item. Failure aborts collection. lookupAll is the symbolic recurrence for those verified lookup observations; success derives exact ordered alignment and vector length.",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "runtime_sources": [
+    {
+      "bytes": 32442,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\permanent_nullifiers\\store.rs",
+      "sha256": "434554cdb4bfb04f37a71707fb0c81ed77ffcf35677a5cab5aaaffd8832cb5a9"
+    },
+    {
+      "bytes": 48880,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\component\\tree.rs",
+      "sha256": "d95558d2c9da8e16419ab1a43c27052d672c607c46bd41b40daa7e9fdf7b1a65"
+    },
+    {
+      "bytes": 3201,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\permanent_nullifiers.rs",
+      "sha256": "9b4055a0ba311cfeae112741f5521eae58e9a01ffd72d044872e1c6848cfe862"
+    }
+  ],
+  "scope": "Core-only symbolic map/collect, in-place pending zip, length and exhaustive unspent-check proof. Individual status authentication has separate qualified readback evidence; no additional native control or full Transfer certification credit. Source hashes establish identity, not correspondence.",
+  "stage_check": "stage_nullifiers zips input nullifiers with contains_nullifiers flags and rejects any spent flag. Reader success plus the pending join derives full alignment; successful zip-unspent therefore implies a verified false durable observation and false pending membership for every input, without an assumed vector length."
+}
