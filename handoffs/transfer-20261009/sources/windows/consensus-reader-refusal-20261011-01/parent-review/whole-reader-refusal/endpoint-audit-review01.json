@@ -1,0 +1,832 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete type/source/runtime/ancestor/guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 9,
+  "inherited_reports": 386,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.Config",
+      "full_type": "ShielddSecurity.TransferWholeReaderRefusal01.Config : (O E K X Tree A : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "3f3553fefca10c8dbe1055b9d80c6590c6d930896f128e275fd53716560e280a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.delivery",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.delivery : {O E K X Tree A : Type} \u2192\n  (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A) \u2192\n    (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) \u2192\n      (action : A) \u2192\n        (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) \u2192\n          ShielddSecurity.TransferStateDelta.Api O E A",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "9f423757b0c0831497692e6fdddee844674732b207b8cc62de01a1d0eb738bc5"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.excluded_success_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.excluded_success_preserves_parent_and_queue : \u2200 {O E A : Type}\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)\n  (attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))\n  (excluded :\n    \u2200 (committed : ShielddSecurity.TransferStateDelta.Commit O E A),\n      @Ne.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted\n        (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted\n      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))\n    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))\n      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)\n      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))",
+      "axioms": [],
+      "full_type_sha256": "a77ee915136f8c363ac76efbc274314a8743952a51fb4df49ed494c0e7191353"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.whole_success_member_observations",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.whole_success_member_observations : \u2200 {O E K X Tree A : Type}\n  (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)\n  (supported :\n    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} A) (committed : ShielddSecurity.TransferStateDelta.Commit O E A) (key : Nat)\n  (inside :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))\n      (@ShielddSecurity.TransferStateDelta.run O E A\n        (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item)\n        registryMatches exclusive mode action parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),\n  @Exists.{1} ShielddSecurity.TransferReadback.Store fun (store : ShielddSecurity.TransferReadback.Store) =>\n    @Exists.{1} ShielddSecurity.TransferReadback.Boundary fun (boundary : ShielddSecurity.TransferReadback.Boundary) =>\n      @Exists.{1} ShielddSecurity.TransferReadback.Status fun (response : ShielddSecurity.TransferReadback.Status) =>\n        And\n          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Store)\n            (@ShielddSecurity.TransferWholeDurableReadback01.currentReader O E\n              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.decode O E K X Tree A config)\n              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readerKey O E K X Tree A config)\n              (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))\n            (@Option.some.{0} ShielddSecurity.TransferReadback.Store store))\n          (And\n            (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config\n                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                  (@ShielddSecurity.TransferStateDelta.empty O E)))\n              (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))\n            (And\n              (@Eq.{1} Bool\n                (@ShielddSecurity.TransferWholeReaderRefusal01.Config.lockAvailable O E K X Tree A config\n                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                    (@ShielddSecurity.TransferStateDelta.empty O E)))\n                Bool.true)\n              (And\n                (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Status)\n                  (ShielddSecurity.TransferReadback.status\n                    (@ShielddSecurity.TransferWholeReaderRefusal01.Config.hash O E K X Tree A config)\n                    (@ShielddSecurity.TransferWholeReaderRefusal01.Config.verify O E K X Tree A config) store boundary\n                    key\n                    (@ShielddSecurity.TransferWholeReaderRefusal01.Config.candidate O E K X Tree A config\n                      (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                        (@ShielddSecurity.TransferStateDelta.empty O E))\n                      key))\n                  (@Option.some.{0} ShielddSecurity.TransferReadback.Status response))\n                (@Eq.{1} Bool (ShielddSecurity.TransferReadback.Status.spent response) Bool.false))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "5bbcf3f51dd741505efdd1e84f8ba286034e2730bfccee11869345251a17c0bb"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_reader_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_reader_preserves_parent_and_queue : \u2200\n  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)\n  (supported :\n    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} A) (key : Nat)\n  (inside :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)\n  (missing :\n    @Eq.{1} (Option.{0} O)\n      (@ShielddSecurity.TransferStateDelta.State.objects O parent\n        (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readerKey O E K X Tree A config))\n      (@Option.none.{0} O)),\n  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=\n    @ShielddSecurity.TransferStateDelta.run O E A\n      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches\n      exclusive mode action parent queued;\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted\n      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))\n    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))\n      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)\n      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d127aa6db67854927a897dea46e892d8fd0c6118be94505f88bc6f067f6f2acc"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_boundary_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_boundary_preserves_parent_and_queue : \u2200\n  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)\n  (supported :\n    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} A) (key : Nat)\n  (inside :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)\n  (missing :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config\n        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))\n      (@Option.none.{0} ShielddSecurity.TransferReadback.Boundary)),\n  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=\n    @ShielddSecurity.TransferStateDelta.run O E A\n      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches\n      exclusive mode action parent queued;\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted\n      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))\n    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))\n      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)\n      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ee7f9fc95c8ffdca1df0e0b4fdadcf16d25f8fdeb0536299b9a0aa4739085596"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.whole_unavailable_lock_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.whole_unavailable_lock_preserves_parent_and_queue : \u2200\n  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)\n  (supported :\n    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} A) (key : Nat)\n  (inside :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)\n  (unavailable :\n    @Eq.{1} Bool\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.lockAvailable O E K X Tree A config\n        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))\n      Bool.false),\n  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=\n    @ShielddSecurity.TransferStateDelta.run O E A\n      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches\n      exclusive mode action parent queued;\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted\n      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))\n    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))\n      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)\n      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "0578a98fbea568075ad371438c9aa69a9b6ce967501536de619f642dada6d58e"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.whole_stale_boundary_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.whole_stale_boundary_preserves_parent_and_queue : \u2200\n  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)\n  (supported :\n    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} A) (key : Nat)\n  (inside :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)\n  (readerObject : O) (boundary : ShielddSecurity.TransferReadback.Boundary)\n  (stored :\n    @Eq.{1} (Option.{0} O)\n      (@ShielddSecurity.TransferStateDelta.State.objects O parent\n        (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readerKey O E K X Tree A config))\n      (@Option.some.{0} O readerObject))\n  (observed :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config\n        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))\n      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))\n  (stale :\n    @Ne.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n      (ShielddSecurity.TransferReadback.Store.boundary\n        (@ShielddSecurity.TransferWholeReaderRefusal01.Config.decode O E K X Tree A config readerObject))\n      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary)),\n  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=\n    @ShielddSecurity.TransferStateDelta.run O E A\n      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches\n      exclusive mode action parent queued;\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted\n      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))\n    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))\n      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)\n      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "c1aaf164de788e3be7df93030666eef9305d2a49ad38fb5e09241dc8fa0bd159"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWholeReaderRefusal01.whole_authenticated_spent_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferWholeReaderRefusal01.whole_authenticated_spent_preserves_parent_and_queue : \u2200\n  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)\n  (supported :\n    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} A) (key : Nat)\n  (inside :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)\n  (boundary : ShielddSecurity.TransferReadback.Boundary)\n  (observed :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config\n        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))\n      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))\n  (leaves : Nat \u2192 List.{0} Nat \u2192 Option.{0} String)\n  (merkle :\n    ShielddSecurity.TransferReadback.MerkleContract\n      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.verify O E K X Tree A config) leaves)\n  (spent :\n    @Eq.{1} (Option.{0} String)\n      (leaves\n        (@List.getD.{0} Nat (ShielddSecurity.TransferReadback.Boundary.roots boundary)\n          (ShielddSecurity.TransferReadback.partition\n            (ShielddSecurity.TransferReadback.key\n              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.hash O E K X Tree A config) key))\n          (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n        (ShielddSecurity.TransferReadback.key\n          (@ShielddSecurity.TransferWholeReaderRefusal01.Config.hash O E K X Tree A config) key))\n      (@Option.some.{0} String ShielddSecurity.TransferReadback.spentValue)),\n  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=\n    @ShielddSecurity.TransferStateDelta.run O E A\n      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches\n      exclusive mode action parent queued;\n  And\n    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted\n      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))\n    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))\n      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)\n      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d26729ee81b002338ca4de13c34a19db6516490487e742ecc1dcad581a2b8b6a"
+    }
+  ],
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "module": "TransferCurrentVolumeSource01",
+      "object": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "source": {
+        "bytes": 10987,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean",
+        "sha256": "3e34bb62ef0262f2f6ff6124da243b5332ae1e2e1102961e01521f3352f74b19"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "module": "TransferOrdinaryStorageSource01",
+      "object": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "source": {
+        "bytes": 21000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean",
+        "sha256": "a16cf823a1d57f6f770ba1952a59f9fb843fc47a8e9a48d7172c4bad0ae75c66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "module": "TransferCapabilitySource01",
+      "object": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "source": {
+        "bytes": 7320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.lean",
+        "sha256": "3b75e03b3801ab4717a720d351a2cb74200f4ba087ee1b15792d51951bfc2416"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "module": "TransferVerificationEqualitySource01",
+      "object": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "source": {
+        "bytes": 5810,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.lean",
+        "sha256": "70604d840acd8c0ea7a397337ac2f7dd35ab2285d41f30b047b2aab2252b9a37"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "module": "TransferBoundOrdinarySource01",
+      "object": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "source": {
+        "bytes": 20530,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.lean",
+        "sha256": "890a31a5313618af5f593151d2fd0b60e72655cf162daa90faa769ba5ae982d2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "module": "TransferRawDeliveryComposition01",
+      "object": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "source": {
+        "bytes": 6672,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.lean",
+        "sha256": "69d72ff097718cb9e37afa3b8dbdd58241c90913bb75ff94015e0b0d50d6ad1d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "module": "TransferIndexWriterModel01",
+      "object": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "source": {
+        "bytes": 12975,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.lean",
+        "sha256": "a0dd4cb0b9b053db5ff93870c892dbc835c360f744b5343b24348eb0ae39de9e"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "module": "TransferIndexInspectionFacts01",
+      "object": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "source": {
+        "bytes": 12693,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.lean",
+        "sha256": "d0b193fa567ca2ecbc6ca130fdbb9ff30d9a758c22a7c3043b51c43efd24100c"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "module": "TransferOrdinaryIndexDelivery01",
+      "object": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "source": {
+        "bytes": 11560,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.lean",
+        "sha256": "de93d2bc043afad2fb78bbce0cc588624e6afda328273f5495997f2e5293374a"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "module": "TransferOrdinaryIndexedValues01",
+      "object": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "source": {
+        "bytes": 8201,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.lean",
+        "sha256": "2088b0d38696bf74bc75a0c7e6c9bcc62e635174ccec40453d1784f6202872d9"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 258000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryHeightSource01.olean",
+        "sha256": "f704ae465277d8f58df7fa89838664012a9c13951eaec2be20d4829d8f961e2f"
+      },
+      "module": "TransferOrdinaryHeightSource01",
+      "object": {
+        "bytes": 258000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryHeightSource01.olean",
+        "sha256": "f704ae465277d8f58df7fa89838664012a9c13951eaec2be20d4829d8f961e2f"
+      },
+      "source": {
+        "bytes": 9032,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryHeightSource01.lean",
+        "sha256": "f2cee86461467e9c25ee34ff525f3603ab099febf27aa6d18f9c5e82756bdb9f"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 229176,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferVolumeHeightKeys01.olean",
+        "sha256": "b3d12173626bdcc13bd2ec165af92252f6bf0719a91c51ead6cbbc1d51a1f70a"
+      },
+      "module": "TransferVolumeHeightKeys01",
+      "object": {
+        "bytes": 229176,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-volume-height-keys-20261011-01\\project\\ShielddSecurity\\TransferVolumeHeightKeys01.olean",
+        "sha256": "b3d12173626bdcc13bd2ec165af92252f6bf0719a91c51ead6cbbc1d51a1f70a"
+      },
+      "source": {
+        "bytes": 7100,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-volume-height-keys-20261011-01\\project\\ShielddSecurity\\TransferVolumeHeightKeys01.lean",
+        "sha256": "f361147ada6e3c761566011eab3c96459e71f959ecca44f535d12ef4fff158d5"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 165264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.olean",
+        "sha256": "424fcbcea69517650d4e487a9d3b6243523941dcee494c8e11fbbbd2ba77a8fe"
+      },
+      "module": "TransferOrdinaryIndexReadSource01",
+      "object": {
+        "bytes": 165264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-read-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.olean",
+        "sha256": "424fcbcea69517650d4e487a9d3b6243523941dcee494c8e11fbbbd2ba77a8fe"
+      },
+      "source": {
+        "bytes": 12132,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-read-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.lean",
+        "sha256": "8b7918002527fe40551535eeb9bde831f40fa5612e690eb7f09471da02a6f686"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 195264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.olean",
+        "sha256": "2a8e8e2d94ce1966aacc5f359d9c1cc0d9913843f5daae43edbd2c10d29cc8bd"
+      },
+      "module": "TransferOrdinaryIndexCountSource01",
+      "object": {
+        "bytes": 195264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-count-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.olean",
+        "sha256": "2a8e8e2d94ce1966aacc5f359d9c1cc0d9913843f5daae43edbd2c10d29cc8bd"
+      },
+      "source": {
+        "bytes": 13558,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-count-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.lean",
+        "sha256": "bb85cb6f14c2db70b0680c58acacda3f9e9241f09b4d42bfc820b33b3e721abe"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 161840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexCountCodec01.olean",
+        "sha256": "643f8c53c733b1c50c9c9eef773aec79a48b1f958913cd128ae3f05bd773cfa3"
+      },
+      "module": "TransferIndexCountCodec01",
+      "object": {
+        "bytes": 161840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-count-codec-20261011-02\\project\\ShielddSecurity\\TransferIndexCountCodec01.olean",
+        "sha256": "643f8c53c733b1c50c9c9eef773aec79a48b1f958913cd128ae3f05bd773cfa3"
+      },
+      "source": {
+        "bytes": 6860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-count-codec-20261011-02\\project\\ShielddSecurity\\TransferIndexCountCodec01.lean",
+        "sha256": "d1ac5a48aaba16bf13c8c44e45fbd5bdc754cc0fb20452453de28d670e2e1d39"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 66136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.olean",
+        "sha256": "1e3f33103b47bb3e471d28e34dc20b01b2316d47785b76b1c03bea84c6ac68ff"
+      },
+      "module": "TransferOrdinaryCountCodecJoin01",
+      "object": {
+        "bytes": 66136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-count-codec-join-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.olean",
+        "sha256": "1e3f33103b47bb3e471d28e34dc20b01b2316d47785b76b1c03bea84c6ac68ff"
+      },
+      "source": {
+        "bytes": 7515,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-count-codec-join-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.lean",
+        "sha256": "d6d7ba9a1fadf1fbc3a797acfcaa8974c45e64fc6e40114565542624be55c948"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 114136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryMaxCount01.olean",
+        "sha256": "257066c36c0b3a54fec2303103432760b9ce96e3e3eb73757673ef2aff5a6c4c"
+      },
+      "module": "TransferOrdinaryMaxCount01",
+      "object": {
+        "bytes": 114136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-max-count-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryMaxCount01.olean",
+        "sha256": "257066c36c0b3a54fec2303103432760b9ce96e3e3eb73757673ef2aff5a6c4c"
+      },
+      "source": {
+        "bytes": 8331,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-max-count-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryMaxCount01.lean",
+        "sha256": "ff561417f542c203bf8c75b17ae0f0db7d38430084398d4e44371dd856a04b66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 136840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.olean",
+        "sha256": "235fbceca9c6736d0082ece46815e4ac9068c35ad4b96a47b89a0315d9e562ba"
+      },
+      "module": "TransferOrdinaryDecodableIndex01",
+      "object": {
+        "bytes": 136840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-decodable-index-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.olean",
+        "sha256": "235fbceca9c6736d0082ece46815e4ac9068c35ad4b96a47b89a0315d9e562ba"
+      },
+      "source": {
+        "bytes": 5395,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-decodable-index-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.lean",
+        "sha256": "03aaf25c9b45f7b7652601d859cd42e3bfb52df2439681691e42d7cd7e028295"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243696,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredQueueSourceModel01.olean",
+        "sha256": "e553a91947db6c18c8652f2ead722f66a55ac10080b79f9c8f1a5acc13282230"
+      },
+      "module": "TransferDeferredQueueSourceModel01",
+      "object": {
+        "bytes": 243696,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-queue-model-20261010-03\\project\\ShielddSecurity\\TransferDeferredQueueSourceModel01.olean",
+        "sha256": "e553a91947db6c18c8652f2ead722f66a55ac10080b79f9c8f1a5acc13282230"
+      },
+      "source": {
+        "bytes": 9778,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-queue-model-20261010-03\\project\\ShielddSecurity\\TransferDeferredQueueSourceModel01.lean",
+        "sha256": "e13a2ae7f8ac769d439b101bf33c1197a2ef672452abaf2ff23e6e0f078cb6e1"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 190096,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredCountWalk01.olean",
+        "sha256": "c55e5c1b715c4a2a2a34ece4592eda3103c30df64c14131ab963ae6dee6c3276"
+      },
+      "module": "TransferDeferredCountWalk01",
+      "object": {
+        "bytes": 190096,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-walk-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountWalk01.olean",
+        "sha256": "c55e5c1b715c4a2a2a34ece4592eda3103c30df64c14131ab963ae6dee6c3276"
+      },
+      "source": {
+        "bytes": 6523,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-walk-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountWalk01.lean",
+        "sha256": "f48d11fd17460e16c663ba26cbb9aaaf54d06c0548d585aed301a2ec339ed245"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 117416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredCountFlush01.olean",
+        "sha256": "a65e786e9ed50d8abd557b1316e8c5e6c8b5e3881d0ee9f6431870471041b2fe"
+      },
+      "module": "TransferDeferredCountFlush01",
+      "object": {
+        "bytes": 117416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-flush-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountFlush01.olean",
+        "sha256": "a65e786e9ed50d8abd557b1316e8c5e6c8b5e3881d0ee9f6431870471041b2fe"
+      },
+      "source": {
+        "bytes": 5970,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-flush-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountFlush01.lean",
+        "sha256": "d1716662a0de6dd2604fbcf9d2462e56d5556eca3526e09a0314e41f93d05668"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 81208,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredMaxCount01.olean",
+        "sha256": "5ebd183c0c679e9e68a67fc15f11044348463378ffc5609081afd156290f630d"
+      },
+      "module": "TransferDeferredMaxCount01",
+      "object": {
+        "bytes": 81208,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-max-count-20261011-01\\project\\ShielddSecurity\\TransferDeferredMaxCount01.olean",
+        "sha256": "5ebd183c0c679e9e68a67fc15f11044348463378ffc5609081afd156290f630d"
+      },
+      "source": {
+        "bytes": 4732,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-max-count-20261011-01\\project\\ShielddSecurity\\TransferDeferredMaxCount01.lean",
+        "sha256": "378a0e62e859ea322f96fdb64f8ce536af6520fdbed514e9eeff486f27b86a1b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 360224,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferFeeFundingDelivery01.olean",
+        "sha256": "44816a9d0b81931d30e81763d610b18e60febfe61cb41b351f83133cc50c8e79"
+      },
+      "module": "TransferFeeFundingDelivery01",
+      "object": {
+        "bytes": 360224,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-fee-funding-delivery-20261011-03\\project\\ShielddSecurity\\TransferFeeFundingDelivery01.olean",
+        "sha256": "44816a9d0b81931d30e81763d610b18e60febfe61cb41b351f83133cc50c8e79"
+      },
+      "source": {
+        "bytes": 12622,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-fee-funding-delivery-20261011-03\\project\\ShielddSecurity\\TransferFeeFundingDelivery01.lean",
+        "sha256": "648a67f537cde7b37cc066492b348c50fb06752a99d29ea8fa174e73972b96b3"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 352584,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredBodyFailure01.olean",
+        "sha256": "ace751b595583484a06ea3086ae23d86a29d3c32e22cefe213aad89f04a9b074"
+      },
+      "module": "TransferDeferredBodyFailure01",
+      "object": {
+        "bytes": 352584,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-03\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.olean",
+        "sha256": "ace751b595583484a06ea3086ae23d86a29d3c32e22cefe213aad89f04a9b074"
+      },
+      "source": {
+        "bytes": 12846,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-03\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.lean",
+        "sha256": "6dd4e786b93ee606e2911f27615a15ac11e057793937f9bbef0f64ceddf2f1e4"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 374496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWholeNullifierAdmission01.olean",
+        "sha256": "4756f37dd95b42cd0bfd898c396ea1aedb933db0b70c38e670c519542f5f67a6"
+      },
+      "module": "TransferWholeNullifierAdmission01",
+      "object": {
+        "bytes": 374496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-nullifier-admission-20261011-01\\project\\ShielddSecurity\\TransferWholeNullifierAdmission01.olean",
+        "sha256": "4756f37dd95b42cd0bfd898c396ea1aedb933db0b70c38e670c519542f5f67a6"
+      },
+      "source": {
+        "bytes": 12688,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-nullifier-admission-20261011-01\\project\\ShielddSecurity\\TransferWholeNullifierAdmission01.lean",
+        "sha256": "6d27a1b029ee76f3776b4bd364c300af70864c60316485fd9122883135398e05"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 545312,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferPendingNullifierRetention01.olean",
+        "sha256": "29f7ed84bffb4334eb683f19c7071d17eb6242b3a7a081c3d411f9f6fb6aa717"
+      },
+      "module": "TransferPendingNullifierRetention01",
+      "object": {
+        "bytes": 545312,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-nullifier-retention-20261011-02\\project\\ShielddSecurity\\TransferPendingNullifierRetention01.olean",
+        "sha256": "29f7ed84bffb4334eb683f19c7071d17eb6242b3a7a081c3d411f9f6fb6aa717"
+      },
+      "source": {
+        "bytes": 23787,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-nullifier-retention-20261011-02\\project\\ShielddSecurity\\TransferPendingNullifierRetention01.lean",
+        "sha256": "6667bf22971da3ef1d916ae210ec695bd191b2efc4d507641dfdac4868596326"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 230040,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierObjectKeys01.olean",
+        "sha256": "a9a248b9921f6fbccd4a6f14199f6cbb971f2f63d8148ffe6d3be7c9ef0a2306"
+      },
+      "module": "TransferNullifierObjectKeys01",
+      "object": {
+        "bytes": 230040,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-object-keys-20261011-01\\project\\ShielddSecurity\\TransferNullifierObjectKeys01.olean",
+        "sha256": "a9a248b9921f6fbccd4a6f14199f6cbb971f2f63d8148ffe6d3be7c9ef0a2306"
+      },
+      "source": {
+        "bytes": 5587,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-object-keys-20261011-01\\project\\ShielddSecurity\\TransferNullifierObjectKeys01.lean",
+        "sha256": "cf554dad0b6feac26b21a9734b22b1b987e9ac457ee0bcd9a92d331b5e56ffcd"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 222000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCurrentPendingReplay01.olean",
+        "sha256": "643419659e5fde371b7ef61a599ed7f27de02e9a86b3f06bb946b1719558b370"
+      },
+      "module": "TransferCurrentPendingReplay01",
+      "object": {
+        "bytes": 222000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-pending-replay-20261011-01\\project\\ShielddSecurity\\TransferCurrentPendingReplay01.olean",
+        "sha256": "643419659e5fde371b7ef61a599ed7f27de02e9a86b3f06bb946b1719558b370"
+      },
+      "source": {
+        "bytes": 11029,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-pending-replay-20261011-01\\project\\ShielddSecurity\\TransferCurrentPendingReplay01.lean",
+        "sha256": "cef41dded39f050c18d9b73c67090f7b798eb00702842b1c13f25a712e2f820c"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 478728,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferReadback.olean",
+        "sha256": "b21cf37c9ecc3c8c6eb08ed69d51699591a199873ff36277d01ef3e7f195dab9"
+      },
+      "module": "TransferReadback",
+      "object": {
+        "bytes": 478728,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-readback-recovery-publication-20261010-02\\project\\ShielddSecurity\\TransferReadback.olean",
+        "sha256": "b21cf37c9ecc3c8c6eb08ed69d51699591a199873ff36277d01ef3e7f195dab9"
+      },
+      "source": {
+        "bytes": 14817,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-readback-recovery-publication-20261010-02\\project\\ShielddSecurity\\TransferReadback.lean",
+        "sha256": "0af3de530ac872f31af6c05cff90ed17b212a760d6cc5f957b29b4841451220e"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 305768,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWholeDurableReadback01.olean",
+        "sha256": "372320e83bd5e2954177f6b6dad03d22490cf13c8119e2db0bd40f4a837a4809"
+      },
+      "module": "TransferWholeDurableReadback01",
+      "object": {
+        "bytes": 305768,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-durable-readback-20261011-02\\project\\ShielddSecurity\\TransferWholeDurableReadback01.olean",
+        "sha256": "372320e83bd5e2954177f6b6dad03d22490cf13c8119e2db0bd40f4a837a4809"
+      },
+      "source": {
+        "bytes": 16086,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-durable-readback-20261011-02\\project\\ShielddSecurity\\TransferWholeDurableReadback01.lean",
+        "sha256": "2969cbe54936308fc37ac79d0f1ec90b5dd70665c136835a3955185a21c2b5ce"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 79104,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierConsensusLimits01.olean",
+        "sha256": "bfa84e0f3c11f1cb0fed98aaefcaff256fd6b4a03ae8398200920324778d96af"
+      },
+      "module": "TransferNullifierConsensusLimits01",
+      "object": {
+        "bytes": 79104,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-consensus-limits-20261011-02\\project\\ShielddSecurity\\TransferNullifierConsensusLimits01.olean",
+        "sha256": "bfa84e0f3c11f1cb0fed98aaefcaff256fd6b4a03ae8398200920324778d96af"
+      },
+      "source": {
+        "bytes": 12088,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-consensus-limits-20261011-02\\project\\ShielddSecurity\\TransferNullifierConsensusLimits01.lean",
+        "sha256": "098a9aa79a0b0b31f034f7362fc2658720375c52842616d93234f35d9a3a2435"
+      }
+    }
+  ],
+  "manifest_entries": 36,
+  "guard_unchanged": true,
+  "rejected": [],
+  "interfaces": [
+    "Generic body adapter is instantiated with the qualified exact-Item Ordinary source program; extractor/token/proof provenance remains upstream",
+    "Loaded immutable SCT, Rust CloneCOW/panic/tree/key/value/source/event codecs and store authentication remain inherited interfaces",
+    "Transaction conversion, byte-key projection, big-endian count codec and actual index storage reads require source correspondence",
+    "Run commit denotes applying child cache to original parent; it does not imply block seal or durable multi-store publication",
+    "Returned error discard remains scoped; native Host panic/queue retry and all native controls remain separate",
+    "No semantic negative-control, native or full Transfer certification credit",
+    "Index byte-to-Nat projection injectivity denotes key representation preservation and is not a cryptographic hash injectivity claim",
+    "Actual get_proto height decoder and height-key projection/store read availability remain representation interfaces; explicit separation from the two volume marker keys",
+    "Byte-to-Nat equality-preserving projection remains explicit; arbitrary suffixes include all actual day/nullifier encodings without proving those codecs",
+    "Actual nonverifiable_get_raw availability, transaction conversion/serialization and initial stored-height decoder correspondence remain explicit",
+    "Concrete Nat-list byte codec requires actual Vec<u8> representation; symbolic base-256 value corresponds to Rust u64 big-endian operations by the retained runtime source, without a Rust semantics theorem",
+    "Byte-key to Nat projection is explicitly injective and denotes representation equality preservation, not hash/cryptographic injectivity; actual Rust String/object-store/codec/ownership correspondence remains separate",
+    "The object decoder denotes successful typed object_get/Clone, with forall-pending encode/decode roundtrip explicit. Present wrong-type object_get/object_put panics are outside returned-result correspondence and are not modeled as default or recoverable refusal.",
+    "Current typed Reader object decode/Clone, application read_boundary authentication/codec, read-lock availability, candidate native proof construction, NOMT/SHA semantic correspondence and ownership/durability remain explicit. MerkleContract is an explicit semantic soundness premise, not proved by hashes. Wrong-type reader object panic is outside the returned-result model.",
+    "The selected model usize width must be 32 or 64; matching the concrete native target and Rust saturating/len arithmetic remains an explicit representation interface. The source consensus limit is extracted exactly, and its strict bound below either selected maximum is kernel proved.",
+    "Decoded nullifier equality and BTreeSet/OrdSet/Vector correspondence",
+    "Pending getter is the current child snapshot, including default Open and sealed representation",
+    "Source-id boolean and usize wordMax/capacity reflect the pinned runtime",
+    "Individually verified lookup/reader gate at the captured committed boundary; current pending join supplied by the qualified vector program",
+    "Typed pending-object encoding, object-key projection, Clone/COW/ownership and Rust cache correspondence",
+    "Concrete SCT/note insertion and durability remain separate",
+    "Captured note source and reacquired ordinary volume source are explicit callback arguments; exact validated capability comparison/stateless re-extraction is represented by exactMatched; proof cryptography remains separate",
+    "Current source Option Bool preserves missing versus present nontransaction source; actual source codec/identity remains explicit",
+    "Qualified nullifier backend getter, status authentication, equality, collections and machine capacity interfaces remain inherited",
+    "Note/SCT and volume payload insertion are failure-aware callbacks and may emit internal events or retain partial cache changes",
+    "Volume read is the current child overlay observation; concrete day/nullifier key projection and verifiable get/put byte correspondence remain explicit",
+    "Distinct entry/day projected keys is explicit for exact final values; no hash semantic correspondence or native durability inferred",
+    "Event encoding, Rust ownership, Clone/COW and mutable/cache correspondence remain explicit"
+  ],
+  "scope": "Config bundles existing explicit model arguments; delivery instantiates the same complete body/current typed Reader/boundary/lock/verified status/index program at exact source consensus capacity, not an arbitrary body callback. Whole success for an actual member derives all reader observations. Actual original-parent Reader object absence, failed authenticated boundary observation, unavailable read-lock observation, stale typed Store boundary, or an authenticated spent leaf under the explicit MerkleContract excludes whole success and derives enclosing finish preservation of the exact original parent/deferred queue. Both proof contexts/every index mode/arbitrary registry/exclusivity, extractor/note/volume/index/proof outcomes covered. No caller-supplied body failure, desired index error or successful primitive premise. Input membership and selected supported 32/64-bit word width explicit; missing-boundary/lock and stale-store observations remain modeled operational facts. Wrong-type/loader panics outside returned results; boundary/native/NOMT/hash/proof/typed/codec/crypto/ownership/Host/durability and full Transfer certification remain open. These are formal refusal proofs, not executed semantic negative controls; zero new native/control credit. Argument bundle type, exact delivery definition and all seven theorems have complete original type/axiom reports. Success observation and finish refusal lemmas are reused symbolically. No primitive/body/index failure is assumed; native operational observations and Merkle soundness remain explicit interfaces. No executed semantic-control or full Transfer certification credit.",
+  "full_transfer": "OPEN",
+  "ancestry_cache": {
+    "path": "windows-reviewed-ancestry-pool379-reports38-modules01.json",
+    "sha256": "e4b64d99f75ad393263e10170df502a6592c51a98aebb3f4cbf54eaefed649f0",
+    "review_anchor": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-whole-durable-readback-review01/endpoint-audit-review01.json",
+      "bytes": 72958,
+      "sha256": "d0c4791bf3e423c5efd7f479b35d8df4b3e5188aa7526b77c00857955e66cd1f"
+    },
+    "scope": "Previously independently accepted exact associations, not fresh replay"
+  }
+}

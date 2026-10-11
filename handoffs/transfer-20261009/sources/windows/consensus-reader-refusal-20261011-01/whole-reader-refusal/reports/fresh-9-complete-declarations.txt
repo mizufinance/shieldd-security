@@ -1,0 +1,249 @@
+ShielddSecurity.TransferWholeReaderRefusal01.Config : (O E K X Tree A : Type) → Type
+'ShielddSecurity.TransferWholeReaderRefusal01.Config' does not depend on any axioms
+@ShielddSecurity.TransferWholeReaderRefusal01.delivery : {O E K X Tree A : Type} →
+  (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A) →
+    (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) →
+      (action : A) →
+        (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) →
+          ShielddSecurity.TransferStateDelta.Api O E A
+'ShielddSecurity.TransferWholeReaderRefusal01.delivery' depends on axioms: [propext]
+@ShielddSecurity.TransferWholeReaderRefusal01.excluded_success_preserves_parent_and_queue : ∀ {O E A : Type}
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+  (excluded :
+    ∀ (committed : ShielddSecurity.TransferStateDelta.Commit O E A),
+      @Ne.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+        (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))
+'ShielddSecurity.TransferWholeReaderRefusal01.excluded_success_preserves_parent_and_queue' does not depend on any axioms
+@ShielddSecurity.TransferWholeReaderRefusal01.whole_success_member_observations : ∀ {O E K X Tree A : Type}
+  (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (supported :
+    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (committed : ShielddSecurity.TransferStateDelta.Commit O E A) (key : Nat)
+  (inside :
+    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item)
+        registryMatches exclusive mode action parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),
+  @Exists.{1} ShielddSecurity.TransferReadback.Store fun (store : ShielddSecurity.TransferReadback.Store) =>
+    @Exists.{1} ShielddSecurity.TransferReadback.Boundary fun (boundary : ShielddSecurity.TransferReadback.Boundary) =>
+      @Exists.{1} ShielddSecurity.TransferReadback.Status fun (response : ShielddSecurity.TransferReadback.Status) =>
+        And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Store)
+            (@ShielddSecurity.TransferWholeDurableReadback01.currentReader O E
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.decode O E K X Tree A config)
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readerKey O E K X Tree A config)
+              (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+            (@Option.some.{0} ShielddSecurity.TransferReadback.Store store))
+          (And
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config
+                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                  (@ShielddSecurity.TransferStateDelta.empty O E)))
+              (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))
+            (And
+              (@Eq.{1} Bool
+                (@ShielddSecurity.TransferWholeReaderRefusal01.Config.lockAvailable O E K X Tree A config
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                    (@ShielddSecurity.TransferStateDelta.empty O E)))
+                Bool.true)
+              (And
+                (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Status)
+                  (ShielddSecurity.TransferReadback.status
+                    (@ShielddSecurity.TransferWholeReaderRefusal01.Config.hash O E K X Tree A config)
+                    (@ShielddSecurity.TransferWholeReaderRefusal01.Config.verify O E K X Tree A config) store boundary
+                    key
+                    (@ShielddSecurity.TransferWholeReaderRefusal01.Config.candidate O E K X Tree A config
+                      (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                        (@ShielddSecurity.TransferStateDelta.empty O E))
+                      key))
+                  (@Option.some.{0} ShielddSecurity.TransferReadback.Status response))
+                (@Eq.{1} Bool (ShielddSecurity.TransferReadback.Status.spent response) Bool.false))))
+'ShielddSecurity.TransferWholeReaderRefusal01.whole_success_member_observations' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_reader_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (supported :
+    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (key : Nat)
+  (inside :
+    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)
+  (missing :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent
+        (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readerKey O E K X Tree A config))
+      (@Option.none.{0} O)),
+  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=
+    @ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches
+      exclusive mode action parent queued;
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))
+'ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_reader_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_boundary_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (supported :
+    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (key : Nat)
+  (inside :
+    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)
+  (missing :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (@Option.none.{0} ShielddSecurity.TransferReadback.Boundary)),
+  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=
+    @ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches
+      exclusive mode action parent queued;
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))
+'ShielddSecurity.TransferWholeReaderRefusal01.whole_missing_boundary_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWholeReaderRefusal01.whole_unavailable_lock_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (supported :
+    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (key : Nat)
+  (inside :
+    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)
+  (unavailable :
+    @Eq.{1} Bool
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.lockAvailable O E K X Tree A config
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      Bool.false),
+  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=
+    @ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches
+      exclusive mode action parent queued;
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))
+'ShielddSecurity.TransferWholeReaderRefusal01.whole_unavailable_lock_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWholeReaderRefusal01.whole_stale_boundary_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (supported :
+    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (key : Nat)
+  (inside :
+    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)
+  (readerObject : O) (boundary : ShielddSecurity.TransferReadback.Boundary)
+  (stored :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent
+        (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readerKey O E K X Tree A config))
+      (@Option.some.{0} O readerObject))
+  (observed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))
+  (stale :
+    @Ne.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (ShielddSecurity.TransferReadback.Store.boundary
+        (@ShielddSecurity.TransferWholeReaderRefusal01.Config.decode O E K X Tree A config readerObject))
+      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary)),
+  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=
+    @ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches
+      exclusive mode action parent queued;
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))
+'ShielddSecurity.TransferWholeReaderRefusal01.whole_stale_boundary_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWholeReaderRefusal01.whole_authenticated_spent_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (config : ShielddSecurity.TransferWholeReaderRefusal01.Config O E K X Tree A)
+  (supported :
+    ShielddSecurity.TransferNullifierConsensusLimits01.SupportedWidth
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.width O E K X Tree A config))
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (key : Nat)
+  (inside :
+    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A config action) key)
+  (boundary : ShielddSecurity.TransferReadback.Boundary)
+  (observed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.readBoundary O E K X Tree A config
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))
+  (leaves : Nat → List.{0} Nat → Option.{0} String)
+  (merkle :
+    ShielddSecurity.TransferReadback.MerkleContract
+      (@ShielddSecurity.TransferWholeReaderRefusal01.Config.verify O E K X Tree A config) leaves)
+  (spent :
+    @Eq.{1} (Option.{0} String)
+      (leaves
+        (@List.getD.{0} Nat (ShielddSecurity.TransferReadback.Boundary.roots boundary)
+          (ShielddSecurity.TransferReadback.partition
+            (ShielddSecurity.TransferReadback.key
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.hash O E K X Tree A config) key))
+          (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+        (ShielddSecurity.TransferReadback.key
+          (@ShielddSecurity.TransferWholeReaderRefusal01.Config.hash O E K X Tree A config) key))
+      (@Option.some.{0} String ShielddSecurity.TransferReadback.spentValue)),
+  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=
+    @ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferWholeReaderRefusal01.delivery O E K X Tree A config context action item) registryMatches
+      exclusive mode action parent queued;
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))
+'ShielddSecurity.TransferWholeReaderRefusal01.whole_authenticated_spent_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
