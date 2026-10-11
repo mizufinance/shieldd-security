@@ -1,0 +1,131 @@
+ShielddSecurity.TransferVolumeHeightKeys01.heightBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferVolumeHeightKeys01.heightBytes' does not depend on any axioms
+ShielddSecurity.TransferVolumeHeightKeys01.volumeRoot : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferVolumeHeightKeys01.volumeRoot' does not depend on any axioms
+ShielddSecurity.TransferVolumeHeightKeys01.entryBytes : (suffix : ShielddSecurity.TransferStateDelta.Bytes) →
+  ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferVolumeHeightKeys01.entryBytes' does not depend on any axioms
+ShielddSecurity.TransferVolumeHeightKeys01.dayBytes : (suffix : ShielddSecurity.TransferStateDelta.Bytes) →
+  ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferVolumeHeightKeys01.dayBytes' does not depend on any axioms
+ShielddSecurity.TransferVolumeHeightKeys01.height_entry_separate : ∀
+  (suffix : ShielddSecurity.TransferStateDelta.Bytes),
+  @Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferVolumeHeightKeys01.heightBytes
+    (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes suffix)
+'ShielddSecurity.TransferVolumeHeightKeys01.height_entry_separate' does not depend on any axioms
+ShielddSecurity.TransferVolumeHeightKeys01.height_day_separate : ∀ (suffix : ShielddSecurity.TransferStateDelta.Bytes),
+  @Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferVolumeHeightKeys01.heightBytes
+    (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes suffix)
+'ShielddSecurity.TransferVolumeHeightKeys01.height_day_separate' does not depend on any axioms
+ShielddSecurity.TransferVolumeHeightKeys01.entry_day_separate : ∀
+  (entrySuffix daySuffix : ShielddSecurity.TransferStateDelta.Bytes),
+  @Ne.{1} ShielddSecurity.TransferStateDelta.Bytes (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix)
+    (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)
+'ShielddSecurity.TransferVolumeHeightKeys01.entry_day_separate' depends on axioms: [propext]
+ShielddSecurity.TransferVolumeHeightKeys01.projected_source_keys_separate : ∀
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (entrySuffix daySuffix : ShielddSecurity.TransferStateDelta.Bytes),
+  And
+    (@Ne.{1} Nat (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes)
+      (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix)))
+    (And
+      (@Ne.{1} Nat (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes)
+        (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)))
+      (@Ne.{1} Nat (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix))
+        (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix))))
+'ShielddSecurity.TransferVolumeHeightKeys01.projected_source_keys_separate' depends on axioms: [propext]
+@ShielddSecurity.TransferVolumeHeightKeys01.source_keys_whole_indexed_success_derives_height_and_volume : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E A)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (entrySuffix daySuffix : ShielddSecurity.TransferStateDelta.Bytes)
+  (heightAvailable volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (decode : ShielddSecurity.TransferStateDelta.Bytes → Option.{0} Nat)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity treeKey notesKey volumeKey payload nullifierKey : Nat)
+  (action : A) (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (committed : ShielddSecurity.TransferStateDelta.Commit O E A)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          (@ShielddSecurity.TransferOrdinaryHeightSource01.withHeight O E A api heightAvailable decode
+            (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+          keys codec index
+          (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct
+            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+            (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix))
+            (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)) action item))
+        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),
+  And
+    (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+      (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)
+      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))
+    (And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O parent
+          (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix)))
+        (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (And
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.State.verifiable O
+            (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+            (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix)))
+          (@Option.some.{0} (List.{0} Nat)
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))
+        (And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@ShielddSecurity.TransferStateDelta.State.verifiable O
+              (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+              (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)))
+            (@Option.some.{0} (List.{0} Nat)
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))
+          (@Exists.{1} Nat fun (height : Nat) =>
+            @Exists.{1} ShielddSecurity.TransferStateDelta.Bytes
+              fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>
+              @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Witness
+                fun (witness : ShielddSecurity.TransferIndexWriterModel01.Witness) =>
+                And
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                    (@ShielddSecurity.TransferStateDelta.State.verifiable O parent
+                      (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+                    (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+                  (And (@Eq.{1} (Option.{0} Nat) (decode bytes) (@Option.some.{0} Nat height))
+                    (And
+                      (@Eq.{1}
+                        (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+                          ShielddSecurity.TransferIndexWriterModel01.Witness)
+                        (@ShielddSecurity.TransferIndexWriterModel01.inspect O E A keys codec index height action
+                          (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                              (ShielddSecurity.TransferCapabilitySource01.Error K
+                                (ShielddSecurity.TransferSctInsertionSource01.Error X))
+                              (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes
+                                volume sct volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey
+                                volumeKey payload nullifierKey
+                                (project (ShielddSecurity.TransferVolumeHeightKeys01.entryBytes entrySuffix))
+                                (project (ShielddSecurity.TransferVolumeHeightKeys01.dayBytes daySuffix)) action item
+                                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                                  (@ShielddSecurity.TransferStateDelta.empty O E))))))
+                        (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+                          ShielddSecurity.TransferIndexWriterModel01.Witness witness))
+                      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                        (@ShielddSecurity.TransferStateDelta.State.verifiable O
+                          (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+                          (project ShielddSecurity.TransferVolumeHeightKeys01.heightBytes))
+                        (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))))))))
+'ShielddSecurity.TransferVolumeHeightKeys01.source_keys_whole_indexed_success_derives_height_and_volume' depends on axioms: [propext,
+ Quot.sound]
