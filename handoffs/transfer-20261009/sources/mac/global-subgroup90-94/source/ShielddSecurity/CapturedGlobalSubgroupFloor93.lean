@@ -1,0 +1,14 @@
+import ShielddSecurity.CapturedFourSubgroupSeed89
+import ShielddSecurity.CapturedGlobalPosition77
+import ShielddSecurity.CapturedSubgroupPosition91
+import ShielddSecurity.CapturedSubgroupFrame92
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.CapturedGlobalSubgroupFloor93
+theorem import_cost_marker : True := True.intro
+end ShielddSecurity.CapturedGlobalSubgroupFloor93
+
+set_option pp.all true in
+#check @ShielddSecurity.CapturedGlobalSubgroupFloor93.import_cost_marker
+#print axioms ShielddSecurity.CapturedGlobalSubgroupFloor93.import_cost_marker
