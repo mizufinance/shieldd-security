@@ -1,0 +1,80 @@
+--- 
++++ 
+@@ -4,7 +4,7 @@
+ launches at most one fixed module and stops on any incomplete/failed intent.
+ SIGKILL and detached processes missed between samples are not OS guarantees.
+ """
+-import argparse, fcntl, hashlib, json, os, pathlib, re, signal, subprocess, sys, time
++import argparse, fcntl, hashlib, json, lzma, os, pathlib, re, signal, subprocess, sys, time
+ 
+ SUFFIXES = ('.olean', '.olean.private', '.olean.server', '.ilean', '.ir')
+ TERMS = {signal.SIGTERM, signal.SIGHUP, signal.SIGINT}
+@@ -26,10 +26,37 @@
+         return result
+     return json.loads(data, object_pairs_hook=pairs)
+ 
++# Bounded lossless storage of inactive configuration JSON; proof inputs unchanged.
++_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-10/archive-map01.json', 'bytes': 81291, 'sha256': 'be421e51900b8e74983322a1602704b0a0a12e33e65dc4fe43d56e47fa71fbd8'}
++_STORAGE = None
++def preserved_configs():
++    global _STORAGE
++    if _STORAGE is None:
++        p=pathlib.Path(_STORAGE_PIN['path'])
++        require(p.is_file() and not p.is_symlink(), 'ordinary exact storage map')
++        raw=p.read_bytes()
++        require(len(raw)==_STORAGE_PIN['bytes'] and sha(raw)==_STORAGE_PIN['sha256'], 'exact storage map SHA')
++        data=strict_json(raw)
++        require(data['schema']=='exact-inactive-configuration-storage01', 'fixed storage schema')
++        table=data['records']
++        for key,value in table.items():
++            require(re.fullmatch(r'/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution[0-9]+/config01\.json',key) is not None and value['original']['path']==key, 'only inactive historical config storage')
++            require(0<value['original']['bytes']<=16*1024*1024, 'finite original config')
++        _STORAGE=table
++    return _STORAGE
++
+ def read_pin(pin):
+     path = pathlib.Path(pin['path'])
+-    require(not path.is_symlink() and path.is_file(), 'pinned file missing/symlink: '+str(path))
+-    data = path.read_bytes()
++    if not path.exists():
++        record=preserved_configs().get(str(path))
++        require(record is not None and record['original']==pin, 'exact archived original configuration pin')
++        packed=read_pin(record['archive'])
++        decoder=lzma.LZMADecompressor()
++        data=decoder.decompress(packed,max_length=pin['bytes']+1)
++        require(decoder.eof and not decoder.unused_data and len(data)==pin['bytes'], 'bounded archived EOF/size/trailing checks')
++    else:
++        require(not path.is_symlink() and path.is_file(), 'pinned file missing/symlink: '+str(path))
++        data = path.read_bytes()
+     require(len(data) == pin['bytes'] and sha(data) == pin['sha256'], 'file identity: '+str(path))
+     return data
+ 
+@@ -39,6 +66,18 @@
+ _CHECKED = {}
+ def checked_pin(identity):
+     path=pathlib.Path(identity['path'])
++    if not path.exists():
++        record=preserved_configs().get(str(path))
++        require(record is not None and record['original']==identity, 'checked archived identity')
++        archive=pathlib.Path(record['archive']['path'])
++        require(archive.is_file() and not archive.is_symlink(), 'checked ordinary storage file')
++        st=archive.stat(); signature=('archive',st.st_dev,st.st_ino,st.st_mode,st.st_size,st.st_mtime_ns,st.st_ctime_ns,identity['bytes'],identity['sha256'])
++        if _CHECKED.get(str(path))!=signature:
++            read_pin(identity)
++            after=archive.stat()
++            require((after.st_dev,after.st_ino,after.st_mode,after.st_size,after.st_mtime_ns,after.st_ctime_ns)==signature[1:7], 'archive changed during original-byte hash')
++            _CHECKED[str(path)]=signature
++        return
+     require(not path.is_symlink() and path.is_file(), 'checked ordinary pinned file')
+     stat=path.stat()
+     signature=(stat.st_dev,stat.st_ino,stat.st_mode,stat.st_size,stat.st_mtime_ns,stat.st_ctime_ns,identity['bytes'],identity['sha256'])
+@@ -174,7 +213,8 @@
+         for parent in h.get('parents',[]): verify_tree(strict_json(read_pin(parent)))
+         actual={str(p) for root in h['roots'] for p in pathlib.Path(root).rglob('*')
+                 if p.is_file() or p.is_symlink()}
+-        require(actual==set(h['entries']), 'protected history closed file/link keyset')
++        actual.update(key for key in preserved_configs() if any(pathlib.Path(key).is_relative_to(pathlib.Path(root)) for root in h['roots']))
++        require(actual==set(h['entries']), 'protected history closed physical+exact-archived file/link keyset')
+         for identity in h['entries'].values():
+             if 'symlink_target' in identity:
+                 p=pathlib.Path(identity['path'])
