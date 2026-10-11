@@ -1,0 +1,7 @@
+{
+  "kind": "EXACT_UTF8_DIFF_BYTES",
+  "original_path": "overlay-review/diffs/crates/crypto/circuits/src/transfer.rs.diff",
+  "bytes": 1109,
+  "sha256": "f0a1177574caaa806cb18932ec9fe0e804fdb730ecd798c2560e3212b43983bc",
+  "content_utf8": "--- clean/crates/crypto/circuits/src/transfer.rs\n+++ overlay/crates/crypto/circuits/src/transfer.rs\n@@ -18,6 +18,8 @@\n \n pub use shieldd_sdk_crypto::domains::TRANSFER_STATEMENT as STATEMENT_DOMAIN;\n pub const STATEMENT_FIELDS: usize = 64;\n+#[cfg(feature = \"formal-observer\")]\n+pub mod inspection;\n \n #[derive(Clone)]\n pub struct Witness {\n@@ -242,6 +244,8 @@\n         &compliance_anchor,\n         &regulated,\n     );\n+    #[cfg(feature = \"formal-observer\")]\n+    let selected_ring_observation = ring.clone();\n     let auth = authorization::constrain(\n         ctx,\n         params,\n@@ -255,6 +259,10 @@\n             registered_rnk_commitment: sender.rnk_commitment.clone(),\n         },\n     );\n+    #[cfg(feature = \"formal-observer\")]\n+    inspection::caller(&regulated, &asset, &leaf.ring, &generators.unregulated_ring,\n+        &selected_ring_observation, &sender.address, &sender.rnk_dh,\n+        &sender.rnk_commitment, &auth);\n     let (rk, randomizer) = note::constrain_authorization(ctx, &auth.ak, &w.spend_auth);\n     let spend_context = note::SpendContext {\n         address: sender.address.clone(),\n"
+}

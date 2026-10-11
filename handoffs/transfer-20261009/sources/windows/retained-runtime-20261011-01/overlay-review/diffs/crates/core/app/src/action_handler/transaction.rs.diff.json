@@ -1,0 +1,7 @@
+{
+  "kind": "EXACT_UTF8_DIFF_BYTES",
+  "original_path": "overlay-review/diffs/crates/core/app/src/action_handler/transaction.rs.diff",
+  "bytes": 571,
+  "sha256": "8befa72c81627ccf00467e504278f248f9c1059f41e12bf7a0311daad9f214dc",
+  "content_utf8": "--- clean/crates/core/app/src/action_handler/transaction.rs\n+++ overlay/crates/core/app/src/action_handler/transaction.rs\n@@ -507,6 +507,10 @@\n         };\n         if let Some(tags) = tags {\n             stage_action_routing(&mut state, tx_id, i, tags, note_start, volume_start)?;\n+            #[cfg(test)]\n+            if state.object_get::<([u8; 32], u8)>(\"fv.transfer.effect_fault\") == Some((tx_id.0, 1)) {\n+                anyhow::bail!(\"fv.Transfer.after_routing\");\n+            }\n         }\n     }\n     if let Some(fee_funding) = &tx.transaction_body.fee_funding {\n"
+}

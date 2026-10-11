@@ -1,0 +1,7 @@
+{
+  "kind": "EXACT_UTF8_DIFF_BYTES",
+  "original_path": "overlay-review/diffs/crates/crypto/circuits/src/tree.rs.diff",
+  "bytes": 769,
+  "sha256": "8153d70cef4c7d8b66e01fd9383b7c5891a92b0abefdf2672124cc4e1a9764c2",
+  "content_utf8": "--- clean/crates/crypto/circuits/src/tree.rs\n+++ overlay/crates/crypto/circuits/src/tree.rs\n@@ -1,3 +1,5 @@\n+#[cfg(feature = \"formal-observer\")]\n+pub mod note_inspection;\n use crate::{hash::Parameters, range::decompose};\n use commonware_cryptography::{\n     bls12381::primitives::group::Scalar,\n@@ -107,7 +109,11 @@\n             high.select(&right_third, &siblings[1]),\n             high.select(&right_fourth, &siblings[2]),\n         ];\n-        node = params.circuit(kind as u8, &inputs);\n+        let next = params.circuit(kind as u8, &inputs);\n+        #[cfg(feature = \"formal-observer\")]\n+        note_inspection::record(kind,level,&node,low.var(),high.var(),siblings,\n+            [&left_swap,&right_swap],&inputs,&next);\n+        node = next;\n     }\n     node\n }\n"
+}

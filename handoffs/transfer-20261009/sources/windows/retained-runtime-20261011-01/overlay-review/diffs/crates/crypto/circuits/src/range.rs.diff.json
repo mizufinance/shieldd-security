@@ -1,0 +1,7 @@
+{
+  "kind": "EXACT_UTF8_DIFF_BYTES",
+  "original_path": "overlay-review/diffs/crates/crypto/circuits/src/range.rs.diff",
+  "bytes": 737,
+  "sha256": "744acabad42eb94b60f340cbae0199be03ae097fbb2a39748174d0178fb798cd",
+  "content_utf8": "--- clean/crates/crypto/circuits/src/range.rs\n+++ overlay/crates/crypto/circuits/src/range.rs\n@@ -55,7 +55,14 @@\n         let y = b.var();\n         let both = x.clone() * y;\n         let unequal = x + y - &(both.clone() + &both);\n-        le = both + &(le * &unequal);\n+        #[cfg(feature = \"formal-observer\")]\n+        let before = le.clone();\n+        let product = le * &unequal;\n+        le = both + &product;\n+        #[cfg(feature = \"formal-observer\")]\n+        crate::scalar::inspection::step(&before, a.var(), b.var(), &unequal, &product, &le);\n+        #[cfg(feature = \"formal-observer\")]\n+        crate::scalar::reduction_inspection::step([&before,a.var(),b.var(),&unequal,&product,&le]);\n     }\n     BoolVar::assert(le)\n }\n"
+}
