@@ -1,0 +1,94 @@
+ShielddSecurity.TransferScalarMaskedNormalization01.maskedModulus : (borrow : Bool) → List.{0} UInt64
+'ShielddSecurity.TransferScalarMaskedNormalization01.maskedModulus' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize : (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.word_and_reachable_borrow_mask_selects_exact_operand : ∀
+  (word : UInt64) (borrow : Bool),
+  @Eq.{1} UInt64
+    (@HAnd.hAnd.{0, 0, 0} UInt64 UInt64 UInt64 (@instHAndOfAndOp.{0} UInt64 instAndOpUInt64) word
+      (ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask borrow))
+    (@ite.{1} UInt64 (@Eq.{1} Bool borrow Bool.true) (instDecidableEqBool borrow Bool.true) word
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarMaskedNormalization01.word_and_reachable_borrow_mask_selects_exact_operand' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.packing_masked_word_vector_selects_exact_value : ∀
+  (words : List.{0} UInt64) (borrow : Bool),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@List.map.{0, 0} UInt64 UInt64
+        (fun (word : UInt64) =>
+          @HAnd.hAnd.{0, 0, 0} UInt64 UInt64 UInt64 (@instHAndOfAndOp.{0} UInt64 instAndOpUInt64) word
+            (ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask borrow))
+        words))
+    (@ite.{1} Nat (@Eq.{1} Bool borrow Bool.true) (instDecidableEqBool borrow Bool.true)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarMaskedNormalization01.packing_masked_word_vector_selects_exact_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.masked_modulus_retains_four_limb_width : ∀ (borrow : Bool),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarMaskedNormalization01.maskedModulus borrow))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarMaskedNormalization01.masked_modulus_retains_four_limb_width' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.masked_modulus_packs_to_exact_selected_modulus : ∀ (borrow : Bool),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarMaskedNormalization01.maskedModulus borrow))
+    (@ite.{1} Nat (@Eq.{1} Bool borrow Bool.true) (instDecidableEqBool borrow Bool.true)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarMaskedNormalization01.masked_modulus_packs_to_exact_selected_modulus' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.unit_mac_low_vector_is_full_sum_modulo_radix_power : ∀
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferScalarCarrySchedule01.macLoop
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1)))
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) pairs)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs)))
+'ShielddSecurity.TransferScalarMaskedNormalization01.unit_mac_low_vector_is_full_sum_modulo_radix_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.source_normalization_retains_four_word_width : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize words))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarMaskedNormalization01.source_normalization_retains_four_word_width' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.source_sub_and_masked_addback_equal_single_modulus_normalization : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize words))
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+'ShielddSecurity.TransferScalarMaskedNormalization01.source_sub_and_masked_addback_equal_single_modulus_normalization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarMaskedNormalization01.four_round_source_sub_and_addback_have_canonical_field_range : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize
+        (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarMaskedNormalization01.four_round_source_sub_and_addback_have_canonical_field_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
