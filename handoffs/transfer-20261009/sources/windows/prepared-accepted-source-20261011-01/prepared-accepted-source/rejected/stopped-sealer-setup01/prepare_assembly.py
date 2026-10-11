@@ -1,0 +1,40 @@
+"""Seal frozen accepted inputs/source prepare, with all primitive interfaces explicit."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-block-seal-join-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-block-seal-join-20261011-01'", "CURRENT = DIAG / 'transfer-prepared-accepted-source-20261011-01'")
+s=s.replace('transfer-block-seal-join-checkpoint-20261011-01','transfer-prepared-accepted-source-checkpoint-20261011-01')
+s=s.replace('block-seal-join-endpoint','prepared-accepted-source-endpoint')
+replace("MODULE = 'TransferBlockSealJoin01'", "MODULE = 'TransferPreparedAcceptedSource01'")
+replace('assert len(fresh) == 5','assert len(fresh) == 10')
+replace("assert pool['objects'] == 43 and len(pool['inherited_public_reports']) == 425", "assert pool['objects'] == 44 and len(pool['inherited_public_reports']) == 430")
+replace("manager_endpoint = DIAG / 'transfer-pending-seal-source-endpoint-20261011-03'", "manager_endpoint = DIAG / 'transfer-block-seal-join-endpoint-20261011-01'")
+replace("manager_archive = manager_endpoint / 'portable-windows-pending-seal-source-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-block-seal-join-endpoint01.tar.xz'")
+replace('a93fe392cd82840fc4bb60b20ffc34c6f121e2655a71d05b37044325bba1ff2b','978d6839763bb73c904e9b3c1d5ead620a70ef04c2e38cb2bde485c32f74079a')
+replace("tar.extractfile('reports/fresh-13-complete-declarations.txt')", "tar.extractfile('reports/fresh-5-complete-declarations.txt')")
+replace('assert len(manager_reports) == 13','assert len(manager_reports) == 5')
+replace("'module': 'TransferPendingSealSource01'", "'module': 'TransferBlockSealJoin01'")
+replace('assert len(combined_reports) == 425','assert len(combined_reports) == 430')
+replace('assert len(manager_selected) == 43','assert len(manager_selected) == 44')
+replace("reference = {'pending_seal_source':", "reference = {'block_seal_join':")
+replace("'imported_complete_reports': 13", "'imported_complete_reports': 5")
+replace("'complete_owned_modules': 43, 'inherited_complete_reports': 425", "'complete_owned_modules': 44, 'inherited_complete_reports': 430")
+s=s.replace('Exact forty-three-module whole/current pending/durable reader/source capacity/global block/one-shot seal closure, with 425 original inherited complete reports', 'Exact forty-four-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source accepted prepare closure, with 430 original inherited complete reports')
+replace("add(stdout, 'reports/fresh-5-complete-declarations.txt'", "add(stdout, 'reports/fresh-10-complete-declarations.txt'")
+s=s.replace('five typed encoded-default/global block/open gate/one-shot frozen global input/refusal join proofs','source prepare structures/checked height/gates/transition assembly and five exact accepted input/gate/refusal join proofs')
+s=s.replace('complete forty-three-module first import root','complete forty-four-module first import root')
+s=s.replace('verified 425 inherited reports','verified 430 inherited reports')
+s=s.replace('SOURCE_DEFAULT_OPEN_BLOCK_WALK_AND_ONE_SHOT_SEAL_DERIVE_FROZEN_GLOBAL_INPUTS_QUALIFIED','SOURCE_FROZEN_GLOBAL_INPUTS_DISCHARGE_STORE_PREPARE_CAPACITY_AND_DUPLICATE_GATES_QUALIFIED')
+replace("'fresh_definition_audits': 0", "'fresh_definition_audits': 5")
+replace("'fresh_complete_public_audits': 5", "'fresh_complete_public_audits': 10")
+replace("'inherited_complete_public_audits': 425", "'inherited_complete_public_audits': 430")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All ten declarations have original complete type/axiom reports. Whole block/freeze derives exact globally distinct bounded accepted inputs and source duplicate-loop acceptance; prepare transition preserves the accepted order and uses observed primitive partition roots. Native sessions/key collisions/witnesses/Vec/BTreeSet/phase/owner/durability remain explicit; no native/control/full certification credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 5, 'inherited_audits': 425", "'fresh_audits': 10, 'inherited_audits': 430")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':10,'inherited_reports':430,'owned_modules':44})
