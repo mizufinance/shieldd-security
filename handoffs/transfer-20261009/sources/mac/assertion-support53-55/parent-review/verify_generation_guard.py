@@ -28,7 +28,7 @@ a={n.name:n for n in ast.parse(old.read_bytes()).body if isinstance(n,ast.Functi
 b={n.name:n for n in ast.parse(new.read_bytes()).body if isinstance(n,ast.FunctionDef)}
 changed=[n for n in a if ast.dump(a[n])!=ast.dump(b[n])]
 assert changed==['fixed_check','execute']
-delta=''.join(difflib.unified_diff(old.read_text().splitlines(True),new.read_text().splitlines(True)))
+delta=''.join(difflib.unified_diff(old.read_text().splitlines(True),new.read_text().splitlines(True),fromfile='accepted-aa0d3c1a/guard.py',tofile='per-module-a4bca248/guard.py'))
 (V/'guard-delta01.diff').write_text(delta)
 r=dict(scope='Exact unchanged generation, public census, three failed predecessors, per-module source-root guard adjustment; no Lean build',
  modules=reports,failed_predecessors=len(failed),old_guard=pin(old),new_guard=pin(new),changed_functions=changed,

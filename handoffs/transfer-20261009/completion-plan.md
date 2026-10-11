@@ -1,5 +1,15 @@
 # Transfer proof completion plan — 9 October 2026
 
+The generic assertion-pair/verifier-link support is accepted at
+8f05c7b (two modules/17 complete reports). The pair checker retains the
+accepted checkRow and supplies indexed coverage and balanced concatenation;
+link equivalence derives copy linkage and the seed preserves all original
+inputs. Actual captured provider qualification and independent legal-input
+truth remain separate. The revised90-block generator has an exact parent
+source/DATA/coefficient pre-review, while its serial kernel qualification is
+underway. Retained Windows runtime receipts are under parent review and are
+not yet promoted into this publication. Full Transfer remains OPEN.
+
 Latest scoped integration (11 October UTC): the generic assertion block helper
 is accepted at 4103d8c73e9f16f08f8d34ce67c82e80bc4a865c (one module,
 17 complete reports). It proves exact row satisfaction iff recorded expression
