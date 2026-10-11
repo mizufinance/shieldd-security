@@ -86,6 +86,16 @@ output, all411 import associations and four unchanged guard runners. Actual
 Rust field/codec/iterator refinement and general encoding/authorization joins
 remain separate obligations being advanced by the same desktop worker.
 
+Full-curve mathematical compressed encoding and subgroup witness admission are
+accepted at `deea0e1aa805e86470df3fceec5308bcf80f7264` (four sources/27 reports).
+Encoding injectivity includes zero roots and torsion. Mathematical modulus and
+nonidentity gates derive the subgroup point and required native-model preimage,
+doubling and reciprocal constraints. Randomization retains its independent
+output nonidentity gate. Parent verified all27 complete original outputs,
+all416 import associations, three pool charges and four unchanged runners.
+The canonical byte-writer primitive contract and actual Rust/compiler-row
+refinement remain explicit. The same desktop continues those owned joins.
+
 The retained Mac worker has extracted the entire177,954-row arithmetic provider
 into599 bounded leaves and is qualifying its first production leaves and
 symbolic aggregators. These live results are not yet a sealed full-provider
