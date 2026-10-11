@@ -1,0 +1,182 @@
+ShielddSecurity.TransferStatefulStoreCommit01.Physical : Type
+'ShielddSecurity.TransferStatefulStoreCommit01.Physical' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.observe : (store : ShielddSecurity.TransferReadback.Store) →
+  (physical : ShielddSecurity.TransferStatefulStoreCommit01.Physical) → ShielddSecurity.TransferReadback.Store
+'ShielddSecurity.TransferStatefulStoreCommit01.observe' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.SessionResult : Type
+'ShielddSecurity.TransferStatefulStoreCommit01.SessionResult' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.Io : Type
+'ShielddSecurity.TransferStatefulStoreCommit01.Io' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.WalkResult : Type
+'ShielddSecurity.TransferStatefulStoreCommit01.WalkResult' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.walkSessions : (commit :
+    Nat → ShielddSecurity.TransferReadback.Store → ShielddSecurity.TransferStatefulStoreCommit01.SessionResult) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    List.{0} Nat → ShielddSecurity.TransferStatefulStoreCommit01.WalkResult
+'ShielddSecurity.TransferStatefulStoreCommit01.walkSessions' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.AllCommitted : (commit :
+    Nat → ShielddSecurity.TransferReadback.Store → ShielddSecurity.TransferStatefulStoreCommit01.SessionResult) →
+  (store : ShielddSecurity.TransferReadback.Store) → List.{0} Nat → ShielddSecurity.TransferReadback.Store → Prop
+'ShielddSecurity.TransferStatefulStoreCommit01.AllCommitted' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.commitStore : (io : ShielddSecurity.TransferStatefulStoreCommit01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) →
+      (sessions : List.{0} Nat) → ShielddSecurity.TransferStoreCommitSource01.Outcome
+'ShielddSecurity.TransferStatefulStoreCommit01.commitStore' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.session_walk_frames_ready_and_boundary : ∀
+  (commit : Nat → ShielddSecurity.TransferReadback.Store → ShielddSecurity.TransferStatefulStoreCommit01.SessionResult)
+  (store : ShielddSecurity.TransferReadback.Store) (sessions : List.{0} Nat),
+  And
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferReadback.Store.ready
+        (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+          (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions commit store sessions)))
+      (ShielddSecurity.TransferReadback.Store.ready store))
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+      (ShielddSecurity.TransferReadback.Store.boundary
+        (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+          (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions commit store sessions)))
+      (ShielddSecurity.TransferReadback.Store.boundary store))
+'ShielddSecurity.TransferStatefulStoreCommit01.session_walk_frames_ready_and_boundary' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.successful_session_walk_derives_state_threaded_actual_calls : ∀
+  (commit : Nat → ShielddSecurity.TransferReadback.Store → ShielddSecurity.TransferStatefulStoreCommit01.SessionResult)
+  (store : ShielddSecurity.TransferReadback.Store) (sessions : List.{0} Nat)
+  (success :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.succeeded
+        (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions commit store sessions))
+      Bool.true),
+  ShielddSecurity.TransferStatefulStoreCommit01.AllCommitted commit store sessions
+    (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+      (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions commit store sessions))
+'ShielddSecurity.TransferStatefulStoreCommit01.successful_session_walk_derives_state_threaded_actual_calls' does not depend on any axioms
+ShielddSecurity.TransferStatefulStoreCommit01.failed_session_keeps_actual_roots_and_current_poison_health : ∀
+  (commit : Nat → ShielddSecurity.TransferReadback.Store → ShielddSecurity.TransferStatefulStoreCommit01.SessionResult)
+  (store : ShielddSecurity.TransferReadback.Store) (index : Nat) (rest : List.{0} Nat)
+  (failed :
+    @Eq.{1} Bool (ShielddSecurity.TransferStatefulStoreCommit01.SessionResult.succeeded (commit index store))
+      Bool.false),
+  And
+    (@Eq.{1} ShielddSecurity.TransferStatefulStoreCommit01.WalkResult
+      (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions commit store (@List.cons.{0} Nat index rest))
+      (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.mk
+        (ShielddSecurity.TransferStatefulStoreCommit01.observe store
+          (ShielddSecurity.TransferStatefulStoreCommit01.SessionResult.physical (commit index store)))
+        Bool.false))
+    (And
+      (@Eq.{1} (List.{0} Nat)
+        (ShielddSecurity.TransferReadback.Store.actualRoots
+          (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+            (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions commit store (@List.cons.{0} Nat index rest))))
+        (ShielddSecurity.TransferStatefulStoreCommit01.Physical.roots
+          (ShielddSecurity.TransferStatefulStoreCommit01.SessionResult.physical (commit index store))))
+      (@Eq.{1} Bool
+        (ShielddSecurity.TransferReadback.Store.healthy
+          (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+            (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions commit store (@List.cons.{0} Nat index rest))))
+        (ShielddSecurity.TransferStatefulStoreCommit01.Physical.healthy
+          (ShielddSecurity.TransferStatefulStoreCommit01.SessionResult.physical (commit index store)))))
+'ShielddSecurity.TransferStatefulStoreCommit01.failed_session_keeps_actual_roots_and_current_poison_health' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulStoreCommit01.whole_success_derives_actual_read_serialization_sessions_and_final_observation : ∀
+  (io : ShielddSecurity.TransferStatefulStoreCommit01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) (sessions : List.{0} Nat)
+  (returned : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+      (ShielddSecurity.TransferStoreCommitSource01.Outcome.returned
+        (ShielddSecurity.TransferStatefulStoreCommit01.commitStore io store prepared sessions))
+      (@Option.some.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared returned)),
+  And (ShielddSecurity.TransferPersistIntentSource01.Gate store prepared)
+    (@Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (record : ShielddSecurity.TransferStateDelta.Bytes) =>
+      @Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>
+        And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (ShielddSecurity.TransferStatefulStoreCommit01.Io.readIntent io)
+            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes record))
+          (And
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+              (ShielddSecurity.TransferStatefulStoreCommit01.Io.serialize io prepared)
+              (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+            (And (@Eq.{1} ShielddSecurity.TransferStateDelta.Bytes record bytes)
+              (And
+                (@Eq.{1} Bool
+                  (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.succeeded
+                    (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions
+                      (ShielddSecurity.TransferStatefulStoreCommit01.Io.commitSession io)
+                      (ShielddSecurity.TransferReadback.interrupt store) sessions))
+                  Bool.true)
+                (And
+                  (ShielddSecurity.TransferStatefulStoreCommit01.AllCommitted
+                    (ShielddSecurity.TransferStatefulStoreCommit01.Io.commitSession io)
+                    (ShielddSecurity.TransferReadback.interrupt store) sessions
+                    (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+                      (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions
+                        (ShielddSecurity.TransferStatefulStoreCommit01.Io.commitSession io)
+                        (ShielddSecurity.TransferReadback.interrupt store) sessions)))
+                  (And
+                    (@Eq.{1} (List.{0} Nat)
+                      (ShielddSecurity.TransferStatefulStoreCommit01.Physical.roots
+                        (ShielddSecurity.TransferStatefulStoreCommit01.Io.actualAfterSessions io
+                          (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+                            (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions
+                              (ShielddSecurity.TransferStatefulStoreCommit01.Io.commitSession io)
+                              (ShielddSecurity.TransferReadback.interrupt store) sessions))))
+                      (ShielddSecurity.TransferReadback.Boundary.roots
+                        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared)))
+                    (And (@Eq.{1} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared returned prepared)
+                      (@Eq.{1} ShielddSecurity.TransferReadback.Store
+                        (ShielddSecurity.TransferStoreCommitSource01.Outcome.store
+                          (ShielddSecurity.TransferStatefulStoreCommit01.commitStore io store prepared sessions))
+                        (ShielddSecurity.TransferStatefulStoreCommit01.observe
+                          (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+                            (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions
+                              (ShielddSecurity.TransferStatefulStoreCommit01.Io.commitSession io)
+                              (ShielddSecurity.TransferReadback.interrupt store) sessions))
+                          (ShielddSecurity.TransferStatefulStoreCommit01.Io.actualAfterSessions io
+                            (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+                              (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions
+                                (ShielddSecurity.TransferStatefulStoreCommit01.Io.commitSession io)
+                                (ShielddSecurity.TransferReadback.interrupt store) sessions))))))))))))
+'ShielddSecurity.TransferStatefulStoreCommit01.whole_success_derives_actual_read_serialization_sessions_and_final_observation' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulStoreCommit01.returned_commit_keeps_reads_blocked_and_independently_observed_health : ∀
+  (io : ShielddSecurity.TransferStatefulStoreCommit01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) (sessions : List.{0} Nat)
+  (returned : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+      (ShielddSecurity.TransferStoreCommitSource01.Outcome.returned
+        (ShielddSecurity.TransferStatefulStoreCommit01.commitStore io store prepared sessions))
+      (@Option.some.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared returned))
+  (hash : String → Nat → List.{0} Nat) (verify : Nat → List.{0} Nat → Nat → Bool → Bool)
+  (requested : ShielddSecurity.TransferReadback.Boundary) (nullifier : Nat)
+  (candidate : Option.{0} (Prod.{0, 0} Bool Nat)),
+  And
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferReadback.Store.ready
+        (ShielddSecurity.TransferStoreCommitSource01.Outcome.store
+          (ShielddSecurity.TransferStatefulStoreCommit01.commitStore io store prepared sessions)))
+      Bool.false)
+    (And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+        (ShielddSecurity.TransferReadback.Store.boundary
+          (ShielddSecurity.TransferStoreCommitSource01.Outcome.store
+            (ShielddSecurity.TransferStatefulStoreCommit01.commitStore io store prepared sessions)))
+        (ShielddSecurity.TransferReadback.Store.boundary store))
+      (And
+        (@Eq.{1} Bool
+          (ShielddSecurity.TransferReadback.Store.healthy
+            (ShielddSecurity.TransferStoreCommitSource01.Outcome.store
+              (ShielddSecurity.TransferStatefulStoreCommit01.commitStore io store prepared sessions)))
+          (ShielddSecurity.TransferStatefulStoreCommit01.Physical.healthy
+            (ShielddSecurity.TransferStatefulStoreCommit01.Io.actualAfterSessions io
+              (ShielddSecurity.TransferStatefulStoreCommit01.WalkResult.store
+                (ShielddSecurity.TransferStatefulStoreCommit01.walkSessions
+                  (ShielddSecurity.TransferStatefulStoreCommit01.Io.commitSession io)
+                  (ShielddSecurity.TransferReadback.interrupt store) sessions)))))
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Status)
+          (ShielddSecurity.TransferReadback.status hash verify
+            (ShielddSecurity.TransferStoreCommitSource01.Outcome.store
+              (ShielddSecurity.TransferStatefulStoreCommit01.commitStore io store prepared sessions))
+            requested nullifier candidate)
+          (@Option.none.{0} ShielddSecurity.TransferReadback.Status))))
+'ShielddSecurity.TransferStatefulStoreCommit01.returned_commit_keeps_reads_blocked_and_independently_observed_health' depends on axioms: [propext]
