@@ -739,3 +739,8 @@ Evidence commit: ac32865ebec09dda4eee36dd85844c0adb756abe
 7 original complete reports independently accepted for the same whole-block walk and one-shot seal using only derived coherent pending codec restoration. The finite enum wrapper derives exact frozen global inputs, uniqueness/capacity, ensure, repeated refusal and later whole-request preservation from encoded default empty Open and actual walk success. Independent exact maintained generator replay passed. Native representation, scheduling, ownership, session/proof/Host/durability remain OPEN.
 
 Evidence commit: 9649c51a5c6f3596094818d256843675206fa1a1
+
+
+Independent review accepted5modules24 complete original reverse comparison reports. Actual full captured relation implies first high/low comparison hint meanings under independent input limb meanings, and the actual gap polynomial is zero. Boolean decoding and canonical short-width recovery are proved; arbitrary255bit canonical/input/TransferSem recovery remains OPEN. Constructor coverage remains1467distinct assertions; native and final replay OPEN. Exact immutable original ledger snapshot and guard/storage identities independently verified.
+
+Evidence commit: 25be8233ae284ea39af032cf9360e0398b82b56a
