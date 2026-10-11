@@ -96,6 +96,17 @@ all416 import associations, three pool charges and four unchanged runners.
 The canonical byte-writer primitive contract and actual Rust/compiler-row
 refinement remain explicit. The same desktop continues those owned joins.
 
+The21-module indexed arithmetic support and captured-probe packet is accepted
+at `40acb5367c8214daf33c41a7bdd0b22edff35f2e` (277 complete type/standard-axiom
+reports). It supplies balanced construction and fixed-point converse helpers,
+exact coefficient lookup and six probes covering1,541 distinct arithmetic
+positions plus the shared copy row. Parent independently reproduced all21
+generated sources and six DATA extractions, checked all7,483 coefficient values
+and reviewed the35-module selected custom closure with14 previously published
+dependencies. Physical memory/process safeguards are unchanged. The first40
+aggregate and full599 arithmetic provider are separate live obligations; this
+acceptance does not close full row coverage or Transfer semantics.
+
 The retained Mac worker has extracted the entire177,954-row arithmetic provider
 into599 bounded leaves and is qualifying its first production leaves and
 symbolic aggregators. These live results are not yet a sealed full-provider
