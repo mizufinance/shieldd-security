@@ -1,0 +1,76 @@
+ShielddSecurity.TransferScalarPaddedCarry01.paddedRound : (words : List.{0} UInt64) →
+  Prod.{0, 0} (List.{0} UInt64) UInt64
+'ShielddSecurity.TransferScalarPaddedCarry01.paddedRound' depends on axioms: [propext]
+ShielddSecurity.TransferScalarPaddedCarry01.paddedRounds : Nat → List.{0} UInt64 → List.{0} UInt64
+'ShielddSecurity.TransferScalarPaddedCarry01.paddedRounds' depends on axioms: [propext]
+ShielddSecurity.TransferScalarPaddedCarry01.paddedNoOverflow : Nat → List.{0} UInt64 → Prop
+'ShielddSecurity.TransferScalarPaddedCarry01.paddedNoOverflow' depends on axioms: [propext]
+ShielddSecurity.TransferScalarPaddedCarry01.source_padded_round_is_exact_carry_wrapper_and_zero_ignored_carry : ∀
+  (words tail : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) UInt64)
+    (ShielddSecurity.TransferScalarPaddedCarry01.paddedRound
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) words
+        (@List.cons.{0} UInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) tail)))
+    (@Prod.mk.{0, 0} (List.{0} UInt64) UInt64
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+        (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRound words) tail)
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarPaddedCarry01.source_padded_round_is_exact_carry_wrapper_and_zero_ignored_carry' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarPaddedCarry01.symbolic_zero_padded_walk_derives_fixed_wrapper_and_all_zero_ignored_carries : ∀
+  (rounds : Nat) (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} (List.{0} UInt64)
+      (ShielddSecurity.TransferScalarPaddedCarry01.paddedRounds rounds
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+          (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) words
+          (@List.replicate.{0} UInt64 rounds (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+      (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds rounds words))
+    (ShielddSecurity.TransferScalarPaddedCarry01.paddedNoOverflow rounds
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) words
+        (@List.replicate.{0} UInt64 rounds (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+'ShielddSecurity.TransferScalarPaddedCarry01.symbolic_zero_padded_walk_derives_fixed_wrapper_and_all_zero_ignored_carries' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarPaddedCarry01.four_round_zero_padded_source_serializer_has_exact_width_and_montgomery_value : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt8
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.wordsBytes
+          (ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize
+            (ShielddSecurity.TransferScalarPaddedCarry01.paddedRounds
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+                (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)
+                (@List.replicate.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (And
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.wordsBytes
+            (ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize
+              (ShielddSecurity.TransferScalarPaddedCarry01.paddedRounds
+                (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+                  (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+                  (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)
+                  (@List.replicate.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                    (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue words))
+      (ShielddSecurity.TransferScalarPaddedCarry01.paddedNoOverflow
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+          (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)
+          (@List.replicate.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))))
+'ShielddSecurity.TransferScalarPaddedCarry01.four_round_zero_padded_source_serializer_has_exact_width_and_montgomery_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

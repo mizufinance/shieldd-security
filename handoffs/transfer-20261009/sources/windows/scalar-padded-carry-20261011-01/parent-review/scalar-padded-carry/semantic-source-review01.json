@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-padded-carry-review01/packet01/source/ShielddSecurity/TransferScalarPaddedCarry01.lean",
+    "bytes": 5503,
+    "sha256": "87e70c00951f4e9d3ed65da09e8717519213205bc80d97cb1d959d9fe8b626fa"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-padded-carry-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 1822,
+    "sha256": "a04e473287410aa29703fb05e43e55c6786a26d1896bdbab0a3bbe007c98e4a2"
+  },
+  "fresh_reports": 6,
+  "definitions": 3,
+  "theorems": 3,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-padded-carry-review01/packet01/rejected/02/handwritten/TransferScalarPaddedCarry01.lean",
+      "bytes": 5487,
+      "sha256": "e645da5fb4de82ad34747186e347181d6d022429ca79c08448a6bbad21840099"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 17.132235800032504,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-padded-carry-20261011-02\\project\\ShielddSecurity\\TransferScalarPaddedCarry01.lean:50:4: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -46,8 +46,9 @@\n     rw [width, List.drop_length_add_append]\n     rfl\n   unfold paddedRound\n-  rw [taken, dropped, rest, List.headD_cons,\n-    TransferScalarAdcShift01.zero_upper_limb_adc_retains_carry_without_overflow]\n+  rw [taken, dropped, rest, List.headD_cons]\n+  dsimp only\n+  rw [TransferScalarAdcShift01.zero_upper_limb_adc_retains_carry_without_overflow]\n   rfl\n \n theorem symbolic_zero_padded_walk_derives_fixed_wrapper_and_all_zero_ignored_carries\n"
+  },
+  "scope": "Explicit padded round executes four low MACs and actual next-upper-word ADC, records ignored carry. Zero-padding induction derives fixed-wrapper equality and every ignored carry zero, then32byte width/exact canonical Montgomery value. No desired carry/outcome supplied. Actual Rust/compiler/native type/field/trace binding remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "review_harness_lineage": "Pure literal-replacement selection supports both inline and separately assigned literal b; no preparer IO executes."
+}
