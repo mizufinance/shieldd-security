@@ -1,0 +1,171 @@
+@ShielddSecurity.TransferNativeDeliveryErasure01.bounded_capability_ghost_erasure_preserves_every_returned_outcome : ∀
+  {O E K X A I : Type} [inst : DecidableEq.{1} I]
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (raw :
+    ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      X)
+  (extract : A → ShielddSecurity.TransferCapabilitySource01.ProofContext → Except.{0, 0} K I)
+  (inputs outputs : A → List.{0} Nat) (wordMax pendingKey entryKey dayKey : Nat) (action : A)
+  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)
+  (child : ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X raw)
+        child))
+  (nativeInputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) (inputs action) key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (ShielddSecurity.TransferCapabilitySource01.Error K X))
+    (@ShielddSecurity.TransferCapabilitySource01.execute (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E K X A I inst (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E X encodeNative raw) extract inputs
+      outputs wordMax ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity pendingKey entryKey dayKey action
+      token child)
+    (@ShielddSecurity.TransferCapabilitySource01.execute (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E K X A I inst (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E X encodeNative raw) extract inputs
+      outputs wordMax ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity pendingKey entryKey dayKey action
+      token child)
+'ShielddSecurity.TransferNativeDeliveryErasure01.bounded_capability_ghost_erasure_preserves_every_returned_outcome' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNativeDeliveryErasure01.source_callback_installation_commutes_with_both_pending_encoders : ∀
+  {O E X Tree : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (raw :
+    ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct :
+    ShielddSecurity.TransferSctInsertionSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E X Tree)
+  (volumeAvailable :
+    ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E → Bool)
+  (treeKey notesKey volumeKey payload entryKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext),
+  And
+    (@Eq.{1}
+      (ShielddSecurity.TransferRawEffectsSource01.Backend
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X))
+      (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X Tree
+        (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X) encodeNative raw)
+        notes volume sct volumeAvailable treeKey notesKey volumeKey payload entryKey context)
+      (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+        encodeNative
+        (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X Tree raw notes volume sct volumeAvailable
+          treeKey notesKey volumeKey payload entryKey context)))
+    (@Eq.{1}
+      (ShielddSecurity.TransferRawEffectsSource01.Backend
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X))
+      (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X Tree
+        (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X) encodeNative raw)
+        notes volume sct volumeAvailable treeKey notesKey volumeKey payload entryKey context)
+      (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X) encodeNative
+        (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E X Tree raw notes volume sct volumeAvailable
+          treeKey notesKey volumeKey payload entryKey context)))
+'ShielddSecurity.TransferNativeDeliveryErasure01.source_callback_installation_commutes_with_both_pending_encoders' does not depend on any axioms
+@ShielddSecurity.TransferNativeDeliveryErasure01.bounded_complete_item_body_ghost_erasure_preserves_every_returned_outcome : ∀
+  {O E K X Tree A : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (raw :
+    ShielddSecurity.TransferRawEffectsSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct :
+    ShielddSecurity.TransferSctInsertionSource01.Backend (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      E X Tree)
+  (volumeAvailable :
+    ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (wordMax treeKey notesKey volumeKey payload pendingKey entryKey dayKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (child : ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+        child))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+        child))
+  (nativeInputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) (inputs action) key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (belowWord : @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity wordMax),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)))
+    (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+      (@ShielddSecurity.TransferNativeRawPending01.nativeRaw O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+        encodeNative raw)
+      notes volume sct volumeAvailable extract inputs outputs wordMax
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity treeKey notesKey volumeKey payload pendingKey
+      entryKey dayKey context action item child)
+    (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+      (@ShielddSecurity.TransferNativeGhostErasure01.nativeOnlyRaw O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X) encodeNative raw)
+      notes volume sct volumeAvailable extract inputs outputs wordMax
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity treeKey notesKey volumeKey payload pendingKey
+      entryKey dayKey context action item child)
+'ShielddSecurity.TransferNativeDeliveryErasure01.bounded_complete_item_body_ghost_erasure_preserves_every_returned_outcome' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNativeDeliveryErasure01.pointwise_body_equality_derives_exact_delivery_all_index_modes : ∀
+  {O E A X : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E A)
+  (first second :
+    ShielddSecurity.TransferStateDelta.Delta O E → ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+  (registryMatches exclusive : Bool) (mode : ShielddSecurity.TransferStateDelta.IndexMode) (action : A)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (same :
+    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+      (first (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))
+      (second
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E)))),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+    (@ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A X api keys codec index first) registryMatches
+      exclusive mode action parent queued)
+    (@ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A X api keys codec index second) registryMatches
+      exclusive mode action parent queued)
+'ShielddSecurity.TransferNativeDeliveryErasure01.pointwise_body_equality_derives_exact_delivery_all_index_modes' depends on axioms: [propext]
