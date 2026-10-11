@@ -1104,3 +1104,6 @@ Publish independently reviewed scalar-choice-bit original source model. 8 comple
 
 
 Publish independently reviewed scalar-wide-product original source model. 7 complete original reports; exact independently accepted ancestry. Four-word schoolbook MAC rows produce exactly eight UInt64 words, their full integer product and radix^8 bound. Native sixteen-call shape and operand/retained-prefix row association independently matched exact authenticated library source; arithmetic model does not supply desired product/carry conclusions. Actual native primitive/compiler/library representation/full execution and Transfer remain owned OPEN. Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed scalar-wide-round original source model. 6 complete original reports; exact independently accepted ancestry. Four-limb source-shaped MAC round proves low-word cancellation, exact shifted integer conservation, and width. Upper ADC consumes pending and MAC carry; new carry retains radix^4 weight. No desired cancellation/output premise. Actual Rust primitive/compiler/full execution binding remains owned OPEN. Combined replay and full Transfer remain OPEN.
