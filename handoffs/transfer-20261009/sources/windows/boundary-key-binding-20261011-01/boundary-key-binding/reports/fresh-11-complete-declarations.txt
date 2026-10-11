@@ -1,0 +1,100 @@
+ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.legacyGenerationsBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferBoundaryKeyBinding01.legacyGenerationsBytes' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.legacySetRootBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferBoundaryKeyBinding01.legacySetRootBytes' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.formatValueBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferBoundaryKeyBinding01.formatValueBytes' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys : (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+  ShielddSecurity.TransferStageBoundarySource01.Keys
+'ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys' does not depend on any axioms
+@ShielddSecurity.TransferBoundaryKeyBinding01.sourceIo : {O : Type} →
+  (io : ShielddSecurity.TransferStageBoundarySource01.Io O) → ShielddSecurity.TransferStageBoundarySource01.Io O
+'ShielddSecurity.TransferBoundaryKeyBinding01.sourceIo' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.source_write_key_bytes_separate : And
+  (@Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes
+    ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes)
+  (And
+    (@Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes
+      ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes)
+    (@Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes
+      ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes))
+'ShielddSecurity.TransferBoundaryKeyBinding01.source_write_key_bytes_separate' does not depend on any axioms
+ShielddSecurity.TransferBoundaryKeyBinding01.projected_source_write_keys_separate : ∀
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project),
+  And
+    (@Ne.{1} Nat
+      (ShielddSecurity.TransferStageBoundarySource01.Keys.boundary
+        (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project))
+      (ShielddSecurity.TransferStageBoundarySource01.Keys.root
+        (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project)))
+    (And
+      (@Ne.{1} Nat
+        (ShielddSecurity.TransferStageBoundarySource01.Keys.boundary
+          (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project))
+        (ShielddSecurity.TransferStageBoundarySource01.Keys.format
+          (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project)))
+      (@Ne.{1} Nat
+        (ShielddSecurity.TransferStageBoundarySource01.Keys.format
+          (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project))
+        (ShielddSecurity.TransferStageBoundarySource01.Keys.root
+          (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project))))
+'ShielddSecurity.TransferBoundaryKeyBinding01.projected_source_write_keys_separate' does not depend on any axioms
+@ShielddSecurity.TransferBoundaryKeyBinding01.source_bound_stage_success_records_exact_serialized_next_format_and_root_bytes : ∀
+  {O : Type} (io : ShielddSecurity.TransferStageBoundarySource01.Io O)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (state : ShielddSecurity.TransferStateDelta.State O)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (staged : ShielddSecurity.TransferStateDelta.State O)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferStageBoundarySource01.stageBoundary O
+        (@ShielddSecurity.TransferBoundaryKeyBinding01.sourceIo O io)
+        (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project) state prepared)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) staged)),
+  And (ShielddSecurity.TransferStageBoundarySource01.ValidTransition prepared)
+    (And
+      (@ShielddSecurity.TransferStageBoundarySource01.ParentAllowed O
+        (@ShielddSecurity.TransferBoundaryKeyBinding01.sourceIo O io)
+        (ShielddSecurity.TransferBoundaryKeyBinding01.sourceKeys project) state
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous prepared))
+      (@Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>
+        And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@ShielddSecurity.TransferStageBoundarySource01.Io.serialize O io
+              (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared))
+            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+          (And
+            (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+              (@ShielddSecurity.TransferStateDelta.State.nonverifiable O staged)
+              (@ShielddSecurity.TransferStateDelta.State.nonverifiable O state))
+            (And
+              (@Eq.{1} (ShielddSecurity.TransferStateDelta.View O)
+                (@ShielddSecurity.TransferStateDelta.State.objects O staged)
+                (@ShielddSecurity.TransferStateDelta.State.objects O state))
+              (And
+                (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                  (@ShielddSecurity.TransferStateDelta.State.verifiable O staged
+                    (project ShielddSecurity.TransferBoundaryKeyBinding01.boundaryBytes))
+                  (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+                (And
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                    (@ShielddSecurity.TransferStateDelta.State.verifiable O staged
+                      (project ShielddSecurity.TransferBoundaryKeyBinding01.formatKeyBytes))
+                    (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                      ShielddSecurity.TransferBoundaryKeyBinding01.formatValueBytes))
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                    (@ShielddSecurity.TransferStateDelta.State.verifiable O staged
+                      (project ShielddSecurity.TransferBoundaryKeyBinding01.rootBytes))
+                    (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                      (@ShielddSecurity.TransferStageBoundarySource01.Io.commitment O io
+                        (ShielddSecurity.TransferReadback.Boundary.roots
+                          (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared)))))))))))
+'ShielddSecurity.TransferBoundaryKeyBinding01.source_bound_stage_success_records_exact_serialized_next_format_and_root_bytes' depends on axioms: [propext]
