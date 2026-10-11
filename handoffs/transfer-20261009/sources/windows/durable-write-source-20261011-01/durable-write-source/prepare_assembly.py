@@ -1,0 +1,40 @@
+"""Seal durable file operation order and observed-progress/intent failure join."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-authenticated-boundary-source-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-authenticated-boundary-source-20261011-01'", "CURRENT = DIAG / 'transfer-durable-write-source-20261011-01'")
+s=s.replace('transfer-authenticated-boundary-source-checkpoint-20261011-01','transfer-durable-write-source-checkpoint-20261011-01')
+s=s.replace('authenticated-boundary-source-endpoint','durable-write-source-endpoint')
+replace("MODULE = 'TransferAuthenticatedBoundarySource01'", "MODULE = 'TransferDurableWriteSource01'")
+replace('assert len(fresh) == 9','assert len(fresh) == 8')
+replace("assert pool['objects'] == 55 and len(pool['inherited_public_reports']) == 551", "assert pool['objects'] == 58 and len(pool['inherited_public_reports']) == 576")
+replace("manager_endpoint = DIAG / 'transfer-boundary-reader-source-endpoint-20261011-02'", "manager_endpoint = DIAG / 'transfer-writer-recovery-join-endpoint-20261011-01'")
+replace("manager_archive = manager_endpoint / 'portable-windows-boundary-reader-source-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-writer-recovery-join-endpoint01.tar.xz'")
+replace('928eee7e3e07762fae8f6a8f496f8fe887d5b2d3ed371303e5c903a78c43a937','334ccfbfa9bbf867f4ee909df762fbca06052f7cf641a992167bb6b74f418223')
+replace("tar.extractfile('reports/fresh-7-complete-declarations.txt')", "tar.extractfile('reports/fresh-6-complete-declarations.txt')")
+replace('assert len(manager_reports) == 7','assert len(manager_reports) == 6')
+replace("'module': 'TransferBoundaryReaderSource01'", "'module': 'TransferWriterRecoveryJoin01'")
+replace('assert len(combined_reports) == 551','assert len(combined_reports) == 576')
+replace('assert len(manager_selected) == 55','assert len(manager_selected) == 58')
+replace("reference = {'boundary_reader_source':", "reference = {'writer_recovery_join':")
+replace("'imported_complete_reports': 7", "'imported_complete_reports': 6")
+replace("'complete_owned_modules': 55, 'inherited_complete_reports': 551", "'complete_owned_modules': 58, 'inherited_complete_reports': 576")
+s=s.replace('Exact fifty-five-module whole/current pending/durable reader/source capacity/block/seal/prepare/finite codec/writer/intent/participants/boundary staging/keys/reader/authenticated snapshot closure, with 551 original inherited complete reports', 'Exact fifty-eight-module whole/current pending/durable reader/source capacity/block/seal/prepare/finite codec/writer/intent/participants/boundary staging/keys/reader/authenticated snapshot/recovery/durable write closure, with 576 original inherited complete reports; original recovery selected once without replay')
+replace("add(stdout, 'reports/fresh-9-complete-declarations.txt'", "add(stdout, 'reports/fresh-8-complete-declarations.txt'")
+s=s.replace('source snapshot/key authentication recurrence/actual boundary and height program definitions and four derived source call/value coherence proofs','source file operation observation/durable write/intent writer installation definitions and four source success/missing-parent/directory-failure/intent-refusal proofs')
+s=s.replace('complete fifty-five-module first import root','complete fifty-eight-module first import root')
+s=s.replace('verified 551 inherited reports','verified 576 inherited reports')
+s=s.replace('SOURCE_AUTHENTICATED_BOUNDARY_ROOT_KEY_PROOFS_READER_HEIGHT_AND_VALUE_COHERENCE_QUALIFIED','SOURCE_DURABLE_FILE_WRITE_ORDER_OBSERVED_PROGRESS_AND_INTENT_FAILURE_QUALIFIED')
+replace("'fresh_definition_audits': 5", "'fresh_definition_audits': 4")
+replace("'fresh_complete_public_audits': 9", "'fresh_complete_public_audits': 8")
+replace("'inherited_complete_public_audits': 551", "'inherited_complete_public_audits': 576")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All eight declarations have original complete type/axiom reports. Actual returned source write success derives preceding primitive returned success and same modeled handle; final directory failure retains observed output after rename and installed intent failure blocks reads. File drop is a nonfallible filesystem observation ghost, with native memory/concurrent trace/path/options/descriptor/ownership/OS durability interfaces explicit. Zero native/control/full certification credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 9, 'inherited_audits': 551", "'fresh_audits': 8, 'inherited_audits': 576")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':8,'inherited_reports':576,'owned_modules':58})
