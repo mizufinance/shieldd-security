@@ -1,5 +1,26 @@
 # Transfer proof completion plan — 9 October 2026
 
+Latest scoped integration (11 October UTC): the generic assertion block helper
+is accepted at 4103d8c73e9f16f08f8d34ce67c82e80bc4a865c (one module,
+17 complete reports). It proves exact row satisfaction iff recorded expression
+equality, under explicit Field/CharP and copy linkage; independent legal-input
+truth remains a later join. All 90 assertion/link block sources and their
+22,816 original rows have separate independent parent source/DATA pre-reviews,
+without claiming their kernel qualification. The full 599-leaf arithmetic
+provider is progressing under the retained worker's autonomous bounded lane.
+
+The raw SDK/model authorization packet is accepted at
+760b2a6807af97225a622b8fc641175d5be3d9e9: 16 sources/172 original reports
+plus a separate diagnostic for the unchanged coordinateBytes definition, giving
+a complete inventory of 173 explicit public declarations. Owned reader,
+wrapped arithmetic, multiplication and fallible authorization model bodies
+derive output/coordinate agreement and subgroup-witness constraints. Global
+SDK/blst/representation contracts and two literal generator-coordinate
+equalities remain explicit premises; actual Rust/FFI refinement is OPEN.
+Randomized-output nonidentity remains a necessary independent gate. The
+retained desktop owns verifier/envelope/state/native integration autonomously.
+All G2/G3/G4/G5/G7 full-Transfer completion obligations remain OPEN.
+
 Current accepted scope (10 October 2026): Initial734, Join15, RegistryWhole23,
 RegistryInputJoin24, MerkleSelection26, MerkleHash27 and MerkleInputMeaning28
 compose the original-input registry and first asset-path hash on one assignment.
