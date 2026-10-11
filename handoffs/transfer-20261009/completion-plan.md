@@ -625,3 +625,6 @@ Reviewed shared-assignment assertion constructor: evidence `fc52ecd883d4f98a145b
 
 
 Reviewed actual-field certificate reuse: evidence `8a03d5a7a5c138cbe1b3c78350ec69aac0a3c7d1` preserves ten existing complete original type/axiom reports, the original successful structured receipt/audit/source identities and six exact published source references. The captured modulus equals Scalar.modulus and the positive captured Int coefficient equals coefficientNat. Over ConcreteJubjubField01.F, coefficient_no_unit_square and imaginary_square supply the previously proved parameter certificates. No new Lean process, theorem, native control or Mac application was performed by this reuse packet. Int/Nat cast normalization and constructor application remain a Mac theorem obligation; actual native field/FFI correspondence and full Transfer remain OPEN.
+
+
+Reviewed regulated-asset95/96 evidence `4f4c9032d3d42a9275dc03317495d6e85b50abf7` adds actual assertion178118 to the same shared assignment, total164distinct assertions with anchor178117 OPEN; all177954arith rows remain constructed. Exact source regeneration,16full original reports,822historical attempts, guards and narrow readonly3node/3row/2constant DATA comparison passed. No new replay/native/fullTransfer certification.
