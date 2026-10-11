@@ -1,5 +1,13 @@
 # Transfer proof completion plan — 9 October 2026
 
+The retained-envelope/capability constructor join is accepted at
+f8e8fdb99ede5b3c5b5d190b1d0fdffd7cbb7bc1 (three handwritten sources/35
+complete reports). Successful individual or separately fresh-batch framing
+and constructive slot validation derive exact envelope-decoded claims,
+independent location families and locally selected relations at every expected
+slot. Origin is model-program success; no per-entry batch knowledge or native
+Rust codec/crypto refinement is inferred. Full Transfer remains OPEN.
+
 The generic assertion-pair/verifier-link support is accepted at
 8f05c7b (two modules/17 complete reports). The pair checker retains the
 accepted checkRow and supplies indexed coverage and balanced concatenation;
