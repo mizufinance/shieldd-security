@@ -1113,3 +1113,6 @@ Publish independently reviewed scalar-wide-walk original source model. 7 complet
 
 
 Publish independently reviewed scalar-wide-reduction original source model. 8 complete original reports; exact independently accepted ancestry. Eight-word source-shaped four-round reduction derives zero final discarded carry, four-limb width, canonical result and Montgomery modular relation from explicit input bound. Canonical right operand derives full schoolbook-product input bound; exact borrowed-sub/masked-addback normalization used. Actual private Scalar invariant, primitive/compiler/full native execution binding remains owned OPEN. Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed scalar-r2-payload original source model. 7 complete original reports; exact independently accepted ancestry. Exact pinned R2 constant, derived source schoolbook/wide-reduction output constructs canonical four-word decoder payload for every input raw vector. Its raw Montgomery value and serializer value modulo the field modulus are derived, exact parsed input under canonical input bound. Native R2 constant and decoder multiplication/CtOption static source independently matched; private Scalar/Choice/CtOption/compiler/primitives/full native execution and Transfer remain owned OPEN. Combined replay and full Transfer remain OPEN.
