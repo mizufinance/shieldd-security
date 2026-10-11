@@ -1,0 +1,349 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete type/source/runtime/ancestor/guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 2,
+  "inherited_reports": 227,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryIndexedValues01.same_action_success_derives_visible_index_and_volume_values",
+      "full_type": "@ShielddSecurity.TransferOrdinaryIndexedValues01.same_action_success_derives_visible_index_and_volume_values : \u2200\n  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)\n  (project : ShielddSecurity.TransferStateDelta.Bytes \u2192 Nat)\n  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)\n  (prefixBytes ordinalBytes : Nat \u2192 ShielddSecurity.TransferStateDelta.Bytes)\n  (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)\n  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E A)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)\n  (committed : ShielddSecurity.TransferStateDelta.Commit O E A) (different : @Ne.{1} Nat entryKey dayKey)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))\n      (@ShielddSecurity.TransferStateDelta.run O E A\n        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          api (ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes project prefixBytes ordinalBytes) codec\n          index\n          (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n            extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n            action item))\n        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),\n  have keys : ShielddSecurity.TransferIndexWriterModel01.Keys :=\n    ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes project prefixBytes ordinalBytes;\n  @Exists.{1} Nat fun (height : Nat) =>\n    @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Witness\n      fun (witness : ShielddSecurity.TransferIndexWriterModel01.Witness) =>\n      And\n        (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n          (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)\n          (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))\n        (And\n          (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)\n            (@ShielddSecurity.TransferIndexWriterModel01.Backend.convert O E A index action)\n            (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded\n              (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness)))\n          (And\n            (@Eq.{1} Nat\n              (@Fin.val\n                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n                (ShielddSecurity.TransferIndexWriterModel01.Witness.next witness))\n              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                (@Fin.val\n                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                    (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n                  (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))\n                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))\n            (And\n              (@LT.lt.{0} Nat instLTNat\n                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                  (@Fin.val\n                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n                    (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))\n              (And\n                (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                  (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)\n                  (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))\n                (And\n                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                    (@ShielddSecurity.TransferStateDelta.State.verifiable O\n                      (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) entryKey)\n                    (@Option.some.{0} (List.{0} Nat)\n                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n                        (@List.nil.{0} Nat))))\n                  (And\n                    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n                        (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) dayKey)\n                      (@Option.some.{0} (List.{0} Nat)\n                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n                          (@List.nil.{0} Nat))))\n                    (And\n                      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                        (@ShielddSecurity.TransferStateDelta.State.nonverifiable O\n                          (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)\n                          (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height\n                            (@Fin.val\n                              (@HPow.hPow.{0, 0, 0} Nat Nat Nat\n                                (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n                                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n                              (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))))\n                        (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes\n                          (ShielddSecurity.TransferIndexWriterModel01.Encoded.payload\n                            (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))\n                      (And\n                        (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                          (@ShielddSecurity.TransferStateDelta.State.nonverifiable O\n                            (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)\n                            (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height\n                              (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier\n                                (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))\n                          (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes\n                            (ShielddSecurity.TransferIndexWriterModel01.Codec.encodeCount codec\n                              (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))))\n                        (And\n                          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                            (@ShielddSecurity.TransferStateDelta.State.nonverifiable O\n                              (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)\n                              (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))\n                            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes\n                              (ShielddSecurity.TransferIndexWriterModel01.Codec.encodeCount codec\n                                (ShielddSecurity.TransferIndexWriterModel01.Witness.next witness))))\n                          (@Eq.{1} (List.{0} A) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A committed)\n                            queued))))))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "736d7c814385158f921d3d52637bd140005eee95972267891f6c2a1467015fb2"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryIndexedValues01.same_action_success_preserves_every_other_nonverifiable_key",
+      "full_type": "@ShielddSecurity.TransferOrdinaryIndexedValues01.same_action_success_preserves_every_other_nonverifiable_key : \u2200\n  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)\n  (project : ShielddSecurity.TransferStateDelta.Bytes \u2192 Nat)\n  (prefixBytes ordinalBytes : Nat \u2192 ShielddSecurity.TransferStateDelta.Bytes)\n  (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)\n  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E A)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)\n  (committed : ShielddSecurity.TransferStateDelta.Commit O E A)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))\n      (@ShielddSecurity.TransferStateDelta.run O E A\n        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          api (ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes project prefixBytes ordinalBytes) codec\n          index\n          (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n            extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n            action item))\n        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),\n  have keys : ShielddSecurity.TransferIndexWriterModel01.Keys :=\n    ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes project prefixBytes ordinalBytes;\n  @Exists.{1} Nat fun (height : Nat) =>\n    @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Witness\n      fun (witness : ShielddSecurity.TransferIndexWriterModel01.Witness) =>\n      \u2200 (other : Nat),\n        @Ne.{1} Nat other\n            (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height\n              (@Fin.val\n                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n                (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))) \u2192\n          @Ne.{1} Nat other\n              (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height\n                (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier\n                  (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))) \u2192\n            @Ne.{1} Nat other (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height) \u2192\n              @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                (@ShielddSecurity.TransferStateDelta.State.nonverifiable O\n                  (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) other)\n                (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent other)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "cdf00cad8e986580e56ae7a50d7104a2a5ccf9e0729cde139d06be748a4c9775"
+    }
+  ],
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "module": "TransferCurrentVolumeSource01",
+      "object": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "source": {
+        "bytes": 10987,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean",
+        "sha256": "3e34bb62ef0262f2f6ff6124da243b5332ae1e2e1102961e01521f3352f74b19"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "module": "TransferOrdinaryStorageSource01",
+      "object": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "source": {
+        "bytes": 21000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean",
+        "sha256": "a16cf823a1d57f6f770ba1952a59f9fb843fc47a8e9a48d7172c4bad0ae75c66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "module": "TransferCapabilitySource01",
+      "object": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "source": {
+        "bytes": 7320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.lean",
+        "sha256": "3b75e03b3801ab4717a720d351a2cb74200f4ba087ee1b15792d51951bfc2416"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "module": "TransferVerificationEqualitySource01",
+      "object": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "source": {
+        "bytes": 5810,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.lean",
+        "sha256": "70604d840acd8c0ea7a397337ac2f7dd35ab2285d41f30b047b2aab2252b9a37"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "module": "TransferBoundOrdinarySource01",
+      "object": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "source": {
+        "bytes": 20530,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.lean",
+        "sha256": "890a31a5313618af5f593151d2fd0b60e72655cf162daa90faa769ba5ae982d2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "module": "TransferRawDeliveryComposition01",
+      "object": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "source": {
+        "bytes": 6672,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.lean",
+        "sha256": "69d72ff097718cb9e37afa3b8dbdd58241c90913bb75ff94015e0b0d50d6ad1d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "module": "TransferIndexWriterModel01",
+      "object": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "source": {
+        "bytes": 12975,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.lean",
+        "sha256": "a0dd4cb0b9b053db5ff93870c892dbc835c360f744b5343b24348eb0ae39de9e"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "module": "TransferIndexInspectionFacts01",
+      "object": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "source": {
+        "bytes": 12693,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.lean",
+        "sha256": "d0b193fa567ca2ecbc6ca130fdbb9ff30d9a758c22a7c3043b51c43efd24100c"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "module": "TransferOrdinaryIndexDelivery01",
+      "object": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "source": {
+        "bytes": 11560,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.lean",
+        "sha256": "de93d2bc043afad2fb78bbce0cc588624e6afda328273f5495997f2e5293374a"
+      }
+    }
+  ],
+  "manifest_entries": 24,
+  "guard_unchanged": true,
+  "rejected": [],
+  "interfaces": [
+    "Generic body adapter is instantiated with the qualified exact-Item Ordinary source program; extractor/token/proof provenance remains upstream",
+    "Loaded immutable SCT, Rust CloneCOW/panic/tree/key/value/source/event codecs and store authentication remain inherited interfaces",
+    "Transaction conversion, byte-key projection, big-endian count codec and actual index storage reads require source correspondence",
+    "Run commit denotes applying child cache to original parent; it does not imply block seal or durable multi-store publication",
+    "Returned error discard remains scoped; native Host panic/queue retry and all native controls remain separate",
+    "No semantic negative-control, native or full Transfer certification credit",
+    "Index byte-to-Nat projection injectivity denotes key representation preservation and is not a cryptographic hash injectivity claim"
+  ],
+  "scope": "The identical action argument drives stateless Ordinary Item extraction, raw input/output projections, transaction conversion and per-transaction indexing. Whole delivery success derives exact re-extraction, initially absent parent volume entry, both visible V markers, exact NV entry payload/ID ordinal/next count values and unchanged queue. Index byte suffix separation derives projected key separation under explicit representation injectivity. Every NV key outside those three actual index keys retains its original parent value, derived from executable body NV framing and index writes rather than an opaque callback premise. No desired body/index success or target cache is assumed. All inherited proof/token/extractor/Rust/representation/store/native/block/durability and full Transfer interfaces remain open. Both handwritten theorems qualified on first attempt. A single action is shared by the extractor, raw projections and index conversion. Representation-preserving projection is explicit, not a claim of hash injectivity. Original parent NV preservation follows executable body and index primitives. This adds no native, block seal or durable-publication evidence.",
+  "full_transfer": "OPEN"
+}

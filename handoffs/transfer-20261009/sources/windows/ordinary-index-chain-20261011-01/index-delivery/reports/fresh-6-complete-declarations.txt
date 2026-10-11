@@ -1,0 +1,268 @@
+@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi : {O E T X : Type} →
+  (api : ShielddSecurity.TransferStateDelta.Api O E T) →
+    (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) →
+      (codec : ShielddSecurity.TransferIndexWriterModel01.Codec) →
+        (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E T) →
+          (body :
+              ShielddSecurity.TransferStateDelta.Delta O E → ShielddSecurity.TransferRawStateProgram01.Outcome O E X) →
+            ShielddSecurity.TransferStateDelta.Api O E T
+'ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi' does not depend on any axioms
+@ShielddSecurity.TransferOrdinaryIndexDelivery01.selected_cache_derives_success : ∀ {O E X : Type}
+  (returned : ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+  (selected : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))
+      (@ShielddSecurity.TransferRawStateProgram01.asCache O E X returned)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Cache O E) selected)),
+  And
+    (@Eq.{1} (Except.{0, 0} X Unit) (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E X returned)
+      (@Except.ok.{0, 0} X Unit Unit.unit))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) selected
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X returned))
+'ShielddSecurity.TransferOrdinaryIndexDelivery01.selected_cache_derives_success' does not depend on any axioms
+@ShielddSecurity.TransferOrdinaryIndexDelivery01.per_transaction_success_recovers_body_height_and_index : ∀
+  {O E T X : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E T)
+  (body : ShielddSecurity.TransferStateDelta.Delta O E → ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+  (registryMatches exclusive : Bool) (transaction : T) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} T) (committed : ShielddSecurity.TransferStateDelta.Commit O E T)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))
+      (@ShielddSecurity.TransferStateDelta.run O E T
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E T X api keys codec index body) registryMatches
+        exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction transaction parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E T) committed)),
+  And (@Eq.{1} Bool registryMatches Bool.true)
+    (And (@Eq.{1} Bool exclusive Bool.true)
+      (@Exists.{1} Nat fun (height : Nat) =>
+        @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Witness
+          fun (witness : ShielddSecurity.TransferIndexWriterModel01.Witness) =>
+          And
+            (@Eq.{1} (Except.{0, 0} X Unit)
+              (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E X
+                (body
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                    (@ShielddSecurity.TransferStateDelta.empty O E))))
+              (@Except.ok.{0, 0} X Unit Unit.unit))
+            (And
+              (@Eq.{1} (Option.{0} Nat)
+                (@ShielddSecurity.TransferStateDelta.Api.height O E T api
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+                      (body
+                        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                          (@ShielddSecurity.TransferStateDelta.empty O E))))))
+                (@Option.some.{0} Nat height))
+              (And
+                (@Eq.{1}
+                  (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+                    ShielddSecurity.TransferIndexWriterModel01.Witness)
+                  (@ShielddSecurity.TransferIndexWriterModel01.inspect O E T keys codec index height transaction
+                    (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+                        (body
+                          (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                            (@ShielddSecurity.TransferStateDelta.empty O E))))))
+                  (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+                    ShielddSecurity.TransferIndexWriterModel01.Witness witness))
+                (And
+                  (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+                    (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed)
+                    (@ShielddSecurity.TransferStateDelta.applyCache O E parent
+                      (@ShielddSecurity.TransferIndexWriterModel01.writeIndex O E keys codec height witness
+                        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+                          (body
+                            (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                              (@ShielddSecurity.TransferStateDelta.empty O E)))))))
+                  (And
+                    (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Commit.events O E T committed)
+                      (@ShielddSecurity.TransferStateDelta.Cache.events O E
+                        (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+                          (body
+                            (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                              (@ShielddSecurity.TransferStateDelta.empty O E))))))
+                    (@Eq.{1} (List.{0} T) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E T committed)
+                      queued)))))))
+'ShielddSecurity.TransferOrdinaryIndexDelivery01.per_transaction_success_recovers_body_height_and_index' depends on axioms: [propext]
+@ShielddSecurity.TransferOrdinaryIndexDelivery01.per_transaction_success_derives_checked_index_observations : ∀
+  {O E T X : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E T)
+  (body : ShielddSecurity.TransferStateDelta.Delta O E → ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+  (registryMatches exclusive : Bool) (transaction : T) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} T) (committed : ShielddSecurity.TransferStateDelta.Commit O E T)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))
+      (@ShielddSecurity.TransferStateDelta.run O E T
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E T X api keys codec index body) registryMatches
+        exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction transaction parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E T) committed)),
+  @Exists.{1} Nat fun (height : Nat) =>
+    @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Witness
+      fun (witness : ShielddSecurity.TransferIndexWriterModel01.Witness) =>
+      @Exists.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        fun (countValue : Option.{0} ShielddSecurity.TransferStateDelta.Bytes) =>
+        And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+            (@ShielddSecurity.TransferIndexWriterModel01.Backend.convert O E T index transaction)
+            (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded
+              (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness)))
+          (And
+            (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+              (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T index
+                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                  (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+                    (body
+                      (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                        (@ShielddSecurity.TransferStateDelta.empty O E)))))
+                (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+                  (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier
+                    (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))
+              (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)))
+            (And
+              (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+                (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T index
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+                      (body
+                        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                          (@ShielddSecurity.TransferStateDelta.empty O E)))))
+                  (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+                (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes) countValue))
+              (And
+                (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+                  (ShielddSecurity.TransferIndexWriterModel01.countObservation codec countValue)
+                  (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal
+                    (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness)))
+                (And
+                  (@Eq.{1} Nat
+                    (@Fin.val
+                      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                      (ShielddSecurity.TransferIndexWriterModel01.Witness.next witness))
+                    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                      (@Fin.val
+                        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                        (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                  (And
+                    (@LT.lt.{0} Nat instLTNat
+                      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                        (@Fin.val
+                          (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                            (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                          (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+                    (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+                      (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed)
+                      (@ShielddSecurity.TransferStateDelta.applyCache O E parent
+                        (@ShielddSecurity.TransferIndexWriterModel01.writeIndex O E keys codec height witness
+                          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+                            (body
+                              (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                                (@ShielddSecurity.TransferStateDelta.empty O E))))))))))))
+'ShielddSecurity.TransferOrdinaryIndexDelivery01.per_transaction_success_derives_checked_index_observations' depends on axioms: [propext]
+@ShielddSecurity.TransferOrdinaryIndexDelivery01.per_transaction_success_preserves_body_effect_domains : ∀
+  {O E T X : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E T)
+  (body : ShielddSecurity.TransferStateDelta.Delta O E → ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+  (registryMatches exclusive : Bool) (transaction : T) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} T) (committed : ShielddSecurity.TransferStateDelta.Commit O E T)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))
+      (@ShielddSecurity.TransferStateDelta.run O E T
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E T X api keys codec index body) registryMatches
+        exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction transaction parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E T) committed)),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed))
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E parent
+          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+            (body
+              (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                (@ShielddSecurity.TransferStateDelta.empty O E)))))))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.View O)
+        (@ShielddSecurity.TransferStateDelta.State.objects O
+          (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed))
+        (@ShielddSecurity.TransferStateDelta.State.objects O
+          (@ShielddSecurity.TransferStateDelta.applyCache O E parent
+            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+              (body
+                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                  (@ShielddSecurity.TransferStateDelta.empty O E)))))))
+      (And
+        (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Commit.events O E T committed)
+          (@ShielddSecurity.TransferStateDelta.Cache.events O E
+            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E X
+              (body
+                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                  (@ShielddSecurity.TransferStateDelta.empty O E))))))
+        (@Eq.{1} (List.{0} T) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E T committed) queued)))
+'ShielddSecurity.TransferOrdinaryIndexDelivery01.per_transaction_success_preserves_body_effect_domains' depends on axioms: [propext]
+@ShielddSecurity.TransferOrdinaryIndexDelivery01.bound_ordinary_per_transaction_success_derives_markers : ∀
+  {O E K X Tree A T : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E T)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (transaction : T) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)
+  (committed : ShielddSecurity.TransferStateDelta.Commit O E T) (different : @Ne.{1} Nat entryKey dayKey)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))
+      (@ShielddSecurity.TransferStateDelta.run O E T
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E T
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          api keys codec index
+          (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available
+            extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey
+            action item))
+        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction transaction parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E T) committed)),
+  And
+    (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+      (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)
+      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))
+    (And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)
+        (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (And
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.State.verifiable O
+            (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed) entryKey)
+          (@Option.some.{0} (List.{0} Nat)
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))
+        (And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@ShielddSecurity.TransferStateDelta.State.verifiable O
+              (@ShielddSecurity.TransferStateDelta.Commit.parent O E T committed) dayKey)
+            (@Option.some.{0} (List.{0} Nat)
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))
+          (@Eq.{1} (List.{0} T) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E T committed) queued))))
+'ShielddSecurity.TransferOrdinaryIndexDelivery01.bound_ordinary_per_transaction_success_derives_markers' depends on axioms: [propext,
+ Quot.sound]

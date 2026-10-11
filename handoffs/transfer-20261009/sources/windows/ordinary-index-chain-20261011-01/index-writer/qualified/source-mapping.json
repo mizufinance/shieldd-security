@@ -1,0 +1,36 @@
+{
+  "interfaces": [
+    "Transaction conversion/proto encoding and identifier correspondence",
+    "u64 big-endian decode/encode",
+    "Nat key projection from exact byte keys; key injectivity and disjointness are not assumed globally",
+    "Storage reads return explicit read failures or observations; alias/Clone/COW correspondence of the modeled primitive",
+    "Raw execution primitive commands, concrete state root/readback/durability correspondence"
+  ],
+  "joined_success": "The actual raw program outcome is recovered from successful PerTx delivery. The installed concrete index callback then derives an observed inspection witness and exact three-write child cache; earlier raw verifiable/object/events and unrelated NV entries survive application to the original parent.",
+  "order": "Transaction conversion, duplicate-ID read/check, count read/decode (absent means zero), checked u64 increment, then exactly entry payload / identifier ordinal / next count writes.",
+  "primitive": "putNV changes only one child nonverifiable entry, retaining verifiable/object/event components and all unrelated NV entries. Three-write composition directly derives the same frame and final count entry.",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "runtime_sources": [
+    {
+      "bytes": 48180,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\app\\src\\app\\mod.rs",
+      "sha256": "f3b8778b2224abaf8672a19253bfaeda823d64187c4eeecb2e8ebebcbf02453f"
+    },
+    {
+      "bytes": 1215,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\app\\src\\app\\state_key.rs",
+      "sha256": "1885d204ddfd108f8ed188ebca8cc91f05d82b429c00c7e77c40a3384d7a8474"
+    },
+    {
+      "bytes": 18716,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\third_party\\cnidarium-0.83.0\\src\\delta.rs",
+      "sha256": "6fc7d1612400dcab6fcd0e7ffde8a4ec063b53d4d340eec74f8cead44d7cb446"
+    },
+    {
+      "bytes": 5704,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\third_party\\cnidarium-0.83.0\\src\\cache.rs",
+      "sha256": "6ce429dab14eb11b1ff364719255af0c2bf6da6a4a3963cdb5249e2feab12e34"
+    }
+  ],
+  "scope": "Functional source-order model and compositional proof only. Exact source hashes establish identity, not semantic correspondence. Native index/late-delivery controls remain separate finite evidence, and the three new genuine controls remain unrun. No native or full Transfer certification credit."
+}

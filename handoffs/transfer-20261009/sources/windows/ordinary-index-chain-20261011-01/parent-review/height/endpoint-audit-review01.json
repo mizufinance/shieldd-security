@@ -1,0 +1,388 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete type/source/runtime/ancestor/guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 5,
+  "inherited_reports": 229,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryHeightSource01.readHeight",
+      "full_type": "@ShielddSecurity.TransferOrdinaryHeightSource01.readHeight : {O E : Type} \u2192\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n    (decode : ShielddSecurity.TransferStateDelta.Bytes \u2192 Option.{0} Nat) \u2192\n      (heightKey : Nat) \u2192 (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192 Option.{0} Nat",
+      "axioms": [],
+      "full_type_sha256": "0267add31c0390a02b2e93a2739b2c3b79156f097e8023bc78acfc11ea34650f"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryHeightSource01.withHeight",
+      "full_type": "@ShielddSecurity.TransferOrdinaryHeightSource01.withHeight : {O E T : Type} \u2192\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) \u2192\n    (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n      (decode : ShielddSecurity.TransferStateDelta.Bytes \u2192 Option.{0} Nat) \u2192\n        (heightKey : Nat) \u2192 ShielddSecurity.TransferStateDelta.Api O E T",
+      "axioms": [],
+      "full_type_sha256": "1d7f1b510600af45f15ad1a235eff443dd2a7fee5198511f59d692bc8e9cd286"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryHeightSource01.successful_height_derives_actual_read_and_decode",
+      "full_type": "@ShielddSecurity.TransferOrdinaryHeightSource01.successful_height_derives_actual_read_and_decode : \u2200 {O E : Type}\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (decode : ShielddSecurity.TransferStateDelta.Bytes \u2192 Option.{0} Nat) (heightKey height : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (success :\n    @Eq.{1} (Option.{0} Nat)\n      (@ShielddSecurity.TransferOrdinaryHeightSource01.readHeight O E available decode heightKey child)\n      (@Option.some.{0} Nat height)),\n  And (@Eq.{1} Bool (available child) Bool.true)\n    (@Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>\n      And\n        (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n          (@ShielddSecurity.TransferStateDelta.State.verifiable O\n            (@ShielddSecurity.TransferStateDelta.applyCache O E\n              (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n            heightKey)\n          (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))\n        (@Eq.{1} (Option.{0} Nat) (decode bytes) (@Option.some.{0} Nat height)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "d869333182ee2fada3066e8da2617e5f60e20a8cc0ec770e7e5a961cae27199c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryHeightSource01.bound_body_preserves_every_other_verifiable_key",
+      "full_type": "@ShielddSecurity.TransferOrdinaryHeightSource01.bound_body_preserves_every_other_verifiable_key : \u2200\n  {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey other : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (notEntry : @Ne.{1} Nat other entryKey)\n  (notDay : @Ne.{1} Nat other dayKey),\n  @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))\n    (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct available\n          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey action\n          item child))\n      other)\n    (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) other)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "fc2da088c0f8dc4ab1c08acfc9fd27e6c6e79c1e417eb1559c7fe1c4ce8d5d23"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferOrdinaryHeightSource01.whole_indexed_success_derives_original_parent_height",
+      "full_type": "@ShielddSecurity.TransferOrdinaryHeightSource01.whole_indexed_success_derives_original_parent_height : \u2200\n  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)\n  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)\n  (index : ShielddSecurity.TransferIndexWriterModel01.Backend O E A)\n  (heightAvailable volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (decode : ShielddSecurity.TransferStateDelta.Bytes \u2192 Option.{0} Nat)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey heightKey : Nat) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)\n  (committed : ShielddSecurity.TransferStateDelta.Commit O E A) (notEntry : @Ne.{1} Nat heightKey entryKey)\n  (notDay : @Ne.{1} Nat heightKey dayKey)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))\n      (@ShielddSecurity.TransferStateDelta.run O E A\n        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          (@ShielddSecurity.TransferOrdinaryHeightSource01.withHeight O E A api heightAvailable decode heightKey) keys\n          codec index\n          (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct\n            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey\n            entryKey dayKey action item))\n        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.perTransaction action parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),\n  @Exists.{1} Nat fun (height : Nat) =>\n    @Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>\n      @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Witness\n        fun (witness : ShielddSecurity.TransferIndexWriterModel01.Witness) =>\n        And\n          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n            (@ShielddSecurity.TransferStateDelta.State.verifiable O parent heightKey)\n            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))\n          (And (@Eq.{1} (Option.{0} Nat) (decode bytes) (@Option.some.{0} Nat height))\n            (And\n              (@Eq.{1} Bool\n                (heightAvailable\n                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n                      (ShielddSecurity.TransferCapabilitySource01.Error K\n                        (ShielddSecurity.TransferSctInsertionSource01.Error X))\n                      (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct\n                        volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload\n                        nullifierKey entryKey dayKey action item\n                        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                          (@ShielddSecurity.TransferStateDelta.empty O E))))))\n                Bool.true)\n              (And\n                (@Eq.{1}\n                  (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError\n                    ShielddSecurity.TransferIndexWriterModel01.Witness)\n                  (@ShielddSecurity.TransferIndexWriterModel01.inspect O E A keys codec index height action\n                    (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n                        (ShielddSecurity.TransferCapabilitySource01.Error K\n                          (ShielddSecurity.TransferSctInsertionSource01.Error X))\n                        (@ShielddSecurity.TransferBoundOrdinarySource01.executeBound O E K X Tree A raw notes volume sct\n                          volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload\n                          nullifierKey entryKey dayKey action item\n                          (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                            (@ShielddSecurity.TransferStateDelta.empty O E))))))\n                  (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError\n                    ShielddSecurity.TransferIndexWriterModel01.Witness witness))\n                (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n                  (@ShielddSecurity.TransferStateDelta.State.verifiable O\n                    (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) heightKey)\n                  (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d552c09cb3ed5499d23b1a37b60209375be86f110a5d5bafad824f79f7e04534"
+    }
+  ],
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "module": "TransferCurrentVolumeSource01",
+      "object": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "source": {
+        "bytes": 10987,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean",
+        "sha256": "3e34bb62ef0262f2f6ff6124da243b5332ae1e2e1102961e01521f3352f74b19"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "module": "TransferOrdinaryStorageSource01",
+      "object": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "source": {
+        "bytes": 21000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean",
+        "sha256": "a16cf823a1d57f6f770ba1952a59f9fb843fc47a8e9a48d7172c4bad0ae75c66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "module": "TransferCapabilitySource01",
+      "object": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "source": {
+        "bytes": 7320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.lean",
+        "sha256": "3b75e03b3801ab4717a720d351a2cb74200f4ba087ee1b15792d51951bfc2416"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "module": "TransferVerificationEqualitySource01",
+      "object": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "source": {
+        "bytes": 5810,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.lean",
+        "sha256": "70604d840acd8c0ea7a397337ac2f7dd35ab2285d41f30b047b2aab2252b9a37"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "module": "TransferBoundOrdinarySource01",
+      "object": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "source": {
+        "bytes": 20530,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.lean",
+        "sha256": "890a31a5313618af5f593151d2fd0b60e72655cf162daa90faa769ba5ae982d2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "module": "TransferRawDeliveryComposition01",
+      "object": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "source": {
+        "bytes": 6672,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.lean",
+        "sha256": "69d72ff097718cb9e37afa3b8dbdd58241c90913bb75ff94015e0b0d50d6ad1d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "module": "TransferIndexWriterModel01",
+      "object": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "source": {
+        "bytes": 12975,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.lean",
+        "sha256": "a0dd4cb0b9b053db5ff93870c892dbc835c360f744b5343b24348eb0ae39de9e"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "module": "TransferIndexInspectionFacts01",
+      "object": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "source": {
+        "bytes": 12693,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.lean",
+        "sha256": "d0b193fa567ca2ecbc6ca130fdbb9ff30d9a758c22a7c3043b51c43efd24100c"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "module": "TransferOrdinaryIndexDelivery01",
+      "object": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "source": {
+        "bytes": 11560,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.lean",
+        "sha256": "de93d2bc043afad2fb78bbce0cc588624e6afda328273f5495997f2e5293374a"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "module": "TransferOrdinaryIndexedValues01",
+      "object": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "source": {
+        "bytes": 8201,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.lean",
+        "sha256": "2088b0d38696bf74bc75a0c7e6c9bcc62e635174ccec40453d1784f6202872d9"
+      }
+    }
+  ],
+  "manifest_entries": 26,
+  "guard_unchanged": true,
+  "rejected": [],
+  "interfaces": [
+    "Generic body adapter is instantiated with the qualified exact-Item Ordinary source program; extractor/token/proof provenance remains upstream",
+    "Loaded immutable SCT, Rust CloneCOW/panic/tree/key/value/source/event codecs and store authentication remain inherited interfaces",
+    "Transaction conversion, byte-key projection, big-endian count codec and actual index storage reads require source correspondence",
+    "Run commit denotes applying child cache to original parent; it does not imply block seal or durable multi-store publication",
+    "Returned error discard remains scoped; native Host panic/queue retry and all native controls remain separate",
+    "No semantic negative-control, native or full Transfer certification credit",
+    "Index byte-to-Nat projection injectivity denotes key representation preservation and is not a cryptographic hash injectivity claim",
+    "Actual get_proto height decoder and height-key projection/store read availability remain representation interfaces; explicit separation from the two volume marker keys"
+  ],
+  "scope": "Height getter is installed as current verifiable overlay read plus decode, with unavailable, absent and decode-error outcomes refusing height success. Executable bound Ordinary body preserves every other V key on all returned results, without callback frame premises. Whole same-action per-transaction success derives original parent height bytes, actual decoder-to-height observation, successful read availability, index inspection at that height and unchanged final encoded height under explicit volume/height key separation. No desired body success, stable-height callback or original height value is assumed. All inherited token/extractor/proof/Rust/representation/tree/store/native/block/durability interfaces and full Transfer remain open. All five handwritten declarations qualified on the first attempt. Actual runtime clock source reads get_proto at the block-height key and rejects missing values; current overlay and decoder are explicit executable model primitives, with real get_proto/u64/codecs and store correspondence still separate. Whole success derives parent bytes and the decoded height without a desired original value or stable-height callback premise. No native or durable-publication credit.",
+  "full_transfer": "OPEN"
+}

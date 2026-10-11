@@ -1,0 +1,378 @@
+ShielddSecurity.TransferIndexInspectionFacts01.countBytes : (prefixBytes : ShielddSecurity.TransferStateDelta.Bytes) →
+  ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferIndexInspectionFacts01.countBytes' does not depend on any axioms
+ShielddSecurity.TransferIndexInspectionFacts01.entryBytes : (prefixBytes ordinalBytes :
+    ShielddSecurity.TransferStateDelta.Bytes) →
+  ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferIndexInspectionFacts01.entryBytes' does not depend on any axioms
+ShielddSecurity.TransferIndexInspectionFacts01.identifierBytes : (prefixBytes identifier :
+    ShielddSecurity.TransferStateDelta.Bytes) →
+  ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferIndexInspectionFacts01.identifierBytes' does not depend on any axioms
+ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes : (project :
+    ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+  (prefixBytes ordinalBytes : Nat → ShielddSecurity.TransferStateDelta.Bytes) →
+    ShielddSecurity.TransferIndexWriterModel01.Keys
+'ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes' does not depend on any axioms
+@ShielddSecurity.TransferIndexInspectionFacts01.inspect_success_order : ∀ {O E T : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (backend : ShielddSecurity.TransferIndexWriterModel01.Backend O E T) (height : Nat) (transaction : T)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (witness : ShielddSecurity.TransferIndexWriterModel01.Witness)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        ShielddSecurity.TransferIndexWriterModel01.Witness)
+      (@ShielddSecurity.TransferIndexWriterModel01.inspect O E T keys codec backend height transaction child)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        ShielddSecurity.TransferIndexWriterModel01.Witness witness)),
+  @Exists.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+    fun (countValue : Option.{0} ShielddSecurity.TransferStateDelta.Bytes) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+        (@ShielddSecurity.TransferIndexWriterModel01.Backend.convert O E T backend transaction)
+        (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness)))
+      (And
+        (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+          (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T backend child
+            (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+              (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier
+                (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))
+          (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)))
+        (And
+          (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+            (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T backend child
+              (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+            (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes) countValue))
+          (And
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+              (ShielddSecurity.TransferIndexWriterModel01.countObservation codec countValue)
+              (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal
+                (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness)))
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+              (ShielddSecurity.TransferIndexWriterModel01.nextOrdinal
+                (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))
+              (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal
+                (ShielddSecurity.TransferIndexWriterModel01.Witness.next witness))))))
+'ShielddSecurity.TransferIndexInspectionFacts01.inspect_success_order' does not depend on any axioms
+@ShielddSecurity.TransferIndexInspectionFacts01.inspect_success_checked_increment : ∀ {O E T : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (backend : ShielddSecurity.TransferIndexWriterModel01.Backend O E T) (height : Nat) (transaction : T)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (witness : ShielddSecurity.TransferIndexWriterModel01.Witness)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        ShielddSecurity.TransferIndexWriterModel01.Witness)
+      (@ShielddSecurity.TransferIndexWriterModel01.inspect O E T keys codec backend height transaction child)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        ShielddSecurity.TransferIndexWriterModel01.Witness witness)),
+  And
+    (@Eq.{1} Nat
+      (@Fin.val
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+        (ShielddSecurity.TransferIndexWriterModel01.Witness.next witness))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    (@LT.lt.{0} Nat instLTNat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+'ShielddSecurity.TransferIndexInspectionFacts01.inspect_success_checked_increment' depends on axioms: [propext]
+ShielddSecurity.TransferIndexInspectionFacts01.count_entry_separate : ∀
+  (prefixBytes ordinalBytes : ShielddSecurity.TransferStateDelta.Bytes),
+  @Ne.{1} ShielddSecurity.TransferStateDelta.Bytes
+    (ShielddSecurity.TransferIndexInspectionFacts01.countBytes prefixBytes)
+    (ShielddSecurity.TransferIndexInspectionFacts01.entryBytes prefixBytes ordinalBytes)
+'ShielddSecurity.TransferIndexInspectionFacts01.count_entry_separate' depends on axioms: [propext]
+ShielddSecurity.TransferIndexInspectionFacts01.count_identifier_separate : ∀
+  (prefixBytes identifier : ShielddSecurity.TransferStateDelta.Bytes),
+  @Ne.{1} ShielddSecurity.TransferStateDelta.Bytes
+    (ShielddSecurity.TransferIndexInspectionFacts01.countBytes prefixBytes)
+    (ShielddSecurity.TransferIndexInspectionFacts01.identifierBytes prefixBytes identifier)
+'ShielddSecurity.TransferIndexInspectionFacts01.count_identifier_separate' depends on axioms: [propext]
+ShielddSecurity.TransferIndexInspectionFacts01.entry_identifier_separate : ∀
+  (prefixBytes ordinalBytes identifier : ShielddSecurity.TransferStateDelta.Bytes),
+  @Ne.{1} ShielddSecurity.TransferStateDelta.Bytes
+    (ShielddSecurity.TransferIndexInspectionFacts01.entryBytes prefixBytes ordinalBytes)
+    (ShielddSecurity.TransferIndexInspectionFacts01.identifierBytes prefixBytes identifier)
+'ShielddSecurity.TransferIndexInspectionFacts01.entry_identifier_separate' depends on axioms: [propext]
+ShielddSecurity.TransferIndexInspectionFacts01.projected_keys_separate : ∀
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (prefixBytes ordinalBytes : Nat → ShielddSecurity.TransferStateDelta.Bytes) (height ordinal : Nat)
+  (identifier : ShielddSecurity.TransferStateDelta.Bytes),
+  have keys : ShielddSecurity.TransferIndexWriterModel01.Keys :=
+    ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes project prefixBytes ordinalBytes;
+  And
+    (@Ne.{1} Nat (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height ordinal)
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+    (And
+      (@Ne.{1} Nat (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height identifier)
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+      (@Ne.{1} Nat (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height ordinal)
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height identifier)))
+'ShielddSecurity.TransferIndexInspectionFacts01.projected_keys_separate' depends on axioms: [propext]
+@ShielddSecurity.TransferIndexInspectionFacts01.writeIndex_entry : ∀ {O E : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (height : Nat) (witness : ShielddSecurity.TransferIndexWriterModel01.Witness)
+  (cache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (countDifferent :
+    @Ne.{1} Nat
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness)))
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+  (idDifferent :
+    @Ne.{1} Nat
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness)))
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+        (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness)))),
+  @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+      (@ShielddSecurity.TransferIndexWriterModel01.writeIndex O E keys codec height witness cache)
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))))
+    (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+        (ShielddSecurity.TransferIndexWriterModel01.Encoded.payload
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))
+'ShielddSecurity.TransferIndexInspectionFacts01.writeIndex_entry' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferIndexInspectionFacts01.writeIndex_identifier : ∀ {O E : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (height : Nat) (witness : ShielddSecurity.TransferIndexWriterModel01.Witness)
+  (cache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (countDifferent :
+    @Ne.{1} Nat
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+        (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness)))
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height)),
+  @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+      (@ShielddSecurity.TransferIndexWriterModel01.writeIndex O E keys codec height witness cache)
+      (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+        (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))
+    (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+        (ShielddSecurity.TransferIndexWriterModel01.Codec.encodeCount codec
+          (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))))
+'ShielddSecurity.TransferIndexInspectionFacts01.writeIndex_identifier' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferIndexInspectionFacts01.successful_index_exact_values : ∀ {O E T : Type}
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (prefixBytes ordinalBytes : Nat → ShielddSecurity.TransferStateDelta.Bytes)
+  (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (backend : ShielddSecurity.TransferIndexWriterModel01.Backend O E T) (height : Nat) (transaction : T)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (indexed : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))
+      (@ShielddSecurity.TransferRawStateProgram01.asCache O E ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferIndexWriterModel01.executeIndex O E T
+          (ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes project prefixBytes ordinalBytes) codec backend
+          height transaction child))
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Cache O E) indexed)),
+  have keys : ShielddSecurity.TransferIndexWriterModel01.Keys :=
+    ShielddSecurity.TransferIndexInspectionFacts01.keysFromBytes project prefixBytes ordinalBytes;
+  @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Witness
+    fun (witness : ShielddSecurity.TransferIndexWriterModel01.Witness) =>
+    @Exists.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      fun (countValue : Option.{0} ShielddSecurity.TransferStateDelta.Bytes) =>
+      And
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+          (@ShielddSecurity.TransferIndexWriterModel01.Backend.convert O E T backend transaction)
+          (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded
+            (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness)))
+        (And
+          (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+            (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T backend child
+              (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+                (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier
+                  (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))
+            (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+              (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)))
+          (And
+            (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+              (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T backend child
+                (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+              (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes) countValue))
+            (And
+              (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+                (ShielddSecurity.TransferIndexWriterModel01.countObservation codec countValue)
+                (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal
+                  (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness)))
+              (And
+                (@Eq.{1} Nat
+                  (@Fin.val
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                    (ShielddSecurity.TransferIndexWriterModel01.Witness.next witness))
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                    (@Fin.val
+                      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                      (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                (And
+                  (@LT.lt.{0} Nat instLTNat
+                    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                      (@Fin.val
+                        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                        (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+                  (And
+                    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) indexed
+                      (@ShielddSecurity.TransferIndexWriterModel01.writeIndex O E keys codec height witness
+                        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+                    (And
+                      (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+                        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E indexed
+                          (ShielddSecurity.TransferIndexWriterModel01.Keys.entry keys height
+                            (@Fin.val
+                              (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                                (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                              (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness))))
+                        (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                          (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                            (ShielddSecurity.TransferIndexWriterModel01.Encoded.payload
+                              (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness)))))
+                      (And
+                        (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+                          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E indexed
+                            (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+                              (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier
+                                (ShielddSecurity.TransferIndexWriterModel01.Witness.encoded witness))))
+                          (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                              (ShielddSecurity.TransferIndexWriterModel01.Codec.encodeCount codec
+                                (ShielddSecurity.TransferIndexWriterModel01.Witness.ordinal witness)))))
+                        (@Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+                          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E indexed
+                            (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+                          (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+                              (ShielddSecurity.TransferIndexWriterModel01.Codec.encodeCount codec
+                                (ShielddSecurity.TransferIndexWriterModel01.Witness.next witness)))))))))))))
+'ShielddSecurity.TransferIndexInspectionFacts01.successful_index_exact_values' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferIndexInspectionFacts01.index_conversion_refusal : ∀ {O E T : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (backend : ShielddSecurity.TransferIndexWriterModel01.Backend O E T) (height : Nat) (transaction : T)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (rejected :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+      (@ShielddSecurity.TransferIndexWriterModel01.Backend.convert O E T backend transaction)
+      (@Option.none.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)),
+  @Eq.{1}
+    (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness)
+    (@ShielddSecurity.TransferIndexWriterModel01.inspect O E T keys codec backend height transaction child)
+    (@Except.error.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness
+      ShielddSecurity.TransferIndexWriterModel01.IndexError.conversion)
+'ShielddSecurity.TransferIndexInspectionFacts01.index_conversion_refusal' depends on axioms: [propext]
+@ShielddSecurity.TransferIndexInspectionFacts01.index_duplicate_refusal : ∀ {O E T : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (backend : ShielddSecurity.TransferIndexWriterModel01.Backend O E T) (height : Nat) (transaction : T)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (encoded : ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (previous : ShielddSecurity.TransferStateDelta.Bytes)
+  (converted :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+      (@ShielddSecurity.TransferIndexWriterModel01.Backend.convert O E T backend transaction)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded encoded))
+  (duplicate :
+    @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T backend child
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+          (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier encoded)))
+      (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes previous))),
+  @Eq.{1}
+    (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness)
+    (@ShielddSecurity.TransferIndexWriterModel01.inspect O E T keys codec backend height transaction child)
+    (@Except.error.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness
+      ShielddSecurity.TransferIndexWriterModel01.IndexError.duplicate)
+'ShielddSecurity.TransferIndexInspectionFacts01.index_duplicate_refusal' depends on axioms: [propext]
+@ShielddSecurity.TransferIndexInspectionFacts01.index_overflow_refusal : ∀ {O E T : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys) (codec : ShielddSecurity.TransferIndexWriterModel01.Codec)
+  (backend : ShielddSecurity.TransferIndexWriterModel01.Backend O E T) (height : Nat) (transaction : T)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (encoded : ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (countValue : Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+  (ordinal : ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+  (converted :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+      (@ShielddSecurity.TransferIndexWriterModel01.Backend.convert O E T backend transaction)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded encoded))
+  (absent :
+    @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T backend child
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.identifier keys height
+          (ShielddSecurity.TransferIndexWriterModel01.Encoded.identifier encoded)))
+      (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)))
+  (countRead :
+    @Eq.{1} (Option.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (@ShielddSecurity.TransferIndexWriterModel01.Backend.read O E T backend child
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height))
+      (@Option.some.{0} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes) countValue))
+  (decoded :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+      (ShielddSecurity.TransferIndexWriterModel01.countObservation codec countValue)
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal ordinal))
+  (overflow :
+    @LE.le.{0} Nat instLENat
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          ordinal)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))),
+  @Eq.{1}
+    (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness)
+    (@ShielddSecurity.TransferIndexWriterModel01.inspect O E T keys codec backend height transaction child)
+    (@Except.error.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+      ShielddSecurity.TransferIndexWriterModel01.Witness ShielddSecurity.TransferIndexWriterModel01.IndexError.overflow)
+'ShielddSecurity.TransferIndexInspectionFacts01.index_overflow_refusal' depends on axioms: [propext]
