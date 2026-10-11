@@ -1,0 +1,155 @@
+ShielddSecurity.TransferScalarWideReduction01.sourceWideReduce : (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferScalarWideReduction01.sourceWideReduce' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarWideReduction01.sourceMulMontgomery : (self rhs :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  List.{0} UInt64
+'ShielddSecurity.TransferScalarWideReduction01.sourceMulMontgomery' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarWideReduction01.twice_actual_modulus_fits_four_word_radix : @LT.lt.{0} Nat instLTNat
+  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+    ShielddSecurity.TransferScalarSerializationRange01.radix64
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferScalarWideReduction01.twice_actual_modulus_fits_four_word_radix' does not depend on any axioms
+ShielddSecurity.TransferScalarWideReduction01.canonical_right_operand_derives_full_product_range : ∀
+  (self rhs : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (canonical :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) rhs))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarWideProduct01.sourceWideProduct self rhs))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+'ShielddSecurity.TransferScalarWideReduction01.canonical_right_operand_derives_full_product_range' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideReduction01.four_wide_rounds_derive_zero_discarded_carry_and_bounded_low_words : ∀
+  (words : List.{0} UInt64)
+  (eight : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))
+  (bound :
+    @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+          (ShielddSecurity.TransferScalarWideWalk01.wideRounds
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (@Prod.mk.{0, 0} (List.{0} UInt64) UInt64 words
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (And
+      (@Eq.{1} UInt64
+        (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+          (ShielddSecurity.TransferScalarWideWalk01.wideRounds
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (@Prod.mk.{0, 0} (List.{0} UInt64) UInt64 words
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+            (ShielddSecurity.TransferScalarWideWalk01.wideRounds
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (@Prod.mk.{0, 0} (List.{0} UInt64) UInt64 words
+                (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+'ShielddSecurity.TransferScalarWideReduction01.four_wide_rounds_derive_zero_discarded_carry_and_bounded_low_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideReduction01.single_subtraction_of_value_below_twice_modulus_is_canonical : ∀
+  (value : Nat)
+  (bound :
+    @LT.lt.{0} Nat instLTNat value
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus value)
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarWideReduction01.single_subtraction_of_value_below_twice_modulus_is_canonical' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideReduction01.source_wide_reduction_derives_width_canonical_range_and_modular_relation : ∀
+  (words : List.{0} UInt64)
+  (eight : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))
+  (bound :
+    @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))),
+  And
+    (@Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarWideReduction01.sourceWideReduce words))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarWideReduction01.sourceWideReduce words))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Eq.{1} Nat
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              ShielddSecurity.TransferScalarSerializationRange01.radix64
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (ShielddSecurity.TransferScalarWideReduction01.sourceWideReduce words)))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+'ShielddSecurity.TransferScalarWideReduction01.source_wide_reduction_derives_width_canonical_range_and_modular_relation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideReduction01.canonical_right_operand_source_multiplication_has_derived_montgomery_contract : ∀
+  (self rhs : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (canonical :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) rhs))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  And
+    (@Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarWideReduction01.sourceMulMontgomery self rhs))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarWideReduction01.sourceMulMontgomery self rhs))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Eq.{1} Nat
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              ShielddSecurity.TransferScalarSerializationRange01.radix64
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (ShielddSecurity.TransferScalarWideReduction01.sourceMulMontgomery self rhs)))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) self))
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) rhs)))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+'ShielddSecurity.TransferScalarWideReduction01.canonical_right_operand_source_multiplication_has_derived_montgomery_contract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

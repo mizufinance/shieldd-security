@@ -1,0 +1,46 @@
+{
+  "status": "PASSED",
+  "kind": "Authenticated original handwritten bases, exact named audit augmentation and pure repair replay; kernel ancestry pending product",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-reduction-review01/packet01/source/ShielddSecurity/TransferScalarWideReduction01.lean",
+    "bytes": 7885,
+    "sha256": "47def58b6dd916ae296891a05cd02710c7927d4e5fdd541a2ca9e85a4eb7c320"
+  },
+  "fresh_reports": 8,
+  "review_helper": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/review_scalar_wide_histories22.py",
+    "bytes": 6632,
+    "sha256": "6d739c5b1daedd404b08cae7152da0e4ffec9b2fdb3c0caee85cd7b062a32ecb"
+  },
+  "rejected": [
+    {
+      "kind": "Original unselected failed attempt",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 21.306032399996184,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-reduction-review01/packet01/unselected/01/handwritten/TransferScalarWideReduction01.lean",
+        "bytes": 7803,
+        "sha256": "d959e36b5173df5899d7d32eb47bf7593e68745dceee72ac4193234eab08156f"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-reduction-20261011-01\\project\\ShielddSecurity\\TransferScalarWideReduction01.lean:50:5: error: unknown tactic",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-wide-reduction-20261011-01\\project\\ShielddSecurity\\TransferScalarWideReduction01.lean:42:70: error: unsolved goals",
+        " sorryAx,",
+        " sorryAx,",
+        " sorryAx,",
+        " sorryAx,"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -33,7 +33,7 @@\n   rw [Vector.length_toList] at selfBound\n   have bounded := Nat.mul_lt_mul_of_le_of_lt (Nat.le_of_lt selfBound) canonical (by decide : 0 < radix64 ^ 4)\n   rw [product.2.1]\n-  exact bounded.trans_eq (Nat.mul_comm _ _)\n+  simpa only [Nat.mul_comm] using bounded\n \n theorem four_wide_rounds_derive_zero_discarded_carry_and_bounded_low_words\n     (words : List UInt64) (eight : words.length = 8)\n@@ -45,14 +45,15 @@\n     simpa only [wideValue, UInt64.toNat_zero, Nat.mul_zero, Nat.add_zero] using bound\n   have width := TransferScalarWideWalk01.symbolic_wide_walk_derives_final_width_and_modular_value 4 (words, 0) initialWidth\n   have total := TransferScalarWideWalk01.symbolic_wide_walk_derives_final_value_below_twice_modulus 4 (words, 0) initialWidth initialBound\n-  have small := total.trans twice_actual_modulus_fits_four_word_radix\n+  have small := Nat.lt_trans total twice_actual_modulus_fits_four_word_radix\n   have zero : (wideRounds 4 (words, 0)).2.toNat = 0 := by\n-    by_contra nonzero\n-    have one : 1 \u2264 (wideRounds 4 (words, 0)).2.toNat := by omega\n-    have lower := Nat.mul_le_mul_left (radix64 ^ 4) one\n-    rw [Nat.mul_one] at lower\n-    unfold wideValue at small\n-    omega\n+    by_cases isZero : (wideRounds 4 (words, 0)).2.toNat = 0\n+    \u00b7 exact isZero\n+    \u00b7 have one : 1 \u2264 (wideRounds 4 (words, 0)).2.toNat := by omega\n+      have lower := Nat.mul_le_mul_left (radix64 ^ 4) one\n+      rw [Nat.mul_one] at lower\n+      unfold wideValue at small\n+      omega\n   have carryZero : (wideRounds 4 (words, 0)).2 = 0 := UInt64.toNat_inj.mp zero\n   have lowBound : packWords (wideRounds 4 (words, 0)).1 < 2 * nullifierModulus := by\n     simpa only [wideValue, zero, Nat.mul_zero, Nat.add_zero] using total\n@@ -95,7 +96,7 @@\n   have range := canonical_right_operand_derives_full_product_range self rhs canonical\n   have widened : packWords (sourceWideProduct self rhs) < nullifierModulus * (radix64 ^ 4 + 1) := by\n     have step := Nat.mul_lt_mul_of_pos_left (Nat.lt_succ_self (radix64 ^ 4)) (by decide : 0 < nullifierModulus)\n-    exact range.trans step\n+    exact Nat.lt_trans range step\n   have contract := source_wide_reduction_derives_width_canonical_range_and_modular_relation\n     (sourceWideProduct self rhs) product.1 widened\n   rw [product.2.1] at contract\n"
+    }
+  ],
+  "scope": "Eight-word source-shaped four-round reduction derives zero final discarded carry, four-limb width, canonical result and Montgomery modular relation from explicit input bound. Canonical right operand derives full schoolbook-product input bound; exact borrowed-sub/masked-addback normalization used. Actual private Scalar invariant, primitive/compiler/full native execution binding remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "definitions_unchanged": true,
+  "accepted_full_type_authoritative": true,
+  "repair_classification": "Explicit definitional reduction/typed bounds/distributivity only",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
