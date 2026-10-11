@@ -1,0 +1,130 @@
+ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes' does not depend on any axioms
+ShielddSecurity.TransferNullifierObjectKeys01.treeBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferNullifierObjectKeys01.treeBytes' does not depend on any axioms
+ShielddSecurity.TransferNullifierObjectKeys01.notesBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferNullifierObjectKeys01.notesBytes' does not depend on any axioms
+ShielddSecurity.TransferNullifierObjectKeys01.volumeBytes : ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferNullifierObjectKeys01.volumeBytes' does not depend on any axioms
+ShielddSecurity.TransferNullifierObjectKeys01.source_key_bytes_separate : And
+  (@Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes
+    ShielddSecurity.TransferNullifierObjectKeys01.treeBytes)
+  (And
+    (@Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes
+      ShielddSecurity.TransferNullifierObjectKeys01.notesBytes)
+    (@Ne.{1} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes
+      ShielddSecurity.TransferNullifierObjectKeys01.volumeBytes))
+'ShielddSecurity.TransferNullifierObjectKeys01.source_key_bytes_separate' does not depend on any axioms
+ShielddSecurity.TransferNullifierObjectKeys01.projected_source_keys_separate : ∀
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project),
+  And
+    (@Ne.{1} Nat (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+      (project ShielddSecurity.TransferNullifierObjectKeys01.treeBytes))
+    (And
+      (@Ne.{1} Nat (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+        (project ShielddSecurity.TransferNullifierObjectKeys01.notesBytes))
+      (@Ne.{1} Nat (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+        (project ShielddSecurity.TransferNullifierObjectKeys01.volumeBytes)))
+'ShielddSecurity.TransferNullifierObjectKeys01.projected_source_keys_separate' does not depend on any axioms
+@ShielddSecurity.TransferNullifierObjectKeys01.whole_success_retains_source_key_pending_nullifier_encoding : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (wordMax capacity payload entryKey dayKey : Nat) (context : ShielddSecurity.TransferCapabilitySource01.ProofContext)
+  (action : A) (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (committed : ShielddSecurity.TransferStateDelta.Commit O E A)
+  (nonempty : @Eq.{1} Bool (@List.isEmpty.{0} Nat (inputs action)) Bool.false)
+  (belowWord : @LT.lt.{0} Nat instLTNat capacity wordMax)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          api keys ShielddSecurity.TransferIndexCountCodec01.codec
+          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+          (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct
+            volumeAvailable extract inputs outputs wordMax capacity
+            (project ShielddSecurity.TransferNullifierObjectKeys01.treeBytes)
+            (project ShielddSecurity.TransferNullifierObjectKeys01.notesBytes)
+            (project ShielddSecurity.TransferNullifierObjectKeys01.volumeBytes) payload
+            (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes) entryKey dayKey context action item))
+        registryMatches exclusive mode action parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),
+  @Exists.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    fun (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+    And
+      (@Eq.{1}
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          ShielddSecurity.TransferNullifierBatchSource01.Pending)
+        (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E
+          (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+          wordMax capacity
+          (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E))
+          (inputs action))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          ShielddSecurity.TransferNullifierBatchSource01.Pending pending))
+      (And
+        (@Eq.{1} (Option.{0} O)
+          (@ShielddSecurity.TransferStateDelta.State.objects O
+            (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+            (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+          (@Option.some.{0} O
+            (@ShielddSecurity.TransferNullifierBatchSource01.Backend.encode O E
+              (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+              pending)))
+        (And
+          (@Eq.{1} (List.{0} Nat) (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending)
+            (@HAppend.hAppend.{0, 0, 0} (List.{0} Nat) (List.{0} Nat) (List.{0} Nat)
+              (@instHAppendOfAppend.{0} (List.{0} Nat) (@List.instAppend.{0} Nat))
+              (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+                (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E
+                  (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                    (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                    (@ShielddSecurity.TransferStateDelta.empty O E))))
+              (inputs action)))
+          (And
+            (@LE.le.{0} Nat instLENat
+              (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending)) capacity)
+            (And (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed pending) Bool.false)
+              (∀ (key : Nat),
+                @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) (inputs action) key →
+                  And
+                    (@Eq.{1} (Option.{0} Bool)
+                      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E
+                        (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                          (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+                        (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                          (@ShielddSecurity.TransferStateDelta.empty O E))
+                        key)
+                      (@Option.some.{0} Bool Bool.false))
+                    (And
+                      (@Eq.{1} Bool
+                        (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership
+                          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E
+                            (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                              (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+                            (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                              (@ShielddSecurity.TransferStateDelta.empty O E)))
+                          key)
+                        Bool.false)
+                      (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership pending key)
+                        Bool.true)))))))
+'ShielddSecurity.TransferNullifierObjectKeys01.whole_success_retains_source_key_pending_nullifier_encoding' depends on axioms: [propext,
+ Quot.sound]
