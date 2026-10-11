@@ -1,0 +1,64 @@
+ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject : (Other : Type) → Type
+'ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectCodec01.encodeNative : {Other : Type} →
+  (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending) →
+    ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other
+'ShielddSecurity.TransferWordObjectCodec01.encodeNative' depends on axioms: [propext, Classical.choice, Quot.sound]
+@ShielddSecurity.TransferWordObjectCodec01.decodeNative : {Other : Type} →
+  ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other →
+    ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+'ShielddSecurity.TransferWordObjectCodec01.decodeNative' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordObjectCodec01.liftWordWrites : {Other E A : Type} →
+  (writes : ShielddSecurity.TransferTaggedCodecPublication01.OtherFinalizationWrites Other E A) →
+    ShielddSecurity.TransferFixedFinalizerPublication01.FinalizationWrites
+      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E A
+'ShielddSecurity.TransferWordObjectCodec01.liftWordWrites' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectCodec01.supported_word_object_codec_recovers_exact_finite_native_enum : ∀
+  {Other : Type} (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supported : @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true),
+  @Eq.{1} ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+    (@ShielddSecurity.TransferWordObjectCodec01.decodeNative Other
+      (@ShielddSecurity.TransferWordObjectCodec01.encodeNative Other native))
+    native
+'ShielddSecurity.TransferWordObjectCodec01.supported_word_object_codec_recovers_exact_finite_native_enum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWordObjectCodec01.supported_word_object_codec_restores_exact_pending_observations : ∀
+  {Other : Type} (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supported : @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore
+      (@ShielddSecurity.TransferWordObjectCodec01.decodeNative Other
+        (@ShielddSecurity.TransferWordObjectCodec01.encodeNative Other native)))
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore native)
+'ShielddSecurity.TransferWordObjectCodec01.supported_word_object_codec_restores_exact_pending_observations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWordObjectCodec01.canonical_bounded_sealed_word_object_getter_recovers_exact_ordered_pending : ∀
+  {Other : Type} (ordered : List.{0} Nat)
+  (capacity :
+    @LE.le.{0} Nat instLENat (@List.length.{0} Nat ordered)
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+  (canonical :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ordered key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore
+      (@ShielddSecurity.TransferWordObjectCodec01.decodeNative Other
+        (@ShielddSecurity.TransferWordObjectCodec01.encodeNative Other
+          (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed ordered))))
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed ordered))
+'ShielddSecurity.TransferWordObjectCodec01.canonical_bounded_sealed_word_object_getter_recovers_exact_ordered_pending' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWordObjectCodec01.empty_word_object_codec_recovers_source_default : ∀ {Other : Type},
+  @Eq.{1} ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+    (@ShielddSecurity.TransferWordObjectCodec01.decodeNative Other
+      (@ShielddSecurity.TransferWordObjectCodec01.encodeNative Other
+        (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat))))
+    (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat))
+'ShielddSecurity.TransferWordObjectCodec01.empty_word_object_codec_recovers_source_default' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
