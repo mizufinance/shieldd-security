@@ -1,0 +1,715 @@
+ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus : Nat
+'ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus' does not depend on any axioms
+ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending : (pending :
+    ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+  Prop
+'ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending' does not depend on any axioms
+ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported : ShielddSecurity.TransferPendingFiniteCodec01.NativePending →
+  Bool
+'ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported' does not depend on any axioms
+ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject : (O : Type) → Type
+'ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject' does not depend on any axioms
+@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject : {O : Type} →
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O) →
+    (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending) →
+      ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O
+'ShielddSecurity.TransferBoundedNativeCodec01.encodeObject' does not depend on any axioms
+@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject : {O : Type} →
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending) →
+    ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O →
+      ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+'ShielddSecurity.TransferBoundedNativeCodec01.decodeObject' does not depend on any axioms
+ShielddSecurity.TransferBoundedNativeCodec01.bounded_consensus_pending_erases_to_supported_finite_native_domain : ∀
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (lengthBound :
+    @LE.le.{0} Nat instLENat
+      (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending))
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+  (bounded : ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending pending),
+  @Eq.{1} Bool
+    (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported
+      (ShielddSecurity.TransferPendingFiniteCodec01.erase pending))
+    Bool.true
+'ShielddSecurity.TransferBoundedNativeCodec01.bounded_consensus_pending_erases_to_supported_finite_native_domain' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBoundedNativeCodec01.restricted_native_roundtrip_totalizes_only_with_separate_unsupported_ghosts : ∀
+  {O : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supportedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true →
+        @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore
+      (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative
+        (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative native)))
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore native)
+'ShielddSecurity.TransferBoundedNativeCodec01.restricted_native_roundtrip_totalizes_only_with_separate_unsupported_ghosts' depends on axioms: [propext]
+@ShielddSecurity.TransferBoundedNativeCodec01.supported_pending_encoding_is_actual_native_branch : ∀ {O : Type}
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (lengthBound :
+    @LE.le.{0} Nat instLENat
+      (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending))
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+  (bounded : ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending pending),
+  @Eq.{1} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+    (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+      (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative) pending)
+    (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+      (encodeNative (ShielddSecurity.TransferPendingFiniteCodec01.erase pending)))
+'ShielddSecurity.TransferBoundedNativeCodec01.supported_pending_encoding_is_actual_native_branch' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBoundedNativeCodec01.successful_bounded_whole_step_stores_supported_native_pending : ∀
+  {O E K X Tree A : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supportedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true →
+        @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (request :
+    ShielddSecurity.TransferBlockPendingSequence01.Request
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A)
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+  (queued : List.{0} A)
+  (committed :
+    ShielddSecurity.TransferStateDelta.Commit (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A)
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project parent))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project parent))
+  (nativeInputs :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+          (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+            (@ShielddSecurity.TransferBlockPendingSequence01.Request.config
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request)
+            (@ShielddSecurity.TransferBlockPendingSequence01.Request.action
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request))
+          key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (success :
+    @Eq.{1}
+      (Option.{0}
+        (ShielddSecurity.TransferStateDelta.Commit (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A))
+      (@ShielddSecurity.TransferBlockPendingSequence01.step
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative))
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project request parent queued)
+      (@Option.some.{0}
+        (ShielddSecurity.TransferStateDelta.Commit (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A)
+        committed)),
+  And
+    (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project
+        (@ShielddSecurity.TransferStateDelta.Commit.parent
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A committed)))
+    (And
+      (ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+        (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+            (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+          project
+          (@ShielddSecurity.TransferStateDelta.Commit.parent
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A committed)))
+      (@Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+        (@ShielddSecurity.TransferStateDelta.State.objects
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferStateDelta.Commit.parent
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A committed)
+          (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+        (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+            (encodeNative
+              (ShielddSecurity.TransferPendingFiniteCodec01.erase
+                (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                  (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                    (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+                  project
+                  (@ShielddSecurity.TransferStateDelta.Commit.parent
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A committed))))))))
+'ShielddSecurity.TransferBoundedNativeCodec01.successful_bounded_whole_step_stores_supported_native_pending' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBoundedNativeCodec01.successful_bounded_walk_never_stores_unsupported_pending_ghost : ∀
+  {O E K X Tree A : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supportedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true →
+        @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests :
+    List.{0}
+      (ShielddSecurity.TransferBlockPendingSequence01.Request
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+  (queued : List.{0} A)
+  (final :
+    Prod.{0, 0}
+      (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (List.{0} A))
+  (initial :
+    ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project parent))
+  (bounded :
+    ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project parent))
+  (storedNative :
+    @Exists.{1} O fun (object : O) =>
+      @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+        (@ShielddSecurity.TransferStateDelta.State.objects
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) parent
+          (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+        (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending object)))
+  (nativeInputs :
+    ∀
+      (request :
+        ShielddSecurity.TransferBlockPendingSequence01.Request
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A),
+      @Membership.mem.{0, 0}
+          (ShielddSecurity.TransferBlockPendingSequence01.Request
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A)
+          (List.{0}
+            (ShielddSecurity.TransferBlockPendingSequence01.Request
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+          (@List.instMembership.{0}
+            (ShielddSecurity.TransferBlockPendingSequence01.Request
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+          requests request →
+        ∀ (key : Nat),
+          @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.config
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request)
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.action
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request))
+              key →
+            @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (success :
+    @Eq.{1}
+      (Option.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative))
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project parent queued requests)
+      (@Option.some.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A))
+        final)),
+  And
+    (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project
+        (@Prod.fst.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A) final)))
+    (And
+      (ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+        (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+            (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+          project
+          (@Prod.fst.{0, 0}
+            (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+            (List.{0} A) final)))
+      (@Exists.{1} O fun (object : O) =>
+        @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (@ShielddSecurity.TransferStateDelta.State.objects
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+            (@Prod.fst.{0, 0}
+              (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+              (List.{0} A) final)
+            (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+          (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+            (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending object))))
+'ShielddSecurity.TransferBoundedNativeCodec01.successful_bounded_walk_never_stores_unsupported_pending_ghost' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBoundedNativeCodec01.bounded_whole_input_vector_from_native_action_projections : ∀
+  {O E K X Tree A : Type} (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (nativeInputs :
+    ∀ (request : ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A),
+      @Membership.mem.{0, 0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A)
+          (List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+          (@List.instMembership.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A)) requests
+          request →
+        ∀ (key : Nat),
+          @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs O E K X Tree A
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.config O E K X Tree A request)
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.action O E K X Tree A request))
+              key →
+            @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (key : Nat),
+  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests) key →
+    @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferBoundedNativeCodec01.bounded_whole_input_vector_from_native_action_projections' depends on axioms: [propext]
+@ShielddSecurity.TransferBoundedNativeCodec01.successful_bounded_default_walk_derives_supported_native_final_object : ∀
+  {O E K X Tree A : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supportedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true →
+        @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests :
+    List.{0}
+      (ShielddSecurity.TransferBlockPendingSequence01.Request
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+  (queued : List.{0} A)
+  (final :
+    Prod.{0, 0}
+      (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (List.{0} A))
+  (storedDefault :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (@ShielddSecurity.TransferStateDelta.State.objects (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        parent (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative)
+          ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)))
+  (nativeInputs :
+    ∀
+      (request :
+        ShielddSecurity.TransferBlockPendingSequence01.Request
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A),
+      @Membership.mem.{0, 0}
+          (ShielddSecurity.TransferBlockPendingSequence01.Request
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A)
+          (List.{0}
+            (ShielddSecurity.TransferBlockPendingSequence01.Request
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+          (@List.instMembership.{0}
+            (ShielddSecurity.TransferBlockPendingSequence01.Request
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+          requests request →
+        ∀ (key : Nat),
+          @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.config
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request)
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.action
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request))
+              key →
+            @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (success :
+    @Eq.{1}
+      (Option.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative))
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project parent queued requests)
+      (@Option.some.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A))
+        final)),
+  And
+    (ShielddSecurity.TransferPendingSetInvariant01.Invariant
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+      (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project
+        (@Prod.fst.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A) final)))
+    (And
+      (ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending
+        (@ShielddSecurity.TransferBlockPendingSequence01.parentPending
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+            (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+          project
+          (@Prod.fst.{0, 0}
+            (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+            (List.{0} A) final)))
+      (@Exists.{1} O fun (object : O) =>
+        @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (@ShielddSecurity.TransferStateDelta.State.objects
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+            (@Prod.fst.{0, 0}
+              (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+              (List.{0} A) final)
+            (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+          (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+            (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending object))))
+'ShielddSecurity.TransferBoundedNativeCodec01.successful_bounded_default_walk_derives_supported_native_final_object' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferBoundedNativeCodec01.whole_bounded_default_publication_uses_only_supported_native_pending_and_exact_global_inputs : ∀
+  {O E K X Tree A : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supportedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true →
+        @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests :
+    List.{0}
+      (ShielddSecurity.TransferBlockPendingSequence01.Request
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+  (queued : List.{0} A)
+  (final :
+    Prod.{0, 0}
+      (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (List.{0} A))
+  (storedDefault :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (@ShielddSecurity.TransferStateDelta.State.objects (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        parent (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative)
+          ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)))
+  (nativeInputs :
+    ∀
+      (request :
+        ShielddSecurity.TransferBlockPendingSequence01.Request
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A),
+      @Membership.mem.{0, 0}
+          (ShielddSecurity.TransferBlockPendingSequence01.Request
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A)
+          (List.{0}
+            (ShielddSecurity.TransferBlockPendingSequence01.Request
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+          (@List.instMembership.{0}
+            (ShielddSecurity.TransferBlockPendingSequence01.Request
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A))
+          requests request →
+        ∀ (key : Nat),
+          @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+              (@ShielddSecurity.TransferWholeReaderRefusal01.Config.inputs
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.config
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request)
+                (@ShielddSecurity.TransferBlockPendingSequence01.Request.action
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A request))
+              key →
+            @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (walked :
+    @Eq.{1}
+      (Option.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative))
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        project parent queued requests)
+      (@Option.some.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A))
+        final))
+  (io : ShielddSecurity.TransferEndToEnd01.Io (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A)
+  (host :
+    ShielddSecurity.TransferHostSealedCommit01.Host (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (root : Nat)
+  (currentState :
+    @Eq.{1} (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.active
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) host)
+      (@Prod.fst.{0, 0}
+        (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+        (List.{0} A) final))
+  (projectedKeys :
+    @Eq.{1} (ShielddSecurity.TransferStateDelta.Bytes → Nat)
+      (@ShielddSecurity.TransferHostEndBlock01.Io.project
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+        (@ShielddSecurity.TransferEndToEnd01.Io.ending (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+          A io))
+      project)
+  (typedGetter :
+    @Eq.{1}
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O →
+        ShielddSecurity.TransferNullifierBatchSource01.Pending)
+      (@ShielddSecurity.TransferHostEndBlock01.Io.decodePending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+        (@ShielddSecurity.TransferEndToEnd01.Io.ending (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+          A io))
+      (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative)))
+  (finalization :
+    @ShielddSecurity.TransferGlobalCommitJoin01.FinalizationPendingFrame
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+      (@ShielddSecurity.TransferEndToEnd01.Io.ending (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+        io)
+      (@ShielddSecurity.TransferPendingFiniteCodec01.encode
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferBoundedNativeCodec01.encodeObject O encodeNative))
+      (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+      project)
+  (success :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferEndToEnd01.Outcome.root (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        A
+        (@ShielddSecurity.TransferEndToEnd01.execute (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+          io host height
+          (@Prod.snd.{0, 0}
+            (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+            (List.{0} A) final)))
+      (@Option.some.{0} Nat root)),
+  And
+    (@Exists.{1} O fun (object : O) =>
+      @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+        (@ShielddSecurity.TransferStateDelta.State.objects
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@Prod.fst.{0, 0}
+            (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+            (List.{0} A) final)
+          (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+        (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending object)))
+    (And
+      (∀ (key : Nat),
+        @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+            (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A requests)
+            key →
+          @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+        fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+        And
+          (@Eq.{1} (List.{0} Nat)
+            (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+            (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A requests))
+          (And
+            (@List.Nodup.{0} Nat
+              (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A requests))
+            (And
+              (@LE.le.{0} Nat instLENat
+                (@List.length.{0} Nat
+                  (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A requests))
+                ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+              (And
+                (@Eq.{1} (Option.{0} Nat)
+                  (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot
+                    (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+                  (@Option.some.{0} Nat root))
+                (And
+                  (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+                    (@ShielddSecurity.TransferHostSealedCommit01.Host.phase
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                      (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                        (@ShielddSecurity.TransferEndToEnd01.execute
+                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io host height
+                          (@Prod.snd.{0, 0}
+                            (ShielddSecurity.TransferStateDelta.State
+                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                            (List.{0} A) final))))
+                    ShielddSecurity.TransferHostSealedCommit01.HostPhase.idle)
+                  (And
+                    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                      (@ShielddSecurity.TransferHostSealedCommit01.Host.writer
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                        (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                          (@ShielddSecurity.TransferEndToEnd01.execute
+                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io host height
+                            (@Prod.snd.{0, 0}
+                              (ShielddSecurity.TransferStateDelta.State
+                                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                              (List.{0} A) final))))
+                      (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+                        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+                    (And
+                      (@Eq.{1} Bool
+                        (ShielddSecurity.TransferReadback.Store.ready
+                          (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                            (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                              (@ShielddSecurity.TransferEndToEnd01.execute
+                                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io host height
+                                (@Prod.snd.{0, 0}
+                                  (ShielddSecurity.TransferStateDelta.State
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                  (List.{0} A) final)))))
+                        Bool.true)
+                      (And
+                        (@Eq.{1} (List.{0} Nat)
+                          (ShielddSecurity.TransferReadback.Store.actualRoots
+                            (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                              (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                                (@ShielddSecurity.TransferEndToEnd01.execute
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io host height
+                                  (@Prod.snd.{0, 0}
+                                    (ShielddSecurity.TransferStateDelta.State
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                    (List.{0} A) final)))))
+                          (ShielddSecurity.TransferReadback.Boundary.roots
+                            (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                        (And
+                          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                            (ShielddSecurity.TransferReadback.Store.boundary
+                              (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                                  (@ShielddSecurity.TransferEndToEnd01.execute
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io host height
+                                    (@Prod.snd.{0, 0}
+                                      (ShielddSecurity.TransferStateDelta.State
+                                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                      (List.{0} A) final)))))
+                            (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                          (And
+                            (@Eq.{1} Nat
+                              (@List.length.{0} Nat
+                                (ShielddSecurity.TransferReadback.Boundary.roots
+                                  (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                    (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                              (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))
+                            (@Eq.{1} Bool
+                              (ShielddSecurity.TransferReadback.Store.healthy
+                                (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                  (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                                    (@ShielddSecurity.TransferEndToEnd01.execute
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io host height
+                                      (@Prod.snd.{0, 0}
+                                        (ShielddSecurity.TransferStateDelta.State
+                                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                        (List.{0} A) final)))))
+                              (ShielddSecurity.TransferBankRecovery.Io.healthyAfter
+                                (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.recoveryIo
+                                  (@ShielddSecurity.TransferHostSealedCommit01.Io.writer
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                    (@ShielddSecurity.TransferEndToEnd01.Io.committing
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io))
+                                  (ShielddSecurity.TransferStatefulParticipantRecovery01.recoveryInput
+                                    (@ShielddSecurity.TransferHostSealedCommit01.Io.writer
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                      (@ShielddSecurity.TransferEndToEnd01.Io.committing
+                                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io))
+                                    (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                      (@ShielddSecurity.TransferHostSeal01.Outcome.host
+                                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                        (@ShielddSecurity.TransferEndToEnd01.sealed
+                                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A io host
+                                          height
+                                          (@Prod.snd.{0, 0}
+                                            (ShielddSecurity.TransferStateDelta.State
+                                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                            (List.{0} A) final))))
+                                    frozen)))))))))))))))
+'ShielddSecurity.TransferBoundedNativeCodec01.whole_bounded_default_publication_uses_only_supported_native_pending_and_exact_global_inputs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
