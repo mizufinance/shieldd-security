@@ -774,3 +774,8 @@ Evidence commit: f481bce2ee0ca354903de23f01419367a3e657ef
 Independent review accepted7 modules/33 complete original public reports. From actual full captured relation and rho0=1, registry value/asset/next canonical naturals, original field casts, bit/limb meanings and role-dependent strict order or regulated equality are derived. Actual assertion163 binds retained path-output LC to anchor column4. Generic checked indexed copy-normalization transport derives target rows from parent satisfaction; specialized hash/path consumers remain subsequent work. Exact maintained regeneration/public census/types/imports/objects/receipts/history and immutable archival guard successors passed. Constructor1467distinct assertions unchanged; anchor constructor and remaining witness/public64/hash/native/total constructor/fullTransfer/final combined replay remain OPEN. Physical controls unchanged.
 
 Evidence commit: 37f803408597f254eac0260a7b50f4c5845fe3ae
+
+
+Independent review accepted10 complete original reports for Store intent persistence. Exact source gates and observed existing-record equality determine idempotence; a new write receives ready=false and retains its independently observed filesystem result. Write failure derives interrupted Store/read refusal while permitting a present intent or partial physical progress. Original failed equality proof remains failed, with all contracts/program branches unchanged in its repair. Native encoding/I-O/path/ghost erasure/ownership/concurrency/actual write-sync-recovery/Host and fullTransfer/final replay remain OPEN. Physical limits unchanged;495 inherited reports50owned modules are exact previously reviewed associations.
+
+Evidence commit: b55cce54c325f84ab83e5dd36c5dfc0fd90d8661
