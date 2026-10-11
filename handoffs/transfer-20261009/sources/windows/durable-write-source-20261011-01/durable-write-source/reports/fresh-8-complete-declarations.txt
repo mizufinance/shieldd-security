@@ -1,0 +1,203 @@
+ShielddSecurity.TransferDurableWriteSource01.OpenResult : Type
+'ShielddSecurity.TransferDurableWriteSource01.OpenResult' does not depend on any axioms
+ShielddSecurity.TransferDurableWriteSource01.Io : Type
+'ShielddSecurity.TransferDurableWriteSource01.Io' does not depend on any axioms
+ShielddSecurity.TransferDurableWriteSource01.durableWrite : (io : ShielddSecurity.TransferDurableWriteSource01.Io) →
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes) →
+    (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem) →
+      ShielddSecurity.TransferPersistIntentSource01.WriteResult
+'ShielddSecurity.TransferDurableWriteSource01.durableWrite' does not depend on any axioms
+ShielddSecurity.TransferDurableWriteSource01.installWrite : (intentIo :
+    ShielddSecurity.TransferPersistIntentSource01.Io) →
+  (io : ShielddSecurity.TransferDurableWriteSource01.Io) → ShielddSecurity.TransferPersistIntentSource01.Io
+'ShielddSecurity.TransferDurableWriteSource01.installWrite' does not depend on any axioms
+ShielddSecurity.TransferDurableWriteSource01.missing_parent_refuses_before_open_with_original_filesystem : ∀
+  (io : ShielddSecurity.TransferDurableWriteSource01.Io) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem)
+  (missing : @Eq.{1} Bool (ShielddSecurity.TransferDurableWriteSource01.Io.parentPresent io) Bool.false),
+  @Eq.{1} ShielddSecurity.TransferPersistIntentSource01.WriteResult
+    (ShielddSecurity.TransferDurableWriteSource01.durableWrite io bytes filesystem)
+    (ShielddSecurity.TransferPersistIntentSource01.WriteResult.mk filesystem Bool.false)
+'ShielddSecurity.TransferDurableWriteSource01.missing_parent_refuses_before_open_with_original_filesystem' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferDurableWriteSource01.whole_write_success_derives_ordered_calls_and_same_file_handle : ∀
+  (io : ShielddSecurity.TransferDurableWriteSource01.Io) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem)
+  (success :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferDurableWriteSource01.durableWrite io bytes filesystem))
+      Bool.true),
+  And (@Eq.{1} Bool (ShielddSecurity.TransferDurableWriteSource01.Io.parentPresent io) Bool.true)
+    (@Exists.{1} Nat fun (file : Nat) =>
+      And
+        (@Eq.{1} (Option.{0} Nat)
+          (ShielddSecurity.TransferDurableWriteSource01.OpenResult.handle
+            (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem))
+          (@Option.some.{0} Nat file))
+        (And
+          (@Eq.{1} Bool
+            (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+              (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+                (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                  (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem))))
+            Bool.true)
+          (And
+            (@Eq.{1} Bool
+              (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+                (ShielddSecurity.TransferDurableWriteSource01.Io.syncFile io file
+                  (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                    (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+                      (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                        (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem))))))
+              Bool.true)
+            (And
+              (@Eq.{1} Bool
+                (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+                  (ShielddSecurity.TransferDurableWriteSource01.Io.rename io
+                    (ShielddSecurity.TransferDurableWriteSource01.Io.closeFile io file
+                      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                        (ShielddSecurity.TransferDurableWriteSource01.Io.syncFile io file
+                          (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                            (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+                              (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                                (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem)))))))))
+                Bool.true)
+              (@Eq.{1} Bool
+                (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+                  (ShielddSecurity.TransferDurableWriteSource01.Io.syncDirectory io
+                    (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                      (ShielddSecurity.TransferDurableWriteSource01.Io.rename io
+                        (ShielddSecurity.TransferDurableWriteSource01.Io.closeFile io file
+                          (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                            (ShielddSecurity.TransferDurableWriteSource01.Io.syncFile io file
+                              (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                                (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+                                  (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                                    (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io
+                                      filesystem)))))))))))
+                Bool.true)))))
+'ShielddSecurity.TransferDurableWriteSource01.whole_write_success_derives_ordered_calls_and_same_file_handle' does not depend on any axioms
+ShielddSecurity.TransferDurableWriteSource01.failed_directory_sync_after_rename_retains_its_observed_progress : ∀
+  (io : ShielddSecurity.TransferDurableWriteSource01.Io) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem) (file : Nat)
+  (parent : @Eq.{1} Bool (ShielddSecurity.TransferDurableWriteSource01.Io.parentPresent io) Bool.true)
+  (opened :
+    @Eq.{1} (Option.{0} Nat)
+      (ShielddSecurity.TransferDurableWriteSource01.OpenResult.handle
+        (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem))
+      (@Option.some.{0} Nat file))
+  (written :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+          (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+            (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem))))
+      Bool.true)
+  (synced :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferDurableWriteSource01.Io.syncFile io file
+          (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+            (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+              (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem))))))
+      Bool.true)
+  (renamed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferDurableWriteSource01.Io.rename io
+          (ShielddSecurity.TransferDurableWriteSource01.Io.closeFile io file
+            (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+              (ShielddSecurity.TransferDurableWriteSource01.Io.syncFile io file
+                (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                  (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+                    (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                      (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem)))))))))
+      Bool.true)
+  (failed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferDurableWriteSource01.Io.syncDirectory io
+          (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+            (ShielddSecurity.TransferDurableWriteSource01.Io.rename io
+              (ShielddSecurity.TransferDurableWriteSource01.Io.closeFile io file
+                (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                  (ShielddSecurity.TransferDurableWriteSource01.Io.syncFile io file
+                    (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                      (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+                        (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                          (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem)))))))))))
+      Bool.false),
+  And
+    (@Eq.{1} ShielddSecurity.TransferPersistIntentSource01.WriteResult
+      (ShielddSecurity.TransferDurableWriteSource01.durableWrite io bytes filesystem)
+      (ShielddSecurity.TransferDurableWriteSource01.Io.syncDirectory io
+        (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+          (ShielddSecurity.TransferDurableWriteSource01.Io.rename io
+            (ShielddSecurity.TransferDurableWriteSource01.Io.closeFile io file
+              (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                (ShielddSecurity.TransferDurableWriteSource01.Io.syncFile io file
+                  (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+                    (ShielddSecurity.TransferDurableWriteSource01.Io.writeAll io file bytes
+                      (ShielddSecurity.TransferDurableWriteSource01.OpenResult.observed
+                        (ShielddSecurity.TransferDurableWriteSource01.Io.openTemporary io filesystem)))))))))))
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferDurableWriteSource01.durableWrite io bytes filesystem))
+      Bool.false)
+'ShielddSecurity.TransferDurableWriteSource01.failed_directory_sync_after_rename_retains_its_observed_progress' depends on axioms: [propext]
+ShielddSecurity.TransferDurableWriteSource01.installed_failed_write_blocks_intent_readback_and_retains_observed_filesystem : ∀
+  (intentIo : ShielddSecurity.TransferPersistIntentSource01.Io) (io : ShielddSecurity.TransferDurableWriteSource01.Io)
+  (store : ShielddSecurity.TransferReadback.Store)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes) (height : Nat)
+  (gate : ShielddSecurity.TransferPersistIntentSource01.Gate store prepared)
+  (serialized :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferPersistIntentSource01.Io.serialize intentIo prepared)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+  (absent : @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.intentExists filesystem) Bool.false)
+  (nextHeight :
+    @Eq.{1} (Option.{0} Nat)
+      (ShielddSecurity.TransferReadback.Boundary.height
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared))
+      (@Option.some.{0} Nat height))
+  (unretained :
+    @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.historyExists filesystem height) Bool.false)
+  (failed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferDurableWriteSource01.durableWrite io bytes filesystem))
+      Bool.false)
+  (hash : String → Nat → List.{0} Nat) (verify : Nat → List.{0} Nat → Nat → Bool → Bool)
+  (requested : ShielddSecurity.TransferReadback.Boundary) (nullifier : Nat)
+  (candidate : Option.{0} (Prod.{0, 0} Bool Nat)),
+  And
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.Outcome.returned
+        (ShielddSecurity.TransferPersistIntentSource01.persistIntent
+          (ShielddSecurity.TransferDurableWriteSource01.installWrite intentIo io) store filesystem prepared))
+      Bool.false)
+    (And
+      (@Eq.{1} ShielddSecurity.TransferReadback.Store
+        (ShielddSecurity.TransferPersistIntentSource01.Outcome.store
+          (ShielddSecurity.TransferPersistIntentSource01.persistIntent
+            (ShielddSecurity.TransferDurableWriteSource01.installWrite intentIo io) store filesystem prepared))
+        (ShielddSecurity.TransferReadback.interrupt store))
+      (And
+        (@Eq.{1} ShielddSecurity.TransferPersistIntentSource01.Filesystem
+          (ShielddSecurity.TransferPersistIntentSource01.Outcome.filesystem
+            (ShielddSecurity.TransferPersistIntentSource01.persistIntent
+              (ShielddSecurity.TransferDurableWriteSource01.installWrite intentIo io) store filesystem prepared))
+          (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+            (ShielddSecurity.TransferDurableWriteSource01.durableWrite io bytes filesystem)))
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Status)
+          (ShielddSecurity.TransferReadback.status hash verify
+            (ShielddSecurity.TransferPersistIntentSource01.Outcome.store
+              (ShielddSecurity.TransferPersistIntentSource01.persistIntent
+                (ShielddSecurity.TransferDurableWriteSource01.installWrite intentIo io) store filesystem prepared))
+            requested nullifier candidate)
+          (@Option.none.{0} ShielddSecurity.TransferReadback.Status))))
+'ShielddSecurity.TransferDurableWriteSource01.installed_failed_write_blocks_intent_readback_and_retains_observed_filesystem' depends on axioms: [propext]
