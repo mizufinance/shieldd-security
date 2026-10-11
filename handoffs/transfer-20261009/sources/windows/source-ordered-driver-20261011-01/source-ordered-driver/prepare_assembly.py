@@ -1,0 +1,40 @@
+"""Seal fully composed returned source-ordered model driver."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent;DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-source-ordered-finalizer-endpoint-20261011-03/assemble.py').read_text()
+def replace(a,b,count=1):
+    global s
+    assert s.count(a)==count,(a,s.count(a));s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-source-ordered-finalizer-20261011-03'", "CURRENT = DIAG / 'transfer-source-ordered-driver-20261011-01'")
+s=s.replace('transfer-source-ordered-finalizer-checkpoint-20261011-03','transfer-source-ordered-driver-checkpoint-20261011-01').replace('source-ordered-finalizer-endpoint','source-ordered-driver-endpoint')
+replace("MODULE = 'TransferSourceOrderedFinalizer01'", "MODULE = 'TransferSourceOrderedDriver01'")
+replace('assert len(fresh) == 7','assert len(fresh) == 4')
+replace("assert pool['objects'] == 102 and len(pool['inherited_public_reports']) == 917", "assert pool['objects'] == 103 and len(pool['inherited_public_reports']) == 924")
+replace("manager_endpoint = DIAG / 'transfer-canonical-word-equality-endpoint-20261011-02'", "manager_endpoint = DIAG / 'transfer-source-ordered-finalizer-endpoint-20261011-03'")
+replace("manager_archive = manager_endpoint / 'portable-windows-canonical-word-equality-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-source-ordered-finalizer-endpoint01.tar.xz'")
+replace('3e27ae27d4a807a69d112534e53a74f6bcb8decf57ab16b3423365623c97183f','ea9ffe003d90a1bcd4e16b2fb784df0abab224530042ae04a53ca05c4f98a18b')
+replace("tar.extractfile('reports/fresh-6-complete-declarations.txt')", "tar.extractfile('reports/fresh-7-complete-declarations.txt')")
+replace('assert len(manager_reports) == 6','assert len(manager_reports) == 7')
+replace("'module': 'TransferCanonicalWordEquality01'", "'module': 'TransferSourceOrderedFinalizer01'")
+replace('assert len(combined_reports) == 917','assert len(combined_reports) == 924')
+replace('assert len(manager_selected) == 102','assert len(manager_selected) == 103')
+replace("reference = {'canonical_word_equality':", "reference = {'source_ordered_finalizer':")
+replace("'imported_complete_reports': 6", "'imported_complete_reports': 7")
+replace("'complete_owned_modules': 102, 'inherited_complete_reports': 917", "'complete_owned_modules': 103, 'inherited_complete_reports': 924")
+s=s.replace('one-hundred-two-module','one-hundred-three-module').replace('917 original inherited','924 original inherited').replace('verified 917 inherited','verified 924 inherited')
+replace("'fresh_definition_audits': 3", "'fresh_definition_audits': 2")
+replace("'fresh_theorem_audits': 4", "'fresh_theorem_audits': 2")
+replace("'fresh_complete_public_audits': 7", "'fresh_complete_public_audits': 4")
+replace("'inherited_complete_public_audits': 917", "'inherited_complete_public_audits': 924")
+replace("'fresh_audits': 7, 'inherited_audits': 917", "'fresh_audits': 4, 'inherited_audits': 924",2)
+replace("'rejected_attempts': 2", "'rejected_attempts': 0")
+s=s.replace('SOURCE_CORRECTED_KNOWN_FINALIZATION_ORDER_QUALIFIED','SOURCE_CORRECTED_RETURNED_BLOCK_DRIVER_PUBLICATION_QUALIFIED')
+start=s.index("add(CURRENT/'recipe_source.py'");end=s.index("add(stdout, 'reports/fresh-7-complete-declarations.txt'",start)
+s=s[:start]+s[end:]
+replace("add(stdout, 'reports/fresh-7-complete-declarations.txt'", "add(stdout, 'reports/fresh-4-complete-declarations.txt'")
+start=s.index("    'scope': mapping['scope'] + ");end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' Four complete full type/axiom reports retained. First attempt passed. Fresh driver installs corrected known finalizer sequence throughout tagged getter, absent-start request walk, reached Host assignment and complete modeled publication. Caller key/codec/getter/frame/walk/current state assumptions eliminated in model. Source known-call ordering association does not prove exhaustive native callee effects or compiler/field/cache/snapshot/ownership/OS semantics. No failure-prefix/rollback claim from None. No ancestor/native replay. Full Transfer OPEN; zero native/control/certification credit.'}"+s[end:]
+replace('known SCT/compliance/routing mutation order corrected in fresh typed source publication','corrected source-ordered finalizer composed into absent-start returned whole block publication')
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':4,'inherited_reports':924,'owned_modules':103,'first_attempt_passed':True})
