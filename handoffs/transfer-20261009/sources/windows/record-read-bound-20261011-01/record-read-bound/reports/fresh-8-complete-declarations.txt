@@ -1,0 +1,61 @@
+ShielddSecurity.TransferRecordReadBound01.recordByteLimit : Nat
+'ShielddSecurity.TransferRecordReadBound01.recordByteLimit' does not depend on any axioms
+ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit : Nat
+'ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit' does not depend on any axioms
+ShielddSecurity.TransferRecordReadBound01.Io : Type
+'ShielddSecurity.TransferRecordReadBound01.Io' does not depend on any axioms
+ShielddSecurity.TransferRecordReadBound01.readRecord : (io : ShielddSecurity.TransferRecordReadBound01.Io) →
+  (file : Nat) → Option.{0} ShielddSecurity.TransferStateDelta.Bytes
+'ShielddSecurity.TransferRecordReadBound01.readRecord' does not depend on any axioms
+ShielddSecurity.TransferRecordReadBound01.source_take_limit_is_one_beyond_record_bound_and_fits_supported_words : And
+  (@Eq.{1} Nat ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      ShielddSecurity.TransferRecordReadBound01.recordByteLimit
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (And
+    (@LT.lt.{0} Nat instLTNat ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+    (@LT.lt.{0} Nat instLTNat ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+'ShielddSecurity.TransferRecordReadBound01.source_take_limit_is_one_beyond_record_bound_and_fits_supported_words' does not depend on any axioms
+ShielddSecurity.TransferRecordReadBound01.returned_record_derives_actual_bounded_read_bytes : ∀
+  (io : ShielddSecurity.TransferRecordReadBound01.Io) (file : Nat) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferRecordReadBound01.readRecord io file)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  And
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferRecordReadBound01.Io.readToEnd io file
+        ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+    (@LE.le.{0} Nat instLENat (@List.length.{0} Nat bytes) ShielddSecurity.TransferRecordReadBound01.recordByteLimit)
+'ShielddSecurity.TransferRecordReadBound01.returned_record_derives_actual_bounded_read_bytes' does not depend on any axioms
+ShielddSecurity.TransferRecordReadBound01.oversized_observed_record_refuses : ∀
+  (io : ShielddSecurity.TransferRecordReadBound01.Io) (file : Nat) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (read :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferRecordReadBound01.Io.readToEnd io file
+        ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+  (oversized :
+    @LT.lt.{0} Nat instLTNat ShielddSecurity.TransferRecordReadBound01.recordByteLimit (@List.length.{0} Nat bytes)),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+    (ShielddSecurity.TransferRecordReadBound01.readRecord io file)
+    (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)
+'ShielddSecurity.TransferRecordReadBound01.oversized_observed_record_refuses' depends on axioms: [propext]
+ShielddSecurity.TransferRecordReadBound01.read_error_refuses_without_default : ∀
+  (io : ShielddSecurity.TransferRecordReadBound01.Io) (file : Nat)
+  (failed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferRecordReadBound01.Io.readToEnd io file
+        ShielddSecurity.TransferRecordReadBound01.sourceTakeLimit)
+      (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+    (ShielddSecurity.TransferRecordReadBound01.readRecord io file)
+    (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)
+'ShielddSecurity.TransferRecordReadBound01.read_error_refuses_without_default' depends on axioms: [propext]
