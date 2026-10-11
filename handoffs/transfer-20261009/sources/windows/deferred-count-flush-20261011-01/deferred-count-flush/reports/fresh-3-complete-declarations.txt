@@ -1,0 +1,143 @@
+@ShielddSecurity.TransferDeferredCountFlush01.successful_step_preserves_non_index_effects : ∀ {O E A : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (height : Nat) (action : A)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (cache nextCache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (ShielddSecurity.TransferStateDelta.Cache O E))
+      (@ShielddSecurity.TransferDeferredCountWalk01.queueWriter O E A keys convert available parent height cache action)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (ShielddSecurity.TransferStateDelta.Cache O E) nextCache)),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E nextCache)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E cache))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes O)
+        (@ShielddSecurity.TransferStateDelta.Cache.objects O E nextCache)
+        (@ShielddSecurity.TransferStateDelta.Cache.objects O E cache))
+      (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E nextCache)
+        (@ShielddSecurity.TransferStateDelta.Cache.events O E cache)))
+'ShielddSecurity.TransferDeferredCountFlush01.successful_step_preserves_non_index_effects' does not depend on any axioms
+@ShielddSecurity.TransferDeferredCountFlush01.successful_walk_preserves_non_index_effects : ∀ {O E A : Type}
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (height : Nat)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (actions : List.{0} A)
+  (cache finalCache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (ShielddSecurity.TransferStateDelta.Cache O E))
+      (@ShielddSecurity.TransferDeferredQueueSourceModel01.walk O E A
+        ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferDeferredCountWalk01.queueWriter O E A keys convert available parent) height cache
+        actions)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (ShielddSecurity.TransferStateDelta.Cache O E) finalCache)),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E finalCache)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E cache))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes O)
+        (@ShielddSecurity.TransferStateDelta.Cache.objects O E finalCache)
+        (@ShielddSecurity.TransferStateDelta.Cache.objects O E cache))
+      (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E finalCache)
+        (@ShielddSecurity.TransferStateDelta.Cache.events O E cache)))
+'ShielddSecurity.TransferDeferredCountFlush01.successful_walk_preserves_non_index_effects' does not depend on any axioms
+@ShielddSecurity.TransferDeferredCountFlush01.successful_nonempty_flush_derives_count_queue_and_effects : ∀
+  {O E A : Type} (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (height : Nat)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (actions : List.{0} A)
+  (initial : ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+  (nonempty : @Ne.{1} (List.{0} A) actions (@List.nil.{0} A))
+  (observed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+      (ShielddSecurity.TransferIndexWriterModel01.countObservation ShielddSecurity.TransferIndexCountCodec01.codec
+        (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent
+          (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height)))
+      (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal initial))
+  (success :
+    @Eq.{1}
+      (Option.{0}
+        (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+          ShielddSecurity.TransferIndexWriterModel01.IndexError))
+      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.error O E A
+        ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E A
+          ShielddSecurity.TransferIndexWriterModel01.IndexError
+          (@ShielddSecurity.TransferDeferredCountWalk01.queueWriter O E A keys convert available parent) Bool.true
+          Bool.true (@Option.some.{0} Nat height) parent actions))
+      (@Option.none.{0}
+        (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+          ShielddSecurity.TransferIndexWriterModel01.IndexError))),
+  have result :
+    ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A
+      ShielddSecurity.TransferIndexWriterModel01.IndexError :=
+    @ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E A
+      ShielddSecurity.TransferIndexWriterModel01.IndexError
+      (@ShielddSecurity.TransferDeferredCountWalk01.queueWriter O E A keys convert available parent) Bool.true Bool.true
+      (@Option.some.{0} Nat height) parent actions;
+  @Exists.{1} ShielddSecurity.TransferIndexWriterModel01.Ordinal
+    fun (final : ShielddSecurity.TransferIndexWriterModel01.Ordinal) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal)
+        (ShielddSecurity.TransferIndexWriterModel01.countObservation ShielddSecurity.TransferIndexCountCodec01.codec
+          (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+            (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+              ShielddSecurity.TransferIndexWriterModel01.IndexError result)
+            (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys height)))
+        (@Option.some.{0} ShielddSecurity.TransferIndexWriterModel01.Ordinal final))
+      (And
+        (@Eq.{1} Nat
+          (@Fin.val
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+            final)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@Fin.val
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+              initial)
+            (@List.length.{0} A actions)))
+        (And
+          (@LT.lt.{0} Nat instLTNat
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@Fin.val
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+                initial)
+              (@List.length.{0} A actions))
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+          (And
+            (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+              (@ShielddSecurity.TransferStateDelta.State.verifiable O
+                (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+                  ShielddSecurity.TransferIndexWriterModel01.IndexError result))
+              (@ShielddSecurity.TransferStateDelta.State.verifiable O parent))
+            (And
+              (@Eq.{1} (ShielddSecurity.TransferStateDelta.View O)
+                (@ShielddSecurity.TransferStateDelta.State.objects O
+                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+                    ShielddSecurity.TransferIndexWriterModel01.IndexError result))
+                (@ShielddSecurity.TransferStateDelta.State.objects O parent))
+              (And
+                (@Eq.{1} (List.{0} A)
+                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E A
+                    ShielddSecurity.TransferIndexWriterModel01.IndexError result)
+                  (@List.nil.{0} A))
+                (@Eq.{1} (List.{0} E)
+                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.events O E A
+                    ShielddSecurity.TransferIndexWriterModel01.IndexError result)
+                  (@List.nil.{0} E)))))))
+'ShielddSecurity.TransferDeferredCountFlush01.successful_nonempty_flush_derives_count_queue_and_effects' depends on axioms: [propext,
+ Quot.sound]
