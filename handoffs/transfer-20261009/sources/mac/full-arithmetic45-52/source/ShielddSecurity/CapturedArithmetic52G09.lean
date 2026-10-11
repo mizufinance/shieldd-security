@@ -1,0 +1,37 @@
+import ShielddSecurity.CapturedArithmetic45B0576
+import ShielddSecurity.CapturedArithmetic45B0577
+import ShielddSecurity.CapturedArithmetic45B0578
+import ShielddSecurity.CapturedArithmetic45B0579
+import ShielddSecurity.CapturedArithmetic45B0580
+import ShielddSecurity.CapturedArithmetic45B0581
+import ShielddSecurity.CapturedArithmetic45B0582
+import ShielddSecurity.CapturedArithmetic45B0583
+import ShielddSecurity.CapturedArithmetic45B0584
+import ShielddSecurity.CapturedArithmetic45B0585
+import ShielddSecurity.CapturedArithmetic45B0586
+import ShielddSecurity.CapturedArithmetic45B0587
+import ShielddSecurity.CapturedArithmetic45B0588
+import ShielddSecurity.CapturedArithmetic45B0589
+import ShielddSecurity.CapturedArithmetic45B0590
+import ShielddSecurity.CapturedArithmetic45B0591
+import ShielddSecurity.CapturedArithmetic45B0592
+import ShielddSecurity.CapturedArithmetic45B0593
+import ShielddSecurity.CapturedArithmetic45B0594
+import ShielddSecurity.CapturedArithmetic45B0595
+import ShielddSecurity.CapturedArithmetic45B0596
+import ShielddSecurity.CapturedArithmetic45B0597
+import ShielddSecurity.CapturedArithmetic45B0598
+import ShielddSecurity.CompilerArithmeticBlock44
+import ShielddSecurity.CompilerArithmeticTransport41
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.CapturedArithmetic52G09
+open CompilerArithmeticTransport41
+noncomputable def block : CompilerArithmeticBlock44.Block ArithmeticCoefficients39.value copy 196308 4384 := (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 196308 2154 2230 (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 196308 922 1232 (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 196308 408 514 (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 196308 98 310 CapturedArithmetic45B0576.block CapturedArithmetic45B0577.block) (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 196716 102 412 CapturedArithmetic45B0578.block (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 196818 304 108 CapturedArithmetic45B0579.block CapturedArithmetic45B0580.block))) (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 197230 698 534 (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 197230 296 402 CapturedArithmetic45B0581.block (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 197526 114 288 CapturedArithmetic45B0582.block CapturedArithmetic45B0583.block)) (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 197928 124 410 CapturedArithmetic45B0584.block (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 198052 278 132 CapturedArithmetic45B0585.block CapturedArithmetic45B0586.block)))) (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 198462 1228 1002 (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 198462 622 606 (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 198462 254 368 CapturedArithmetic45B0587.block (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 198716 156 212 CapturedArithmetic45B0588.block CapturedArithmetic45B0589.block)) (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 199084 198 408 CapturedArithmetic45B0590.block (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 199282 156 252 CapturedArithmetic45B0591.block CapturedArithmetic45B0592.block))) (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 199690 500 502 (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 199690 92 408 CapturedArithmetic45B0593.block (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 199782 316 92 CapturedArithmetic45B0594.block CapturedArithmetic45B0595.block)) (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 200190 312 190 CapturedArithmetic45B0596.block (CompilerArithmeticBlock44.append ArithmeticCoefficients39.value copy 200502 100 90 CapturedArithmetic45B0597.block CapturedArithmetic45B0598.block)))))
+end ShielddSecurity.CapturedArithmetic52G09
+
+set_option pp.all true in
+#check @ShielddSecurity.CapturedArithmetic52G09.block
+#print axioms ShielddSecurity.CapturedArithmetic52G09.block

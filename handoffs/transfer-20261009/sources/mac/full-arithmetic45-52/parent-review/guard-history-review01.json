@@ -1,0 +1,59 @@
+{
+  "kind": "Historical exact guard/source delta review; no compiler or mutation",
+  "guards": [
+    {
+      "stage": "mac-full-arithmetic45-source01",
+      "bytes": 32686,
+      "sha256": "e93d97e6af517d01ee08e72912b145725117ca93c7d2d88fdf70a93d96fc5b04",
+      "delta_from_previous": null
+    },
+    {
+      "stage": "mac-full-arithmetic45-execution03",
+      "bytes": 32805,
+      "sha256": "fe4d35070ed16111f03817a98596eaeb03b9d5730c4fe726d5a4c29f8ae343ab",
+      "delta_from_previous": "--- mac-full-arithmetic45-source01\n\n+++ mac-full-arithmetic45-execution03\n\n@@ -256,7 +256,9 @@\n\n     _CHECKED.clear()\n     carried_check(config)\n     for identity in config['static_records'].values(): read_pin(identity)\n-    for spec in config['modules'].values(): source_check(read_pin(spec['source']),spec)\n+    for spec in config['modules'].values(): checked_pin(spec['source'])\n+    spec=config['modules'][config['_active_module']]\n+    source_check(read_pin(spec['source']),spec)\n     closure=strict_json(read_pin(config['closure']))\n     require(not (set(closure['modules'])&set(config['qualified_batch_imports'])), 'qualified name collision')\n     closure['modules'].update(config['qualified_batch_imports'])\n@@ -421,6 +423,7 @@\n\n     admission=read_bound(args.admission,args.admission_sha256,65536)\n     require(admission['approved'] is True and admission['config_sha256']==args.config_sha256 and admission['inventory_sha256']==args.inventory_sha256, 'external reviewed admission')\n     name=args.module; require(name in config['order'] and admission['module']==name, 'exact name admission')\n+    config['_active_module']=name\n     require(config['canonical_context']=='cec1b30defc23497c8e9b30528dca12b09d328ea' and config['runtime_sha']=='844389ee069e1fb2e576708842d0b389b4d9a44a', 'source/runtime context')\n     records,digest=state(config)\n     require(admission['prior_ledger_sha256']==digest and admission['prior_passed']==len(records), 'complete externally anchored prior state')"
+    },
+    {
+      "stage": "mac-full-arithmetic45-execution04",
+      "bytes": 33184,
+      "sha256": "06bb514a7ae8e1120283ad79250eb14752e554767762a9896cc969b982009b0e",
+      "delta_from_previous": "--- mac-full-arithmetic45-execution03\n\n+++ mac-full-arithmetic45-execution04\n\n@@ -90,7 +90,7 @@\n\n     require(depth==0, 'unclosed comment')\n     return ''.join(result)\n \n-def direct_imports(data):\n+def uncached_direct_imports(data):\n     clean=strip_comments(data.decode('utf-8'))\n     names=[]\n     for match in re.finditer(r'(?m)^\\s*(?:(?:public|private)\\s+)?(?:meta\\s+)?import\\s+([^\\n]+)',clean):\n@@ -100,6 +100,15 @@\n\n         names.extend(tokens)\n     if not re.search(r'(?m)^\\s*prelude\\s*$',clean):names.insert(0,'Init')\n     return names\n+\n+# Pure parsing memoization by exact byte digest within this single guard process.\n+# Every source is still read and SHA checked at every fixed_check phase.\n+_IMPORT_HEADERS={}\n+def direct_imports(data):\n+    digest=sha(data)\n+    if digest not in _IMPORT_HEADERS:\n+        _IMPORT_HEADERS[digest]=tuple(uncached_direct_imports(data))\n+    return list(_IMPORT_HEADERS[digest])\n \n def official_header(data):\n     names=[];depth=0;prelude=False"
+    },
+    {
+      "stage": "mac-full-arithmetic45-execution05",
+      "bytes": 33186,
+      "sha256": "4e469e962b8a0d6e4b7b5f869415e4958bd5e95e2d6280c5c87dff1d5306c4c7",
+      "delta_from_previous": "--- mac-full-arithmetic45-execution04\n\n+++ mac-full-arithmetic45-execution05\n\n@@ -339,14 +339,14 @@\n\n     aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=32*1024*1024, 'batch disk/metadata cap')\n+    require(total<=1024*1024*1024 and metadata<=128*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n     return {'free_memory_percent':memory,'free_disk_bytes':disk,'batch_bytes':total,'metadata_bytes':metadata}\n \n def launch_reserve(observation):\n-    require(observation['metadata_bytes']<=27*1024*1024, 'reserve streams/receipt metadata')\n+    require(observation['metadata_bytes']<=124*1024*1024, 'reserve streams/receipt metadata')\n     require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):"
+    },
+    {
+      "stage": "mac-full-arithmetic45-execution08",
+      "bytes": 33129,
+      "sha256": "aa0d3c1a34182a2408d65956e5bd28f4998307b6e307246f4ee722fe5761141b",
+      "delta_from_previous": "--- mac-full-arithmetic45-execution05\n\n+++ mac-full-arithmetic45-execution08\n\n@@ -438,7 +438,7 @@\n\n     require(admission['prior_ledger_sha256']==digest and admission['prior_passed']==len(records), 'complete externally anchored prior state')\n     require(name==config['order'][len(records)] and len(records)+config['carried_attempts']<config['limits']['total_attempts'], 'next named module and remaining attempts')\n     require(admission['carried_failure_sha256']==config['carried_failure']['sha256'], 'externally anchored known failure')\n-    fixed_check(config,records); cancelled();pre=bounds(config);launch_reserve(pre)\n+    cancelled();pre=bounds(config);launch_reserve(pre)\n     require(not any(pathlib.Path(p['comm']).name in {'lean','lake','cargo','rustc'} for p in processes().values()), 'one heavy physical-host lane')\n     runtime=pathlib.Path(config['runtime'])\n     if not runtime.exists():\n@@ -451,7 +451,7 @@\n\n         fcntl.flock(lockfd,fcntl.LOCK_EX|fcntl.LOCK_NB);locked=True\n         records,digest=state(config)\n         require(admission['prior_ledger_sha256']==digest and admission['prior_passed']==len(records), 'under-lock state')\n-        fixed_check(config,records);cancelled();pre=bounds(config);launch_reserve(pre)\n+        cancelled();pre=bounds(config);launch_reserve(pre)\n         require(not any(pathlib.Path(p['comm']).name in {'lean','lake','cargo','rustc'} for p in processes().values()), 'under-lock host lane')\n         cache=pathlib.Path(config['own_cache'])\n         if not cache.exists(): initialize_overlay(config)"
+    },
+    {
+      "stage": "mac-full-arithmetic45-execution11",
+      "bytes": 33413,
+      "sha256": "a4bca2487c7d7472dc7aa53195f2f194147c210a2f46119f1b3fe905d6a72c84",
+      "delta_from_previous": "--- mac-full-arithmetic45-execution08\n\n+++ mac-full-arithmetic45-execution11\n\n@@ -265,7 +265,9 @@\n\n     _CHECKED.clear()\n     carried_check(config)\n     for identity in config['static_records'].values(): read_pin(identity)\n-    for spec in config['modules'].values(): checked_pin(spec['source'])\n+    for module_name,spec in config['modules'].items():\n+        checked_pin(spec['source']);root=pathlib.Path(spec['source_root']);source=pathlib.Path(spec['source']['path'])\n+        require(root.is_dir() and not root.is_symlink() and source==root/'ShielddSecurity'/(module_name+'.lean') and source.resolve()==source,'exact canonical per-module source root')\n     spec=config['modules'][config['_active_module']]\n     source_check(read_pin(spec['source']),spec)\n     closure=strict_json(read_pin(config['closure']))\n@@ -461,7 +463,7 @@\n\n         number=len(records)+config['carried_attempts']+1; spec=config['modules'][name]\n         stdout=runtime/'logs'/f'{number:02d}-{name}.stdout';stderr=runtime/'logs'/f'{number:02d}-{name}.stderr'\n         out=cache/'ShielddSecurity'/(name+'.olean')\n-        command=[config['lean'],'-j1','-M2048','-R',config['source_root'],'-o',str(out),spec['source']['path']]\n+        command=[config['lean'],'-j1','-M2048','-R',spec['source_root'],'-o',str(out),spec['source']['path']]\n         receipt_path=runtime/'receipts'/f'{number:02d}-{name}.json'\n         oldmask=signal.pthread_sigmask(signal.SIG_BLOCK,TERMS)\n         started=time.monotonic();peak=0;failure=None;observations=[];audits=[];objects={}"
+    },
+    {
+      "stage": "mac-full-arithmetic45-execution12",
+      "bytes": 33413,
+      "sha256": "264a038f756299a3f69e4c29e1419f5ec1e3f6deb7f26fa0975157fede495eaa",
+      "delta_from_previous": "--- mac-full-arithmetic45-execution11\n\n+++ mac-full-arithmetic45-execution12\n\n@@ -341,14 +341,14 @@\n\n     aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=128*1024*1024, 'batch disk/metadata cap')\n+    require(total<=1024*1024*1024 and metadata<=256*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n     return {'free_memory_percent':memory,'free_disk_bytes':disk,'batch_bytes':total,'metadata_bytes':metadata}\n \n def launch_reserve(observation):\n-    require(observation['metadata_bytes']<=124*1024*1024, 'reserve streams/receipt metadata')\n+    require(observation['metadata_bytes']<=252*1024*1024, 'reserve streams/receipt metadata')\n     require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):"
+    },
+    {
+      "stage": "mac-full-arithmetic45-execution19",
+      "bytes": 33413,
+      "sha256": "2c608925518b5a6a4f828cb532e535979fd45c1e59077f4c9c070b97f231b548",
+      "delta_from_previous": "--- mac-full-arithmetic45-execution12\n\n+++ mac-full-arithmetic45-execution19\n\n@@ -341,14 +341,14 @@\n\n     aliases={**strict_json(read_pin(config['carried_failure']))['historical_aliases'],**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=1024*1024*1024 and metadata<=256*1024*1024, 'batch disk/metadata cap')\n+    require(total<=1024*1024*1024 and metadata<=512*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n     return {'free_memory_percent':memory,'free_disk_bytes':disk,'batch_bytes':total,'metadata_bytes':metadata}\n \n def launch_reserve(observation):\n-    require(observation['metadata_bytes']<=252*1024*1024, 'reserve streams/receipt metadata')\n+    require(observation['metadata_bytes']<=508*1024*1024, 'reserve streams/receipt metadata')\n     require(observation['batch_bytes']<=1008*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):"
+    }
+  ],
+  "semantic_changes": "Active module source parsing only while hashing all sources; pure import-header memoization keyed by exact byte digest; redundant pre-layout check removal retaining the held-lock actual PACKAGE check; canonical per-module source-root validation and matching -R; finite on-disk metadata thresholds",
+  "physical_changes": false,
+  "source_identity_checks_preserved": true,
+  "import_header_memoization": "Execution03to04 reviewed source: unchanged parsing plus per-process exact-digest memoization",
+  "physical": "One thread/M2048/4GiBownedRSS/240sec/15percentfreeRAM/2GiBdisk/oneheldheavy-hostlock, unchanged",
+  "full_transfer": "OPEN"
+}
