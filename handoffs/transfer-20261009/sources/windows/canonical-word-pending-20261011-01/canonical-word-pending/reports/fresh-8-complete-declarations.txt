@@ -1,0 +1,70 @@
+ShielddSecurity.TransferCanonicalWordPending01.encodeWordScalar : (key : Nat) →
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferCanonicalWordPending01.encodeWordScalar' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordPending01.WordNativePending : Type
+'ShielddSecurity.TransferCanonicalWordPending01.WordNativePending' does not depend on any axioms
+ShielddSecurity.TransferCanonicalWordPending01.encodeWordPending : ShielddSecurity.TransferPendingFiniteCodec01.NativePending →
+  ShielddSecurity.TransferCanonicalWordPending01.WordNativePending
+'ShielddSecurity.TransferCanonicalWordPending01.encodeWordPending' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordPending01.decodeWordPending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending →
+  ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+'ShielddSecurity.TransferCanonicalWordPending01.decodeWordPending' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferCanonicalWordPending01.constructed_word_scalar_projects_to_source_key_modulo_field : ∀
+  (key : Nat),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferCanonicalWordPending01.encodeWordScalar key)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) key
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferCanonicalWordPending01.constructed_word_scalar_projects_to_source_key_modulo_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordPending01.canonical_key_list_roundtrips_through_actual_modeled_word_fields : ∀
+  (keys : List.{0} Nat)
+  (canonical :
+    ∀ (key : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) keys key →
+        @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} (List.{0} Nat)
+    (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (@List.map.{0, 0} Nat ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+        ShielddSecurity.TransferCanonicalWordPending01.encodeWordScalar keys))
+    keys
+'ShielddSecurity.TransferCanonicalWordPending01.canonical_key_list_roundtrips_through_actual_modeled_word_fields' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordPending01.supported_finite_pending_enum_roundtrips_exact_typed_word_fields : ∀
+  (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supported : @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true),
+  @Eq.{1} ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+    (ShielddSecurity.TransferCanonicalWordPending01.decodeWordPending
+      (ShielddSecurity.TransferCanonicalWordPending01.encodeWordPending native))
+    native
+'ShielddSecurity.TransferCanonicalWordPending01.supported_finite_pending_enum_roundtrips_exact_typed_word_fields' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordPending01.coherent_bounded_current_pending_restores_from_constructed_word_codec : ∀
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (coherent : ShielddSecurity.TransferPendingSetInvariant01.Coherent pending)
+  (capacity :
+    @LE.le.{0} Nat instLENat
+      (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending))
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+  (canonical : ShielddSecurity.TransferBoundedNativeCodec01.BoundedPending pending),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (ShielddSecurity.TransferPendingFiniteCodec01.restore
+      (ShielddSecurity.TransferCanonicalWordPending01.decodeWordPending
+        (ShielddSecurity.TransferCanonicalWordPending01.encodeWordPending
+          (ShielddSecurity.TransferPendingFiniteCodec01.erase pending))))
+    pending
+'ShielddSecurity.TransferCanonicalWordPending01.coherent_bounded_current_pending_restores_from_constructed_word_codec' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

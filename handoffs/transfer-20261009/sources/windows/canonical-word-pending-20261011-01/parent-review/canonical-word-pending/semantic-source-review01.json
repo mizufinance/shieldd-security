@@ -1,0 +1,58 @@
+{
+  "status": "PASSED",
+  "kind": "Exact maintained handwritten/audit generation and complete original failures; semantic source review",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-word-pending-review01/packet01/source/ShielddSecurity/TransferCanonicalWordPending01.lean",
+    "bytes": 5852,
+    "sha256": "8b143f6b95b36d10348539a6944093ca05a33c68d2cad73cc8160f71ca365817"
+  },
+  "fresh_reports": 8,
+  "rejected": [
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 24.032345499959774,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-word-pending-review01/packet01/unselected/01/handwritten/TransferCanonicalWordPending01.lean",
+        "bytes": 5852,
+        "sha256": "23dd8017bc4563d18d4230eeb2a610bc757a0b31b2c89406e6179a2be5baf3b7"
+      },
+      "log": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-word-pending-review01/packet01/unselected/01/runs/01-TransferCanonicalWordPending01/stdout.txt",
+        "bytes": 5349,
+        "sha256": "6ee7f09a9cececd7971ef24e69899c3bfbb40ed780d1bd3ecdb9a86df389e31c"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-canonical-word-pending-20261011-01\\project\\ShielddSecurity\\TransferCanonicalWordPending01.lean:51:16: error: Type mismatch",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-canonical-word-pending-20261011-01\\project\\ShielddSecurity\\TransferCanonicalWordPending01.lean:41:8: error: (kernel) excessive memory consumption detected"
+      ]
+    },
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 22.16804930003127,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-word-pending-review01/packet01/unselected/02/handwritten/TransferCanonicalWordPending01.lean",
+        "bytes": 5857,
+        "sha256": "e2cca30ade0460b96870dd298e379035903b0d5c5394205a3b8a6cd3a3dddc47"
+      },
+      "log": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-word-pending-review01/packet01/unselected/02/runs/01-TransferCanonicalWordPending01/stdout.txt",
+        "bytes": 5057,
+        "sha256": "297e46929611aed4af63126899b353c9ab22d33c5d5661946280cd5c1973009f"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-canonical-word-pending-20261011-02\\project\\ShielddSecurity\\TransferCanonicalWordPending01.lean:41:8: error: (kernel) excessive memory consumption detected"
+      ],
+      "exact_selected_delta": "--- \n+++ \n@@ -1,4 +1,4 @@\n-import ShielddSecurity.TransferScalarCanonicalKey01\n+import ShielddSecurity.TransferSymbolicFieldMap01\n set_option maxHeartbeats 200000\n set_option maxRecDepth 4096\n set_option autoImplicit false\n@@ -41,14 +41,10 @@\n theorem canonical_key_list_roundtrips_through_actual_modeled_word_fields\n     (keys : List Nat) (canonical : \u2200 key \u2208 keys, key < nullifierModulus) :\n     (keys.map encodeWordScalar).map (fun scalar => scalarKey scalar.words) = keys := by\n-  rw [List.map_map]\n-  calc\n-    _ = keys.map id := by\n-      apply List.map_congr_left\n-      intro key inside\n-      change scalarKey (encodeWordScalar key).words = key\n-      rw [constructed_word_scalar_projects_to_source_key_modulo_field, Nat.mod_eq_of_lt (canonical key inside)]\n-    _ = keys := List.map_id keys\n+  exact TransferSymbolicFieldMap01.finite_field_list_roundtrip_follows_from_symbolic_pointwise_inverse\n+    encodeWordScalar (fun scalar => scalarKey scalar.words) keys\n+    (fun key inside => (constructed_word_scalar_projects_to_source_key_modulo_field key).trans\n+      (Nat.mod_eq_of_lt (canonical key inside)))\n \n theorem supported_finite_pending_enum_roundtrips_exact_typed_word_fields\n     (native : NativePending) (supported : nativeSupported native = true) :\n"
+    }
+  ],
+  "scope": "Typed canonical raw Scalar words are constructed by the proved source LE/parser/choice/R2 decoder. Projection equals key modulo the pinned scalar field; canonical list and supported finite enum roundtrips and coherent bounded current pending restoration are derived. The symbolic pointwise premise is supplied by the proved constructor and input canonicality. Definitions/theorem contracts unchanged after two original kernel-memory failures; final proof instantiates the small symbolic map instead of unfolding concrete field terms. Seen membership remains an extensional list; actual private Rust Scalar/imbl/Any/Clone/Choice/CtOption/compiler/primitive/full native trace bindings and reachability of the supported domain remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
