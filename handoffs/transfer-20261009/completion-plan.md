@@ -1,5 +1,20 @@
 # Transfer proof completion plan — 9 October 2026
 
+The callback/capability source family is accepted at
+e9c560a666c7cc6a1352ab222f8194608fb4376b: four selected modules and50 complete
+reports. NoteManager success derives the actual SCT position and append to the
+post-SCT pending object. Capability execution success derives exact re-extraction
+through comparison; the concrete comparison covers family, statement scalar and
+serialized envelope bytes, with its generated equality instance audited.
+Registry provenance and statement-preimage semantics remain separate. The SCT
+model starts after successful tree loading, derives returned capacity/insert
+error cache retention in the immutable model, and derives tree-cache write and
+commitment-before-note-created event order on success. Getter panic, Clone/COW,
+tree/Merkle semantics, codecs, verification provenance, native execution and
+durability correspondence remain explicit interfaces. Parent verified original
+reports, exact ancestors, source/runtime bytes and unchanged machine guards.
+No combined replay, atomic certification or full Transfer closure is asserted.
+
 The connected coordinate-exclusion, regulated Boolean and registry-position
 constructor family is accepted at1287bbc258d1c329b068ebd8e8d4eb5838ecd588:
 nine original module executions and88 complete reports. Independent RegistrySem
