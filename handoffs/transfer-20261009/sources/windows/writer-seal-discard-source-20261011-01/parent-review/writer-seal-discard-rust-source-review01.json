@@ -1,0 +1,24 @@
+{
+  "status": "PASSED",
+  "kind": "Independent pinned PermanentWriter seal/discard/committed/status branch source review; no native execution",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/app/src/app/permanent_writer.rs",
+    "bytes": 10619,
+    "sha256": "444b5ce8436eff3e1cc93e162fe2b567f055b512ac56a29fc887d86e44cbf72d"
+  },
+  "findings": [
+    "seal replaces phase with Interrupted before write lock or persist_intent; successful Prepared path assigns same Frozen to Sealed and clones next",
+    "Write-lock or persist-intent error returns with Interrupted; no rollback of physical state follows",
+    "Wrong seal starting phase is restored before error",
+    "discard accepts only Prepared and returns Ready with previous; all other phases restored and refused",
+    "committed returns Ready boundary or previous during Prepared/Sealed; Interrupted errors",
+    "status first compares the complete actual committed boundary against expected, then read lock and Reader.status against expected nullifier boundary"
+  ],
+  "residual": [
+    "Concrete phase/Clone/equality/types/native lock and reader/owner correspondence",
+    "Store persist_intent serialization/file-write/sync/durability implementation",
+    "Async owner scheduling/physical progress/Host/commit/recovery"
+  ],
+  "full_transfer": "OPEN"
+}

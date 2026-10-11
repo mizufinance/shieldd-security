@@ -1,0 +1,197 @@
+ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend : Type
+'ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend' does not depend on any axioms
+ShielddSecurity.TransferWriterSealDiscardSource01.committed : ShielddSecurity.TransferWriterPrepareSource01.Phase →
+  Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+'ShielddSecurity.TransferWriterSealDiscardSource01.committed' does not depend on any axioms
+ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter : (backend :
+    ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend) →
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) → ShielddSecurity.TransferWriterPrepareSource01.Outcome
+'ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter' depends on axioms: [propext]
+ShielddSecurity.TransferWriterSealDiscardSource01.discardWriter : ShielddSecurity.TransferWriterPrepareSource01.Phase →
+  Prod.{0, 0} ShielddSecurity.TransferWriterPrepareSource01.Phase Bool
+'ShielddSecurity.TransferWriterSealDiscardSource01.discardWriter' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterSealDiscardSource01.ownerStatus : {R : Type} →
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) →
+    (expected : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) →
+      (lookup : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary → Option.{0} R) → Option.{0} R
+'ShielddSecurity.TransferWriterSealDiscardSource01.ownerStatus' does not depend on any axioms
+ShielddSecurity.TransferWriterSealDiscardSource01.successful_seal_derives_prepared_lock_intent_and_same_frozen_boundary : ∀
+  (backend : ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter backend phase))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))
+      (And (@Eq.{1} Bool (ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend.writeLock backend) Bool.true)
+        (And
+          (@Eq.{1} Bool (ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend.persistIntent backend frozen)
+            Bool.true)
+          (And
+            (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+              (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+                (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter backend phase))
+              (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+            (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned
+              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))))
+'ShielddSecurity.TransferWriterSealDiscardSource01.successful_seal_derives_prepared_lock_intent_and_same_frozen_boundary' depends on axioms: [propext]
+ShielddSecurity.TransferWriterSealDiscardSource01.failed_prepared_seal_interrupts_owner_without_rollback_claim : ∀
+  (backend : ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (failed :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter backend
+          (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen)))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)),
+  And
+    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+        (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter backend
+          (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen)))
+      ShielddSecurity.TransferWriterPrepareSource01.Phase.interrupted)
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterSealDiscardSource01.committed
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+          (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter backend
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+'ShielddSecurity.TransferWriterSealDiscardSource01.failed_prepared_seal_interrupts_owner_without_rollback_claim' depends on axioms: [propext]
+ShielddSecurity.TransferWriterSealDiscardSource01.unprepared_seal_refuses_and_restores_original_phase : ∀
+  (backend : ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (unprepared :
+    ∀ (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen),
+      @Ne.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen)),
+  And
+    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+        (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter backend phase))
+      phase)
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter backend phase))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+'ShielddSecurity.TransferWriterSealDiscardSource01.unprepared_seal_refuses_and_restores_original_phase' depends on axioms: [propext]
+ShielddSecurity.TransferWriterSealDiscardSource01.prepared_discard_restores_previous_committed_boundary : ∀
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen),
+  And
+    (@Eq.{1} (Prod.{0, 0} ShielddSecurity.TransferWriterPrepareSource01.Phase Bool)
+      (ShielddSecurity.TransferWriterSealDiscardSource01.discardWriter
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))
+      (@Prod.mk.{0, 0} ShielddSecurity.TransferWriterPrepareSource01.Phase Bool
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.previous frozen))
+        Bool.true))
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterSealDiscardSource01.committed
+        (@Prod.fst.{0, 0} ShielddSecurity.TransferWriterPrepareSource01.Phase Bool
+          (ShielddSecurity.TransferWriterSealDiscardSource01.discardWriter
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.prepared frozen))))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.previous frozen)))
+'ShielddSecurity.TransferWriterSealDiscardSource01.prepared_discard_restores_previous_committed_boundary' depends on axioms: [propext]
+ShielddSecurity.TransferWriterSealDiscardSource01.sealed_discard_refuses_and_preserves_previous_committed_boundary : ∀
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen),
+  And
+    (@Eq.{1} (Prod.{0, 0} ShielddSecurity.TransferWriterPrepareSource01.Phase Bool)
+      (ShielddSecurity.TransferWriterSealDiscardSource01.discardWriter
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+      (@Prod.mk.{0, 0} ShielddSecurity.TransferWriterPrepareSource01.Phase Bool
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen) Bool.false))
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterSealDiscardSource01.committed
+        (@Prod.fst.{0, 0} ShielddSecurity.TransferWriterPrepareSource01.Phase Bool
+          (ShielddSecurity.TransferWriterSealDiscardSource01.discardWriter
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.previous frozen)))
+'ShielddSecurity.TransferWriterSealDiscardSource01.sealed_discard_refuses_and_preserves_previous_committed_boundary' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterSealDiscardSource01.interrupted_owner_status_unavailable : ∀ {R : Type}
+  (expected : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (lookup : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary → Option.{0} R),
+  @Eq.{1} (Option.{0} R)
+    (@ShielddSecurity.TransferWriterSealDiscardSource01.ownerStatus R
+      ShielddSecurity.TransferWriterPrepareSource01.Phase.interrupted expected lookup)
+    (@Option.none.{0} R)
+'ShielddSecurity.TransferWriterSealDiscardSource01.interrupted_owner_status_unavailable' does not depend on any axioms
+@ShielddSecurity.TransferWriterSealDiscardSource01.successful_owner_status_derives_actual_committed_boundary_and_reader_call : ∀
+  {R : Type} (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (expected : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (lookup : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary → Option.{0} R) (response : R)
+  (success :
+    @Eq.{1} (Option.{0} R) (@ShielddSecurity.TransferWriterSealDiscardSource01.ownerStatus R phase expected lookup)
+      (@Option.some.{0} R response)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+    fun (actual : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+        (ShielddSecurity.TransferWriterSealDiscardSource01.committed phase)
+        (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary actual))
+      (And
+        (@Eq.{1} ShielddSecurity.TransferReadback.Boundary
+          (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers actual)
+          (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers expected))
+        (And
+          (@Eq.{1} (Option.{0} Nat)
+            (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot actual)
+            (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot expected))
+          (@Eq.{1} (Option.{0} R) (lookup expected) (@Option.some.{0} R response))))
+'ShielddSecurity.TransferWriterSealDiscardSource01.successful_owner_status_derives_actual_committed_boundary_and_reader_call' does not depend on any axioms
+@ShielddSecurity.TransferWriterSealDiscardSource01.whole_successful_prepare_then_seal_retains_exact_frozen_inputs : ∀
+  {O : Type} (prepareBackend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (preparedReturned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (prepareSuccess :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O prepareBackend phase state height blockId
+          accepted))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary preparedReturned))
+  (sealBackend : ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend)
+  (sealedReturned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (sealSuccess :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter sealBackend
+          (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+            (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O prepareBackend phase state height blockId
+              accepted))))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary sealedReturned)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+          (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter sealBackend
+            (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+              (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O prepareBackend phase state height blockId
+                accepted))))
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+      (And
+        (@Eq.{1} (List.{0} Nat)
+          (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+            (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+          accepted)
+        (And (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary sealedReturned preparedReturned)
+          (And
+            (@Eq.{1} Bool (ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend.writeLock sealBackend)
+              Bool.true)
+            (@Eq.{1} Bool
+              (ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend.persistIntent sealBackend frozen)
+              Bool.true))))
+'ShielddSecurity.TransferWriterSealDiscardSource01.whole_successful_prepare_then_seal_retains_exact_frozen_inputs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
