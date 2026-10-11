@@ -1,0 +1,210 @@
+ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor : (store : ShielddSecurity.TransferReadback.Store) →
+  (io : ShielddSecurity.TransferBankRecovery.Io) →
+    (intent : ShielddSecurity.TransferBankRecovery.IntentRead) →
+      (history : ShielddSecurity.TransferBankRecovery.HistoryRead) →
+        (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) → ShielddSecurity.TransferBankRecovery.Outcome
+'ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor' depends on axioms: [propext]
+ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery : (backend :
+    ShielddSecurity.TransferWriterCommitSource01.Backend) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (io : ShielddSecurity.TransferBankRecovery.Io) →
+      (intent : ShielddSecurity.TransferBankRecovery.IntentRead) →
+        (history : ShielddSecurity.TransferBankRecovery.HistoryRead) →
+          ShielddSecurity.TransferWriterCommitSource01.Backend
+'ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery' depends on axioms: [propext]
+ShielddSecurity.TransferWriterRecoveryJoin01.completed_source_participants_derive_recovery_boundary_history_and_observed_health : ∀
+  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend) (store : ShielddSecurity.TransferReadback.Store)
+  (io : ShielddSecurity.TransferBankRecovery.Io) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)
+  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (completed :
+    @Eq.{1} (Option.{0} Unit)
+      (ShielddSecurity.TransferWriterCommitSource01.participantsComplete
+        (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) frozen)
+      (@Option.some.{0} Unit Unit.unit)),
+  And
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+      (ShielddSecurity.TransferBankRecovery.Outcome.error
+        (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))
+      (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))
+    (And
+      (@Eq.{1} Bool
+        (ShielddSecurity.TransferReadback.Store.ready
+          (ShielddSecurity.TransferBankRecovery.Outcome.store
+            (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+        Bool.true)
+      (And
+        (@Eq.{1} (List.{0} Nat)
+          (ShielddSecurity.TransferReadback.Store.actualRoots
+            (ShielddSecurity.TransferBankRecovery.Outcome.store
+              (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+          (ShielddSecurity.TransferReadback.Boundary.roots
+            (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+        (And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+            (ShielddSecurity.TransferReadback.Store.boundary
+              (ShielddSecurity.TransferBankRecovery.Outcome.store
+                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+            (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+          (And
+            (@Eq.{1} Nat
+              (@List.length.{0} Nat
+                (ShielddSecurity.TransferReadback.Boundary.roots
+                  (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                    (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+              (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))
+            (And
+              (ShielddSecurity.TransferBankRecovery.HistoryValid
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+                history)
+              (@Eq.{1} Bool
+                (ShielddSecurity.TransferReadback.Store.healthy
+                  (ShielddSecurity.TransferBankRecovery.Outcome.store
+                    (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+                (ShielddSecurity.TransferBankRecovery.Io.healthyAfter io)))))))
+'ShielddSecurity.TransferWriterRecoveryJoin01.completed_source_participants_derive_recovery_boundary_history_and_observed_health' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferWriterRecoveryJoin01.returned_source_commit_derives_same_ready_owner_and_observed_recovery_boundary : ∀
+  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend) (store : ShielddSecurity.TransferReadback.Store)
+  (io : ShielddSecurity.TransferBankRecovery.Io) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)
+  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter
+          (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) phase))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+      (And
+        (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned
+          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+        (And
+          (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+            (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+              (ShielddSecurity.TransferWriterCommitSource01.commitWriter
+                (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) phase))
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready returned))
+          (And
+            (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+              (ShielddSecurity.TransferBankRecovery.Outcome.error
+                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))
+              (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))
+            (And
+              (@Eq.{1} Bool
+                (ShielddSecurity.TransferReadback.Store.ready
+                  (ShielddSecurity.TransferBankRecovery.Outcome.store
+                    (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+                Bool.true)
+              (And
+                (@Eq.{1} (List.{0} Nat)
+                  (ShielddSecurity.TransferReadback.Store.actualRoots
+                    (ShielddSecurity.TransferBankRecovery.Outcome.store
+                      (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+                  (ShielddSecurity.TransferReadback.Boundary.roots
+                    (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)))
+                (And
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                    (ShielddSecurity.TransferReadback.Store.boundary
+                      (ShielddSecurity.TransferBankRecovery.Outcome.store
+                        (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+                    (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                      (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)))
+                  (And
+                    (@Eq.{1} Nat
+                      (@List.length.{0} Nat
+                        (ShielddSecurity.TransferReadback.Boundary.roots
+                          (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))
+                    (@Eq.{1} Bool
+                      (ShielddSecurity.TransferReadback.Store.healthy
+                        (ShielddSecurity.TransferBankRecovery.Outcome.store
+                          (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+                      (ShielddSecurity.TransferBankRecovery.Io.healthyAfter io)))))))))
+'ShielddSecurity.TransferWriterRecoveryJoin01.returned_source_commit_derives_same_ready_owner_and_observed_recovery_boundary' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferWriterRecoveryJoin01.capacity_error_keeps_ready_owner_and_completed_observed_recovery : ∀
+  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend) (store : ShielddSecurity.TransferReadback.Store)
+  (io : ShielddSecurity.TransferBankRecovery.Io) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)
+  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (completed :
+    @Eq.{1} (Option.{0} Unit)
+      (ShielddSecurity.TransferWriterCommitSource01.participantsComplete
+        (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) frozen)
+      (@Option.some.{0} Unit Unit.unit))
+  (capacity : @Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.capacity backend frozen) Bool.false),
+  And
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter
+          (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history)
+          (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+    (And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+          (ShielddSecurity.TransferWriterCommitSource01.commitWriter
+            (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history)
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+      (And
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+          (ShielddSecurity.TransferBankRecovery.Outcome.error
+            (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))
+          (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))
+        (And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+            (ShielddSecurity.TransferReadback.Store.boundary
+              (ShielddSecurity.TransferBankRecovery.Outcome.store
+                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+            (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+          (@Eq.{1} (List.{0} Nat)
+            (ShielddSecurity.TransferReadback.Store.actualRoots
+              (ShielddSecurity.TransferBankRecovery.Outcome.store
+                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))
+            (ShielddSecurity.TransferReadback.Boundary.roots
+              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))))))
+'ShielddSecurity.TransferWriterRecoveryJoin01.capacity_error_keeps_ready_owner_and_completed_observed_recovery' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWriterRecoveryJoin01.failed_recovery_prevents_participant_completion_and_blocks_owner_status : ∀
+  {R : Type} (backend : ShielddSecurity.TransferWriterCommitSource01.Backend)
+  (store : ShielddSecurity.TransferReadback.Store) (io : ShielddSecurity.TransferBankRecovery.Io)
+  (intent : ShielddSecurity.TransferBankRecovery.IntentRead)
+  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (failed :
+    @Ne.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+      (ShielddSecurity.TransferBankRecovery.Outcome.error
+        (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))
+      (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))
+  (expected : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (lookup : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary → Option.{0} R),
+  And
+    (@Eq.{1} (Option.{0} Unit)
+      (ShielddSecurity.TransferWriterCommitSource01.participantsComplete
+        (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) frozen)
+      (@Option.none.{0} Unit))
+    (@Eq.{1} (Option.{0} R)
+      (@ShielddSecurity.TransferWriterSealDiscardSource01.ownerStatus R
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+          (ShielddSecurity.TransferWriterCommitSource01.commitWriter
+            (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history)
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+        expected lookup)
+      (@Option.none.{0} R))
+'ShielddSecurity.TransferWriterRecoveryJoin01.failed_recovery_prevents_participant_completion_and_blocks_owner_status' depends on axioms: [propext,
+ Quot.sound]

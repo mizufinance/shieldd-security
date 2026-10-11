@@ -1,0 +1,1151 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete type/source/runtime/ancestor/guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 6,
+  "inherited_reports": 570,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor",
+      "full_type": "ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor : (store : ShielddSecurity.TransferReadback.Store) \u2192\n  (io : ShielddSecurity.TransferBankRecovery.Io) \u2192\n    (intent : ShielddSecurity.TransferBankRecovery.IntentRead) \u2192\n      (history : ShielddSecurity.TransferBankRecovery.HistoryRead) \u2192\n        (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) \u2192 ShielddSecurity.TransferBankRecovery.Outcome",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "a4ee76ca3f29f8b703a155d209e0d0ef1e86a00f16ec0f5df17660a174ecd27b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery",
+      "full_type": "ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery : (backend :\n    ShielddSecurity.TransferWriterCommitSource01.Backend) \u2192\n  (store : ShielddSecurity.TransferReadback.Store) \u2192\n    (io : ShielddSecurity.TransferBankRecovery.Io) \u2192\n      (intent : ShielddSecurity.TransferBankRecovery.IntentRead) \u2192\n        (history : ShielddSecurity.TransferBankRecovery.HistoryRead) \u2192\n          ShielddSecurity.TransferWriterCommitSource01.Backend",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "15860afc6f00c7c1e02d493f13dee31b4982ad94325831e777f610bea6ac1b28"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWriterRecoveryJoin01.completed_source_participants_derive_recovery_boundary_history_and_observed_health",
+      "full_type": "ShielddSecurity.TransferWriterRecoveryJoin01.completed_source_participants_derive_recovery_boundary_history_and_observed_health : \u2200\n  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend) (store : ShielddSecurity.TransferReadback.Store)\n  (io : ShielddSecurity.TransferBankRecovery.Io) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)\n  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)\n  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)\n  (completed :\n    @Eq.{1} (Option.{0} Unit)\n      (ShielddSecurity.TransferWriterCommitSource01.participantsComplete\n        (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) frozen)\n      (@Option.some.{0} Unit Unit.unit)),\n  And\n    (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)\n      (ShielddSecurity.TransferBankRecovery.Outcome.error\n        (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))\n      (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))\n    (And\n      (@Eq.{1} Bool\n        (ShielddSecurity.TransferReadback.Store.ready\n          (ShielddSecurity.TransferBankRecovery.Outcome.store\n            (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n        Bool.true)\n      (And\n        (@Eq.{1} (List.{0} Nat)\n          (ShielddSecurity.TransferReadback.Store.actualRoots\n            (ShielddSecurity.TransferBankRecovery.Outcome.store\n              (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n          (ShielddSecurity.TransferReadback.Boundary.roots\n            (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers\n              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))\n        (And\n          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n            (ShielddSecurity.TransferReadback.Store.boundary\n              (ShielddSecurity.TransferBankRecovery.Outcome.store\n                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n            (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary\n              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers\n                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))\n          (And\n            (@Eq.{1} Nat\n              (@List.length.{0} Nat\n                (ShielddSecurity.TransferReadback.Boundary.roots\n                  (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers\n                    (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))\n              (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))\n            (And\n              (ShielddSecurity.TransferBankRecovery.HistoryValid\n                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers\n                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))\n                history)\n              (@Eq.{1} Bool\n                (ShielddSecurity.TransferReadback.Store.healthy\n                  (ShielddSecurity.TransferBankRecovery.Outcome.store\n                    (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n                (ShielddSecurity.TransferBankRecovery.Io.healthyAfter io)))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "2023b75a6ecc686ae7e0dacd9339a19bdf6c962286292b476ec35c3b1ac5365a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWriterRecoveryJoin01.returned_source_commit_derives_same_ready_owner_and_observed_recovery_boundary",
+      "full_type": "ShielddSecurity.TransferWriterRecoveryJoin01.returned_source_commit_derives_same_ready_owner_and_observed_recovery_boundary : \u2200\n  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend) (store : ShielddSecurity.TransferReadback.Store)\n  (io : ShielddSecurity.TransferBankRecovery.Io) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)\n  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)\n  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)\n  (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)\n  (success :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)\n      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned\n        (ShielddSecurity.TransferWriterCommitSource01.commitWriter\n          (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) phase))\n      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),\n  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen\n    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>\n    And\n      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase\n        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))\n      (And\n        (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned\n          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))\n        (And\n          (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase\n            (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase\n              (ShielddSecurity.TransferWriterCommitSource01.commitWriter\n                (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) phase))\n            (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready returned))\n          (And\n            (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)\n              (ShielddSecurity.TransferBankRecovery.Outcome.error\n                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))\n              (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))\n            (And\n              (@Eq.{1} Bool\n                (ShielddSecurity.TransferReadback.Store.ready\n                  (ShielddSecurity.TransferBankRecovery.Outcome.store\n                    (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n                Bool.true)\n              (And\n                (@Eq.{1} (List.{0} Nat)\n                  (ShielddSecurity.TransferReadback.Store.actualRoots\n                    (ShielddSecurity.TransferBankRecovery.Outcome.store\n                      (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n                  (ShielddSecurity.TransferReadback.Boundary.roots\n                    (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)))\n                (And\n                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n                    (ShielddSecurity.TransferReadback.Store.boundary\n                      (ShielddSecurity.TransferBankRecovery.Outcome.store\n                        (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n                    (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary\n                      (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)))\n                  (And\n                    (@Eq.{1} Nat\n                      (@List.length.{0} Nat\n                        (ShielddSecurity.TransferReadback.Boundary.roots\n                          (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers returned)))\n                      (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))\n                    (@Eq.{1} Bool\n                      (ShielddSecurity.TransferReadback.Store.healthy\n                        (ShielddSecurity.TransferBankRecovery.Outcome.store\n                          (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n                      (ShielddSecurity.TransferBankRecovery.Io.healthyAfter io)))))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "3f4d1902d0f9be6f96b2f8a97828d534eed24d7fe7689cb7be956187cee84796"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWriterRecoveryJoin01.capacity_error_keeps_ready_owner_and_completed_observed_recovery",
+      "full_type": "ShielddSecurity.TransferWriterRecoveryJoin01.capacity_error_keeps_ready_owner_and_completed_observed_recovery : \u2200\n  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend) (store : ShielddSecurity.TransferReadback.Store)\n  (io : ShielddSecurity.TransferBankRecovery.Io) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)\n  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)\n  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)\n  (completed :\n    @Eq.{1} (Option.{0} Unit)\n      (ShielddSecurity.TransferWriterCommitSource01.participantsComplete\n        (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) frozen)\n      (@Option.some.{0} Unit Unit.unit))\n  (capacity : @Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.capacity backend frozen) Bool.false),\n  And\n    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)\n      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned\n        (ShielddSecurity.TransferWriterCommitSource01.commitWriter\n          (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history)\n          (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))\n      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))\n    (And\n      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase\n        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase\n          (ShielddSecurity.TransferWriterCommitSource01.commitWriter\n            (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history)\n            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))\n        (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready\n          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))\n      (And\n        (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)\n          (ShielddSecurity.TransferBankRecovery.Outcome.error\n            (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))\n          (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))\n        (And\n          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)\n            (ShielddSecurity.TransferReadback.Store.boundary\n              (ShielddSecurity.TransferBankRecovery.Outcome.store\n                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n            (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary\n              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers\n                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))\n          (@Eq.{1} (List.{0} Nat)\n            (ShielddSecurity.TransferReadback.Store.actualRoots\n              (ShielddSecurity.TransferBankRecovery.Outcome.store\n                (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen)))\n            (ShielddSecurity.TransferReadback.Boundary.roots\n              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers\n                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e607722462c2580ee259bf12287c048e2a87b76f8593c1473f5f06f0e5ef5079"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferWriterRecoveryJoin01.failed_recovery_prevents_participant_completion_and_blocks_owner_status",
+      "full_type": "@ShielddSecurity.TransferWriterRecoveryJoin01.failed_recovery_prevents_participant_completion_and_blocks_owner_status : \u2200\n  {R : Type} (backend : ShielddSecurity.TransferWriterCommitSource01.Backend)\n  (store : ShielddSecurity.TransferReadback.Store) (io : ShielddSecurity.TransferBankRecovery.Io)\n  (intent : ShielddSecurity.TransferBankRecovery.IntentRead)\n  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)\n  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)\n  (failed :\n    @Ne.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)\n      (ShielddSecurity.TransferBankRecovery.Outcome.error\n        (ShielddSecurity.TransferWriterRecoveryJoin01.recoverFor store io intent history frozen))\n      (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))\n  (expected : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)\n  (lookup : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary \u2192 Option.{0} R),\n  And\n    (@Eq.{1} (Option.{0} Unit)\n      (ShielddSecurity.TransferWriterCommitSource01.participantsComplete\n        (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history) frozen)\n      (@Option.none.{0} Unit))\n    (@Eq.{1} (Option.{0} R)\n      (@ShielddSecurity.TransferWriterSealDiscardSource01.ownerStatus R\n        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase\n          (ShielddSecurity.TransferWriterCommitSource01.commitWriter\n            (ShielddSecurity.TransferWriterRecoveryJoin01.installRecovery backend store io intent history)\n            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))\n        expected lookup)\n      (@Option.none.{0} R))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "310e978bedfeecb268250398715d39dcedc34d4e6816c3c8c8e2be574ac518e0"
+    }
+  ],
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "module": "TransferCurrentVolumeSource01",
+      "object": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "source": {
+        "bytes": 10987,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean",
+        "sha256": "3e34bb62ef0262f2f6ff6124da243b5332ae1e2e1102961e01521f3352f74b19"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "module": "TransferOrdinaryStorageSource01",
+      "object": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "source": {
+        "bytes": 21000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean",
+        "sha256": "a16cf823a1d57f6f770ba1952a59f9fb843fc47a8e9a48d7172c4bad0ae75c66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "module": "TransferCapabilitySource01",
+      "object": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "source": {
+        "bytes": 7320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.lean",
+        "sha256": "3b75e03b3801ab4717a720d351a2cb74200f4ba087ee1b15792d51951bfc2416"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "module": "TransferVerificationEqualitySource01",
+      "object": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "source": {
+        "bytes": 5810,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.lean",
+        "sha256": "70604d840acd8c0ea7a397337ac2f7dd35ab2285d41f30b047b2aab2252b9a37"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "module": "TransferBoundOrdinarySource01",
+      "object": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "source": {
+        "bytes": 20530,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.lean",
+        "sha256": "890a31a5313618af5f593151d2fd0b60e72655cf162daa90faa769ba5ae982d2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "module": "TransferRawDeliveryComposition01",
+      "object": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "source": {
+        "bytes": 6672,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.lean",
+        "sha256": "69d72ff097718cb9e37afa3b8dbdd58241c90913bb75ff94015e0b0d50d6ad1d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "module": "TransferIndexWriterModel01",
+      "object": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "source": {
+        "bytes": 12975,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.lean",
+        "sha256": "a0dd4cb0b9b053db5ff93870c892dbc835c360f744b5343b24348eb0ae39de9e"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "module": "TransferIndexInspectionFacts01",
+      "object": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "source": {
+        "bytes": 12693,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.lean",
+        "sha256": "d0b193fa567ca2ecbc6ca130fdbb9ff30d9a758c22a7c3043b51c43efd24100c"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "module": "TransferOrdinaryIndexDelivery01",
+      "object": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "source": {
+        "bytes": 11560,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.lean",
+        "sha256": "de93d2bc043afad2fb78bbce0cc588624e6afda328273f5495997f2e5293374a"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "module": "TransferOrdinaryIndexedValues01",
+      "object": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "source": {
+        "bytes": 8201,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.lean",
+        "sha256": "2088b0d38696bf74bc75a0c7e6c9bcc62e635174ccec40453d1784f6202872d9"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 258000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryHeightSource01.olean",
+        "sha256": "f704ae465277d8f58df7fa89838664012a9c13951eaec2be20d4829d8f961e2f"
+      },
+      "module": "TransferOrdinaryHeightSource01",
+      "object": {
+        "bytes": 258000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryHeightSource01.olean",
+        "sha256": "f704ae465277d8f58df7fa89838664012a9c13951eaec2be20d4829d8f961e2f"
+      },
+      "source": {
+        "bytes": 9032,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryHeightSource01.lean",
+        "sha256": "f2cee86461467e9c25ee34ff525f3603ab099febf27aa6d18f9c5e82756bdb9f"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 229176,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferVolumeHeightKeys01.olean",
+        "sha256": "b3d12173626bdcc13bd2ec165af92252f6bf0719a91c51ead6cbbc1d51a1f70a"
+      },
+      "module": "TransferVolumeHeightKeys01",
+      "object": {
+        "bytes": 229176,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-volume-height-keys-20261011-01\\project\\ShielddSecurity\\TransferVolumeHeightKeys01.olean",
+        "sha256": "b3d12173626bdcc13bd2ec165af92252f6bf0719a91c51ead6cbbc1d51a1f70a"
+      },
+      "source": {
+        "bytes": 7100,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-volume-height-keys-20261011-01\\project\\ShielddSecurity\\TransferVolumeHeightKeys01.lean",
+        "sha256": "f361147ada6e3c761566011eab3c96459e71f959ecca44f535d12ef4fff158d5"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 165264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.olean",
+        "sha256": "424fcbcea69517650d4e487a9d3b6243523941dcee494c8e11fbbbd2ba77a8fe"
+      },
+      "module": "TransferOrdinaryIndexReadSource01",
+      "object": {
+        "bytes": 165264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-read-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.olean",
+        "sha256": "424fcbcea69517650d4e487a9d3b6243523941dcee494c8e11fbbbd2ba77a8fe"
+      },
+      "source": {
+        "bytes": 12132,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-read-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.lean",
+        "sha256": "8b7918002527fe40551535eeb9bde831f40fa5612e690eb7f09471da02a6f686"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 195264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.olean",
+        "sha256": "2a8e8e2d94ce1966aacc5f359d9c1cc0d9913843f5daae43edbd2c10d29cc8bd"
+      },
+      "module": "TransferOrdinaryIndexCountSource01",
+      "object": {
+        "bytes": 195264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-count-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.olean",
+        "sha256": "2a8e8e2d94ce1966aacc5f359d9c1cc0d9913843f5daae43edbd2c10d29cc8bd"
+      },
+      "source": {
+        "bytes": 13558,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-count-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.lean",
+        "sha256": "bb85cb6f14c2db70b0680c58acacda3f9e9241f09b4d42bfc820b33b3e721abe"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 161840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferIndexCountCodec01.olean",
+        "sha256": "643f8c53c733b1c50c9c9eef773aec79a48b1f958913cd128ae3f05bd773cfa3"
+      },
+      "module": "TransferIndexCountCodec01",
+      "object": {
+        "bytes": 161840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-count-codec-20261011-02\\project\\ShielddSecurity\\TransferIndexCountCodec01.olean",
+        "sha256": "643f8c53c733b1c50c9c9eef773aec79a48b1f958913cd128ae3f05bd773cfa3"
+      },
+      "source": {
+        "bytes": 6860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-count-codec-20261011-02\\project\\ShielddSecurity\\TransferIndexCountCodec01.lean",
+        "sha256": "d1ac5a48aaba16bf13c8c44e45fbd5bdc754cc0fb20452453de28d670e2e1d39"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 66136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.olean",
+        "sha256": "1e3f33103b47bb3e471d28e34dc20b01b2316d47785b76b1c03bea84c6ac68ff"
+      },
+      "module": "TransferOrdinaryCountCodecJoin01",
+      "object": {
+        "bytes": 66136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-count-codec-join-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.olean",
+        "sha256": "1e3f33103b47bb3e471d28e34dc20b01b2316d47785b76b1c03bea84c6ac68ff"
+      },
+      "source": {
+        "bytes": 7515,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-count-codec-join-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.lean",
+        "sha256": "d6d7ba9a1fadf1fbc3a797acfcaa8974c45e64fc6e40114565542624be55c948"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 114136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryMaxCount01.olean",
+        "sha256": "257066c36c0b3a54fec2303103432760b9ce96e3e3eb73757673ef2aff5a6c4c"
+      },
+      "module": "TransferOrdinaryMaxCount01",
+      "object": {
+        "bytes": 114136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-max-count-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryMaxCount01.olean",
+        "sha256": "257066c36c0b3a54fec2303103432760b9ce96e3e3eb73757673ef2aff5a6c4c"
+      },
+      "source": {
+        "bytes": 8331,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-max-count-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryMaxCount01.lean",
+        "sha256": "ff561417f542c203bf8c75b17ae0f0db7d38430084398d4e44371dd856a04b66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 136840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.olean",
+        "sha256": "235fbceca9c6736d0082ece46815e4ac9068c35ad4b96a47b89a0315d9e562ba"
+      },
+      "module": "TransferOrdinaryDecodableIndex01",
+      "object": {
+        "bytes": 136840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-decodable-index-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.olean",
+        "sha256": "235fbceca9c6736d0082ece46815e4ac9068c35ad4b96a47b89a0315d9e562ba"
+      },
+      "source": {
+        "bytes": 5395,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-decodable-index-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.lean",
+        "sha256": "03aaf25c9b45f7b7652601d859cd42e3bfb52df2439681691e42d7cd7e028295"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243696,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredQueueSourceModel01.olean",
+        "sha256": "e553a91947db6c18c8652f2ead722f66a55ac10080b79f9c8f1a5acc13282230"
+      },
+      "module": "TransferDeferredQueueSourceModel01",
+      "object": {
+        "bytes": 243696,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-queue-model-20261010-03\\project\\ShielddSecurity\\TransferDeferredQueueSourceModel01.olean",
+        "sha256": "e553a91947db6c18c8652f2ead722f66a55ac10080b79f9c8f1a5acc13282230"
+      },
+      "source": {
+        "bytes": 9778,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-queue-model-20261010-03\\project\\ShielddSecurity\\TransferDeferredQueueSourceModel01.lean",
+        "sha256": "e13a2ae7f8ac769d439b101bf33c1197a2ef672452abaf2ff23e6e0f078cb6e1"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 190096,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredCountWalk01.olean",
+        "sha256": "c55e5c1b715c4a2a2a34ece4592eda3103c30df64c14131ab963ae6dee6c3276"
+      },
+      "module": "TransferDeferredCountWalk01",
+      "object": {
+        "bytes": 190096,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-walk-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountWalk01.olean",
+        "sha256": "c55e5c1b715c4a2a2a34ece4592eda3103c30df64c14131ab963ae6dee6c3276"
+      },
+      "source": {
+        "bytes": 6523,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-walk-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountWalk01.lean",
+        "sha256": "f48d11fd17460e16c663ba26cbb9aaaf54d06c0548d585aed301a2ec339ed245"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 117416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredCountFlush01.olean",
+        "sha256": "a65e786e9ed50d8abd557b1316e8c5e6c8b5e3881d0ee9f6431870471041b2fe"
+      },
+      "module": "TransferDeferredCountFlush01",
+      "object": {
+        "bytes": 117416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-flush-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountFlush01.olean",
+        "sha256": "a65e786e9ed50d8abd557b1316e8c5e6c8b5e3881d0ee9f6431870471041b2fe"
+      },
+      "source": {
+        "bytes": 5970,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-flush-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountFlush01.lean",
+        "sha256": "d1716662a0de6dd2604fbcf9d2462e56d5556eca3526e09a0314e41f93d05668"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 81208,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredMaxCount01.olean",
+        "sha256": "5ebd183c0c679e9e68a67fc15f11044348463378ffc5609081afd156290f630d"
+      },
+      "module": "TransferDeferredMaxCount01",
+      "object": {
+        "bytes": 81208,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-max-count-20261011-01\\project\\ShielddSecurity\\TransferDeferredMaxCount01.olean",
+        "sha256": "5ebd183c0c679e9e68a67fc15f11044348463378ffc5609081afd156290f630d"
+      },
+      "source": {
+        "bytes": 4732,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-max-count-20261011-01\\project\\ShielddSecurity\\TransferDeferredMaxCount01.lean",
+        "sha256": "378a0e62e859ea322f96fdb64f8ce536af6520fdbed514e9eeff486f27b86a1b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 360224,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferFeeFundingDelivery01.olean",
+        "sha256": "44816a9d0b81931d30e81763d610b18e60febfe61cb41b351f83133cc50c8e79"
+      },
+      "module": "TransferFeeFundingDelivery01",
+      "object": {
+        "bytes": 360224,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-fee-funding-delivery-20261011-03\\project\\ShielddSecurity\\TransferFeeFundingDelivery01.olean",
+        "sha256": "44816a9d0b81931d30e81763d610b18e60febfe61cb41b351f83133cc50c8e79"
+      },
+      "source": {
+        "bytes": 12622,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-fee-funding-delivery-20261011-03\\project\\ShielddSecurity\\TransferFeeFundingDelivery01.lean",
+        "sha256": "648a67f537cde7b37cc066492b348c50fb06752a99d29ea8fa174e73972b96b3"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 352584,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferDeferredBodyFailure01.olean",
+        "sha256": "ace751b595583484a06ea3086ae23d86a29d3c32e22cefe213aad89f04a9b074"
+      },
+      "module": "TransferDeferredBodyFailure01",
+      "object": {
+        "bytes": 352584,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-03\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.olean",
+        "sha256": "ace751b595583484a06ea3086ae23d86a29d3c32e22cefe213aad89f04a9b074"
+      },
+      "source": {
+        "bytes": 12846,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-03\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.lean",
+        "sha256": "6dd4e786b93ee606e2911f27615a15ac11e057793937f9bbef0f64ceddf2f1e4"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 374496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWholeNullifierAdmission01.olean",
+        "sha256": "4756f37dd95b42cd0bfd898c396ea1aedb933db0b70c38e670c519542f5f67a6"
+      },
+      "module": "TransferWholeNullifierAdmission01",
+      "object": {
+        "bytes": 374496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-nullifier-admission-20261011-01\\project\\ShielddSecurity\\TransferWholeNullifierAdmission01.olean",
+        "sha256": "4756f37dd95b42cd0bfd898c396ea1aedb933db0b70c38e670c519542f5f67a6"
+      },
+      "source": {
+        "bytes": 12688,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-nullifier-admission-20261011-01\\project\\ShielddSecurity\\TransferWholeNullifierAdmission01.lean",
+        "sha256": "6d27a1b029ee76f3776b4bd364c300af70864c60316485fd9122883135398e05"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 545312,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferPendingNullifierRetention01.olean",
+        "sha256": "29f7ed84bffb4334eb683f19c7071d17eb6242b3a7a081c3d411f9f6fb6aa717"
+      },
+      "module": "TransferPendingNullifierRetention01",
+      "object": {
+        "bytes": 545312,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-nullifier-retention-20261011-02\\project\\ShielddSecurity\\TransferPendingNullifierRetention01.olean",
+        "sha256": "29f7ed84bffb4334eb683f19c7071d17eb6242b3a7a081c3d411f9f6fb6aa717"
+      },
+      "source": {
+        "bytes": 23787,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-nullifier-retention-20261011-02\\project\\ShielddSecurity\\TransferPendingNullifierRetention01.lean",
+        "sha256": "6667bf22971da3ef1d916ae210ec695bd191b2efc4d507641dfdac4868596326"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 230040,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierObjectKeys01.olean",
+        "sha256": "a9a248b9921f6fbccd4a6f14199f6cbb971f2f63d8148ffe6d3be7c9ef0a2306"
+      },
+      "module": "TransferNullifierObjectKeys01",
+      "object": {
+        "bytes": 230040,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-object-keys-20261011-01\\project\\ShielddSecurity\\TransferNullifierObjectKeys01.olean",
+        "sha256": "a9a248b9921f6fbccd4a6f14199f6cbb971f2f63d8148ffe6d3be7c9ef0a2306"
+      },
+      "source": {
+        "bytes": 5587,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-object-keys-20261011-01\\project\\ShielddSecurity\\TransferNullifierObjectKeys01.lean",
+        "sha256": "cf554dad0b6feac26b21a9734b22b1b987e9ac457ee0bcd9a92d331b5e56ffcd"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 222000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferCurrentPendingReplay01.olean",
+        "sha256": "643419659e5fde371b7ef61a599ed7f27de02e9a86b3f06bb946b1719558b370"
+      },
+      "module": "TransferCurrentPendingReplay01",
+      "object": {
+        "bytes": 222000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-pending-replay-20261011-01\\project\\ShielddSecurity\\TransferCurrentPendingReplay01.olean",
+        "sha256": "643419659e5fde371b7ef61a599ed7f27de02e9a86b3f06bb946b1719558b370"
+      },
+      "source": {
+        "bytes": 11029,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-pending-replay-20261011-01\\project\\ShielddSecurity\\TransferCurrentPendingReplay01.lean",
+        "sha256": "cef41dded39f050c18d9b73c67090f7b798eb00702842b1c13f25a712e2f820c"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 478728,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferReadback.olean",
+        "sha256": "b21cf37c9ecc3c8c6eb08ed69d51699591a199873ff36277d01ef3e7f195dab9"
+      },
+      "module": "TransferReadback",
+      "object": {
+        "bytes": 478728,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-readback-recovery-publication-20261010-02\\project\\ShielddSecurity\\TransferReadback.olean",
+        "sha256": "b21cf37c9ecc3c8c6eb08ed69d51699591a199873ff36277d01ef3e7f195dab9"
+      },
+      "source": {
+        "bytes": 14817,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-readback-recovery-publication-20261010-02\\project\\ShielddSecurity\\TransferReadback.lean",
+        "sha256": "0af3de530ac872f31af6c05cff90ed17b212a760d6cc5f957b29b4841451220e"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 305768,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWholeDurableReadback01.olean",
+        "sha256": "372320e83bd5e2954177f6b6dad03d22490cf13c8119e2db0bd40f4a837a4809"
+      },
+      "module": "TransferWholeDurableReadback01",
+      "object": {
+        "bytes": 305768,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-durable-readback-20261011-02\\project\\ShielddSecurity\\TransferWholeDurableReadback01.olean",
+        "sha256": "372320e83bd5e2954177f6b6dad03d22490cf13c8119e2db0bd40f4a837a4809"
+      },
+      "source": {
+        "bytes": 16086,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-durable-readback-20261011-02\\project\\ShielddSecurity\\TransferWholeDurableReadback01.lean",
+        "sha256": "2969cbe54936308fc37ac79d0f1ec90b5dd70665c136835a3955185a21c2b5ce"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 79104,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierConsensusLimits01.olean",
+        "sha256": "bfa84e0f3c11f1cb0fed98aaefcaff256fd6b4a03ae8398200920324778d96af"
+      },
+      "module": "TransferNullifierConsensusLimits01",
+      "object": {
+        "bytes": 79104,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-consensus-limits-20261011-02\\project\\ShielddSecurity\\TransferNullifierConsensusLimits01.olean",
+        "sha256": "bfa84e0f3c11f1cb0fed98aaefcaff256fd6b4a03ae8398200920324778d96af"
+      },
+      "source": {
+        "bytes": 12088,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-consensus-limits-20261011-02\\project\\ShielddSecurity\\TransferNullifierConsensusLimits01.lean",
+        "sha256": "098a9aa79a0b0b31f034f7362fc2658720375c52842616d93234f35d9a3a2435"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 418480,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWholeReaderRefusal01.olean",
+        "sha256": "db3e9a31d91b1f75e82838ee6a955166d627859bcf83692b7d4d43c118c3b912"
+      },
+      "module": "TransferWholeReaderRefusal01",
+      "object": {
+        "bytes": 418480,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-20261011-01\\project\\ShielddSecurity\\TransferWholeReaderRefusal01.olean",
+        "sha256": "db3e9a31d91b1f75e82838ee6a955166d627859bcf83692b7d4d43c118c3b912"
+      },
+      "source": {
+        "bytes": 13485,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-whole-reader-refusal-20261011-01\\project\\ShielddSecurity\\TransferWholeReaderRefusal01.lean",
+        "sha256": "de9ebea8105b08fe03c708b394f699623cc6fbca3ff919abe62d783b7e6b234b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 106376,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferPendingSetInvariant01.olean",
+        "sha256": "b0dc4d658a3354c0ed903060a223635e57b0f5f90e460fa758d69189b3080347"
+      },
+      "module": "TransferPendingSetInvariant01",
+      "object": {
+        "bytes": 106376,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-set-invariant-20261011-02\\project\\ShielddSecurity\\TransferPendingSetInvariant01.olean",
+        "sha256": "b0dc4d658a3354c0ed903060a223635e57b0f5f90e460fa758d69189b3080347"
+      },
+      "source": {
+        "bytes": 5000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-set-invariant-20261011-02\\project\\ShielddSecurity\\TransferPendingSetInvariant01.lean",
+        "sha256": "b99247401ebae9b9cc6d03c4046c2f060f95f44612ce4423a43fced98341aaf0"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 459520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBlockPendingSequence01.olean",
+        "sha256": "9632c7ef4dbb71fa0ceec31f077ddad7ab2a98849ede7ffdce79d795c6920c7b"
+      },
+      "module": "TransferBlockPendingSequence01",
+      "object": {
+        "bytes": 459520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-block-pending-sequence-20261011-01\\project\\ShielddSecurity\\TransferBlockPendingSequence01.olean",
+        "sha256": "9632c7ef4dbb71fa0ceec31f077ddad7ab2a98849ede7ffdce79d795c6920c7b"
+      },
+      "source": {
+        "bytes": 12352,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-block-pending-sequence-20261011-01\\project\\ShielddSecurity\\TransferBlockPendingSequence01.lean",
+        "sha256": "c089af64d0cd2afc9ee96a1be7b9a320b0e33e26d583de15f8196250d0d8bff8"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 276272,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferPendingSealSource01.olean",
+        "sha256": "ab3956d10906048e153944615bd4a3e459640627060d91221ae308b50f12630e"
+      },
+      "module": "TransferPendingSealSource01",
+      "object": {
+        "bytes": 276272,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-seal-source-20261011-03\\project\\ShielddSecurity\\TransferPendingSealSource01.olean",
+        "sha256": "ab3956d10906048e153944615bd4a3e459640627060d91221ae308b50f12630e"
+      },
+      "source": {
+        "bytes": 11316,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-seal-source-20261011-03\\project\\ShielddSecurity\\TransferPendingSealSource01.lean",
+        "sha256": "c82656df96671dcd9c60bda4d1d8c0371d6a13201ac53f85980d91de0820a2a3"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 159736,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBlockSealJoin01.olean",
+        "sha256": "760e5b41a3a096aa745756af1c7ec4ace6249ad0a761640af7d514ae49610b3f"
+      },
+      "module": "TransferBlockSealJoin01",
+      "object": {
+        "bytes": 159736,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-block-seal-join-20261011-01\\project\\ShielddSecurity\\TransferBlockSealJoin01.olean",
+        "sha256": "760e5b41a3a096aa745756af1c7ec4ace6249ad0a761640af7d514ae49610b3f"
+      },
+      "source": {
+        "bytes": 12241,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-block-seal-join-20261011-01\\project\\ShielddSecurity\\TransferBlockSealJoin01.lean",
+        "sha256": "c088730ef7a3092c24cee6bf8865085e893d8d09b6b7a55a50888b4c1349ce8b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 246912,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferPreparedAcceptedSource01.olean",
+        "sha256": "bbb0854b828f48fe215882141f267054909cf32fb709668f828243c5f1f67ec6"
+      },
+      "module": "TransferPreparedAcceptedSource01",
+      "object": {
+        "bytes": 246912,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prepared-accepted-source-20261011-02\\project\\ShielddSecurity\\TransferPreparedAcceptedSource01.olean",
+        "sha256": "bbb0854b828f48fe215882141f267054909cf32fb709668f828243c5f1f67ec6"
+      },
+      "source": {
+        "bytes": 9737,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-prepared-accepted-source-20261011-02\\project\\ShielddSecurity\\TransferPreparedAcceptedSource01.lean",
+        "sha256": "caa92c6923dd52ea5675144c4926f8d8d2db30023e8875eb73d2cf6294115f07"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 110320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferPendingFiniteCodec01.olean",
+        "sha256": "08621d983fe0be77b00a064723629d5358e20d7a09b76650e4ebff406b6aa1c5"
+      },
+      "module": "TransferPendingFiniteCodec01",
+      "object": {
+        "bytes": 110320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-finite-codec-20261011-02\\project\\ShielddSecurity\\TransferPendingFiniteCodec01.olean",
+        "sha256": "08621d983fe0be77b00a064723629d5358e20d7a09b76650e4ebff406b6aa1c5"
+      },
+      "source": {
+        "bytes": 5839,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-pending-finite-codec-20261011-02\\project\\ShielddSecurity\\TransferPendingFiniteCodec01.lean",
+        "sha256": "fcf4ca36cb2c77a8d78dc2709f1414f5be352a390f95ff45d730111ee2e43726"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 238256,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferReachablePendingBlock01.olean",
+        "sha256": "85ab60528fa202b3b747bdd16d60a4e395efdf06e3b0123ffe9d743681b78cae"
+      },
+      "module": "TransferReachablePendingBlock01",
+      "object": {
+        "bytes": 238256,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-reachable-pending-block-20261011-03\\project\\ShielddSecurity\\TransferReachablePendingBlock01.olean",
+        "sha256": "85ab60528fa202b3b747bdd16d60a4e395efdf06e3b0123ffe9d743681b78cae"
+      },
+      "source": {
+        "bytes": 17059,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-reachable-pending-block-20261011-03\\project\\ShielddSecurity\\TransferReachablePendingBlock01.lean",
+        "sha256": "4505b91554c28911aeebecd8a5101f0d8c8e5714d9ee924b8dc8da5a2998b1b4"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 520216,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWriterPrepareSource01.olean",
+        "sha256": "ea2694fa1942eda56d5f76897e1941ce2ae7c37c20b80c28cbecc84977017556"
+      },
+      "module": "TransferWriterPrepareSource01",
+      "object": {
+        "bytes": 520216,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-prepare-source-20261011-02\\project\\ShielddSecurity\\TransferWriterPrepareSource01.olean",
+        "sha256": "ea2694fa1942eda56d5f76897e1941ce2ae7c37c20b80c28cbecc84977017556"
+      },
+      "source": {
+        "bytes": 16661,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-prepare-source-20261011-02\\project\\ShielddSecurity\\TransferWriterPrepareSource01.lean",
+        "sha256": "c0f5b74b431a17c82cdd276dcd3f66f718e0427d06525bd66530fedc69f983b4"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 246928,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWriterSealDiscardSource01.olean",
+        "sha256": "61919ae9612a6b41b799cb80c7843c43408649dd65092d32635751d04f1e58b5"
+      },
+      "module": "TransferWriterSealDiscardSource01",
+      "object": {
+        "bytes": 246928,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-seal-discard-source-20261011-02\\project\\ShielddSecurity\\TransferWriterSealDiscardSource01.olean",
+        "sha256": "61919ae9612a6b41b799cb80c7843c43408649dd65092d32635751d04f1e58b5"
+      },
+      "source": {
+        "bytes": 9954,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-seal-discard-source-20261011-02\\project\\ShielddSecurity\\TransferWriterSealDiscardSource01.lean",
+        "sha256": "0bd2257a6eab0b59ee36d0d5f5e9ff65b648bf729d23a2b36b8036ae4fb8ad80"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 357256,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferWriterCommitSource01.olean",
+        "sha256": "e1c6e3e22366b8427f4b5aadc6259770466510c964f770b36ef5a72812edc522"
+      },
+      "module": "TransferWriterCommitSource01",
+      "object": {
+        "bytes": 357256,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-commit-source-20261011-01\\project\\ShielddSecurity\\TransferWriterCommitSource01.olean",
+        "sha256": "e1c6e3e22366b8427f4b5aadc6259770466510c964f770b36ef5a72812edc522"
+      },
+      "source": {
+        "bytes": 12735,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-commit-source-20261011-01\\project\\ShielddSecurity\\TransferWriterCommitSource01.lean",
+        "sha256": "c45d1d8d0db1bb4258535bac7ebd9902f58f1c5875dcf34ccf91dcac20847f8a"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 196376,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferPersistIntentSource01.olean",
+        "sha256": "fd98dda7e439dd83f34da10f615ff628df14a4dd005cebda0cc811549e2d0c29"
+      },
+      "module": "TransferPersistIntentSource01",
+      "object": {
+        "bytes": 196376,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-persist-intent-source-20261011-02\\project\\ShielddSecurity\\TransferPersistIntentSource01.olean",
+        "sha256": "fd98dda7e439dd83f34da10f615ff628df14a4dd005cebda0cc811549e2d0c29"
+      },
+      "source": {
+        "bytes": 7529,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-persist-intent-source-20261011-02\\project\\ShielddSecurity\\TransferPersistIntentSource01.lean",
+        "sha256": "7f1bcd086dedee1d28cb9db9315bfb361f20b2796e443fedb5a3d292c30681c1"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 306328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferStoreCommitSource01.olean",
+        "sha256": "9418d58ee14ed5787bd1a3560bbec508d31a700be7b6bac6209cfe2953da4052"
+      },
+      "module": "TransferStoreCommitSource01",
+      "object": {
+        "bytes": 306328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-store-commit-source-20261011-02\\project\\ShielddSecurity\\TransferStoreCommitSource01.olean",
+        "sha256": "9418d58ee14ed5787bd1a3560bbec508d31a700be7b6bac6209cfe2953da4052"
+      },
+      "source": {
+        "bytes": 9697,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-store-commit-source-20261011-02\\project\\ShielddSecurity\\TransferStoreCommitSource01.lean",
+        "sha256": "8494a0cf7a0087742fbe4775f558ba0148ec37b56f955d3a6cc9f75c1717401b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 530336,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferStageBoundarySource01.olean",
+        "sha256": "cca12b4675d643164c08752b5c8698f45075259bed6e7f0be3ed5a16b454fae3"
+      },
+      "module": "TransferStageBoundarySource01",
+      "object": {
+        "bytes": 530336,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-stage-boundary-source-20261011-02\\project\\ShielddSecurity\\TransferStageBoundarySource01.olean",
+        "sha256": "cca12b4675d643164c08752b5c8698f45075259bed6e7f0be3ed5a16b454fae3"
+      },
+      "source": {
+        "bytes": 12502,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-stage-boundary-source-20261011-02\\project\\ShielddSecurity\\TransferStageBoundarySource01.lean",
+        "sha256": "f32fe88937cf10fecc88047412eedd97cf7d6e19b14b48fab25051615dcf6bf9"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 282376,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBoundaryKeyBinding01.olean",
+        "sha256": "76815c30a928e266bf6b6dc14c44185e2560632c7168a53944f9156fb2300414"
+      },
+      "module": "TransferBoundaryKeyBinding01",
+      "object": {
+        "bytes": 282376,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-boundary-key-binding-20261011-01\\project\\ShielddSecurity\\TransferBoundaryKeyBinding01.olean",
+        "sha256": "76815c30a928e266bf6b6dc14c44185e2560632c7168a53944f9156fb2300414"
+      },
+      "source": {
+        "bytes": 5587,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-boundary-key-binding-20261011-01\\project\\ShielddSecurity\\TransferBoundaryKeyBinding01.lean",
+        "sha256": "558033ddbd5705ac05aa593e9071d594db6db1420401e499ab4f443f9b2502db"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 269624,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBoundaryReaderSource01.olean",
+        "sha256": "256db51392a3dbfc4a52cc1002f481cb064ebf2a7896a4db43662204e9bd742d"
+      },
+      "module": "TransferBoundaryReaderSource01",
+      "object": {
+        "bytes": 269624,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-boundary-reader-source-20261011-02\\project\\ShielddSecurity\\TransferBoundaryReaderSource01.olean",
+        "sha256": "256db51392a3dbfc4a52cc1002f481cb064ebf2a7896a4db43662204e9bd742d"
+      },
+      "source": {
+        "bytes": 7958,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-boundary-reader-source-20261011-02\\project\\ShielddSecurity\\TransferBoundaryReaderSource01.lean",
+        "sha256": "4c9bfd48936be6f6213be73f33d1d97c0d957d91dd9c093d8f6660969eeba488"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 234496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferAuthenticatedBoundarySource01.olean",
+        "sha256": "5d52fda454d9404ed399277e1d8aa832dae2c233733ae52d612baa2a331e6e45"
+      },
+      "module": "TransferAuthenticatedBoundarySource01",
+      "object": {
+        "bytes": 234496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-authenticated-boundary-source-20261011-01\\project\\ShielddSecurity\\TransferAuthenticatedBoundarySource01.olean",
+        "sha256": "5d52fda454d9404ed399277e1d8aa832dae2c233733ae52d612baa2a331e6e45"
+      },
+      "source": {
+        "bytes": 7444,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-authenticated-boundary-source-20261011-01\\project\\ShielddSecurity\\TransferAuthenticatedBoundarySource01.lean",
+        "sha256": "c4881ccf11762fb7d2a4936cfdcb789e2407399bcc7e0f455e3d33e1fe36b531"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 691984,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-writer-recovery-join-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferBankRecovery.olean",
+        "sha256": "044a20e3830fbe861cfdfa7fd9fbf3df9cd0dc130105999d7f702882a180fd14"
+      },
+      "module": "TransferBankRecovery",
+      "object": {
+        "bytes": 691984,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-readback-recovery-publication-20261010-02\\project\\ShielddSecurity\\TransferBankRecovery.olean",
+        "sha256": "044a20e3830fbe861cfdfa7fd9fbf3df9cd0dc130105999d7f702882a180fd14"
+      },
+      "source": {
+        "bytes": 12086,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-readback-recovery-publication-20261010-02\\project\\ShielddSecurity\\TransferBankRecovery.lean",
+        "sha256": "446f60161277bab78888eb47dc528a8bc0b9c05283ecf44a59424b0860faa294"
+      }
+    }
+  ],
+  "manifest_entries": 47,
+  "guard_unchanged": true,
+  "rejected": [],
+  "interfaces": [
+    "Generic body adapter is instantiated with the qualified exact-Item Ordinary source program; extractor/token/proof provenance remains upstream",
+    "Loaded immutable SCT, Rust CloneCOW/panic/tree/key/value/source/event codecs and store authentication remain inherited interfaces",
+    "Transaction conversion, byte-key projection, big-endian count codec and actual index storage reads require source correspondence",
+    "Run commit denotes applying child cache to original parent; it does not imply block seal or durable multi-store publication",
+    "Returned error discard remains scoped; native Host panic/queue retry and all native controls remain separate",
+    "No semantic negative-control, native or full Transfer certification credit",
+    "Index byte-to-Nat projection injectivity denotes key representation preservation and is not a cryptographic hash injectivity claim",
+    "Actual get_proto height decoder and height-key projection/store read availability remain representation interfaces; explicit separation from the two volume marker keys",
+    "Byte-to-Nat equality-preserving projection remains explicit; arbitrary suffixes include all actual day/nullifier encodings without proving those codecs",
+    "Actual nonverifiable_get_raw availability, transaction conversion/serialization and initial stored-height decoder correspondence remain explicit",
+    "Concrete Nat-list byte codec requires actual Vec<u8> representation; symbolic base-256 value corresponds to Rust u64 big-endian operations by the retained runtime source, without a Rust semantics theorem",
+    "Byte-key to Nat projection is explicitly injective and denotes representation equality preservation, not hash/cryptographic injectivity; actual Rust String/object-store/codec/ownership correspondence remains separate",
+    "The object decoder denotes successful typed object_get/Clone, with forall-pending encode/decode roundtrip explicit. Present wrong-type object_get/object_put panics are outside returned-result correspondence and are not modeled as default or recoverable refusal.",
+    "Current typed Reader object decode/Clone, application read_boundary authentication/codec, read-lock availability, candidate native proof construction, NOMT/SHA semantic correspondence and ownership/durability remain explicit. MerkleContract is an explicit semantic soundness premise, not proved by hashes. Wrong-type reader object panic is outside the returned-result model.",
+    "The selected model usize width must be 32 or 64; matching the concrete native target and Rust saturating/len arithmetic remains an explicit representation interface. The source consensus limit is extracted exactly, and its strict bound below either selected maximum is kernel proved.",
+    "Initial Open pending membership equals ordered-vector membership, and the initial ordered vector has no duplicates, are explicit data invariants; default empty has both proved. Native imbl Vector/OrdSet/getter/Clone correspondence remains separate. Successful symbolic uniqueLoop and pending freshness derive admitted append uniqueness.",
+    "Sequence requests explicitly have nonempty input projections and supported 32/64-bit word widths. Every step installs the same typed pending encoding/roundtrip/current getter and injective static key representation. All successful whole run outcomes are supplied as one walk success, not successful primitive or desired poststate contracts. Matching actual native request projection/scheduling and imbl collections remains an interface.",
+    "Pending Sealed membership is derived from the frozen ordered vector, matching enum contains/ordered/Clone branches. Typed enum/getter/put/encoding and actual event/cache/ownership correspondence remain explicit. ensure-sealed accepts object absence, unlike default Open returned by the seal getter.",
+    "Pinned SCT begin_block writes explicit PendingNullifierBlock::default Open empty; encoded default under typed representation derives the empty starting read. The modeled complete block walk/one-shot seal must match actual native phase/request scheduling, Arc uniqueness, intervening state mutation and writer accepted-vector Clone/collect before native Host/durability correspondence is claimed. SCT end_block expect panics remain outside returned error results.",
+    "Store::prepare source prefix Option refusal abstracts returned error distinctions; Gate conjoins the actual ordered prefix checks, preserving call suppression but not a first-error label or trace. BTreeSet uniqueness is modeled by the existing symbolic uniqueLoop; partitions/session/collision/read/finish/witness/verify_insertions remain explicit fallible sessions interface with observed next roots. Existing Store healthy models all partition poison flags. Native RootSet and blockId fixed lengths, concrete nullifier/Vec/BTreeSet representations and source scheduling/owner immutability remain interfaces.",
+    "Finite NativePending Open member-list is an extensional representation of OrdSet membership; list order/duplicates may change in the concrete set codec. Sealed has ordered only and its model membership is reconstructed as a ghost. Typed finite object roundtrip is observational after restore, not identity of arbitrary model Pending functions. Whole block must consume a coherence-restricted roundtrip rather than instantiate the prior globally quantified abstract roundtrip with this native erasure codec. Native SDK nullifier finite value representation, cnidarium downcast/Clone and wrong-type panic interfaces remain explicit.",
+    "This fresh same-program proof consumes roundtrip only for derived coherent reachable pending states. The finite enum wrapper uses observational typed finite encoding/restoration and reconstructs Sealed membership as a ghost; it never instantiates the prior universal arbitrary-Pending codec assumption. Native finite list/set/nullifier representation, cnidarium typed object embedding/Clone and complete program scheduling/ownership remain independent correspondence interfaces.",
+    "PermanentWriter Ready/Prepared/Sealed/Interrupted phases and prepare call order modeled with unavailable Option results, not first-error labels or asynchronous traces. Stage-boundary callback takes the exact independently prepared transition and the owned state; application preparation observes its returned state and root. Native staged batch content and object/clone/Arc/lock/phase/async/owner correspondence remain explicit. No writer seal/persist_intent/commit/discard/recovery operation is modeled here; failure phase preservation does not assert rollback of disposable state or durability.",
+    "Source PermanentWriter::seal/discard/committed/status ordering and phase behavior modeled; Bool persistIntent denotes observed returned success only, not independently proved file/directory/intent durability. Failure does not imply absence or rollback of physical progress. Interrupted owner status refusal precedes the reader callback and does not assert raw Store reader refusal. Native fixed byte roots/nullifiers, struct Eq/Clone, lock/async/owner/scheduling and actual I/O effect semantics remain source refinement interfaces.",
+    "Source commit control flow and phase projection only: callbacks denote actual observed results; applicationUnchanged models native wrapping version comparison, and root equality checks the observed commit root. Physical Store roots/partial participant commits, staged batch content, recovery health, lock/Clone/type/owner/async/native correspondence and durable I/O remain interfaces. A capacity error occurs after phase Ready and does not imply rollback or absence of durable progress. Interrupted owner API status is unavailable before its reader callback; raw Store readers require their own proof.",
+    "Persist-intent filesystem fields denote actual independently observed exists/read_record/history results, not authoritative trusted commitments. The write callback carries observed filesystem progress and returned success separately; successful result is not independently proved fsync/file/directory durability. Its Store argument is a ghost of ready=false memory state at invocation, erased in the native signature; native lock/concurrency/memory/physical root and filesystem correspondences remain explicit. Existing intent equality does not infer reader health beyond checked initial readiness/health. Failure retains observed progress and cannot imply intent absence or rollback.",
+    "Source commit list denotes Prepared.sessions iteration order and partition indices, not accepted nullifier input list. Callback roots and returned success are independent observations; no root or rollback success premise is inserted. Native actual_roots and session.commit effects/order/ownership, hash/serialization/record equality, prepared validity and lock/concurrency/durable memory correspondence remain explicit. Readiness stays blocked through participant success and final root check; recovery/completion is separate.",
+    "Source stage key parameters must denote the pinned boundary/format/root and two legacy key literals through an injective native representation; their separation is explicit in exact-three-value theorem. Format and root commitment denote native FORMAT and Roots::commitment bytes; their semantic crypto/serde correspondence is not inferred from hash identity. Native raw get availability and typed immutable current view/async ownership are interfaces; parent checks do not establish native read trace or snapshot locks. ValidTransition finite height bound is native typed u64 embedding, and original uniqueLoop recurrence represents actual BTreeSet insertion success. Store.prepare lacks an initial-default check; deriving stage validation correctly requires independently checked default boundary in genesis case.",
+    "Generated source keys and FORMAT use exact pinned ASCII literal extraction. Function.Injective project is the representation interface; source byte inequality discharges all three generic write-key separation premises. Native state/raw getter, typed values/serde, SHA256 roots commitment/owner/Clone/durability correspondence remains explicit and no output identity is elevated to a native certificate.",
+    "Actual source boundary reader checks original available current raw bytes and native literal FORMAT before decode/height/root check. Primitive serde/roots commitment/raw current getters and native immutable typed values/availability/ownership/async/locks remain explicit; hash identity does not establish correspondence. installReader synchronizes source stage availability, readPrevious, pinned FORMAT and aggregate-root callback with this reader; whole noninitial stage success derives original read observations. This reader consumes assumed authenticated application state and does not independently prove consensus or ICS23 snapshot authentication.",
+    "Source proof observation contains actual nonmissing value bytes and proof; verify interface models native membership verification with application root, exact source key path and that value. Whole source success derives every callback return. Modeled Member semantics requires separately supplied verifier soundness; native ICS23/ibc spec/path/root/finite bytes correspondence is open. Binding raw read values requires immutable snapshot consistency between actual get_with_proof values and actual raw getter values, which is never inferred from a file hash or mere returned verifier success. Snapshot root and block height are actual independent fallible observations; host root authentication and owner/async/Clone/durability remain interfaces.",
+    "Original BankRecovery10 is an independently qualified model of recovery controls/observed roots/history/health; exact legacy source/object/reports reused, no imported replay and no duplicate Readback reports. Adapter only maps modeled returned recovery error to source writer completion callback success. Supplied store denotes recovery invocation observation, not defined to equal desired participant state; native state threading/same lock/partition poison snapshots/rollback-other-partition frames and durable I/O remain separate obligations. Recovery clean establishes ready/roots/boundary/history while partition health stays independently observed healthyAfter. Post-completion capacity error preserves source owner Ready and modeled observed recovery without rollback inference.",
+    "Decoded nullifier equality and BTreeSet/OrdSet/Vector correspondence",
+    "Pending getter is the current child snapshot, including default Open and sealed representation",
+    "Source-id boolean and usize wordMax/capacity reflect the pinned runtime",
+    "Individually verified lookup/reader gate at the captured committed boundary; current pending join supplied by the qualified vector program",
+    "Typed pending-object encoding, object-key projection, Clone/COW/ownership and Rust cache correspondence",
+    "Concrete SCT/note insertion and durability remain separate",
+    "Captured note source and reacquired ordinary volume source are explicit callback arguments; exact validated capability comparison/stateless re-extraction is represented by exactMatched; proof cryptography remains separate",
+    "Current source Option Bool preserves missing versus present nontransaction source; actual source codec/identity remains explicit",
+    "Qualified nullifier backend getter, status authentication, equality, collections and machine capacity interfaces remain inherited",
+    "Note/SCT and volume payload insertion are failure-aware callbacks and may emit internal events or retain partial cache changes",
+    "Volume read is the current child overlay observation; concrete day/nullifier key projection and verifiable get/put byte correspondence remain explicit",
+    "Distinct entry/day projected keys is explicit for exact final values; no hash semantic correspondence or native durability inferred",
+    "Event encoding, Rust ownership, Clone/COW and mutable/cache correspondence remain explicit"
+  ],
+  "scope": "Model composition of actual-source PermanentWriter participant/commit/capacity order with independently qualified original BankRecovery10, reused once with original source/object/full type/axiom reports and shared Readback17 unchanged. Recovery environment denotes independently observed store at completion invocation. Completion callback reports recovery returned error status; completed source participants derive clean recovery, ready/current roots/exact frozen boundary/16 roots/retained-history validity and independently observed partition health. Whole returned source commit derives same Ready owner/returned boundary and observed recovered store boundary/roots. Capacity error preserves Ready/new boundary and completed recovery; failed recovery prevents participant completion and blocks owner API status. Six fresh reports (two program definitions, four proofs), 570 original inherited reports/57 owned modules, strict finite/physical guards unchanged. Native prior participant-to-recovery state threading, current poison snapshots/intermediate readers, source complete/recovery/rollback/partition frames, locks/owner/Clone/typed values/physical I/O/durability remain explicit correspondence obligations; original recovery model is not relabeled native proof. No native/control/full Transfer certification or inferred healthy partitions/error rollback. All six fresh declarations and original BankRecovery10 have complete original type/axiom reports. Shared Readback17 is unchanged and selected once. Native temporal state threading/current poison snapshots/partition frames/locks/IO/durability remain explicit rather than inferred from modeled adapter success. Recovery health stays independently observed; zero native/control/full certification credit.",
+  "full_transfer": "OPEN",
+  "ancestry_cache": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-reviewed-ancestry-pool570-reports57-modules01.json",
+    "sha256": "d9c6f98f209cd2ec7343875a6b1c1f0d33fa33554e161a5bca2c0447a8bdc579",
+    "review_anchor": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-authenticated-boundary-source-review01/endpoint-audit-review01.json",
+      "bytes": 80629,
+      "sha256": "0e9dd1f97592d9b56f934ffaf2e41fc6f1802d761d485bf080697e967d787bb3"
+    },
+    "scope": "Previously independently accepted exact associations, not fresh replay"
+  }
+}
