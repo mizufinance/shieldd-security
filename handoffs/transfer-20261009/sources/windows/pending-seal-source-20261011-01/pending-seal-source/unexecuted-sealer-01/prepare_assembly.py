@@ -1,0 +1,41 @@
+"""Seal source one-shot pending freeze/ensure/whole refusal reports."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-block-pending-sequence-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-block-pending-sequence-20261011-01'", "CURRENT = DIAG / 'transfer-pending-seal-source-20261011-01'")
+s=s.replace('transfer-block-pending-sequence-checkpoint-20261011-01','transfer-pending-seal-source-checkpoint-20261011-01')
+s=s.replace('block-pending-sequence-endpoint','pending-seal-source-endpoint')
+replace("MODULE = 'TransferBlockPendingSequence01'", "MODULE = 'TransferPendingSealSource01'")
+replace('assert len(fresh) == 10','assert len(fresh) == 13')
+replace("assert pool['objects'] == 41 and len(pool['inherited_public_reports']) == 402", "assert pool['objects'] == 42 and len(pool['inherited_public_reports']) == 412")
+replace("manager_endpoint = DIAG / 'transfer-pending-set-invariant-endpoint-20261011-02'", "manager_endpoint = DIAG / 'transfer-block-pending-sequence-endpoint-20261011-01'")
+replace("manager_archive = manager_endpoint / 'portable-windows-pending-set-invariant-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-block-pending-sequence-endpoint01.tar.xz'")
+replace('d9311b43c7b2fc91b2cedf2ba9eb62b6d9021059d5bb5e571dbeb0468081508f','89d016ab7f8308d40fd4be280f98be78fa4b37fa341820cc4f068e20b022257d')
+replace("tar.extractfile('reports/fresh-7-complete-declarations.txt')", "tar.extractfile('reports/fresh-10-complete-declarations.txt')")
+replace('assert len(manager_reports) == 7','assert len(manager_reports) == 10')
+replace("'module': 'TransferPendingSetInvariant01'", "'module': 'TransferBlockPendingSequence01'")
+replace('assert len(combined_reports) == 402','assert len(combined_reports) == 412')
+replace('assert len(manager_selected) == 41','assert len(manager_selected) == 42')
+replace("reference = {'pending_set_invariant':", "reference = {'block_pending_sequence':")
+replace("'imported_complete_reports': 7", "'imported_complete_reports': 10")
+replace("'complete_owned_modules': 41, 'inherited_complete_reports': 402", "'complete_owned_modules': 42, 'inherited_complete_reports': 412")
+s=s.replace('Exact forty-one-module whole/current pending/durable reader/source capacity/list invariant closure, with 402 original inherited complete reports; shared StateDelta and seventeen Readback reports included once.', 'Exact forty-two-module whole/current pending/durable reader/source capacity/global block uniqueness/order closure, with 412 original inherited complete reports; shared StateDelta and seventeen Readback reports included once.')
+replace("add(stdout, 'reports/fresh-10-complete-declarations.txt'", "add(stdout, 'reports/fresh-13-complete-declarations.txt'")
+s=s.replace('current parent pending/static-key whole binding/request/full step/finite walk/input concatenation and four invariant/global block theorems','source enum/freeze/seal/ensure definitions and nine source/current-reader/frame/whole-staging refusal proofs')
+s=s.replace('complete forty-one-module first import root','complete forty-two-module first import root')
+s=s.replace('verified 402 inherited reports','verified 412 inherited reports')
+s=s.replace('WHOLE_TRANSFER_BLOCK_SEQUENCE_DERIVES_GLOBAL_DISTINCT_BOUNDED_PENDING_MEMBERSHIP_QUALIFIED','SOURCE_PENDING_ONE_SHOT_SEAL_FROZEN_ORDER_ENSURE_BRANCHES_AND_WHOLE_STAGE_REFUSAL_QUALIFIED')
+replace("'fresh_definition_audits': 6", "'fresh_definition_audits': 4")
+replace("'fresh_theorem_audits': 4", "'fresh_theorem_audits': 9")
+replace("'fresh_complete_public_audits': 10", "'fresh_complete_public_audits': 13")
+replace("'inherited_complete_public_audits': 402", "'inherited_complete_public_audits': 412")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All four enum/definitions and nine theorems have complete original type/axiom reports. Current read and exact one-object/frame/ensure/repeated-error behavior are derived from source branches, and current Sealed excludes whole staging success. Native enum/Clone/typed/storage/owner correspondence and full certification remain separate; no native/control credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 10, 'inherited_audits': 402", "'fresh_audits': 13, 'inherited_audits': 412")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':13,'inherited_reports':412,'owned_modules':42})
