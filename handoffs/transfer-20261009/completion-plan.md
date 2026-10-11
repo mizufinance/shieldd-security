@@ -1119,3 +1119,6 @@ Publish independently reviewed scalar-r2-payload original source model. 7 comple
 
 
 Publish independently reviewed scalar-canonical-decoder original source model. 8 complete original reports; exact independently accepted ancestry. Finite typed32byte source decoder composed from proved four LE word reads, exact constructed R2 Montgomery payload, and borrow choice byte. Documented Option success projection accepts iff parsed integer below modulus. Accepted canonical bytes reserialize exactly; canonical internal raw Scalar serializes and decodes to its original vector via canonical-byte injection. Original encoded byte equality premise is explicit. Actual private Scalar invariant/Choice/CtOption/library representation/compiler/primitive/full native execution and Transfer remain owned OPEN. Combined replay and full Transfer remain OPEN.
+
+
+Publish independently reviewed actual word providers, shared coherent bit map and shared constructor:20modules625original complete reports. One candidate satisfies all177954arithmetic rows,10783Boolean and66word-reconstruction assertions under explicit overlap agreement, natural bounds and seeded input meanings. Complete original failed sources/history retained; guards unchanged. Compatible legal seed, other assertion truths, concrete canonical/hash/native/full Transfer remain OPEN. Combined replay UNRUN.
