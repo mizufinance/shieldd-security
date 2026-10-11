@@ -1,0 +1,212 @@
+@ShielddSecurity.TransferGlobalCommitJoin01.successful_concrete_flush_frames_pending_objects_without_count_premise : ∀
+  {O E A : Type} (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (deferred exclusive : Bool)
+  (height : Option.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (success :
+    @Eq.{1}
+      (Option.{0}
+        (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+          ShielddSecurity.TransferIndexWriterModel01.IndexError))
+      (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.error O E A
+        ShielddSecurity.TransferIndexWriterModel01.IndexError
+        (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+          parent queued))
+      (@Option.none.{0}
+        (ShielddSecurity.TransferDeferredQueueSourceModel01.Failure
+          ShielddSecurity.TransferIndexWriterModel01.IndexError))),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O
+        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+          ShielddSecurity.TransferIndexWriterModel01.IndexError
+          (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+            parent queued)))
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+          ShielddSecurity.TransferIndexWriterModel01.IndexError
+          (@ShielddSecurity.TransferTakeCommitState01.flushFor O E A keys convert available deferred exclusive height
+            parent queued)))
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent))
+'ShielddSecurity.TransferGlobalCommitJoin01.successful_concrete_flush_frames_pending_objects_without_count_premise' depends on axioms: [propext]
+@ShielddSecurity.TransferGlobalCommitJoin01.successful_actual_state_transfer_frames_original_pending_objects : ∀
+  {O E A : Type} (io : ShielddSecurity.TransferTakeCommitState01.Io O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (pendingKey : Nat)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool) (deferred exclusive : Bool)
+  (height : Option.{0} Nat) (parent returned : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned O A
+        (@ShielddSecurity.TransferTakeCommitState01.takeState O E A io decode pendingKey keys convert available deferred
+          exclusive height parent queued))
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) returned)),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View O) (@ShielddSecurity.TransferStateDelta.State.objects O returned)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent))
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O returned)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent))
+'ShielddSecurity.TransferGlobalCommitJoin01.successful_actual_state_transfer_frames_original_pending_objects' depends on axioms: [propext]
+@ShielddSecurity.TransferGlobalCommitJoin01.sealedState : {O : Type} →
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O) →
+    (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+      (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) →
+        (state : ShielddSecurity.TransferStateDelta.State O) → ShielddSecurity.TransferStateDelta.State O
+'ShielddSecurity.TransferGlobalCommitJoin01.sealedState' does not depend on any axioms
+@ShielddSecurity.TransferGlobalCommitJoin01.FinalizationPendingFrame : {O E A : Type} →
+  (io : ShielddSecurity.TransferHostEndBlock01.Io O E A) →
+    (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O) →
+      (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+        (project : ShielddSecurity.TransferStateDelta.Bytes → Nat) → Prop
+'ShielddSecurity.TransferGlobalCommitJoin01.FinalizationPendingFrame' does not depend on any axioms
+@ShielddSecurity.TransferGlobalCommitJoin01.whole_default_block_publication_commits_exact_global_inputs_under_finite_codec_and_finalization_field_contract : ∀
+  {O E K X Tree A : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (typedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+        (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (requests : List.{0} (ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A))
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (final : Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+  (storedDefault :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O parent
+        (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} O
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative
+          ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)))
+  (walked :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk O E K X Tree A
+        (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative) project parent queued requests)
+      (@Option.some.{0} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)) final))
+  (io : ShielddSecurity.TransferEndToEnd01.Io O E A) (host : ShielddSecurity.TransferHostSealedCommit01.Host O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (root : Nat)
+  (currentState :
+    @Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.active O host)
+      (@Prod.fst.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final))
+  (projectedKeys :
+    @Eq.{1} (ShielddSecurity.TransferStateDelta.Bytes → Nat)
+      (@ShielddSecurity.TransferHostEndBlock01.Io.project O E A
+        (@ShielddSecurity.TransferEndToEnd01.Io.ending O E A io))
+      project)
+  (typedGetter :
+    @Eq.{1} (O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+      (@ShielddSecurity.TransferHostEndBlock01.Io.decodePending O E A
+        (@ShielddSecurity.TransferEndToEnd01.Io.ending O E A io))
+      (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative))
+  (finalization :
+    @ShielddSecurity.TransferGlobalCommitJoin01.FinalizationPendingFrame O E A
+      (@ShielddSecurity.TransferEndToEnd01.Io.ending O E A io)
+      (@ShielddSecurity.TransferPendingFiniteCodec01.encode O encodeNative)
+      (@ShielddSecurity.TransferPendingFiniteCodec01.decode O decodeNative) project)
+  (success :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferEndToEnd01.Outcome.root O A
+        (@ShielddSecurity.TransferEndToEnd01.execute O E A io host height
+          (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))
+      (@Option.some.{0} Nat root)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} (List.{0} Nat)
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+        (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+      (And (@List.Nodup.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+        (And
+          (@LE.le.{0} Nat instLENat
+            (@List.length.{0} Nat (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A requests))
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+          (And
+            (@Eq.{1} (Option.{0} Nat)
+              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot
+                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+              (@Option.some.{0} Nat root))
+            (And
+              (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.phase O
+                  (@ShielddSecurity.TransferEndToEnd01.Outcome.host O A
+                    (@ShielddSecurity.TransferEndToEnd01.execute O E A io host height
+                      (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final))))
+                ShielddSecurity.TransferHostSealedCommit01.HostPhase.idle)
+              (And
+                (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                  (@ShielddSecurity.TransferHostSealedCommit01.Host.writer O
+                    (@ShielddSecurity.TransferEndToEnd01.Outcome.host O A
+                      (@ShielddSecurity.TransferEndToEnd01.execute O E A io host height
+                        (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final))))
+                  (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+                    (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+                (And
+                  (@Eq.{1} Bool
+                    (ShielddSecurity.TransferReadback.Store.ready
+                      (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                        (@ShielddSecurity.TransferEndToEnd01.Outcome.host O A
+                          (@ShielddSecurity.TransferEndToEnd01.execute O E A io host height
+                            (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))))
+                    Bool.true)
+                  (And
+                    (@Eq.{1} (List.{0} Nat)
+                      (ShielddSecurity.TransferReadback.Store.actualRoots
+                        (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                          (@ShielddSecurity.TransferEndToEnd01.Outcome.host O A
+                            (@ShielddSecurity.TransferEndToEnd01.execute O E A io host height
+                              (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))))
+                      (ShielddSecurity.TransferReadback.Boundary.roots
+                        (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                    (And
+                      (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                        (ShielddSecurity.TransferReadback.Store.boundary
+                          (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                            (@ShielddSecurity.TransferEndToEnd01.Outcome.host O A
+                              (@ShielddSecurity.TransferEndToEnd01.execute O E A io host height
+                                (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))))
+                        (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                          (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                            (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                      (And
+                        (@Eq.{1} Nat
+                          (@List.length.{0} Nat
+                            (ShielddSecurity.TransferReadback.Boundary.roots
+                              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                          (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))
+                        (@Eq.{1} Bool
+                          (ShielddSecurity.TransferReadback.Store.healthy
+                            (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                              (@ShielddSecurity.TransferEndToEnd01.Outcome.host O A
+                                (@ShielddSecurity.TransferEndToEnd01.execute O E A io host height
+                                  (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) final)))))
+                          (ShielddSecurity.TransferBankRecovery.Io.healthyAfter
+                            (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.recoveryIo
+                              (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O
+                                (@ShielddSecurity.TransferEndToEnd01.Io.committing O E A io))
+                              (ShielddSecurity.TransferStatefulParticipantRecovery01.recoveryInput
+                                (@ShielddSecurity.TransferHostSealedCommit01.Io.writer O
+                                  (@ShielddSecurity.TransferEndToEnd01.Io.committing O E A io))
+                                (@ShielddSecurity.TransferHostSealedCommit01.Host.store O
+                                  (@ShielddSecurity.TransferHostSeal01.Outcome.host O
+                                    (@ShielddSecurity.TransferEndToEnd01.sealed O E A io host height
+                                      (@Prod.snd.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)
+                                        final))))
+                                frozen)))))))))))))
+'ShielddSecurity.TransferGlobalCommitJoin01.whole_default_block_publication_commits_exact_global_inputs_under_finite_codec_and_finalization_field_contract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
