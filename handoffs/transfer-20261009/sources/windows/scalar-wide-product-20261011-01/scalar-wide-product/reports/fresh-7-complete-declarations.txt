@@ -1,0 +1,110 @@
+ShielddSecurity.TransferScalarWideProduct01.multiplyWalk : (left : List.{0} UInt64) →
+  List.{0} UInt64 → List.{0} UInt64 → List.{0} UInt64
+'ShielddSecurity.TransferScalarWideProduct01.multiplyWalk' does not depend on any axioms
+ShielddSecurity.TransferScalarWideProduct01.sourceWideProduct : (self rhs :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  List.{0} UInt64
+'ShielddSecurity.TransferScalarWideProduct01.sourceWideProduct' does not depend on any axioms
+ShielddSecurity.TransferScalarWideProduct01.retained_low_word_and_shifted_carry_preserve_full_output : ∀
+  (output : Prod.{0, 0} (List.{0} UInt64) UInt64)
+  (nonempty : @Ne.{1} (List.{0} UInt64) (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 output) (@List.nil.{0} UInt64)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat
+        (@List.headD.{0} UInt64 (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 output)
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarCarrySchedule01.dropLowAndAppendCarry output))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 output))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@List.length.{0} UInt64 (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 output)))
+        (UInt64.toNat (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64 output))))
+'ShielddSecurity.TransferScalarWideProduct01.retained_low_word_and_shifted_carry_preserve_full_output' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideProduct01.four_word_mac_row_preserves_next_accumulator_width : ∀ (multiplier : UInt64)
+  (left accumulated : List.{0} UInt64)
+  (leftWidth : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (accumulatedWidth :
+    @Eq.{1} Nat (@List.length.{0} UInt64 accumulated) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (ShielddSecurity.TransferScalarCarrySchedule01.dropLowAndAppendCarry
+        (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+          (@List.zip.{0, 0} UInt64 UInt64 accumulated left))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarWideProduct01.four_word_mac_row_preserves_next_accumulator_width' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWideProduct01.finite_mac_row_derives_exact_accumulation_equation : ∀ (multiplier : UInt64)
+  (left accumulated : List.{0} UInt64)
+  (leftWidth : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (accumulatedWidth :
+    @Eq.{1} Nat (@List.length.{0} UInt64 accumulated) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat
+        (@List.headD.{0} UInt64
+          (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+            (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+              (@List.zip.{0, 0} UInt64 UInt64 accumulated left)))
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarCarrySchedule01.dropLowAndAppendCarry
+            (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+              (@List.zip.{0, 0} UInt64 UInt64 accumulated left))))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords accumulated)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords left)))
+'ShielddSecurity.TransferScalarWideProduct01.finite_mac_row_derives_exact_accumulation_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideProduct01.symbolic_schoolbook_walk_derives_width_and_exact_full_product : ∀
+  (left right accumulated : List.{0} UInt64)
+  (leftWidth : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (accumulatedWidth :
+    @Eq.{1} Nat (@List.length.{0} UInt64 accumulated) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarWideProduct01.multiplyWalk left right accumulated))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) (@List.length.{0} UInt64 right)))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarWideProduct01.multiplyWalk left right accumulated))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords accumulated)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords right)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords left))))
+'ShielddSecurity.TransferScalarWideProduct01.symbolic_schoolbook_walk_derives_width_and_exact_full_product' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideProduct01.source_schoolbook_product_has_exact_eight_limbs_value_and_range : ∀
+  (self rhs : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarWideProduct01.sourceWideProduct self rhs))
+      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))
+    (And
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarWideProduct01.sourceWideProduct self rhs))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) self))
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) rhs))))
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarWideProduct01.sourceWideProduct self rhs))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))))
+'ShielddSecurity.TransferScalarWideProduct01.source_schoolbook_product_has_exact_eight_limbs_value_and_range' depends on axioms: [propext,
+ Quot.sound]
