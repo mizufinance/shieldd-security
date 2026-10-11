@@ -1,0 +1,216 @@
+ShielddSecurity.TransferStatefulParticipantRecovery01.ApplicationResult : Type
+'ShielddSecurity.TransferStatefulParticipantRecovery01.ApplicationResult' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.LockResult : Type
+'ShielddSecurity.TransferStatefulParticipantRecovery01.LockResult' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.Io : Type
+'ShielddSecurity.TransferStatefulParticipantRecovery01.Io' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult : Type
+'ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.committed : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) →
+      ShielddSecurity.TransferStoreCommitSource01.Outcome
+'ShielddSecurity.TransferStatefulParticipantRecovery01.committed' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.applied : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) →
+      ShielddSecurity.TransferStatefulParticipantRecovery01.ApplicationResult
+'ShielddSecurity.TransferStatefulParticipantRecovery01.applied' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.beforeCompletion : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) → ShielddSecurity.TransferReadback.Store
+'ShielddSecurity.TransferStatefulParticipantRecovery01.beforeCompletion' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.locked : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) →
+      ShielddSecurity.TransferStatefulParticipantRecovery01.LockResult
+'ShielddSecurity.TransferStatefulParticipantRecovery01.locked' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.recoveryInput : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) → ShielddSecurity.TransferReadback.Store
+'ShielddSecurity.TransferStatefulParticipantRecovery01.recoveryInput' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.recovered : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) → ShielddSecurity.TransferBankRecovery.Outcome
+'ShielddSecurity.TransferStatefulParticipantRecovery01.recovered' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulParticipantRecovery01.participants : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) →
+      ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult
+'ShielddSecurity.TransferStatefulParticipantRecovery01.participants' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult : Type
+'ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult' does not depend on any axioms
+ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter : (io :
+    ShielddSecurity.TransferStatefulParticipantRecovery01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) →
+      ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult
+'ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulParticipantRecovery01.whole_participant_success_derives_actual_temporal_inputs_and_recovery : ∀
+  (io : ShielddSecurity.TransferStatefulParticipantRecovery01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (success :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult.completed
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.participants io store frozen))
+      Bool.true),
+  And (@Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.applicationUnchanged io frozen) Bool.true)
+    (And (@Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.nullifierLock io) Bool.true)
+      (And
+        (@Eq.{1} Bool
+          (@Option.isSome.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared
+            (ShielddSecurity.TransferStoreCommitSource01.Outcome.returned
+              (ShielddSecurity.TransferStatefulParticipantRecovery01.committed io store frozen)))
+          Bool.true)
+        (@Exists.{1} Nat fun (root : Nat) =>
+          And
+            (@Eq.{1} (Option.{0} Nat)
+              (ShielddSecurity.TransferStatefulParticipantRecovery01.ApplicationResult.root
+                (ShielddSecurity.TransferStatefulParticipantRecovery01.applied io store frozen))
+              (@Option.some.{0} Nat root))
+            (And
+              (@Eq.{1} (Option.{0} Nat) (@Option.some.{0} Nat root)
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+              (And
+                (@Eq.{1} Bool
+                  (ShielddSecurity.TransferStatefulParticipantRecovery01.LockResult.acquired
+                    (ShielddSecurity.TransferStatefulParticipantRecovery01.locked io store frozen))
+                  Bool.true)
+                (And
+                  (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+                    (ShielddSecurity.TransferBankRecovery.Outcome.error
+                      (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen))
+                    (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))
+                  (And
+                    (@Eq.{1} ShielddSecurity.TransferReadback.Store
+                      (ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult.store
+                        (ShielddSecurity.TransferStatefulParticipantRecovery01.participants io store frozen))
+                      (ShielddSecurity.TransferBankRecovery.Outcome.store
+                        (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen)))
+                    (And
+                      (@Eq.{1} Bool
+                        (ShielddSecurity.TransferReadback.Store.ready
+                          (ShielddSecurity.TransferBankRecovery.Outcome.store
+                            (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen)))
+                        Bool.true)
+                      (And
+                        (@Eq.{1} (List.{0} Nat)
+                          (ShielddSecurity.TransferReadback.Store.actualRoots
+                            (ShielddSecurity.TransferBankRecovery.Outcome.store
+                              (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen)))
+                          (ShielddSecurity.TransferReadback.Boundary.roots
+                            (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                              (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                        (And
+                          (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                            (ShielddSecurity.TransferReadback.Store.boundary
+                              (ShielddSecurity.TransferBankRecovery.Outcome.store
+                                (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen)))
+                            (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                              (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                          (And
+                            (@Eq.{1} Nat
+                              (@List.length.{0} Nat
+                                (ShielddSecurity.TransferReadback.Boundary.roots
+                                  (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                    (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                              (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))
+                            (And
+                              (ShielddSecurity.TransferBankRecovery.HistoryValid
+                                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+                                (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.readHistory io
+                                  (ShielddSecurity.TransferStatefulParticipantRecovery01.recoveryInput io store
+                                    frozen)))
+                              (@Eq.{1} Bool
+                                (ShielddSecurity.TransferReadback.Store.healthy
+                                  (ShielddSecurity.TransferBankRecovery.Outcome.store
+                                    (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen)))
+                                (ShielddSecurity.TransferBankRecovery.Io.healthyAfter
+                                  (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.recoveryIo io
+                                    (ShielddSecurity.TransferStatefulParticipantRecovery01.recoveryInput io store
+                                      frozen))))))))))))))))
+'ShielddSecurity.TransferStatefulParticipantRecovery01.whole_participant_success_derives_actual_temporal_inputs_and_recovery' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulParticipantRecovery01.failed_nullifier_commit_retains_progress_and_suppresses_application_and_recovery : ∀
+  (io : ShielddSecurity.TransferStatefulParticipantRecovery01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (version :
+    @Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.applicationUnchanged io frozen) Bool.true)
+  (nullifierLock : @Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.nullifierLock io) Bool.true)
+  (failed :
+    @Eq.{1} Bool
+      (@Option.isSome.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared
+        (ShielddSecurity.TransferStoreCommitSource01.Outcome.returned
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.committed io store frozen)))
+      Bool.false),
+  @Eq.{1} ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult
+    (ShielddSecurity.TransferStatefulParticipantRecovery01.participants io store frozen)
+    (ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult.mk
+      (ShielddSecurity.TransferStoreCommitSource01.Outcome.store
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.committed io store frozen))
+      Bool.false)
+'ShielddSecurity.TransferStatefulParticipantRecovery01.failed_nullifier_commit_retains_progress_and_suppresses_application_and_recovery' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulParticipantRecovery01.actual_application_root_mismatch_retains_application_observation_and_suppresses_recovery : ∀
+  (io : ShielddSecurity.TransferStatefulParticipantRecovery01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) (root : Nat)
+  (version :
+    @Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.applicationUnchanged io frozen) Bool.true)
+  (nullifierLock : @Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.nullifierLock io) Bool.true)
+  (nullifiers :
+    @Eq.{1} Bool
+      (@Option.isSome.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared
+        (ShielddSecurity.TransferStoreCommitSource01.Outcome.returned
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.committed io store frozen)))
+      Bool.true)
+  (application :
+    @Eq.{1} (Option.{0} Nat)
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.ApplicationResult.root
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.applied io store frozen))
+      (@Option.some.{0} Nat root))
+  (mismatch :
+    @Ne.{1} (Option.{0} Nat) (@Option.some.{0} Nat root)
+      (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot
+        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))),
+  @Eq.{1} ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult
+    (ShielddSecurity.TransferStatefulParticipantRecovery01.participants io store frozen)
+    (ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult.mk
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.beforeCompletion io store frozen) Bool.false)
+'ShielddSecurity.TransferStatefulParticipantRecovery01.actual_application_root_mismatch_retains_application_observation_and_suppresses_recovery' depends on axioms: [propext]
+ShielddSecurity.TransferStatefulParticipantRecovery01.capacity_failure_keeps_ready_owner_and_exact_completed_physical_store : ∀
+  (io : ShielddSecurity.TransferStatefulParticipantRecovery01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (completed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.ParticipantResult.completed
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.participants io store frozen))
+      Bool.true)
+  (capacity : @Eq.{1} Bool (ShielddSecurity.TransferStatefulParticipantRecovery01.Io.capacity io frozen) Bool.false),
+  And
+    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.phase
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter io store
+          (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+      (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+    (And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.returned
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter io store
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+        (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+      (@Eq.{1} ShielddSecurity.TransferReadback.Store
+        (ShielddSecurity.TransferStatefulParticipantRecovery01.WriterResult.store
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.commitWriter io store
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+        (ShielddSecurity.TransferBankRecovery.Outcome.store
+          (ShielddSecurity.TransferStatefulParticipantRecovery01.recovered io store frozen))))
+'ShielddSecurity.TransferStatefulParticipantRecovery01.capacity_failure_keeps_ready_owner_and_exact_completed_physical_store' depends on axioms: [propext]
