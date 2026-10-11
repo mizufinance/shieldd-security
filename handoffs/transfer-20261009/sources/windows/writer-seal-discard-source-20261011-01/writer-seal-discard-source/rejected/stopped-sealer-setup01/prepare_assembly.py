@@ -1,0 +1,41 @@
+"""Seal source writer seal/discard/committed/status and same-frozen input handoff."""
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent; DIAG=ROOT.parent
+assert not (ROOT/'assemble.py').exists()
+s=(DIAG/'transfer-writer-prepare-source-endpoint-20261011-01/assemble.py').read_text()
+def replace(a,b):
+    global s
+    assert s.count(a)==1,a
+    s=s.replace(a,b)
+replace("CURRENT = DIAG / 'transfer-writer-prepare-source-20261011-01'", "CURRENT = DIAG / 'transfer-writer-seal-discard-source-20261011-01'")
+s=s.replace('transfer-writer-prepare-source-checkpoint-20261011-01','transfer-writer-seal-discard-source-checkpoint-20261011-01')
+s=s.replace('writer-prepare-source-endpoint','writer-seal-discard-source-endpoint')
+replace("MODULE = 'TransferWriterPrepareSource01'", "MODULE = 'TransferWriterSealDiscardSource01'")
+replace('assert len(fresh) == 14','assert len(fresh) == 13')
+replace("assert pool['objects'] == 47 and len(pool['inherited_public_reports']) == 459", "assert pool['objects'] == 48 and len(pool['inherited_public_reports']) == 473")
+replace("manager_endpoint = DIAG / 'transfer-reachable-pending-block-endpoint-20261011-03'", "manager_endpoint = DIAG / 'transfer-writer-prepare-source-endpoint-20261011-02'")
+replace("manager_archive = manager_endpoint / 'portable-windows-reachable-pending-block-endpoint01.tar.xz'", "manager_archive = manager_endpoint / 'portable-windows-writer-prepare-source-endpoint01.tar.xz'")
+replace('205fbb81ddd84f988c5659a4ca2f6dccf17b868869b5be90bf867b0ed716d147','c8f1414f05eb69e1811c30d64619aa970023addf1e5ebe94ebed599111928262')
+replace("tar.extractfile('reports/fresh-7-complete-declarations.txt')", "tar.extractfile('reports/fresh-14-complete-declarations.txt')")
+replace('assert len(manager_reports) == 7','assert len(manager_reports) == 14')
+replace("'module': 'TransferReachablePendingBlock01'", "'module': 'TransferWriterPrepareSource01'")
+replace('assert len(combined_reports) == 459','assert len(combined_reports) == 473')
+replace('assert len(manager_selected) == 47','assert len(manager_selected) == 48')
+replace("reference = {'reachable_pending_block':", "reference = {'writer_prepare_source':")
+replace("'imported_complete_reports': 7", "'imported_complete_reports': 14")
+replace("'complete_owned_modules': 47, 'inherited_complete_reports': 459", "'complete_owned_modules': 48, 'inherited_complete_reports': 473")
+s=s.replace('Exact forty-seven-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source prepare/finite codec/reachable block/source writer preparation closure, with 459 original inherited complete reports', 'Exact forty-eight-module whole/current pending/durable reader/source capacity/global block/one-shot seal/source prepare/finite codec/reachable block/writer preparation/seal-discard/status closure, with 473 original inherited complete reports')
+replace("add(stdout, 'reports/fresh-14-complete-declarations.txt'", "add(stdout, 'reports/fresh-13-complete-declarations.txt'")
+s=s.replace('source writer phase/data/program definitions and seven call-order/failure/exact finite global input handoff proofs','source writer seal/discard/committed/status definitions and eight source branch/refusal/same-frozen input proofs')
+s=s.replace('complete forty-seven-module first import root','complete forty-eight-module first import root')
+s=s.replace('verified 459 inherited reports','verified 473 inherited reports')
+s=s.replace('SOURCE_WRITER_PREPARE_CALL_ORDER_PHASE_AND_EXACT_FINITE_BLOCK_INPUT_HANDOFF_QUALIFIED','SOURCE_WRITER_SEAL_DISCARD_COMMITTED_AND_OWNER_STATUS_GATES_QUALIFIED')
+replace("'fresh_definition_audits': 7", "'fresh_definition_audits': 5")
+replace("'fresh_theorem_audits': 7", "'fresh_theorem_audits': 8")
+replace("'fresh_complete_public_audits': 14", "'fresh_complete_public_audits': 13")
+replace("'inherited_complete_public_audits': 459", "'inherited_complete_public_audits': 473")
+start=s.index("    'scope': mapping['scope'] + "); end=s.index("\ndump(ROOT / 'review.json', review)",start)
+s=s[:start]+"    'scope': mapping['scope'] + ' All thirteen declarations have original complete type/axiom reports. Seal/discard branches, owner committed/status gates and exact same-frozen input handoff derive from the source programs; failure cannot be used to infer physical rollback or raw reader refusal. Actual persist-intent I/O/lock/Clone/owner/type/refinement and durable commit remain interfaces; zero native/control/full certification credit.'}"+s[end:]
+s=s.replace("'fresh_audits': 14, 'inherited_audits': 459", "'fresh_audits': 13, 'inherited_audits': 473")
+(ROOT/'assemble.py').write_text(s)
+print({'fresh_reports':13,'inherited_reports':473,'owned_modules':48})
