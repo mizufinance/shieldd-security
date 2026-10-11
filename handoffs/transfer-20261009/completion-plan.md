@@ -688,3 +688,14 @@ Reviewed high-limb/shared constructor, evidence cc68ee7684fcf704c8f1f61d10355c4a
 
 
 Reviewed whole-delivery pending sequence, evidence 34f388dc5c46bc6a52ef2c209a4d2f7e22cfbc0a:10 fresh complete reports/402 exact inherited reports with immutable guards. Arbitrary successful walk of actual modeled whole deliveries, mixing proof contexts/modes, derives exact concatenated input order, global uniqueness/coherent membership, unsealed status and32768 capacity from actual initial pending-object absence. No per-step invariant or primitive callback success supplied. Encoding roundtrip, injective model-key projection, supported widths/nonempty actual inputs explicit. Walk projects state/deferred queue; event publication/Host finalization/durability/block rollback separate. Native/full Transfer/final replay OPEN; no new native controls and physical guards unchanged.
+
+
+### Reviewed pending-object sealing model — 2026-10-11
+
+Evidence commit: `20137eba223ab1ae57f85333dc132cfea6485736`. Runtime remains the exact clean `844389ee069e1fb2e576708842d0b389b4d9a44a` pin. One new handwritten module has 13 original complete type/axiom reports, with 412 previously qualified reports from 42 owned modules associated by exact source/object/report identities. The parent independently reviewed all reports, inherited associations, the unchanged bounded runner, full source contracts and the pinned Rust branches; no fresh ancestor or native replay occurred.
+
+The model derives the one-object write and exact frozen order of a successful current-child seal, coherent membership from that order, preserved verifiable/nonverifiable/event cache domains and all other object keys. Absence defaults to empty Open for sealing; the separate ensure-sealed guard accepts actual object absence, accepts Sealed, and rejects explicit Open. The freshly stored frozen object derives successful ensure and repeated-seal refusal retaining its actual input cache, under the explicit typed encoding roundtrip. Current Sealed excludes subsequent nonempty whole-delivery request success in both contexts and every index mode, deriving enclosing parent/queue preservation without a desired body-failure premise.
+
+The first entire rejected elaboration had a reserved helper name; `seal` was renamed `sealOnce`. The second failure required a proof-only frame rewrite. Normalized enum/definition/theorem contracts are unchanged, and both failed attempts and unexecuted packaging preparations are retained separately. These failures are not semantic negative controls. Physical safeguards remain unchanged.
+
+Typed enum/getter/Clone/encoding/key/collection/ownership correspondence remains explicit. This model performs no NOMT or durable storage operation. Native one-shot execution, persistence-owner/Host finalization, commit/reopen/durability, full Transfer soundness and constructive completeness, and the final combined replay remain OPEN.
