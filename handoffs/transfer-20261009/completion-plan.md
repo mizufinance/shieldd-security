@@ -1,5 +1,20 @@
 # Transfer proof completion plan — 9 October 2026
 
+The full relation/epoch/zero-test joins are accepted at
+62820f7a3509e520900096d78cdacb15ddba60d2: nine original module executions
+and196 complete reports across the 64/66/68 packets. The full200770-position
+provider splits arithmetic/assertion satisfaction and derives linkage, fixed-point
+and uniqueness. Legal RegistrySem plus explicit input-role/constant conditions
+constructs one assignment satisfying all177954 arithmetic rows and75 actual
+assertions at177979..178053, without assuming assertion truth. Parent checked
+747/750/753 selected associations, exact source regeneration, original receipt
+history, unchanged physical guards and fourteen original DB rows/twelve nodes.
+TransferCore/TransferSem bodies are unchanged; the transparent Path abbreviation
+was compiled but omitted from the104-report inventory and is explicitly noted.
+Hint seeding changes hint columns and preserves only stated outside columns.
+Other assertion families, full TransferSem soundness/total legal construction,
+native/runtime correspondence and final certification remain OPEN.
+
 The ordered nullifier-reader vector model is accepted at
 2aae019bc518264d59e4d0ba590ada1d478c91f5: one fresh source/thirteen complete
 reports, with seventeen separately associated prior readback reports. Success
