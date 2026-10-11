@@ -1,0 +1,59 @@
+@ShielddSecurity.TransferByteKeyCache01.readAtBytes : {V : Type} →
+  (view : ShielddSecurity.TransferStateDelta.View V) → ShielddSecurity.TransferStateDelta.Bytes → Option.{0} V
+'ShielddSecurity.TransferByteKeyCache01.readAtBytes' does not depend on any axioms
+@ShielddSecurity.TransferByteKeyCache01.writeAtBytes : {V : Type} →
+  (writes : ShielddSecurity.TransferStateDelta.Writes V) →
+    ShielddSecurity.TransferStateDelta.Bytes → Option.{0} (Option.{0} V)
+'ShielddSecurity.TransferByteKeyCache01.writeAtBytes' does not depend on any axioms
+@ShielddSecurity.TransferByteKeyCache01.putByteWrite : {V : Type} →
+  (writes : ShielddSecurity.TransferStateDelta.Bytes → Option.{0} (Option.{0} V)) →
+    (key : ShielddSecurity.TransferStateDelta.Bytes) →
+      (value : Option.{0} V) → ShielddSecurity.TransferStateDelta.Bytes → Option.{0} (Option.{0} V)
+'ShielddSecurity.TransferByteKeyCache01.putByteWrite' does not depend on any axioms
+ShielddSecurity.TransferByteKeyCache01.encoded_key_equality_iff_exact_byte_key_equality : ∀
+  (left right : ShielddSecurity.TransferStateDelta.Bytes),
+  Iff
+    (@Eq.{1} Nat (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode left)
+      (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode right))
+    (@Eq.{1} ShielddSecurity.TransferStateDelta.Bytes left right)
+'ShielddSecurity.TransferByteKeyCache01.encoded_key_equality_iff_exact_byte_key_equality' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferByteKeyCache01.object_put_or_tombstone_is_exact_byte_key_update : ∀ {O E : Type}
+  (delta : ShielddSecurity.TransferStateDelta.Delta O E) (key : ShielddSecurity.TransferStateDelta.Bytes)
+  (value : Option.{0} O),
+  @Eq.{1} (ShielddSecurity.TransferStateDelta.Bytes → Option.{0} (Option.{0} O))
+    (@ShielddSecurity.TransferByteKeyCache01.writeAtBytes O
+      (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+          (@ShielddSecurity.TransferStateDelta.putObject O E delta
+            (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode key) value))))
+    (@ShielddSecurity.TransferByteKeyCache01.putByteWrite O
+      (@ShielddSecurity.TransferByteKeyCache01.writeAtBytes O
+        (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E delta)))
+      key value)
+'ShielddSecurity.TransferByteKeyCache01.object_put_or_tombstone_is_exact_byte_key_update' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferByteKeyCache01.byte_key_observation_preserves_overlay_no_write_and_tombstone : ∀ {V : Type}
+  (base : ShielddSecurity.TransferStateDelta.View V) (writes : ShielddSecurity.TransferStateDelta.Writes V),
+  @Eq.{1} (ShielddSecurity.TransferStateDelta.Bytes → Option.{0} V)
+    (@ShielddSecurity.TransferByteKeyCache01.readAtBytes V (@ShielddSecurity.TransferStateDelta.overlay V base writes))
+    fun (key : ShielddSecurity.TransferStateDelta.Bytes) =>
+    @ShielddSecurity.TransferByteKeyCache01.byte_key_observation_preserves_overlay_no_write_and_tombstone.match_1.{1} V
+      (fun (x : Option.{0} (Option.{0} V)) => Option.{0} V)
+      (@ShielddSecurity.TransferByteKeyCache01.writeAtBytes V writes key)
+      (fun (_ : Unit) => @ShielddSecurity.TransferByteKeyCache01.readAtBytes V base key) fun (value : Option.{0} V) =>
+      value
+'ShielddSecurity.TransferByteKeyCache01.byte_key_observation_preserves_overlay_no_write_and_tombstone' does not depend on any axioms
+@ShielddSecurity.TransferByteKeyCache01.byte_key_observation_preserves_latest_write_merge : ∀ {V : Type}
+  (older newer : ShielddSecurity.TransferStateDelta.Writes V),
+  @Eq.{1} (ShielddSecurity.TransferStateDelta.Bytes → Option.{0} (Option.{0} V))
+    (@ShielddSecurity.TransferByteKeyCache01.writeAtBytes V
+      (@ShielddSecurity.TransferStateDelta.mergeWrites V older newer))
+    fun (key : ShielddSecurity.TransferStateDelta.Bytes) =>
+    @ShielddSecurity.TransferByteKeyCache01.byte_key_observation_preserves_overlay_no_write_and_tombstone.match_1.{1} V
+      (fun (x : Option.{0} (Option.{0} V)) => Option.{0} (Option.{0} V))
+      (@ShielddSecurity.TransferByteKeyCache01.writeAtBytes V newer key)
+      (fun (_ : Unit) => @ShielddSecurity.TransferByteKeyCache01.writeAtBytes V older key) fun (value : Option.{0} V) =>
+      @Option.some.{0} (Option.{0} V) value
+'ShielddSecurity.TransferByteKeyCache01.byte_key_observation_preserves_latest_write_merge' does not depend on any axioms

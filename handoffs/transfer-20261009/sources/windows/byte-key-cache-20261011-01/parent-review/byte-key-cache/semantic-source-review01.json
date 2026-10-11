@@ -1,0 +1,67 @@
+{
+  "status": "PASSED",
+  "kind": "Independent exact maintained generation and all retained failed/unrun source repairs; kernel ancestry review pending reversed-order dependency",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-byte-key-cache-review01/packet01/source/ShielddSecurity/TransferByteKeyCache01.lean",
+    "bytes": 3593,
+    "sha256": "c446a7f1adbaf3bbd735884dcdf7541009df0736c41ed235a48534340b76058e"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-byte-key-cache-review01/packet01/qualified/recipe_source.py",
+    "bytes": 6448,
+    "sha256": "d7a1b012b2270021a9b3517cf6327640f4cb59ddfce2677a72d1ea71ec9bc098"
+  },
+  "review_helper": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/review_byte_key_cache_history17.py",
+    "bytes": 4388,
+    "sha256": "52a45560398a1a14065b7b2949c09211205aad63eb56b8414cec1cbabd885b06"
+  },
+  "fresh_reports": 7,
+  "failed_originals": [
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.627607200003695,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-byte-key-cache-review01/packet01/unselected/01/handwritten/TransferByteKeyCache01.lean",
+        "bytes": 3190,
+        "sha256": "ff9da3de6323951cea8a56af8b253de5f660ef951ee6b82d70452dbde1da1690"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-byte-key-cache-review01/packet01/unselected/01/runs/01-TransferByteKeyCache01/stdout.txt",
+        "bytes": 4964,
+        "sha256": "c13cc5facfe1d0d28feaff4bc5bb60f8294e60d9cd3ca0220434c8a1e7adc056"
+      }
+    },
+    {
+      "result": {
+        "reason": "Physical memory pressure",
+        "seconds": 17.50059449998662,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-byte-key-cache-review01/packet01/unselected/02/handwritten/TransferByteKeyCache01.lean",
+        "bytes": 3224,
+        "sha256": "984564eb73aaf67aac23b7542341b02b4d1f1dc5f0c11568c8c383867ce572d2"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-byte-key-cache-review01/packet01/unselected/02/runs/01-TransferByteKeyCache01/stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "unrun_original": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-byte-key-cache-review01/packet01/unselected/03/plan.json",
+    "bytes": 394594,
+    "sha256": "3d5bbff7c45d5db9e30888510ef43ec1b8fb2223f56fbd99134a2f3f5dd180a9"
+  },
+  "all_definitions_contracts_unchanged": true,
+  "exact_delta": "--- \n+++ \n@@ -23,14 +23,20 @@\n \n theorem encoded_key_equality_iff_exact_byte_key_equality (left right : Bytes) :\n     keyCode left = keyCode right \u2194 left = right :=\n-  \u27e8TransferInjectiveKeyPublication01.keyCode_is_injective, congrArg keyCode\u27e9\n+  \u27e8fun same => @TransferInjectiveKeyPublication01.keyCode_is_injective left right same, fun same => congrArg keyCode same\u27e9\n \n theorem object_put_or_tombstone_is_exact_byte_key_update {O E : Type}\n     (delta : Delta O E) (key : Bytes) (value : Option O) :\n     writeAtBytes (putObject delta (keyCode key) value).cache.objects =\n       putByteWrite (writeAtBytes delta.cache.objects) key value := by\n   funext other\n-  simp only [writeAtBytes, putObject, putByteWrite, encoded_key_equality_iff_exact_byte_key_equality]\n+  change (if keyCode other = keyCode key then some value else delta.cache.objects (keyCode other)) =\n+    (if other = key then some value else delta.cache.objects (keyCode other))\n+  by_cases same : other = key\n+  \u00b7 rw [if_pos same, if_pos (congrArg keyCode same)]\n+  \u00b7 have different : keyCode other \u2260 keyCode key := fun equal =>\n+      same ((encoded_key_equality_iff_exact_byte_key_equality other key).mp equal)\n+    rw [if_neg same, if_neg different]\n \n theorem byte_key_observation_preserves_overlay_no_write_and_tombstone {V : Type}\n     (base : View V) (writes : Writes V) :\n",
+  "scope": "Exact byte-key observation of symbolic Nat-key cache via derived global keyCode injection. Put/deletion tombstone, no-write overlay and latest-write merge preserved. Byte key renaming model; actual Rust String/UTF8/hash-map/Any/Clone/ownership/compiler/cache/full trace bindings owned OPEN",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
