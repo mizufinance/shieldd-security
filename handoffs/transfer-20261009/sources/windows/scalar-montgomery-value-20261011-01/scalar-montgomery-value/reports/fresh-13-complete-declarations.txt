@@ -1,0 +1,143 @@
+ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse : Nat
+'ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse' does not depend on any axioms
+ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue : (words :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Nat
+'ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue' does not depend on any axioms
+ShielddSecurity.TransferScalarMontgomeryValue01.source_inverse_word_cancels_modulus_low_word : @Eq.{1} Nat
+  (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (UInt64.toNat ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord)
+        (UInt64.toNat
+          (@List.headD.{0} UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))))
+    ShielddSecurity.TransferScalarSerializationRange01.radix64)
+  (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferScalarMontgomeryValue01.source_inverse_word_cancels_modulus_low_word' does not depend on any axioms
+ShielddSecurity.TransferScalarMontgomeryValue01.packed_vector_modulo_radix_is_actual_low_word : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+    (UInt64.toNat (@List.headD.{0} UInt64 words (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+'ShielddSecurity.TransferScalarMontgomeryValue01.packed_vector_modulo_radix_is_actual_low_word' depends on axioms: [propext]
+ShielddSecurity.TransferScalarMontgomeryValue01.source_modulus_modulo_radix_is_actual_low_word : @Eq.{1} Nat
+  (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+    ShielddSecurity.TransferScalarSerializationRange01.radix64)
+  (UInt64.toNat
+    (@List.headD.{0} UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+'ShielddSecurity.TransferScalarMontgomeryValue01.source_modulus_modulo_radix_is_actual_low_word' depends on axioms: [propext]
+ShielddSecurity.TransferScalarMontgomeryValue01.wrapped_source_multiplier_cancels_any_low_word : ∀ (word : UInt64),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (UInt64.toNat
+            (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64) word
+              ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+          (UInt64.toNat
+            (@List.headD.{0} UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferScalarMontgomeryValue01.wrapped_source_multiplier_cancels_any_low_word' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarMontgomeryValue01.derived_round_numerator_is_divisible_by_radix : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (UInt64.toNat
+            (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+              (@List.headD.{0} UInt64 words (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+              ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferScalarMontgomeryValue01.derived_round_numerator_is_divisible_by_radix' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarMontgomeryValue01.native_round_has_exact_montgomery_integer_equation : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRound words)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (UInt64.toNat
+          (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+            (@List.headD.{0} UInt64 words (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+            ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarMontgomeryValue01.native_round_has_exact_montgomery_integer_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarMontgomeryValue01.symbolic_native_round_walk_preserves_montgomery_modular_value : ∀
+  (rounds : Nat) (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 rounds)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds rounds words)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarMontgomeryValue01.symbolic_native_round_walk_preserves_montgomery_modular_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarMontgomeryValue01.single_modulus_normalization_preserves_modular_value : ∀ (value : Nat),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarSerializationRange01.normalize
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus value)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) value
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarMontgomeryValue01.single_modulus_normalization_preserves_modular_value' depends on axioms: [propext]
+ShielddSecurity.TransferScalarMontgomeryValue01.typed_source_serializer_preserves_four_round_montgomery_relation : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes words)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarMontgomeryValue01.typed_source_serializer_preserves_four_round_montgomery_relation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarMontgomeryValue01.source_four_word_radix_inverse_is_exact : @Eq.{1} Nat
+  (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferScalarMontgomeryValue01.source_four_word_radix_inverse_is_exact' does not depend on any axioms
+ShielddSecurity.TransferScalarMontgomeryValue01.fixed_four_word_typed_serializer_has_exact_canonical_montgomery_value : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey words)
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue words)
+'ShielddSecurity.TransferScalarMontgomeryValue01.fixed_four_word_typed_serializer_has_exact_canonical_montgomery_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

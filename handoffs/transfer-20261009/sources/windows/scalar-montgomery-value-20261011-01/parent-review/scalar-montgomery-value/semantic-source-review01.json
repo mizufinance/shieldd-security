@@ -1,0 +1,68 @@
+{
+  "status": "PASSED",
+  "kind": "Independent full source/model/contract and exact two-rejection history/maintained pure repair-chain review",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-montgomery-value-review01/packet01/source/ShielddSecurity/TransferScalarMontgomeryValue01.lean",
+    "bytes": 9310,
+    "sha256": "585d75ee3c27b4e5e9d3e413ac256e930c79d612861a15efb663929e5e338698"
+  },
+  "fresh_reports": 13,
+  "definitions": 2,
+  "theorems": 11,
+  "rejected": [
+    {
+      "attempt": "01",
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-montgomery-value-review01/packet01/rejected/01/handwritten/TransferScalarMontgomeryValue01.lean",
+        "bytes": 9122,
+        "sha256": "8d7d02225203038388cd336f6b5b6f14e763511d0ea9f21f54e7e4e7e761f2fa"
+      },
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 26.09564539999701,
+        "status": "failed"
+      },
+      "recipe": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-montgomery-value-review01/packet01/rejected/02/prepare_recipe.py",
+        "bytes": 2235,
+        "sha256": "f0af97f16fd94f1bb38443e787aa77d908943ffa192e31908e63931584789e31"
+      },
+      "pure_repair_exact": true,
+      "all_definitions_contracts_unchanged": true,
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-montgomery-value-20261011-01\\project\\ShielddSecurity\\TransferScalarMontgomeryValue01.lean:47:13: warning: Possibly looping simp theorem: `Nat.add_mod`",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-montgomery-value-20261011-01\\project\\ShielddSecurity\\TransferScalarMontgomeryValue01.lean:47:2: error: Tactic `simp` failed with a nested error:",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-montgomery-value-20261011-01\\project\\ShielddSecurity\\TransferScalarMontgomeryValue01.lean:59:77: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-montgomery-value-20261011-01\\project\\ShielddSecurity\\TransferScalarMontgomeryValue01.lean:93:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -44,8 +44,7 @@\n     (word.toNat + (word * inverseWord).toNat * (modulusWords.headD 0).toNat) % radix64 = 0 := by\n   rw [UInt64.toNat_mul]\n   change (word.toNat + (word.toNat * inverseWord.toNat % radix64) * (modulusWords.headD 0).toNat) % radix64 = 0\n-  simp only [Nat.add_mod, Nat.mod_mul_mod]\n-  rw [\u2190 Nat.add_mod]\n+  rw [Nat.add_mod, Nat.mod_mul_mod, Nat.mod_eq_of_lt word.toNat_lt, Nat.add_mod_mod]\n   have factored : word.toNat + word.toNat * inverseWord.toNat * (modulusWords.headD 0).toNat =\n       word.toNat * (1 + inverseWord.toNat * (modulusWords.headD 0).toNat) := by\n     rw [Nat.mul_add, Nat.mul_one]\n@@ -56,7 +55,7 @@\n     (packWords words + (words.headD 0 * inverseWord).toNat * nullifierModulus) % radix64 = 0 := by\n   have finite : (words.headD 0 * inverseWord).toNat < radix64 := (words.headD 0 * inverseWord).toNat_lt\n   rw [Nat.add_mod, Nat.mul_mod, packed_vector_modulo_radix_is_actual_low_word,\n-    source_modulus_modulo_radix_is_actual_low_word, Nat.mod_eq_of_lt finite, \u2190 Nat.add_mod]\n+    source_modulus_modulo_radix_is_actual_low_word, Nat.mod_eq_of_lt finite, Nat.add_mod_mod]\n   exact wrapped_source_multiplier_cancels_any_low_word (words.headD 0)\n \n theorem native_round_has_exact_montgomery_integer_equation (words : List UInt64) (four : words.length = 4) :\n@@ -90,6 +89,7 @@\n   by_cases enough : nullifierModulus \u2264 value\n   \u00b7 rw [normalize, if_pos enough]\n     have restored := congrArg (fun v => v % nullifierModulus) (Nat.sub_add_cancel enough)\n+    change (value - nullifierModulus + nullifierModulus) % nullifierModulus = value % nullifierModulus at restored\n     rw [Nat.add_mod_right] at restored\n     exact restored\n   \u00b7 rw [normalize, if_neg enough]\n"
+    },
+    {
+      "attempt": "02",
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-montgomery-value-review01/packet01/rejected/02/handwritten/TransferScalarMontgomeryValue01.lean",
+        "bytes": 9256,
+        "sha256": "d28114b961447f62b9a9d188043bff2aa0a7fe60ed6218c9460c4a41568ae3da"
+      },
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.04746009997325,
+        "status": "failed"
+      },
+      "recipe": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-montgomery-value-review01/packet01/qualified/prepare_recipe.py",
+        "bytes": 1874,
+        "sha256": "dfcce484b3fd50cc4553d931ce162b1cfb0694187040634e1194f86c11930140"
+      },
+      "pure_repair_exact": true,
+      "all_definitions_contracts_unchanged": true,
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-montgomery-value-20261011-02\\project\\ShielddSecurity\\TransferScalarMontgomeryValue01.lean:47:36: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+      ],
+      "exact_delta": "--- \n+++ \n@@ -44,7 +44,8 @@\n     (word.toNat + (word * inverseWord).toNat * (modulusWords.headD 0).toNat) % radix64 = 0 := by\n   rw [UInt64.toNat_mul]\n   change (word.toNat + (word.toNat * inverseWord.toNat % radix64) * (modulusWords.headD 0).toNat) % radix64 = 0\n-  rw [Nat.add_mod, Nat.mod_mul_mod, Nat.mod_eq_of_lt word.toNat_lt, Nat.add_mod_mod]\n+  have wordBound : word.toNat < radix64 := word.toNat_lt\n+  rw [Nat.add_mod, Nat.mod_mul_mod, Nat.mod_eq_of_lt wordBound, Nat.add_mod_mod]\n   have factored : word.toNat + word.toNat * inverseWord.toNat * (modulusWords.headD 0).toNat =\n       word.toNat * (1 + inverseWord.toNat * (modulusWords.headD 0).toNat) := by\n     rw [Nat.mul_add, Nat.mul_one]\n"
+    }
+  ],
+  "scope": "Source INV low-word cancellation and finite UInt64 wrapped multiplier derive exact divisible-round integer equation. Symbolic round induction plus masked normalization/typed LE prove four-word serializer equals packed raw words times kernel-checked radix inverse modulo exact nullifier modulus, with no desired cancellation/output or raw canonical range premise. Actual Rust/native trace/Scalar field interpretation/action projection remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
