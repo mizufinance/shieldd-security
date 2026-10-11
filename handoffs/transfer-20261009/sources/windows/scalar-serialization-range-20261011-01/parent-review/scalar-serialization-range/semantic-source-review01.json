@@ -1,0 +1,44 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete recurrence source/contract, preserved failed receipt and pure maintained repair review; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-serialization-range-review01/packet01/source/ShielddSecurity/TransferScalarSerializationRange01.lean",
+    "bytes": 5393,
+    "sha256": "8205b82e3f9a59f6bc090b107aa9af8cbcad6cfd2c0c49994b2c401113442062"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-serialization-range-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 1736,
+    "sha256": "a1547034c3ff8f817e9f23e856acc3163c4c7e902d5954929fa95c51c4484b18"
+  },
+  "fresh_reports": 8,
+  "definitions": 3,
+  "theorems": 5,
+  "all_model_definitions_and_five_contracts_unchanged": true,
+  "pure_repair_replay_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-serialization-range-review01/packet01/rejected/01/handwritten/TransferScalarSerializationRange01.lean",
+      "bytes": 5386,
+      "sha256": "405ab731655d8a7a2b1484fe20fb9eeade081d6bfaf627e26a404228f77cb4e7"
+    },
+    "whole_attempt": {
+      "reason": "Lean exit 1",
+      "seconds": 17.732643800030928,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-serialization-range-20261011-01\\project\\ShielddSecurity\\TransferScalarSerializationRange01.lean:33:46: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-serialization-range-20261011-01\\project\\ShielddSecurity\\TransferScalarSerializationRange01.lean:34:17: warning: This simp argument is unused:"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -31,7 +31,7 @@\n       simp only [Nat.pow_succ, Nat.add_mul, Nat.one_mul, Nat.add_assoc, Nat.add_comm, Nat.add_left_comm]\n     _ \u2264 radix * modulus + radix ^ rounds * radix := Nat.add_le_add_right (Nat.mul_le_mul_right modulus (Nat.succ_le_of_lt word)) _\n     _ = (modulus + radix ^ rounds) * radix := by\n-      simp only [Nat.add_mul, Nat.mul_comm]\n+      rw [Nat.add_mul, Nat.mul_comm radix modulus]\n \n theorem all_rounds_finish_at_most_modulus (modulus radix : Nat) (digits : List Nat)\n     (positive : 0 < radix) (words : \u2200 digit \u2208 digits, digit < radix)\n"
+  },
+  "contracts": [
+    "The mathematical recurrence uses arbitrary finite word multipliers and natural floor division at each step. The one-round inequality decreases the radix exponent; induction proves the terminal accumulator below modulus+1.",
+    "The final conditional subtraction is canonical for positive modulus. Finite multiplier values provide word bounds; an initial packed raw value below radix^digits.length supplies the initial range.",
+    "The four-u64 result uses exact2^64 radix and the qualified exact nullifier field modulus, assuming only four finite multipliers and raw<radix^4. It does not prove modular cancellation/congruence, actual native Montgomery recurrence or field-object representation.",
+    "Rust widened mac/adc/sbb, unsigned overflow/carry threading, raw word packing, byte order and Scalar to_bytes correspondence remain owned OPEN. No curve/cardinality/primality replay is used; native controls and final selected combined replay remain UNRUN."
+  ],
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
