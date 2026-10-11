@@ -1,0 +1,85 @@
+ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords : List.{0} UInt64
+'ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord : UInt64
+'ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRound : (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRound' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds : Nat → List.{0} UInt64 → List.{0} UInt64
+'ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.roundMultipliers : Nat → List.{0} UInt64 → List.{0} Nat
+'ShielddSecurity.TransferScalarFourRoundWrapper01.roundMultipliers' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.modulus_words_have_four_limbs : @Eq.{1} Nat
+  (@List.length.{0} UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords)
+  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarFourRoundWrapper01.modulus_words_have_four_limbs' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.modulus_words_pack_to_actual_nullifier_modulus : @Eq.{1} Nat
+  (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+    ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords)
+  ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarFourRoundWrapper01.modulus_words_pack_to_actual_nullifier_modulus' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.one_native_round_preserves_four_word_width : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRound words))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarFourRoundWrapper01.one_native_round_preserves_four_word_width' depends on axioms: [propext]
+ShielddSecurity.TransferScalarFourRoundWrapper01.one_native_round_packs_to_derived_radix_quotient : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRound words))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (UInt64.toNat
+            (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+              (@List.headD.{0} UInt64 words (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+              ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferScalarFourRoundWrapper01.one_native_round_packs_to_derived_radix_quotient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarFourRoundWrapper01.native_round_walk_preserves_four_word_width : ∀ (rounds : Nat)
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds rounds words))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarFourRoundWrapper01.native_round_walk_preserves_four_word_width' depends on axioms: [propext]
+ShielddSecurity.TransferScalarFourRoundWrapper01.derived_multiplier_vector_has_round_count : ∀ (rounds : Nat)
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat (@List.length.{0} Nat (ShielddSecurity.TransferScalarFourRoundWrapper01.roundMultipliers rounds words))
+    rounds
+'ShielddSecurity.TransferScalarFourRoundWrapper01.derived_multiplier_vector_has_round_count' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.every_derived_multiplier_is_a_finite_u64_word : ∀ (rounds : Nat)
+  (words : List.{0} UInt64) (digit : Nat),
+  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (ShielddSecurity.TransferScalarFourRoundWrapper01.roundMultipliers rounds words) digit →
+    @LT.lt.{0} Nat instLTNat digit ShielddSecurity.TransferScalarSerializationRange01.radix64
+'ShielddSecurity.TransferScalarFourRoundWrapper01.every_derived_multiplier_is_a_finite_u64_word' does not depend on any axioms
+ShielddSecurity.TransferScalarFourRoundWrapper01.native_carry_rounds_pack_to_symbolic_reduction : ∀ (rounds : Nat)
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds rounds words))
+    (ShielddSecurity.TransferScalarSerializationRange01.reduceRounds
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (ShielddSecurity.TransferScalarFourRoundWrapper01.roundMultipliers rounds words))
+'ShielddSecurity.TransferScalarFourRoundWrapper01.native_carry_rounds_pack_to_symbolic_reduction' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarFourRoundWrapper01.actual_four_round_carry_wrapper_normalizes_into_canonical_nullifier_field : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarFourRoundWrapper01.actual_four_round_carry_wrapper_normalizes_into_canonical_nullifier_field' depends on axioms: [propext,
+ Quot.sound]

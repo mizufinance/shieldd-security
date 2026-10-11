@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-four-round-wrapper-review01/packet01/source/ShielddSecurity/TransferScalarFourRoundWrapper01.lean",
+    "bytes": 8087,
+    "sha256": "87275b584436f5c150dc945dd718a1e48aead5f26a36dac15f32c1f9f0937739"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-four-round-wrapper-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 1821,
+    "sha256": "c6901a246919d81b4089e2ad6ec7c4c002b0ca47f650c163f1c92d9ce32cc429"
+  },
+  "fresh_reports": 14,
+  "definitions": 5,
+  "theorems": 9,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-four-round-wrapper-review01/packet01/rejected/01/handwritten/TransferScalarFourRoundWrapper01.lean",
+      "bytes": 8027,
+      "sha256": "3d7970cf8a1f07b80cea29d9c017f7c850cf9bf9f1f1f212a1311fe0f09cac38"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.837585100030992,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-four-round-wrapper-20261011-01\\project\\ShielddSecurity\\TransferScalarFourRoundWrapper01.lean:51:63: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-four-round-wrapper-20261011-01\\project\\ShielddSecurity\\TransferScalarFourRoundWrapper01.lean:52:64: error: unsolved goals"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -48,8 +48,12 @@\n     intro empty\n     rw [empty, List.length_nil] at zipped\n     cases zipped\n-  have firstProjection : words.length \u2264 modulusWords.length := by rw [four, modulus_words_have_four_limbs]\n-  have secondProjection : modulusWords.length \u2264 words.length := by rw [four, modulus_words_have_four_limbs]\n+  have firstProjection : words.length \u2264 modulusWords.length := by\n+    rw [four, modulus_words_have_four_limbs]\n+    exact Nat.le_refl 4\n+  have secondProjection : modulusWords.length \u2264 words.length := by\n+    rw [four, modulus_words_have_four_limbs]\n+    exact Nat.le_refl 4\n   have result := TransferScalarCarrySchedule01.nonempty_mac_walk_drops_to_exact_quotient\n     (words.headD 0 * inverseWord) 0 (words.zip modulusWords) nonempty\n   rw [List.map_fst_zip firstProjection, List.map_snd_zip secondProjection,\n"
+  },
+  "scope": "Exact source modulus/inverse u64 constants, derived wrapped low-word multipliers and four finite carry rounds compose to symbolic recurrence. Four-word width and multiplier bounds/count derive from actual modeled calls. Final mathematical conditional subtraction gives canonical field range. Actual native padded eight-limb/ADC/SBB/carry trace, sub-mask/endian/type/modular correspondence remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
