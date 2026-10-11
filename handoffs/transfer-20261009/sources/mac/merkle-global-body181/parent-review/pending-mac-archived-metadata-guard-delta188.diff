@@ -1,0 +1,29 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution187/maintained/guard.py
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution188/maintained/guard.py
+@@ -27,7 +27,7 @@
+     return json.loads(data, object_pairs_hook=pairs)
+ 
+ # Bounded lossless storage of inactive configuration JSON; proof inputs unchanged.
+-_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-15/archive-map01.json', 'bytes': 106543, 'sha256': '27c9f9a30f9420ac64033631f626d9087c063ddf943692c18bfe0577f75ac69d'}
++_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-16/archive-map01.json', 'bytes': 107159, 'sha256': 'e6b0b4373e77e3ee590edde7f245d952903f93c80ffe9a2475b1a101ffdbd722'}
+ _STORAGE = None
+ def preserved_configs():
+     global _STORAGE
+@@ -214,8 +214,15 @@
+         actual={str(p) for root in h['roots'] for p in pathlib.Path(root).rglob('*')
+                 if p.is_file() or p.is_symlink()}
+         actual.update(key for key in preserved_configs() if any(pathlib.Path(key).is_relative_to(pathlib.Path(root)) for root in h['roots']))
+-        require(actual==set(h['entries']), 'protected history closed physical+exact-archived file/link keyset')
+-        for identity in h['entries'].values():
++        expected=dict(h['entries'])
++        additions=config['history_closed_keyset_additions']
++        require(set(additions)=={'/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution186/config01.json'}, 'exact single archived-keyset repair')
++        for key,identity in additions.items():
++            require(preserved_configs()[key]['original']==identity, 'exact archived original addition')
++            if any(pathlib.Path(key).is_relative_to(pathlib.Path(root)) for root in h['roots']) and key not in expected:
++                checked_pin(identity);expected[key]=identity
++        require(actual==set(expected), 'protected history closed physical+exact-archived file/link keyset')
++        for identity in expected.values():
+             if 'symlink_target' in identity:
+                 p=pathlib.Path(identity['path'])
+                 require(p.is_symlink() and os.readlink(p)==identity['symlink_target'], 'protected historical symlink')

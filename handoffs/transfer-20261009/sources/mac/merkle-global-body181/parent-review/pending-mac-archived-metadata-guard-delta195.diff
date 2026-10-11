@@ -1,0 +1,25 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution190/maintained/guard.py
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution195/maintained/guard.py
+@@ -64,6 +64,7 @@
+ # Stat identity includes ctime/mtime/inode; every pre/post fixed_check clears it.
+ # Callers needing bytes still use read_pin directly. No stored object contents.
+ _CHECKED = {}
++_ARCHIVE_PROOFS = set()
+ def checked_pin(identity):
+     path=pathlib.Path(identity['path'])
+     if not path.exists():
+@@ -73,7 +74,13 @@
+         require(archive.is_file() and not archive.is_symlink(), 'checked ordinary storage file')
+         st=archive.stat(); signature=('archive',st.st_dev,st.st_ino,st.st_mode,st.st_size,st.st_mtime_ns,st.st_ctime_ns,identity['bytes'],identity['sha256'])
+         if _CHECKED.get(str(path))!=signature:
+-            read_pin(identity)
++            # Every phase rehashes the exact compressed archive. A successful
++            # prior bounded decode binds the original SHA to these same bytes.
++            checked_pin(record['archive'])
++            proof=(str(path),identity['bytes'],identity['sha256'],record['archive']['path'],record['archive']['bytes'],record['archive']['sha256'])
++            if proof not in _ARCHIVE_PROOFS:
++                read_pin(identity)
++                _ARCHIVE_PROOFS.add(proof)
+             after=archive.stat()
+             require((after.st_dev,after.st_ino,after.st_mode,after.st_size,after.st_mtime_ns,after.st_ctime_ns)==signature[1:7], 'archive changed during original-byte hash')
+             _CHECKED[str(path)]=signature
