@@ -1041,3 +1041,6 @@ Full captured Join binding: 144 original qualified modules and867 complete decla
 
 
 Known finalization object frames: eight independently reviewed original reports derive pending object preservation for arbitrary finite typed writes/deletions at six named SCT/compact/compliance keys. All six exact UTF8 keys and named mutator source calls independently authenticated against clean pinned runtime; source assembly exact, first strict run passed. Initial sealed object, key projection injectivity and actual full native trace completeness/order/value/execution, other component effects and runtime representation remain owned obligations. Combined replay/native controls UNRUN; full Transfer OPEN.
+
+
+Concrete known finalizer publication: seven original full reports independently reviewed. Finalizer seals pending data, executes typed six-key object writes/deletion tombstones, overlays verifiable/nonverifiable writes, and returns observed queue/events. Pending-object retention and publication/recovery follow internally under modeled success; no desired final field frame supplied. Exact source generation/failed setup/kernel history preserved and reviewed. SourceProjection still supplied; codec/getter/key/selector/full native trace correspondence remains owned OPEN. Native controls and combined replay UNRUN; full Transfer OPEN.
