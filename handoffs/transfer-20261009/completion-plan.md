@@ -1011,3 +1011,10 @@ Actual Rust to_le_bytes/native trace, Montgomery field semantics and runtime typ
 Published `TransferScalarMontgomeryValue01` with13original full type/axiom reports. Independent guard/runtime/ancestry/receipt/load review, both failed attempts and exact maintained two-step repair chain passed, preserving two definitions/eleven theorem contracts. Kernel-checked source INV cancellation derives exact divisible-round equations for every finite UInt64 low word. Symbolic round induction, masked normalization and typed LE encoding preserve the modular relation; the checked radix inverse derives exact canonical serializer value as inverse times packed raw words modulo the pinned nullifier modulus. No desired cancellation/output or canonical raw range is supplied; no primality/curve replay.
 
 Actual Rust/native trace, Scalar Montgomery interpretation and action typed projection remain owned OPEN. Native controls and final replay UNRUN; full Transfer OPEN. Same workers continue freely.
+
+
+### Typed scalar projection bounds and modeled publication, 2026-10-11
+
+Published `TransferTypedScalarPublication01` with3original complete theorem reports. Independent exact guard/runtime/ancestry/receipt/load review and pure maintained source regeneration passed; the reused upstream NativeOnlyPublication header matches its pinned original source. Given the explicit sourceProjection into typed four-word serialization, canonical input bounds and the exact ordered global Montgomery vector are derived. The existing native-only modeled default walk/publication theorem then composes through sealed object, accepted inputs, application root, Ready writer, Idle Host and recovered boundary without a supplied canonical numeric range. First strict run passed.
+
+The sourceProjection itself, native codec/getter/finalization and actual Rust/type/Clone/trace/ownership/OS/snapshot/ICS23 bindings remain owned OPEN. No interface is promoted to a legitimate external assumption. Native controls/final replay UNRUN; full Transfer OPEN. Same agents continue freely.
