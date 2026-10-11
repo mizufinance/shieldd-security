@@ -1,0 +1,61 @@
+{
+  "status": "PASSED",
+  "kind": "Independent semantic and exact captured DATA/failed-source delta review, no Lean execution",
+  "original_sources": [
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-word-hints210-source03/source-root/ShielddSecurity/WordHints210.lean",
+      "bytes": 9651,
+      "sha256": "af262be715cdf553b0afe278209585308809a0e4a26a338345a9e14ea5a65961"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-word-shared212-source02/source-root/ShielddSecurity/SharedWordSeed212.lean",
+      "bytes": 9037,
+      "sha256": "387bd6a53a8d207c77c686ffc18017690d22974b9f380ab430451ba7edd580fb"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-original-tag214-source03/source-root/ShielddSecurity/CapturedOriginalTag214.lean",
+      "bytes": 6508,
+      "sha256": "fe636663675eeb16d7ec0ac9d93fa0c68e0c2cea83d4534620b532ebd4e82f75"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-boolean-hints207-source04/source-root/ShielddSecurity/BooleanHints207.lean",
+      "bytes": 8132,
+      "sha256": "e3217f18b8db69da5313fc993e9ef0a0987d5236da2a644a04fc4cc57c4f47b0"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-boolean-hints207-source05/source-root/ShielddSecurity/BooleanHints207.lean",
+      "bytes": 8140,
+      "sha256": "f5195022f0274bae7ac55f0a366232477c061bc9d2984a6593b1fb7faf1c3c8f"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-original-tag214-source02/source-root/ShielddSecurity/CapturedOriginalTag214.lean",
+      "bytes": 5557,
+      "sha256": "4474901cd6785455114e424c1abbc20a0359db695806822bdd886c746cba4869"
+    }
+  ],
+  "captured_data": [
+    {
+      "bytes": 36610,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-source01/qualification01.json",
+      "sha256": "76342258e7741b9f7863117c4784161329e4be86910bbf57388fcafa589cc9c6"
+    },
+    {
+      "bytes": 7188,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-assertion-provider50-source01/data/block-0029.json.zlib",
+      "sha256": "621f124e434ef98f7f18b13cecd9d975c223b0c16d9f96d05e4bebaa1d1cb9c8"
+    }
+  ],
+  "tag": "Exact captured coefficient p-1 requires explicit characteristic p; shifted tag is rho0 or rho0+1, hence 1/2 under rho0=1. Failed source02 used -1 as raw recipe and unavailable tactic; final recipe corrected to actual DATA and generic algebra rewritten. Explicit field premise is essential, not externalized.",
+  "boolean_delta": "Only redundant closed-goal tactic removed and unused characteristic instance omitted from generic candidate_truth.",
+  "word": "Full captured satisfaction derives bounded meaning from checked word and checked Boolean coverage. Independent constructor requires bounded original meaning and bit/value separation.",
+  "shared": "One shared Boolean seed, with explicit bit encoding/coverage and either value unseeded or independently known seeded value. Compatibility is a supplied generic premise here; its derivation for every legal input remains owned OPEN.",
+  "boolean_source_delta": "--- \n+++ \n@@ -30,7 +30,7 @@\n  | some hint =>\n    have equal : hint.2=wireRecipe slot.2 :=\n      (recipeEqual_iff _ _).mp (by simpa only [checkSlot,found] using valid)\n-   exact \u27e8hint.1,by rw [\u2190equal];exact found\u27e9\n+   exact \u27e8hint.1,by rw [\u2190equal]\u27e9\n variable {F : Type} [Field F]\n def bitValue (bit : Bool) : F := if bit then 1 else 0\n def seeded (base : Nat \u2192 F) (bits : Nat \u2192 Bool) (columns : List Nat) : Nat \u2192 F :=\n@@ -68,6 +68,7 @@\n  rw [seeded_selected base bits columns slot.2 (coverage slot member)]\n  cases bits slot.2 <;> simp [bitValue]\n variable [CharP F p]\n+omit [CharP F p] in\n theorem candidate_truth (base : Nat \u2192 F) (bits : Nat \u2192 Bool) (columns : List Nat)\n  (slots : List (Nat \u00d7 Nat)) (checked : checkSlots CapturedFullAssertions54.recipeAt slots=true)\n  (originals : \u2200 slot\u2208slots,3\u2264slot.2 \u2227 slot.2<22738)\n",
+  "tag_source_delta": "--- \n+++ \n@@ -5,7 +5,7 @@\n noncomputable section\n namespace ShielddSecurity.CapturedOriginalTag214\n open CompilerAssertionBlock51 CompilerArithmeticTransport41\n-def recipe : Recipe := .square [(0,-1),(7607,1)] [(0,-1),(7607,1)]\n+def recipe : Recipe := .square [(0,52435875175126190479447740508185965837690552500527637822603658699938581184512),(7607,1)] [(0,52435875175126190479447740508185965837690552500527637822603658699938581184512),(7607,1)]\n theorem checked : CapturedFullAssertions54.recipeAt 7475=some (true,recipe) := rfl\n variable {F : Type} [Field F]\n theorem shifted_square (x zero : F) : Square (x-zero) (x-zero) \u2194 x=zero \u2228 x=zero+1 := by\n@@ -15,21 +15,26 @@\n    have product : (x-zero)*((x-zero)-1)=0 := by rw [mul_sub,mul_one,square,sub_self]\n    rcases mul_eq_zero.mp product with a | b\n    \u00b7 exact Or.inl (sub_eq_zero.mp a)\n-   \u00b7 exact Or.inr (by linear_combination b)\n+   \u00b7 have equal : x=1+zero := sub_eq_iff_eq_add.mp (sub_eq_zero.mp b)\n+     exact Or.inr (by simpa only [add_comm] using equal)\n  \u00b7 rintro (rfl | rfl) <;> ring\n-theorem truth_iff (rho : Nat \u2192 F) : Truth rho recipe \u2194 rho 7607=rho 0 \u2228 rho 7607=rho 0+1 := by\n- have expression : eval rho [(0,-1),(7607,1)]=rho 7607-rho 0 := by\n-   simp only [eval,Int.cast_neg,Int.cast_one,mul_neg_one,mul_one,add_zero]\n-   ring\n- change Square (eval rho [(0,-1),(7607,1)]) (eval rho [(0,-1),(7607,1)]) \u2194 _\n- rw [expression]\n- exact shifted_square _ _\n noncomputable def seeded (base : Nat \u2192 F) (flag : Bool) : Nat \u2192 F :=\n  fun column => if column=7607 then base 0+BooleanHints207.bitValue flag else base column\n theorem seeded_outside (base : Nat \u2192 F) (flag : Bool) (column : Nat) (different : column\u22607607) :\n  seeded base flag column=base column := if_neg different\n theorem seeded_value (base : Nat \u2192 F) (flag : Bool) :\n  seeded base flag 7607=base 0+BooleanHints207.bitValue flag := if_pos rfl\n+variable [CharP F p]\n+theorem coefficient_cast : ((52435875175126190479447740508185965837690552500527637822603658699938581184512 : Int) : F)= -1 := by\n+ have equal : (52435875175126190479447740508185965837690552500527637822603658699938581184512 : Int)=(p : Int)-1 := by decide\n+ rw [equal,Int.cast_sub,Int.cast_natCast,Int.cast_one,CharP.cast_eq_zero F p,zero_sub]\n+theorem truth_iff (rho : Nat \u2192 F) : Truth rho recipe \u2194 rho 7607=rho 0 \u2228 rho 7607=rho 0+1 := by\n+ have expression : eval rho [(0,52435875175126190479447740508185965837690552500527637822603658699938581184512),(7607,1)]=rho 7607-rho 0 := by\n+   simp only [eval,coefficient_cast,Int.cast_one,one_mul,add_zero]\n+   ring\n+ change Square (eval rho [(0,52435875175126190479447740508185965837690552500527637822603658699938581184512),(7607,1)]) (eval rho [(0,52435875175126190479447740508185965837690552500527637822603658699938581184512),(7607,1)]) \u2194 _\n+ rw [expression]\n+ exact shifted_square _ _\n theorem seeded_truth (base : Nat \u2192 F) (flag : Bool) : Truth (seeded base flag) recipe := by\n  apply (truth_iff _).mpr\n  rw [seeded_value,seeded_outside base flag 0 (by decide)]\n@@ -42,7 +47,6 @@\n  change CapturedFullRelation58.candidate (seeded base flag) 7607=seeded base flag 7607 at original\n  rw [original,zero]\n  exact (truth_iff _).mp (seeded_truth base flag)\n-variable [CharP F p]\n theorem selected (base : Nat \u2192 F) (flag : Bool) :\n  \u2203 row,CapturedFullRelation58.rowAt 185429=some row \u2227\n  Square (eval (CapturedFullRelation58.candidate (seeded base flag)) row.a)\n@@ -75,6 +79,9 @@\n #check @ShielddSecurity.CapturedOriginalTag214.shifted_square\n #print axioms ShielddSecurity.CapturedOriginalTag214.shifted_square\n set_option pp.all true in\n+#check @ShielddSecurity.CapturedOriginalTag214.coefficient_cast\n+#print axioms ShielddSecurity.CapturedOriginalTag214.coefficient_cast\n+set_option pp.all true in\n #check @ShielddSecurity.CapturedOriginalTag214.truth_iff\n #print axioms ShielddSecurity.CapturedOriginalTag214.truth_iff\n set_option pp.all true in\n",
+  "constructor_assertion_scope_unchanged": 1467,
+  "all66_instances": "OPEN",
+  "global_compatible_seed": "OPEN",
+  "full_transfer": "OPEN",
+  "root_harness_notes": [
+    "Initial generation helper stopped on audit ordering, identical name sets; corrected to complete unique name census. Rerun uses fresh isolated directory. No worker source or receipt changed."
+  ]
+}
