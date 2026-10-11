@@ -1,0 +1,248 @@
+ShielddSecurity.TransferPendingSealSource01.SealError : Type
+'ShielddSecurity.TransferPendingSealSource01.SealError' does not depend on any axioms
+ShielddSecurity.TransferPendingSealSource01.freeze : (pending :
+    ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+  ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferPendingSealSource01.freeze' does not depend on any axioms
+@ShielddSecurity.TransferPendingSealSource01.sealOnce : {O E : Type} →
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O) →
+    (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+      (objectKey : Nat) →
+        (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+          ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferPendingSealSource01.SealError
+'ShielddSecurity.TransferPendingSealSource01.sealOnce' does not depend on any axioms
+@ShielddSecurity.TransferPendingSealSource01.ensureSealed : {O E : Type} →
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+    (objectKey : Nat) →
+      (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+        Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit
+'ShielddSecurity.TransferPendingSealSource01.ensureSealed' does not depend on any axioms
+ShielddSecurity.TransferPendingSealSource01.freeze_exact_order_membership_and_sealed : ∀
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+  And
+    (@Eq.{1} (List.{0} Nat)
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+        (ShielddSecurity.TransferPendingSealSource01.freeze pending))
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending))
+    (And
+      (ShielddSecurity.TransferPendingSetInvariant01.Coherent
+        (ShielddSecurity.TransferPendingSealSource01.freeze pending))
+      (@Eq.{1} Bool
+        (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed
+          (ShielddSecurity.TransferPendingSealSource01.freeze pending))
+        Bool.true))
+'ShielddSecurity.TransferPendingSealSource01.freeze_exact_order_membership_and_sealed' does not depend on any axioms
+@ShielddSecurity.TransferPendingSealSource01.absent_ensure_succeeds : ∀ {O E : Type}
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (absent :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        objectKey)
+      (@Option.none.{0} O)),
+  @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+    (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode objectKey child)
+    (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit)
+'ShielddSecurity.TransferPendingSealSource01.absent_ensure_succeeds' depends on axioms: [propext]
+@ShielddSecurity.TransferPendingSealSource01.encoded_open_ensure_refuses : ∀ {O E : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (objectKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (stored :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        objectKey)
+      (@Option.some.{0} O (encode pending)))
+  (opened : @Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed pending) Bool.false),
+  @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+    (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode objectKey child)
+    (@Except.error.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit
+      ShielddSecurity.TransferPendingSealSource01.SealError.notSealed)
+'ShielddSecurity.TransferPendingSealSource01.encoded_open_ensure_refuses' depends on axioms: [propext]
+@ShielddSecurity.TransferPendingSealSource01.encoded_frozen_ensure_succeeds : ∀ {O E : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (objectKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (stored :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        objectKey)
+      (@Option.some.{0} O (encode (ShielddSecurity.TransferPendingSealSource01.freeze pending)))),
+  @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+    (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode objectKey child)
+    (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit)
+'ShielddSecurity.TransferPendingSealSource01.encoded_frozen_ensure_succeeds' depends on axioms: [propext]
+@ShielddSecurity.TransferPendingSealSource01.opened_seal_derives_single_object_and_frames : ∀ {O E : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (opened :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed
+        (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey child))
+      Bool.false),
+  And
+    (@Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+        ShielddSecurity.TransferPendingSealSource01.SealError
+        (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+            ShielddSecurity.TransferPendingSealSource01.SealError
+            (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child)))
+        (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+      (And
+        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+              ShielddSecurity.TransferPendingSealSource01.SealError
+              (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child)))
+          (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+            (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+        (And
+          (@Eq.{1} (List.{0} E)
+            (@ShielddSecurity.TransferStateDelta.Cache.events O E
+              (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                ShielddSecurity.TransferPendingSealSource01.SealError
+                (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child)))
+            (@ShielddSecurity.TransferStateDelta.Cache.events O E
+              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+          (And
+            (∀ (other : Nat),
+              @Ne.{1} Nat other objectKey →
+                @Eq.{1} (Option.{0} (Option.{0} O))
+                  (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                      ShielddSecurity.TransferPendingSealSource01.SealError
+                      (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child))
+                    other)
+                  (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+                    (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) other))
+            (@Eq.{1} (Option.{0} O)
+              (@ShielddSecurity.TransferStateDelta.State.objects O
+                (@ShielddSecurity.TransferStateDelta.applyCache O E
+                  (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+                  (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                    ShielddSecurity.TransferPendingSealSource01.SealError
+                    (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child)))
+                objectKey)
+              (@Option.some.{0} O
+                (encode
+                  (ShielddSecurity.TransferPendingSealSource01.freeze
+                    (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey child)))))))))
+'ShielddSecurity.TransferPendingSealSource01.opened_seal_derives_single_object_and_frames' depends on axioms: [propext]
+@ShielddSecurity.TransferPendingSealSource01.already_sealed_error_retains_input_cache : ∀ {O E : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (sealed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed
+        (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey child))
+      Bool.true),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferPendingSealSource01.SealError)
+    (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E ShielddSecurity.TransferPendingSealSource01.SealError
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit
+        ShielddSecurity.TransferPendingSealSource01.SealError.alreadySealed))
+'ShielddSecurity.TransferPendingSealSource01.already_sealed_error_retains_input_cache' depends on axioms: [propext]
+@ShielddSecurity.TransferPendingSealSource01.absence_seals_default_empty_order : ∀ {O E : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (absent :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        objectKey)
+      (@Option.none.{0} O)),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferPendingSealSource01.SealError)
+    (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E ShielddSecurity.TransferPendingSealSource01.SealError
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+        (@ShielddSecurity.TransferStateDelta.putObject O E child objectKey
+          (@Option.some.{0} O
+            (encode
+              (ShielddSecurity.TransferPendingSealSource01.freeze
+                ShielddSecurity.TransferCurrentPendingReplay01.emptyPending)))))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit))
+'ShielddSecurity.TransferPendingSealSource01.absence_seals_default_empty_order' depends on axioms: [propext]
+@ShielddSecurity.TransferPendingSealSource01.successful_seal_current_read_freezes_and_repeat_refuses : ∀ {O E : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (objectKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (opened :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed
+        (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey child))
+      Bool.false),
+  have output :
+    ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferPendingSealSource01.SealError :=
+    @ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey child;
+  have after : ShielddSecurity.TransferStateDelta.Delta O E :=
+    @ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+        ShielddSecurity.TransferPendingSealSource01.SealError output);
+  And
+    (@Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey after)
+      (ShielddSecurity.TransferPendingSealSource01.freeze
+        (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey child)))
+    (And
+      (@Eq.{1} (Except.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit)
+        (@ShielddSecurity.TransferPendingSealSource01.ensureSealed O E decode objectKey after)
+        (@Except.ok.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit Unit.unit))
+      (@Eq.{1}
+        (ShielddSecurity.TransferRawStateProgram01.Outcome O E ShielddSecurity.TransferPendingSealSource01.SealError)
+        (@ShielddSecurity.TransferPendingSealSource01.sealOnce O E encode decode objectKey after)
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E ShielddSecurity.TransferPendingSealSource01.SealError
+          (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+            ShielddSecurity.TransferPendingSealSource01.SealError output)
+          (@Except.error.{0, 0} ShielddSecurity.TransferPendingSealSource01.SealError Unit
+            ShielddSecurity.TransferPendingSealSource01.SealError.alreadySealed))))
+'ShielddSecurity.TransferPendingSealSource01.successful_seal_current_read_freezes_and_repeat_refuses' depends on axioms: [propext]
+@ShielddSecurity.TransferPendingSealSource01.whole_request_after_current_sealing_preserves_parent_and_queue : ∀
+  {O E K X Tree A : Type} (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (request : ShielddSecurity.TransferBlockPendingSequence01.Request O E K X Tree A)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (sealed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed
+        (@ShielddSecurity.TransferBlockPendingSequence01.parentPending O decode project parent))
+      Bool.true),
+  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=
+    @ShielddSecurity.TransferBlockPendingSequence01.step O E K X Tree A encode decode project request parent queued;
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A parent queued attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A) parent queued))
+'ShielddSecurity.TransferPendingSealSource01.whole_request_after_current_sealing_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
