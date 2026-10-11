@@ -1,5 +1,19 @@
 # Transfer proof completion plan — 9 October 2026
 
+The complete arithmetic constructor is accepted at
+02b41b7d81b3a052ee585b65fca1aa2518b32f38: 599 unique leaves, ten groups
+and one root, with 6,012 complete original declaration reports. It covers all
+177,954 arithmetic positions, 50,478 squares and 63,738 products, constructs
+their values over Field F/CharP F p, preserves all 22,735 original input
+columns, verifier/copy/outside columns, and derives fixed-point and fresh
+completion uniqueness. Parent independently verified full original reports,
+639 selected custom associations, 17 execution contexts, all source census,
+599 leaf DATA/generator identities and exact eleven-source composition replay.
+All physical guards remain unchanged; rejected history is preserved separately.
+Large provenance is losslessly encoded with original identities. Independent
+assertion truth, full relation/TransferSem soundness, total legal construction,
+native/runtime correspondence and final Transfer certification remain OPEN.
+
 The raw delivery success composition is accepted at 95a570eeab095a08374e6b2a0e850be31330fc21:
 one fresh source/five complete theorem reports and28 exact retained reports.
 It recovers the successful raw cache from delivery success, derives Deferred
