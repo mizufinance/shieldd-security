@@ -1,0 +1,107 @@
+import ShielddSecurity.Range
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.BinaryComparison100
+variable {F : Type} [Field F]
+def bit (value : Bool) : F := if value then 1 else 0
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.bit
+#print axioms ShielddSecurity.BinaryComparison100.bit
+def step (flag a b : F) : F :=
+  let x:=1-a
+  let both:=x*b
+  both+flag*(x+b-(both+both))
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.step
+#print axioms ShielddSecurity.BinaryComparison100.step
+def scan (flag : F) : List (Bool × Bool) → F
+  | [] => flag
+  | (a,b)::tail => scan (step flag (bit a) (bit b)) tail
+
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.scan
+#print axioms ShielddSecurity.BinaryComparison100.scan
+theorem step_sound (a b : Bool) (left right scale : Nat) (leftBound : left<scale) (rightBound : right<scale) :
+    step (if left≤right then (1:F) else 0) (bit a) (bit b)=
+      if left+scale*(if a then 1 else 0)≤right+scale*(if b then 1 else 0) then 1 else 0 := by
+  cases a <;> cases b
+  · change (1-0)*0+(if left≤right then (1:F) else 0)*((1-0)+0-((1-0)*0+(1-0)*0))=
+      if left≤right then 1 else 0
+    ring
+  · have bound : left≤right+scale*1 := by omega
+    change (1-0)*1+(if left≤right then (1:F) else 0)*((1-0)+1-((1-0)*1+(1-0)*1))=
+      if left≤right+scale*1 then 1 else 0
+    rw [if_pos bound]
+    ring
+  · have bound : ¬left+scale*1≤right := by omega
+    change (1-1)*0+(if left≤right then (1:F) else 0)*((1-1)+0-((1-1)*0+(1-1)*0))=
+      if left+scale*1≤right then 1 else 0
+    rw [if_neg bound]
+    ring
+  · change (1-1)*1+(if left≤right then (1:F) else 0)*((1-1)+1-((1-1)*1+(1-1)*1))=
+      if left+scale*1≤right+scale*1 then 1 else 0
+    by_cases h : left≤right
+    · have higher : left+scale*1≤right+scale*1 := by omega
+      rw [if_pos h,if_pos higher]
+      ring
+    · have higher : ¬left+scale*1≤right+scale*1 := by omega
+      rw [if_neg h,if_neg higher]
+      ring
+
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.step_sound
+#print axioms ShielddSecurity.BinaryComparison100.step_sound
+theorem scan_sound (pairs : List (Bool × Bool)) (left right scale : Nat)
+    (leftBound : left<scale) (rightBound : right<scale) :
+    scan (if left≤right then (1:F) else 0) pairs=
+      if left+scale*binary (pairs.map Prod.fst)≤right+scale*binary (pairs.map Prod.snd) then 1 else 0 := by
+  induction pairs generalizing left right scale with
+  | nil => simp only [scan,List.map_nil,binary,mul_zero,add_zero]
+  | cons pair pairs ih =>
+    rcases pair with ⟨a,b⟩
+    rw [scan,step_sound a b left right scale leftBound rightBound]
+    have lb : left+scale*(if a then 1 else 0)<scale*2 := by cases a <;> norm_num <;> omega
+    have rb : right+scale*(if b then 1 else 0)<scale*2 := by cases b <;> norm_num <;> omega
+    have h:=ih (left+scale*(if a then 1 else 0)) (right+scale*(if b then 1 else 0)) (scale*2) lb rb
+    simpa only [List.map_cons,Prod.fst,Prod.snd,binary,Nat.mul_add,Nat.mul_assoc,Nat.add_assoc] using h
+
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.scan_sound
+#print axioms ShielddSecurity.BinaryComparison100.scan_sound
+def compare (pairs : List (Bool × Bool)) : F := scan 1 pairs
+
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.compare
+#print axioms ShielddSecurity.BinaryComparison100.compare
+theorem compare_exact (pairs : List (Bool × Bool)) :
+    compare (F:=F) pairs=if binary (pairs.map Prod.fst)≤binary (pairs.map Prod.snd) then 1 else 0 := by
+  have h:=scan_sound (F:=F) pairs 0 0 1 (by decide) (by decide)
+  simpa only [compare,Nat.zero_le,if_true,Nat.one_mul,Nat.zero_add] using h
+
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.compare_exact
+#print axioms ShielddSecurity.BinaryComparison100.compare_exact
+theorem compare_complete (pairs : List (Bool × Bool))
+    (bound : binary (pairs.map Prod.fst)≤binary (pairs.map Prod.snd)) : compare (F:=F) pairs=1 := by
+  rw [compare_exact,if_pos bound]
+
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.compare_complete
+#print axioms ShielddSecurity.BinaryComparison100.compare_complete
+theorem compare_boolean (pairs : List (Bool × Bool)) : Square (compare (F:=F) pairs) (compare (F:=F) pairs) := by
+  rw [compare_exact]
+  split <;> simp only [Square,mul_one,mul_zero]
+end ShielddSecurity.BinaryComparison100
+
+set_option pp.all true in
+#check @ShielddSecurity.BinaryComparison100.compare_boolean
+#print axioms ShielddSecurity.BinaryComparison100.compare_boolean

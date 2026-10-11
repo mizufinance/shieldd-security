@@ -1,0 +1,10 @@
+{
+  "status": "PASSED",
+  "kind": "Independent byte-exact two-constant guard delta review",
+  "old_sha256": "085dbdfa18f8ac859be613588d4ca1ed2ad2436fbf5d02c336654934bb795825",
+  "new_sha256": "92c62c3c35fb636851a85ef3ddeaaa9185df6f40ffe2ef26a8ad3b3397634076",
+  "changes": "Only on-disk metadata allowance768MiB\u21921024MiB and launch metadata reserve764MiB\u21921020MiB. Aggregate batch disk2GiB and minimum free disk2GiB unchanged.",
+  "physical_guards_unchanged": "All process/thread/heap/RSS/free-RAM/disk/timeout/heartbeat/recdepth/stop/cleanup and audit logic byte-identical.",
+  "scope": "No RAM resident-cap increase or admission lowering; no proof quota or semantic relaxation. Original attempts retain their original guards.",
+  "exact_diff": "--- \n+++ \n@@ -346,14 +346,14 @@\n     aliases={**history_aliases(config['carried_failure']),**overlay_map(config)};total=metadata=0\n     for root in config['charged_roots']:\n         physical,md=bytes_in(root,aliases);total+=physical;metadata+=md\n-    require(total<=2*1024*1024*1024 and metadata<=768*1024*1024, 'batch disk/metadata cap')\n+    require(total<=2*1024*1024*1024 and metadata<=1024*1024*1024, 'batch disk/metadata cap')\n     stat=os.statvfs(config['batch_root'])\n     disk=stat.f_bavail*stat.f_frsize; memory=free_memory()\n     require(disk>=2*1024*1024*1024 and memory>=15, 'RAM/disk admission')\n     return {'free_memory_percent':memory,'free_disk_bytes':disk,'batch_bytes':total,'metadata_bytes':metadata}\n \n def launch_reserve(observation):\n-    require(observation['metadata_bytes']<=764*1024*1024, 'reserve streams/receipt metadata')\n+    require(observation['metadata_bytes']<=1020*1024*1024, 'reserve streams/receipt metadata')\n     require(observation['batch_bytes']<=2032*1024*1024, 'reserve new object/streams/receipt')\n \n def state(config):\n"
+}
