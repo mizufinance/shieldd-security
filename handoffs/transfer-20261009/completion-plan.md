@@ -976,3 +976,10 @@ Actual Rust trace/type/field interpretation, subtraction, byte order and Montgom
 Published `TransferScalarSbbPrimitive01` with9original full type/axiom reports. Independent review verifies exact original guard/runtime/ancestry/receipt/load identities, failed01 history and the precise maintained proof-only branch rewrites, preserving all four definitions/five contracts. For reachable zero/all-ones incoming masks, widened wrapping subtraction derives exact low word, zero/all-ones outgoing mask and full subtraction equation, including both underflow branches. No desired next borrow is supplied.
 
 Actual Rust evaluation and trace, whole subtraction/add-back, byte order and field semantic correspondence remain owned OPEN. Native controls and final replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
+
+
+### Finite subtraction walk and derived final borrow, 2026-10-11
+
+Published `TransferScalarBorrowWalk01` with7original full type/axiom reports. Independent original guard/runtime/ancestry/receipt/load review and exact pure maintained source regeneration passed. The recurrence derives next borrow from the exact source-shaped SBB mask, retains word count, conserves full positional subtraction and derives final underflow from finite output bounds. No desired final branch is supplied. First strict run passed.
+
+Actual Rust trace, masked modulus add-back, byte order and field semantic correspondence remain owned OPEN. Native controls/final replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
