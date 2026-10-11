@@ -749,3 +749,8 @@ Evidence commit: 25be8233ae284ea39af032cf9360e0398b82b56a
 14 complete original reports independently accepted for source writer preparation. Success derives every prior call, Prepared phase, original exact accepted block-input order and observed insertion boundary/application root. Whole reachable finite-codec walk/freeze supplies global uniqueness and32768capacity. Failure preserves writer phase, with no disposable-state rollback claim. Native batch/async/ownership/session/Host and durable intent/commit/reopen remain OPEN.
 
 Evidence commit: c66d0069dd3a2dd831f69e8cceccf6bc8ff38079
+
+
+Independent review accepted4modules22 complete original reports deriving both captured comparison pairs and zero equality flags from full relation satisfaction. In the unregulated case, actual gap polynomial/row derives value<asset<next under independent canonical values and exact decoded bit-limb meanings. Recovery of those bounds/meanings remains OPEN. Constructor coverage1467distinct assertions unchanged; native/fullTransfer/final replay OPEN.
+
+Evidence commit: 8847134b193cba207eae03a5b1cf59bad61135a6
