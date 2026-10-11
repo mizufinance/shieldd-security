@@ -1,0 +1,188 @@
+ShielddSecurity.TransferCurrentPendingReplay01.emptyPending : ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferCurrentPendingReplay01.emptyPending' does not depend on any axioms
+@ShielddSecurity.TransferCurrentPendingReplay01.currentPending : {O E : Type} →
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+    (objectKey : Nat) →
+      (child : ShielddSecurity.TransferStateDelta.Delta O E) → ShielddSecurity.TransferNullifierBatchSource01.Pending
+'ShielddSecurity.TransferCurrentPendingReplay01.currentPending' does not depend on any axioms
+@ShielddSecurity.TransferCurrentPendingReplay01.withPending : {O E X : Type} →
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) →
+      (objectKey : Nat) → ShielddSecurity.TransferRawEffectsSource01.Backend O E X
+'ShielddSecurity.TransferCurrentPendingReplay01.withPending' does not depend on any axioms
+ShielddSecurity.TransferCurrentPendingReplay01.member_derives_nonempty : ∀ (inputs : List.{0} Nat) (key : Nat)
+  (inside : @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) inputs key),
+  @Eq.{1} Bool (@List.isEmpty.{0} Nat inputs) Bool.false
+'ShielddSecurity.TransferCurrentPendingReplay01.member_derives_nonempty' does not depend on any axioms
+@ShielddSecurity.TransferCurrentPendingReplay01.current_object_absence_derives_default : ∀ {O E : Type}
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (absent :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        objectKey)
+      (@Option.none.{0} O)),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey child)
+    ShielddSecurity.TransferCurrentPendingReplay01.emptyPending
+'ShielddSecurity.TransferCurrentPendingReplay01.current_object_absence_derives_default' depends on axioms: [propext]
+@ShielddSecurity.TransferCurrentPendingReplay01.encoded_current_object_derives_pending : ∀ {O E : Type}
+  (encode : ShielddSecurity.TransferNullifierBatchSource01.Pending → O)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending (decode (encode pending)) pending)
+  (objectKey : Nat) (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (stored :
+    @Eq.{1} (Option.{0} O)
+      (@ShielddSecurity.TransferStateDelta.State.objects O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        objectKey)
+      (@Option.some.{0} O (encode pending))),
+  @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    (@ShielddSecurity.TransferCurrentPendingReplay01.currentPending O E decode objectKey child) pending
+'ShielddSecurity.TransferCurrentPendingReplay01.encoded_current_object_derives_pending' depends on axioms: [propext]
+@ShielddSecurity.TransferCurrentPendingReplay01.stored_current_member_rejects_whole_delivery : ∀ {O E K X Tree A : Type}
+  (api : ShielddSecurity.TransferStateDelta.Api O E A) (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+        (decode
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.encode O E
+            (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+              (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+            pending))
+        pending)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending) (shared : Nat)
+  (inside : @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) (inputs action) shared)
+  (belowWord : @LT.lt.{0} Nat instLTNat capacity wordMax)
+  (stored :
+    @Eq.{1} (Option.{0} O) (@ShielddSecurity.TransferStateDelta.State.objects O parent nullifierKey)
+      (@Option.some.{0} O
+        (@ShielddSecurity.TransferNullifierBatchSource01.Backend.encode O E
+          (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+          pending)))
+  (spent : @Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership pending shared) Bool.true),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+    (@ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) api
+        keys ShielddSecurity.TransferIndexCountCodec01.codec
+        (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+        (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A
+          (@ShielddSecurity.TransferCurrentPendingReplay01.withPending O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw decode nullifierKey)
+          notes volume sct volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload
+          nullifierKey entryKey dayKey context action item))
+      registryMatches exclusive mode action parent queued)
+    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+'ShielddSecurity.TransferCurrentPendingReplay01.stored_current_member_rejects_whole_delivery' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCurrentPendingReplay01.first_whole_success_then_shared_input_replay_preserves_first_parent_and_queue : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (decode : O → ShielddSecurity.TransferNullifierBatchSource01.Pending)
+  (roundtrip :
+    ∀ (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending),
+      @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+        (decode
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.encode O E
+            (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+              (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+            pending))
+        pending)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (project : ShielddSecurity.TransferStateDelta.Bytes → Nat)
+  (injection : @Function.Injective.{1, 1} ShielddSecurity.TransferStateDelta.Bytes Nat project)
+  (wordMax capacity firstPayload firstEntry firstDay secondPayload secondEntry secondDay : Nat)
+  (firstContext secondContext : ShielddSecurity.TransferCapabilitySource01.ProofContext) (firstAction secondAction : A)
+  (firstItem secondItem : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (firstRegistry firstExclusive secondRegistry secondExclusive : Bool)
+  (firstMode secondMode : ShielddSecurity.TransferStateDelta.IndexMode)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (firstCommit : ShielddSecurity.TransferStateDelta.Commit O E A) (shared : Nat)
+  (firstMember : @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) (inputs firstAction) shared)
+  (secondMember : @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) (inputs secondAction) shared)
+  (belowWord : @LT.lt.{0} Nat instLTNat capacity wordMax)
+  (firstSuccess :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          api keys ShielddSecurity.TransferIndexCountCodec01.codec
+          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+          (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A
+            (@ShielddSecurity.TransferCurrentPendingReplay01.withPending O E
+              (ShielddSecurity.TransferSctInsertionSource01.Error X) raw decode
+              (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+            notes volume sct volumeAvailable extract inputs outputs wordMax capacity
+            (project ShielddSecurity.TransferNullifierObjectKeys01.treeBytes)
+            (project ShielddSecurity.TransferNullifierObjectKeys01.notesBytes)
+            (project ShielddSecurity.TransferNullifierObjectKeys01.volumeBytes) firstPayload
+            (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes) firstEntry firstDay firstContext
+            firstAction firstItem))
+        firstRegistry firstExclusive firstMode firstAction parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) firstCommit)),
+  have attempted : Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) :=
+    @ShielddSecurity.TransferStateDelta.run O E A
+      (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) api
+        keys ShielddSecurity.TransferIndexCountCodec01.codec
+        (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+        (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A
+          (@ShielddSecurity.TransferCurrentPendingReplay01.withPending O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw decode
+            (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+          notes volume sct volumeAvailable extract inputs outputs wordMax capacity
+          (project ShielddSecurity.TransferNullifierObjectKeys01.treeBytes)
+          (project ShielddSecurity.TransferNullifierObjectKeys01.notesBytes)
+          (project ShielddSecurity.TransferNullifierObjectKeys01.volumeBytes) secondPayload
+          (project ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes) secondEntry secondDay secondContext
+          secondAction secondItem))
+      secondRegistry secondExclusive secondMode secondAction
+      (@ShielddSecurity.TransferStateDelta.Commit.parent O E A firstCommit)
+      (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A firstCommit);
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)) attempted
+      (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E A)))
+    (@Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A))
+      (@ShielddSecurity.TransferStateDelta.finish O E A
+        (@ShielddSecurity.TransferStateDelta.Commit.parent O E A firstCommit)
+        (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A firstCommit) attempted)
+      (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} A)
+        (@ShielddSecurity.TransferStateDelta.Commit.parent O E A firstCommit)
+        (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A firstCommit)))
+'ShielddSecurity.TransferCurrentPendingReplay01.first_whole_success_then_shared_input_replay_preserves_first_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
