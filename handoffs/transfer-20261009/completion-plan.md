@@ -969,3 +969,10 @@ Actual Rust padded-eight-limb/ADC/SBB/carry trace, subtraction mask, byte order,
 Published `TransferScalarAdcShift01` with8original full type/axiom reports in `sources/windows/scalar-adc-shift-20261011-01`. Independent review verifies complete original guard/runtime/ancestry/receipt/load identities and exact maintained failed01 proof repair with every definition/contract preserved. Fixed high shift and UInt64 casts coincide with quotient split; finite ADC equals unit MAC and conserves both words, deriving the zero-upper-limb carry identity.
 
 Actual Rust trace/type/field interpretation, subtraction, byte order and Montgomery semantic correspondence remain owned OPEN. Native controls and final replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
+
+
+### Exact finite subtraction and reachable borrow masks, 2026-10-11
+
+Published `TransferScalarSbbPrimitive01` with9original full type/axiom reports. Independent review verifies exact original guard/runtime/ancestry/receipt/load identities, failed01 history and the precise maintained proof-only branch rewrites, preserving all four definitions/five contracts. For reachable zero/all-ones incoming masks, widened wrapping subtraction derives exact low word, zero/all-ones outgoing mask and full subtraction equation, including both underflow branches. No desired next borrow is supplied.
+
+Actual Rust evaluation and trace, whole subtraction/add-back, byte order and field semantic correspondence remain owned OPEN. Native controls and final replay UNRUN; full Transfer OPEN. Same workers continue autonomously.
