@@ -61,6 +61,26 @@ support the actual curve-cardinality proof; the desktop owns a separate
 subgroup proof for the SDK generator and its exact source/codec association.
 The integer comparison is source/data evidence, not a kernel or native receipt.
 
+The seven-module SDK admission and mathematical source-model packet is now
+accepted at `4e6f6b92c90501cc8ad0c922dcef25c048a2e702` (98 complete reports).
+It derives subgroup membership from modeled curve/modulus admission, proves
+five-coordinate addition/doubling and symbolic scalar-loop correspondence, and
+independently certifies the SDK compressed constant's mathematical coordinates
+and eight-preimage. The closed group exponent discharges SDK-base subgroup
+membership; authorization and modeled randomization have complete cofactor
+preimages with the explicit BEWrite primitive contract. The final base is
+independent of the distinct traced base. Parent matched full original outputs,
+reproduced the certificate generator, verified four exact locked crate source
+snapshots and all408 import associations, and checked seven byte-identical
+guard runners. Rust field, byte, strict decoder and actual iterator refinement
+remain owned obligations. The same desktop worker is continuing them without
+waiting for per-module approval; this is not native or full Transfer certification.
+
+The retained Mac worker has extracted the entire177,954-row arithmetic provider
+into599 bounded leaves and is qualifying its first production leaves and
+symbolic aggregators. These live results are not yet a sealed full-provider
+endpoint and do not close actual full relation coverage.
+
 The expanded393-source scoped closure through MerklePath33 is assembled without
 caches or replay at `fdcd5276fd8ce4f89411550e062a13cbb27ca61b`. The earlier
 336-source closure remains preserved at
