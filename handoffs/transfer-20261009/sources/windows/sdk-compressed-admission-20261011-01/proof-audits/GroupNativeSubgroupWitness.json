@@ -1,0 +1,111 @@
+{
+  "module": "GroupNativeSubgroupWitness",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.GroupNativeSubgroupWitness.sharedInverse",
+      "full_type": "@ShielddSecurity.GroupNativeSubgroupWitness.sharedInverse : {F : Type} \u2192\n  [Field.{0} F] \u2192 (d : F) \u2192 (point : ShielddSecurity.Group.Point F) \u2192 F",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "d4751380a8722989dd332d3dccaa90841dfb4f5166c288b466e868c9e7b13a0b"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints",
+      "full_type": "@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints : {F : Type} \u2192\n  [Field.{0} F] \u2192 (d : F) \u2192 (point : ShielddSecurity.Group.Point F) \u2192 Prop",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "f1d9bc3ea547d26c1bbd3def4958f395634ef01e5a41eff9ca356039485ef75e"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSubgroupWitness.native_double_constraints",
+      "full_type": "@ShielddSecurity.GroupNativeSubgroupWitness.native_double_constraints : \u2200 {F : Type} [inst : Field.{0} F]\n  (d imaginary : F) (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (point : ShielddSecurity.Group.Point F) (valid : @ShielddSecurity.Group.OnCurve F inst d point),\n  @ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d point",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ecb0c24f6cd257f201995ed1533f3d7a3dc92bc6a0b642773ed32855f24ccf14"
+    },
+    {
+      "declaration": "ShielddSecurity.GroupNativeSubgroupWitness.native_subgroup_constraints",
+      "full_type": "@ShielddSecurity.GroupNativeSubgroupWitness.native_subgroup_constraints : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.Scalar.modulus]\n  {J : Type} [inst_2 : AddCommGroup.{0} J] (codec : @ShielddSecurity.TransferReduction.CanonicalField F inst)\n  (writer : @ShielddSecurity.GroupByteCodec.BEWrite F inst codec) (d imaginary : F)\n  (model : @ShielddSecurity.Group.StandardCurveModel F inst J inst_2 d)\n  (nonSquare : @ShielddSecurity.Group.NoUnitSquare F inst d)\n  (imaginarySquare :\n    @Eq.{1} F\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        imaginary imaginary)\n      (@Neg.neg.{0} F\n        (@NegZeroClass.toNeg.{0} F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                  (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (two :\n    @Ne.{1} F\n      (@OfNat.ofNat.{0} F (nat_lit 2)\n        (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n          (@AddMonoidWithOne.toNatCast.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n          (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n            (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n  (point : J)\n  (subgroup :\n    @Eq.{1} J\n      (@HSMul.hSMul.{0, 0, 0} Nat J J\n        (@instHSMul.{0, 0} Nat J\n          (@AddMonoid.toNSMul.{0} J\n            (@SubNegMonoid.toAddMonoid.{0} J (@AddGroup.toSubNegMonoid.{0} J (@AddCommGroup.toAddGroup.{0} J inst_2)))))\n        ShielddSecurity.Scalar.order point)\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_2))))))))\n  (nonidentity :\n    @Ne.{1} J point\n      (@OfNat.ofNat.{0} J (nat_lit 0)\n        (@Zero.toOfNat0.{0} J\n          (@NegZeroClass.toZero.{0} J\n            (@SubNegZeroMonoid.toNegZeroClass.{0} J\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} J\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} J\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} J inst_2)))))))),\n  have preimage : ShielddSecurity.Group.Point F :=\n    @ShielddSecurity.GroupNativeCofactor.nativePreimage F inst d codec writer\n      (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point);\n  have twice : ShielddSecurity.Group.Point F := @ShielddSecurity.GroupFixedWindows.nativeAdd F inst d preimage preimage;\n  have four : ShielddSecurity.Group.Point F := @ShielddSecurity.GroupFixedWindows.nativeAdd F inst d twice twice;\n  And (@ShielddSecurity.Group.OnCurve F inst d preimage)\n    (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d preimage)\n      (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d twice)\n        (And (@ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints F inst d four)\n          (And\n            (@Eq.{1} (ShielddSecurity.Group.Point F)\n              (@ShielddSecurity.GroupNativeCofactor.nativeEight F inst d preimage)\n              (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point))\n            (@Eq.{1} F\n              (@HMul.hMul.{0, 0, 0} F F F\n                (@instHMul.{0} F\n                  (@Distrib.toMul.{0} F\n                    (@instDistribOfSemiring.{0} F\n                      (@DivisionSemiring.toSemiring.{0} F\n                        (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n                (@ShielddSecurity.Group.Point.x F\n                  (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point))\n                (@Inv.inv.{0} F\n                  (@InvOneClass.toInv.{0} F\n                    (@DivInvOneMonoid.toInvOneClass.{0} F\n                      (@DivisionMonoid.toDivInvOneMonoid.{0} F\n                        (@DivisionCommMonoid.toDivisionMonoid.{0} F\n                          (@CommGroupWithZero.toDivisionCommMonoid.{0} F\n                            (@Semifield.toCommGroupWithZero.{0} F (@Field.toSemifield.{0} F inst)))))))\n                  (@ShielddSecurity.Group.Point.x F\n                    (@ShielddSecurity.Group.StandardCurveModel.coordinates F inst J inst_2 d model point))))\n              (@OfNat.ofNat.{0} F (nat_lit 1)\n                (@One.toOfNat1.{0} F\n                  (@AddMonoidWithOne.toOne.{0} F\n                    (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                      (@Ring.toAddGroupWithOne.{0} F\n                        (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "31f50f58b3ddc3758240c5e13240781f26f4e824fdba9ebcc0ad4c0c1877afd4"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 8270,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-witness-20261010-02\\runs\\01-GroupNativeSubgroupWitness\\stdout.txt",
+    "sha256": "0981ee333a7bc636684aef84494ba28f82eddf9f7b20cf20d2b3133adc91bbfd"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.GroupNativeSubgroupWitness.DoubleConstraints": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "f1d9bc3ea547d26c1bbd3def4958f395634ef01e5a41eff9ca356039485ef75e"
+      },
+      "ShielddSecurity.GroupNativeSubgroupWitness.native_double_constraints": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "ecb0c24f6cd257f201995ed1533f3d7a3dc92bc6a0b642773ed32855f24ccf14"
+      },
+      "ShielddSecurity.GroupNativeSubgroupWitness.native_subgroup_constraints": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "31f50f58b3ddc3758240c5e13240781f26f4e824fdba9ebcc0ad4c0c1877afd4"
+      },
+      "ShielddSecurity.GroupNativeSubgroupWitness.sharedInverse": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "d4751380a8722989dd332d3dccaa90841dfb4f5166c288b466e868c9e7b13a0b"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-witness-20261010-02\\project\\ShielddSecurity\\GroupNativeSubgroupWitness.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-witness-20261010-02\\project\\ShielddSecurity\\GroupNativeSubgroupWitness.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 97976,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-witness-20261010-02\\project\\ShielddSecurity\\GroupNativeSubgroupWitness.olean",
+        "sha256": "e81209a9e14fc299400fec8965ef389ba3c27663f7417db55dab5bbc29bd5d48"
+      }
+    ],
+    "peak_rss_bytes": 1112932352,
+    "seconds": 14.882156200008467,
+    "status": "passed",
+    "stdout": {
+      "bytes": 8270,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-native-witness-20261010-02\\runs\\01-GroupNativeSubgroupWitness\\stdout.txt",
+      "sha256": "0981ee333a7bc636684aef84494ba28f82eddf9f7b20cf20d2b3133adc91bbfd"
+    }
+  }
+}

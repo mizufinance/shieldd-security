@@ -1,0 +1,197 @@
+{
+  "module": "SDKEncodingInjective01",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.point_ext",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.point_ext : \u2200\n  (left right : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (sameX :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (@ShielddSecurity.Group.Point.x ShielddSecurity.ConcreteJubjubField01.F left)\n      (@ShielddSecurity.Group.Point.x ShielddSecurity.ConcreteJubjubField01.F right))\n  (sameY :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (@ShielddSecurity.Group.Point.y ShielddSecurity.ConcreteJubjubField01.F left)\n      (@ShielddSecurity.Group.Point.y ShielddSecurity.ConcreteJubjubField01.F right)),\n  @Eq.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) left right",
+      "axioms": [],
+      "full_type_sha256": "0a8b61fccb0f5f0fb2f87e047e924b1c4d12d272ec0ae9a847fba9eec7e88076"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.same_parity_neg",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.same_parity_neg : \u2200 (x : ShielddSecurity.ConcreteJubjubField01.F)\n  (same :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@ZMod.val ShielddSecurity.Scalar.modulus\n          (@Neg.neg.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@NegZeroClass.toNeg.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@SubNegZeroMonoid.toNegZeroClass.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@SubtractionMonoid.toSubNegZeroMonoid.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@SubtractionCommMonoid.toSubtractionMonoid.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@AddCommGroup.toDivisionAddCommMonoid.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Ring.toAddCommGroup.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                          (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                            (@ZMod.instField ShielddSecurity.Scalar.modulus\n                              ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n            x))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@ZMod.val ShielddSecurity.Scalar.modulus x)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F x\n    (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n      (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@ZMod.instField ShielddSecurity.Scalar.modulus\n                    ShielddSecurity.ConcreteJubjubField01.primeFact))))))))",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "80a2b18c89a7660819c05561beb2646d00cc1a3e3c7dbc75cd04787a4e88dbb3"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.curve_unique",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.curve_unique : \u2200\n  (left right : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (leftCurve :\n    @ShielddSecurity.Group.OnCurve ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      ShielddSecurity.ConcreteJubjubField01.coefficient left)\n  (rightCurve :\n    @ShielddSecurity.Group.OnCurve ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      ShielddSecurity.ConcreteJubjubField01.coefficient right)\n  (sameY :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (@ShielddSecurity.Group.Point.y ShielddSecurity.ConcreteJubjubField01.F left)\n      (@ShielddSecurity.Group.Point.y ShielddSecurity.ConcreteJubjubField01.F right))\n  (sameSign :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@ZMod.val ShielddSecurity.Scalar.modulus\n          (@ShielddSecurity.Group.Point.x ShielddSecurity.ConcreteJubjubField01.F left))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@ZMod.val ShielddSecurity.Scalar.modulus\n          (@ShielddSecurity.Group.Point.x ShielddSecurity.ConcreteJubjubField01.F right))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))),\n  @Eq.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) left right",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "ffada3d00741618124acf52edbe1c377f13205880bbcffe8c3e9c1df183dfc89"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.canonical_bytes_injective",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.canonical_bytes_injective : \u2200 (left right : Nat)\n  (leftBound :\n    @LT.lt.{0} Nat instLTNat left\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (rightBound :\n    @LT.lt.{0} Nat instLTNat right\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (same :\n    @Eq.{1} (List.{0} Nat)\n      (ShielddSecurity.SDKByteIterator01.canonicalBytes (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n        left)\n      (ShielddSecurity.SDKByteIterator01.canonicalBytes (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n        right)),\n  @Eq.{1} Nat left right",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "8107c42463e44398c7a6a6f389d4c2e79755f51868cbc0df168b4f0eb833f133"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.encodedValue",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.encodedValue : (point :\n    ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  Nat",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "8bf1856b3fd47de1f37848ef38d9dea109cace4470932ad9ccc2ecb09d006583"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.encoded_value_bound",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.encoded_value_bound : \u2200\n  (point : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.SDKEncodingInjective01.encodedValue point)\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a80275ec55c25213ff4f5b56005f2c8cce6dfd744bbd1da60308405bb5a56d90"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.encoded_value_coordinates",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.encoded_value_coordinates : \u2200\n  (left right : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (same :\n    @Eq.{1} Nat (ShielddSecurity.SDKEncodingInjective01.encodedValue left)\n      (ShielddSecurity.SDKEncodingInjective01.encodedValue right)),\n  And\n    (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (@ShielddSecurity.Group.Point.y ShielddSecurity.ConcreteJubjubField01.F left)\n      (@ShielddSecurity.Group.Point.y ShielddSecurity.ConcreteJubjubField01.F right))\n    (@Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@ZMod.val ShielddSecurity.Scalar.modulus\n          (@ShielddSecurity.Group.Point.x ShielddSecurity.ConcreteJubjubField01.F left))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@ZMod.val ShielddSecurity.Scalar.modulus\n          (@ShielddSecurity.Group.Point.x ShielddSecurity.ConcreteJubjubField01.F right))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a295b28de28a48e309e884d16e6dbe3210d265544916c84fc4e4d374c3b5a3e6"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.encode",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.encode : (point :\n    ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  List.{0} Nat",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "563c115b616f55d812967c4ccb2efc68724bd6830db569fa1c8f9fb9b3b8adc3"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.encoding_injective",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.encoding_injective : \u2200\n  (left right : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (leftCurve :\n    @ShielddSecurity.Group.OnCurve ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      ShielddSecurity.ConcreteJubjubField01.coefficient left)\n  (rightCurve :\n    @ShielddSecurity.Group.OnCurve ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      ShielddSecurity.ConcreteJubjubField01.coefficient right)\n  (same :\n    @Eq.{1} (List.{0} Nat) (ShielddSecurity.SDKEncodingInjective01.encode left)\n      (ShielddSecurity.SDKEncodingInjective01.encode right)),\n  @Eq.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) left right",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "e20509a6a197bf56314362ffc8789daa395a5ee1454c11f3f9bf58955046fe39"
+    },
+    {
+      "declaration": "ShielddSecurity.SDKEncodingInjective01.decoded_unique",
+      "full_type": "ShielddSecurity.SDKEncodingInjective01.decoded_unique : \u2200\n  (point output : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (curve :\n    @ShielddSecurity.Group.OnCurve ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      ShielddSecurity.ConcreteJubjubField01.coefficient point)\n  (decoded :\n    ShielddSecurity.SDKCompressedDecoder01.Decoded\n      (@ShielddSecurity.Group.Point.y ShielddSecurity.ConcreteJubjubField01.F point)\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@ZMod.val ShielddSecurity.Scalar.modulus\n          (@ShielddSecurity.Group.Point.x ShielddSecurity.ConcreteJubjubField01.F point))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      output),\n  @Eq.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) output point",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "9da8ebe81d92e636b75b35bf7de826c531edc138af4a5bebd1e6f84553c5a02d"
+    }
+  ],
+  "captured_stdout": {
+    "bytes": 10313,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-encoding-injective-model-20261010-02\\runs\\01-SDKEncodingInjective01\\stdout.txt",
+    "sha256": "7f79c05563121801989ee2557ea002523a778ac32140937943d0c19663144f3b"
+  },
+  "receipt": {
+    "audits": {
+      "ShielddSecurity.SDKEncodingInjective01.canonical_bytes_injective": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "8107c42463e44398c7a6a6f389d4c2e79755f51868cbc0df168b4f0eb833f133"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.curve_unique": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "ffada3d00741618124acf52edbe1c377f13205880bbcffe8c3e9c1df183dfc89"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.decoded_unique": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "9da8ebe81d92e636b75b35bf7de826c531edc138af4a5bebd1e6f84553c5a02d"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.encode": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "563c115b616f55d812967c4ccb2efc68724bd6830db569fa1c8f9fb9b3b8adc3"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.encodedValue": {
+        "axioms": [
+          "propext"
+        ],
+        "full_type_sha256": "8bf1856b3fd47de1f37848ef38d9dea109cace4470932ad9ccc2ecb09d006583"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.encoded_value_bound": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "a80275ec55c25213ff4f5b56005f2c8cce6dfd744bbd1da60308405bb5a56d90"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.encoded_value_coordinates": {
+        "axioms": [
+          "propext",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "a295b28de28a48e309e884d16e6dbe3210d265544916c84fc4e4d374c3b5a3e6"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.encoding_injective": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "e20509a6a197bf56314362ffc8789daa395a5ee1454c11f3f9bf58955046fe39"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.point_ext": {
+        "axioms": [],
+        "full_type_sha256": "0a8b61fccb0f5f0fb2f87e047e924b1c4d12d272ec0ae9a847fba9eec7e88076"
+      },
+      "ShielddSecurity.SDKEncodingInjective01.same_parity_neg": {
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "full_type_sha256": "80a2b18c89a7660819c05561beb2646d00cc1a3e3c7dbc75cd04787a4e88dbb3"
+      }
+    },
+    "command": [
+      "C:\\Users\\acyrn\\.elan\\toolchains\\leanprover--lean4---v4.30.0\\bin\\lean.exe",
+      "-j1",
+      "-M1536",
+      "-DmaxHeartbeats=300000",
+      "-DmaxRecDepth=4096",
+      "-o",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-encoding-injective-model-20261010-02\\project\\ShielddSecurity\\SDKEncodingInjective01.olean",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-encoding-injective-model-20261010-02\\project\\ShielddSecurity\\SDKEncodingInjective01.lean"
+    ],
+    "objects": [
+      {
+        "bytes": 234240,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-encoding-injective-model-20261010-02\\project\\ShielddSecurity\\SDKEncodingInjective01.olean",
+        "sha256": "ab705a1bfddec78cde16e89394a6be8366540e461c84645d716b01419fc46bc4"
+      }
+    ],
+    "peak_rss_bytes": 1391153152,
+    "seconds": 19.61706309998408,
+    "status": "passed",
+    "stdout": {
+      "bytes": 10313,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sdk-encoding-injective-model-20261010-02\\runs\\01-SDKEncodingInjective01\\stdout.txt",
+      "sha256": "7f79c05563121801989ee2557ea002523a778ac32140937943d0c19663144f3b"
+    }
+  }
+}
