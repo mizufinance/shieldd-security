@@ -1,0 +1,1 @@
+Reviewed exact indexed row-slice helper: one qualified module/eight complete reports for runtime844389ee069e1fb2e576708842d0b389b4d9a44a. See parent-review/endpoint-review.md. Actual captured-instance checks and full Transfer remain separate. Raw logs/objects/caches/workspaces are excluded; original identities and structured full reports remain intact. No certification.
