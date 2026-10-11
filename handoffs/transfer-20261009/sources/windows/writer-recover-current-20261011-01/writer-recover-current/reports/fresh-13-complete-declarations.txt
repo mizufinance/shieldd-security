@@ -1,0 +1,240 @@
+ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot : (O : Type) → Type
+'ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot' does not depend on any axioms
+ShielddSecurity.TransferWriterRecoverCurrent01.LockResult : Type
+'ShielddSecurity.TransferWriterRecoverCurrent01.LockResult' does not depend on any axioms
+ShielddSecurity.TransferWriterRecoverCurrent01.Io : (O : Type) → Type
+'ShielddSecurity.TransferWriterRecoverCurrent01.Io' does not depend on any axioms
+ShielddSecurity.TransferWriterRecoverCurrent01.Outcome : Type
+'ShielddSecurity.TransferWriterRecoverCurrent01.Outcome' does not depend on any axioms
+@ShielddSecurity.TransferWriterRecoverCurrent01.selected : {O : Type} →
+  (snapshot : ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot O) →
+    Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+'ShielddSecurity.TransferWriterRecoverCurrent01.selected' does not depend on any axioms
+@ShielddSecurity.TransferWriterRecoverCurrent01.recoveryInput : {O : Type} →
+  (io : ShielddSecurity.TransferWriterRecoverCurrent01.Io O) →
+    (store : ShielddSecurity.TransferReadback.Store) → ShielddSecurity.TransferReadback.Store
+'ShielddSecurity.TransferWriterRecoverCurrent01.recoveryInput' does not depend on any axioms
+@ShielddSecurity.TransferWriterRecoverCurrent01.recovered : {O : Type} →
+  (io : ShielddSecurity.TransferWriterRecoverCurrent01.Io O) →
+    (store : ShielddSecurity.TransferReadback.Store) →
+      (boundary : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) →
+        ShielddSecurity.TransferBankRecovery.Outcome
+'ShielddSecurity.TransferWriterRecoverCurrent01.recovered' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent : {O : Type} →
+  (io : ShielddSecurity.TransferWriterRecoverCurrent01.Io O) →
+    (store : ShielddSecurity.TransferReadback.Store) → ShielddSecurity.TransferWriterRecoverCurrent01.Outcome
+'ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterRecoverCurrent01.selected_boundary_derives_default_version_or_actual_authenticated_snapshot_read : ∀
+  {O : Type} (snapshot : ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot O)
+  (boundary : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (@ShielddSecurity.TransferWriterRecoverCurrent01.selected O snapshot)
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary)),
+  Or
+    (And
+      (@Eq.{1} Nat
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.version O snapshot))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary
+        (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.mk ShielddSecurity.TransferBankRecovery.initial
+          (@Option.none.{0} Nat))))
+    (And
+      (@Ne.{1} Nat
+        (@Fin.val
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.version O snapshot))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@Exists.{1} Nat fun (root : Nat) =>
+        @Exists.{1} ShielddSecurity.TransferReadback.Boundary
+          fun (actual : ShielddSecurity.TransferReadback.Boundary) =>
+          And
+            (@Eq.{1} (Option.{0} Nat) (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.root O snapshot)
+              (@Option.some.{0} Nat root))
+            (And
+              (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                (@ShielddSecurity.TransferAuthenticatedBoundarySource01.readCommittedBoundary O
+                  (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.authentication O snapshot)
+                  (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.reader O snapshot)
+                  (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.project O snapshot)
+                  (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.state O snapshot) root)
+                (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary actual))
+              (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.mk actual (@Option.some.{0} Nat root))))))
+'ShielddSecurity.TransferWriterRecoverCurrent01.selected_boundary_derives_default_version_or_actual_authenticated_snapshot_read' does not depend on any axioms
+ShielddSecurity.TransferWriterRecoverCurrent01.clean_captured_recovery_derives_final_checks_without_assuming_health_or_restoration : ∀
+  (store : ShielddSecurity.TransferReadback.Store) (io : ShielddSecurity.TransferBankRecovery.Io)
+  (boundary : ShielddSecurity.TransferReadback.Boundary) (intent : ShielddSecurity.TransferBankRecovery.IntentRead)
+  (history : ShielddSecurity.TransferBankRecovery.HistoryRead)
+  (clean :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+      (ShielddSecurity.TransferBankRecovery.Outcome.error
+        (ShielddSecurity.TransferCapturedRecovery01.recoverCaptured store io boundary intent history))
+      (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error)),
+  And
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferReadback.Store.ready
+        (ShielddSecurity.TransferBankRecovery.Outcome.store
+          (ShielddSecurity.TransferCapturedRecovery01.recoverCaptured store io boundary intent history)))
+      Bool.true)
+    (And
+      (@Eq.{1} (List.{0} Nat)
+        (ShielddSecurity.TransferReadback.Store.actualRoots
+          (ShielddSecurity.TransferBankRecovery.Outcome.store
+            (ShielddSecurity.TransferCapturedRecovery01.recoverCaptured store io boundary intent history)))
+        (ShielddSecurity.TransferReadback.Boundary.roots boundary))
+      (And
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+          (ShielddSecurity.TransferReadback.Store.boundary
+            (ShielddSecurity.TransferBankRecovery.Outcome.store
+              (ShielddSecurity.TransferCapturedRecovery01.recoverCaptured store io boundary intent history)))
+          (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary boundary))
+        (And
+          (@Eq.{1} Nat (@List.length.{0} Nat (ShielddSecurity.TransferReadback.Boundary.roots boundary))
+            (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))
+          (And (ShielddSecurity.TransferBankRecovery.HistoryValid boundary history)
+            (@Eq.{1} Bool
+              (ShielddSecurity.TransferReadback.Store.healthy
+                (ShielddSecurity.TransferBankRecovery.Outcome.store
+                  (ShielddSecurity.TransferCapturedRecovery01.recoverCaptured store io boundary intent history)))
+              (ShielddSecurity.TransferBankRecovery.Io.healthyAfter io))))))
+'ShielddSecurity.TransferWriterRecoverCurrent01.clean_captured_recovery_derives_final_checks_without_assuming_health_or_restoration' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterRecoverCurrent01.whole_current_recovery_success_derives_selected_boundary_actual_lock_and_observed_physical_state : ∀
+  {O : Type} (io : ShielddSecurity.TransferWriterRecoverCurrent01.Io O) (store : ShielddSecurity.TransferReadback.Store)
+  (success :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.succeeded
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store))
+      Bool.true),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+    fun (boundary : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.selected O
+          (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.snapshot O io))
+        (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary))
+      (And
+        (@Eq.{1} Bool
+          (ShielddSecurity.TransferWriterRecoverCurrent01.LockResult.acquired
+            (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.lock O io store))
+          Bool.true)
+        (And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+            (ShielddSecurity.TransferBankRecovery.Outcome.error
+              (@ShielddSecurity.TransferWriterRecoverCurrent01.recovered O io store boundary))
+            (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error))
+          (And
+            (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+              (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.phase
+                (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store))
+              (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready boundary))
+            (And
+              (@Eq.{1} ShielddSecurity.TransferReadback.Store
+                (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.store
+                  (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store))
+                (ShielddSecurity.TransferBankRecovery.Outcome.store
+                  (@ShielddSecurity.TransferWriterRecoverCurrent01.recovered O io store boundary)))
+              (And
+                (@Eq.{1} Bool
+                  (ShielddSecurity.TransferReadback.Store.ready
+                    (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.store
+                      (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store)))
+                  Bool.true)
+                (And
+                  (@Eq.{1} (List.{0} Nat)
+                    (ShielddSecurity.TransferReadback.Store.actualRoots
+                      (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.store
+                        (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store)))
+                    (ShielddSecurity.TransferReadback.Boundary.roots
+                      (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers boundary)))
+                  (And
+                    (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                      (ShielddSecurity.TransferReadback.Store.boundary
+                        (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.store
+                          (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store)))
+                      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                        (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers boundary)))
+                    (And
+                      (@Eq.{1} Nat
+                        (@List.length.{0} Nat
+                          (ShielddSecurity.TransferReadback.Boundary.roots
+                            (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers boundary)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 16) (instOfNatNat (nat_lit 16))))
+                      (And
+                        (ShielddSecurity.TransferBankRecovery.HistoryValid
+                          (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers boundary)
+                          (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.readHistory O io
+                            (@ShielddSecurity.TransferWriterRecoverCurrent01.recoveryInput O io store)))
+                        (@Eq.{1} Bool
+                          (ShielddSecurity.TransferReadback.Store.healthy
+                            (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.store
+                              (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store)))
+                          (ShielddSecurity.TransferBankRecovery.Io.healthyAfter
+                            (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.recoveryIo O io
+                              (@ShielddSecurity.TransferWriterRecoverCurrent01.recoveryInput O io store)))))))))))))
+'ShielddSecurity.TransferWriterRecoverCurrent01.whole_current_recovery_success_derives_selected_boundary_actual_lock_and_observed_physical_state' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterRecoverCurrent01.unavailable_noninitial_snapshot_root_refuses_before_lock_and_recovery : ∀
+  {O : Type} (io : ShielddSecurity.TransferWriterRecoverCurrent01.Io O) (store : ShielddSecurity.TransferReadback.Store)
+  (initialized :
+    @Ne.{1} Nat
+      (@Fin.val
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.version O
+          (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.snapshot O io)))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (missing :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferWriterRecoverCurrent01.Snapshot.root O
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.snapshot O io))
+      (@Option.none.{0} Nat)),
+  @Eq.{1} ShielddSecurity.TransferWriterRecoverCurrent01.Outcome
+    (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store)
+    (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.mk
+      ShielddSecurity.TransferWriterPrepareSource01.Phase.interrupted store Bool.false)
+'ShielddSecurity.TransferWriterRecoverCurrent01.unavailable_noninitial_snapshot_root_refuses_before_lock_and_recovery' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterRecoverCurrent01.failed_current_recovery_keeps_owner_interrupted_and_actual_recovery_progress : ∀
+  {O : Type} (io : ShielddSecurity.TransferWriterRecoverCurrent01.Io O) (store : ShielddSecurity.TransferReadback.Store)
+  (boundary : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (selectedBoundary :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (@ShielddSecurity.TransferWriterRecoverCurrent01.selected O
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.snapshot O io))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary boundary))
+  (locked :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferWriterRecoverCurrent01.LockResult.acquired
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.Io.lock O io store))
+      Bool.true)
+  (failed :
+    @Ne.{1} (Option.{0} ShielddSecurity.TransferBankRecovery.Error)
+      (ShielddSecurity.TransferBankRecovery.Outcome.error
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.recovered O io store boundary))
+      (@Option.none.{0} ShielddSecurity.TransferBankRecovery.Error)),
+  @Eq.{1} ShielddSecurity.TransferWriterRecoverCurrent01.Outcome
+    (@ShielddSecurity.TransferWriterRecoverCurrent01.recoverCurrent O io store)
+    (ShielddSecurity.TransferWriterRecoverCurrent01.Outcome.mk
+      ShielddSecurity.TransferWriterPrepareSource01.Phase.interrupted
+      (ShielddSecurity.TransferBankRecovery.Outcome.store
+        (@ShielddSecurity.TransferWriterRecoverCurrent01.recovered O io store boundary))
+      Bool.false)
+'ShielddSecurity.TransferWriterRecoverCurrent01.failed_current_recovery_keeps_owner_interrupted_and_actual_recovery_progress' depends on axioms: [propext]

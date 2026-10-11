@@ -1,0 +1,41 @@
+{
+  "kind": "Independent complete type and pinned Rust recover_current source review; no new Lean/native execution",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/app/src/app/permanent_writer.rs",
+    "bytes": 10619,
+    "sha256": "444b5ce8436eff3e1cc93e162fe2b567f055b512ac56a29fc887d86e44cbf72d"
+  },
+  "source_steps": [
+    "Set writer phase Interrupted before snapshot acquisition, dropping disposable sessions",
+    "latest snapshot version u64MAX selects default nullifier boundary and absent application root",
+    "Noninitial snapshot derives actual root_hash and calls authenticated read_committed_boundary with that root",
+    "Acquire nullifier write lock, recover Store to exactly selected boundary, then set writer Ready only after success"
+  ],
+  "review_requirements": [
+    "Actual snapshot version/root and authenticated read observations derived from corresponding branches, not desired recovery target inputs",
+    "Error paths retain Interrupted and actual observed Store progress; no rollback or healthy inference",
+    "Native RwLock/Store/partition isolation observation correspondence and old-vs-captured recovery selection remain explicit",
+    "This recovery selects current application snapshot; unlike recover with expected_application_root, it does not compare to an external Host commitment"
+  ],
+  "full_transfer": "OPEN",
+  "status": "PASSED",
+  "complete_public_reports": 13,
+  "inherited_reports": 670,
+  "owned_modules": 67,
+  "source_semantics": [
+    "Actual max u64 snapshot version selects default boundary/absent application root; noninitial selects actual observed root and actual authenticated boundary return",
+    "Actual lock observation is exact Store input to captured-initial recovery, including independently observed current roots/health",
+    "Clean captured recovery directly derives final root equality,16-root count, valid history, stored boundary, Ready and exactly independently observed healthyAfter; does not assume healthy or rollback restoration",
+    "Direct final-check proof does not require old dynamic-loop equivalence or ForwardPartitionFrames; actual primitive physical/temporal correspondence remains open",
+    "Failed recovery retains observed progress and Interrupted; unavailable noninitial root refuses before lock/recovery",
+    "Own snapshot authentication does not establish external Host commitment match"
+  ],
+  "residual_interfaces": [
+    "Immutable snapshot raw/get-with-proof coherence and ICS23 verifier soundness; native version/root/bytes/serde/default correspondence",
+    "Current physical root/poison health and lock ghost observations, native callback/partition/ownership/library implementation",
+    "Pure return model intermediate Interrupted transition and async trace; exact runtime concurrency/OS durability",
+    "Remaining Host rollback/full runtime-circuit/end-to-end/native/final bounded replay"
+  ],
+  "failed_predecessor": "Exact actualRead equation proof receipt repair only; entire old program/contracts unchanged"
+}
