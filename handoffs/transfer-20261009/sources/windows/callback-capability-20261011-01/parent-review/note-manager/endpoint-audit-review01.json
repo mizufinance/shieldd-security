@@ -1,0 +1,223 @@
+{
+  "kind": "Independent full declaration/source/import/runtime/unchanged guard review; no new Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 13,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.Insertion",
+      "full_type": "ShielddSecurity.TransferNoteManagerSource01.Insertion : (O E X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "ed90b3b6ac92b280dd6d5fab94e842df64d692e7d0a0b3df81c04f4b907e1f03"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.Backend",
+      "full_type": "ShielddSecurity.TransferNoteManagerSource01.Backend : (O E X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "993449db2c7251399e6ed42720b84c4492726f846192b3a367e8957cb03044f7"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.insertPayload",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.insertPayload : {O E X : Type} \u2192\n  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) \u2192\n    (objectKey : Nat) \u2192\n      (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192\n        (payload : Nat) \u2192 (capturedSource : Bool) \u2192 ShielddSecurity.TransferRawStateProgram01.Outcome O E X",
+      "axioms": [],
+      "full_type_sha256": "aad594929093996f1fd6672844fbefe240bddbff82dc33d762fe7f291af9df7a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.installNotes",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.installNotes : {O E X : Type} \u2192\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) \u2192\n    (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) \u2192\n      (objectKey : Nat) \u2192 ShielddSecurity.TransferRawEffectsSource01.Backend O E X",
+      "axioms": [],
+      "full_type_sha256": "9a12ffdcd702c7054f81afc8dc3fc5083948249fd49a06f2258ffab771ea7fae"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.installVolume",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.installVolume : {O E X : Type} \u2192\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) \u2192\n    (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) \u2192\n      (objectKey payload : Nat) \u2192 ShielddSecurity.TransferRawEffectsSource01.Backend O E X",
+      "axioms": [],
+      "full_type_sha256": "b5dfbca45925e5898dc8a5c56dc7192ddddba9b22d8147c155dc150975e1062d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.failed_sct_retains_its_cache_before_pending_append",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.failed_sct_retains_its_cache_before_pending_append : \u2200 {O E X : Type}\n  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)\n  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource)\n      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X failureCache\n        (@Except.error.{0, 0} X Nat error))),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "dab98826ac6c0148d4f879db2a1283a4dc94c011a2e0dd3fc82b630ed2f1a437"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.successful_sct_appends_to_post_sct_pending",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.successful_sct_appends_to_post_sct_pending : \u2200 {O E X : Type}\n  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload position : Nat) (capturedSource : Bool)\n  (sctCache : ShielddSecurity.TransferStateDelta.Cache O E)\n  (passed :\n    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource)\n      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X sctCache (@Except.ok.{0, 0} X Nat position))),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n        (@ShielddSecurity.TransferStateDelta.putObject O E\n          (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n            sctCache)\n          objectKey\n          (@Option.some.{0} O\n            (@ShielddSecurity.TransferNoteManagerSource01.Backend.encode O E X backend\n              (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))) (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                  (@List.instAppend.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))\n                (@ShielddSecurity.TransferNoteManagerSource01.Backend.pending O E X backend\n                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E\n                    (@ShielddSecurity.TransferStateDelta.Delta.parent O E child) sctCache))\n                (@List.cons.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))\n                  (@Prod.mk.{0, 0} Nat (Prod.{0, 0} Nat Bool) position\n                    (@Prod.mk.{0, 0} Nat Bool payload capturedSource))\n                  (@List.nil.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))))))))\n      (@Except.ok.{0, 0} X Unit Unit.unit))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "468053f698d5e93bdc9ddea385888efb7fd778baeb7c3b16bf5cbcf498d1f562"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.success_recovers_actual_sct_position_and_cache",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.success_recovers_actual_sct_position_and_cache : \u2200 {O E X : Type}\n  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)\n  (updated : ShielddSecurity.TransferStateDelta.Cache O E)\n  (success :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X updated (@Except.ok.{0, 0} X Unit Unit.unit))),\n  @Exists.{1} Nat fun (position : Nat) =>\n    And\n      (@Eq.{1} (Except.{0, 0} X Nat)\n        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.result O E X\n          (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))\n        (@Except.ok.{0, 0} X Nat position))\n      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) updated\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n          (@ShielddSecurity.TransferStateDelta.putObject O E\n            (@ShielddSecurity.TransferStateDelta.Delta.mk O E\n              (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n              (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X\n                (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource)))\n            objectKey\n            (@Option.some.{0} O\n              (@ShielddSecurity.TransferNoteManagerSource01.Backend.encode O E X backend\n                (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                  (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                  (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                  (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                    (@List.instAppend.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))\n                  (@ShielddSecurity.TransferNoteManagerSource01.Backend.pending O E X backend\n                    (@ShielddSecurity.TransferStateDelta.Delta.mk O E\n                      (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n                      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X\n                        (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload\n                          capturedSource))))\n                  (@List.cons.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))\n                    (@Prod.mk.{0, 0} Nat (Prod.{0, 0} Nat Bool) position\n                      (@Prod.mk.{0, 0} Nat Bool payload capturedSource))\n                    (@List.nil.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))))))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "68840775b8e2df7ce86fab51dfac9e954fe893e341f1c13fe346e48dc92c227c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.successful_manager_frames_post_sct_components",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.successful_manager_frames_post_sct_components : \u2200 {O E X : Type}\n  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)\n  (updated : ShielddSecurity.TransferStateDelta.Cache O E)\n  (success :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X updated (@Except.ok.{0, 0} X Unit Unit.unit))),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X\n          (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))))\n    (And\n      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E updated)\n        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n          (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X\n            (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))))\n      (And\n        (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E updated)\n          (@ShielddSecurity.TransferStateDelta.Cache.events O E\n            (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X\n              (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))))\n        (\u2200 (other : Nat),\n          @Ne.{1} Nat other objectKey \u2192\n            @Eq.{1} (Option.{0} (Option.{0} O)) (@ShielddSecurity.TransferStateDelta.Cache.objects O E updated other)\n              (@ShielddSecurity.TransferStateDelta.Cache.objects O E\n                (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X\n                  (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))\n                other))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "440dc6bd1d7f6257f727f034a3bcb06e682d8239860bc7d9b7e31d317e8d5014"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.successful_manager_derives_visible_pending_object",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.successful_manager_derives_visible_pending_object : \u2200 {O E X : Type}\n  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)\n  (updated : ShielddSecurity.TransferStateDelta.Cache O E)\n  (success :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X updated (@Except.ok.{0, 0} X Unit Unit.unit))),\n  @Exists.{1} Nat fun (position : Nat) =>\n    And\n      (@Eq.{1} (Except.{0, 0} X Nat)\n        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.result O E X\n          (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))\n        (@Except.ok.{0, 0} X Nat position))\n      (@Eq.{1} (Option.{0} O)\n        (@ShielddSecurity.TransferStateDelta.State.objects O\n          (@ShielddSecurity.TransferStateDelta.applyCache O E\n            (@ShielddSecurity.TransferStateDelta.Delta.parent O E child) updated)\n          objectKey)\n        (@Option.some.{0} O\n          (@ShielddSecurity.TransferNoteManagerSource01.Backend.encode O E X backend\n            (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n              (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))) (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n              (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))\n                (@List.instAppend.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))\n              (@ShielddSecurity.TransferNoteManagerSource01.Backend.pending O E X backend\n                (@ShielddSecurity.TransferStateDelta.Delta.mk O E\n                  (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n                  (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X\n                    (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload\n                      capturedSource))))\n              (@List.cons.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))\n                (@Prod.mk.{0, 0} Nat (Prod.{0, 0} Nat Bool) position (@Prod.mk.{0, 0} Nat Bool payload capturedSource))\n                (@List.nil.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "71694505a75f77ea781fb59990809fd1f74076747c9722681047559c972df554"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.note_callback_sct_failure_stops_semantic_event_and_suffix",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.note_callback_sct_failure_stops_semantic_event_and_suffix : \u2200\n  {O E X : Type} (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output : Nat) (capturedSource : Bool) (rest : List.{0} Nat)\n  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X manager child output capturedSource)\n      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X failureCache\n        (@Except.error.{0, 0} X Nat error))),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))\n    (@ShielddSecurity.TransferRawEffectsSource01.notes O E X\n      (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E X raw manager objectKey) capturedSource child\n      (@List.cons.{0} Nat output rest))\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError X) failureCache\n      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit\n        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.callback X error)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "590d23147f4f0ac1447444408592686237ac5b58fce75c1e5fe7add2853d1852"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.note_callback_success_preserves_internal_events_then_adds_semantic_event",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.note_callback_success_preserves_internal_events_then_adds_semantic_event : \u2200\n  {O E X : Type} (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output position : Nat) (capturedSource : Bool)\n  (sctCache : ShielddSecurity.TransferStateDelta.Cache O E)\n  (passed :\n    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X manager child output capturedSource)\n      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X sctCache (@Except.ok.{0, 0} X Nat position))),\n  @Eq.{1} (List.{0} E)\n    (@ShielddSecurity.TransferStateDelta.Cache.events O E\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError X)\n        (@ShielddSecurity.TransferRawEffectsSource01.notes O E X\n          (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E X raw manager objectKey) capturedSource child\n          (@List.cons.{0} Nat output (@List.nil.{0} Nat)))))\n    (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)\n      (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))\n      (@ShielddSecurity.TransferStateDelta.Cache.events O E sctCache)\n      (@List.cons.{0} E (@ShielddSecurity.TransferRawEffectsSource01.Backend.noteEvent O E X raw output)\n        (@List.nil.{0} E)))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "dd57acf6442af0fdb65e00d59bbd4fb5f3ee9d3e03d85960496dc68bbc1da436"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferNoteManagerSource01.ordinary_volume_payload_failure_retains_sct_failure_cache",
+      "full_type": "@ShielddSecurity.TransferNoteManagerSource01.ordinary_volume_payload_failure_retains_sct_failure_cache : \u2200\n  {O E X : Type} (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey payload entryKey dayKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (capturedSource : Bool)\n  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)\n  (source :\n    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X raw child)\n      (@Option.some.{0} Bool capturedSource))\n  (fresh :\n    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X raw child)\n      (@Option.some.{0} Bool Bool.false))\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)\n      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X manager\n        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n            (@ShielddSecurity.TransferRawEffectsSource01.putV O E\n              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey\n              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))\n            dayKey\n            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))\n        payload capturedSource)\n      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X failureCache\n        (@Except.error.{0, 0} X Nat error))),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))\n    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E X\n      (@ShielddSecurity.TransferNoteManagerSource01.installVolume O E X raw manager objectKey payload) entryKey dayKey\n      Bool.true child)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError X) failureCache\n      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit\n        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.callback X error)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "0645d03428d1189015c0818cb11e68f1ac460c5cdfda214df12fa37cd1068d76"
+    }
+  ],
+  "inherited_reports": 84,
+  "manifest_entries": 32,
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    }
+  ],
+  "prior_manager_reports_exact": true,
+  "prior_manager_reports_counted_again": false,
+  "guard_unchanged": true,
+  "rejected": {
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.40151330002118,
+      "status": "failed"
+    },
+    "parser_parentheses_only": true,
+    "exact_delta": "--- \n+++ \n@@ -130,8 +130,8 @@\n     (failureCache : Cache O E) (error : X)\n     (source : raw.currentSource child = some capturedSource)\n     (fresh : raw.volumePresent child = some false)\n-    (failed : manager.sct {child with cache := TransferRawEffectsSource01.putV\n-      (TransferRawEffectsSource01.putV child.cache entryKey [1]) dayKey [1]} payload capturedSource =\n+    (failed : manager.sct {child with cache := (TransferRawEffectsSource01.putV\n+      (TransferRawEffectsSource01.putV child.cache entryKey [1]) dayKey [1])} payload capturedSource =\n         \u27e8failureCache, .error error\u27e9) :\n     TransferRawEffectsSource01.volumeTail (installVolume raw manager objectKey payload) entryKey dayKey true child =\n       \u27e8failureCache, .error (.callback error)\u27e9 := by\n",
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-01\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean:133:78: error: unexpected token '('; expected '}'"
+    ]
+  },
+  "interfaces": [
+    "SCT callback returns the current failure-aware cache and actual symbolic position; real tree insertion, root authentication and source/payload codecs remain explicit",
+    "Pending getter reads the post-SCT child snapshot and represents object_get defaulting and imbl Vector persistent append",
+    "Position/payload/source indices, full CommitmentSource identity, heterogeneous object encoding and key projection remain representation interfaces",
+    "Rust Clone/COW/ownership and mutable callback correspondence remain explicit",
+    "Inherited exact capability, reader, nullifier batch, volume read/key and enclosing delivery interfaces remain open",
+    "Additional pending update frames the post-SCT cache; no original cache framing or callback atomicity is assumed"
+  ],
+  "scope": "Shared functional NoteManager insertion source recurrence and its actual note/volume callback installation into the qualified raw effect model. SCT error retains its actual callback cache before any additional pending-object write. Success derives the returned position and exact append to post-SCT pending payloads; semantic note event follows success. Native/durability/SCT semantic correspondence, atomic evidence refresh and full Transfer remain open. Success derives the actual SCT return position, current post-SCT pending getter, exact append tuple and one pending object update. Additional update frames post-SCT verifiable/NV/events/other objects, not original input cache. Note callback SCT failure retains its actual failure cache and suppresses semantic note-created and all later outputs; successful note preserves internal SCT events then appends one semantic event. Ordinary payload failure occurs after two marker writes and retains its actual failed SCT cache; those earlier markers are not asserted to survive an arbitrary callback overwrite. All underlying SCT/codec/ownership/alias/durability interfaces remain explicit.",
+  "full_transfer": "OPEN"
+}

@@ -1,0 +1,139 @@
+ShielddSecurity.TransferVerificationEqualitySource01.Item : Type
+'ShielddSecurity.TransferVerificationEqualitySource01.Item' does not depend on any axioms
+ShielddSecurity.TransferVerificationEqualitySource01.Verified : Type
+'ShielddSecurity.TransferVerificationEqualitySource01.Verified' does not depend on any axioms
+ShielddSecurity.TransferVerificationEqualitySource01.itemEq : (left right :
+    ShielddSecurity.TransferVerificationEqualitySource01.Item) →
+  Bool
+'ShielddSecurity.TransferVerificationEqualitySource01.itemEq' does not depend on any axioms
+ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds : (requestedFamily : Nat) →
+  (verified : ShielddSecurity.TransferVerificationEqualitySource01.Verified) →
+    (candidate : ShielddSecurity.TransferVerificationEqualitySource01.Item) → Bool
+'ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds' does not depend on any axioms
+ShielddSecurity.TransferVerificationEqualitySource01.itemEq_iff_eq : ∀
+  (left right : ShielddSecurity.TransferVerificationEqualitySource01.Item),
+  Iff (@Eq.{1} Bool (ShielddSecurity.TransferVerificationEqualitySource01.itemEq left right) Bool.true)
+    (@Eq.{1} ShielddSecurity.TransferVerificationEqualitySource01.Item left right)
+'ShielddSecurity.TransferVerificationEqualitySource01.itemEq_iff_eq' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferVerificationEqualitySource01.binding_success_recovers_every_compared_field : ∀
+  (requestedFamily : Nat) (verified : ShielddSecurity.TransferVerificationEqualitySource01.Verified)
+  (candidate : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (passed :
+    @Eq.{1} Bool (ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds requestedFamily verified candidate)
+      Bool.true),
+  And
+    (@Eq.{1} Nat requestedFamily
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.family
+        (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified)))
+    (And
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferVerificationEqualitySource01.Item.family
+          (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified))
+        (ShielddSecurity.TransferVerificationEqualitySource01.Item.family candidate))
+      (And
+        (@Eq.{1} Nat
+          (ShielddSecurity.TransferVerificationEqualitySource01.Item.statement
+            (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified))
+          (ShielddSecurity.TransferVerificationEqualitySource01.Item.statement candidate))
+        (@Eq.{1} (List.{0} Nat)
+          (ShielddSecurity.TransferVerificationEqualitySource01.Item.envelope
+            (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified))
+          (ShielddSecurity.TransferVerificationEqualitySource01.Item.envelope candidate))))
+'ShielddSecurity.TransferVerificationEqualitySource01.binding_success_recovers_every_compared_field' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferVerificationEqualitySource01.registry_identity_is_not_checked_here : ∀
+  (requestedFamily firstRegistry secondRegistry : Nat)
+  (verifiedItem candidate : ShielddSecurity.TransferVerificationEqualitySource01.Item),
+  @Eq.{1} Bool
+    (ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds requestedFamily
+      (ShielddSecurity.TransferVerificationEqualitySource01.Verified.mk firstRegistry verifiedItem) candidate)
+    (ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds requestedFamily
+      (ShielddSecurity.TransferVerificationEqualitySource01.Verified.mk secondRegistry verifiedItem) candidate)
+'ShielddSecurity.TransferVerificationEqualitySource01.registry_identity_is_not_checked_here' does not depend on any axioms
+ShielddSecurity.TransferVerificationEqualitySource01.requested_family_mismatch_refused : ∀ (requestedFamily : Nat)
+  (verified : ShielddSecurity.TransferVerificationEqualitySource01.Verified)
+  (candidate : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (different :
+    @Ne.{1} Nat requestedFamily
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.family
+        (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified))),
+  @Eq.{1} Bool (ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds requestedFamily verified candidate)
+    Bool.false
+'ShielddSecurity.TransferVerificationEqualitySource01.requested_family_mismatch_refused' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferVerificationEqualitySource01.candidate_family_mismatch_refused : ∀ (requestedFamily : Nat)
+  (verified : ShielddSecurity.TransferVerificationEqualitySource01.Verified)
+  (candidate : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (different :
+    @Ne.{1} Nat
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.family
+        (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified))
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.family candidate)),
+  @Eq.{1} Bool (ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds requestedFamily verified candidate)
+    Bool.false
+'ShielddSecurity.TransferVerificationEqualitySource01.candidate_family_mismatch_refused' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferVerificationEqualitySource01.statement_scalar_mismatch_refused : ∀ (requestedFamily : Nat)
+  (verified : ShielddSecurity.TransferVerificationEqualitySource01.Verified)
+  (candidate : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (different :
+    @Ne.{1} Nat
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.statement
+        (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified))
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.statement candidate)),
+  @Eq.{1} Bool (ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds requestedFamily verified candidate)
+    Bool.false
+'ShielddSecurity.TransferVerificationEqualitySource01.statement_scalar_mismatch_refused' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferVerificationEqualitySource01.serialized_envelope_mismatch_refused : ∀ (requestedFamily : Nat)
+  (verified : ShielddSecurity.TransferVerificationEqualitySource01.Verified)
+  (candidate : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (different :
+    @Ne.{1} (List.{0} Nat)
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.envelope
+        (ShielddSecurity.TransferVerificationEqualitySource01.Verified.item verified))
+      (ShielddSecurity.TransferVerificationEqualitySource01.Item.envelope candidate)),
+  @Eq.{1} Bool (ShielddSecurity.TransferVerificationEqualitySource01.ensureBinds requestedFamily verified candidate)
+    Bool.false
+'ShielddSecurity.TransferVerificationEqualitySource01.serialized_envelope_mismatch_refused' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferVerificationEqualitySource01.fieldwise_exact_rebinding_dispatches_raw_action : ∀
+  {O E K X A : Type} (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)
+  (token :
+    ShielddSecurity.TransferCapabilitySource01.Validated ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (current : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (observed :
+    @Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+      (extract action
+        (@ShielddSecurity.TransferCapabilitySource01.Validated.context
+          ShielddSecurity.TransferVerificationEqualitySource01.Item token))
+      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item current))
+  (matched :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferVerificationEqualitySource01.itemEq current
+        (@ShielddSecurity.TransferCapabilitySource01.Validated.item
+          ShielddSecurity.TransferVerificationEqualitySource01.Item token))
+      Bool.true),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))
+    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A
+      ShielddSecurity.TransferVerificationEqualitySource01.Item
+      ShielddSecurity.TransferVerificationEqualitySource01.instDecidableEqItem raw extract inputs outputs wordMax
+      capacity pendingKey entryKey dayKey action token child)
+    (@ShielddSecurity.TransferCapabilitySource01.liftRaw O E K X
+      (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E X raw wordMax capacity pendingKey entryKey dayKey
+        Bool.true
+        (ShielddSecurity.TransferCapabilitySource01.isOrdinary
+          (@ShielddSecurity.TransferCapabilitySource01.Validated.context
+            ShielddSecurity.TransferVerificationEqualitySource01.Item token))
+        child (inputs action) (outputs action)))
+'ShielddSecurity.TransferVerificationEqualitySource01.fieldwise_exact_rebinding_dispatches_raw_action' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferVerificationEqualitySource01.instDecidableEqItem : DecidableEq.{1}
+  ShielddSecurity.TransferVerificationEqualitySource01.Item
+'ShielddSecurity.TransferVerificationEqualitySource01.instDecidableEqItem' does not depend on any axioms

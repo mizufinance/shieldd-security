@@ -1,0 +1,202 @@
+{
+  "kind": "Independent full declaration/source/import/runtime/unchanged guard review; no new Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 11,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.ProofContext",
+      "full_type": "ShielddSecurity.TransferCapabilitySource01.ProofContext : Type",
+      "axioms": [],
+      "full_type_sha256": "3067fbec62867c6964a19baf54126e20852e227224420ee93e615d590a9efaf0"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.isOrdinary",
+      "full_type": "ShielddSecurity.TransferCapabilitySource01.isOrdinary : ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192 Bool",
+      "axioms": [],
+      "full_type_sha256": "15b2f59505e644965de164ea980207aec6c40ca64446a0ffa569d0d4071e5779"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.Validated",
+      "full_type": "ShielddSecurity.TransferCapabilitySource01.Validated : (I : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "6c22112592e3cb84db693ecbea214b207774cef7fc6ae656fff8be887323a43b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.Error",
+      "full_type": "ShielddSecurity.TransferCapabilitySource01.Error : (K X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "6aa6ae92a75f6578b58424487deb5e9e6e2bd1a3ee930981cd6b567deaa488a2"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.liftRaw",
+      "full_type": "@ShielddSecurity.TransferCapabilitySource01.liftRaw : {O E K X : Type} \u2192\n  (returned :\n      ShielddSecurity.TransferRawStateProgram01.Outcome O E\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError X)) \u2192\n    ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X)",
+      "axioms": [],
+      "full_type_sha256": "c9d648e50e061ad0640b1fb71040d7d330f9b08bad81bd456171f38623fb763c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.execute",
+      "full_type": "@ShielddSecurity.TransferCapabilitySource01.execute : {O E K X A I : Type} \u2192\n  [DecidableEq.{1} I] \u2192\n    (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) \u2192\n      (extract : A \u2192 ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192 Except.{0, 0} K I) \u2192\n        (inputs outputs : A \u2192 List.{0} Nat) \u2192\n          (wordMax capacity pendingKey entryKey dayKey : Nat) \u2192\n            (action : A) \u2192\n              (token : ShielddSecurity.TransferCapabilitySource01.Validated I) \u2192\n                (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192\n                  ShielddSecurity.TransferRawStateProgram01.Outcome O E\n                    (ShielddSecurity.TransferCapabilitySource01.Error K X)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "fead0ca1507e72efb190b79e51a1a837a51bb2d2b653c8d05f5e7e5b7b85c51a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.extraction_failure_precedes_effects",
+      "full_type": "@ShielddSecurity.TransferCapabilitySource01.extraction_failure_precedes_effects : \u2200 {O E K X A I : Type}\n  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (extract : A \u2192 ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192 Except.{0, 0} K I)\n  (inputs outputs : A \u2192 List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)\n  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (error : K)\n  (failed :\n    @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))\n      (@Except.error.{0, 0} K I error)),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))\n    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity\n      pendingKey entryKey dayKey action token child)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E (ShielddSecurity.TransferCapabilitySource01.Error K X)\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit\n        (@ShielddSecurity.TransferCapabilitySource01.Error.extraction K X error)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "7cde18aaa5d0f11fc62eadcabf3c3caec32e75129a692d75ee70f03587866b2d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.different_item_precedes_effects",
+      "full_type": "@ShielddSecurity.TransferCapabilitySource01.different_item_precedes_effects : \u2200 {O E K X A I : Type}\n  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (extract : A \u2192 ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192 Except.{0, 0} K I)\n  (inputs outputs : A \u2192 List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)\n  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (item : I)\n  (observed :\n    @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))\n      (@Except.ok.{0, 0} K I item))\n  (different : @Ne.{1} I item (@ShielddSecurity.TransferCapabilitySource01.Validated.item I token)),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))\n    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity\n      pendingKey entryKey dayKey action token child)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E (ShielddSecurity.TransferCapabilitySource01.Error K X)\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit\n        (@ShielddSecurity.TransferCapabilitySource01.Error.mismatch K X)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "e97b9b9fdc48560a2a513cc74bcc1952b89d25430f6990629dc38e35530afe3e"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.exact_rebinding_dispatches_projected_action",
+      "full_type": "@ShielddSecurity.TransferCapabilitySource01.exact_rebinding_dispatches_projected_action : \u2200 {O E K X A I : Type}\n  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (extract : A \u2192 ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192 Except.{0, 0} K I)\n  (inputs outputs : A \u2192 List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)\n  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (observed :\n    @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))\n      (@Except.ok.{0, 0} K I (@ShielddSecurity.TransferCapabilitySource01.Validated.item I token))),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))\n    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity\n      pendingKey entryKey dayKey action token child)\n    (@ShielddSecurity.TransferCapabilitySource01.liftRaw O E K X\n      (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E X raw wordMax capacity pendingKey entryKey dayKey\n        Bool.true\n        (ShielddSecurity.TransferCapabilitySource01.isOrdinary\n          (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))\n        child (inputs action) (outputs action)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "276af373122140080f12d5a35adbdf35b75a5d0cd63edbf23810f25c51dfdddd"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.successful_execution_derives_exact_reextraction",
+      "full_type": "@ShielddSecurity.TransferCapabilitySource01.successful_execution_derives_exact_reextraction : \u2200 {O E K X A I : Type}\n  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (extract : A \u2192 ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192 Except.{0, 0} K I)\n  (inputs outputs : A \u2192 List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)\n  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E)\n  (success :\n    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E\n        (ShielddSecurity.TransferCapabilitySource01.Error K X)\n        (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax\n          capacity pendingKey entryKey dayKey action token child))\n      (@Except.ok.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit Unit.unit)),\n  @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))\n    (@Except.ok.{0, 0} K I (@ShielddSecurity.TransferCapabilitySource01.Validated.item I token))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "69b2f51c548598ed20662f276264402e1e424efaea0ed92463e2609b166b53fd"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCapabilitySource01.bound_ordinary_late_conflict_retains_earlier_cache",
+      "full_type": "@ShielddSecurity.TransferCapabilitySource01.bound_ordinary_late_conflict_retains_earlier_cache : \u2200 {O E K X A I : Type}\n  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)\n  (extract : A \u2192 ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192 Except.{0, 0} K I)\n  (inputs outputs : A \u2192 List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A) (item : I)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (middle : ShielddSecurity.TransferStateDelta.Cache O E)\n  (sourceHasId : Bool)\n  (observed :\n    @Eq.{1} (Except.{0, 0} K I) (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)\n      (@Except.ok.{0, 0} K I item))\n  (reshaped :\n    @Eq.{1}\n      (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))\n      (@ShielddSecurity.TransferRawEffectsSource01.reshape O E X raw wordMax capacity pendingKey child (inputs action)\n        (outputs action))\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError X) middle\n        (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit)))\n  (source :\n    @Eq.{1} (Option.{0} Bool)\n      (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X raw\n        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          middle))\n      (@Option.some.{0} Bool sourceHasId))\n  (spent :\n    @Eq.{1} (Option.{0} Bool)\n      (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X raw\n        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          middle))\n      (@Option.some.{0} Bool Bool.true)),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))\n    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity\n      pendingKey entryKey dayKey action\n      (@ShielddSecurity.TransferCapabilitySource01.Validated.mk I item\n        ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)\n      child)\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E (ShielddSecurity.TransferCapabilitySource01.Error K X)\n      middle\n      (@Except.error.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit\n        (@ShielddSecurity.TransferCapabilitySource01.Error.raw K X\n          (@ShielddSecurity.TransferRawEffectsSource01.EffectError.volumeSpent X))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "d1523b79c873716fa9923ed4f2851d6d9a202791a3b1f280b731a64d0f285e13"
+    }
+  ],
+  "inherited_reports": 84,
+  "manifest_entries": 25,
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    }
+  ],
+  "guard_unchanged": true,
+  "rejected": {
+    "result": {
+      "reason": "Lean error/placeholder output",
+      "seconds": 16.076442699995823,
+      "status": "failed"
+    },
+    "program_definitions_and_theorem_contracts_unchanged": true,
+    "exact_delta": "--- \n+++ \n@@ -87,7 +87,7 @@\n   | error error => simp [execute, observed] at success\n   | ok item =>\n       by_cases equal : item = token.item\n-      \u00b7 simpa only [equal] using observed\n+      \u00b7 simp only [equal]\n       \u00b7 simp [execute, observed, equal] at success\n \n theorem bound_ordinary_late_conflict_retains_earlier_cache {O E K X A I : Type} [DecidableEq I]\n",
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-01\\project\\ShielddSecurity\\TransferCapabilitySource01.lean:90:8: warning: try 'simp' instead of 'simpa'"
+    ]
+  },
+  "interfaces": [
+    "Generic Item is the complete decoded Verification value; actual Rust equality/encoding and full public field/proof correspondence remain explicit",
+    "Pure extractor models anchor, shape, expected context, authorization, lengths, public extraction and proof item construction; its internal semantics remain upstream",
+    "Validated token provenance requires exact Transfer family/item verified capability, compliance anchors, timestamp freshness and validation-time ordinary volume check; this wrapper does not establish those upstream checks",
+    "Action inputs/output projection is the same captured action passed to extraction; decoded payload/effect projection correspondence remains explicit",
+    "True ordinary flag is Ordinary; false is FeeFunding, exactly the runtime enum",
+    "All inherited raw source/storage/SCT/reader/ownership/durability interfaces remain open"
+  ],
+  "scope": "Functional exact post-validation capability rebinding at raw execution. Whole execution success derives successful re-extraction of the token item through actual comparison, before dispatching projected action effects in the token context. Extraction/mismatch preserve input cache. Bound Ordinary late-volume conflict retains earlier raw cache; cryptography, extractor internals, native controls, atomic evidence refresh and full Transfer remain open. Whole wrapper execution success derives successful extraction of exactly the token item in its context through the executable equality check; no desired exactMatched boolean is a premise. Extraction failure and unequal complete item retain the input cache and precede all raw effects. Exact successful rebinding dispatches projections of the same captured action with Ordinary/FeeFunding from the token context. Actual verified-token provenance, extractor internals, real Verification equality/bytes and Item-to-effect semantic projection remain interfaces. Bound Ordinary current volume conflict derives the raw error retaining the earlier cache. The first compiler-zero warning output is rejected as a whole and adds no proof or negative-control credit.",
+  "full_transfer": "OPEN"
+}

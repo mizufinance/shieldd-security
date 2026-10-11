@@ -1,0 +1,233 @@
+ShielddSecurity.TransferSctInsertionSource01.Error : (X : Type) → Type
+'ShielddSecurity.TransferSctInsertionSource01.Error' does not depend on any axioms
+ShielddSecurity.TransferSctInsertionSource01.Backend : (O E X Tree : Type) → Type
+'ShielddSecurity.TransferSctInsertionSource01.Backend' does not depend on any axioms
+@ShielddSecurity.TransferSctInsertionSource01.checkCapacity : {X : Type} →
+  (position : Option.{0} (Prod.{0, 0} Nat Nat)) →
+    Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit
+'ShielddSecurity.TransferSctInsertionSource01.checkCapacity' does not depend on any axioms
+@ShielddSecurity.TransferSctInsertionSource01.insertLoaded : {O E X Tree : Type} →
+  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) →
+    (treeKey : Nat) →
+      (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+        (tree : Tree) →
+          (commitment : Nat) →
+            (source : Bool) →
+              ShielddSecurity.TransferNoteManagerSource01.Insertion O E
+                (ShielddSecurity.TransferSctInsertionSource01.Error X)
+'ShielddSecurity.TransferSctInsertionSource01.insertLoaded' does not depend on any axioms
+@ShielddSecurity.TransferSctInsertionSource01.installSct : {O E X Tree : Type} →
+  (manager :
+      ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+    (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) →
+      (treeKey : Nat) →
+        ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+'ShielddSecurity.TransferSctInsertionSource01.installSct' does not depend on any axioms
+@ShielddSecurity.TransferSctInsertionSource01.single_capacity_check_from_bounded_used : ∀ {X : Type}
+  (fullPosition used : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat used (@OfNat.ofNat.{0} Nat (nat_lit 65536) (instOfNatNat (nat_lit 65536)))),
+  @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)
+    (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X
+      (@Option.some.{0} (Prod.{0, 0} Nat Nat) (@Prod.mk.{0, 0} Nat Nat fullPosition used)))
+    (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit)
+'ShielddSecurity.TransferSctInsertionSource01.single_capacity_check_from_bounded_used' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferSctInsertionSource01.capacity_failure_retains_input_cache : ∀ {O E X Tree : Type}
+  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment : Nat) (source : Bool)
+  (error : ShielddSecurity.TransferSctInsertionSource01.Error X)
+  (rejected :
+    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)
+      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))
+      (@Except.error.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit error)),
+  @Eq.{1}
+    (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+    (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment source)
+    (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E
+      (ShielddSecurity.TransferSctInsertionSource01.Error X) (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat error))
+'ShielddSecurity.TransferSctInsertionSource01.capacity_failure_retains_input_cache' depends on axioms: [propext]
+@ShielddSecurity.TransferSctInsertionSource01.local_insert_failure_retains_input_cache : ∀ {O E X Tree : Type}
+  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment : Nat) (source : Bool) (error : X)
+  (allowed :
+    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)
+      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))
+  (rejected :
+    @Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))
+      (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend tree commitment)
+      (@Except.error.{0, 0} X (Prod.{0, 0} Tree Nat) error)),
+  @Eq.{1}
+    (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+    (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment source)
+    (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E
+      (ShielddSecurity.TransferSctInsertionSource01.Error X) (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat
+        (@ShielddSecurity.TransferSctInsertionSource01.Error.insert X error)))
+'ShielddSecurity.TransferSctInsertionSource01.local_insert_failure_retains_input_cache' depends on axioms: [propext]
+@ShielddSecurity.TransferSctInsertionSource01.local_insert_success_writes_tree_then_event : ∀ {O E X Tree : Type}
+  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree updatedTree : Tree) (commitment position : Nat)
+  (source : Bool)
+  (allowed :
+    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)
+      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))
+  (inserted :
+    @Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))
+      (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend tree commitment)
+      (@Except.ok.{0, 0} X (Prod.{0, 0} Tree Nat) (@Prod.mk.{0, 0} Tree Nat updatedTree position))),
+  @Eq.{1}
+    (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+    (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment source)
+    (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E
+      (ShielddSecurity.TransferSctInsertionSource01.Error X)
+      (@ShielddSecurity.TransferRawEffectsSource01.emit O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+          (@ShielddSecurity.TransferStateDelta.putObject O E child treeKey
+            (@Option.some.{0} O
+              (@ShielddSecurity.TransferSctInsertionSource01.Backend.encode O E X Tree backend updatedTree))))
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend commitment position source))
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat position))
+'ShielddSecurity.TransferSctInsertionSource01.local_insert_success_writes_tree_then_event' depends on axioms: [propext]
+@ShielddSecurity.TransferSctInsertionSource01.success_derives_actual_capacity_insert_and_position : ∀
+  {O E X Tree : Type} (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment position : Nat) (source : Bool)
+  (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1}
+      (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+      (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment
+        source)
+      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X) updated
+        (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat position))),
+  And
+    (@Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)
+      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))
+    (@Exists.{1} Tree fun (updatedTree : Tree) =>
+      And
+        (@Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))
+          (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend tree commitment)
+          (@Except.ok.{0, 0} X (Prod.{0, 0} Tree Nat) (@Prod.mk.{0, 0} Tree Nat updatedTree position)))
+        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) updated
+          (@ShielddSecurity.TransferRawEffectsSource01.emit O E
+            (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+              (@ShielddSecurity.TransferStateDelta.putObject O E child treeKey
+                (@Option.some.{0} O
+                  (@ShielddSecurity.TransferSctInsertionSource01.Backend.encode O E X Tree backend updatedTree))))
+            (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend commitment position
+              source))))
+'ShielddSecurity.TransferSctInsertionSource01.success_derives_actual_capacity_insert_and_position' depends on axioms: [propext]
+@ShielddSecurity.TransferSctInsertionSource01.successful_insertion_frames_input_writes_and_other_objects : ∀
+  {O E X Tree : Type} (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment position : Nat) (source : Bool)
+  (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1}
+      (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+      (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment
+        source)
+      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X) updated
+        (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat position))),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E updated)
+        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))
+      (And
+        (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E updated)
+          (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)
+            (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))
+            (@ShielddSecurity.TransferStateDelta.Cache.events O E
+              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+            (@List.cons.{0} E
+              (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend commitment position
+                source)
+              (@List.nil.{0} E))))
+        (∀ (other : Nat),
+          @Ne.{1} Nat other treeKey →
+            @Eq.{1} (Option.{0} (Option.{0} O)) (@ShielddSecurity.TransferStateDelta.Cache.objects O E updated other)
+              (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+                (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) other))))
+'ShielddSecurity.TransferSctInsertionSource01.successful_insertion_frames_input_writes_and_other_objects' depends on axioms: [propext]
+@ShielddSecurity.TransferSctInsertionSource01.missing_tree_position_refuses_note_callback_before_semantic_event : ∀
+  {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output : Nat) (source : Bool) (rest : List.{0} Nat)
+  (full :
+    @Eq.{1} (Option.{0} (Prod.{0, 0} Nat Nat))
+      (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.loaded O E X Tree backend child))
+      (@Option.none.{0} (Prod.{0, 0} Nat Nat))),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X)))
+    (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+      (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X) raw
+        (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager backend treeKey) pendingKey)
+      source child (@List.cons.{0} Nat output rest))
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0}
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.callback
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)
+          (@ShielddSecurity.TransferSctInsertionSource01.Error.treeFull X))))
+'ShielddSecurity.TransferSctInsertionSource01.missing_tree_position_refuses_note_callback_before_semantic_event' depends on axioms: [propext]
+@ShielddSecurity.TransferSctInsertionSource01.single_note_success_emits_commitment_then_note_created : ∀
+  {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output position : Nat) (source : Bool) (updatedTree : Tree)
+  (allowed :
+    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)
+      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend
+          (@ShielddSecurity.TransferSctInsertionSource01.Backend.loaded O E X Tree backend child)))
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))
+  (inserted :
+    @Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))
+      (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.loaded O E X Tree backend child) output)
+      (@Except.ok.{0, 0} X (Prod.{0, 0} Tree Nat) (@Prod.mk.{0, 0} Tree Nat updatedTree position))),
+  @Eq.{1} (List.{0} E)
+    (@ShielddSecurity.TransferStateDelta.Cache.events O E
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+          (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw
+            (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager backend treeKey) pendingKey)
+          source child (@List.cons.{0} Nat output (@List.nil.{0} Nat)))))
+    (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)
+      (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))
+      (@ShielddSecurity.TransferStateDelta.Cache.events O E (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+      (@List.cons.{0} E
+        (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend output position source)
+        (@List.cons.{0} E
+          (@ShielddSecurity.TransferRawEffectsSource01.Backend.noteEvent O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw output)
+          (@List.nil.{0} E))))
+'ShielddSecurity.TransferSctInsertionSource01.single_note_success_emits_commitment_then_note_created' depends on axioms: [propext,
+ Quot.sound]

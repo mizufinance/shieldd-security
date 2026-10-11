@@ -1,0 +1,34 @@
+{
+  "interfaces": [
+    "Model starts after get_sct successfully returns a tree; expect panic for loader failure is outside returned-result scope, not a recoverable modeled error",
+    "loaded denotes that successful immutable tree snapshot; actual NV loading/authentication and cached getter correspondence remain explicit",
+    "position returns full position and commitment component; real u16 commitment bound used<65536 and tree position meaning remain representation interfaces",
+    "Pure localInsert callback represents Witness::Forget insertion into the locally cloned tree; real tree insertion/position/root semantics and Clone/COW isolation remain explicit",
+    "Tree encoding/cache key, commitment/source/event codec and object cache projection remain explicit",
+    "Exact pending-manager and inherited raw/storage/reader/ownership/durability interfaces remain open"
+  ],
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "runtime_sources": [
+    {
+      "bytes": 48880,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\component\\tree.rs",
+      "sha256": "d95558d2c9da8e16419ab1a43c27052d672c607c46bd41b40daa7e9fdf7b1a65"
+    },
+    {
+      "bytes": 2762,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\state_key.rs",
+      "sha256": "abe8ace0f7498431b9d1cb3a17655527f1a6fb905bbf1b0e1ba10c03e406b14d"
+    },
+    {
+      "bytes": 12655,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\shielded-pool\\src\\component\\note_manager.rs",
+      "sha256": "d1590b2af34830d9d57842ceaf50ef78802210455797e32e95c24ccee0957a88"
+    },
+    {
+      "bytes": 11638,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\shielded-pool\\src\\component\\action_handler\\note_reshape.rs",
+      "sha256": "53aeb9d6705f09c0ed353de55a68bcc8a1af04d927a60b12dd1fefe4ea331c54"
+    }
+  ],
+  "scope": "Functional add_sct_commitment source branch after successful tree loading: capacity check then local insert, followed only on success by one SCT cache object write and one commitment event. Returned capacity/insert errors derive input-cache retention in the immutable local model. NoteManager installation derives semantic-event suppression on missing position and commitment-before-note-created event order on success. Actual getter panic, Clone/COW, tree semantics, native execution, durable/Merkle correspondence, atomic evidence refresh and full Transfer remain open."
+}

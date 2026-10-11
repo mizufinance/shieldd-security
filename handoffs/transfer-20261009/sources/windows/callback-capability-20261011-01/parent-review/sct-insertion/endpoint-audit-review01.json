@@ -1,0 +1,228 @@
+{
+  "kind": "Independent complete declaration/ancestor/source/runtime/unchanged guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 13,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.Error",
+      "full_type": "ShielddSecurity.TransferSctInsertionSource01.Error : (X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "ce7cbf1e958d162f26f4d9ab11fb9273bc2a451edcf323c1048c0e6cc64c2229"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.Backend",
+      "full_type": "ShielddSecurity.TransferSctInsertionSource01.Backend : (O E X Tree : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "262e649328f0aa9f7416fa22790bb258f6988ad5a1248b3037a39adcd660dff8"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.checkCapacity",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.checkCapacity : {X : Type} \u2192\n  (position : Option.{0} (Prod.{0, 0} Nat Nat)) \u2192\n    Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit",
+      "axioms": [],
+      "full_type_sha256": "44b7bcabe40a5ff314d4d73a89a9369b448ea8d3fe4b6ab35fd8aa25962d70e3"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.insertLoaded",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.insertLoaded : {O E X Tree : Type} \u2192\n  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n    (treeKey : Nat) \u2192\n      (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192\n        (tree : Tree) \u2192\n          (commitment : Nat) \u2192\n            (source : Bool) \u2192\n              ShielddSecurity.TransferNoteManagerSource01.Insertion O E\n                (ShielddSecurity.TransferSctInsertionSource01.Error X)",
+      "axioms": [],
+      "full_type_sha256": "370aaa39368f9307968d37b56b3e18686cb97ae6e212db3ac09639b312bdd467"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.installSct",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.installSct : {O E X Tree : Type} \u2192\n  (manager :\n      ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n      (treeKey : Nat) \u2192\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)",
+      "axioms": [],
+      "full_type_sha256": "a2c760e202eb31a5607530c7aaad0b818d3400e62052e668c929ec28a321f8c8"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.single_capacity_check_from_bounded_used",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.single_capacity_check_from_bounded_used : \u2200 {X : Type}\n  (fullPosition used : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat used (@OfNat.ofNat.{0} Nat (nat_lit 65536) (instOfNatNat (nat_lit 65536)))),\n  @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)\n    (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X\n      (@Option.some.{0} (Prod.{0, 0} Nat Nat) (@Prod.mk.{0, 0} Nat Nat fullPosition used)))\n    (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "63eaf651a0bfcb5a260b4113feba3d287f3a0fb5b5a534b2f14f2ce0607e6728"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.capacity_failure_retains_input_cache",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.capacity_failure_retains_input_cache : \u2200 {O E X Tree : Type}\n  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment : Nat) (source : Bool)\n  (error : ShielddSecurity.TransferSctInsertionSource01.Error X)\n  (rejected :\n    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)\n      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))\n      (@Except.error.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit error)),\n  @Eq.{1}\n    (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n    (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment source)\n    (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E\n      (ShielddSecurity.TransferSctInsertionSource01.Error X) (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat error))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "c51d43c180058602a304b16a35d7bba6f7f1c698560b74d0ca69ec3af6709d5f"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.local_insert_failure_retains_input_cache",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.local_insert_failure_retains_input_cache : \u2200 {O E X Tree : Type}\n  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment : Nat) (source : Bool) (error : X)\n  (allowed :\n    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)\n      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))\n      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))\n  (rejected :\n    @Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))\n      (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend tree commitment)\n      (@Except.error.{0, 0} X (Prod.{0, 0} Tree Nat) error)),\n  @Eq.{1}\n    (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n    (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment source)\n    (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E\n      (ShielddSecurity.TransferSctInsertionSource01.Error X) (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat\n        (@ShielddSecurity.TransferSctInsertionSource01.Error.insert X error)))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "dabee71aad29d45fd7b5d3fc3f59a9346e1c388c86f5395174a992c80f358666"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.local_insert_success_writes_tree_then_event",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.local_insert_success_writes_tree_then_event : \u2200 {O E X Tree : Type}\n  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree updatedTree : Tree) (commitment position : Nat)\n  (source : Bool)\n  (allowed :\n    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)\n      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))\n      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))\n  (inserted :\n    @Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))\n      (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend tree commitment)\n      (@Except.ok.{0, 0} X (Prod.{0, 0} Tree Nat) (@Prod.mk.{0, 0} Tree Nat updatedTree position))),\n  @Eq.{1}\n    (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n    (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment source)\n    (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E\n      (ShielddSecurity.TransferSctInsertionSource01.Error X)\n      (@ShielddSecurity.TransferRawEffectsSource01.emit O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n          (@ShielddSecurity.TransferStateDelta.putObject O E child treeKey\n            (@Option.some.{0} O\n              (@ShielddSecurity.TransferSctInsertionSource01.Backend.encode O E X Tree backend updatedTree))))\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend commitment position source))\n      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat position))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "13b9298cd62d6df8ce032326d3f33433a20abbe5d66ca53088d707197cf3b6b4"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.success_derives_actual_capacity_insert_and_position",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.success_derives_actual_capacity_insert_and_position : \u2200\n  {O E X Tree : Type} (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment position : Nat) (source : Bool)\n  (updated : ShielddSecurity.TransferStateDelta.Cache O E)\n  (success :\n    @Eq.{1}\n      (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment\n        source)\n      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E\n        (ShielddSecurity.TransferSctInsertionSource01.Error X) updated\n        (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat position))),\n  And\n    (@Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)\n      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend tree))\n      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))\n    (@Exists.{1} Tree fun (updatedTree : Tree) =>\n      And\n        (@Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))\n          (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend tree commitment)\n          (@Except.ok.{0, 0} X (Prod.{0, 0} Tree Nat) (@Prod.mk.{0, 0} Tree Nat updatedTree position)))\n        (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) updated\n          (@ShielddSecurity.TransferRawEffectsSource01.emit O E\n            (@ShielddSecurity.TransferStateDelta.Delta.cache O E\n              (@ShielddSecurity.TransferStateDelta.putObject O E child treeKey\n                (@Option.some.{0} O\n                  (@ShielddSecurity.TransferSctInsertionSource01.Backend.encode O E X Tree backend updatedTree))))\n            (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend commitment position\n              source))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "6625c4465ba2859851b7b886bd0166576c5e6d1d03f4a631339d9c436ff84fa7"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.successful_insertion_frames_input_writes_and_other_objects",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.successful_insertion_frames_input_writes_and_other_objects : \u2200\n  {O E X Tree : Type} (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (tree : Tree) (commitment position : Nat) (source : Bool)\n  (updated : ShielddSecurity.TransferStateDelta.Cache O E)\n  (success :\n    @Eq.{1}\n      (ShielddSecurity.TransferNoteManagerSource01.Insertion O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferSctInsertionSource01.insertLoaded O E X Tree backend treeKey child tree commitment\n        source)\n      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E\n        (ShielddSecurity.TransferSctInsertionSource01.Error X) updated\n        (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Nat position))),\n  And\n    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated)\n      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E\n        (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n    (And\n      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E updated)\n        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)))\n      (And\n        (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E updated)\n          (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)\n            (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))\n            (@ShielddSecurity.TransferStateDelta.Cache.events O E\n              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n            (@List.cons.{0} E\n              (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend commitment position\n                source)\n              (@List.nil.{0} E))))\n        (\u2200 (other : Nat),\n          @Ne.{1} Nat other treeKey \u2192\n            @Eq.{1} (Option.{0} (Option.{0} O)) (@ShielddSecurity.TransferStateDelta.Cache.objects O E updated other)\n              (@ShielddSecurity.TransferStateDelta.Cache.objects O E\n                (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) other))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "6e0b5249f07032b6ee488ca0002665407376d7fd546dcc5cc666aeaea1f0247d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.missing_tree_position_refuses_note_callback_before_semantic_event",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.missing_tree_position_refuses_note_callback_before_semantic_event : \u2200\n  {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output : Nat) (source : Bool) (rest : List.{0} Nat)\n  (full :\n    @Eq.{1} (Option.{0} (Prod.{0, 0} Nat Nat))\n      (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.loaded O E X Tree backend child))\n      (@Option.none.{0} (Prod.{0, 0} Nat Nat))),\n  @Eq.{1}\n    (ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X)))\n    (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n      (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E\n        (ShielddSecurity.TransferSctInsertionSource01.Error X) raw\n        (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager backend treeKey) pendingKey)\n      source child (@List.cons.{0} Nat output rest))\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)\n      (@Except.error.{0, 0}\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        Unit\n        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.callback\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferSctInsertionSource01.Error.treeFull X))))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "82b20e5fad2cd2bcef7d0a73ecf4d4f055610a5290ccf1b0720c3e2063522f3f"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferSctInsertionSource01.single_note_success_emits_commitment_then_note_created",
+      "full_type": "@ShielddSecurity.TransferSctInsertionSource01.single_note_success_emits_commitment_then_note_created : \u2200\n  {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (backend : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) (treeKey pendingKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output position : Nat) (source : Bool) (updatedTree : Tree)\n  (allowed :\n    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit)\n      (@ShielddSecurity.TransferSctInsertionSource01.checkCapacity X\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.position O E X Tree backend\n          (@ShielddSecurity.TransferSctInsertionSource01.Backend.loaded O E X Tree backend child)))\n      (@Except.ok.{0, 0} (ShielddSecurity.TransferSctInsertionSource01.Error X) Unit Unit.unit))\n  (inserted :\n    @Eq.{1} (Except.{0, 0} X (Prod.{0, 0} Tree Nat))\n      (@ShielddSecurity.TransferSctInsertionSource01.Backend.localInsert O E X Tree backend\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.loaded O E X Tree backend child) output)\n      (@Except.ok.{0, 0} X (Prod.{0, 0} Tree Nat) (@Prod.mk.{0, 0} Tree Nat updatedTree position))),\n  @Eq.{1} (List.{0} E)\n    (@ShielddSecurity.TransferStateDelta.Cache.events O E\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferRawEffectsSource01.notes O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n          (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw\n            (@ShielddSecurity.TransferSctInsertionSource01.installSct O E X Tree manager backend treeKey) pendingKey)\n          source child (@List.cons.{0} Nat output (@List.nil.{0} Nat)))))\n    (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)\n      (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))\n      (@ShielddSecurity.TransferStateDelta.Cache.events O E (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n      (@List.cons.{0} E\n        (@ShielddSecurity.TransferSctInsertionSource01.Backend.event O E X Tree backend output position source)\n        (@List.cons.{0} E\n          (@ShielddSecurity.TransferRawEffectsSource01.Backend.noteEvent O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw output)\n          (@List.nil.{0} E))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "1bcdf13d06d1799ac9bbe240cb717dcd4f769037d7acfbcd83c5d42ae4f137ec"
+    }
+  ],
+  "inherited_reports": 97,
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-owned-floor-20261011-01\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    }
+  ],
+  "manifest_entries": 20,
+  "generated_equality_instance_audited": false,
+  "guard_unchanged": true,
+  "rejected": null,
+  "interfaces": [
+    "Model starts after get_sct successfully returns a tree; expect panic for loader failure is outside returned-result scope, not a recoverable modeled error",
+    "loaded denotes that successful immutable tree snapshot; actual NV loading/authentication and cached getter correspondence remain explicit",
+    "position returns full position and commitment component; real u16 commitment bound used<65536 and tree position meaning remain representation interfaces",
+    "Pure localInsert callback represents Witness::Forget insertion into the locally cloned tree; real tree insertion/position/root semantics and Clone/COW isolation remain explicit",
+    "Tree encoding/cache key, commitment/source/event codec and object cache projection remain explicit",
+    "Exact pending-manager and inherited raw/storage/reader/ownership/durability interfaces remain open"
+  ],
+  "scope": "Functional add_sct_commitment source branch after successful tree loading: capacity check then local insert, followed only on success by one SCT cache object write and one commitment event. Returned capacity/insert errors derive input-cache retention in the immutable local model. NoteManager installation derives semantic-event suppression on missing position and commitment-before-note-created event order on success. Actual getter panic, Clone/COW, tree semantics, native execution, durable/Merkle correspondence, atomic evidence refresh and full Transfer remain open. This model begins after get_sct returns successfully. The real expect panic on NV loader failure is outside the returned-error branch and is not converted into Err. Given the explicit u16 component bound used<65536, a single requested commitment passes the natural capacity arithmetic. Success derives the actual capacity result, local insertion result/position, one encoded tree object update and one commitment event. Returned capacity/insert errors keep the supplied cache in the immutable local model; actual tree clone aliasing is an explicit Rust correspondence obligation. Installing this SCT callback in NoteManager derives missing-position refusal before semantic note-created/suffix and exact commitment-then-note-created events for a successful single note. No tree/Merkle correctness or durable publication is inferred.",
+  "full_transfer": "OPEN"
+}

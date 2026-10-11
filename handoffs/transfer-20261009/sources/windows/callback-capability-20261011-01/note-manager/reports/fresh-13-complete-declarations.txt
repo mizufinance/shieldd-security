@@ -1,0 +1,251 @@
+ShielddSecurity.TransferNoteManagerSource01.Insertion : (O E X : Type) → Type
+'ShielddSecurity.TransferNoteManagerSource01.Insertion' does not depend on any axioms
+ShielddSecurity.TransferNoteManagerSource01.Backend : (O E X : Type) → Type
+'ShielddSecurity.TransferNoteManagerSource01.Backend' does not depend on any axioms
+@ShielddSecurity.TransferNoteManagerSource01.insertPayload : {O E X : Type} →
+  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) →
+    (objectKey : Nat) →
+      (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+        (payload : Nat) → (capturedSource : Bool) → ShielddSecurity.TransferRawStateProgram01.Outcome O E X
+'ShielddSecurity.TransferNoteManagerSource01.insertPayload' does not depend on any axioms
+@ShielddSecurity.TransferNoteManagerSource01.installNotes : {O E X : Type} →
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) →
+      (objectKey : Nat) → ShielddSecurity.TransferRawEffectsSource01.Backend O E X
+'ShielddSecurity.TransferNoteManagerSource01.installNotes' does not depend on any axioms
+@ShielddSecurity.TransferNoteManagerSource01.installVolume : {O E X : Type} →
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) →
+      (objectKey payload : Nat) → ShielddSecurity.TransferRawEffectsSource01.Backend O E X
+'ShielddSecurity.TransferNoteManagerSource01.installVolume' does not depend on any axioms
+@ShielddSecurity.TransferNoteManagerSource01.failed_sct_retains_its_cache_before_pending_append : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)
+  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)
+  (failed :
+    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource)
+      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X failureCache
+        (@Except.error.{0, 0} X Nat error))),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+    (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))
+'ShielddSecurity.TransferNoteManagerSource01.failed_sct_retains_its_cache_before_pending_append' depends on axioms: [propext]
+@ShielddSecurity.TransferNoteManagerSource01.successful_sct_appends_to_post_sct_pending : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload position : Nat) (capturedSource : Bool)
+  (sctCache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (passed :
+    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource)
+      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X sctCache (@Except.ok.{0, 0} X Nat position))),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+    (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+        (@ShielddSecurity.TransferStateDelta.putObject O E
+          (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+            sctCache)
+          objectKey
+          (@Option.some.{0} O
+            (@ShielddSecurity.TransferNoteManagerSource01.Backend.encode O E X backend
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))) (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                  (@List.instAppend.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))
+                (@ShielddSecurity.TransferNoteManagerSource01.Backend.pending O E X backend
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E
+                    (@ShielddSecurity.TransferStateDelta.Delta.parent O E child) sctCache))
+                (@List.cons.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))
+                  (@Prod.mk.{0, 0} Nat (Prod.{0, 0} Nat Bool) position
+                    (@Prod.mk.{0, 0} Nat Bool payload capturedSource))
+                  (@List.nil.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))))))))
+      (@Except.ok.{0, 0} X Unit Unit.unit))
+'ShielddSecurity.TransferNoteManagerSource01.successful_sct_appends_to_post_sct_pending' depends on axioms: [propext]
+@ShielddSecurity.TransferNoteManagerSource01.success_recovers_actual_sct_position_and_cache : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)
+  (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X updated (@Except.ok.{0, 0} X Unit Unit.unit))),
+  @Exists.{1} Nat fun (position : Nat) =>
+    And
+      (@Eq.{1} (Except.{0, 0} X Nat)
+        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.result O E X
+          (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))
+        (@Except.ok.{0, 0} X Nat position))
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Cache O E) updated
+        (@ShielddSecurity.TransferStateDelta.Delta.cache O E
+          (@ShielddSecurity.TransferStateDelta.putObject O E
+            (@ShielddSecurity.TransferStateDelta.Delta.mk O E
+              (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+              (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X
+                (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource)))
+            objectKey
+            (@Option.some.{0} O
+              (@ShielddSecurity.TransferNoteManagerSource01.Backend.encode O E X backend
+                (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                  (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                  (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                  (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                    (@List.instAppend.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))
+                  (@ShielddSecurity.TransferNoteManagerSource01.Backend.pending O E X backend
+                    (@ShielddSecurity.TransferStateDelta.Delta.mk O E
+                      (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+                      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X
+                        (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload
+                          capturedSource))))
+                  (@List.cons.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))
+                    (@Prod.mk.{0, 0} Nat (Prod.{0, 0} Nat Bool) position
+                      (@Prod.mk.{0, 0} Nat Bool payload capturedSource))
+                    (@List.nil.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))))))))
+'ShielddSecurity.TransferNoteManagerSource01.success_recovers_actual_sct_position_and_cache' depends on axioms: [propext]
+@ShielddSecurity.TransferNoteManagerSource01.successful_manager_frames_post_sct_components : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)
+  (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X updated (@Except.ok.{0, 0} X Unit Unit.unit))),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E updated)
+      (@ShielddSecurity.TransferStateDelta.Cache.verifiable O E
+        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X
+          (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E updated)
+        (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+          (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X
+            (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))))
+      (And
+        (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Cache.events O E updated)
+          (@ShielddSecurity.TransferStateDelta.Cache.events O E
+            (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X
+              (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))))
+        (∀ (other : Nat),
+          @Ne.{1} Nat other objectKey →
+            @Eq.{1} (Option.{0} (Option.{0} O)) (@ShielddSecurity.TransferStateDelta.Cache.objects O E updated other)
+              (@ShielddSecurity.TransferStateDelta.Cache.objects O E
+                (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X
+                  (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))
+                other))))
+'ShielddSecurity.TransferNoteManagerSource01.successful_manager_frames_post_sct_components' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNoteManagerSource01.successful_manager_derives_visible_pending_object : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (payload : Nat) (capturedSource : Bool)
+  (updated : ShielddSecurity.TransferStateDelta.Cache O E)
+  (success :
+    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.insertPayload O E X backend objectKey child payload capturedSource)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X updated (@Except.ok.{0, 0} X Unit Unit.unit))),
+  @Exists.{1} Nat fun (position : Nat) =>
+    And
+      (@Eq.{1} (Except.{0, 0} X Nat)
+        (@ShielddSecurity.TransferNoteManagerSource01.Insertion.result O E X
+          (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload capturedSource))
+        (@Except.ok.{0, 0} X Nat position))
+      (@Eq.{1} (Option.{0} O)
+        (@ShielddSecurity.TransferStateDelta.State.objects O
+          (@ShielddSecurity.TransferStateDelta.applyCache O E
+            (@ShielddSecurity.TransferStateDelta.Delta.parent O E child) updated)
+          objectKey)
+        (@Option.some.{0} O
+          (@ShielddSecurity.TransferNoteManagerSource01.Backend.encode O E X backend
+            (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+              (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))) (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+              (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool)))
+                (@List.instAppend.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))
+              (@ShielddSecurity.TransferNoteManagerSource01.Backend.pending O E X backend
+                (@ShielddSecurity.TransferStateDelta.Delta.mk O E
+                  (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+                  (@ShielddSecurity.TransferNoteManagerSource01.Insertion.cache O E X
+                    (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X backend child payload
+                      capturedSource))))
+              (@List.cons.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))
+                (@Prod.mk.{0, 0} Nat (Prod.{0, 0} Nat Bool) position (@Prod.mk.{0, 0} Nat Bool payload capturedSource))
+                (@List.nil.{0} (Prod.{0, 0} Nat (Prod.{0, 0} Nat Bool))))))))
+'ShielddSecurity.TransferNoteManagerSource01.successful_manager_derives_visible_pending_object' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNoteManagerSource01.note_callback_sct_failure_stops_semantic_event_and_suffix : ∀
+  {O E X : Type} (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output : Nat) (capturedSource : Bool) (rest : List.{0} Nat)
+  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)
+  (failed :
+    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X manager child output capturedSource)
+      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X failureCache
+        (@Except.error.{0, 0} X Nat error))),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.notes O E X
+      (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E X raw manager objectKey) capturedSource child
+      (@List.cons.{0} Nat output rest))
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X) failureCache
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.callback X error)))
+'ShielddSecurity.TransferNoteManagerSource01.note_callback_sct_failure_stops_semantic_event_and_suffix' depends on axioms: [propext]
+@ShielddSecurity.TransferNoteManagerSource01.note_callback_success_preserves_internal_events_then_adds_semantic_event : ∀
+  {O E X : Type} (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (output position : Nat) (capturedSource : Bool)
+  (sctCache : ShielddSecurity.TransferStateDelta.Cache O E)
+  (passed :
+    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X manager child output capturedSource)
+      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X sctCache (@Except.ok.{0, 0} X Nat position))),
+  @Eq.{1} (List.{0} E)
+    (@ShielddSecurity.TransferStateDelta.Cache.events O E
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+        (@ShielddSecurity.TransferRawEffectsSource01.notes O E X
+          (@ShielddSecurity.TransferNoteManagerSource01.installNotes O E X raw manager objectKey) capturedSource child
+          (@List.cons.{0} Nat output (@List.nil.{0} Nat)))))
+    (@HAppend.hAppend.{0, 0, 0} (List.{0} E) (List.{0} E) (List.{0} E)
+      (@instHAppendOfAppend.{0} (List.{0} E) (@List.instAppend.{0} E))
+      (@ShielddSecurity.TransferStateDelta.Cache.events O E sctCache)
+      (@List.cons.{0} E (@ShielddSecurity.TransferRawEffectsSource01.Backend.noteEvent O E X raw output)
+        (@List.nil.{0} E)))
+'ShielddSecurity.TransferNoteManagerSource01.note_callback_success_preserves_internal_events_then_adds_semantic_event' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferNoteManagerSource01.ordinary_volume_payload_failure_retains_sct_failure_cache : ∀
+  {O E X : Type} (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (manager : ShielddSecurity.TransferNoteManagerSource01.Backend O E X) (objectKey payload entryKey dayKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (capturedSource : Bool)
+  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)
+  (source :
+    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X raw child)
+      (@Option.some.{0} Bool capturedSource))
+  (fresh :
+    @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X raw child)
+      (@Option.some.{0} Bool Bool.false))
+  (failed :
+    @Eq.{1} (ShielddSecurity.TransferNoteManagerSource01.Insertion O E X)
+      (@ShielddSecurity.TransferNoteManagerSource01.Backend.sct O E X manager
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferRawEffectsSource01.putV O E
+            (@ShielddSecurity.TransferRawEffectsSource01.putV O E
+              (@ShielddSecurity.TransferStateDelta.Delta.cache O E child) entryKey
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat)))
+            dayKey
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) (@List.nil.{0} Nat))))
+        payload capturedSource)
+      (@ShielddSecurity.TransferNoteManagerSource01.Insertion.mk O E X failureCache
+        (@Except.error.{0, 0} X Nat error))),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+    (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E X
+      (@ShielddSecurity.TransferNoteManagerSource01.installVolume O E X raw manager objectKey payload) entryKey dayKey
+      Bool.true child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X) failureCache
+      (@Except.error.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit
+        (@ShielddSecurity.TransferRawEffectsSource01.EffectError.callback X error)))
+'ShielddSecurity.TransferNoteManagerSource01.ordinary_volume_payload_failure_retains_sct_failure_cache' depends on axioms: [propext]

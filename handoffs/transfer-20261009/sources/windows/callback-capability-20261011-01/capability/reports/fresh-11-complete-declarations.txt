@@ -1,0 +1,137 @@
+ShielddSecurity.TransferCapabilitySource01.ProofContext : Type
+'ShielddSecurity.TransferCapabilitySource01.ProofContext' does not depend on any axioms
+ShielddSecurity.TransferCapabilitySource01.isOrdinary : ShielddSecurity.TransferCapabilitySource01.ProofContext → Bool
+'ShielddSecurity.TransferCapabilitySource01.isOrdinary' does not depend on any axioms
+ShielddSecurity.TransferCapabilitySource01.Validated : (I : Type) → Type
+'ShielddSecurity.TransferCapabilitySource01.Validated' does not depend on any axioms
+ShielddSecurity.TransferCapabilitySource01.Error : (K X : Type) → Type
+'ShielddSecurity.TransferCapabilitySource01.Error' does not depend on any axioms
+@ShielddSecurity.TransferCapabilitySource01.liftRaw : {O E K X : Type} →
+  (returned :
+      ShielddSecurity.TransferRawStateProgram01.Outcome O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError X)) →
+    ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X)
+'ShielddSecurity.TransferCapabilitySource01.liftRaw' does not depend on any axioms
+@ShielddSecurity.TransferCapabilitySource01.execute : {O E K X A I : Type} →
+  [DecidableEq.{1} I] →
+    (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+      (extract : A → ShielddSecurity.TransferCapabilitySource01.ProofContext → Except.{0, 0} K I) →
+        (inputs outputs : A → List.{0} Nat) →
+          (wordMax capacity pendingKey entryKey dayKey : Nat) →
+            (action : A) →
+              (token : ShielddSecurity.TransferCapabilitySource01.Validated I) →
+                (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+                  ShielddSecurity.TransferRawStateProgram01.Outcome O E
+                    (ShielddSecurity.TransferCapabilitySource01.Error K X)
+'ShielddSecurity.TransferCapabilitySource01.execute' depends on axioms: [propext]
+@ShielddSecurity.TransferCapabilitySource01.extraction_failure_precedes_effects : ∀ {O E K X A I : Type}
+  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (extract : A → ShielddSecurity.TransferCapabilitySource01.ProofContext → Except.{0, 0} K I)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)
+  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (error : K)
+  (failed :
+    @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))
+      (@Except.error.{0, 0} K I error)),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))
+    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity
+      pendingKey entryKey dayKey action token child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E (ShielddSecurity.TransferCapabilitySource01.Error K X)
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit
+        (@ShielddSecurity.TransferCapabilitySource01.Error.extraction K X error)))
+'ShielddSecurity.TransferCapabilitySource01.extraction_failure_precedes_effects' depends on axioms: [propext]
+@ShielddSecurity.TransferCapabilitySource01.different_item_precedes_effects : ∀ {O E K X A I : Type}
+  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (extract : A → ShielddSecurity.TransferCapabilitySource01.ProofContext → Except.{0, 0} K I)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)
+  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (item : I)
+  (observed :
+    @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))
+      (@Except.ok.{0, 0} K I item))
+  (different : @Ne.{1} I item (@ShielddSecurity.TransferCapabilitySource01.Validated.item I token)),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))
+    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity
+      pendingKey entryKey dayKey action token child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E (ShielddSecurity.TransferCapabilitySource01.Error K X)
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child)
+      (@Except.error.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit
+        (@ShielddSecurity.TransferCapabilitySource01.Error.mismatch K X)))
+'ShielddSecurity.TransferCapabilitySource01.different_item_precedes_effects' depends on axioms: [propext]
+@ShielddSecurity.TransferCapabilitySource01.exact_rebinding_dispatches_projected_action : ∀ {O E K X A I : Type}
+  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (extract : A → ShielddSecurity.TransferCapabilitySource01.ProofContext → Except.{0, 0} K I)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)
+  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (observed :
+    @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))
+      (@Except.ok.{0, 0} K I (@ShielddSecurity.TransferCapabilitySource01.Validated.item I token))),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))
+    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity
+      pendingKey entryKey dayKey action token child)
+    (@ShielddSecurity.TransferCapabilitySource01.liftRaw O E K X
+      (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E X raw wordMax capacity pendingKey entryKey dayKey
+        Bool.true
+        (ShielddSecurity.TransferCapabilitySource01.isOrdinary
+          (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))
+        child (inputs action) (outputs action)))
+'ShielddSecurity.TransferCapabilitySource01.exact_rebinding_dispatches_projected_action' depends on axioms: [propext]
+@ShielddSecurity.TransferCapabilitySource01.successful_execution_derives_exact_reextraction : ∀ {O E K X A I : Type}
+  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (extract : A → ShielddSecurity.TransferCapabilitySource01.ProofContext → Except.{0, 0} K I)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A)
+  (token : ShielddSecurity.TransferCapabilitySource01.Validated I)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (success :
+    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+        (ShielddSecurity.TransferCapabilitySource01.Error K X)
+        (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax
+          capacity pendingKey entryKey dayKey action token child))
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit Unit.unit)),
+  @Eq.{1} (Except.{0, 0} K I) (extract action (@ShielddSecurity.TransferCapabilitySource01.Validated.context I token))
+    (@Except.ok.{0, 0} K I (@ShielddSecurity.TransferCapabilitySource01.Validated.item I token))
+'ShielddSecurity.TransferCapabilitySource01.successful_execution_derives_exact_reextraction' depends on axioms: [propext]
+@ShielddSecurity.TransferCapabilitySource01.bound_ordinary_late_conflict_retains_earlier_cache : ∀ {O E K X A I : Type}
+  [inst : DecidableEq.{1} I] (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (extract : A → ShielddSecurity.TransferCapabilitySource01.ProofContext → Except.{0, 0} K I)
+  (inputs outputs : A → List.{0} Nat) (wordMax capacity pendingKey entryKey dayKey : Nat) (action : A) (item : I)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (middle : ShielddSecurity.TransferStateDelta.Cache O E)
+  (sourceHasId : Bool)
+  (observed :
+    @Eq.{1} (Except.{0, 0} K I) (extract action ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)
+      (@Except.ok.{0, 0} K I item))
+  (reshaped :
+    @Eq.{1}
+      (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferRawEffectsSource01.EffectError X))
+      (@ShielddSecurity.TransferRawEffectsSource01.reshape O E X raw wordMax capacity pendingKey child (inputs action)
+        (outputs action))
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError X) middle
+        (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit)))
+  (source :
+    @Eq.{1} (Option.{0} Bool)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E X raw
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          middle))
+      (@Option.some.{0} Bool sourceHasId))
+  (spent :
+    @Eq.{1} (Option.{0} Bool)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.volumePresent O E X raw
+        (@ShielddSecurity.TransferStateDelta.Delta.mk O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          middle))
+      (@Option.some.{0} Bool Bool.true)),
+  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E (ShielddSecurity.TransferCapabilitySource01.Error K X))
+    (@ShielddSecurity.TransferCapabilitySource01.execute O E K X A I inst raw extract inputs outputs wordMax capacity
+      pendingKey entryKey dayKey action
+      (@ShielddSecurity.TransferCapabilitySource01.Validated.mk I item
+        ShielddSecurity.TransferCapabilitySource01.ProofContext.ordinary)
+      child)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E (ShielddSecurity.TransferCapabilitySource01.Error K X)
+      middle
+      (@Except.error.{0, 0} (ShielddSecurity.TransferCapabilitySource01.Error K X) Unit
+        (@ShielddSecurity.TransferCapabilitySource01.Error.raw K X
+          (@ShielddSecurity.TransferRawEffectsSource01.EffectError.volumeSpent X))))
+'ShielddSecurity.TransferCapabilitySource01.bound_ordinary_late_conflict_retains_earlier_cache' depends on axioms: [propext]
