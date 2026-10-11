@@ -1,0 +1,22 @@
+{
+  "status": "PASSED",
+  "kind": "Independent pinned Rust stage_boundary/read_boundary/Transition.validate pre-review; no candidate Lean/kernel/native execution claim",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/component/sct/src/permanent_nullifiers/store.rs",
+    "bytes": 32442,
+    "sha256": "434554cdb4bfb04f37a71707fb0c81ed77ffcf35677a5cab5aaaffd8832cb5a9"
+  },
+  "source_behavior": [
+    "Transition.validate requires next height, checked consecutive previous height or initial height0, <=32768 inputs, native BTreeSet uniqueness and exact default previous boundary at genesis",
+    "stage_boundary first invokes transition.validate; Store.prepare consecutive check alone does not establish default previous genesis boundary",
+    "Genesis staging fallibly checks absence of all three current boundary/format/root keys and both legacy generation/root keys, with Rust short-circuit read order",
+    "Non-genesis staging calls read_boundary: actual boundary bytes present, exact format, deserialized boundary.height some, and aggregate commitment byte equality; then checks exact previous boundary equality",
+    "serialize next boundary is fallible and happens before three infallible put_raw writes, ordered boundary then format then root commitment",
+    "Writes target caller disposable StateDelta; no participant commit/intent/durable application publication is performed by stage_boundary",
+    "Read/serialization/key/type/format/root commitment/native BTreeSet/default boundary, async ownership/StateWrite and durability remain native interfaces for a functional model"
+  ],
+  "full_transfer": "OPEN",
+  "reviewed_lean_module": "TransferStageBoundarySource01",
+  "modeled_branch_projection_reviewed": true
+}

@@ -1,0 +1,222 @@
+ShielddSecurity.TransferStageBoundarySource01.initial : ShielddSecurity.TransferReadback.Boundary
+'ShielddSecurity.TransferStageBoundarySource01.initial' does not depend on any axioms
+ShielddSecurity.TransferStageBoundarySource01.ValidTransition : (prepared :
+    ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) →
+  Prop
+'ShielddSecurity.TransferStageBoundarySource01.ValidTransition' does not depend on any axioms
+ShielddSecurity.TransferStageBoundarySource01.Keys : Type
+'ShielddSecurity.TransferStageBoundarySource01.Keys' does not depend on any axioms
+ShielddSecurity.TransferStageBoundarySource01.Io : (O : Type) → Type
+'ShielddSecurity.TransferStageBoundarySource01.Io' does not depend on any axioms
+@ShielddSecurity.TransferStageBoundarySource01.InitialAllowed : {O : Type} →
+  (io : ShielddSecurity.TransferStageBoundarySource01.Io O) →
+    (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) →
+      (state : ShielddSecurity.TransferStateDelta.State O) → Prop
+'ShielddSecurity.TransferStageBoundarySource01.InitialAllowed' does not depend on any axioms
+@ShielddSecurity.TransferStageBoundarySource01.ParentAllowed : {O : Type} →
+  (io : ShielddSecurity.TransferStageBoundarySource01.Io O) →
+    (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) →
+      (state : ShielddSecurity.TransferStateDelta.State O) →
+        (previous : ShielddSecurity.TransferReadback.Boundary) → Prop
+'ShielddSecurity.TransferStageBoundarySource01.ParentAllowed' does not depend on any axioms
+@ShielddSecurity.TransferStageBoundarySource01.writeBoundary : {O : Type} →
+  (io : ShielddSecurity.TransferStageBoundarySource01.Io O) →
+    (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) →
+      (state : ShielddSecurity.TransferStateDelta.State O) →
+        (next : ShielddSecurity.TransferReadback.Boundary) →
+          (bytes : ShielddSecurity.TransferStateDelta.Bytes) → ShielddSecurity.TransferStateDelta.State O
+'ShielddSecurity.TransferStageBoundarySource01.writeBoundary' does not depend on any axioms
+@ShielddSecurity.TransferStageBoundarySource01.stageBoundary : {O : Type} →
+  (io : ShielddSecurity.TransferStageBoundarySource01.Io O) →
+    (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) →
+      (state : ShielddSecurity.TransferStateDelta.State O) →
+        (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) →
+          Option.{0} (ShielddSecurity.TransferStateDelta.State O)
+'ShielddSecurity.TransferStageBoundarySource01.stageBoundary' does not depend on any axioms
+@ShielddSecurity.TransferStageBoundarySource01.installStage : {O : Type} →
+  (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O) →
+    (io : ShielddSecurity.TransferStageBoundarySource01.Io O) →
+      (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) →
+        ShielddSecurity.TransferWriterPrepareSource01.Backend O
+'ShielddSecurity.TransferStageBoundarySource01.installStage' does not depend on any axioms
+@ShielddSecurity.TransferStageBoundarySource01.boundary_writes_preserve_nonverifiable_objects_and_other_verifiable_keys : ∀
+  {O : Type} (io : ShielddSecurity.TransferStageBoundarySource01.Io O)
+  (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) (state : ShielddSecurity.TransferStateDelta.State O)
+  (next : ShielddSecurity.TransferReadback.Boundary) (bytes : ShielddSecurity.TransferStateDelta.Bytes) (other : Nat)
+  (notRoot : @Ne.{1} Nat other (ShielddSecurity.TransferStageBoundarySource01.Keys.root keys))
+  (notFormat : @Ne.{1} Nat other (ShielddSecurity.TransferStageBoundarySource01.Keys.format keys))
+  (notBoundary : @Ne.{1} Nat other (ShielddSecurity.TransferStageBoundarySource01.Keys.boundary keys)),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+        (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state next bytes))
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O state))
+    (And
+      (@Eq.{1} (ShielddSecurity.TransferStateDelta.View O)
+        (@ShielddSecurity.TransferStateDelta.State.objects O
+          (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state next bytes))
+        (@ShielddSecurity.TransferStateDelta.State.objects O state))
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O
+          (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state next bytes) other)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O state other)))
+'ShielddSecurity.TransferStageBoundarySource01.boundary_writes_preserve_nonverifiable_objects_and_other_verifiable_keys' depends on axioms: [propext]
+@ShielddSecurity.TransferStageBoundarySource01.separated_boundary_keys_receive_exact_serialized_format_and_commitment_bytes : ∀
+  {O : Type} (io : ShielddSecurity.TransferStageBoundarySource01.Io O)
+  (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) (state : ShielddSecurity.TransferStateDelta.State O)
+  (next : ShielddSecurity.TransferReadback.Boundary) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (boundaryRoot :
+    @Ne.{1} Nat (ShielddSecurity.TransferStageBoundarySource01.Keys.boundary keys)
+      (ShielddSecurity.TransferStageBoundarySource01.Keys.root keys))
+  (boundaryFormat :
+    @Ne.{1} Nat (ShielddSecurity.TransferStageBoundarySource01.Keys.boundary keys)
+      (ShielddSecurity.TransferStageBoundarySource01.Keys.format keys))
+  (formatRoot :
+    @Ne.{1} Nat (ShielddSecurity.TransferStageBoundarySource01.Keys.format keys)
+      (ShielddSecurity.TransferStageBoundarySource01.Keys.root keys)),
+  And
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state next bytes)
+        (ShielddSecurity.TransferStageBoundarySource01.Keys.boundary keys))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+    (And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O
+          (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state next bytes)
+          (ShielddSecurity.TransferStageBoundarySource01.Keys.format keys))
+        (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+          (@ShielddSecurity.TransferStageBoundarySource01.Io.format O io)))
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O
+          (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state next bytes)
+          (ShielddSecurity.TransferStageBoundarySource01.Keys.root keys))
+        (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes
+          (@ShielddSecurity.TransferStageBoundarySource01.Io.commitment O io
+            (ShielddSecurity.TransferReadback.Boundary.roots next)))))
+'ShielddSecurity.TransferStageBoundarySource01.separated_boundary_keys_receive_exact_serialized_format_and_commitment_bytes' depends on axioms: [propext]
+@ShielddSecurity.TransferStageBoundarySource01.successful_stage_derives_validation_actual_parent_gate_and_serialized_next : ∀
+  {O : Type} (io : ShielddSecurity.TransferStageBoundarySource01.Io O)
+  (keys : ShielddSecurity.TransferStageBoundarySource01.Keys) (state : ShielddSecurity.TransferStateDelta.State O)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (staged : ShielddSecurity.TransferStateDelta.State O)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+      (@ShielddSecurity.TransferStageBoundarySource01.stageBoundary O io keys state prepared)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.State O) staged)),
+  And (ShielddSecurity.TransferStageBoundarySource01.ValidTransition prepared)
+    (And
+      (@ShielddSecurity.TransferStageBoundarySource01.ParentAllowed O io keys state
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous prepared))
+      (@Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>
+        And
+          (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@ShielddSecurity.TransferStageBoundarySource01.Io.serialize O io
+              (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared))
+            (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+          (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O) staged
+            (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state
+              (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared) bytes))))
+'ShielddSecurity.TransferStageBoundarySource01.successful_stage_derives_validation_actual_parent_gate_and_serialized_next' does not depend on any axioms
+@ShielddSecurity.TransferStageBoundarySource01.existing_boundary_or_legacy_data_refuses_genesis_staging : ∀ {O : Type}
+  (io : ShielddSecurity.TransferStageBoundarySource01.Io O) (keys : ShielddSecurity.TransferStageBoundarySource01.Keys)
+  (state : ShielddSecurity.TransferStateDelta.State O)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (genesis :
+    @Eq.{1} (Option.{0} Nat)
+      (ShielddSecurity.TransferReadback.Boundary.height
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous prepared))
+      (@Option.none.{0} Nat))
+  (existing :
+    Or
+      (@Ne.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+        (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+          (ShielddSecurity.TransferStageBoundarySource01.Keys.boundary keys))
+        (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+      (Or
+        (@Ne.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+          (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+            (ShielddSecurity.TransferStageBoundarySource01.Keys.format keys))
+          (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+        (Or
+          (@Ne.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+            (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+              (ShielddSecurity.TransferStageBoundarySource01.Keys.root keys))
+            (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+          (Or
+            (@Ne.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+              (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+                (ShielddSecurity.TransferStageBoundarySource01.Keys.legacyGenerations keys))
+              (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes))
+            (@Ne.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+              (@ShielddSecurity.TransferStateDelta.State.verifiable O state
+                (ShielddSecurity.TransferStageBoundarySource01.Keys.legacySetRoot keys))
+              (@Option.none.{0} ShielddSecurity.TransferStateDelta.Bytes)))))),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.State O))
+    (@ShielddSecurity.TransferStageBoundarySource01.stageBoundary O io keys state prepared)
+    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.State O))
+'ShielddSecurity.TransferStageBoundarySource01.existing_boundary_or_legacy_data_refuses_genesis_staging' does not depend on any axioms
+ShielddSecurity.TransferStageBoundarySource01.successful_store_prepare_derives_stage_validation_with_checked_initial_boundary : ∀
+  (backend : ShielddSecurity.TransferPreparedAcceptedSource01.Backend)
+  (previous : ShielddSecurity.TransferReadback.Boundary)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (initialChecked :
+    @Eq.{1} (Option.{0} Nat) (ShielddSecurity.TransferReadback.Boundary.height previous) (@Option.none.{0} Nat) →
+      @Eq.{1} ShielddSecurity.TransferReadback.Boundary previous ShielddSecurity.TransferStageBoundarySource01.initial)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+      (ShielddSecurity.TransferPreparedAcceptedSource01.prepare backend previous height blockId accepted)
+      (@Option.some.{0} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared prepared)),
+  ShielddSecurity.TransferStageBoundarySource01.ValidTransition prepared
+'ShielddSecurity.TransferStageBoundarySource01.successful_store_prepare_derives_stage_validation_with_checked_initial_boundary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferStageBoundarySource01.whole_writer_frozen_success_derives_actual_source_stage_and_application_observation : ∀
+  {O : Type} (backend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (io : ShielddSecurity.TransferStageBoundarySource01.Io O) (keys : ShielddSecurity.TransferStageBoundarySource01.Keys)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+      (@ShielddSecurity.TransferWriterPrepareSource01.prepareFrozen O
+        (@ShielddSecurity.TransferStageBoundarySource01.installStage O backend io keys) phase state height blockId
+        accepted)
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.Frozen frozen)),
+  @Exists.{1} ShielddSecurity.TransferPreparedAcceptedSource01.Prepared
+    fun (insertions : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) =>
+    @Exists.{1} (ShielddSecurity.TransferStateDelta.State O)
+      fun (staged : ShielddSecurity.TransferStateDelta.State O) =>
+      @Exists.{1} ShielddSecurity.TransferStateDelta.Bytes fun (bytes : ShielddSecurity.TransferStateDelta.Bytes) =>
+        And
+          (@Eq.{1} (List.{0} Nat) (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted insertions)
+            accepted)
+          (And (ShielddSecurity.TransferStageBoundarySource01.ValidTransition insertions)
+            (And
+              (@ShielddSecurity.TransferStageBoundarySource01.ParentAllowed O io keys state
+                (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.previous insertions))
+              (And
+                (@Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+                  (@ShielddSecurity.TransferStageBoundarySource01.Io.serialize O io
+                    (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next insertions))
+                  (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+                (And
+                  (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O) staged
+                    (@ShielddSecurity.TransferStageBoundarySource01.writeBoundary O io keys state
+                      (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next insertions) bytes))
+                  (@Eq.{1} (Option.{0} Nat)
+                    (@ShielddSecurity.TransferWriterPrepareSource01.Backend.prepareApplication O backend staged)
+                    (@Option.some.{0} Nat
+                      (ShielddSecurity.TransferWriterPrepareSource01.Frozen.applicationRoot frozen)))))))
+'ShielddSecurity.TransferStageBoundarySource01.whole_writer_frozen_success_derives_actual_source_stage_and_application_observation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
