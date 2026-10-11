@@ -1,0 +1,52 @@
+--- 
++++ 
+@@ -27,7 +27,7 @@
+     return json.loads(data, object_pairs_hook=pairs)
+ 
+ # Bounded lossless storage of inactive configuration JSON; proof inputs unchanged.
+-_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-19/archive-map01.json', 'bytes': 117560, 'sha256': '82690ba5a3478f336554e7f519c494ed576a77f55bfc1b295bed78d14dcd073b'}
++_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-20/archive-map01.json', 'bytes': 120024, 'sha256': '6ea499517d29174df8b68150ecc99d76b26b2ca358f4ba7d5ea6db61a7e0cdef'}
+ _STORAGE = None
+ def preserved_configs():
+     global _STORAGE
+@@ -156,7 +156,7 @@
+         _IMPORT_HEADERS[digest]=tuple(uncached_direct_imports(data))
+     return list(_IMPORT_HEADERS[digest])
+ 
+-def official_header(data):
++def uncached_official_header(data):
+     names=[];depth=0;prelude=False
+     for raw in data.decode('utf-8').splitlines():
+         out=[];i=0
+@@ -178,6 +178,14 @@
+         names.extend(tokens)
+     if not prelude:names.insert(0,'Init')
+     return names
++
++_OFFICIAL_HEADERS={}
++def official_header(data):
++    digest=sha(data)
++    if digest not in _OFFICIAL_HEADERS:
++        _OFFICIAL_HEADERS[digest]=tuple(uncached_official_header(data))
++    return list(_OFFICIAL_HEADERS[digest])
++
+ 
+ def source_check(data, spec):
+     source=strip_comments(data.decode('utf-8'))
+@@ -347,6 +355,7 @@
+     closure['modules'].update(config['qualified_batch_imports'])
+     official=strict_json(read_pin(config['official']))
+     require(official['manifest_count']<=4 and config['official']['bytes']<=16*1024*1024, 'official manifest cap')
++    admitted_imports={'ShielddSecurity.'+k for k in closure['modules']}|set(official['official_modules'])
+     require(set(direct_imports(read_pin(spec['source']))) <= {'ShielddSecurity.'+n for n in closure['modules']} | {'ShielddSecurity.'+n for n in config['order'][:len(records)]} | set(official['official_modules']), 'complete fresh module custom/official imports')
+     package_root=pathlib.Path(config['project'])/'.lake/packages'
+     tool_root=pathlib.Path(config['lean']).resolve().parents[1]
+@@ -366,7 +375,7 @@
+     virtual=config['own_cache'] if not pathlib.Path(config['own_cache']).exists() else None
+     for name,m in closure['modules'].items():
+         declared=direct_imports(read_pin(m['source']))
+-        require(all(x in {'ShielddSecurity.'+k for k in closure['modules']}|set(official['official_modules']) for x in declared), 'complete custom/official direct import coverage');require([x for x in declared if x.startswith('ShielddSecurity.')]==m['custom_imports'], 'transitive declared import identity')
++        require(all(x in admitted_imports for x in declared), 'complete custom/official direct import coverage');require([x for x in declared if x.startswith('ShielddSecurity.')]==m['custom_imports'], 'transitive declared import identity')
+         checked_pin(m['object'])
+         receipt=strict_json(read_pin(m['receipt']))
+         require(receipt['status']=='passed', 'inherited receipt not passed')

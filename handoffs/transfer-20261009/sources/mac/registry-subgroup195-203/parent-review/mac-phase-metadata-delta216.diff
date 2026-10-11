@@ -1,0 +1,26 @@
+--- 
++++ 
+@@ -26,8 +26,8 @@
+         return result
+     return json.loads(data, object_pairs_hook=pairs)
+ 
+-# Bounded lossless storage of inactive configuration JSON; proof inputs unchanged.
+-_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-21/archive-map01.json', 'bytes': 121256, 'sha256': '7643813bc061525109dd9b3268b8736a2daddd42cd033ac9920dbeff30a8dbe3'}
++# Bounded lossless storage of inactive configuration/history JSON; proof inputs unchanged.
++_STORAGE_PIN = {'path': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-history-metadata-preservation126-28/archive-map01.json', 'bytes': 268296, 'sha256': '8807bbd8d63d13a5d6e3085cee3b0707c0e3b96b8ccbcf8b06c41571eee5a92a'}
+ _STORAGE = None
+ def preserved_configs():
+     global _STORAGE
+@@ -37,10 +37,10 @@
+         raw=p.read_bytes()
+         require(len(raw)==_STORAGE_PIN['bytes'] and sha(raw)==_STORAGE_PIN['sha256'], 'exact storage map SHA')
+         data=strict_json(raw)
+-        require(data['schema']=='exact-inactive-configuration-storage01', 'fixed storage schema')
++        require(data['schema']=='exact-inactive-phase-metadata-storage02', 'fixed storage schema')
+         table=data['records']
+         for key,value in table.items():
+-            require(re.fullmatch(r'/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution[0-9]+/config01\.json',key) is not None and value['original']['path']==key, 'only inactive historical config storage')
++            require(re.fullmatch(r'/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution[0-9]+/(?:config01|protected-history01)\.json',key) is not None and value['original']['path']==key, 'only exact inactive historical phase JSON storage')
+             require(0<value['original']['bytes']<=16*1024*1024, 'finite original config')
+         _STORAGE=table
+     return _STORAGE
