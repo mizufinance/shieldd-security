@@ -1,5 +1,18 @@
 # Transfer proof completion plan — 9 October 2026
 
+The deferred queue source-order model is accepted at
+7f4abf584595911545bd8a7645e487c629931cba: one fresh source/17 complete
+reports and the unchanged cache model/12 retained reports. It distinguishes
+acquisition and height errors before queue consumption from index errors after
+consumption. The latter preserve prior parent effects but discard the new
+child additions and drain the queue; an empty same-instance flush retry cannot
+recreate the entries. Parent verified original bytes, all29 declaration
+reports, exact custom/core import context, unchanged physical guards and pinned
+runtime sources. Rust cache/index refinement, genuine native retry behavior
+and durable Host recovery remain OPEN. The native delayed-token retries were
+refused by memory admission before launch; the desktop is proceeding
+autonomously with a fresh staged child and native state controls.
+
 The complete indexed assertion/link provider is accepted at35f8d55:
 100 modules/842 complete original reports, covering all22,816 ordered rows
 at177954..200769 and deriving the actual public/committed/copy links. Parent
@@ -22,7 +35,7 @@ and finite fixture boundaries. All52 overlay paths match retained identities.
 Synthetic queue tests show a failed flush drains its queue and same-instance
 retry can commit an empty diagnostic block; genuine Transfer retry safety and
 phase-sensitive writer recovery remain explicit obligations. The delayed-token
-interleaving successor is being executed separately. This is retained finite
+interleaving successor remains unrun after memory admission refusals. This is retained finite
 execution evidence, with no new parent replay or full certification.
 
 The retained-envelope/capability constructor join is accepted at
