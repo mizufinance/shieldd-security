@@ -1004,3 +1004,10 @@ Actual native Rust/byte/Montgomery/type correspondence and final Transfer remain
 Published `TransferScalarLittleEndianBytes01` with15original full type/axiom reports. Independent guard/runtime/ancestry/receipt/load review, precise maintained failed01 repair and unchanged six definitions/nine theorem contracts passed. Typed UInt8 encoding derives width/reconstruction, finite UInt64 chunks reconstruct positional packing, and composing the exact carry/sub/AND/add-back model derives32bytes and a decoded value below the exact nullifier modulus. Vector UInt64 4 supplies actual modeled width; no desired byte validity or canonical raw range is assumed. Exact Scalar/util bytes were independently matched to the crate authenticated by pinned Cargo.lock; internal four-u64 type and ordered four8byte slices matched.
 
 Actual Rust to_le_bytes/native trace, Montgomery field semantics and runtime typed projection remain owned OPEN. Native controls/final replay UNRUN; full Transfer OPEN. Same workers continue freely.
+
+
+### Exact canonical Montgomery value of source-shaped serialization, 2026-10-11
+
+Published `TransferScalarMontgomeryValue01` with13original full type/axiom reports. Independent guard/runtime/ancestry/receipt/load review, both failed attempts and exact maintained two-step repair chain passed, preserving two definitions/eleven theorem contracts. Kernel-checked source INV cancellation derives exact divisible-round equations for every finite UInt64 low word. Symbolic round induction, masked normalization and typed LE encoding preserve the modular relation; the checked radix inverse derives exact canonical serializer value as inverse times packed raw words modulo the pinned nullifier modulus. No desired cancellation/output or canonical raw range is supplied; no primality/curve replay.
+
+Actual Rust/native trace, Scalar Montgomery interpretation and action typed projection remain owned OPEN. Native controls and final replay UNRUN; full Transfer OPEN. Same workers continue freely.
