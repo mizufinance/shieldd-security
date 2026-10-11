@@ -1,0 +1,117 @@
+{
+  "kind": "Structured complete original output, parent verified original hash",
+  "audits": [
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.Outcome",
+      "full_type": "ShielddSecurity.TransferRawStateProgram01.Outcome : (O E X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "ebf9af4a79fac29a15487087be5e4b6423aa0f3239350513f3dca6e948d96f21"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.Step",
+      "full_type": "ShielddSecurity.TransferRawStateProgram01.Step : (O E A X : Type) \u2192 Type",
+      "axioms": [],
+      "full_type_sha256": "4127e120c82ad62899d07a9721109456d28a9e26b8a6d26639e129c4728d579d"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.next",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.next : {O E X : Type} \u2192\n  (earlier : ShielddSecurity.TransferRawStateProgram01.Outcome O E X) \u2192\n    (later : ShielddSecurity.TransferStateDelta.Cache O E \u2192 ShielddSecurity.TransferRawStateProgram01.Outcome O E X) \u2192\n      ShielddSecurity.TransferRawStateProgram01.Outcome O E X",
+      "axioms": [],
+      "full_type_sha256": "5f48c799a4bcc7049158dd259833bb5b746c1af9d74841bcf164214c0590b8cd"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.walk",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.walk : {O E A X : Type} \u2192\n  (step : ShielddSecurity.TransferRawStateProgram01.Step O E A X) \u2192\n    ShielddSecurity.TransferStateDelta.Cache O E \u2192 List.{0} A \u2192 ShielddSecurity.TransferRawStateProgram01.Outcome O E X",
+      "axioms": [],
+      "full_type_sha256": "64d204a0328c1ff1afcddeaf1551e453ac42ea9fcbe4d389b6071271d4932d5a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.next_associative",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.next_associative : \u2200 {O E X : Type}\n  (first : ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n  (second third :\n    ShielddSecurity.TransferStateDelta.Cache O E \u2192 ShielddSecurity.TransferRawStateProgram01.Outcome O E X),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferRawStateProgram01.next O E X\n      (@ShielddSecurity.TransferRawStateProgram01.next O E X first second) third)\n    (@ShielddSecurity.TransferRawStateProgram01.next O E X first\n      fun (cache : ShielddSecurity.TransferStateDelta.Cache O E) =>\n      @ShielddSecurity.TransferRawStateProgram01.next O E X (second cache) third)",
+      "axioms": [],
+      "full_type_sha256": "336193f83445e7e93c0232e5fd7a43239da438c63c3e8b5479625ee63d1dabe1"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.walk_append",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.walk_append : \u2200 {O E A X : Type}\n  (step : ShielddSecurity.TransferRawStateProgram01.Step O E A X) (cache : ShielddSecurity.TransferStateDelta.Cache O E)\n  (earlierCommands suffix : List.{0} A),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step cache\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)\n        (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) earlierCommands suffix))\n    (@ShielddSecurity.TransferRawStateProgram01.next O E X\n      (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step cache earlierCommands)\n      fun (updated : ShielddSecurity.TransferStateDelta.Cache O E) =>\n      @ShielddSecurity.TransferRawStateProgram01.walk O E A X step updated suffix)",
+      "axioms": [
+        "Quot.sound"
+      ],
+      "full_type_sha256": "7fd0dc630ed310352a3d68a6e4a2763e4d2d53f8f02bba37e832fb66e02c266c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.error_stops_suffix",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.error_stops_suffix : \u2200 {O E A X : Type}\n  (step : ShielddSecurity.TransferRawStateProgram01.Step O E A X)\n  (initial failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (earlierCommands suffix : List.{0} A)\n  (error : X)\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial earlierCommands)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)\n        (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) earlierCommands suffix))\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))",
+      "axioms": [
+        "Quot.sound"
+      ],
+      "full_type_sha256": "04bc154632a03865aee16de02fca83ce775203341b8feb68b038039d3b19ca02"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.successful_prefix_dispatch",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.successful_prefix_dispatch : \u2200 {O E A X : Type}\n  (step : ShielddSecurity.TransferRawStateProgram01.Step O E A X)\n  (initial middle : ShielddSecurity.TransferStateDelta.Cache O E) (earlierCommands suffix : List.{0} A)\n  (passed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial earlierCommands)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X middle (@Except.ok.{0, 0} X Unit Unit.unit))),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)\n        (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) earlierCommands suffix))\n    (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step middle suffix)",
+      "axioms": [
+        "Quot.sound"
+      ],
+      "full_type_sha256": "a917aa23d5c7557434d062abf10f2e58ff70beeb2c48e518cd804305eec656bb"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.prefix_then_failure_retains_failure_cache",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.prefix_then_failure_retains_failure_cache : \u2200 {O E A X : Type}\n  (step : ShielddSecurity.TransferRawStateProgram01.Step O E A X)\n  (initial middle failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (earlierCommands suffix : List.{0} A)\n  (command : A) (error : X)\n  (passed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial earlierCommands)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X middle (@Except.ok.{0, 0} X Unit Unit.unit)))\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X) (step middle command)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)\n        (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) earlierCommands\n        (@List.cons.{0} A command suffix)))\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "42572da21ddac1ed3b0852244ed4897cbe12ca37ef7f68f4f51913586c1e2fa9"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.prefix_then_readonly_rejection_keeps_prefix_cache",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.prefix_then_readonly_rejection_keeps_prefix_cache : \u2200 {O E A X : Type}\n  (step : ShielddSecurity.TransferRawStateProgram01.Step O E A X)\n  (initial middle : ShielddSecurity.TransferStateDelta.Cache O E) (earlierCommands suffix : List.{0} A) (command : A)\n  (error : X)\n  (passed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial earlierCommands)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X middle (@Except.ok.{0, 0} X Unit Unit.unit)))\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X) (step middle command)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X middle (@Except.error.{0, 0} X Unit error))),\n  @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n    (@ShielddSecurity.TransferRawStateProgram01.walk O E A X step initial\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)\n        (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) earlierCommands\n        (@List.cons.{0} A command suffix)))\n    (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X middle (@Except.error.{0, 0} X Unit error))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "1cf55f6670ade128f97752a915034d71dd880ee1edccacc1bf6ed2281f555cc9"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.asCache",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.asCache : {O E X : Type} \u2192\n  (outcome : ShielddSecurity.TransferRawStateProgram01.Outcome O E X) \u2192\n    Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E)",
+      "axioms": [],
+      "full_type_sha256": "fe90484342d326630d632e61a2abca97a55fa0ef1f6f911d9dcab11cdb978c3a"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.asCache_error",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.asCache_error : \u2200 {O E X : Type}\n  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n    (@ShielddSecurity.TransferRawStateProgram01.asCache O E X\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error)))\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Cache O E))",
+      "axioms": [],
+      "full_type_sha256": "309bbaa03e0b5c1015619f863ce2a23219a1effbe6a722bdadbe9e6889267418"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.asCache_success",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.asCache_success : \u2200 {O E X : Type}\n  (cache : ShielddSecurity.TransferStateDelta.Cache O E),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n    (@ShielddSecurity.TransferRawStateProgram01.asCache O E X\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X cache (@Except.ok.{0, 0} X Unit Unit.unit)))\n    (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Cache O E) cache)",
+      "axioms": [],
+      "full_type_sha256": "88e5b69b3db87906e738361264333228d487a0e86eb66adbde7c0cbbe163626b"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.executionApi",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.executionApi : {O E T A X : Type} \u2192\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) \u2192\n    (steps : ShielddSecurity.TransferStateDelta.State O \u2192 ShielddSecurity.TransferRawStateProgram01.Step O E A X) \u2192\n      (commands : List.{0} A) \u2192 ShielddSecurity.TransferStateDelta.Api O E T",
+      "axioms": [],
+      "full_type_sha256": "1961b9dc098bee1c30320a61738901d621b3fce73c8862135c62c3f89a45a6f5"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.raw_error_rejects_delivery",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.raw_error_rejects_delivery : \u2200 {O E T A X : Type}\n  (api : ShielddSecurity.TransferStateDelta.Api O E T)\n  (steps : ShielddSecurity.TransferStateDelta.State O \u2192 ShielddSecurity.TransferRawStateProgram01.Step O E A X)\n  (commands : List.{0} A) (registryMatches exclusive : Bool) (mode : ShielddSecurity.TransferStateDelta.IndexMode)\n  (transaction : T) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferRawStateProgram01.walk O E A X (steps parent)\n        (@ShielddSecurity.TransferStateDelta.empty O E) commands)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))\n    (@ShielddSecurity.TransferStateDelta.run O E T\n      (@ShielddSecurity.TransferRawStateProgram01.executionApi O E T A X api steps commands) registryMatches exclusive\n      mode transaction parent queued)\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "3d4e52613ad8e17ec694340761b6de6c15113dc0771e0dc76ea6d8e81a37d025"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferRawStateProgram01.raw_error_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferRawStateProgram01.raw_error_preserves_parent_and_queue : \u2200 {O E T A X : Type}\n  (api : ShielddSecurity.TransferStateDelta.Api O E T)\n  (steps : ShielddSecurity.TransferStateDelta.State O \u2192 ShielddSecurity.TransferRawStateProgram01.Step O E A X)\n  (commands : List.{0} A) (registryMatches exclusive : Bool) (mode : ShielddSecurity.TransferStateDelta.IndexMode)\n  (transaction : T) (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} T)\n  (failureCache : ShielddSecurity.TransferStateDelta.Cache O E) (error : X)\n  (failed :\n    @Eq.{1} (ShielddSecurity.TransferRawStateProgram01.Outcome O E X)\n      (@ShielddSecurity.TransferRawStateProgram01.walk O E A X (steps parent)\n        (@ShielddSecurity.TransferStateDelta.empty O E) commands)\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.mk O E X failureCache (@Except.error.{0, 0} X Unit error))),\n  @Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T))\n    (@ShielddSecurity.TransferStateDelta.finish O E T parent queued\n      (@ShielddSecurity.TransferStateDelta.run O E T\n        (@ShielddSecurity.TransferRawStateProgram01.executionApi O E T A X api steps commands) registryMatches exclusive\n        mode transaction parent queued))\n    (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T) parent queued)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "a7d6e5a58342a69cea06320bc4143bbbc6dbe574ff805fd0b9f5acf0a5c88740"
+    }
+  ]
+}
