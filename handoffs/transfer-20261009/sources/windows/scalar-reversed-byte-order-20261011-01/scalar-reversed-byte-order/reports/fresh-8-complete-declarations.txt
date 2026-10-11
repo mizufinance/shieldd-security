@@ -1,0 +1,114 @@
+ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst : List.{0} UInt8 → List.{0} UInt8 → Ordering
+'ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst' depends on axioms: [propext]
+ShielddSecurity.TransferScalarReversedByteOrder01.bounded_low_byte_comparison_is_dominated_by_upper_value : ∀
+  (left right upperLeft upperRight : Nat)
+  (leftBound : @LT.lt.{0} Nat instLTNat left (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))
+  (rightBound : @LT.lt.{0} Nat instLTNat right (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))),
+  @Eq.{1} Ordering
+    (@Ord.compare.{0} Nat instOrdNat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) left
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) upperLeft))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) right
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) upperRight)))
+    (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst.match_1.{1} (fun (x : Ordering) => Ordering)
+      (@Ord.compare.{0} Nat instOrdNat upperLeft upperRight)
+      (fun (_ : Unit) => @Ord.compare.{0} Nat instOrdNat left right) fun (ordering : Ordering) => ordering)
+'ShielddSecurity.TransferScalarReversedByteOrder01.bounded_low_byte_comparison_is_dominated_by_upper_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarReversedByteOrder01.equal_width_lexical_append_compares_suffix_only_after_equal_prefix : ∀
+  (left right : List.{0} UInt8) (width : @Eq.{1} Nat (@List.length.{0} UInt8 left) (@List.length.{0} UInt8 right))
+  (lastLeft lastRight : UInt8),
+  @Eq.{1} Ordering
+    (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt8) (List.{0} UInt8) (List.{0} UInt8)
+        (@instHAppendOfAppend.{0} (List.{0} UInt8) (@List.instAppend.{0} UInt8)) left
+        (@List.cons.{0} UInt8 lastLeft (@List.nil.{0} UInt8)))
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt8) (List.{0} UInt8) (List.{0} UInt8)
+        (@instHAppendOfAppend.{0} (List.{0} UInt8) (@List.instAppend.{0} UInt8)) right
+        (@List.cons.{0} UInt8 lastRight (@List.nil.{0} UInt8))))
+    (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst.match_1.{1} (fun (x : Ordering) => Ordering)
+      (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst left right)
+      (fun (_ : Unit) => @Ord.compare.{0} Nat instOrdNat (UInt8.toNat lastLeft) (UInt8.toNat lastRight))
+      fun (ordering : Ordering) => ordering)
+'ShielddSecurity.TransferScalarReversedByteOrder01.equal_width_lexical_append_compares_suffix_only_after_equal_prefix' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarReversedByteOrder01.reversed_typed_byte_lexical_comparison_is_exact_numeric_comparison : ∀
+  (left right : List.{0} UInt8) (width : @Eq.{1} Nat (@List.length.{0} UInt8 left) (@List.length.{0} UInt8 right)),
+  @Eq.{1} Ordering
+    (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst (@List.reverse.{0} UInt8 left)
+      (@List.reverse.{0} UInt8 right))
+    (@Ord.compare.{0} Nat instOrdNat (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE left)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE right))
+'ShielddSecurity.TransferScalarReversedByteOrder01.reversed_typed_byte_lexical_comparison_is_exact_numeric_comparison' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarReversedByteOrder01.source_reversed_32_byte_comparison_is_exact_mathematical_montgomery_order : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Ordering
+    (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst
+      (@List.reverse.{0} UInt8
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) left)))
+      (@List.reverse.{0} UInt8
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) right))))
+    (@Ord.compare.{0} Nat instOrdNat (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue left)
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue right))
+'ShielddSecurity.TransferScalarReversedByteOrder01.source_reversed_32_byte_comparison_is_exact_mathematical_montgomery_order' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarReversedByteOrder01.canonical_source_reversed_byte_compare_eq_iff_raw_words_equal : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} Ordering
+      (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))))
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))))
+      Ordering.eq)
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))
+'ShielddSecurity.TransferScalarReversedByteOrder01.canonical_source_reversed_byte_compare_eq_iff_raw_words_equal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarReversedByteOrder01.source_reversed_byte_compare_lt_iff_mathematical_value_lt : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  Iff
+    (@Eq.{1} Ordering
+      (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) left)))
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) right))))
+      Ordering.lt)
+    (@LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue left)
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue right))
+'ShielddSecurity.TransferScalarReversedByteOrder01.source_reversed_byte_compare_lt_iff_mathematical_value_lt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarReversedByteOrder01.source_reversed_byte_compare_gt_iff_mathematical_value_gt : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  Iff
+    (@Eq.{1} Ordering
+      (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) left)))
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) right))))
+      Ordering.gt)
+    (@LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue right)
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue left))
+'ShielddSecurity.TransferScalarReversedByteOrder01.source_reversed_byte_compare_gt_iff_mathematical_value_gt' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

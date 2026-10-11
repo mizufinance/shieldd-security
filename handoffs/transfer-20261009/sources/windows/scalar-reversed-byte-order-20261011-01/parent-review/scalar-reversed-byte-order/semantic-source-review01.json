@@ -1,0 +1,53 @@
+{
+  "status": "PASSED",
+  "kind": "Independent literal source regeneration and complete original failed-attempt review",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-reversed-byte-order-review01/packet01/source/ShielddSecurity/TransferScalarReversedByteOrder01.lean",
+    "bytes": 7402,
+    "sha256": "98909685f25b608afd3bdd1103eabf17a4da3542848285f2370a3be4f50c5292"
+  },
+  "fresh_reports": 8,
+  "rejected": [
+    {
+      "kind": "Original failed proof-only empty-list reduction",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.642657900054473,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-reversed-byte-order-review01/packet01/rejected-kernel/01/handwritten/TransferScalarReversedByteOrder01.lean",
+        "bytes": 7306,
+        "sha256": "258c1dbef738646d230d7f2bb01ad667292f87750a54f821f68aeee4bf8b2aa9"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-reversed-byte-order-20261011-01\\project\\ShielddSecurity\\TransferScalarReversedByteOrder01.lean:52:13: error: Tactic `rfl` failed: The left-hand side"
+      ],
+      "all_definitions_and_theorem_contracts_unchanged": true,
+      "exact_delta": "--- \n+++ \n@@ -49,7 +49,7 @@\n   induction left generalizing right with\n   | nil =>\n     cases right with\n-    | nil => rfl\n+    | nil => simp only [List.nil_append, compareHighFirst]; cases compare lastLeft.toNat lastRight.toNat <;> rfl\n     | cons head tail => simp only [List.length_nil, List.length_cons] at width; omega\n   | cons head rest ih =>\n     cases right with\n"
+    },
+    {
+      "kind": "Original failed proof-only empty-list reduction",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.24505460000364,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-reversed-byte-order-review01/packet01/rejected-kernel/02/handwritten/TransferScalarReversedByteOrder01.lean",
+        "bytes": 7355,
+        "sha256": "bb85937cdd28571ed011b0c03ab5168c3cb26d9c09e9ed87d7f744a7058b4de2"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-reversed-byte-order-20261011-02\\project\\ShielddSecurity\\TransferScalarReversedByteOrder01.lean:52:62: error: Tactic `rfl` failed: The left-hand side",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-reversed-byte-order-20261011-02\\project\\ShielddSecurity\\TransferScalarReversedByteOrder01.lean:52:62: error: Tactic `rfl` failed: The left-hand side",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-reversed-byte-order-20261011-02\\project\\ShielddSecurity\\TransferScalarReversedByteOrder01.lean:52:62: error: Tactic `rfl` failed: The left-hand side"
+      ],
+      "all_definitions_and_theorem_contracts_unchanged": true,
+      "exact_delta": "--- \n+++ \n@@ -49,7 +49,7 @@\n   induction left generalizing right with\n   | nil =>\n     cases right with\n-    | nil => cases compare lastLeft.toNat lastRight.toNat <;> rfl\n+    | nil => simp only [List.nil_append, compareHighFirst]; cases compare lastLeft.toNat lastRight.toNat <;> rfl\n     | cons head tail => simp only [List.length_nil, List.length_cons] at width; omega\n   | cons head rest ih =>\n     cases right with\n"
+    }
+  ],
+  "scope": "Equal-width typed UInt8 lists reversed high-byte-first lexical comparison derives exact decodeLE mathematical comparison. Exact four-word source serializer derives Montgomery mathematical ordering; canonical raw domain additionally equates compare Eq with raw word equality. No caller ordering hypothesis. Actual Rust iterator cmp/u8 primitives, Scalar invariant, Ord trait, collections, compiler/cache and full execution binding remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
