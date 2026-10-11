@@ -1,0 +1,143 @@
+ShielddSecurity.TransferPersistIntentSource01.Filesystem : Type
+'ShielddSecurity.TransferPersistIntentSource01.Filesystem' does not depend on any axioms
+ShielddSecurity.TransferPersistIntentSource01.WriteResult : Type
+'ShielddSecurity.TransferPersistIntentSource01.WriteResult' does not depend on any axioms
+ShielddSecurity.TransferPersistIntentSource01.Io : Type
+'ShielddSecurity.TransferPersistIntentSource01.Io' does not depend on any axioms
+ShielddSecurity.TransferPersistIntentSource01.Outcome : Type
+'ShielddSecurity.TransferPersistIntentSource01.Outcome' does not depend on any axioms
+ShielddSecurity.TransferPersistIntentSource01.Gate : (store : ShielddSecurity.TransferReadback.Store) →
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) → Prop
+'ShielddSecurity.TransferPersistIntentSource01.Gate' does not depend on any axioms
+ShielddSecurity.TransferPersistIntentSource01.persistIntent : (io : ShielddSecurity.TransferPersistIntentSource01.Io) →
+  (store : ShielddSecurity.TransferReadback.Store) →
+    (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem) →
+      (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared) →
+        ShielddSecurity.TransferPersistIntentSource01.Outcome
+'ShielddSecurity.TransferPersistIntentSource01.persistIntent' does not depend on any axioms
+ShielddSecurity.TransferPersistIntentSource01.new_intent_uses_blocked_store_and_retains_observed_write_result : ∀
+  (io : ShielddSecurity.TransferPersistIntentSource01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes) (height : Nat)
+  (gate : ShielddSecurity.TransferPersistIntentSource01.Gate store prepared)
+  (serialized :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferPersistIntentSource01.Io.serialize io prepared)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+  (absent : @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.intentExists filesystem) Bool.false)
+  (nextHeight :
+    @Eq.{1} (Option.{0} Nat)
+      (ShielddSecurity.TransferReadback.Boundary.height
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared))
+      (@Option.some.{0} Nat height))
+  (unretained :
+    @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.historyExists filesystem height) Bool.false),
+  @Eq.{1} ShielddSecurity.TransferPersistIntentSource01.Outcome
+    (ShielddSecurity.TransferPersistIntentSource01.persistIntent io store filesystem prepared)
+    (ShielddSecurity.TransferPersistIntentSource01.Outcome.mk
+      (ShielddSecurity.TransferReadback.Store.mk
+        (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+          (ShielddSecurity.TransferPersistIntentSource01.Io.writeIntent io
+            (ShielddSecurity.TransferReadback.interrupt store) bytes filesystem))
+        (ShielddSecurity.TransferReadback.Store.healthy store)
+        (ShielddSecurity.TransferReadback.Store.actualRoots store)
+        (ShielddSecurity.TransferReadback.Store.boundary store))
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+        (ShielddSecurity.TransferPersistIntentSource01.Io.writeIntent io
+          (ShielddSecurity.TransferReadback.interrupt store) bytes filesystem))
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferPersistIntentSource01.Io.writeIntent io
+          (ShielddSecurity.TransferReadback.interrupt store) bytes filesystem)))
+'ShielddSecurity.TransferPersistIntentSource01.new_intent_uses_blocked_store_and_retains_observed_write_result' depends on axioms: [propext]
+ShielddSecurity.TransferPersistIntentSource01.existing_equal_intent_is_idempotent_and_preserves_original_observations : ∀
+  (io : ShielddSecurity.TransferPersistIntentSource01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (gate : ShielddSecurity.TransferPersistIntentSource01.Gate store prepared)
+  (serialized :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferPersistIntentSource01.Io.serialize io prepared)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+  (present : @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.intentExists filesystem) Bool.true)
+  (equalRead :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferPersistIntentSource01.Filesystem.readIntent filesystem)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  @Eq.{1} ShielddSecurity.TransferPersistIntentSource01.Outcome
+    (ShielddSecurity.TransferPersistIntentSource01.persistIntent io store filesystem prepared)
+    (ShielddSecurity.TransferPersistIntentSource01.Outcome.mk store filesystem Bool.true)
+'ShielddSecurity.TransferPersistIntentSource01.existing_equal_intent_is_idempotent_and_preserves_original_observations' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferPersistIntentSource01.existing_unavailable_or_different_intent_refuses_without_ready_change : ∀
+  (io : ShielddSecurity.TransferPersistIntentSource01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (gate : ShielddSecurity.TransferPersistIntentSource01.Gate store prepared)
+  (serialized :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferPersistIntentSource01.Io.serialize io prepared)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+  (present : @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.intentExists filesystem) Bool.true)
+  (different :
+    @Ne.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferPersistIntentSource01.Filesystem.readIntent filesystem)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  @Eq.{1} ShielddSecurity.TransferPersistIntentSource01.Outcome
+    (ShielddSecurity.TransferPersistIntentSource01.persistIntent io store filesystem prepared)
+    (ShielddSecurity.TransferPersistIntentSource01.Outcome.mk store filesystem Bool.false)
+'ShielddSecurity.TransferPersistIntentSource01.existing_unavailable_or_different_intent_refuses_without_ready_change' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferPersistIntentSource01.failed_new_write_preserves_observed_filesystem_and_disables_status : ∀
+  (io : ShielddSecurity.TransferPersistIntentSource01.Io) (store : ShielddSecurity.TransferReadback.Store)
+  (filesystem : ShielddSecurity.TransferPersistIntentSource01.Filesystem)
+  (prepared : ShielddSecurity.TransferPreparedAcceptedSource01.Prepared)
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes) (height : Nat)
+  (gate : ShielddSecurity.TransferPersistIntentSource01.Gate store prepared)
+  (serialized :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (ShielddSecurity.TransferPersistIntentSource01.Io.serialize io prepared)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes))
+  (absent : @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.intentExists filesystem) Bool.false)
+  (nextHeight :
+    @Eq.{1} (Option.{0} Nat)
+      (ShielddSecurity.TransferReadback.Boundary.height
+        (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.next prepared))
+      (@Option.some.{0} Nat height))
+  (unretained :
+    @Eq.{1} Bool (ShielddSecurity.TransferPersistIntentSource01.Filesystem.historyExists filesystem height) Bool.false)
+  (failed :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.WriteResult.succeeded
+        (ShielddSecurity.TransferPersistIntentSource01.Io.writeIntent io
+          (ShielddSecurity.TransferReadback.interrupt store) bytes filesystem))
+      Bool.false)
+  (hash : String → Nat → List.{0} Nat) (verify : Nat → List.{0} Nat → Nat → Bool → Bool)
+  (requested : ShielddSecurity.TransferReadback.Boundary) (nullifier : Nat)
+  (candidate : Option.{0} (Prod.{0, 0} Bool Nat)),
+  And
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferPersistIntentSource01.Outcome.returned
+        (ShielddSecurity.TransferPersistIntentSource01.persistIntent io store filesystem prepared))
+      Bool.false)
+    (And
+      (@Eq.{1} ShielddSecurity.TransferReadback.Store
+        (ShielddSecurity.TransferPersistIntentSource01.Outcome.store
+          (ShielddSecurity.TransferPersistIntentSource01.persistIntent io store filesystem prepared))
+        (ShielddSecurity.TransferReadback.interrupt store))
+      (And
+        (@Eq.{1} ShielddSecurity.TransferPersistIntentSource01.Filesystem
+          (ShielddSecurity.TransferPersistIntentSource01.Outcome.filesystem
+            (ShielddSecurity.TransferPersistIntentSource01.persistIntent io store filesystem prepared))
+          (ShielddSecurity.TransferPersistIntentSource01.WriteResult.observed
+            (ShielddSecurity.TransferPersistIntentSource01.Io.writeIntent io
+              (ShielddSecurity.TransferReadback.interrupt store) bytes filesystem)))
+        (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Status)
+          (ShielddSecurity.TransferReadback.status hash verify
+            (ShielddSecurity.TransferPersistIntentSource01.Outcome.store
+              (ShielddSecurity.TransferPersistIntentSource01.persistIntent io store filesystem prepared))
+            requested nullifier candidate)
+          (@Option.none.{0} ShielddSecurity.TransferReadback.Status))))
+'ShielddSecurity.TransferPersistIntentSource01.failed_new_write_preserves_observed_filesystem_and_disables_status' depends on axioms: [propext]

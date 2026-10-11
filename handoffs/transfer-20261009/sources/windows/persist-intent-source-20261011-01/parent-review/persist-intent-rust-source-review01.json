@@ -1,0 +1,22 @@
+{
+  "status": "PASSED",
+  "kind": "Independent pinned Rust branch review for forthcoming intent refinement; no candidate Lean/kernel/native execution claim",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/component/sct/src/permanent_nullifiers/store.rs",
+    "bytes": 32442,
+    "sha256": "434554cdb4bfb04f37a71707fb0c81ed77ffcf35677a5cab5aaaffd8832cb5a9"
+  },
+  "source_behavior": [
+    "ensure_ready enforces ready and every partition not poisoned before comparing actual roots and previous boundary",
+    "serialize failure happens before readiness change; intent-existing branch bounded-reads exact serialized bytes then returns success without height/history checks or write",
+    "intent-absent branch requires next height and absence of retained height record before setting ready=false",
+    "durable_write executes temporary create/truncate, write_all, file.sync_all, rename to intent path, then parent-directory sync; failure after rename can leave an intent file present",
+    "write error retains ready=false and permits callback-observed filesystem state; no inference of absent intent or disk rollback",
+    "successful durable write sets ready=true; it does not perform Store.commit/participants or select next boundary",
+    "existing-intent idempotence, serialization/writes, concrete path/20digit height formatting, byte encoding, maximum-record read and OS durability remain explicit native refinements for a functional model"
+  ],
+  "full_transfer": "OPEN",
+  "reviewed_lean_module": "TransferPersistIntentSource01",
+  "model_branches_match_pinned_source": true
+}
