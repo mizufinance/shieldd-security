@@ -1025,3 +1025,10 @@ The sourceProjection itself, native codec/getter/finalization and actual Rust/ty
 Published `TransferScalarPaddedCarry01` with6original complete reports. Independent guard/runtime/ancestry/receipt/load and precise history review passed. Explicit padded rounds run four modeled low MACs and the actual modeled next-upper-word ADC, retaining its low word and recording outgoing carry. Symbolic zero-padding induction derives exact four-word wrapper and every discarded carry zero; the32byte exact canonical Montgomery result follows. No desired carry/result is assumed. Pressure-stopped01 source is byte-identical to02 and all limits/runner unchanged; failedLean02 and exact proof-only let-reduction repair are preserved.
 
 Actual Rust/compiler/native field/type/trace bindings remain owned OPEN. Native controls/final replay UNRUN; full Transfer OPEN. A parent helper-lineage annotation clarification for the byte review is included; it changes no source/kernel/report counts.
+
+
+### Exact finite byte-key equality and mathematical scalar equality, 2026-10-11
+
+Published `TransferScalarByteEquality01` with4original full theorem reports. Independent guard/runtime/ancestry/receipt/load review and exact pure maintained source regeneration passed; first strict run passed. Typed UInt8 bounds derive exact decoder head/remainder and tail/quotient. Symbolic equal-width injectivity then proves modeled32byte serializer equality iff canonical mathematical Montgomery values are equal. No byte-validity or universal hash-injectivity premise is supplied.
+
+Actual Rust to_le_bytes/primitive/native trace/type/library/key representation remains owned OPEN. Native controls and final selected replay UNRUN; full Transfer OPEN. Same agents continue freely.
