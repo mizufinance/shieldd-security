@@ -1,5 +1,17 @@
 # Transfer proof completion plan — 9 October 2026
 
+The first epoch hint endpoint is accepted at 7b5f9a05d8665ecc66da1fe9cc16fee3e12e6962:
+two fresh modules/42 complete reports, with arithmetic leafB0000 retained
+as inherited support/10 earlier reports. Parent verified exact maintained
+source regeneration, 65 range rows, 10 local arithmetic/assertion rows,
+three product nodes, full original declaration/axiom output and 33 selected
+custom import associations. The range constructor requires an independently
+bounded integer and field cast; zero/inverse seeding requires the legal
+regulated-epoch guard. Actual-row theorems keep explicit constant/copy and
+constructed arithmetic premises. Canonical natural recovery, all remaining
+assertions, full relation composition, native refinement and Transfer
+certification remain OPEN. Physical guard bytes are unchanged.
+
 The deferred queue source-order model is accepted at
 7f4abf584595911545bd8a7645e487c629931cba: one fresh source/17 complete
 reports and the unchanged cache model/12 retained reports. It distinguishes
