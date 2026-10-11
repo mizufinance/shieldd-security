@@ -1,5 +1,15 @@
 # Transfer proof completion plan — 9 October 2026
 
+The raw delivery success composition is accepted at 95a570eeab095a08374e6b2a0e850be31330fc21:
+one fresh source/five complete theorem reports and28 exact retained reports.
+It recovers the successful raw cache from delivery success, derives Deferred
+height/raw-cache apply/events/exact queue append, and derives PerTx
+height/index-cache apply/events/preservation of the prior deferred queue.
+Parent verified original full types/axioms, both custom import associations,
+accepted core metadata, exact runtime sources and unchanged guards. Index
+callback framing, concrete Rust/cache/codec/durability refinement, native
+controls and full Transfer remain OPEN.
+
 The failure-aware raw child-cache program is accepted at ae307b2af3c98242cc6a3be82e5673d89b54f9c4:
 one fresh source/sixteen complete declaration reports and twelve exact retained
 cache-model reports. Arbitrary-list composition retains the failing child
