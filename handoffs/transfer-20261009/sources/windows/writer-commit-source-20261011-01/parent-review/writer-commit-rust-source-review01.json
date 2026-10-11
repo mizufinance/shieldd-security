@@ -1,0 +1,24 @@
+{
+  "status": "PASSED",
+  "kind": "Independent pinned PermanentWriter commit source branch review; no native execution",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/runtime-snapshot/crates/core/app/src/app/permanent_writer.rs",
+    "bytes": 10619,
+    "sha256": "444b5ce8436eff3e1cc93e162fe2b567f055b512ac56a29fc887d86e44cbf72d"
+  },
+  "findings": [
+    "mem::replace puts owner Interrupted before version, lock, participant, root and completion checks; wrong initial phase restored before refusal",
+    "Actual wrapping latest_version+1 vs prepared application version check is explicit applicationUnchanged interface",
+    "Nullifier write lock/commit precedes application commit_batch and observed root equality with expected Frozen.next application root",
+    "Second write lock/Store.complete precedes phaseReady assignment",
+    "Capacity is queried after phaseReady, so capacity error leaves new Ready/committed boundary",
+    "Any returned error before completion leaves ownerInterrupted, with no physical rollback or raw-reader refusal claim"
+  ],
+  "residual": [
+    "Concrete application version/batch/RootSet/Clone and lock/owner semantics",
+    "NOMT/session/application/Store.complete participant effects and durable progress",
+    "Capacity and metrics observation/cancellation/Host/recovery/reopen"
+  ],
+  "full_transfer": "OPEN"
+}

@@ -1,0 +1,205 @@
+ShielddSecurity.TransferWriterCommitSource01.Backend : Type
+'ShielddSecurity.TransferWriterCommitSource01.Backend' does not depend on any axioms
+ShielddSecurity.TransferWriterCommitSource01.participantsComplete : (backend :
+    ShielddSecurity.TransferWriterCommitSource01.Backend) →
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) → Option.{0} Unit
+'ShielddSecurity.TransferWriterCommitSource01.participantsComplete' does not depend on any axioms
+ShielddSecurity.TransferWriterCommitSource01.commitWriter : (backend :
+    ShielddSecurity.TransferWriterCommitSource01.Backend) →
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) → ShielddSecurity.TransferWriterPrepareSource01.Outcome
+'ShielddSecurity.TransferWriterCommitSource01.commitWriter' depends on axioms: [propext]
+ShielddSecurity.TransferWriterCommitSource01.wrong_phase_refuses_commit_and_retains_original_phase : ∀
+  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (unsealed :
+    ∀ (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen),
+      @Ne.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)),
+  And
+    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend phase))
+      phase)
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend phase))
+      (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+'ShielddSecurity.TransferWriterCommitSource01.wrong_phase_refuses_commit_and_retains_original_phase' depends on axioms: [propext]
+ShielddSecurity.TransferWriterCommitSource01.completed_participants_derives_every_prior_call_and_observed_root : ∀
+  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (success :
+    @Eq.{1} (Option.{0} Unit) (ShielddSecurity.TransferWriterCommitSource01.participantsComplete backend frozen)
+      (@Option.some.{0} Unit Unit.unit)),
+  And
+    (@Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.applicationUnchanged backend frozen) Bool.true)
+    (And (@Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.nullifierLock backend) Bool.true)
+      (And
+        (@Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.commitNullifiers backend frozen) Bool.true)
+        (@Exists.{1} Nat fun (actualRoot : Nat) =>
+          And
+            (@Eq.{1} (Option.{0} Nat)
+              (ShielddSecurity.TransferWriterCommitSource01.Backend.commitApplication backend frozen)
+              (@Option.some.{0} Nat actualRoot))
+            (And
+              (@Eq.{1} (Option.{0} Nat) (@Option.some.{0} Nat actualRoot)
+                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot
+                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+              (And (@Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.completeLock backend) Bool.true)
+                (@Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.complete backend frozen)
+                  Bool.true))))))
+'ShielddSecurity.TransferWriterCommitSource01.completed_participants_derives_every_prior_call_and_observed_root' depends on axioms: [Quot.sound]
+@ShielddSecurity.TransferWriterCommitSource01.failed_before_participant_completion_interrupts_owner_status : ∀
+  {R : Type} (backend : ShielddSecurity.TransferWriterCommitSource01.Backend)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (failed :
+    @Eq.{1} (Option.{0} Unit) (ShielddSecurity.TransferWriterCommitSource01.participantsComplete backend frozen)
+      (@Option.none.{0} Unit))
+  (expected : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (lookup : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary → Option.{0} R),
+  And
+    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend
+          (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+      ShielddSecurity.TransferWriterPrepareSource01.Phase.interrupted)
+    (And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+          (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+        (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+      (@Eq.{1} (Option.{0} R)
+        (@ShielddSecurity.TransferWriterSealDiscardSource01.ownerStatus R
+          (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+            (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend
+              (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+          expected lookup)
+        (@Option.none.{0} R)))
+'ShielddSecurity.TransferWriterCommitSource01.failed_before_participant_completion_interrupts_owner_status' depends on axioms: [propext]
+ShielddSecurity.TransferWriterCommitSource01.capacity_failure_occurs_after_ready_and_new_committed_boundary : ∀
+  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend)
+  (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen)
+  (completed :
+    @Eq.{1} (Option.{0} Unit) (ShielddSecurity.TransferWriterCommitSource01.participantsComplete backend frozen)
+      (@Option.some.{0} Unit Unit.unit))
+  (capacity : @Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.capacity backend frozen) Bool.false),
+  And
+    (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend
+          (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+      (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+    (And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+          (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend
+            (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen)))
+        (@Option.none.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary))
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+        (ShielddSecurity.TransferWriterSealDiscardSource01.committed
+          (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+            (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend
+              (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))))
+        (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary
+          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+'ShielddSecurity.TransferWriterCommitSource01.capacity_failure_occurs_after_ready_and_new_committed_boundary' depends on axioms: [propext]
+ShielddSecurity.TransferWriterCommitSource01.successful_commit_derives_sealed_completed_capacity_and_same_frozen_boundary : ∀
+  (backend : ShielddSecurity.TransferWriterCommitSource01.Backend)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase)
+  (returned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend phase))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.sealed frozen))
+      (And
+        (@Eq.{1} (Option.{0} Unit) (ShielddSecurity.TransferWriterCommitSource01.participantsComplete backend frozen)
+          (@Option.some.{0} Unit Unit.unit))
+        (And (@Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.capacity backend frozen) Bool.true)
+          (And
+            (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+              (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+                (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend phase))
+              (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+            (And
+              (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned
+                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+              (@Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+                (ShielddSecurity.TransferWriterSealDiscardSource01.committed
+                  (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+                    (ShielddSecurity.TransferWriterCommitSource01.commitWriter backend phase)))
+                (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary returned))))))
+'ShielddSecurity.TransferWriterCommitSource01.successful_commit_derives_sealed_completed_capacity_and_same_frozen_boundary' depends on axioms: [propext]
+@ShielddSecurity.TransferWriterCommitSource01.whole_prepare_seal_commit_retains_exact_accepted_inputs : ∀ {O : Type}
+  (prepareBackend : ShielddSecurity.TransferWriterPrepareSource01.Backend O)
+  (phase : ShielddSecurity.TransferWriterPrepareSource01.Phase) (state : ShielddSecurity.TransferStateDelta.State O)
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (blockId accepted : List.{0} Nat) (preparedReturned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (prepareSuccess :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O prepareBackend phase state height blockId
+          accepted))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary preparedReturned))
+  (sealBackend : ShielddSecurity.TransferWriterSealDiscardSource01.SealBackend)
+  (sealedReturned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (sealSuccess :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter sealBackend
+          (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+            (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O prepareBackend phase state height blockId
+              accepted))))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary sealedReturned))
+  (commitBackend : ShielddSecurity.TransferWriterCommitSource01.Backend)
+  (committedReturned : ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+  (commitSuccess :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary)
+      (ShielddSecurity.TransferWriterPrepareSource01.Outcome.returned
+        (ShielddSecurity.TransferWriterCommitSource01.commitWriter commitBackend
+          (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+            (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter sealBackend
+              (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+                (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O prepareBackend phase state height
+                  blockId accepted))))))
+      (@Option.some.{0} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary committedReturned)),
+  @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+    fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+    And
+      (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+        (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+          (ShielddSecurity.TransferWriterCommitSource01.commitWriter commitBackend
+            (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+              (ShielddSecurity.TransferWriterSealDiscardSource01.sealWriter sealBackend
+                (ShielddSecurity.TransferWriterPrepareSource01.Outcome.phase
+                  (@ShielddSecurity.TransferWriterPrepareSource01.prepareWriter O prepareBackend phase state height
+                    blockId accepted))))))
+        (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+      (And
+        (@Eq.{1} (List.{0} Nat)
+          (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+            (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+          accepted)
+        (And (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary committedReturned preparedReturned)
+          (And
+            (@Eq.{1} (Option.{0} Unit)
+              (ShielddSecurity.TransferWriterCommitSource01.participantsComplete commitBackend frozen)
+              (@Option.some.{0} Unit Unit.unit))
+            (@Eq.{1} Bool (ShielddSecurity.TransferWriterCommitSource01.Backend.capacity commitBackend frozen)
+              Bool.true))))
+'ShielddSecurity.TransferWriterCommitSource01.whole_prepare_seal_commit_retains_exact_accepted_inputs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
