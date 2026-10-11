@@ -1,0 +1,242 @@
+@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend : {O E X Tree : Type} →
+  (raw :
+      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+    (notes volume :
+        ShielddSecurity.TransferNoteManagerSource01.Backend O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) →
+        (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool) →
+          (treeKey notesKey volumeKey payload entryKey : Nat) →
+            (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) →
+              ShielddSecurity.TransferRawEffectsSource01.Backend O E
+                (ShielddSecurity.TransferSctInsertionSource01.Error X)
+'ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend' does not depend on any axioms
+@ShielddSecurity.TransferWholeNullifierAdmission01.installed_backend_retains_original_source_and_nullifiers : ∀
+  {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (treeKey notesKey volumeKey payload entryKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext),
+  And
+    (@Eq.{1} (ShielddSecurity.TransferStateDelta.Delta O E → Option.{0} Bool)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X)
+        (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend O E X Tree raw notes volume sct
+          volumeAvailable treeKey notesKey volumeKey payload entryKey context))
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X) raw))
+    (@Eq.{1} (ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X)
+        (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend O E X Tree raw notes volume sct
+          volumeAvailable treeKey notesKey volumeKey payload entryKey context))
+      (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+        (ShielddSecurity.TransferSctInsertionSource01.Error X) raw))
+'ShielddSecurity.TransferWholeNullifierAdmission01.installed_backend_retains_original_source_and_nullifiers' does not depend on any axioms
+@ShielddSecurity.TransferWholeNullifierAdmission01.branch_is_exact_complete_item_capability_program : ∀
+  {O E K X Tree A : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E),
+  @Eq.{1}
+    (ShielddSecurity.TransferRawStateProgram01.Outcome O E
+      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)))
+    (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable
+      extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey context
+      action item child)
+    (@ShielddSecurity.TransferCapabilitySource01.execute O E K (ShielddSecurity.TransferSctInsertionSource01.Error X) A
+      ShielddSecurity.TransferVerificationEqualitySource01.Item
+      ShielddSecurity.TransferVerificationEqualitySource01.instDecidableEqItem
+      (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend O E X Tree raw notes volume sct
+        volumeAvailable treeKey notesKey volumeKey payload entryKey context)
+      extract inputs outputs wordMax capacity nullifierKey entryKey dayKey action
+      (@ShielddSecurity.TransferCapabilitySource01.Validated.mk
+        ShielddSecurity.TransferVerificationEqualitySource01.Item item context)
+      child)
+'ShielddSecurity.TransferWholeNullifierAdmission01.branch_is_exact_complete_item_capability_program' depends on axioms: [propext]
+@ShielddSecurity.TransferWholeNullifierAdmission01.successful_transfer_derives_reshape_success : ∀ {O E X : Type}
+  (backend : ShielddSecurity.TransferRawEffectsSource01.Backend O E X)
+  (wordMax capacity nullifierKey entryKey dayKey : Nat) (ordinary : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat)
+  (success :
+    @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+        (@ShielddSecurity.TransferRawEffectsSource01.executeTransfer O E X backend wordMax capacity nullifierKey
+          entryKey dayKey Bool.true ordinary child inputs outputs))
+      (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit)),
+  @Eq.{1} (Except.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit)
+    (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError X)
+      (@ShielddSecurity.TransferRawEffectsSource01.reshape O E X backend wordMax capacity nullifierKey child inputs
+        outputs))
+    (@Except.ok.{0, 0} (ShielddSecurity.TransferRawEffectsSource01.EffectError X) Unit Unit.unit)
+'ShielddSecurity.TransferWholeNullifierAdmission01.successful_transfer_derives_reshape_success' depends on axioms: [propext]
+@ShielddSecurity.TransferWholeNullifierAdmission01.successful_bound_body_derives_reextraction_and_reshape : ∀
+  {O E K X Tree A : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (success :
+    @Eq.{1}
+      (Except.{0, 0}
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        Unit)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable
+          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey
+          context action item child))
+      (@Except.ok.{0, 0}
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) Unit
+        Unit.unit)),
+  And
+    (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) (extract action context)
+      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))
+    (@Eq.{1}
+      (Except.{0, 0}
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        Unit)
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        (@ShielddSecurity.TransferRawEffectsSource01.reshape O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+          (@ShielddSecurity.TransferWholeNullifierAdmission01.installedBackend O E X Tree raw notes volume sct
+            volumeAvailable treeKey notesKey volumeKey payload entryKey context)
+          wordMax capacity nullifierKey child (inputs action) (outputs action)))
+      (@Except.ok.{0, 0}
+        (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        Unit Unit.unit))
+'ShielddSecurity.TransferWholeNullifierAdmission01.successful_bound_body_derives_reextraction_and_reshape' depends on axioms: [propext]
+@ShielddSecurity.TransferWholeNullifierAdmission01.whole_delivery_success_derives_every_input_fresh_and_bounded : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (mode : ShielddSecurity.TransferStateDelta.IndexMode) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} A) (committed : ShielddSecurity.TransferStateDelta.Commit O E A)
+  (nonempty : @Eq.{1} Bool (@List.isEmpty.{0} Nat (inputs action)) Bool.false)
+  (belowWord : @LT.lt.{0} Nat instLTNat capacity wordMax)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          api keys ShielddSecurity.TransferIndexCountCodec01.codec
+          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+          (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct
+            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+            entryKey dayKey context action item))
+        registryMatches exclusive mode action parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),
+  And (@Eq.{1} Bool registryMatches Bool.true)
+    (And (@Eq.{1} Bool exclusive Bool.true)
+      (And
+        (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) (extract action context)
+          (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))
+        (@Exists.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+          fun (pending : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+          And
+            (@Eq.{1} (Option.{0} Bool)
+              (@ShielddSecurity.TransferRawEffectsSource01.Backend.currentSource O E
+                (ShielddSecurity.TransferSctInsertionSource01.Error X) raw
+                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                  (@ShielddSecurity.TransferStateDelta.empty O E)))
+              (@Option.some.{0} Bool Bool.true))
+            (And
+              (@Eq.{1}
+                (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+                  ShielddSecurity.TransferNullifierBatchSource01.Pending)
+                (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E
+                  (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                    (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+                  wordMax capacity
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                    (@ShielddSecurity.TransferStateDelta.empty O E))
+                  (inputs action))
+                (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+                  ShielddSecurity.TransferNullifierBatchSource01.Pending pending))
+              (And
+                (@Eq.{1} Bool
+                  (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat) (inputs action))
+                  Bool.true)
+                (And
+                  (@Eq.{1} (List.{0} Nat) (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending)
+                    (@HAppend.hAppend.{0, 0, 0} (List.{0} Nat) (List.{0} Nat) (List.{0} Nat)
+                      (@instHAppendOfAppend.{0} (List.{0} Nat) (@List.instAppend.{0} Nat))
+                      (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered
+                        (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E
+                          (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+                          (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                            (@ShielddSecurity.TransferStateDelta.empty O E))))
+                      (inputs action)))
+                  (And
+                    (@LE.le.{0} Nat instLENat
+                      (@List.length.{0} Nat (ShielddSecurity.TransferNullifierBatchSource01.Pending.ordered pending))
+                      capacity)
+                    (And
+                      (@Eq.{1} Bool (ShielddSecurity.TransferNullifierBatchSource01.Pending.sealed pending) Bool.false)
+                      (∀ (key : Nat),
+                        @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) (inputs action) key →
+                          And
+                            (@Eq.{1} (Option.{0} Bool)
+                              (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E
+                                (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                                  (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+                                (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                                  (@ShielddSecurity.TransferStateDelta.empty O E))
+                                key)
+                              (@Option.some.{0} Bool Bool.false))
+                            (And
+                              (@Eq.{1} Bool
+                                (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership
+                                  (@ShielddSecurity.TransferNullifierBatchSource01.Backend.pending O E
+                                    (@ShielddSecurity.TransferRawEffectsSource01.Backend.nullifiers O E
+                                      (ShielddSecurity.TransferSctInsertionSource01.Error X) raw)
+                                    (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                                      (@ShielddSecurity.TransferStateDelta.empty O E)))
+                                  key)
+                                Bool.false)
+                              (@Eq.{1} Bool
+                                (ShielddSecurity.TransferNullifierBatchSource01.Pending.membership pending key)
+                                Bool.true)))))))))))
+'ShielddSecurity.TransferWholeNullifierAdmission01.whole_delivery_success_derives_every_input_fresh_and_bounded' depends on axioms: [propext,
+ Quot.sound]

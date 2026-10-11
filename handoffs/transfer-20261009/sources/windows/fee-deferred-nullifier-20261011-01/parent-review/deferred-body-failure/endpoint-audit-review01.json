@@ -1,0 +1,644 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete type/source/runtime/ancestor/guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 4,
+  "inherited_reports": 315,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferDeferredBodyFailure01.executeBound",
+      "full_type": "@ShielddSecurity.TransferDeferredBodyFailure01.executeBound : {O E K X Tree A : Type} \u2192\n  (raw :\n      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (notes volume :\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n        (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n          (extract :\n              A \u2192\n                ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n                  Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) \u2192\n            (inputs outputs : A \u2192 List.{0} Nat) \u2192\n              (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) \u2192\n                (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) \u2192\n                  (action : A) \u2192\n                    (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) \u2192\n                      (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192\n                        ShielddSecurity.TransferRawStateProgram01.Outcome O E\n                          (ShielddSecurity.TransferCapabilitySource01.Error K\n                            (ShielddSecurity.TransferSctInsertionSource01.Error X))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "fcf56273fe7692ed3e0ca06c5b5ea62cb83ed023a87a68ad07623836f534b4e3"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredBodyFailure01.any_context_any_return_preserves_nonverifiable_writes",
+      "full_type": "@ShielddSecurity.TransferDeferredBodyFailure01.any_context_any_return_preserves_nonverifiable_writes : \u2200\n  {O E K X Tree A : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E),\n  @Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)\n    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n        (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable\n          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n          context action item child)))\n    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E\n      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "aacdcb3d811dec1e764824fcb2407ff575b2d1ec5ee0bbe4ba1c99a27d6466db"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredBodyFailure01.deferred_success_derives_body_effects_exact_queue_and_original_nv",
+      "full_type": "@ShielddSecurity.TransferDeferredBodyFailure01.deferred_success_derives_body_effects_exact_queue_and_original_nv : \u2200\n  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)\n  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)\n  (convert : A \u2192 Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)\n  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Nat \u2192 Bool)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)\n  (committed : ShielddSecurity.TransferStateDelta.Commit O E A)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))\n      (@ShielddSecurity.TransferStateDelta.run O E A\n        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          api keys ShielddSecurity.TransferIndexCountCodec01.codec\n          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)\n          (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct\n            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey\n            entryKey dayKey context action item))\n        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.deferred action parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),\n  have body :\n    ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) :=\n    @ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable\n      extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey context\n      action item\n      (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E));\n  And (@Eq.{1} Bool registryMatches Bool.true)\n    (And (@Eq.{1} Bool exclusive Bool.true)\n      (And\n        (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) (extract action context)\n          (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))\n        (And\n          (@Eq.{1}\n            (Except.{0, 0}\n              (ShielddSecurity.TransferCapabilitySource01.Error K\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              Unit)\n            (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E\n              (ShielddSecurity.TransferCapabilitySource01.Error K\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              body)\n            (@Except.ok.{0, 0}\n              (ShielddSecurity.TransferCapabilitySource01.Error K\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              Unit Unit.unit))\n          (And\n            (@Exists.{1} Nat fun (deliveryHeight : Nat) =>\n              @Eq.{1} (Option.{0} Nat)\n                (@ShielddSecurity.TransferStateDelta.Api.height O E A api\n                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent\n                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n                      (ShielddSecurity.TransferCapabilitySource01.Error K\n                        (ShielddSecurity.TransferSctInsertionSource01.Error X))\n                      body)))\n                (@Option.some.{0} Nat deliveryHeight))\n            (And\n              (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n                (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)\n                (@ShielddSecurity.TransferStateDelta.applyCache O E parent\n                  (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n                    (ShielddSecurity.TransferCapabilitySource01.Error K\n                      (ShielddSecurity.TransferSctInsertionSource01.Error X))\n                    body)))\n              (And\n                (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Commit.events O E A committed)\n                  (@ShielddSecurity.TransferStateDelta.Cache.events O E\n                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n                      (ShielddSecurity.TransferCapabilitySource01.Error K\n                        (ShielddSecurity.TransferSctInsertionSource01.Error X))\n                      body)))\n                (And\n                  (@Eq.{1} (List.{0} A) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A committed)\n                    (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)\n                      (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) queued\n                      (@List.cons.{0} A action (@List.nil.{0} A))))\n                  (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)\n                    (@ShielddSecurity.TransferStateDelta.State.nonverifiable O\n                      (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed))\n                    (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent)))))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "c7a4d962b45282cb0d495ccdd38826e5e028c8bc8b5014b42f9d38a73d482059"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferDeferredBodyFailure01.delivered_body_then_max_count_flush_failure_preserves_delivered_effects_and_empty_retry",
+      "full_type": "@ShielddSecurity.TransferDeferredBodyFailure01.delivered_body_then_max_count_flush_failure_preserves_delivered_effects_and_empty_retry : \u2200\n  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)\n  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)\n  (convert : A \u2192 Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)\n  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Nat \u2192 Bool)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (notes volume :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (extract :\n    A \u2192\n      ShielddSecurity.TransferCapabilitySource01.ProofContext \u2192\n        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)\n  (inputs outputs : A \u2192 List.{0} Nat)\n  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey flushHeight : Nat)\n  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)\n  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)\n  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)\n  (committed : ShielddSecurity.TransferStateDelta.Commit O E A)\n  (success :\n    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))\n      (@ShielddSecurity.TransferStateDelta.run O E A\n        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          api keys ShielddSecurity.TransferIndexCountCodec01.codec\n          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)\n          (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct\n            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey\n            entryKey dayKey context action item))\n        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.deferred action parent queued)\n      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed))\n  (storedCount :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent\n        (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys flushHeight))\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferOrdinaryMaxCount01.maxBytes))\n  (retryPut :\n    ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E A\n      ShielddSecurity.TransferIndexWriterModel01.IndexError)\n  (retryExclusive : Bool) (retryHeight : Option.{0} Nat),\n  have body :\n    ShielddSecurity.TransferRawStateProgram01.Outcome O E\n      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) :=\n    @ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable\n      extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey context\n      action item\n      (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E));\n  have interrupted :\n    ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A\n      ShielddSecurity.TransferIndexWriterModel01.IndexError :=\n    @ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E A\n      ShielddSecurity.TransferIndexWriterModel01.IndexError\n      (@ShielddSecurity.TransferDeferredCountWalk01.queueWriter O E A keys convert indexAvailable\n        (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed))\n      Bool.true Bool.true (@Option.some.{0} Nat flushHeight)\n      (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)\n      (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A committed);\n  And\n    (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) (extract action context)\n      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))\n    (And\n      (@Eq.{1}\n        (Except.{0, 0}\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          Unit)\n        (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          body)\n        (@Except.ok.{0, 0}\n          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))\n          Unit Unit.unit))\n      (And\n        (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)\n          (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)\n          (@ShielddSecurity.TransferStateDelta.applyCache O E parent\n            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n              (ShielddSecurity.TransferCapabilitySource01.Error K\n                (ShielddSecurity.TransferSctInsertionSource01.Error X))\n              body)))\n        (And\n          (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Commit.events O E A committed)\n            (@ShielddSecurity.TransferStateDelta.Cache.events O E\n              (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E\n                (ShielddSecurity.TransferCapabilitySource01.Error K\n                  (ShielddSecurity.TransferSctInsertionSource01.Error X))\n                body)))\n          (And\n            (@Eq.{1} (List.{0} A) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A committed)\n              (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)\n                (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) queued\n                (@List.cons.{0} A action (@List.nil.{0} A))))\n            (And\n              (@Exists.{1} ShielddSecurity.TransferIndexWriterModel01.IndexError\n                fun (error : ShielddSecurity.TransferIndexWriterModel01.IndexError) =>\n                @Eq.{1}\n                  (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A\n                    ShielddSecurity.TransferIndexWriterModel01.IndexError)\n                  interrupted\n                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E A\n                    ShielddSecurity.TransferIndexWriterModel01.IndexError\n                    (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) (@List.nil.{0} A)\n                    (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.index\n                      ShielddSecurity.TransferIndexWriterModel01.IndexError error)))\n              (@Eq.{1}\n                (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A\n                  ShielddSecurity.TransferIndexWriterModel01.IndexError)\n                (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E A\n                  ShielddSecurity.TransferIndexWriterModel01.IndexError retryPut Bool.true retryExclusive retryHeight\n                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A\n                    ShielddSecurity.TransferIndexWriterModel01.IndexError interrupted)\n                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E A\n                    ShielddSecurity.TransferIndexWriterModel01.IndexError interrupted))\n                (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E A\n                  ShielddSecurity.TransferIndexWriterModel01.IndexError\n                  (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) (@List.nil.{0} A))))))))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "554b1ad31ed3b8c8b326934ddc15c30b999e64b15af9a7102614fe78a9479e9d"
+    }
+  ],
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "module": "TransferCurrentVolumeSource01",
+      "object": {
+        "bytes": 211328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.olean",
+        "sha256": "2fc77484d884d9e54f571ae8006424f0e7cdbbb01e9dcf38cd98e3284e910b41"
+      },
+      "source": {
+        "bytes": 10987,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-02\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean",
+        "sha256": "3e34bb62ef0262f2f6ff6124da243b5332ae1e2e1102961e01521f3352f74b19"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "module": "TransferOrdinaryStorageSource01",
+      "object": {
+        "bytes": 338712,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.olean",
+        "sha256": "ce86b69e23d8922e62ea57f2d2c0ee61f17676fed9dfc3466b53e982718f5592"
+      },
+      "source": {
+        "bytes": 21000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-storage-source-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryStorageSource01.lean",
+        "sha256": "a16cf823a1d57f6f770ba1952a59f9fb843fc47a8e9a48d7172c4bad0ae75c66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "module": "TransferCapabilitySource01",
+      "object": {
+        "bytes": 264392,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.olean",
+        "sha256": "a8e89d5f8c7ce64b8adde35e5bd2ac7a276fc1b22ddce78116cdce2a1e14fe50"
+      },
+      "source": {
+        "bytes": 7320,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-capability-source-20261011-02\\project\\ShielddSecurity\\TransferCapabilitySource01.lean",
+        "sha256": "3b75e03b3801ab4717a720d351a2cb74200f4ba087ee1b15792d51951bfc2416"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "module": "TransferVerificationEqualitySource01",
+      "object": {
+        "bytes": 140840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.olean",
+        "sha256": "38a39d6cc6df453905e51d040499c261e93cc7d6145299c8087210aaafa89221"
+      },
+      "source": {
+        "bytes": 5810,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-verification-equality-source-20261011-02\\project\\ShielddSecurity\\TransferVerificationEqualitySource01.lean",
+        "sha256": "70604d840acd8c0ea7a397337ac2f7dd35ab2285d41f30b047b2aab2252b9a37"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "module": "TransferBoundOrdinarySource01",
+      "object": {
+        "bytes": 306848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.olean",
+        "sha256": "247ab5c22803da0e188c782ddd46e078bea848256914da20042ab4d050ca38c9"
+      },
+      "source": {
+        "bytes": 20530,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bound-ordinary-source-20261011-02\\project\\ShielddSecurity\\TransferBoundOrdinarySource01.lean",
+        "sha256": "890a31a5313618af5f593151d2fd0b60e72655cf162daa90faa769ba5ae982d2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "module": "TransferRawDeliveryComposition01",
+      "object": {
+        "bytes": 266304,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.olean",
+        "sha256": "5bac962b2dd9872f6fd135001b39f710e0f5c1e27788ab3443a2339e8f2244b3"
+      },
+      "source": {
+        "bytes": 6672,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-delivery-composition-20261011-02\\project\\ShielddSecurity\\TransferRawDeliveryComposition01.lean",
+        "sha256": "69d72ff097718cb9e37afa3b8dbdd58241c90913bb75ff94015e0b0d50d6ad1d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "module": "TransferIndexWriterModel01",
+      "object": {
+        "bytes": 546760,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.olean",
+        "sha256": "924f7da56a5ecd2c852aa91affb0d6833052fbb7993f978582a3a5c1f794dbea"
+      },
+      "source": {
+        "bytes": 12975,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-writer-model-20261011-02\\project\\ShielddSecurity\\TransferIndexWriterModel01.lean",
+        "sha256": "a0dd4cb0b9b053db5ff93870c892dbc835c360f744b5343b24348eb0ae39de9e"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "module": "TransferIndexInspectionFacts01",
+      "object": {
+        "bytes": 286744,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.olean",
+        "sha256": "3e765eecc9b559888b7031692eb68c20168065c6a757799d36aa9e6a66361aaf"
+      },
+      "source": {
+        "bytes": 12693,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-inspection-20261011-02\\project\\ShielddSecurity\\TransferIndexInspectionFacts01.lean",
+        "sha256": "d0b193fa567ca2ecbc6ca130fdbb9ff30d9a758c22a7c3043b51c43efd24100c"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "module": "TransferOrdinaryIndexDelivery01",
+      "object": {
+        "bytes": 394328,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.olean",
+        "sha256": "88bc8450f1c8cd804416157823904ac8b8ecc090510d4a2fc5a167051984d508"
+      },
+      "source": {
+        "bytes": 11560,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-delivery-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryIndexDelivery01.lean",
+        "sha256": "de93d2bc043afad2fb78bbce0cc588624e6afda328273f5495997f2e5293374a"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "module": "TransferOrdinaryIndexedValues01",
+      "object": {
+        "bytes": 230464,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.olean",
+        "sha256": "3c3c58eebfe26b817e9689bbb5397ced4f48fd17389966f0f97157a3c38e9b07"
+      },
+      "source": {
+        "bytes": 8201,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-indexed-values-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexedValues01.lean",
+        "sha256": "2088b0d38696bf74bc75a0c7e6c9bcc62e635174ccec40453d1784f6202872d9"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 258000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryHeightSource01.olean",
+        "sha256": "f704ae465277d8f58df7fa89838664012a9c13951eaec2be20d4829d8f961e2f"
+      },
+      "module": "TransferOrdinaryHeightSource01",
+      "object": {
+        "bytes": 258000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryHeightSource01.olean",
+        "sha256": "f704ae465277d8f58df7fa89838664012a9c13951eaec2be20d4829d8f961e2f"
+      },
+      "source": {
+        "bytes": 9032,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-height-source-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryHeightSource01.lean",
+        "sha256": "f2cee86461467e9c25ee34ff525f3603ab099febf27aa6d18f9c5e82756bdb9f"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 229176,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferVolumeHeightKeys01.olean",
+        "sha256": "b3d12173626bdcc13bd2ec165af92252f6bf0719a91c51ead6cbbc1d51a1f70a"
+      },
+      "module": "TransferVolumeHeightKeys01",
+      "object": {
+        "bytes": 229176,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-volume-height-keys-20261011-01\\project\\ShielddSecurity\\TransferVolumeHeightKeys01.olean",
+        "sha256": "b3d12173626bdcc13bd2ec165af92252f6bf0719a91c51ead6cbbc1d51a1f70a"
+      },
+      "source": {
+        "bytes": 7100,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-volume-height-keys-20261011-01\\project\\ShielddSecurity\\TransferVolumeHeightKeys01.lean",
+        "sha256": "f361147ada6e3c761566011eab3c96459e71f959ecca44f535d12ef4fff158d5"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 165264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.olean",
+        "sha256": "424fcbcea69517650d4e487a9d3b6243523941dcee494c8e11fbbbd2ba77a8fe"
+      },
+      "module": "TransferOrdinaryIndexReadSource01",
+      "object": {
+        "bytes": 165264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-read-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.olean",
+        "sha256": "424fcbcea69517650d4e487a9d3b6243523941dcee494c8e11fbbbd2ba77a8fe"
+      },
+      "source": {
+        "bytes": 12132,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-read-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexReadSource01.lean",
+        "sha256": "8b7918002527fe40551535eeb9bde831f40fa5612e690eb7f09471da02a6f686"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 195264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.olean",
+        "sha256": "2a8e8e2d94ce1966aacc5f359d9c1cc0d9913843f5daae43edbd2c10d29cc8bd"
+      },
+      "module": "TransferOrdinaryIndexCountSource01",
+      "object": {
+        "bytes": 195264,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-count-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.olean",
+        "sha256": "2a8e8e2d94ce1966aacc5f359d9c1cc0d9913843f5daae43edbd2c10d29cc8bd"
+      },
+      "source": {
+        "bytes": 13558,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-index-count-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryIndexCountSource01.lean",
+        "sha256": "bb85cb6f14c2db70b0680c58acacda3f9e9241f09b4d42bfc820b33b3e721abe"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 161840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferIndexCountCodec01.olean",
+        "sha256": "643f8c53c733b1c50c9c9eef773aec79a48b1f958913cd128ae3f05bd773cfa3"
+      },
+      "module": "TransferIndexCountCodec01",
+      "object": {
+        "bytes": 161840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-count-codec-20261011-02\\project\\ShielddSecurity\\TransferIndexCountCodec01.olean",
+        "sha256": "643f8c53c733b1c50c9c9eef773aec79a48b1f958913cd128ae3f05bd773cfa3"
+      },
+      "source": {
+        "bytes": 6860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-index-count-codec-20261011-02\\project\\ShielddSecurity\\TransferIndexCountCodec01.lean",
+        "sha256": "d1ac5a48aaba16bf13c8c44e45fbd5bdc754cc0fb20452453de28d670e2e1d39"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 66136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.olean",
+        "sha256": "1e3f33103b47bb3e471d28e34dc20b01b2316d47785b76b1c03bea84c6ac68ff"
+      },
+      "module": "TransferOrdinaryCountCodecJoin01",
+      "object": {
+        "bytes": 66136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-count-codec-join-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.olean",
+        "sha256": "1e3f33103b47bb3e471d28e34dc20b01b2316d47785b76b1c03bea84c6ac68ff"
+      },
+      "source": {
+        "bytes": 7515,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-count-codec-join-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryCountCodecJoin01.lean",
+        "sha256": "d6d7ba9a1fadf1fbc3a797acfcaa8974c45e64fc6e40114565542624be55c948"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 114136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryMaxCount01.olean",
+        "sha256": "257066c36c0b3a54fec2303103432760b9ce96e3e3eb73757673ef2aff5a6c4c"
+      },
+      "module": "TransferOrdinaryMaxCount01",
+      "object": {
+        "bytes": 114136,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-max-count-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryMaxCount01.olean",
+        "sha256": "257066c36c0b3a54fec2303103432760b9ce96e3e3eb73757673ef2aff5a6c4c"
+      },
+      "source": {
+        "bytes": 8331,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-max-count-20261011-02\\project\\ShielddSecurity\\TransferOrdinaryMaxCount01.lean",
+        "sha256": "ff561417f542c203bf8c75b17ae0f0db7d38430084398d4e44371dd856a04b66"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 136840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.olean",
+        "sha256": "235fbceca9c6736d0082ece46815e4ac9068c35ad4b96a47b89a0315d9e562ba"
+      },
+      "module": "TransferOrdinaryDecodableIndex01",
+      "object": {
+        "bytes": 136840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-decodable-index-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.olean",
+        "sha256": "235fbceca9c6736d0082ece46815e4ac9068c35ad4b96a47b89a0315d9e562ba"
+      },
+      "source": {
+        "bytes": 5395,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-ordinary-decodable-index-20261011-01\\project\\ShielddSecurity\\TransferOrdinaryDecodableIndex01.lean",
+        "sha256": "03aaf25c9b45f7b7652601d859cd42e3bfb52df2439681691e42d7cd7e028295"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243696,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferDeferredQueueSourceModel01.olean",
+        "sha256": "e553a91947db6c18c8652f2ead722f66a55ac10080b79f9c8f1a5acc13282230"
+      },
+      "module": "TransferDeferredQueueSourceModel01",
+      "object": {
+        "bytes": 243696,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-queue-model-20261010-03\\project\\ShielddSecurity\\TransferDeferredQueueSourceModel01.olean",
+        "sha256": "e553a91947db6c18c8652f2ead722f66a55ac10080b79f9c8f1a5acc13282230"
+      },
+      "source": {
+        "bytes": 9778,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-queue-model-20261010-03\\project\\ShielddSecurity\\TransferDeferredQueueSourceModel01.lean",
+        "sha256": "e13a2ae7f8ac769d439b101bf33c1197a2ef672452abaf2ff23e6e0f078cb6e1"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 190096,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferDeferredCountWalk01.olean",
+        "sha256": "c55e5c1b715c4a2a2a34ece4592eda3103c30df64c14131ab963ae6dee6c3276"
+      },
+      "module": "TransferDeferredCountWalk01",
+      "object": {
+        "bytes": 190096,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-walk-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountWalk01.olean",
+        "sha256": "c55e5c1b715c4a2a2a34ece4592eda3103c30df64c14131ab963ae6dee6c3276"
+      },
+      "source": {
+        "bytes": 6523,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-walk-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountWalk01.lean",
+        "sha256": "f48d11fd17460e16c663ba26cbb9aaaf54d06c0548d585aed301a2ec339ed245"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 117416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferDeferredCountFlush01.olean",
+        "sha256": "a65e786e9ed50d8abd557b1316e8c5e6c8b5e3881d0ee9f6431870471041b2fe"
+      },
+      "module": "TransferDeferredCountFlush01",
+      "object": {
+        "bytes": 117416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-flush-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountFlush01.olean",
+        "sha256": "a65e786e9ed50d8abd557b1316e8c5e6c8b5e3881d0ee9f6431870471041b2fe"
+      },
+      "source": {
+        "bytes": 5970,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-count-flush-20261011-02\\project\\ShielddSecurity\\TransferDeferredCountFlush01.lean",
+        "sha256": "d1716662a0de6dd2604fbcf9d2462e56d5556eca3526e09a0314e41f93d05668"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 81208,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferDeferredMaxCount01.olean",
+        "sha256": "5ebd183c0c679e9e68a67fc15f11044348463378ffc5609081afd156290f630d"
+      },
+      "module": "TransferDeferredMaxCount01",
+      "object": {
+        "bytes": 81208,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-max-count-20261011-01\\project\\ShielddSecurity\\TransferDeferredMaxCount01.olean",
+        "sha256": "5ebd183c0c679e9e68a67fc15f11044348463378ffc5609081afd156290f630d"
+      },
+      "source": {
+        "bytes": 4732,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-max-count-20261011-01\\project\\ShielddSecurity\\TransferDeferredMaxCount01.lean",
+        "sha256": "378a0e62e859ea322f96fdb64f8ce536af6520fdbed514e9eeff486f27b86a1b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 360224,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-owned-floor-20261011-03\\modules\\ShielddSecurity\\TransferFeeFundingDelivery01.olean",
+        "sha256": "44816a9d0b81931d30e81763d610b18e60febfe61cb41b351f83133cc50c8e79"
+      },
+      "module": "TransferFeeFundingDelivery01",
+      "object": {
+        "bytes": 360224,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-fee-funding-delivery-20261011-03\\project\\ShielddSecurity\\TransferFeeFundingDelivery01.olean",
+        "sha256": "44816a9d0b81931d30e81763d610b18e60febfe61cb41b351f83133cc50c8e79"
+      },
+      "source": {
+        "bytes": 12622,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-fee-funding-delivery-20261011-03\\project\\ShielddSecurity\\TransferFeeFundingDelivery01.lean",
+        "sha256": "648a67f537cde7b37cc066492b348c50fb06752a99d29ea8fa174e73972b96b3"
+      }
+    }
+  ],
+  "manifest_entries": 47,
+  "guard_unchanged": true,
+  "rejected": [
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 16.207245199999306,
+        "status": "failed"
+      },
+      "program_definition_delta": "All program definitions and theorem contracts unchanged; proof-only repair",
+      "all_predecessor_contracts_unchanged": true,
+      "exact_delta": "--- \n+++ \n@@ -38,10 +38,12 @@\n     (executeBound raw notes volume sct volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey\n       payload nullifierKey entryKey dayKey context action item child).cache.nonverifiable = child.cache.nonverifiable := by\n   cases context with\n-  | ordinary => exact TransferBoundOrdinarySource01.any_return_preserves_input_nonverifiable_writes raw notes volume sct\n+  | ordinary =>\n+    exact TransferBoundOrdinarySource01.any_return_preserves_input_nonverifiable_writes raw notes volume sct\n       volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n       action item child\n-  | feeFunding => exact (TransferFeeFundingDelivery01.any_return_preserves_verifiable_and_nonverifiable_writes raw notes sct\n+  | feeFunding =>\n+    exact (TransferFeeFundingDelivery01.any_return_preserves_verifiable_and_nonverifiable_writes raw notes sct\n       extract inputs outputs wordMax capacity treeKey notesKey nullifierKey entryKey dayKey action item child).2\n \n theorem deferred_success_derives_body_effects_exact_queue_and_original_nv {O E K X Tree A : Type}\n@@ -82,12 +84,14 @@\n     subst prepared\n     have extracted : extract action context = .ok item := by\n       cases context with\n-      | ordinary => exact (TransferBoundOrdinarySource01.successful_body_derives_reextraction_freshness_and_markers raw notes volume sct\n+      | ordinary =>\n+        exact (TransferBoundOrdinarySource01.successful_body_derives_reextraction_freshness_and_markers raw notes volume sct\n           volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n           action item \u27e8parent, empty\u27e9 bodySuccess).1\n-      | feeFunding => exact (TransferFeeFundingDelivery01.successful_body_derives_reextraction_and_actual_reshape raw notes sct\n+      | feeFunding =>\n+        exact (TransferFeeFundingDelivery01.successful_body_derives_reextraction_and_actual_reshape raw notes sct\n           extract inputs outputs wordMax capacity treeKey notesKey nullifierKey entryKey dayKey action item \u27e8parent, empty\u27e9 bodySuccess).1\n-    refine \u27e8registry, unique, extracted, bodySuccess, \u27e8deliveryHeight, heightRead\u27e9, applied, events, ?_, ?_\u27e9\n+    refine \u27e8registry, unique, extracted, bodySuccess, \u27e8deliveryHeight, rfl\u27e9, applied, events, ?_, ?_\u27e9\n     \u00b7 simpa only [Option.toList_some] using deferred\n     \u00b7 rw [applied]\n       change overlay parent.nonverifiable _ = parent.nonverifiable\n",
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-01\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.lean:41:16: error: Type mismatch",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-01\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.lean:40:2: error: Alternative `feeFunding` has not been provided",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-01\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.lean:42:6: error: unexpected identifier; expected command",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-deferred-body-failure-20261011-01\\project\\ShielddSecurity\\TransferDeferredBodyFailure01.lean:90:71: error: Application type mismatch: The argument"
+      ]
+    },
+    {
+      "kind": "Withdrawn unexecuted source/preparation; zero whole-attempt qualification",
+      "program_definition_delta": "Same program definitions and theorem contracts",
+      "exact_delta": "--- \n+++ \n@@ -39,11 +39,11 @@\n       payload nullifierKey entryKey dayKey context action item child).cache.nonverifiable = child.cache.nonverifiable := by\n   cases context with\n   | ordinary =>\n-+    exact TransferBoundOrdinarySource01.any_return_preserves_input_nonverifiable_writes raw notes volume sct\n+    exact TransferBoundOrdinarySource01.any_return_preserves_input_nonverifiable_writes raw notes volume sct\n       volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n       action item child\n   | feeFunding =>\n-+    exact (TransferFeeFundingDelivery01.any_return_preserves_verifiable_and_nonverifiable_writes raw notes sct\n+    exact (TransferFeeFundingDelivery01.any_return_preserves_verifiable_and_nonverifiable_writes raw notes sct\n       extract inputs outputs wordMax capacity treeKey notesKey nullifierKey entryKey dayKey action item child).2\n \n theorem deferred_success_derives_body_effects_exact_queue_and_original_nv {O E K X Tree A : Type}\n@@ -85,11 +85,11 @@\n     have extracted : extract action context = .ok item := by\n       cases context with\n       | ordinary =>\n-+        exact (TransferBoundOrdinarySource01.successful_body_derives_reextraction_freshness_and_markers raw notes volume sct\n+        exact (TransferBoundOrdinarySource01.successful_body_derives_reextraction_freshness_and_markers raw notes volume sct\n           volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey\n           action item \u27e8parent, empty\u27e9 bodySuccess).1\n       | feeFunding =>\n-+        exact (TransferFeeFundingDelivery01.successful_body_derives_reextraction_and_actual_reshape raw notes sct\n+        exact (TransferFeeFundingDelivery01.successful_body_derives_reextraction_and_actual_reshape raw notes sct\n           extract inputs outputs wordMax capacity treeKey notesKey nullifierKey entryKey dayKey action item \u27e8parent, empty\u27e9 bodySuccess).1\n     refine \u27e8registry, unique, extracted, bodySuccess, \u27e8deliveryHeight, rfl\u27e9, applied, events, ?_, ?_\u27e9\n     \u00b7 simpa only [Option.toList_some] using deferred\n"
+    }
+  ],
+  "interfaces": [
+    "Generic body adapter is instantiated with the qualified exact-Item Ordinary source program; extractor/token/proof provenance remains upstream",
+    "Loaded immutable SCT, Rust CloneCOW/panic/tree/key/value/source/event codecs and store authentication remain inherited interfaces",
+    "Transaction conversion, byte-key projection, big-endian count codec and actual index storage reads require source correspondence",
+    "Run commit denotes applying child cache to original parent; it does not imply block seal or durable multi-store publication",
+    "Returned error discard remains scoped; native Host panic/queue retry and all native controls remain separate",
+    "No semantic negative-control, native or full Transfer certification credit",
+    "Index byte-to-Nat projection injectivity denotes key representation preservation and is not a cryptographic hash injectivity claim",
+    "Actual get_proto height decoder and height-key projection/store read availability remain representation interfaces; explicit separation from the two volume marker keys",
+    "Byte-to-Nat equality-preserving projection remains explicit; arbitrary suffixes include all actual day/nullifier encodings without proving those codecs",
+    "Actual nonverifiable_get_raw availability, transaction conversion/serialization and initial stored-height decoder correspondence remain explicit",
+    "Concrete Nat-list byte codec requires actual Vec<u8> representation; symbolic base-256 value corresponds to Rust u64 big-endian operations by the retained runtime source, without a Rust semantics theorem"
+  ],
+  "scope": "Both actual typed ProofContext branches use qualified complete-Item bound Ordinary/FeeFunding source programs. Successful deferred delivery derives body success/re-extraction, successful modeled height read, full parent cache apply, exact body events, queue append of the same action and original NV preservation. Exact max-count bytes are assumed only in the original pre-delivery parent, so derived post-delivery NV and nonempty actual queue imply some deferred index failure, preservation of already-delivered body effects, queue consumption and same-instance empty retry. No failed callback, desired poststate, supplied body cache, supplied nonempty queue or rollback conclusion is assumed. Flush acquisition/known height are explicit phase preconditions; actual height/bytes/keys/token/proof/Rust ownership/Host/native/durability correspondence and full Transfer certification remain open. Earlier errors are not semantic overflow controls. No new native or negative-control credit. The definition and all three handwritten theorems have complete original type/axiom reports. Failed 01 and withdrawn unrun 02 retain zero credit; all four definition/theorem contracts are unchanged by the branch layout, reflexive height witness and preparation read-back corrections. The delivered parent contains modeled body effects before indexing; failed flush preserves that parent and consumes the derived queue. This is not rollback to the pre-delivery parent. Error is existential and native genuine controls remain separate and unrun.",
+  "full_transfer": "OPEN"
+}

@@ -1,0 +1,261 @@
+@ShielddSecurity.TransferDeferredBodyFailure01.executeBound : {O E K X Tree A : Type} →
+  (raw :
+      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+    (notes volume :
+        ShielddSecurity.TransferNoteManagerSource01.Backend O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) →
+        (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool) →
+          (extract :
+              A →
+                ShielddSecurity.TransferCapabilitySource01.ProofContext →
+                  Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) →
+            (inputs outputs : A → List.{0} Nat) →
+              (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat) →
+                (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) →
+                  (action : A) →
+                    (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) →
+                      (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+                        ShielddSecurity.TransferRawStateProgram01.Outcome O E
+                          (ShielddSecurity.TransferCapabilitySource01.Error K
+                            (ShielddSecurity.TransferSctInsertionSource01.Error X))
+'ShielddSecurity.TransferDeferredBodyFailure01.executeBound' depends on axioms: [propext]
+@ShielddSecurity.TransferDeferredBodyFailure01.any_context_any_return_preserves_nonverifiable_writes : ∀
+  {O E K X Tree A : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E),
+  @Eq.{1} (ShielddSecurity.TransferStateDelta.Writes ShielddSecurity.TransferStateDelta.Bytes)
+    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+      (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+        (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+        (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable
+          extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey
+          context action item child)))
+    (@ShielddSecurity.TransferStateDelta.Cache.nonverifiable O E
+      (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+'ShielddSecurity.TransferDeferredBodyFailure01.any_context_any_return_preserves_nonverifiable_writes' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferDeferredBodyFailure01.deferred_success_derives_body_effects_exact_queue_and_original_nv : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (committed : ShielddSecurity.TransferStateDelta.Commit O E A)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          api keys ShielddSecurity.TransferIndexCountCodec01.codec
+          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+          (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct
+            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+            entryKey dayKey context action item))
+        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.deferred action parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed)),
+  have body :
+    ShielddSecurity.TransferRawStateProgram01.Outcome O E
+      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) :=
+    @ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable
+      extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey context
+      action item
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E));
+  And (@Eq.{1} Bool registryMatches Bool.true)
+    (And (@Eq.{1} Bool exclusive Bool.true)
+      (And
+        (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) (extract action context)
+          (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))
+        (And
+          (@Eq.{1}
+            (Except.{0, 0}
+              (ShielddSecurity.TransferCapabilitySource01.Error K
+                (ShielddSecurity.TransferSctInsertionSource01.Error X))
+              Unit)
+            (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+              (ShielddSecurity.TransferCapabilitySource01.Error K
+                (ShielddSecurity.TransferSctInsertionSource01.Error X))
+              body)
+            (@Except.ok.{0, 0}
+              (ShielddSecurity.TransferCapabilitySource01.Error K
+                (ShielddSecurity.TransferSctInsertionSource01.Error X))
+              Unit Unit.unit))
+          (And
+            (@Exists.{1} Nat fun (deliveryHeight : Nat) =>
+              @Eq.{1} (Option.{0} Nat)
+                (@ShielddSecurity.TransferStateDelta.Api.height O E A api
+                  (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent
+                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                      (ShielddSecurity.TransferCapabilitySource01.Error K
+                        (ShielddSecurity.TransferSctInsertionSource01.Error X))
+                      body)))
+                (@Option.some.{0} Nat deliveryHeight))
+            (And
+              (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+                (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+                (@ShielddSecurity.TransferStateDelta.applyCache O E parent
+                  (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                    (ShielddSecurity.TransferCapabilitySource01.Error K
+                      (ShielddSecurity.TransferSctInsertionSource01.Error X))
+                    body)))
+              (And
+                (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Commit.events O E A committed)
+                  (@ShielddSecurity.TransferStateDelta.Cache.events O E
+                    (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                      (ShielddSecurity.TransferCapabilitySource01.Error K
+                        (ShielddSecurity.TransferSctInsertionSource01.Error X))
+                      body)))
+                (And
+                  (@Eq.{1} (List.{0} A) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A committed)
+                    (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)
+                      (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) queued
+                      (@List.cons.{0} A action (@List.nil.{0} A))))
+                  (@Eq.{1} (ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+                    (@ShielddSecurity.TransferStateDelta.State.nonverifiable O
+                      (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed))
+                    (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent)))))))))
+'ShielddSecurity.TransferDeferredBodyFailure01.deferred_success_derives_body_effects_exact_queue_and_original_nv' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferDeferredBodyFailure01.delivered_body_then_max_count_flush_failure_preserves_delivered_effects_and_empty_retry : ∀
+  {O E K X Tree A : Type} (api : ShielddSecurity.TransferStateDelta.Api O E A)
+  (keys : ShielddSecurity.TransferIndexWriterModel01.Keys)
+  (convert : A → Option.{0} ShielddSecurity.TransferIndexWriterModel01.Encoded)
+  (indexAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Nat → Bool)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (notes volume :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (volumeAvailable : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (extract :
+    A →
+      ShielddSecurity.TransferCapabilitySource01.ProofContext →
+        Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item)
+  (inputs outputs : A → List.{0} Nat)
+  (wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey flushHeight : Nat)
+  (context : ShielddSecurity.TransferCapabilitySource01.ProofContext) (action : A)
+  (item : ShielddSecurity.TransferVerificationEqualitySource01.Item) (registryMatches exclusive : Bool)
+  (parent : ShielddSecurity.TransferStateDelta.State O) (queued : List.{0} A)
+  (committed : ShielddSecurity.TransferStateDelta.Commit O E A)
+  (success :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E A))
+      (@ShielddSecurity.TransferStateDelta.run O E A
+        (@ShielddSecurity.TransferOrdinaryIndexDelivery01.combinedApi O E A
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          api keys ShielddSecurity.TransferIndexCountCodec01.codec
+          (@ShielddSecurity.TransferOrdinaryIndexReadSource01.installReads O E A convert indexAvailable)
+          (@ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct
+            volumeAvailable extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey
+            entryKey dayKey context action item))
+        registryMatches exclusive ShielddSecurity.TransferStateDelta.IndexMode.deferred action parent queued)
+      (@Option.some.{0} (ShielddSecurity.TransferStateDelta.Commit O E A) committed))
+  (storedCount :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.nonverifiable O parent
+        (ShielddSecurity.TransferIndexWriterModel01.Keys.count keys flushHeight))
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes ShielddSecurity.TransferOrdinaryMaxCount01.maxBytes))
+  (retryPut :
+    ShielddSecurity.TransferDeferredQueueSourceModel01.IndexWriter O E A
+      ShielddSecurity.TransferIndexWriterModel01.IndexError)
+  (retryExclusive : Bool) (retryHeight : Option.{0} Nat),
+  have body :
+    ShielddSecurity.TransferRawStateProgram01.Outcome O E
+      (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X)) :=
+    @ShielddSecurity.TransferDeferredBodyFailure01.executeBound O E K X Tree A raw notes volume sct volumeAvailable
+      extract inputs outputs wordMax capacity treeKey notesKey volumeKey payload nullifierKey entryKey dayKey context
+      action item
+      (@ShielddSecurity.TransferStateDelta.Delta.mk O E parent (@ShielddSecurity.TransferStateDelta.empty O E));
+  have interrupted :
+    ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A
+      ShielddSecurity.TransferIndexWriterModel01.IndexError :=
+    @ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E A
+      ShielddSecurity.TransferIndexWriterModel01.IndexError
+      (@ShielddSecurity.TransferDeferredCountWalk01.queueWriter O E A keys convert indexAvailable
+        (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed))
+      Bool.true Bool.true (@Option.some.{0} Nat flushHeight)
+      (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+      (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A committed);
+  And
+    (@Eq.{1} (Except.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item) (extract action context)
+      (@Except.ok.{0, 0} K ShielddSecurity.TransferVerificationEqualitySource01.Item item))
+    (And
+      (@Eq.{1}
+        (Except.{0, 0}
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          Unit)
+        (@ShielddSecurity.TransferRawStateProgram01.Outcome.result O E
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          body)
+        (@Except.ok.{0, 0}
+          (ShielddSecurity.TransferCapabilitySource01.Error K (ShielddSecurity.TransferSctInsertionSource01.Error X))
+          Unit Unit.unit))
+      (And
+        (@Eq.{1} (ShielddSecurity.TransferStateDelta.State O)
+          (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed)
+          (@ShielddSecurity.TransferStateDelta.applyCache O E parent
+            (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+              (ShielddSecurity.TransferCapabilitySource01.Error K
+                (ShielddSecurity.TransferSctInsertionSource01.Error X))
+              body)))
+        (And
+          (@Eq.{1} (List.{0} E) (@ShielddSecurity.TransferStateDelta.Commit.events O E A committed)
+            (@ShielddSecurity.TransferStateDelta.Cache.events O E
+              (@ShielddSecurity.TransferRawStateProgram01.Outcome.cache O E
+                (ShielddSecurity.TransferCapabilitySource01.Error K
+                  (ShielddSecurity.TransferSctInsertionSource01.Error X))
+                body)))
+          (And
+            (@Eq.{1} (List.{0} A) (@ShielddSecurity.TransferStateDelta.Commit.deferred O E A committed)
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} A) (List.{0} A) (List.{0} A)
+                (@instHAppendOfAppend.{0} (List.{0} A) (@List.instAppend.{0} A)) queued
+                (@List.cons.{0} A action (@List.nil.{0} A))))
+            (And
+              (@Exists.{1} ShielddSecurity.TransferIndexWriterModel01.IndexError
+                fun (error : ShielddSecurity.TransferIndexWriterModel01.IndexError) =>
+                @Eq.{1}
+                  (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A
+                    ShielddSecurity.TransferIndexWriterModel01.IndexError)
+                  interrupted
+                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.refused O E A
+                    ShielddSecurity.TransferIndexWriterModel01.IndexError
+                    (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) (@List.nil.{0} A)
+                    (@ShielddSecurity.TransferDeferredQueueSourceModel01.Failure.index
+                      ShielddSecurity.TransferIndexWriterModel01.IndexError error)))
+              (@Eq.{1}
+                (ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome O E A
+                  ShielddSecurity.TransferIndexWriterModel01.IndexError)
+                (@ShielddSecurity.TransferDeferredQueueSourceModel01.flush O E A
+                  ShielddSecurity.TransferIndexWriterModel01.IndexError retryPut Bool.true retryExclusive retryHeight
+                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.parent O E A
+                    ShielddSecurity.TransferIndexWriterModel01.IndexError interrupted)
+                  (@ShielddSecurity.TransferDeferredQueueSourceModel01.Outcome.queued O E A
+                    ShielddSecurity.TransferIndexWriterModel01.IndexError interrupted))
+                (@ShielddSecurity.TransferDeferredQueueSourceModel01.unchanged O E A
+                  ShielddSecurity.TransferIndexWriterModel01.IndexError
+                  (@ShielddSecurity.TransferStateDelta.Commit.parent O E A committed) (@List.nil.{0} A))))))))
+'ShielddSecurity.TransferDeferredBodyFailure01.delivered_body_then_max_count_flush_failure_preserves_delivered_effects_and_empty_retry' depends on axioms: [propext,
+ Quot.sound]
