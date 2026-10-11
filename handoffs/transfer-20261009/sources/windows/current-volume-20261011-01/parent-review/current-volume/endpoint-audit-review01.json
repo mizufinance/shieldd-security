@@ -1,0 +1,262 @@
+{
+  "kind": "Independent complete declaration/ancestor/source/runtime/unchanged guard review; no Lean/native execution",
+  "fresh_modules": 1,
+  "fresh_reports": 9,
+  "full_declarations": [
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.readVolume",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.readVolume : {O E : Type} \u2192\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n    (entryKey : Nat) \u2192 (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192 Option.{0} Bool",
+      "axioms": [],
+      "full_type_sha256": "741e695065f27d26421a04fc72837a30cde7da0c83f56028e22d846f2a0e23f5"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead : {O E X : Type} \u2192\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) \u2192\n    (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n      (entryKey : Nat) \u2192 ShielddSecurity.TransferRawEffectsSource01.Backend O E X",
+      "axioms": [],
+      "full_type_sha256": "982456df251649e55c6df7d5810384b5df06eb4eab380367f841650cb1a59ce8"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.executeOrdinary",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.executeOrdinary : {O E X Tree : Type} \u2192\n  (raw :\n      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n    (manager :\n        ShielddSecurity.TransferNoteManagerSource01.Backend O E\n          (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n        (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n          (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) \u2192\n            (exactMatched : Bool) \u2192\n              (child : ShielddSecurity.TransferStateDelta.Delta O E) \u2192\n                (inputs outputs : List.{0} Nat) \u2192\n                  ShielddSecurity.TransferRawStateProgram01.Outcome O E\n                    (ShielddSecurity.TransferRawEffectsSource01.EffectError\n                      (ShielddSecurity.TransferSctInsertionSource01.Error X))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "bdf22c314e30e4a1990d87e1ee517c107705786f6e2b64ebc2b38a92644b0d29"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.present_entry_reads_spent_when_available",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.present_entry_reads_spent_when_available : \u2200 {O E : Type}\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) (entryKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (readable : @Eq.{1} Bool (available child) Bool.true)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n        entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferCurrentVolumeSource01.readVolume O E available entryKey child)\n    (@Option.some.{0} Bool Bool.true)",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "5d0138dd01a705bae2faaa0fb3a18d60e8b515505119d15196f12ff01f93f4bf"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.volume_tail_existing_entry_refuses",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.volume_tail_existing_entry_refuses : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) (treeKey pendingKey entryKey dayKey : Nat)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n        entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n    (@ShielddSecurity.TransferRawStateProgram01.asCache O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E (ShielddSecurity.TransferSctInsertionSource01.Error X)\n        (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree\n          (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)\n          manager sct treeKey pendingKey)\n        entryKey dayKey Bool.true child))\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Cache O E))",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "03291b4bf251abe5f888d8fedf57a4929c78ec4869eb72ac0888901955772c5c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.existing_current_volume_excludes_success",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.existing_current_volume_excludes_success : \u2200 {O E X Tree : Type}\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) (exactMatched : Bool)\n  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat)\n  (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O\n        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)\n          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))\n        entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))\n    (@ShielddSecurity.TransferRawStateProgram01.asCache O E\n      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))\n      (@ShielddSecurity.TransferCurrentVolumeSource01.executeOrdinary O E X Tree raw manager sct available wordMax\n        capacity treeKey pendingKey nullifierKey entryKey dayKey exactMatched child inputs outputs))\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Cache O E))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "151f829515427a3a3c534d4673be45fe1578ced31d1245af9372244247f8596e"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi : {O E X Tree T : Type} \u2192\n  (api : ShielddSecurity.TransferStateDelta.Api O E T) \u2192\n    (raw :\n        ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n      (manager :\n          ShielddSecurity.TransferNoteManagerSource01.Backend O E\n            (ShielddSecurity.TransferSctInsertionSource01.Error X)) \u2192\n        (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) \u2192\n          (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool) \u2192\n            (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) \u2192\n              (exactMatched : Bool) \u2192 (inputs outputs : List.{0} Nat) \u2192 ShielddSecurity.TransferStateDelta.Api O E T",
+      "axioms": [
+        "propext"
+      ],
+      "full_type_sha256": "3f5ac5428385829fe6d63e43d7b913345dfc5d15cb930bea140686872d9fe8b1"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_rejects_delivery",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_rejects_delivery : \u2200 {O E X Tree T : Type}\n  (api : ShielddSecurity.TransferStateDelta.Api O E T)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat)\n  (exactMatched registryMatches exclusive : Bool) (mode : ShielddSecurity.TransferStateDelta.IndexMode)\n  (transaction : T) (inputs outputs : List.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} T) (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))\n    (@ShielddSecurity.TransferStateDelta.run O E T\n      (@ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi O E X Tree T api raw manager sct available wordMax\n        capacity treeKey pendingKey nullifierKey entryKey dayKey exactMatched inputs outputs)\n      registryMatches exclusive mode transaction parent queued)\n    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "b8dabb7e9101e2a1d9b23acebce5c55778b1ea1e306f3a02fdcaf79a1acf7d6c"
+    },
+    {
+      "declaration": "ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_preserves_parent_and_queue",
+      "full_type": "@ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_preserves_parent_and_queue : \u2200\n  {O E X Tree T : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)\n  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (manager :\n    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))\n  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)\n  (available : ShielddSecurity.TransferStateDelta.Delta O E \u2192 Bool)\n  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat)\n  (exactMatched registryMatches exclusive : Bool) (mode : ShielddSecurity.TransferStateDelta.IndexMode)\n  (transaction : T) (inputs outputs : List.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O)\n  (queued : List.{0} T) (bytes : ShielddSecurity.TransferStateDelta.Bytes)\n  (present :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)\n      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)\n      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),\n  @Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T))\n    (@ShielddSecurity.TransferStateDelta.finish O E T parent queued\n      (@ShielddSecurity.TransferStateDelta.run O E T\n        (@ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi O E X Tree T api raw manager sct available wordMax\n          capacity treeKey pendingKey nullifierKey entryKey dayKey exactMatched inputs outputs)\n        registryMatches exclusive mode transaction parent queued))\n    (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T) parent queued)",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type_sha256": "8ff449c0ac1e23ecf0ad08eda1f3f4bb25ee28ff11022be58f0113b83d0671c9"
+    }
+  ],
+  "inherited_reports": 117,
+  "custom_imports": [
+    {
+      "copy": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "module": "TransferStateDelta",
+      "object": {
+        "bytes": 635520,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.olean",
+        "sha256": "ea63d8c86f4767241c76690429f5569cf7ec993dce6eea075b896d2f859b1298"
+      },
+      "source": {
+        "bytes": 12092,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-implementation-20261002\\state-delta-kernel-3020\\project\\ShielddSecurity\\TransferStateDelta.lean",
+        "sha256": "8f618a379a625f4cf3a8d0d016ef25ccc63d4e9416a618e508412b1861262997"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "module": "TransferRawStateProgram01",
+      "object": {
+        "bytes": 243840,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.olean",
+        "sha256": "c978666b8fa5aeceedf7b9625945e677249eb6a507315bb91fabbe92d421db62"
+      },
+      "source": {
+        "bytes": 7590,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-state-program-20261011-02\\project\\ShielddSecurity\\TransferRawStateProgram01.lean",
+        "sha256": "4d8308ab1a56d87c50c2178554f7a6415bfaef86321c2c9cbd7695441a9e6c5d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "module": "TransferNullifierReaderVector01",
+      "object": {
+        "bytes": 295496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.olean",
+        "sha256": "be3c863b1a2feb68bb9c61a14784be8b3eb60f8b742b6a2cb9b77cfdc058522a"
+      },
+      "source": {
+        "bytes": 7849,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-reader-vector-20261011-03\\project\\ShielddSecurity\\TransferNullifierReaderVector01.lean",
+        "sha256": "a752fcc055e629ae4ed5dc9e24ce62701841ef896be6b0804fc8cf6fb1e2381d"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "module": "TransferNullifierBatchSource01",
+      "object": {
+        "bytes": 473496,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.olean",
+        "sha256": "275e9e386ddf26c1288971ac8e58ae7e0d4b1feffd9044a74384defa9d35d002"
+      },
+      "source": {
+        "bytes": 11602,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-nullifier-batch-source-20261011-02\\project\\ShielddSecurity\\TransferNullifierBatchSource01.lean",
+        "sha256": "63c7a8f10bbb0fa18b00d34ee28bea6a4a55ee33005c8793ed84b2243dc09c45"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "module": "TransferRawEffectsSource01",
+      "object": {
+        "bytes": 629848,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.olean",
+        "sha256": "9ad9335b695155cc0ca594a06f830543216db131ea93fdd40898684e89a1c675"
+      },
+      "source": {
+        "bytes": 17147,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-effects-source-20261011-04\\project\\ShielddSecurity\\TransferRawEffectsSource01.lean",
+        "sha256": "51b2896d6e50f8be12f313f9b9af32d26a622e3d5104dfc8f648c80bdd7b0d5b"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "module": "TransferNoteManagerSource01",
+      "object": {
+        "bytes": 301416,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.olean",
+        "sha256": "15edcb61e613b8e84c614af7f55df3182f7093726e5c6ac9b08cfce6e98c7cf3"
+      },
+      "source": {
+        "bytes": 10730,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-note-manager-source-20261011-03\\project\\ShielddSecurity\\TransferNoteManagerSource01.lean",
+        "sha256": "d3adbf62d2bab0f677dfd787edbb73348322b14ec61ec0c928879219309612c7"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "module": "TransferSctInsertionSource01",
+      "object": {
+        "bytes": 387896,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.olean",
+        "sha256": "6deb08ec2bd7c010ef945da965f6bd8ff04f49cd3f2d76b6cf791387ada1cbc7"
+      },
+      "source": {
+        "bytes": 10646,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-sct-insertion-source-20261011-01\\project\\ShielddSecurity\\TransferSctInsertionSource01.lean",
+        "sha256": "e7e3bf0c5e55769c0d588845569ee7046186c05299faa7f33762ca866e917cc2"
+      }
+    },
+    {
+      "copy": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-owned-floor-20261011-02\\modules\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "module": "TransferRawSourceFrames01",
+      "object": {
+        "bytes": 287000,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.olean",
+        "sha256": "b3afee89d8a532026371f2582e25153bd39fa8356806c1867b48f3f092368c0c"
+      },
+      "source": {
+        "bytes": 11860,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-raw-source-frames-20261011-02\\project\\ShielddSecurity\\TransferRawSourceFrames01.lean",
+        "sha256": "21731b18836c7dd6345d22650110e9c790dadc50ccb8c4f74208bbb1275a897b"
+      }
+    }
+  ],
+  "manifest_entries": 28,
+  "generated_equality_instance_audited": false,
+  "guard_unchanged": true,
+  "rejected": {
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.256830499973148,
+      "status": "failed"
+    },
+    "all_predecessor_contracts_and_program_definitions_unchanged": true,
+    "new_helper_lemma": "volume_tail_existing_entry_refuses",
+    "exact_delta": "--- \n+++ \n@@ -41,6 +41,30 @@\n     readVolume available entryKey child = some true := by\n   simp [readVolume, readable, present]\n \n+theorem volume_tail_existing_entry_refuses {O E X Tree : Type}\n+    (raw : TransferRawEffectsSource01.Backend O E (TransferSctInsertionSource01.Error X))\n+    (manager : TransferNoteManagerSource01.Backend O E (TransferSctInsertionSource01.Error X))\n+    (sct : TransferSctInsertionSource01.Backend O E X Tree) (available : Delta O E \u2192 Bool)\n+    (treeKey pendingKey entryKey dayKey : Nat) (child : Delta O E) (bytes : Bytes)\n+    (present : (applyCache child.parent child.cache).verifiable entryKey = some bytes) :\n+    asCache (TransferRawEffectsSource01.volumeTail\n+      (TransferRawSourceFrames01.installNotes (withVolumeRead raw available entryKey) manager sct treeKey pendingKey)\n+      entryKey dayKey true child) = none := by\n+  cases source : raw.currentSource child with\n+  | none =>\n+    simp [TransferRawEffectsSource01.volumeTail, TransferRawSourceFrames01.installNotes,\n+      TransferNoteManagerSource01.installNotes, withVolumeRead, source, asCache]\n+  | some sourceHasId =>\n+    cases readable : available child with\n+    | false =>\n+      simp [TransferRawEffectsSource01.volumeTail, TransferRawSourceFrames01.installNotes,\n+        TransferNoteManagerSource01.installNotes, withVolumeRead, source,\n+        TransferRawEffectsSource01.recordVolume, readVolume, readable, next, asCache]\n+    | true =>\n+      simp [TransferRawEffectsSource01.volumeTail, TransferRawSourceFrames01.installNotes,\n+        TransferNoteManagerSource01.installNotes, withVolumeRead, source,\n+        TransferRawEffectsSource01.recordVolume, readVolume, readable, present, next, asCache]\n+\n theorem existing_current_volume_excludes_success {O E X Tree : Type}\n     (raw : TransferRawEffectsSource01.Backend O E (TransferSctInsertionSource01.Error X))\n     (manager : TransferNoteManagerSource01.Backend O E (TransferSctInsertionSource01.Error X))\n@@ -68,27 +92,11 @@\n         change overlay child.parent.verifiable _ entryKey = some bytes\n         rw [frames.1]\n         exact present\n-      cases source : raw.currentSource {child with cache := (TransferRawEffectsSource01.reshape\n+      simp only [executeOrdinary, TransferRawEffectsSource01.executeTransfer, \u2193reduceIte, result, next]\n+      exact volume_tail_existing_entry_refuses raw manager sct available treeKey pendingKey entryKey dayKey\n+        {child with cache := (TransferRawEffectsSource01.reshape\n           (TransferRawSourceFrames01.installNotes (withVolumeRead raw available entryKey) manager sct treeKey pendingKey)\n-          wordMax capacity nullifierKey child inputs outputs).cache} with\n-      | none =>\n-        simp [executeOrdinary, TransferRawEffectsSource01.executeTransfer, result, next,\n-          TransferRawEffectsSource01.volumeTail, TransferRawSourceFrames01.installNotes,\n-          TransferNoteManagerSource01.installNotes, withVolumeRead, source, asCache]\n-      | some sourceHasId =>\n-        cases readable : available {child with cache := (TransferRawEffectsSource01.reshape\n-            (TransferRawSourceFrames01.installNotes (withVolumeRead raw available entryKey) manager sct treeKey pendingKey)\n-            wordMax capacity nullifierKey child inputs outputs).cache} with\n-        | false =>\n-          simp [executeOrdinary, TransferRawEffectsSource01.executeTransfer, result, next,\n-            TransferRawEffectsSource01.volumeTail, TransferRawSourceFrames01.installNotes,\n-            TransferNoteManagerSource01.installNotes, withVolumeRead, source,\n-            TransferRawEffectsSource01.recordVolume, readVolume, readable, asCache]\n-        | true =>\n-          simp [executeOrdinary, TransferRawEffectsSource01.executeTransfer, result, next,\n-            TransferRawEffectsSource01.volumeTail, TransferRawSourceFrames01.installNotes,\n-            TransferNoteManagerSource01.installNotes, withVolumeRead, source,\n-            TransferRawEffectsSource01.recordVolume, readVolume, readable, currentPresent, asCache]\n+          wordMax capacity nullifierKey child inputs outputs).cache} bytes currentPresent\n \n def deliveryApi {O E X Tree T : Type} (api : Api O E T)\n     (raw : TransferRawEffectsSource01.Backend O E (TransferSctInsertionSource01.Error X))\n@@ -135,6 +143,7 @@\n     (existing_parent_volume_rejects_delivery api raw manager sct available wordMax capacity treeKey pendingKey\n       nullifierKey entryKey dayKey exactMatched registryMatches exclusive mode transaction inputs outputs parent queued bytes present)\n \n+\n set_option pp.all true in\n #check @readVolume\n #print axioms readVolume\n@@ -147,6 +156,9 @@\n set_option pp.all true in\n #check @present_entry_reads_spent_when_available\n #print axioms present_entry_reads_spent_when_available\n+set_option pp.all true in\n+#check @volume_tail_existing_entry_refuses\n+#print axioms volume_tail_existing_entry_refuses\n set_option pp.all true in\n #check @existing_current_volume_excludes_success\n #print axioms existing_current_volume_excludes_success\n",
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:74:13: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:82:16: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:87:15: error: unsolved goals",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:75:75: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:77:68: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:83:77: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:85:70: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:86:65: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:88:77: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:90:70: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:91:65: warning: This simp argument is unused:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-current-volume-source-20261011-01\\project\\ShielddSecurity\\TransferCurrentVolumeSource01.lean:91:75: warning: This simp argument is unused:"
+    ]
+  },
+  "interfaces": [
+    "Actual volume get_raw and day/nullifier key projection correspond to current functional parent/child verifiable overlay; read availability/error remains an explicit store interface",
+    "Any present byte value is spent, matching is_some; no marker-value correctness premise or absent-versus-read-error conflation",
+    "Installed note/SCT model uses successfully loaded immutable trees; actual getter panic, Clone/COW, local tree semantics, pending codecs and reader interfaces remain inherited",
+    "Same decoded action/context/verified-token and public-item semantic projection provenance remain upstream",
+    "Returned-result raw/delivery refusal is scoped to the functional source program; native Host panic/retry and participating-store durability remain separate",
+    "No hash injectivity, compiler-error negative-control credit, atomic evidence refresh or full Transfer certificate follows"
+  ],
+  "scope": "Functional current-overlay volume existence check and source-derived Ordinary refusal. Existing child-overlay value cannot disappear through modeled note reshape V/NV framing. Whole Ordinary raw execution returns no successful cache regardless of reshape outcome, source availability or read availability; enclosing delivery rejects an existing parent entry and preserves original parent/queue. No successful reshape, desired current spent flag or desired rollback premise. Native Rust/store/key/clone/tree correspondence and full Transfer remain open. All four executable definitions and original refusal contracts are unchanged from the rejected attempt; the successor adds a small volume-tail lemma and stages rewrite observations before unfolding callback aliases. No successful reshape, desired read flag or rollback cache is a premise. Read errors remain distinct from absence and any present bytes imply spent. Original failed Lean and pre-admission invalid CLI receive zero credit.",
+  "full_transfer": "OPEN"
+}

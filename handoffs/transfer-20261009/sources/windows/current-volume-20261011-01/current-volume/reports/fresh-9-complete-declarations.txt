@@ -1,0 +1,147 @@
+@ShielddSecurity.TransferCurrentVolumeSource01.readVolume : {O E : Type} →
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool) →
+    (entryKey : Nat) → (child : ShielddSecurity.TransferStateDelta.Delta O E) → Option.{0} Bool
+'ShielddSecurity.TransferCurrentVolumeSource01.readVolume' does not depend on any axioms
+@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead : {O E X : Type} →
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E X) →
+    (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool) →
+      (entryKey : Nat) → ShielddSecurity.TransferRawEffectsSource01.Backend O E X
+'ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead' does not depend on any axioms
+@ShielddSecurity.TransferCurrentVolumeSource01.executeOrdinary : {O E X Tree : Type} →
+  (raw :
+      ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+    (manager :
+        ShielddSecurity.TransferNoteManagerSource01.Backend O E
+          (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+      (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) →
+        (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool) →
+          (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) →
+            (exactMatched : Bool) →
+              (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+                (inputs outputs : List.{0} Nat) →
+                  ShielddSecurity.TransferRawStateProgram01.Outcome O E
+                    (ShielddSecurity.TransferRawEffectsSource01.EffectError
+                      (ShielddSecurity.TransferSctInsertionSource01.Error X))
+'ShielddSecurity.TransferCurrentVolumeSource01.executeOrdinary' depends on axioms: [propext]
+@ShielddSecurity.TransferCurrentVolumeSource01.present_entry_reads_spent_when_available : ∀ {O E : Type}
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool) (entryKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (readable : @Eq.{1} Bool (available child) Bool.true)
+  (present :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        entryKey)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  @Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferCurrentVolumeSource01.readVolume O E available entryKey child)
+    (@Option.some.{0} Bool Bool.true)
+'ShielddSecurity.TransferCurrentVolumeSource01.present_entry_reads_spent_when_available' depends on axioms: [propext]
+@ShielddSecurity.TransferCurrentVolumeSource01.volume_tail_existing_entry_refuses : ∀ {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool) (treeKey pendingKey entryKey dayKey : Nat)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (present :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        entryKey)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))
+    (@ShielddSecurity.TransferRawStateProgram01.asCache O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+      (@ShielddSecurity.TransferRawEffectsSource01.volumeTail O E (ShielddSecurity.TransferSctInsertionSource01.Error X)
+        (@ShielddSecurity.TransferRawSourceFrames01.installNotes O E X Tree
+          (@ShielddSecurity.TransferCurrentVolumeSource01.withVolumeRead O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X) raw available entryKey)
+          manager sct treeKey pendingKey)
+        entryKey dayKey Bool.true child))
+    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Cache O E))
+'ShielddSecurity.TransferCurrentVolumeSource01.volume_tail_existing_entry_refuses' depends on axioms: [propext]
+@ShielddSecurity.TransferCurrentVolumeSource01.existing_current_volume_excludes_success : ∀ {O E X Tree : Type}
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) (exactMatched : Bool)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) (inputs outputs : List.{0} Nat)
+  (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (present :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O
+        (@ShielddSecurity.TransferStateDelta.applyCache O E (@ShielddSecurity.TransferStateDelta.Delta.parent O E child)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache O E child))
+        entryKey)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Cache O E))
+    (@ShielddSecurity.TransferRawStateProgram01.asCache O E
+      (ShielddSecurity.TransferRawEffectsSource01.EffectError (ShielddSecurity.TransferSctInsertionSource01.Error X))
+      (@ShielddSecurity.TransferCurrentVolumeSource01.executeOrdinary O E X Tree raw manager sct available wordMax
+        capacity treeKey pendingKey nullifierKey entryKey dayKey exactMatched child inputs outputs))
+    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Cache O E))
+'ShielddSecurity.TransferCurrentVolumeSource01.existing_current_volume_excludes_success' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi : {O E X Tree T : Type} →
+  (api : ShielddSecurity.TransferStateDelta.Api O E T) →
+    (raw :
+        ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+      (manager :
+          ShielddSecurity.TransferNoteManagerSource01.Backend O E
+            (ShielddSecurity.TransferSctInsertionSource01.Error X)) →
+        (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree) →
+          (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool) →
+            (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat) →
+              (exactMatched : Bool) → (inputs outputs : List.{0} Nat) → ShielddSecurity.TransferStateDelta.Api O E T
+'ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi' depends on axioms: [propext]
+@ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_rejects_delivery : ∀ {O E X Tree T : Type}
+  (api : ShielddSecurity.TransferStateDelta.Api O E T)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat)
+  (exactMatched registryMatches exclusive : Bool) (mode : ShielddSecurity.TransferStateDelta.IndexMode)
+  (transaction : T) (inputs outputs : List.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} T) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (present :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))
+    (@ShielddSecurity.TransferStateDelta.run O E T
+      (@ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi O E X Tree T api raw manager sct available wordMax
+        capacity treeKey pendingKey nullifierKey entryKey dayKey exactMatched inputs outputs)
+      registryMatches exclusive mode transaction parent queued)
+    (@Option.none.{0} (ShielddSecurity.TransferStateDelta.Commit O E T))
+'ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_rejects_delivery' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_preserves_parent_and_queue : ∀
+  {O E X Tree T : Type} (api : ShielddSecurity.TransferStateDelta.Api O E T)
+  (raw : ShielddSecurity.TransferRawEffectsSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (manager :
+    ShielddSecurity.TransferNoteManagerSource01.Backend O E (ShielddSecurity.TransferSctInsertionSource01.Error X))
+  (sct : ShielddSecurity.TransferSctInsertionSource01.Backend O E X Tree)
+  (available : ShielddSecurity.TransferStateDelta.Delta O E → Bool)
+  (wordMax capacity treeKey pendingKey nullifierKey entryKey dayKey : Nat)
+  (exactMatched registryMatches exclusive : Bool) (mode : ShielddSecurity.TransferStateDelta.IndexMode)
+  (transaction : T) (inputs outputs : List.{0} Nat) (parent : ShielddSecurity.TransferStateDelta.State O)
+  (queued : List.{0} T) (bytes : ShielddSecurity.TransferStateDelta.Bytes)
+  (present :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferStateDelta.Bytes)
+      (@ShielddSecurity.TransferStateDelta.State.verifiable O parent entryKey)
+      (@Option.some.{0} ShielddSecurity.TransferStateDelta.Bytes bytes)),
+  @Eq.{1} (Prod.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T))
+    (@ShielddSecurity.TransferStateDelta.finish O E T parent queued
+      (@ShielddSecurity.TransferStateDelta.run O E T
+        (@ShielddSecurity.TransferCurrentVolumeSource01.deliveryApi O E X Tree T api raw manager sct available wordMax
+          capacity treeKey pendingKey nullifierKey entryKey dayKey exactMatched inputs outputs)
+        registryMatches exclusive mode transaction parent queued))
+    (@Prod.mk.{0, 0} (ShielddSecurity.TransferStateDelta.State O) (List.{0} T) parent queued)
+'ShielddSecurity.TransferCurrentVolumeSource01.existing_parent_volume_preserves_parent_and_queue' depends on axioms: [propext,
+ Quot.sound]
