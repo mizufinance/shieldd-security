@@ -1,0 +1,649 @@
+ShielddSecurity.TransferFixedFinalizerPublication01.FinalizationWrites : (O E A : Type) → Type
+'ShielddSecurity.TransferFixedFinalizerPublication01.FinalizationWrites' does not depend on any axioms
+@ShielddSecurity.TransferFixedFinalizerPublication01.fixedMutations : {O : Type} →
+  (nativeTreeObject : O) →
+    List.{0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+'ShielddSecurity.TransferFixedFinalizerPublication01.fixedMutations' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferFixedFinalizerPublication01.toEffects : {O E A : Type} →
+  (writes : ShielddSecurity.TransferFixedFinalizerPublication01.FinalizationWrites O E A) →
+    ShielddSecurity.TransferKnownFinalizerPublication01.Effects
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+'ShielddSecurity.TransferFixedFinalizerPublication01.toEffects' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo : {O E A : Type} →
+  (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O) →
+    (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending) →
+      (writesOf :
+          Fin
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))) →
+            ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) →
+              List.{0} A → ShielddSecurity.TransferFixedFinalizerPublication01.FinalizationWrites O E A) →
+        (baseIo :
+            ShielddSecurity.TransferEndToEnd01.Io (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A) →
+          ShielddSecurity.TransferEndToEnd01.Io (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+'ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferFixedFinalizerPublication01.fixed_mutation_recipe_has_exact_source_key_order : ∀ {O : Type}
+  (tree : O),
+  @Eq.{1} (List.{0} ShielddSecurity.TransferStateDelta.Bytes)
+    (@List.map.{0, 0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      ShielddSecurity.TransferStateDelta.Bytes
+      (fun
+          (mutation :
+            ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)) =>
+        @ShielddSecurity.TransferFinalizationObjectFrames01.Mutation.key
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) mutation)
+      (@ShielddSecurity.TransferFixedFinalizerPublication01.fixedMutations O tree))
+    (@List.cons.{0} (List.{0} Nat)
+      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 104) (instOfNatNat (nat_lit 104)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 98) (instOfNatNat (nat_lit 98)))
+                            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108)))
+                              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 107) (instOfNatNat (nat_lit 107)))
+                                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                                      (@List.cons.{0} Nat
+                                        (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                                        (@List.cons.{0} Nat
+                                          (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                                          (@List.cons.{0} Nat
+                                            (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                                            (@List.cons.{0} Nat
+                                              (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                                              (@List.cons.{0} Nat
+                                                (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114)))
+                                                (@List.cons.{0} Nat
+                                                  (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                                                  (@List.cons.{0} Nat
+                                                    (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                                                    (@List.cons.{0} Nat
+                                                      (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108)))
+                                                      (@List.cons.{0} Nat
+                                                        (@OfNat.ofNat.{0} Nat (nat_lit 105)
+                                                          (instOfNatNat (nat_lit 105)))
+                                                        (@List.cons.{0} Nat
+                                                          (@OfNat.ofNat.{0} Nat (nat_lit 122)
+                                                            (instOfNatNat (nat_lit 122)))
+                                                          (@List.cons.{0} Nat
+                                                            (@OfNat.ofNat.{0} Nat (nat_lit 97)
+                                                              (instOfNatNat (nat_lit 97)))
+                                                            (@List.cons.{0} Nat
+                                                              (@OfNat.ofNat.{0} Nat (nat_lit 116)
+                                                                (instOfNatNat (nat_lit 116)))
+                                                              (@List.cons.{0} Nat
+                                                                (@OfNat.ofNat.{0} Nat (nat_lit 105)
+                                                                  (instOfNatNat (nat_lit 105)))
+                                                                (@List.cons.{0} Nat
+                                                                  (@OfNat.ofNat.{0} Nat (nat_lit 111)
+                                                                    (instOfNatNat (nat_lit 111)))
+                                                                  (@List.cons.{0} Nat
+                                                                    (@OfNat.ofNat.{0} Nat (nat_lit 110)
+                                                                      (instOfNatNat (nat_lit 110)))
+                                                                    (@List.nil.{0} Nat))))))))))))))))))))))))))))))))
+      (@List.cons.{0} (List.{0} Nat)
+        (have y : List.{0} Nat :=
+          have y : List.{0} Nat :=
+            have y : List.{0} Nat :=
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                        (@List.nil.{0} Nat)))));
+            @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116))) y))));
+          have y : List.{0} Nat :=
+            @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105))) y))));
+          @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95))) y)));
+        have y : List.{0} Nat :=
+          have y : List.{0} Nat :=
+            @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 100) (instOfNatNat (nat_lit 100)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116))) y))));
+          @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 104) (instOfNatNat (nat_lit 104))) y))));
+        have y : List.{0} Nat :=
+          @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 104) (instOfNatNat (nat_lit 104)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101))) y))));
+        @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47))) y))))
+        (@List.cons.{0} (List.{0} Nat)
+          (have y : List.{0} Nat :=
+            have y : List.{0} Nat :=
+              have y : List.{0} Nat :=
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                          (@List.nil.{0} Nat)))));
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99))) y)));
+            have y : List.{0} Nat :=
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 117) (instOfNatNat (nat_lit 117)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110))) y))));
+            @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114))) y)));
+          have y : List.{0} Nat :=
+            have y : List.{0} Nat :=
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 100) (instOfNatNat (nat_lit 100)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105))) y))));
+            @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 107) (instOfNatNat (nat_lit 107)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47))) y)));
+          have y : List.{0} Nat :=
+            @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 98) (instOfNatNat (nat_lit 98)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108))) y))));
+          @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112))) y))))
+          (@List.cons.{0} (List.{0} Nat)
+            (have y : List.{0} Nat :=
+              have y : List.{0} Nat :=
+                have y : List.{0} Nat :=
+                  @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                            (@List.nil.{0} Nat)))));
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97))) y))));
+              have y : List.{0} Nat :=
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103))) y))));
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 117) (instOfNatNat (nat_lit 117)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101))) y)));
+            have y : List.{0} Nat :=
+              have y : List.{0} Nat :=
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 100) (instOfNatNat (nat_lit 100)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103))) y))));
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101))) y)));
+            have y : List.{0} Nat :=
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99))) y))));
+            @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112))) y))))
+            (@List.cons.{0} (List.{0} Nat)
+              (have y : List.{0} Nat :=
+                have y : List.{0} Nat :=
+                  have y : List.{0} Nat :=
+                    @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                              (@List.nil.{0} Nat)))));
+                  @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 117) (instOfNatNat (nat_lit 117)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 104) (instOfNatNat (nat_lit 104))) y))));
+                have y : List.{0} Nat :=
+                  @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116))) y))));
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 117) (instOfNatNat (nat_lit 117)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114))) y)));
+              have y : List.{0} Nat :=
+                have y : List.{0} Nat :=
+                  @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 100) (instOfNatNat (nat_lit 100)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95))) y))));
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110))) y))));
+              have y : List.{0} Nat :=
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99))) y))));
+              @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112))) y))))
+              (@List.cons.{0} (List.{0} Nat)
+                (have y : List.{0} Nat :=
+                  have y : List.{0} Nat :=
+                    have y : List.{0} Nat :=
+                      @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                              (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                                (@List.nil.{0} Nat)))));
+                    @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114)))
+                            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97))) y))));
+                  have y : List.{0} Nat :=
+                    @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 114) (instOfNatNat (nat_lit 114)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103))) y))));
+                  @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 115) (instOfNatNat (nat_lit 115)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101))) y)));
+                have y : List.{0} Nat :=
+                  have y : List.{0} Nat :=
+                    @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 100) (instOfNatNat (nat_lit 100)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 103) (instOfNatNat (nat_lit 103)))
+                            (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 95) (instOfNatNat (nat_lit 95))) y))));
+                  @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 101) (instOfNatNat (nat_lit 101)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110))) y))));
+                have y : List.{0} Nat :=
+                  @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 105) (instOfNatNat (nat_lit 105)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 97) (instOfNatNat (nat_lit 97)))
+                        (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 110) (instOfNatNat (nat_lit 110)))
+                          (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99))) y))));
+                @List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 99) (instOfNatNat (nat_lit 99)))
+                  (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 111) (instOfNatNat (nat_lit 111)))
+                    (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 109) (instOfNatNat (nat_lit 109)))
+                      (@List.cons.{0} Nat (@OfNat.ofNat.{0} Nat (nat_lit 112) (instOfNatNat (nat_lit 112))) y))))
+                (@List.nil.{0} (List.{0} Nat))))))))
+'ShielddSecurity.TransferFixedFinalizerPublication01.fixed_mutation_recipe_has_exact_source_key_order' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferFixedFinalizerPublication01.fixed_mutation_recipe_has_six_operations : ∀ {O : Type} (tree : O),
+  @Eq.{1} Nat
+    (@List.length.{0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (@ShielddSecurity.TransferFixedFinalizerPublication01.fixedMutations O tree))
+    (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))
+'ShielddSecurity.TransferFixedFinalizerPublication01.fixed_mutation_recipe_has_six_operations' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferFixedFinalizerPublication01.fixed_mutation_recipe_has_exact_put_and_deletion_tombstone_order : ∀
+  {O : Type} (tree : O),
+  @Eq.{1} (List.{0} Bool)
+    (@List.map.{0, 0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      Bool
+      (fun
+          (mutation :
+            ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)) =>
+        @Option.isSome.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferFinalizationObjectFrames01.Mutation.value
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) mutation))
+      (@ShielddSecurity.TransferFixedFinalizerPublication01.fixedMutations O tree))
+    (@List.cons.{0} Bool Bool.false
+      (@List.cons.{0} Bool Bool.true
+        (@List.cons.{0} Bool Bool.false
+          (@List.cons.{0} Bool Bool.false
+            (@List.cons.{0} Bool Bool.false (@List.cons.{0} Bool Bool.false (@List.nil.{0} Bool)))))))
+'ShielddSecurity.TransferFixedFinalizerPublication01.fixed_mutation_recipe_has_exact_put_and_deletion_tombstone_order' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferFixedFinalizerPublication01.fixed_known_source_finalization_publishes_exact_global_mathematical_input_vector : ∀
+  {O E K X Tree A I : Type} (encodeNative : ShielddSecurity.TransferPendingFiniteCodec01.NativePending → O)
+  (decodeNative : O → ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+  (supportedRoundtrip :
+    ∀ (native : ShielddSecurity.TransferPendingFiniteCodec01.NativePending),
+      @Eq.{1} Bool (ShielddSecurity.TransferBoundedNativeCodec01.nativeSupported native) Bool.true →
+        @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore (decodeNative (encodeNative native)))
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore native))
+  (inputs : A → List.{0} I)
+  (wordOf : I → Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (sourceRequests :
+    List.{0}
+      (ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs))
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+  (queued : List.{0} A)
+  (final :
+    Prod.{0, 0}
+      (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (List.{0} A))
+  (storedNativeDefault :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (@ShielddSecurity.TransferStateDelta.State.objects (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        parent
+        (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+          (encodeNative
+            (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat)
+              (@List.nil.{0} Nat))))))
+  (walkedNative :
+    @Eq.{1}
+      (Option.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A)))
+      (@ShielddSecurity.TransferBlockPendingSequence01.walk
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+        (@ShielddSecurity.TransferNativeReachableErasure01.nativeOnlyEncode O encodeNative)
+        (@ShielddSecurity.TransferPendingFiniteCodec01.decode
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+          (@ShielddSecurity.TransferBoundedNativeCodec01.decodeObject O decodeNative))
+        ShielddSecurity.TransferInjectiveKeyPublication01.keyCode parent queued
+        (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf sourceRequests))
+      (@Option.some.{0}
+        (Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+          (List.{0} A))
+        final))
+  (writesOf :
+    Fin
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))) →
+      ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) →
+        List.{0} A → ShielddSecurity.TransferFixedFinalizerPublication01.FinalizationWrites O E A)
+  (baseIo : ShielddSecurity.TransferEndToEnd01.Io (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A)
+  (host :
+    ShielddSecurity.TransferHostSealedCommit01.Host (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (root : Nat)
+  (currentState :
+    @Eq.{1} (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      (@ShielddSecurity.TransferHostSealedCommit01.Host.active
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) host)
+      (@Prod.fst.{0, 0}
+        (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+        (List.{0} A) final))
+  (typedGetter :
+    @Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+      (@ShielddSecurity.TransferHostEndBlock01.Io.decodePending
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+        (@ShielddSecurity.TransferEndToEnd01.Io.ending (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E
+          A
+          (@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo O E A encodeNative decodeNative writesOf
+            baseIo))
+        (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+          (encodeNative
+            (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+              (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf
+                  sourceRequests))))))
+      (ShielddSecurity.TransferPendingFiniteCodec01.restore
+        (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+          (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+            (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf
+              sourceRequests)))))
+  (success :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferEndToEnd01.Outcome.root (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+        A
+        (@ShielddSecurity.TransferEndToEnd01.execute (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+          (@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo O E A encodeNative decodeNative writesOf
+            baseIo)
+          host height
+          (@Prod.snd.{0, 0}
+            (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+            (List.{0} A) final)))
+      (@Option.some.{0} Nat root)),
+  And
+    (@Eq.{1} (List.{0} Nat)
+      (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+        (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf sourceRequests))
+      (@List.map.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (@List.flatMap.{0, 0}
+          (ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs)
+          (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (fun
+              (request :
+                ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs) =>
+            @ShielddSecurity.TransferSourceTypedInputProjection01.typedWords I A inputs wordOf
+              (@ShielddSecurity.TransferBlockPendingSequence01.Request.action
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                (@ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest.base
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs request)))
+          sourceRequests)))
+    (@Exists.{1}
+      (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+      fun
+        (state :
+          ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)) =>
+      And
+        (@Eq.{1}
+          (Option.{0}
+            (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)))
+          (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+            (@ShielddSecurity.TransferHostEndBlock01.transferred
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+              (@ShielddSecurity.TransferEndToEnd01.Io.ending
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+                (@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo O E A encodeNative decodeNative
+                  writesOf baseIo))
+              host height
+              (@Prod.snd.{0, 0}
+                (ShielddSecurity.TransferStateDelta.State
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                (List.{0} A) final)))
+          (@Option.some.{0}
+            (ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+            state))
+        (And
+          (@Eq.{1} (Option.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+            (@ShielddSecurity.TransferStateDelta.State.objects
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) state
+              (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+            (@Option.some.{0} (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+              (@Sum.inl.{0, 0} O ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+                (encodeNative
+                  (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+                    (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                      (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf
+                        sourceRequests)))))))
+          (And
+            (@List.Nodup.{0} Nat
+              (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf
+                  sourceRequests)))
+            (And
+              (@LE.le.{0} Nat instLENat
+                (@List.length.{0} Nat
+                  (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                    (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf
+                      sourceRequests)))
+                ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+              (And
+                (∀ (key : Nat),
+                  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+                      (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                        (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf
+                          sourceRequests))
+                      key →
+                    @LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+                  fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+                  And
+                    (@Eq.{1} (List.{0} Nat)
+                      (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+                        (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+                      (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A
+                        (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E K X Tree A I inputs wordOf
+                          sourceRequests)))
+                    (And
+                      (@Eq.{1} (Option.{0} Nat)
+                        (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot
+                          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+                        (@Option.some.{0} Nat root))
+                      (And
+                        (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                          (@ShielddSecurity.TransferHostSealedCommit01.Host.writer
+                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                            (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                              (@ShielddSecurity.TransferEndToEnd01.execute
+                                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+                                (@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo O E A encodeNative
+                                  decodeNative writesOf baseIo)
+                                host height
+                                (@Prod.snd.{0, 0}
+                                  (ShielddSecurity.TransferStateDelta.State
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                  (List.{0} A) final))))
+                          (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+                            (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+                        (And
+                          (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+                            (@ShielddSecurity.TransferHostSealedCommit01.Host.phase
+                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                              (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                                (@ShielddSecurity.TransferEndToEnd01.execute
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+                                  (@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo O E A
+                                    encodeNative decodeNative writesOf baseIo)
+                                  host height
+                                  (@Prod.snd.{0, 0}
+                                    (ShielddSecurity.TransferStateDelta.State
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                    (List.{0} A) final))))
+                            ShielddSecurity.TransferHostSealedCommit01.HostPhase.idle)
+                          (And
+                            (@Eq.{1} (List.{0} Nat)
+                              (ShielddSecurity.TransferReadback.Store.actualRoots
+                                (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                  (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                                    (@ShielddSecurity.TransferEndToEnd01.execute
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+                                      (@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo O E A
+                                        encodeNative decodeNative writesOf baseIo)
+                                      host height
+                                      (@Prod.snd.{0, 0}
+                                        (ShielddSecurity.TransferStateDelta.State
+                                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                        (List.{0} A) final)))))
+                              (ShielddSecurity.TransferReadback.Boundary.roots
+                                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                            (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                              (ShielddSecurity.TransferReadback.Store.boundary
+                                (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O)
+                                  (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) A
+                                    (@ShielddSecurity.TransferEndToEnd01.execute
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O) E A
+                                      (@ShielddSecurity.TransferFixedFinalizerPublication01.installFixedIo O E A
+                                        encodeNative decodeNative writesOf baseIo)
+                                      host height
+                                      (@Prod.snd.{0, 0}
+                                        (ShielddSecurity.TransferStateDelta.State
+                                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject O))
+                                        (List.{0} A) final)))))
+                              (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))))))))))))
+'ShielddSecurity.TransferFixedFinalizerPublication01.fixed_known_source_finalization_publishes_exact_global_mathematical_input_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
