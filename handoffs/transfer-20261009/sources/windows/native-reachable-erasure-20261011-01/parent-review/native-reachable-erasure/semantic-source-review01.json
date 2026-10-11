@@ -1,0 +1,63 @@
+{
+  "status": "PASSED",
+  "kind": "Independent whole source and precise two-failure/helper repair review; no verifier launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-reachable-erasure-review01/packet01/source/ShielddSecurity/TransferNativeReachableErasure01.lean",
+    "bytes": 10052,
+    "sha256": "0987c0ff9b51443df86694b2283245470dabd59fcb08b2dadd3754e2f951a658"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-reachable-erasure-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 4705,
+    "sha256": "b259eee616a901349f7aefeee7d9a5897ea9c3cae7a854cab27f814612bf679c"
+  },
+  "fresh_reports": 4,
+  "new_helper": "option_bind_equality_from_actual_returned_values",
+  "two_original_contracts_unchanged": true,
+  "source_replay_exact": true,
+  "rejected": [
+    {
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-reachable-erasure-review01/packet01/rejected/source01/handwritten/TransferNativeReachableErasure01.lean",
+        "bytes": 8843,
+        "sha256": "3b1f51f633e4030997a7fa905871d60df5605aa836b52c5d16feaac2177d0f26"
+      },
+      "whole_attempt": {
+        "reason": "Lean exit 1",
+        "seconds": 60.731328599969856,
+        "status": "failed"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-reachable-erasure-20261011-01\\project\\ShielddSecurity\\TransferNativeReachableErasure01.lean:81:47: error: Function expected at",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-reachable-erasure-20261011-01\\project\\ShielddSecurity\\TransferNativeReachableErasure01.lean:67:8: error: (kernel) excessive memory consumption detected"
+      ],
+      "model_definition_and_two_original_contracts_unchanged": true,
+      "exact_delta": "--- \n+++ \n@@ -21,6 +21,14 @@\n \n def nativeOnlyEncode {O : Type} (encodeNative : NativePending \u2192 O)\n     (pending : TransferNullifierBatchSource01.Pending) : ExtendedObject O := .inl (encodeNative (erase pending))\n+\n+theorem option_bind_equality_from_actual_returned_values {S T : Type}\n+    (first second : Option S) (left right : S \u2192 Option T) (same : first = second)\n+    (tails : \u2200 value, first = some value \u2192 left value = right value) :\n+    first.bind left = second.bind right := by\n+  cases first with\n+  | none => simp only [\u2190same, Option.bind_none]\n+  | some value => simpa only [\u2190same, Option.bind_some] using tails value rfl\n \n theorem bounded_actual_request_step_erases_unsupported_encoder_ghosts {O E K X Tree A : Type}\n     (encodeNative : NativePending \u2192 O) (decode : ExtendedObject O \u2192 TransferNullifierBatchSource01.Pending)\n@@ -78,23 +86,30 @@\n   induction requests generalizing parent queued with\n   | nil => rfl\n   | cons request rest ih =>\n-    have actualInputs := nativeInputs request (List.mem_cons_self request rest)\n+    have actualInputs := nativeInputs request List.mem_cons_self\n     have sameStep := bounded_actual_request_step_erases_unsupported_encoder_ghosts encodeNative\n       (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued initial bounded actualInputs\n-    simp only [walk, sameStep]\n-    cases executed : step (nativeOnlyEncode encodeNative) (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued with\n-    | none => rfl\n-    | some committed =>\n-      have actualSuccess := sameStep.trans executed\n-      have derived := TransferBoundedNativeCodec01.successful_bounded_whole_step_stores_supported_native_pending\n-        encodeNative decodeNative supportedRoundtrip project injection request parent queued committed initial bounded actualInputs actualSuccess\n-      simp only [Option.bind_some]\n-      exact ih committed.parent committed.deferred derived.1 derived.2.1\n-        (fun next inside => nativeInputs next (List.mem_cons_of_mem request inside))\n+    change (step (TransferPendingFiniteCodec01.encode (encodeObject encodeNative))\n+      (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued).bind\n+        (fun committed => walk (TransferPendingFiniteCodec01.encode (encodeObject encodeNative))\n+          (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project committed.parent committed.deferred rest) =\n+      (step (nativeOnlyEncode encodeNative) (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued).bind\n+        (fun committed => walk (nativeOnlyEncode encodeNative) (TransferPendingFiniteCodec01.decode (decodeObject decodeNative))\n+          project committed.parent committed.deferred rest)\n+    apply option_bind_equality_from_actual_returned_values _ _ _ _ sameStep\n+    intro committed actualSuccess\n+    have derived := TransferBoundedNativeCodec01.successful_bounded_whole_step_stores_supported_native_pending\n+      encodeNative decodeNative supportedRoundtrip project injection request parent queued committed initial bounded actualInputs actualSuccess\n+    exact ih committed.parent committed.deferred derived.1 derived.2.1\n+      (fun next inside => nativeInputs next (List.mem_cons_of_mem request inside))\n+\n \n set_option pp.all true in\n #check @nativeOnlyEncode\n #print axioms nativeOnlyEncode\n+set_option pp.all true in\n+#check @option_bind_equality_from_actual_returned_values\n+#print axioms option_bind_equality_from_actual_returned_values\n set_option pp.all true in\n #check @bounded_actual_request_step_erases_unsupported_encoder_ghosts\n #print axioms bounded_actual_request_step_erases_unsupported_encoder_ghosts\n"
+    },
+    {
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-native-reachable-erasure-review01/packet01/rejected/source02/handwritten/TransferNativeReachableErasure01.lean",
+        "bytes": 8932,
+        "sha256": "1766d7636509c18b11023f8caceb9a117cf81974b0d5071b1e9f0718d23a8616"
+      },
+      "whole_attempt": {
+        "reason": "Lean exit 1",
+        "seconds": 61.88831480004592,
+        "status": "failed"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-native-reachable-erasure-20261011-02\\project\\ShielddSecurity\\TransferNativeReachableErasure01.lean:67:8: error: (kernel) excessive memory consumption detected"
+      ],
+      "model_definition_and_two_original_contracts_unchanged": true,
+      "exact_delta": "--- \n+++ \n@@ -21,6 +21,14 @@\n \n def nativeOnlyEncode {O : Type} (encodeNative : NativePending \u2192 O)\n     (pending : TransferNullifierBatchSource01.Pending) : ExtendedObject O := .inl (encodeNative (erase pending))\n+\n+theorem option_bind_equality_from_actual_returned_values {S T : Type}\n+    (first second : Option S) (left right : S \u2192 Option T) (same : first = second)\n+    (tails : \u2200 value, first = some value \u2192 left value = right value) :\n+    first.bind left = second.bind right := by\n+  cases first with\n+  | none => simp only [\u2190same, Option.bind_none]\n+  | some value => simpa only [\u2190same, Option.bind_some] using tails value rfl\n \n theorem bounded_actual_request_step_erases_unsupported_encoder_ghosts {O E K X Tree A : Type}\n     (encodeNative : NativePending \u2192 O) (decode : ExtendedObject O \u2192 TransferNullifierBatchSource01.Pending)\n@@ -81,20 +89,27 @@\n     have actualInputs := nativeInputs request List.mem_cons_self\n     have sameStep := bounded_actual_request_step_erases_unsupported_encoder_ghosts encodeNative\n       (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued initial bounded actualInputs\n-    simp only [walk, sameStep]\n-    cases executed : step (nativeOnlyEncode encodeNative) (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued with\n-    | none => rfl\n-    | some committed =>\n-      have actualSuccess := sameStep.trans executed\n-      have derived := TransferBoundedNativeCodec01.successful_bounded_whole_step_stores_supported_native_pending\n-        encodeNative decodeNative supportedRoundtrip project injection request parent queued committed initial bounded actualInputs actualSuccess\n-      simp only [Option.bind_some]\n-      exact ih committed.parent committed.deferred derived.1 derived.2.1\n-        (fun next inside => nativeInputs next (List.mem_cons_of_mem request inside))\n+    change (step (TransferPendingFiniteCodec01.encode (encodeObject encodeNative))\n+      (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued).bind\n+        (fun committed => walk (TransferPendingFiniteCodec01.encode (encodeObject encodeNative))\n+          (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project committed.parent committed.deferred rest) =\n+      (step (nativeOnlyEncode encodeNative) (TransferPendingFiniteCodec01.decode (decodeObject decodeNative)) project request parent queued).bind\n+        (fun committed => walk (nativeOnlyEncode encodeNative) (TransferPendingFiniteCodec01.decode (decodeObject decodeNative))\n+          project committed.parent committed.deferred rest)\n+    apply option_bind_equality_from_actual_returned_values _ _ _ _ sameStep\n+    intro committed actualSuccess\n+    have derived := TransferBoundedNativeCodec01.successful_bounded_whole_step_stores_supported_native_pending\n+      encodeNative decodeNative supportedRoundtrip project injection request parent queued committed initial bounded actualInputs actualSuccess\n+    exact ih committed.parent committed.deferred derived.1 derived.2.1\n+      (fun next inside => nativeInputs next (List.mem_cons_of_mem request inside))\n+\n \n set_option pp.all true in\n #check @nativeOnlyEncode\n #print axioms nativeOnlyEncode\n+set_option pp.all true in\n+#check @option_bind_equality_from_actual_returned_values\n+#print axioms option_bind_equality_from_actual_returned_values\n set_option pp.all true in\n #check @bounded_actual_request_step_erases_unsupported_encoder_ghosts\n #print axioms bounded_actual_request_step_erases_unsupported_encoder_ghosts\n"
+    }
+  ],
+  "contracts": [
+    "Fixed finite pending encoder and always-native encoder yield identical actual modeled request steps on coherent/canonical initial/input domain. This reuses the exact complete Item capability/body/delivery/index proofs with the same source callbacks and observations.",
+    "Whole model walk returns the same Option and exact parent/queue on either encoder. Its induction derives next invariant and canonical bounds from actual successful step, never supplies desired intermediate invariants or a success trace. Refused steps stop both walks identically.",
+    "The new generic Option-bind lemma quantifies only tails at actual returned values; its independent complete type/axiom report is included. Model definition and two original endpoint contracts unchanged after factoring; both failed whole originals remain failed.",
+    "Both sides retain ExtendedObject type and totalized decodeObject getter, with explicit supported primitive roundtrip/input/key contracts. Actual Rust codec/getter/Clone/imbl/input/callback/trace/ownership/OS and native publication correspondence remain owned OPEN."
+  ],
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
