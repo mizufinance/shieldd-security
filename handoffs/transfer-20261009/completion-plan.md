@@ -631,3 +631,6 @@ Reviewed regulated-asset95/96 evidence `4f4c9032d3d42a9275dc03317495d6e85b50abf7
 
 
 Reviewed count-codec evidence `bb8aa04d1d63fd06b38a08b451b24ba4f01f2d39` publishes2source modules with21fresh complete original reports. Whole Ordinary invalid-parent-count refusal and symbolic eight-byte big-endian codec roundtrip/range/length properties are proved in the source models; actual UInt8/runtime/native/durable correspondence and fullTransfer OPEN. Exact original ancestor types,5unchanged codec definitions modulo binder rename,10unchanged theorem contracts and physical guards reviewed.
+
+
+Reviewed count-join-max evidence `15ab64b31bcfe368915b25eff845bdc391259ec7` publishes2source modules12fresh complete original reports. UInt8 range/length validates symbolic codec; malformed-length and exact eight255bytes(maxu64) original counts imply whole modeled Ordinary refusal and parent/queue preservation. Exact isolated generators,271/277ancestor reports, original guards and proof-only failed predecessor reviewed. Runtime/native/durable correspondence and fullTransfer remain OPEN.
