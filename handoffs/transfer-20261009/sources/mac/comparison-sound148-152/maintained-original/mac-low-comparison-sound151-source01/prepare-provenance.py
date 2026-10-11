@@ -1,0 +1,2 @@
+# Maintained token-bounded instantiation of accepted 149 high-limb interface to actual 129 low-limb block.
+{'source': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-high-comparison-sound149-source02', 'target': '/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-low-comparison-sound151-source01', 'tokens': {'130': '131', '129': '130', '128': '129', '127': '128', '981': '1112', '982': '1113', '983': '1114'}}
