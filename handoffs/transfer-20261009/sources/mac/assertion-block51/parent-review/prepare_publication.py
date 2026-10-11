@@ -26,5 +26,7 @@ def history(x):
  elif isinstance(x,list):
   for y in x:history(y)
 history(execution)
+for failure in execution.get('failures',[]):
+ p=Path(failure['path']);copy(p,Path('provenance/history')/p.relative_to(R));history(json.loads(p.read_bytes()))
 (D/'README.md').write_text('Scoped reviewed proof source/evidence for runtime844389ee069e1fb2e576708842d0b389b4d9a44a. See parent-review/endpoint-review.md for exact premises and remaining full Transfer obligations. Objects, toolchains, caches, captured workspaces and raw compiler logs are excluded. Full Transfer remains open.\n')
 records=[dict(path=str(p.relative_to(D)),bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest())for p in sorted(D.rglob('*'))if p.is_file()];(D/'publication-manifest01.json').write_text(json.dumps(dict(kind='exact scoped source/evidence transport; no parent Lean replay',source_packet=str(P),files=records,full_transfer='OPEN'),indent=2)+'\n');(V/'publication-payload01.json').write_text(json.dumps(dict(path=str(D),files=len(records)+1,bytes=sum(p.stat().st_size for p in D.rglob('*')if p.is_file())),indent=2)+'\n');print(json.dumps(dict(name=name,files=len(records)+1,bytes=sum(p.stat().st_size for p in D.rglob('*')if p.is_file()))))
