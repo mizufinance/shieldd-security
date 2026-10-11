@@ -22,9 +22,8 @@ are now accepted at `d733e581da2bd56bbad4ac67e7a937e05250eab6`: 22 modules and
 replay reproduced all22 sources and independently replayed the original anchor
 capture/exact RowSpool association. The legal-anchor condition is the original
 anchor equal to an independently defined input root, not existing row truth.
-Ordered Boolean-child interpretation at every level and full indexed literal
-tail/global row coverage remain under development. This is scoped field-path
-completion, not complete Transfer certification.
+Full indexed literal tail/global row coverage remains under development. This
+is scoped field-path completion, not complete Transfer certification.
 
 The ordered Boolean-child refinement is accepted at
 `feb08fe2fc98131fe0a7af9064e2f4be5564df1f` (one module/nine reports). It joins
@@ -53,11 +52,19 @@ selected import associations, exact polynomial regeneration and unchanged
 physical memory/process guards; the fresh packaging thresholds are8MiB per
 object and128MiB per artifact job. The mathematical byte-writer and admitted-key
 conditions remain explicit. SDK projective arithmetic, scalar-loop/admission,
-primitive byte/field correspondence and generator equality are in development
-in the same desktop session; no unreviewed later reports are counted here.
+primitive byte/field correspondence and the actual SDK generator join are in
+development in the same desktop session; no unreviewed later reports are counted
+here. Independent pinned-source/integer checks show the traced mathematical
+base and RedDSA SpendAuth base compress to different bytes. Equality between
+them is therefore not a completion requirement. The traced base continues to
+support the actual curve-cardinality proof; the desktop owns a separate
+subgroup proof for the SDK generator and its exact source/codec association.
+The integer comparison is source/data evidence, not a kernel or native receipt.
 
-The expanded336-source scoped closure through MerkleInputMeaning28 is assembled
-without caches or replay at `4815b4573b56997c1df01c1f728050b78903bda3`.
+The expanded393-source scoped closure through MerklePath33 is assembled without
+caches or replay at `fdcd5276fd8ce4f89411550e062a13cbb27ca61b`. The earlier
+336-source closure remains preserved at
+`4815b4573b56997c1df01c1f728050b78903bda3`.
 Full relation coverage, independently legal full construction, native admission/
 state/durability joins, portable final replay and atomic certification remain
 OPEN. The exact runtime pin remains `844389ee069e1fb2e576708842d0b389b4d9a44a`.
