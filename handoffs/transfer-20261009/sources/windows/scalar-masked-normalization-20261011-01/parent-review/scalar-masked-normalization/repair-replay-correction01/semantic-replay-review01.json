@@ -1,0 +1,41 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-masked-normalization-review01/packet01/source/ShielddSecurity/TransferScalarMaskedNormalization01.lean",
+    "bytes": 9895,
+    "sha256": "52e43b50263ad68e5a36d79522f02aa5f69ceb997cf279f7040e419c683ad45e"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-masked-normalization-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 1994,
+    "sha256": "e14c39e7320feb48c657c673c112c14c160ebf6071ac282fba1e2077cabcde06"
+  },
+  "fresh_reports": 10,
+  "definitions": 2,
+  "theorems": 8,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-masked-normalization-review01/packet01/rejected/01/handwritten/TransferScalarMaskedNormalization01.lean",
+      "bytes": 9668,
+      "sha256": "848ed313a8614f8544f04b8b07db0cabcfb6ce8f1a3d9a105e6ddb6189d70ca1"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 16.90811069996562,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-masked-normalization-20261011-01\\project\\ShielddSecurity\\TransferScalarMaskedNormalization01.lean:112:59: error: omega could not prove the goal:",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-masked-normalization-20261011-01\\project\\ShielddSecurity\\TransferScalarMaskedNormalization01.lean:113:106: error: Application type mismatch: The argument",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-masked-normalization-20261011-01\\project\\ShielddSecurity\\TransferScalarMaskedNormalization01.lean:118:72: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -106,6 +106,9 @@\n     TransferScalarFourRoundWrapper01.modulus_words_pack_to_actual_nullifier_modulus] at underflow\n   rw [List.map_fst_zip addFirst, List.map_snd_zip addSecond, masked_modulus_packs_to_exact_selected_modulus, addWidth] at added\n   change packWords (macLoop 1 0 (difference.1.zip (maskedModulus difference.2))).1 = normalize nullifierModulus (packWords words)\n+  change packWords difference.1 + nullifierModulus + borrowBit false =\n+    packWords words + radix64 ^ 4 * borrowBit difference.2 at conserved\n+  change difference.2 = true \u2194 packWords words < nullifierModulus at underflow\n   cases final : difference.2 with\n   | false =>\n     simp [borrowBit, final] at conserved added\n"
+  },
+  "scope": "Source-shaped four-limb subtract derives final borrow, exact mask selects each modulus limb, unit MAC add-back with discarded carry equals single-modulus normalization. Four modeled rounds compose to range below exact nullifier modulus; actual Rust/byte/endian/modular trace remains owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "review_harness_predecessor": "Original selector expected three AST nodes; this recipe separately assigns b then calls replace in fourth node. Failed replay had no output artifact. Exact source/definitions/contracts unchanged; selector now validates both literal b and exact s.replace(a,b). Prior kernel review remained valid."
+}
