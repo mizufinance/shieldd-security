@@ -759,3 +759,8 @@ Evidence commit: 8847134b193cba207eae03a5b1cf59bad61135a6
 Independent review accepted13 original complete reports for source writer seal/discard and committed/status gates. Success derives identical frozen handoff after actual lock/intent success; failed Prepared seal interrupts the owner without rollback/raw-reader refusal claim. Discard and status preserve/check the actual committed boundary. Strict warning-rejected predecessor remains whole failed. Native intent/phase/owner/reader and durable commit/recovery remain OPEN.
 
 Evidence commit: 54faecd0511863ff9c2960da4eefedddefd83de6
+
+
+Independent review accepted3modules11 original complete reports deriving canonical original registry value from full captured relation and constant-one binding. Actual255bit rows decode and reconstruct the value; actual max-comparison rows derive its bound below p. No supplied desired bound or bit meaning. Asset/next decoder join, remaining semantics/total constructor/native/fullTransfer/final replay remain OPEN.
+
+Evidence commit: e1b15c86769fae04abf04f27aecd410f8a3ff7b3
