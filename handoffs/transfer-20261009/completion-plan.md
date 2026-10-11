@@ -1,5 +1,15 @@
 # Transfer proof completion plan — 9 October 2026
 
+The complete indexed assertion/link provider is accepted at35f8d55:
+100 modules/842 complete original reports, covering all22,816 ordered rows
+at177954..200769 and deriving the actual public/committed/copy links. Parent
+independently replayed the selected90 leaf sources and seven composition
+sources, reviewed127 selected custom import associations, and preserved all
+failed history. Equivalence to recorded assertion polynomials is closed;
+independent legal-input assertion truth, full arithmetic composition and
+native implementation correspondence remain OPEN. The same Mac worker has
+resumed the remaining arithmetic leaves autonomously.
+
 The22 original Windows Lean source variants are now preserved with exact
 accepted437-pool identities at ffa54a6. Together with the earlier415 exact
 sources, this closes the current source transport gap. The five shared
