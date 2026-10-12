@@ -1,0 +1,172 @@
+@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects : {Other : Type} →
+  ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+'ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordFreshSnapshot01.emptyLeaf : {Other : Type} →
+  ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+'ShielddSecurity.TransferCheckedWordFreshSnapshot01.emptyLeaf' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordFreshSnapshot01.runFromSnapshot : {O E Other : Type} →
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) →
+    (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+      (batches :
+          List.{0} (Prod.{0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) Bool)) →
+        Except.{0, 0} Unit
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+'ShielddSecurity.TransferCheckedWordFreshSnapshot01.runFromSnapshot' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferCheckedWordFreshSnapshot01.fresh_live_snapshot_constructor_derives_checked_absence_default_and_unsealed_getters : ∀
+  {Other : Type} (key : Nat),
+  And
+    (@Eq.{1} (Except.{0, 0} Unit (Option.{0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending))
+      (@ShielddSecurity.TransferWordObjectRead01.checkedObject Other
+        (@ShielddSecurity.TransferStateDelta.overlay (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other)
+          (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.emptyLeaf Other) key))
+      (@Except.ok.{0, 0} Unit (Option.{0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+        (@Option.none.{0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+        (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+          (@List.cons.{0}
+            (Option.{0}
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+            (@Option.some.{0}
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.emptyLeaf Other))
+            (@List.nil.{0}
+              (Option.{0}
+                (ShielddSecurity.TransferStateDelta.Writes
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))))
+          (@Option.some.{0}
+            (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+            (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other))
+          key)
+        (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+          (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat))))
+      (And
+        (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+          (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+            (@ShielddSecurity.TransferStateDelta.overlay
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+              (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other)
+              (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.emptyLeaf Other) key))
+          (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+            (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)))
+        (And
+          (@Eq.{1} (Except.{0, 0} Unit Bool)
+            (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+              (@ShielddSecurity.TransferStateDelta.overlay
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other)
+                (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.emptyLeaf Other) key))
+            (@Except.ok.{0, 0} Unit Bool Bool.false))
+          (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+            (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+              (@ShielddSecurity.TransferStateDelta.overlay
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other)
+                (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.emptyLeaf Other) key))
+            (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.ok.{0, 0} Unit Unit Unit.unit))))))
+'ShielddSecurity.TransferCheckedWordFreshSnapshot01.fresh_live_snapshot_constructor_derives_checked_absence_default_and_unsealed_getters' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordFreshSnapshot01.returned_complete_fresh_snapshot_block_derives_exact_actual_global_field_getter : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (batches : List.{0} (Prod.{0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) Bool))
+  (final : ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.runFromSnapshot O E Other backend child batches)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          final))),
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@ShielddSecurity.TransferStateDelta.overlay (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other) final
+        (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+            (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches)))))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+          (@ShielddSecurity.TransferStateDelta.overlay
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other) final
+            (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+              ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+        (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+          (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches)))
+      (And
+        (@Eq.{1} (Except.{0, 0} Unit Bool)
+          (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+            (@ShielddSecurity.TransferStateDelta.overlay
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+              (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other) final
+              (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+          (@Except.ok.{0, 0} Unit Bool Bool.true))
+        (And
+          (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+            (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+              (@ShielddSecurity.TransferStateDelta.overlay
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other) final
+                (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                  ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+            (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.ok.{0, 0} Unit Unit Unit.unit)))
+          (And
+            (@LE.le.{0} Nat instLENat
+              (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+                (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches))
+              ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+            (And
+              (@List.Nodup.{0} Nat
+                (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+                  (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+                    ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+                  (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches)))
+              (And
+                (∀ (nullifier : Nat),
+                  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+                      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+                        (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+                          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+                        (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches))
+                      nullifier →
+                    @Eq.{1} (Option.{0} Bool)
+                      (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child nullifier)
+                      (@Option.some.{0} Bool Bool.false))
+                (∀ (other : Nat),
+                  @Ne.{1} Nat other
+                      (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                        ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes) →
+                    And
+                      (@Eq.{1}
+                        (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                        (final other)
+                        (@Option.none.{0}
+                          (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+                      (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                        (@ShielddSecurity.TransferStateDelta.overlay
+                          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                          (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other) final other)
+                        (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))))))))
+'ShielddSecurity.TransferCheckedWordFreshSnapshot01.returned_complete_fresh_snapshot_block_derives_exact_actual_global_field_getter' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
