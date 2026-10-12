@@ -1,0 +1,11 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "runtime_source": {
+    "bytes": 48880,
+    "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\component\\tree.rs",
+    "sha256": "d95558d2c9da8e16419ab1a43c27052d672c607c46bd41b40daa7e9fdf7b1a65"
+  },
+  "scope": "Exact static pinned source comparison and consensus literal only. Model min(sum,2^bits-1) saturation and both32/64 capacity headroom proofs; no native usize ABI/operator/collection/compiler semantics inferred from source identity.",
+  "source_consensus_limit": "pub const MAX_NULLIFIERS_PER_BLOCK: usize = 32_768;",
+  "source_stage_body": "async fn stage_nullifiers<S: StateWrite + ?Sized>(\n    state: &mut S,\n    nullifiers: &[Nullifier],\n    check_durable: bool,\n) -> Result<()> {\n    let mut local = BTreeSet::new();\n    for nullifier in nullifiers {\n        ensure!(\n            local.insert(*nullifier),\n            \"duplicate nullifier {nullifier} in batch\"\n        );\n    }\n    let pending = state\n        .object_get::<PendingNullifierBlock>(state_key::nullifiers::pending_block())\n        .unwrap_or_default();\n    let PendingNullifierBlock::Open {\n        mut ordered,\n        mut membership,\n    } = pending\n    else {\n        anyhow::bail!(\"cannot stage nullifiers after block sealing\");\n    };\n    ensure!(\n        ordered.len().saturating_add(nullifiers.len()) <= MAX_NULLIFIERS_PER_BLOCK,\n        \"block nullifier limit exceeded\"\n    );\n    for nullifier in nullifiers {\n        ensure!(\n            !membership.contains(nullifier),\n            \"nullifier {nullifier} was already spent in this block\"\n        );\n    }\n    if check_durable {\n        for (nullifier, spent) in nullifiers\n            .iter()\n            .zip(state.contains_nullifiers(nullifiers).await?)\n        {\n            ensure!(!spent, \"nullifier {nullifier} was already spent\");\n        }\n    }\n    ordered.extend(nullifiers.iter().copied());\n    membership.extend(nullifiers.iter().copied());\n    state.object_put(\n        state_key::nullifiers::pending_block(),\n        PendingNullifierBlock::Open {\n            ordered,\n            membership,\n        },\n    );\n    Ok(())\n}\n\n"
+}
