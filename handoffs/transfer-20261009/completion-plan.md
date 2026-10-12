@@ -1269,3 +1269,6 @@ Publish independently reviewed scalar-wide-byte-input original source model. 4 c
 
 
 Publish exact eleventh Merkle captured-row coverage:51new modules375 original reports,424arithmetic positions6962..7385 and actual sharedcopy200769. Full independent source/report/generation/import/history scope and unchanged guard273 review passed. Original1997attempts147failed retained. Full path/hash semantics/concrete field/legal seed/all assertion truth/native/full Transfer remain OPEN; combined replay UNRUN.
+
+
+Publish exact twelfth Merkle captured-row coverage:51new modules375 original reports,424arithmetic positions7386..7809 and actual sharedcopy200769. Full independent source/report/generation/import/history scope and unchanged guard273 review passed. Original2048attempts147failed retained. Full path/hash semantics/concrete field/legal seed/all assertion truth/native/full Transfer remain OPEN; combined replay UNRUN.
