@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,hashlib,re,difflib
+J=Path(__file__).parent;W=J.parent;D=J/'windows-scalar-inverse-correctness-review01';P=D/'packet01';M='TransferScalarInverseCorrectness01';S=P/'source/ShielddSecurity'/(M+'.lean');s=S.read_text()
+def pin(p):
+ b=p.read_bytes();return dict(path=str(p),bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+plan=json.loads((P/'qualified/plan.json').read_text());assert all(pin(S)[k]==plan['targets'][0]['source'][k]for k in ['bytes','sha256'])
+names=re.findall(r'^theorem ([\w]+)',s,re.M);assert len(names)==6 and names==re.findall(r'^#check @([\w]+)',s,re.M)
+for t in ['theorem exact_source_scalar_modulus_is_prime : Nat.Prime nullifierModulus :=\n  FieldPrimeNode38.prime','montgomeryValue self.words = 0 ↔ self.words = sourceZero.words','letI : Fact (Nat.Prime nullifierModulus) := ⟨exact_source_scalar_modulus_is_prime⟩','(base : Nat) (bounded : base < nullifierModulus) (nonzero : base ≠ 0)','(base ^ (nullifierModulus - 2) % nullifierModulus * base) % nullifierModulus = 1','let unit : (ZMod nullifierModulus)ˣ := Units.mk0','Fintype.card (ZMod nullifierModulus)ˣ = nullifierModulus - 1','rw [Fintype.card_units, ZMod.card]','exact pow_card_eq_one','(self value : CanonicalScalar) (returned : sourceInvert self = some value)','exact_source_invert_payload_has_modulus_minus_two_field_power self value returned','(sourceCanonicalMul value self).words = sourceOne.words','canonical_internal_math_values_equal_iff_raw_words_equal','actual_modeled_canonical_multiply_has_exact_mathematical_field_value','sourceInvert self = none ↔ montgomeryValue self.words = 0','exact_source_invert_zero_refusal_is_derived self']:assert t in s
+assert s.count('    dsimp only at value')==1 and s.count('  dsimp only at value')==2
+assert '(prime :'not in s and '(inverse :'not in s and '(product :'not in s and '(desired :'not in s
+contracts=lambda text:[m.group(0).split(' :=',1)[0]for m in re.finditer(r'(?m)^theorem [\s\S]*?(?=^theorem |^set_option pp.all|\Z)',text)]
+history=[]
+for q in sorted(P.glob('prior-inverse-attempt*')):
+ old=q/'handwritten'/(M+'.lean');raw=old.read_text();assert contracts(raw)==contracts(s)
+ project=q/'project/ShielddSecurity'/(M+'.lean')
+ if project.exists():assert project.read_bytes()==old.read_bytes()
+ events=q/'events.jsonl';logs=list(q.rglob('stdout.txt'))
+ item=dict(source=pin(old),files=[pin(x)for x in q.rglob('*')if x.is_file()],exact_delta=''.join(difflib.unified_diff(raw.splitlines(True),s.splitlines(True))),diagnostics=[x for p in logs for x in p.read_text().splitlines()if 'error:'in x or 'warning:'in x])
+ if events.exists():
+  es=[json.loads(x)for x in events.read_text().splitlines()];assert len(es)==2 and es[-1]['result']['status']=='failed'and es[-1]['result']['seconds']<240;item['result']=es[-1]['result'];item['classification']='Original failed Lean attempt'
+ else:item['classification']='Unlaunched original preparation; no kernel result inferred'
+ qp=q/'plan.json'
+ if qp.exists():
+  previous=json.loads(qp.read_text());assert previous['limits']==plan['limits']and previous['pressure_limits']==plan['pressure_limits']and(q/'execute_bounded.py').read_bytes()==(P/'qualified/execute_bounded.py').read_bytes()
+ if q.name!='prior-inverse-attempt01':assert raw.replace('    have value := congrArg (fun x : ZMod nullifierModulus => x.val) zero\n','    have value := congrArg (fun x : ZMod nullifierModulus => x.val) zero\n    dsimp only at value\n').replace('  have value := congrArg (fun x : ZMod nullifierModulus => x.val) product\n','  have value := congrArg (fun x : ZMod nullifierModulus => x.val) product\n  dsimp only at value\n')==s
+ history.append(item)
+assert len(history)==3 and sum('result'in x for x in history)==1 and len(history[-1]['diagnostics'])==2
+original=W/'shared-build-handoff/handoffs/transfer-20261009/sources/windows/field-cardinality-20261010-02/receipts/qualified-modules.json';assert (P/'context/field-foundation-original-full48-qualified.json').read_bytes()==original.read_bytes()
+scope='Exact previously proved scalar modulus primality is installed internally from original FieldPrimeNode38, with no caller prime/Fermat assumption. Nonzero bounded base defines an actual ZMod unit; finite unit cardinality p-1 and pow_card_eq_one derive the p-minus-two inverse product. Final returned modeled inversion derives its exponent from the accepted actual85-statement chain, discharges boundedness and nonzero internally via canonical field/raw-zero equivalence, and proves product1. Canonical value injectivity plus actual modeled multiplication field value derives exact raw ONE words. Complete modeled payload success and exact zero test yield refusal iff mathematical field value0. Successful returned-execution equation identifies the actual modeled payload and is not a desired inverse premise; nonzero return existence follows from the earlier successful chain. Forty original prime modules126 reports reused with exact original full48-field packet unchanged, no replay. Two unlaunched preparations and one complete two-error failed Lean attempt retained; first preparation replaces a broad finite-field import/convenience theorem by explicit finite-unit cardinality proof without changing contracts, final repair adds only two congrArg lambda simplifications. Algorithms/contracts/runner/physical limits unchanged. Six standard-axiom theorem reports. Actual native Choice/ct_eq/library/UInt64/compiler/ABI/caller/private-constructor correspondence and full Transfer remain owned OPEN; no Root verifier/native/combined replay. Official import-inventory qualification is checked separately before kernel acceptance/publication.'
+r=dict(status='PASSED_SOURCE_HISTORY',fresh_reports=6,source=pin(S),original_field_qualification=pin(original),prior_preparations_and_attempts=history,unlaunched_preparations=2,failed_lean_attempts=1,scope=scope,native_execution='UNRUN',full_transfer='OPEN');out=D/'semantic-source-review01.json';assert not out.exists();out.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(dict(status=r['status'],reports=6,unlaunched=2,failed_lean=1)))
