@@ -1,0 +1,72 @@
+{
+  "kind": "EXACT_TRANSFER_ALL_SLOT_TYPED_NULLIFIER_PROJECTION_SOURCE_SHAPE",
+  "matched_shapes": {
+    "action": [
+      {
+        "expression": "pub struct TransferInputBody\\s*\\{\\s*pub nullifier: Nullifier,",
+        "matched_source": "pub struct TransferInputBody {\n    pub nullifier: Nullifier,",
+        "start_line": 20
+      },
+      {
+        "expression": "pub inputs: Vec<TransferInputBody>,",
+        "matched_source": "pub inputs: Vec<TransferInputBody>,",
+        "start_line": 42
+      }
+    ],
+    "effects": [
+      {
+        "expression": "let nullifiers = inputs\\s*\\.iter\\(\\)\\s*\\.map\\(input_nullifier\\)\\s*\\.collect::<Vec<Nullifier>>\\(\\);",
+        "matched_source": "let nullifiers = inputs\n        .iter()\n        .map(input_nullifier)\n        .collect::<Vec<Nullifier>>();",
+        "start_line": 80
+      },
+      {
+        "expression": "state\\.nullify_all\\(&nullifiers, source\\.into\\(\\)\\)\\.await\\?;",
+        "matched_source": "state.nullify_all(&nullifiers, source.into()).await?;",
+        "start_line": 91
+      }
+    ],
+    "execute": [
+      {
+        "expression": "note_reshape::execute_proof_bound_effects\\(\\s*&mut state,\\s*&transfer\\.body\\.inputs,\\s*&transfer\\.body\\.outputs,\\s*\\|input\\| input\\.nullifier,\\s*\\|output\\| &output\\.note_payload,\\s*\\)",
+        "matched_source": "note_reshape::execute_proof_bound_effects(\n        &mut state,\n        &transfer.body.inputs,\n        &transfer.body.outputs,\n        |input| input.nullifier,\n        |output| &output.note_payload,\n    )",
+        "start_line": 181
+      }
+    ],
+    "nullifier": [
+      {
+        "expression": "pub struct Nullifier\\(pub Fq\\);",
+        "matched_source": "pub struct Nullifier(pub Fq);",
+        "start_line": 11
+      },
+      {
+        "expression": "pub fn to_bytes\\(&self\\) -> \\[u8; 32\\]\\s*\\{\\s*self\\.0\\.to_bytes\\(\\)\\s*\\}",
+        "matched_source": "pub fn to_bytes(&self) -> [u8; 32] {\n        self.0.to_bytes()\n    }",
+        "start_line": 73
+      }
+    ]
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "runtime_sources": [
+    {
+      "bytes": 11779,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\shielded-pool\\src\\transfer\\action.rs",
+      "sha256": "6fe00ce933ea422301b98b3958aea099fee45babd112b9046198b9ab3020cac5"
+    },
+    {
+      "bytes": 12046,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\shielded-pool\\src\\component\\action_handler\\transfer.rs",
+      "sha256": "4c7954a9089971a91896d71999c298f914d7c74d60c148eaf1f81faeadeeeaad"
+    },
+    {
+      "bytes": 11638,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\shielded-pool\\src\\component\\action_handler\\note_reshape.rs",
+      "sha256": "53aeb9d6705f09c0ed353de55a68bcc8a1af04d927a60b12dd1fefe4ea331c54"
+    },
+    {
+      "bytes": 3304,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\nullifier.rs",
+      "sha256": "10121a9fb49ede36a48c079646f0a8b5603ed081a3a107e1246258c8d058801b"
+    }
+  ],
+  "scope": "Exact source type/accessor/all-slot ordered map/batch insertion/byte-forwarding shape, no filters or private-padding suppression in matched iterator. Static source association only; Rust iterator/map/collect/Nullifier/Scalar/byte/compiler/native trace semantics remain explicit. No native/proof/control/certification credit for this JSON."
+}
