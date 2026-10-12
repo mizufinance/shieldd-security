@@ -1,0 +1,97 @@
+ShielddSecurity.TransferScalarSquareShift01.sourceDoubleAdjacent : (word previous : UInt64) → UInt64
+'ShielddSecurity.TransferScalarSquareShift01.sourceDoubleAdjacent' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarSquareShift01.sourceDoubleWalk : (previous : UInt64) → List.{0} UInt64 → List.{0} UInt64
+'ShielddSecurity.TransferScalarSquareShift01.sourceDoubleWalk' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarSquareShift01.source_high_shift_is_exact_zero_or_one_integer_bit : ∀ (word : UInt64),
+  And
+    (@Eq.{1} Nat
+      (UInt64.toNat
+        (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+          (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) word
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 63) (@UInt64.instOfNat (nat_lit 63)))))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat word)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63))))))
+    (@LT.lt.{0} Nat instLTNat
+      (UInt64.toNat
+        (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+          (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) word
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 63) (@UInt64.instOfNat (nat_lit 63)))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'ShielddSecurity.TransferScalarSquareShift01.source_high_shift_is_exact_zero_or_one_integer_bit' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSquareShift01.source_adjacent_shift_or_is_exact_disjoint_low_sum : ∀
+  (word previous : UInt64),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferScalarSquareShift01.sourceDoubleAdjacent word previous))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (UInt64.toNat word))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat previous)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63))))))
+'ShielddSecurity.TransferScalarSquareShift01.source_adjacent_shift_or_is_exact_disjoint_low_sum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSquareShift01.source_adjacent_shift_and_high_bit_conserve_full_doubled_word : ∀
+  (word previous : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat (ShielddSecurity.TransferScalarSquareShift01.sourceDoubleAdjacent word previous))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (UInt64.toNat
+          (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+            (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) word
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 63) (@UInt64.instOfNat (nat_lit 63)))))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (UInt64.toNat word))
+      (UInt64.toNat
+        (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+          (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) previous
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 63) (@UInt64.instOfNat (nat_lit 63))))))
+'ShielddSecurity.TransferScalarSquareShift01.source_adjacent_shift_and_high_bit_conserve_full_doubled_word' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSquareShift01.symbolic_source_double_walk_retains_top_bit_and_exact_integer : ∀
+  (previous : UInt64) (words : List.{0} UInt64),
+  And
+    (@Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarSquareShift01.sourceDoubleWalk previous words))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarSquareShift01.sourceDoubleWalk previous words))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+        (UInt64.toNat
+          (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+            (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) previous
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 63) (@UInt64.instOfNat (nat_lit 63)))))))
+'ShielddSecurity.TransferScalarSquareShift01.symbolic_source_double_walk_retains_top_bit_and_exact_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSquareShift01.source_seven_word_cross_shift_retains_eight_words_and_exact_doubled_cross : ∀
+  (self : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (ShielddSecurity.TransferScalarSquareShift01.sourceDoubleWalk
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+          (ShielddSecurity.TransferScalarSquareCross01.sourceCrossWords self)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarSquareShift01.sourceDoubleWalk
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+          (ShielddSecurity.TransferScalarSquareCross01.sourceCrossWords self)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (ShielddSecurity.TransferScalarSquareCross01.crossValue
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) self)))))
+'ShielddSecurity.TransferScalarSquareShift01.source_seven_word_cross_shift_retains_eight_words_and_exact_doubled_cross' depends on axioms: [propext,
+ Quot.sound]
