@@ -1,0 +1,65 @@
+ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd : (bits previous additional : Nat) → Nat
+'ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd' does not depend on any axioms
+ShielddSecurity.TransferPendingSaturatingCapacity01.finite_width_saturating_gate_iff_exact_natural_sum_bound : ∀
+  (bits capacity previous additional : Nat)
+  (headroom :
+    @LT.lt.{0} Nat instLTNat capacity
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) bits)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))),
+  Iff
+    (@LE.le.{0} Nat instLENat
+      (ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd bits previous additional) capacity)
+    (@LE.le.{0} Nat instLENat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) previous additional)
+      capacity)
+'ShielddSecurity.TransferPendingSaturatingCapacity01.finite_width_saturating_gate_iff_exact_natural_sum_bound' depends on axioms: [propext]
+ShielddSecurity.TransferPendingSaturatingCapacity01.consensus_capacity_has_strict_32_and_64_bit_saturation_headroom : And
+  (@LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (@LT.lt.{0} Nat instLTNat ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity
+    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+'ShielddSecurity.TransferPendingSaturatingCapacity01.consensus_capacity_has_strict_32_and_64_bit_saturation_headroom' does not depend on any axioms
+ShielddSecurity.TransferPendingSaturatingCapacity01.source_32_and_64_bit_pending_gates_accept_exactly_the_consensus_sum_bound : ∀
+  (previous additional : Nat),
+  And
+    (Iff
+      (@LE.le.{0} Nat instLENat
+        (ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) previous additional)
+        ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+      (@LE.le.{0} Nat instLENat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) previous additional)
+        ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity))
+    (Iff
+      (@LE.le.{0} Nat instLENat
+        (ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) previous additional)
+        ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+      (@LE.le.{0} Nat instLENat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) previous additional)
+        ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity))
+'ShielddSecurity.TransferPendingSaturatingCapacity01.source_32_and_64_bit_pending_gates_accept_exactly_the_consensus_sum_bound' depends on axioms: [propext]
+ShielddSecurity.TransferPendingSaturatingCapacity01.accepted_finite_width_pending_gate_derives_each_length_bound : ∀
+  (bits capacity previous additional : Nat)
+  (headroom :
+    @LT.lt.{0} Nat instLTNat capacity
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) bits)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (accepted :
+    @LE.le.{0} Nat instLENat
+      (ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd bits previous additional)
+      capacity),
+  And
+    (@LE.le.{0} Nat instLENat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) previous additional)
+      capacity)
+    (And (@LE.le.{0} Nat instLENat previous capacity) (@LE.le.{0} Nat instLENat additional capacity))
+'ShielddSecurity.TransferPendingSaturatingCapacity01.accepted_finite_width_pending_gate_derives_each_length_bound' depends on axioms: [propext]
