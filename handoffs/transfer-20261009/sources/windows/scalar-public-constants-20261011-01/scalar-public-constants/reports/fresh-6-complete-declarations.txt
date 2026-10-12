@@ -1,0 +1,75 @@
+ShielddSecurity.TransferScalarPublicConstants01.PublicConstant : Type
+'ShielddSecurity.TransferScalarPublicConstants01.PublicConstant' does not depend on any axioms
+ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords : ShielddSecurity.TransferScalarPublicConstants01.PublicConstant →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords' does not depend on any axioms
+ShielddSecurity.TransferScalarPublicConstants01.every_source_public_constant_has_derived_canonical_raw_words : ∀
+  (constant : ShielddSecurity.TransferScalarPublicConstants01.PublicConstant),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords constant)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarPublicConstants01.every_source_public_constant_has_derived_canonical_raw_words' does not depend on any axioms
+ShielddSecurity.TransferScalarPublicConstants01.sourceConstant : (constant :
+    ShielddSecurity.TransferScalarPublicConstants01.PublicConstant) →
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarPublicConstants01.sourceConstant' does not depend on any axioms
+ShielddSecurity.TransferScalarPublicConstants01.every_source_public_constant_has_exact_canonical_32_byte_montgomery_key : ∀
+  (constant : ShielddSecurity.TransferScalarPublicConstants01.PublicConstant),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt8
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+              (ShielddSecurity.TransferScalarPublicConstants01.sourceConstant constant)))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                (ShielddSecurity.TransferScalarPublicConstants01.sourceConstant constant)))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                (ShielddSecurity.TransferScalarPublicConstants01.sourceConstant constant)))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+            (ShielddSecurity.TransferScalarPublicConstants01.sourceConstant constant)))))
+'ShielddSecurity.TransferScalarPublicConstants01.every_source_public_constant_has_exact_canonical_32_byte_montgomery_key' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPublicConstants01.source_public_two_inverse_generator_and_root_inverse_have_exact_integer_values : And
+  (@Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+        ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.twoInverse))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+  (And
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+          ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.generator))
+      (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+    (@Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+              ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnity))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+              ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnityInverse)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+'ShielddSecurity.TransferScalarPublicConstants01.source_public_two_inverse_generator_and_root_inverse_have_exact_integer_values' does not depend on any axioms
