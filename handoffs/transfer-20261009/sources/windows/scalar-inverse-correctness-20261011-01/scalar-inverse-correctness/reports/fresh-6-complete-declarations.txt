@@ -1,0 +1,82 @@
+ShielddSecurity.TransferScalarInverseCorrectness01.exact_source_scalar_modulus_is_prime : Nat.Prime
+  ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarInverseCorrectness01.exact_source_scalar_modulus_is_prime' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInverseCorrectness01.canonical_source_scalar_has_zero_field_value_iff_exact_zero_words : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        ShielddSecurity.TransferScalarPowInvariant01.sourceZero))
+'ShielddSecurity.TransferScalarInverseCorrectness01.canonical_source_scalar_has_zero_field_value_iff_exact_zero_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInverseCorrectness01.exact_prime_modulus_nonzero_field_power_is_a_multiplicative_inverse : ∀
+  (base : Nat) (bounded : @LT.lt.{0} Nat instLTNat base ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (nonzero : @Ne.{1} Nat base (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid)) base
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        base)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferScalarInverseCorrectness01.exact_prime_modulus_nonzero_field_power_is_a_multiplicative_inverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInverseCorrectness01.exact_returned_source_inversion_is_a_mathematical_field_inverse : ∀
+  (self value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertChain01.sourceInvert self)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar value)),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferScalarInverseCorrectness01.exact_returned_source_inversion_is_a_mathematical_field_inverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInverseCorrectness01.exact_returned_source_inverse_multiplication_has_exact_raw_one_words : ∀
+  (self value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertChain01.sourceInvert self)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar value)),
+  @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+      (ShielddSecurity.TransferScalarPowInvariant01.sourceCanonicalMul value self))
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+      ShielddSecurity.TransferScalarPowInvariant01.sourceOne)
+'ShielddSecurity.TransferScalarInverseCorrectness01.exact_returned_source_inverse_multiplication_has_exact_raw_one_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInverseCorrectness01.exact_source_inversion_refuses_iff_mathematical_field_value_is_zero : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertChain01.sourceInvert self)
+      (@Option.none.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarInverseCorrectness01.exact_source_inversion_refuses_iff_mathematical_field_value_is_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

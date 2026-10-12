@@ -1,0 +1,186 @@
+{
+  "status": "PASSED",
+  "fresh_reports": 6,
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/source/ShielddSecurity/TransferScalarInverseCorrectness01.lean",
+    "bytes": 6278,
+    "sha256": "482701d8613cac9f592e5963c25ea6905e61b033a074fabaa0258b352edf6f36"
+  },
+  "original_field_qualification": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/shared-build-handoff/handoffs/transfer-20261009/sources/windows/field-cardinality-20261010-02/receipts/qualified-modules.json",
+    "bytes": 137679,
+    "sha256": "d7f38ee29e4ce7633312dc71699a389006ec0bcd2097e69aa90eff4458aec8e8"
+  },
+  "prior_preparations_and_attempts": [
+    {
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt01/handwritten/TransferScalarInverseCorrectness01.lean",
+        "bytes": 5635,
+        "sha256": "d69a23e9722352c52c7bb89751f1ffbc2f291d0236240cc8a539cc13cb9b90c7"
+      },
+      "files": [
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt01/prepare_recipe.py",
+          "bytes": 8408,
+          "sha256": "845898782627ded4e2eb53dec19741e5346aad0494fc489bc8effb32b57aa5e8"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt01/handwritten/TransferScalarInverseCorrectness01.lean",
+          "bytes": 5635,
+          "sha256": "d69a23e9722352c52c7bb89751f1ffbc2f291d0236240cc8a539cc13cb9b90c7"
+        }
+      ],
+      "exact_delta": "--- \n+++ \n@@ -1,6 +1,7 @@\n import ShielddSecurity.TransferScalarInvertField01\n import ShielddSecurity.FieldPrimeNode38\n-import Mathlib.FieldTheory.Finite.Basic\n+import Mathlib.Data.Fintype.Units\n+import Mathlib.GroupTheory.OrderOfElement\n set_option maxHeartbeats 200000\n set_option maxRecDepth 4096\n set_option autoImplicit false\n@@ -32,14 +33,23 @@\n   have positive : (base : ZMod nullifierModulus) \u2260 0 := by\n     intro zero\n     have value := congrArg (fun x : ZMod nullifierModulus => x.val) zero\n+    dsimp only at value\n     rw [ZMod.val_natCast, Nat.mod_eq_of_lt bounded, ZMod.val_zero] at value\n     exact nonzero value\n-  have fermat := ZMod.pow_card_sub_one_eq_one positive\n+  let unit : (ZMod nullifierModulus)\u02e3 := Units.mk0 (base : ZMod nullifierModulus) positive\n+  have cardinality : Fintype.card (ZMod nullifierModulus)\u02e3 = nullifierModulus - 1 := by\n+    rw [Fintype.card_units, ZMod.card]\n+  have unitPower : unit ^ (nullifierModulus - 1) = 1 := by\n+    rw [\u2190 cardinality]\n+    exact pow_card_eq_one\n+  have fermat := congrArg (fun u : (ZMod nullifierModulus)\u02e3 => (u : ZMod nullifierModulus)) unitPower\n+  change (base : ZMod nullifierModulus) ^ (nullifierModulus - 1) = 1 at fermat\n   have count : nullifierModulus - 2 + 1 = nullifierModulus - 1 := by decide\n   have product : (base : ZMod nullifierModulus) ^ (nullifierModulus - 2) * (base : ZMod nullifierModulus) = 1 := by\n     rw [\u2190 pow_succ, count]\n     exact fermat\n   have value := congrArg (fun x : ZMod nullifierModulus => x.val) product\n+  dsimp only at value\n   rw [\u2190 Nat.cast_pow, \u2190 Nat.cast_mul, ZMod.val_natCast, ZMod.val_one] at value\n   rw [Nat.mod_mul_mod]\n   exact value\n",
+      "diagnostics": [],
+      "classification": "Unlaunched original preparation; no kernel result inferred"
+    },
+    {
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/handwritten/TransferScalarInverseCorrectness01.lean",
+        "bytes": 6230,
+        "sha256": "50599503e85468743a81c629b4f57c1a27f4239e33a980fa1077e2c248837bd8"
+      },
+      "files": [
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/plan.json",
+          "bytes": 718657,
+          "sha256": "212968f1abb7151c13decfb784a1a5d0b1e173786fdefdd00b517b705710e5c7"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/prepare_recipe_from01.py",
+          "bytes": 8888,
+          "sha256": "f5dcc39bf19439795ec139de8fb1db920617c21d6ce4372027517e5fd45115bd"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/prepare_recipe.py",
+          "bytes": 2750,
+          "sha256": "965ada309c11b4adab1656f7a0aa42154bd66d47f3f1b6a096690d72d4577ae6"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/source-mapping.json",
+          "bytes": 110720,
+          "sha256": "1b05e2462d40d7d67ae2638a9c2ed3db75f74763e8603b30efb73c38751fc2d4"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/execute_bounded.py",
+          "bytes": 24574,
+          "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/review.json",
+          "bytes": 1404,
+          "sha256": "c9c92bfe22831273407b7cd55d4b6438baafe8231d5cf6696b46c8f984e506aa"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/prepare.py",
+          "bytes": 66876,
+          "sha256": "202cc0b0d43aa6f92d239d950e9fcad55d4ea01696705c5d91b8acc3f5cdde08"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/context/scalar-inverse-correctness-shape.json",
+          "bytes": 1922,
+          "sha256": "952388f851a94b59e68c028692293626819b4f23a68315e66371b683f08dc411"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/handwritten/TransferScalarInverseCorrectness01.lean",
+          "bytes": 6230,
+          "sha256": "50599503e85468743a81c629b4f57c1a27f4239e33a980fa1077e2c248837bd8"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt02/project/ShielddSecurity/TransferScalarInverseCorrectness01.lean",
+          "bytes": 6230,
+          "sha256": "50599503e85468743a81c629b4f57c1a27f4239e33a980fa1077e2c248837bd8"
+        }
+      ],
+      "exact_delta": "--- \n+++ \n@@ -33,6 +33,7 @@\n   have positive : (base : ZMod nullifierModulus) \u2260 0 := by\n     intro zero\n     have value := congrArg (fun x : ZMod nullifierModulus => x.val) zero\n+    dsimp only at value\n     rw [ZMod.val_natCast, Nat.mod_eq_of_lt bounded, ZMod.val_zero] at value\n     exact nonzero value\n   let unit : (ZMod nullifierModulus)\u02e3 := Units.mk0 (base : ZMod nullifierModulus) positive\n@@ -48,6 +49,7 @@\n     rw [\u2190 pow_succ, count]\n     exact fermat\n   have value := congrArg (fun x : ZMod nullifierModulus => x.val) product\n+  dsimp only at value\n   rw [\u2190 Nat.cast_pow, \u2190 Nat.cast_mul, ZMod.val_natCast, ZMod.val_one] at value\n   rw [Nat.mod_mul_mod]\n   exact value\n",
+      "diagnostics": [],
+      "classification": "Unlaunched original preparation; no kernel result inferred"
+    },
+    {
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/handwritten/TransferScalarInverseCorrectness01.lean",
+        "bytes": 6230,
+        "sha256": "50599503e85468743a81c629b4f57c1a27f4239e33a980fa1077e2c248837bd8"
+      },
+      "files": [
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/plan.json",
+          "bytes": 720973,
+          "sha256": "6e8921baf011c51046852882154793650911f93cac259be5ac49cacbfb1cf1f8"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/prepare_recipe_from01.py",
+          "bytes": 8888,
+          "sha256": "f5dcc39bf19439795ec139de8fb1db920617c21d6ce4372027517e5fd45115bd"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/prepare_recipe.py",
+          "bytes": 1953,
+          "sha256": "bd3011d74b63cf53c9a8744ffc681bea542ad69949ba920a3010512f00154b8d"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/events.jsonl",
+          "bytes": 303,
+          "sha256": "f6c30d97b38f4cbb5c53b04eeae4e87e2e495d626059edf70863f8c3a174dfc9"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/source-mapping.json",
+          "bytes": 110720,
+          "sha256": "6d1709d8b5043023c10146cee1318aecc54eca2f70c4ee70dafcda7d63d811ed"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/execute_bounded.py",
+          "bytes": 24574,
+          "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/review.json",
+          "bytes": 1404,
+          "sha256": "aa3c431cbb2ca1ec6a9aae42849d88f0ad1019d1b01402f8ab6507e536463243"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/prepare.py",
+          "bytes": 67469,
+          "sha256": "7d3f7585557f3f963b9b1faf2bc34c0b0375fa413c0c12320c27874d301a28e2"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/context/scalar-inverse-correctness-shape.json",
+          "bytes": 1922,
+          "sha256": "952388f851a94b59e68c028692293626819b4f23a68315e66371b683f08dc411"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/handwritten/TransferScalarInverseCorrectness01.lean",
+          "bytes": 6230,
+          "sha256": "50599503e85468743a81c629b4f57c1a27f4239e33a980fa1077e2c248837bd8"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/runs/01-TransferScalarInverseCorrectness01/stdout.txt",
+          "bytes": 7593,
+          "sha256": "a2ad13772d43af6e50d8aac0faa2e21664a0eed0861bb3954967e531e582ffe2"
+        },
+        {
+          "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-inverse-correctness-review01/packet01/prior-inverse-attempt03/project/ShielddSecurity/TransferScalarInverseCorrectness01.lean",
+          "bytes": 6230,
+          "sha256": "50599503e85468743a81c629b4f57c1a27f4239e33a980fa1077e2c248837bd8"
+        }
+      ],
+      "exact_delta": "--- \n+++ \n@@ -33,6 +33,7 @@\n   have positive : (base : ZMod nullifierModulus) \u2260 0 := by\n     intro zero\n     have value := congrArg (fun x : ZMod nullifierModulus => x.val) zero\n+    dsimp only at value\n     rw [ZMod.val_natCast, Nat.mod_eq_of_lt bounded, ZMod.val_zero] at value\n     exact nonzero value\n   let unit : (ZMod nullifierModulus)\u02e3 := Units.mk0 (base : ZMod nullifierModulus) positive\n@@ -48,6 +49,7 @@\n     rw [\u2190 pow_succ, count]\n     exact fermat\n   have value := congrArg (fun x : ZMod nullifierModulus => x.val) product\n+  dsimp only at value\n   rw [\u2190 Nat.cast_pow, \u2190 Nat.cast_mul, ZMod.val_natCast, ZMod.val_one] at value\n   rw [Nat.mod_mul_mod]\n   exact value\n",
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-inverse-correctness-20261012-03\\project\\ShielddSecurity\\TransferScalarInverseCorrectness01.lean:36:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-inverse-correctness-20261012-03\\project\\ShielddSecurity\\TransferScalarInverseCorrectness01.lean:51:38: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+      ],
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 39.56267660000594,
+        "status": "failed"
+      },
+      "classification": "Original failed Lean attempt"
+    }
+  ],
+  "unlaunched_preparations": 2,
+  "failed_lean_attempts": 1,
+  "scope": "Exact previously proved scalar modulus primality is installed internally from original FieldPrimeNode38, with no caller prime/Fermat assumption. Nonzero bounded base defines an actual ZMod unit; finite unit cardinality p-1 and pow_card_eq_one derive the p-minus-two inverse product. Final returned modeled inversion derives its exponent from the accepted actual85-statement chain, discharges boundedness and nonzero internally via canonical field/raw-zero equivalence, and proves product1. Canonical value injectivity plus actual modeled multiplication field value derives exact raw ONE words. Complete modeled payload success and exact zero test yield refusal iff mathematical field value0. Successful returned-execution equation identifies the actual modeled payload and is not a desired inverse premise; nonzero return existence follows from the earlier successful chain. Forty original prime modules126 reports reused with exact original full48-field packet unchanged, no replay. Two unlaunched preparations and one complete two-error failed Lean attempt retained; first preparation replaces a broad finite-field import/convenience theorem by explicit finite-unit cardinality proof without changing contracts, final repair adds only two congrArg lambda simplifications. Algorithms/contracts/runner/physical limits unchanged. Six standard-axiom theorem reports. Actual native Choice/ct_eq/library/UInt64/compiler/ABI/caller/private-constructor correspondence and full Transfer remain owned OPEN; no Root verifier/native/combined replay. Official import-inventory qualification is checked separately before kernel acceptance/publication.",
+  "native_execution": "UNRUN",
+  "full_transfer": "OPEN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
