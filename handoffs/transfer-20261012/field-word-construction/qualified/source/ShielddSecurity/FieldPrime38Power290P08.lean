@@ -1,0 +1,11 @@
+import ShielddSecurity.ModularPower
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+namespace ShielddSecurity.FieldPrime38Power290P08
+theorem checked : ModularPower.power 52435875175126190479447740508185965837690552500527637822603658699938581184513 7 20904037250355181503274681484632675866531555460264908084209416686010368 = 3815854618502706066781575637619522226469869671769340391720987388396519592594 := by decide +kernel
+end ShielddSecurity.FieldPrime38Power290P08
+
+set_option pp.all true in
+#check @ShielddSecurity.FieldPrime38Power290P08.checked
+#print axioms ShielddSecurity.FieldPrime38Power290P08.checked
