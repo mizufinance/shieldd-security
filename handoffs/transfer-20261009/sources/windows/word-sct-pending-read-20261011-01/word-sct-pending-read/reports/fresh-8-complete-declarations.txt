@@ -1,0 +1,106 @@
+@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered : {Other : Type} →
+  (object : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+'ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered' does not depend on any axioms
+@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed : {Other : Type} →
+  (object : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) → Except.{0, 0} Unit Bool
+'ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed' depends on axioms: [propext]
+@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed : {Other : Type} →
+  (object : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    Except.{0, 0} Unit (Except.{0, 0} Unit Unit)
+'ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed' does not depend on any axioms
+@ShielddSecurity.TransferWordSctPendingRead01.absent_source_pending_returns_empty_vector_false_sealed_and_successful_ensure : ∀
+  {Other : Type},
+  And
+    (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+      (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+        (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit Bool)
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+          (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} Unit Bool Bool.false))
+      (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+          (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.ok.{0, 0} Unit Unit Unit.unit))))
+'ShielddSecurity.TransferWordSctPendingRead01.absent_source_pending_returns_empty_vector_false_sealed_and_successful_ensure' depends on axioms: [propext]
+@ShielddSecurity.TransferWordSctPendingRead01.open_source_pending_returns_ordered_vector_and_returned_open_refusal : ∀
+  {Other : Type} (ordered members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+      (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+            (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members))))
+      (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) ordered))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit Bool)
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+          (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+              (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members))))
+        (@Except.ok.{0, 0} Unit Bool Bool.false))
+      (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+          (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+              (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members))))
+        (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.error.{0, 0} Unit Unit Unit.unit))))
+'ShielddSecurity.TransferWordSctPendingRead01.open_source_pending_returns_ordered_vector_and_returned_open_refusal' depends on axioms: [propext]
+@ShielddSecurity.TransferWordSctPendingRead01.sealed_source_pending_returns_ordered_vector_and_successful_ensure : ∀
+  {Other : Type} (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+      (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+            (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed ordered))))
+      (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) ordered))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit Bool)
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+          (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+              (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed ordered))))
+        (@Except.ok.{0, 0} Unit Bool Bool.true))
+      (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+          (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+              (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed ordered))))
+        (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.ok.{0, 0} Unit Unit Unit.unit))))
+'ShielddSecurity.TransferWordSctPendingRead01.sealed_source_pending_returns_ordered_vector_and_successful_ensure' depends on axioms: [propext]
+@ShielddSecurity.TransferWordSctPendingRead01.present_wrong_type_panics_before_any_sct_default_or_returned_refusal : ∀
+  {Other : Type} (other : Other),
+  And
+    (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+      (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other)))
+      (@Except.error.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) Unit.unit))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit Bool)
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+          (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other)))
+        (@Except.error.{0, 0} Unit Bool Unit.unit))
+      (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+          (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other)))
+        (@Except.error.{0, 0} Unit (Except.{0, 0} Unit Unit) Unit.unit)))
+'ShielddSecurity.TransferWordSctPendingRead01.present_wrong_type_panics_before_any_sct_default_or_returned_refusal' depends on axioms: [propext]
+@ShielddSecurity.TransferWordSctPendingRead01.source_ensure_success_does_not_imply_a_present_sealed_enum : ∀
+  {Other : Type},
+  @Exists.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+    fun (object : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) =>
+    And
+      (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other object)
+        (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.ok.{0, 0} Unit Unit Unit.unit)))
+      (@Eq.{1} (Except.{0, 0} Unit Bool) (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other object)
+        (@Except.ok.{0, 0} Unit Bool Bool.false))
+'ShielddSecurity.TransferWordSctPendingRead01.source_ensure_success_does_not_imply_a_present_sealed_enum' depends on axioms: [propext]
