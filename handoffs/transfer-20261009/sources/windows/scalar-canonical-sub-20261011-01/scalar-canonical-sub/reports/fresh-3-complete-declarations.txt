@@ -1,0 +1,38 @@
+ShielddSecurity.TransferScalarCanonicalSub01.sourceSubWords : (left right :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  List.{0} UInt64
+'ShielddSecurity.TransferScalarCanonicalSub01.sourceSubWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarCanonicalSub01.source_four_sbb_and_masked_adc_retain_four_output_limbs : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarCanonicalSub01.sourceSubWords left right))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarCanonicalSub01.source_four_sbb_and_masked_adc_retain_four_output_limbs' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalSub01.canonical_operands_source_subtraction_has_exact_canonical_modular_value : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarCanonicalSub01.sourceSubWords
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarCanonicalSub01.sourceSubWords
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)))
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarCanonicalSub01.canonical_operands_source_subtraction_has_exact_canonical_modular_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
