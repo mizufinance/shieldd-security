@@ -1,0 +1,108 @@
+ShielddSecurity.TransferScalarPowBitInteger01.bounded_source_word_shift_mask_has_exact_binary_digit : ∀ (word : UInt64)
+  (index : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HAnd.hAnd.{0, 0, 0} UInt64 UInt64 UInt64 (@instHAndOfAndOp.{0} UInt64 instAndOpUInt64)
+        (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+          (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) word (UInt64.ofNat index))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1)))))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat word)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) index))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'ShielddSecurity.TransferScalarPowBitInteger01.bounded_source_word_shift_mask_has_exact_binary_digit' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowBitInteger01.bounded_source_word_boolean_bit_has_exact_binary_digit : ∀ (word : UInt64)
+  (index : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (@ite.{1} Nat (@Eq.{1} Bool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+      (instDecidableEqBool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat word)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) index))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'ShielddSecurity.TransferScalarPowBitInteger01.bounded_source_word_boolean_bit_has_exact_binary_digit' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowBitInteger01.symbolic_high_to_low_binary_digit_walk_reconstructs_exact_low_bits : ∀
+  (word count seed : Nat),
+  @Eq.{1} Nat
+    (@List.foldl.{0, 0} Nat Nat
+      (fun (value index : Nat) =>
+        @HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) value
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+            (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) word
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) index))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+      seed (@List.reverse.{0} Nat (List.range count)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) seed
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) word
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)))
+'ShielddSecurity.TransferScalarPowBitInteger01.symbolic_high_to_low_binary_digit_walk_reconstructs_exact_low_bits' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowBitInteger01.symbolic_natural_folds_agree_from_actual_member_steps : ∀
+  (items : List.{0} Nat) (seed : Nat) (left right : Nat → Nat → Nat)
+  (agree :
+    ∀ (value index : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) items index →
+        @Eq.{1} Nat (left value index) (right value index)),
+  @Eq.{1} Nat (@List.foldl.{0, 0} Nat Nat left seed items) (@List.foldl.{0, 0} Nat Nat right seed items)
+'ShielddSecurity.TransferScalarPowBitInteger01.symbolic_natural_folds_agree_from_actual_member_steps' does not depend on any axioms
+ShielddSecurity.TransferScalarPowBitInteger01.actual_source_word_bit_loop_reconstructs_exact_u64_integer : ∀
+  (word : UInt64) (seed : Nat),
+  @Eq.{1} Nat
+    (@List.foldl.{0, 0} Nat Nat
+      (fun (value index : Nat) =>
+        @HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) value
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (@ite.{1} Nat (@Eq.{1} Bool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+            (instDecidableEqBool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+      seed (@List.reverse.{0} Nat (List.range (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) seed
+        ShielddSecurity.TransferScalarSerializationRange01.radix64)
+      (UInt64.toNat word))
+'ShielddSecurity.TransferScalarPowBitInteger01.actual_source_word_bit_loop_reconstructs_exact_u64_integer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowBitInteger01.symbolic_source_reversed_word_bit_walk_reconstructs_exact_little_endian_integer : ∀
+  (words : List.{0} UInt64) (seed : Nat),
+  @Eq.{1} Nat
+    (@List.foldl.{0, 0} Nat UInt64
+      (fun (value : Nat) (word : UInt64) =>
+        @List.foldl.{0, 0} Nat Nat
+          (fun (current index : Nat) =>
+            @HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) current
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (@ite.{1} Nat
+                (@Eq.{1} Bool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+                (instDecidableEqBool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+          value (@List.reverse.{0} Nat (List.range (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+      seed (@List.reverse.{0} UInt64 words))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) seed
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words)))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+'ShielddSecurity.TransferScalarPowBitInteger01.symbolic_source_reversed_word_bit_walk_reconstructs_exact_little_endian_integer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

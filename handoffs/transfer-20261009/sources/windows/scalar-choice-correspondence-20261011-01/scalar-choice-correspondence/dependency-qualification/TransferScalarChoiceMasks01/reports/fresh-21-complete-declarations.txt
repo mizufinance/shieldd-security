@@ -1,0 +1,179 @@
+ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte : Type
+'ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte' does not depend on any axioms
+ShielddSecurity.TransferScalarChoiceMasks01.valid_source_choice_byte_is_exactly_zero_or_one : ∀
+  (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte),
+  Or
+    (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+    (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1))))
+'ShielddSecurity.TransferScalarChoiceMasks01.valid_source_choice_byte_is_exactly_zero_or_one' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.sourceChoiceFromBool : (bit : Bool) →
+  ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte
+'ShielddSecurity.TransferScalarChoiceMasks01.sourceChoiceFromBool' does not depend on any axioms
+ShielddSecurity.TransferScalarChoiceMasks01.sourceChoiceMask : (choice :
+    ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte) →
+  UInt64
+'ShielddSecurity.TransferScalarChoiceMasks01.sourceChoiceMask' does not depend on any axioms
+ShielddSecurity.TransferScalarChoiceMasks01.sourceWordSelect : (a b : UInt64) →
+  (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte) → UInt64
+'ShielddSecurity.TransferScalarChoiceMasks01.sourceWordSelect' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_choice_mask_is_zero_or_all_ones : ∀
+  (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte),
+  @Eq.{1} UInt64 (ShielddSecurity.TransferScalarChoiceMasks01.sourceChoiceMask choice)
+    (@ite.{1} UInt64
+      (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      (instDecidableEqUInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1)))))
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_choice_mask_is_zero_or_all_ones' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_xor_and_word_selection_equals_the_choice_branch : ∀
+  (a b : UInt64) (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte),
+  @Eq.{1} UInt64 (ShielddSecurity.TransferScalarChoiceMasks01.sourceWordSelect a b choice)
+    (@ite.{1} UInt64
+      (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      (instDecidableEqUInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      a b)
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_xor_and_word_selection_equals_the_choice_branch' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.sourceVectorSelect : (a b :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte) →
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarChoiceMasks01.sourceVectorSelect' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_four_word_selection_equals_the_whole_choice_branch : ∀
+  (a b : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte),
+  @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (ShielddSecurity.TransferScalarChoiceMasks01.sourceVectorSelect a b choice)
+    (@ite.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      (instDecidableEqUInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      a b)
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_four_word_selection_equals_the_whole_choice_branch' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedScalarSelect : (a b :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte) →
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedScalarSelect' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.canonical_scalar_objects_equal_of_exact_raw_word_equality : ∀
+  (a b : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (same :
+    @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words a)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words b)),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar a b
+'ShielddSecurity.TransferScalarChoiceMasks01.canonical_scalar_objects_equal_of_exact_raw_word_equality' does not depend on any axioms
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_masked_scalar_selection_equals_the_whole_canonical_branch : ∀
+  (a b : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (choice : ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedScalarSelect a b choice)
+    (@ite.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      (instDecidableEqUInt8 (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte choice)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      a b)
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_masked_scalar_selection_equals_the_whole_canonical_branch' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_masked_scalar_boolean_selection_equals_the_boolean_branch : ∀
+  (a b : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (bit : Bool),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedScalarSelect a b
+      (ShielddSecurity.TransferScalarChoiceMasks01.sourceChoiceFromBool bit))
+    (@ite.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar (@Eq.{1} Bool bit Bool.true)
+      (instDecidableEqBool bit Bool.true) b a)
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_masked_scalar_boolean_selection_equals_the_boolean_branch' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedConstantTimeStep : (self current :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (bit : Bool) → ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedConstantTimeStep' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_masked_bit_step_equals_the_boolean_power_model : ∀
+  (self current : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (bit : Bool),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedConstantTimeStep self current bit)
+    (ShielddSecurity.TransferScalarPowInvariant01.sourceConstantTimeStep self current bit)
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_masked_bit_step_equals_the_boolean_power_model' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedPow : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (exponent : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedPow' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_word_masked_power_loop_equals_the_boolean_power_model : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (exponent : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedPow self exponent)
+    (ShielddSecurity.TransferScalarPowInvariant01.sourcePow self exponent)
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_word_masked_power_loop_equals_the_boolean_power_model' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.exact_source_word_masked_power_has_derived_canonical_serialized_field : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (exponent : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt8
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+              (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedPow self exponent)))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedPow self exponent)))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedPow self exponent)))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+            (ShielddSecurity.TransferScalarChoiceMasks01.sourceMaskedPow self exponent)))))
+'ShielddSecurity.TransferScalarChoiceMasks01.exact_source_word_masked_power_has_derived_canonical_serialized_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.sourcePowShiftMaskCastByte : (word : UInt64) → (index : Nat) → UInt8
+'ShielddSecurity.TransferScalarChoiceMasks01.sourcePowShiftMaskCastByte' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.actual_source_power_shift_mask_cast_derives_the_boolean_choice_byte : ∀
+  (word : UInt64) (index : Nat),
+  @Eq.{1} UInt8 (ShielddSecurity.TransferScalarChoiceMasks01.sourcePowShiftMaskCastByte word index)
+    (ShielddSecurity.TransferScalarChoiceMasks01.SourceChoiceByte.byte
+      (ShielddSecurity.TransferScalarChoiceMasks01.sourceChoiceFromBool
+        (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index)))
+'ShielddSecurity.TransferScalarChoiceMasks01.actual_source_power_shift_mask_cast_derives_the_boolean_choice_byte' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarChoiceMasks01.actual_source_power_choice_byte_has_derived_zero_one_invariant : ∀
+  (word : UInt64) (index : Nat),
+  @LT.lt.{0} Nat instLTNat
+    (UInt8.toNat (ShielddSecurity.TransferScalarChoiceMasks01.sourcePowShiftMaskCastByte word index))
+    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+'ShielddSecurity.TransferScalarChoiceMasks01.actual_source_power_choice_byte_has_derived_zero_one_invariant' depends on axioms: [propext,
+ Quot.sound]
