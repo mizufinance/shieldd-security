@@ -1,0 +1,119 @@
+@ShielddSecurity.TransferCheckedWordAcceptedInput01.acceptedKeys : {Other : Type} →
+  (object : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    Except.{0, 0} Unit (List.{0} Nat)
+'ShielddSecurity.TransferCheckedWordAcceptedInput01.acceptedKeys' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferCheckedWordAcceptedInput01.symbolic_original_field_key_vector_is_exact_montgomery_value_vector : ∀
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (List.{0} Nat)
+    (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      fields)
+    (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      fields)
+'ShielddSecurity.TransferCheckedWordAcceptedInput01.symbolic_original_field_key_vector_is_exact_montgomery_value_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCheckedWordAcceptedInput01.every_original_typed_field_has_exact_32_byte_canonical_serialized_key : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt8
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+'ShielddSecurity.TransferCheckedWordAcceptedInput01.every_original_typed_field_has_exact_32_byte_canonical_serialized_key' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordAcceptedInput01.returned_fresh_whole_block_derives_exact_actual_accepted_key_vector : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (batches : List.{0} (Prod.{0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) Bool))
+  (final : ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.runFromSnapshot O E Other backend child batches)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          final))),
+  And
+    (@Eq.{1} (Except.{0, 0} Unit (List.{0} Nat))
+      (@ShielddSecurity.TransferCheckedWordAcceptedInput01.acceptedKeys Other
+        (@ShielddSecurity.TransferStateDelta.overlay (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other) final
+          (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+            ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+      (@Except.ok.{0, 0} Unit (List.{0} Nat)
+        (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches))))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit (List.{0} Nat))
+        (@ShielddSecurity.TransferCheckedWordAcceptedInput01.acceptedKeys Other
+          (@ShielddSecurity.TransferStateDelta.overlay
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@ShielddSecurity.TransferCheckedWordFreshSnapshot01.snapshotObjects Other) final
+            (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+              ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+        (@Except.ok.{0, 0} Unit (List.{0} Nat)
+          (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+            (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+              ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+            (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches))))
+      (And
+        (@List.Nodup.{0} Nat
+          (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+            (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+              ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+            (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches)))
+        (And
+          (@LE.le.{0} Nat instLENat
+            (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+              (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches))
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+          (∀ (key : Nat),
+            @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+                (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+                  (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+                    ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+                  (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches))
+                key →
+              And (@LT.lt.{0} Nat instLTNat key ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@Eq.{1} (Option.{0} Bool)
+                  (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child key)
+                  (@Option.some.{0} Bool Bool.false))))))
+'ShielddSecurity.TransferCheckedWordAcceptedInput01.returned_fresh_whole_block_derives_exact_actual_accepted_key_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
