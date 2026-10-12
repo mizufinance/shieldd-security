@@ -3,3 +3,7 @@
 The candidate-producing loop, completeness for square inputs, native value origins and compiler/ABI correspondence remain separate obligations. This package gives no native execution or full Transfer certification credit. The SDK `Fq::sqrt` and Commonware circuit `Scalar::sqrt` have different producers and need separate joins.
 
 `refresh.py` checks the transported successful receipt and complete compiler reports, confirms the local locked `ff-0.13.0` helper bytes, and atomically writes compact evidence. Failed attempts, compiler logs, transport archives and objects stay local.
+
+`FfFinishedPhase296` adds a qualified mathematical finished-phase case. Once `x² = input`, `v = 1`, `b² = 1` and `z² = 1`, its exact inner/outer schedule preserves those facts through any remaining rounds. This handles the source helper's clamp of `k` to one and the case where `b` changes from one to minus one after a root is reached. Twenty-five complete declaration and axiom reports passed in 1.37 seconds at 1.43 GiB RSS. The active least-power progress and native word-to-field correspondence remain separate obligations.
+
+The new lemma uses only the pinned official Lean/Mathlib dependencies. Its guard verifies that dependency closure without carrying unrelated historical aliases; it retains one thread, 2 GiB Lean heap, 4 GiB process-group RSS, 240 seconds and physical RAM/disk floors. The old history remains local. `refresh_finished.py` reproduces the generated reporting source and atomically validates the original successful artifacts.
