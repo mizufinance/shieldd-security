@@ -45,11 +45,11 @@ Read the latest immutable receipt rather than a stale status field. Freeze the t
 
 ### Phase 2 Close the shared legal seed and native representation interfaces
 
-On Mac, repair the actual Boolean exclusion check using small certificates. Finish the 53 non-alias value meanings and legal word bounds, derive coherence/parities, and close the complete input encoder with preservation of all observables. Reuse the reviewed alias and subgroup/path work. Repair only the necessary rejected field certificate target; do not rebuild accepted prime chains without a changed dependency.
+The concrete field and partitioned Boolean exclusion checks have passed. On Mac, derive the 53 nonalias value meanings and bounds from independent semantic inputs and close the complete input encoder with preservation of all observables. Reuse the reviewed alias and subgroup/path work. Reuse the desktop's successful group objects in their original exact dependency closure where compatible; avoid replaying geometry or mixing prime-source variants merely to instantiate a model.
 
 On desktop, review unpublished scalar/caller packets against the exact ancestry. Instantiate the native field and canonical codec/input interfaces needed by circuit C1 and runtime N1. Deliver concrete conversion contracts to Mac. Stop producing unrelated arithmetic lemmas once the required caller contract is discharged.
 
-After reconciling the original pack-chunk, pack-walk and policy-prehash packets, review the already prepared LF native successor and run its three named controls as soon as exact prerequisites and physical admission permit. Their outcomes can expose runtime problems while Mac completes the mathematical joins; do not postpone them merely to wait for the final soundness root. Keep execution conditional on the original guards and preserve artificial fault-injection limits.
+The pack and policy packets are reconciled and published. The three named native controls passed on Mac with fresh development keys, exact relation/domain and unchanged diagnostic source/binary/key identities. Preserve this result and its artificial fault-injection limits; no repeated native run is needed without a relevant changed input or unresolved concern. The square-root final check is qualified, while producer completeness and the concrete mapping/caller joins remain open.
 
 **Exit:** independently legal inputs yield one compatible seed without caller-supplied bound/coherence/meaning conclusions; the concrete representation interfaces used by that proof are qualified.
 
@@ -63,7 +63,7 @@ On desktop, close actual admission/envelope/key/context and source-ordered deliv
 
 ### Phase 4 Close runtime recovery and execute the native controls
 
-Desktop derives the actual trace refinement through publication and close/reopen, retaining permitted errors and partial progress. Complete any still-unrun native controls only after their unchanged memory admission succeeds. Reduce each test's live state and build dependencies if necessary; preserve the semantic trigger and expected observation. Do not lower the guard to obtain a run. If the Phase 2 controls already passed against unchanged inputs, retain those results rather than repeating them for chronology.
+Desktop derives the actual trace refinement through publication and close/reopen, retaining permitted errors and partial progress. Reuse the three completed Mac controls. The observed queue-fault retry publishes Transfer effects without an index; account for that outcome explicitly rather than claiming universal retry safety. Keep bounded native testing distinct from the universal source-refinement obligation.
 
 Mac builds only the missing integration adapters and final audit imports. Review backend knowledge, actual opening and semantic-or-collision cases at the concrete interfaces. Use the completed soundness result in the native consequence.
 

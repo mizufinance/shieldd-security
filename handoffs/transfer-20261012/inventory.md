@@ -23,23 +23,15 @@ The starting checkout `/Users/antoinecyr/Documents/Source/shieldd-security` inst
 
 ## Desktop reconciliation
 
-The read-only inventory from **Wait for transfer proof instructions** found the maintained work at `C:\src\shieldd-formal`, with newer packets under `.work\diagnostics`. Its formal HEAD is `b0f7e8b885dc0c13ee3bd5c82851afb690f48d48`, with 16 tracked modifications and 1,178 untracked entries. Its publication checkout is clean at `cec1b30defc23497c8e9b30528dca12b09d328ea`; its cached shared branch stops at `22efb9ec8d4d62a50e62393c74bad660bf89e856`. Mac HEAD `a74842d5...` is absent from that local Git object database. All three formal views lock the campaign runtime `844389ee...`, and `C:\src\shieldd-pr160-844389ee` is clean at that full SHA.
+The desktop's original dirty checkout and unpublished sources were preserved before synchronization. The two hosts share `codex/security-assurance` in `mizufinance/shieldd-security`; the parent serializes pushes. Failed attempts and detailed logs remain local.
 
-Newer desktop compiler-success packets require original transport and independent reconciliation before inclusion in the reviewed Mac closure:
+The pack-chunk, pack-walk and policy-prehash proofs are reconciled and published under [native-packing](native-packing/README.md), with 23 complete reports. The square-root final acceptance proof adds six reports under [native-sqrt](native-sqrt/README.md). These are source-model results; square-root producer completeness, concrete mapping and native caller correspondence remain open.
 
-| Packet | Fresh complete reports | Recorded seconds | Peak RSS MiB | Olean bytes |
-| --- | --- | --- | --- | --- |
-| Scalar pack chunk | 10 | 7.27 | 785 | 85,088 |
-| Scalar pack walk | 7 | 7.30 | 799 | 202,736 |
-| Policy prehash fields | 6 | 7.06 | 743 | 59,080 |
+The Mac field and word construction batch passed 78 modules and 119 reports, published under [field-word-construction](field-word-construction/README.md). It includes the concrete prime field, representation, coefficient nonsquareness, square root of minus one, 58 small Boolean avoidance certificates and the shared legal word-encoding join. The join still requires semantic seed bounds/meanings and registry legality. The actual group model must be instantiated; the desktop retains the successful geometry closure for reuse.
 
-The policy packet inherits 217 modules and 1,557 reports, then adds one module and six reports. These newer counts do not imply native execution or final proof closure. Pack-walk attempt 05 failed on a `List.take`/`List.drop` rewrite; policy attempt 01 failed on an unreduced lambda. Both have successful successors and retained zero-credit failures.
+The three native controls PASSED on Mac: exact names, genuine proof fixtures and all four intended observations were independently checked. A fresh complete development registry was generated on Mac, with distinct key identities from Windows Registry06 and the same Transfer relation/domain. The tests ran in 73.07 seconds at 2.83 GiB peak group RSS; setup ran in 265.38 seconds at 2.86 GiB. Evidence is under [native-controls](native-controls/README.md). They use the recorded 52-path diagnostic overlay, including artificial private queue-fault access. They do not establish whole native trace refinement or universal retry safety.
 
-The two latest portable archive candidates are `transfer-scalar-pack-walk-endpoint-20261012-06/portable-windows-scalar-pack-walk-endpoint01.tar.xz` and `transfer-policy-prehash-fields-endpoint-20261012-02/portable-windows-policy-prehash-fields-endpoint01.tar.xz` under the desktop diagnostics directory. Resolve their complete exact ancestry, including pack-chunk, rather than importing only final source files.
-
-The native three-control group remains UNRUN. Its most recent attempted launch stopped before any test because a CRLF shell script produced `set: -<CR>: invalid option`. The prepared `transfer-state-controls-successor-20261012-02` generator writes explicit LF bytes; its review records unchanged assertions and budgets, and its fresh output namespace is absent. The intended controls exercise delayed Ordinary volume rechecking/child discard, Host queue-fault retry publishing effects without an index, and rollback followed by genuine replay/index publication. Artificial queue-fault reachability remains an explicit limit.
-
-The prepared native group has a 7,200-second bound, one worker, 4 GiB memory and 8 GiB swap cgroup limits. Those are native-job settings, distinct from the Lean module guards. The desktop observed about 6.33 GiB free physical RAM, no verification processes and no running WSL distribution. Recheck admission at launch; this observation does not authorize bypassing a guard.
+The Mac runs retained a 7,200-second deadline, 4 GiB group RSS ceiling, one Tokio/Rayon/test worker and physical RAM/disk floors. macOS sampling is not Linux cgroup or task-owned swap enforcement. Raw diagnostic sources, key bytes, objects, compiler streams and failed histories remain local.
 
 ## Reviewed work to reuse
 
@@ -49,7 +41,7 @@ The prepared native group has a 7,200-second bound, one worker, 4 GiB memory and
 - Reviewed captured registry and full 16-level field Merkle path/anchor work exists. Candidate path construction covers 9,506 field arithmetic rows on the same original inputs. Concrete natural, canonical and SDK interpretation still requires instantiation.
 - Actual concrete curve model, base order, curve cardinality, global exponent and cofactor capstones already exist. The abandoned Hasse port is not a prerequisite for completing Transfer.
 - `LegalSharedRows271.legal_completed` puts arithmetic, selected 10,783 Boolean positions, 66 word entries, four subgroup families and anchor row 178117 on one assignment. It still has explicit representation, legality, bounds, coherence and seed-meaning premises.
-- `LegalAliasMeanings276` derives the three normalized alias seed meanings. `LegalWordValueData278` partitions word values into those aliases or 53 other distinct columns. The actual Boolean exclusion instances and remaining seed meanings are open.
+- `LegalAliasMeanings276` derives the three normalized alias seed meanings. `LegalWordValueData278` partitions word values into those aliases or 53 other distinct columns. The Boolean exclusion instances are now checked; independent legal-input seed meanings and bounds remain open.
 - Desktop source models cover substantial finite-word arithmetic, canonical field encoding, scalar operations and represented program evaluation, plus admission, delivery, nullifier/SCT/cache/finalization models. Their exact scope remains modeled source behavior; native whole-trace correspondence is open.
 - Retained runtime tests and genuine branch proof receipts provide scoped execution evidence. They do not replace arbitrary-assignment soundness, universal construction or native refinement.
 
@@ -69,7 +61,7 @@ The old count of 1,467 constructor assertions and its 21,349-row remainder descr
 | W3 | Prove frames across every seed stage | Subgroup, Boolean, word, registry/path and subsequent seeds preserve each other's required values; any inactive auxiliary normalization preserves public64, statement and blinding | Mac |
 | W4 | Produce total legal-input completeness | Compose `TransferSemanticConstruction.constructed_transfer_semantics`, the concrete seed and `CapturedFullRelation58.candidate_full_iff` without a supplied `TruthAt` conclusion; include all stored rows and padding | Mac |
 
-Immediate repair work is narrow. The actual avoidance check after the accepted alias/value modules hit the heap limit; partition it into small index or interval certificates and compose. The last Mac interruption record also retains a `FieldPrimeNode38` compiler-success stream rejected for an unused simp argument. Its accepted prefix does not qualify the rejected final source. Inspect its exact receipt and maintained generator, repair the warning, and rerun only the changed target if it is still needed. Retain all failures.
+The interrupted prime and field-parameter targets and the partitioned avoidance checks are now qualified. Next instantiate the retained actual group model, derive all word values from the independent semantic input encoder, and discharge the remaining assertion truths on the same final assignment. Do not replace those obligations with caller-supplied `otherBound`, `original` or `TruthAt` conclusions.
 
 ## Outstanding native obligations
 
@@ -80,7 +72,7 @@ Immediate repair work is narrow. The actual avoidance check after the accepted a
 | N3 | Refine actual transaction execution | Concrete collections, getters, Clone/COW, ownership, callbacks, source ordering, nullifier freshness, volume and SCT writes, parent/child cache effects and savepoint behavior | Desktop |
 | N4 | Refine finalization and publication | Actual source-ordered flush, SCT seal, state transfer and Host publication; bind the corrected finalizer/driver models and all reachable branches | Desktop |
 | N5 | Prove recovery under the declared environment | Actual Commonware/NOMT patches, locks, poison/owner/partition behavior, snapshots/ICS23, crash and error propagation, close/reopen/readback, and exact permitted OS primitive assumptions | Desktop |
-| N6 | Run the three prepared native controls | Fresh admitted executions with intended semantic observations and complete receipts. Currently compiled UNRUN; an admission refusal or timeout is not a negative control result | Desktop |
+| N6 | DONE: three native diagnostic controls | Mac exact three-test run passed with all intended observations, fresh native keys and complete compact evidence; artificial fault and diagnostic overlay limits remain explicit | Mac |
 | N7 | Produce the implementation consequence | Actual pinned accepted/delivered traces refine the completed circuit and execution specifications; no supplied final poststate or broad native-correspondence premise | Desktop with C5 |
 
 N1 through N7 are the largest unresolved scope risk. More proved model operations are useful only when they discharge a specific reachable native interface. Source hashes authenticate identity; they do not prove the execution/model correspondence.
