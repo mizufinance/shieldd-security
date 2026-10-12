@@ -1,0 +1,102 @@
+@ShielddSecurity.TransferWordObjectPut01.pendingTypeMatch : {Other : Type} →
+  Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) → Option.{0} Bool
+'ShielddSecurity.TransferWordObjectPut01.pendingTypeMatch' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectPut01.checkedPendingPut : {Other : Type} →
+  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    (fields : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) →
+      Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+'ShielddSecurity.TransferWordObjectPut01.checkedPendingPut' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectPut01.checkedPutAtKey : {Other : Type} →
+  (parent :
+      ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    (writes :
+        ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+      (key : Nat) →
+        (fields : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) →
+          Except.{0, 0} Unit
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+'ShielddSecurity.TransferWordObjectPut01.checkedPutAtKey' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectPut01.absent_or_tombstoned_slot_allows_pending_type_insert : ∀ {Other : Type}
+  (fields : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending),
+  @Eq.{1} (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+    (@ShielddSecurity.TransferWordObjectPut01.checkedPendingPut Other
+      (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) fields)
+    (@Except.ok.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+      (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other fields))
+'ShielddSecurity.TransferWordObjectPut01.absent_or_tombstoned_slot_allows_pending_type_insert' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectPut01.previous_open_or_sealed_pending_enum_allows_same_type_insert : ∀ {Other : Type}
+  (previous fields : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending),
+  @Eq.{1} (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+    (@ShielddSecurity.TransferWordObjectPut01.checkedPendingPut Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other previous))
+      fields)
+    (@Except.ok.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+      (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other fields))
+'ShielddSecurity.TransferWordObjectPut01.previous_open_or_sealed_pending_enum_allows_same_type_insert' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectPut01.previous_other_type_panics_before_pending_insert : ∀ {Other : Type}
+  (other : Other) (fields : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending),
+  @Eq.{1} (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+    (@ShielddSecurity.TransferWordObjectPut01.checkedPendingPut Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other))
+      fields)
+    (@Except.error.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) Unit.unit)
+'ShielddSecurity.TransferWordObjectPut01.previous_other_type_panics_before_pending_insert' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectPut01.returned_checked_pending_put_derives_exact_latest_write_and_frames_other_keys : ∀
+  {Other : Type}
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes updated :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (fields : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@ShielddSecurity.TransferWordObjectPut01.checkedPutAtKey Other parent writes key fields)
+      (@Except.ok.{0, 0} Unit
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        updated)),
+  And
+    (@Eq.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) (updated key)
+      (@Option.some.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other fields))))
+    (∀ (other : Nat),
+      @Ne.{1} Nat other key →
+        @Eq.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+          (updated other) (writes other))
+'ShielddSecurity.TransferWordObjectPut01.returned_checked_pending_put_derives_exact_latest_write_and_frames_other_keys' does not depend on any axioms
+@ShielddSecurity.TransferWordObjectPut01.returned_supported_sealed_put_derives_successful_checked_object_read : ∀
+  {Other : Type}
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes updated :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (ordered : List.{0} Nat)
+  (capacity :
+    @LE.le.{0} Nat instLENat (@List.length.{0} Nat ordered)
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+  (canonical :
+    ∀ (value : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ordered value →
+        @LT.lt.{0} Nat instLTNat value ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@ShielddSecurity.TransferWordObjectPut01.checkedPutAtKey Other parent writes key
+        (ShielddSecurity.TransferCanonicalWordPending01.encodeWordPending
+          (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed ordered)))
+      (@Except.ok.{0, 0} Unit
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        updated)),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+      (@ShielddSecurity.TransferStateDelta.overlay (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        parent updated key))
+    (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed ordered))
+'ShielddSecurity.TransferWordObjectPut01.returned_supported_sealed_put_derives_successful_checked_object_read' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
