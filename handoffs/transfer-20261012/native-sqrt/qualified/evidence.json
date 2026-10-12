@@ -1,0 +1,85 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Six complete source-model declarations derive the final ff sqrt candidate check bit invariant, exact square acceptance, returned candidate/square and exact refusal. CanonicalScalar domain explicit. Tonelli-Shanks producer loop, existence/completeness, native private origins, compiler/ABI and complete Elligator/Transfer remain open. No native or certification credit.",
+  "certification": false,
+  "native_credit": 0,
+  "full_transfer": "OPEN",
+  "audits": [
+    {
+      "name": "ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalChoiceByte",
+      "full_type": "ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalChoiceByte : (input candidate :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  UInt8",
+      "full_type_sha256": "f6516fd497727c733264601aedb0be78a88fbe6d90c415f0a1a45daedb85c5aa",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ShielddSecurity.TransferScalarSqrtAcceptance01.source_sqrt_final_choice_has_derived_bit_invariant",
+      "full_type": "ShielddSecurity.TransferScalarSqrtAcceptance01.source_sqrt_final_choice_has_derived_bit_invariant : \u2200\n  (input candidate : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @LT.lt.{0} Nat instLTNat\n    (UInt8.toNat (ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalChoiceByte input candidate))\n    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))",
+      "full_type_sha256": "2206fb7118a33905d4bab2fdca9d1043813c8839507d82607857d8083cbde831",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ShielddSecurity.TransferScalarSqrtAcceptance01.source_sqrt_final_choice_accepts_exactly_the_mathematical_square",
+      "full_type": "ShielddSecurity.TransferScalarSqrtAcceptance01.source_sqrt_final_choice_accepts_exactly_the_mathematical_square : \u2200\n  (input candidate : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  Iff\n    (@Eq.{1} UInt8 (ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalChoiceByte input candidate)\n      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1))))\n    (@Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words candidate))\n          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words candidate)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words input)))",
+      "full_type_sha256": "cf42bacb7df98b7708f62fc8e2ada56243bdd8d7a499c99b66cb0a98f563d8ff",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalOption",
+      "full_type": "ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalOption : (input candidate :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar",
+      "full_type_sha256": "8f906cb950471b9c6b5f24b1870c5a6f1ce6841016cf787457712c50ed80ede5",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ShielddSecurity.TransferScalarSqrtAcceptance01.every_source_sqrt_final_success_returns_the_checked_candidate_and_square",
+      "full_type": "ShielddSecurity.TransferScalarSqrtAcceptance01.every_source_sqrt_final_success_returns_the_checked_candidate_and_square : \u2200\n  (input candidate returned : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (success :\n    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n      (ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalOption input candidate)\n      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar returned)),\n  And (@Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar returned candidate)\n    (@Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words returned))\n          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words returned)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words input)))",
+      "full_type_sha256": "16db3ea447e5cd7080b5e2190bad3dd7446009cbc994a72a6b6fae0dee761ca3",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    {
+      "name": "ShielddSecurity.TransferScalarSqrtAcceptance01.source_sqrt_final_refusal_is_exactly_failure_of_the_candidate_square",
+      "full_type": "ShielddSecurity.TransferScalarSqrtAcceptance01.source_sqrt_final_refusal_is_exactly_failure_of_the_candidate_square : \u2200\n  (input candidate : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  Iff\n    (@Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n      (ShielddSecurity.TransferScalarSqrtAcceptance01.sourceSqrtFinalOption input candidate)\n      (@Option.none.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))\n    (@Ne.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words candidate))\n          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words candidate)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words input)))",
+      "full_type_sha256": "e0f5eabbddf75b9c127b513d11b34e01d2e01723f24d51aa1a6d25c9859b277f",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "source": {
+    "bytes": 5617,
+    "sha256": "b983eff466e1bf71bbdd68ce7a8de62f2f8348792fa94d0a5b10dac5654f372e"
+  },
+  "original_successful_receipt_sha256": "2ff6d19f91418b43efeb54f901d41f1f42152d690d8193bed263307b93c7bf69",
+  "original_stdout": {
+    "bytes": 5470,
+    "sha256": "6fdd69629b2248a14bc5a3efe6e1a866aea4ad649bf1adbb0608ff766068d1d2"
+  },
+  "recorded_windows_object_identity": {
+    "bytes": 53200,
+    "sha256": "9c6a5de14a65ecb46060158c771ec006e76749a32dd24810e2fc4badecd558d9"
+  },
+  "seconds": 7.268076899985317,
+  "peak_rss_bytes": 805629952,
+  "locked_ff_helper_sha256": "1ef4269d4e1a5c5a66c40df4040854f9964547e2bd78dfa99b52e2121023f161"
+}
