@@ -1,0 +1,78 @@
+{
+  "status": "PASSED",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/source/ShielddSecurity/TransferCheckedWordStageRefinement01.lean",
+    "bytes": 10098,
+    "sha256": "6208850a7fbec1a764d524c734c552a08ade38c5c009dc769319d3fb11a8473e"
+  },
+  "fresh_reports": 8,
+  "kind": "Exact original proof repairs, checked semantic/result/cache scope and retained metadata histories; no verifier",
+  "rejected": [
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 22.18598790001124,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/rejected-checked-stage-attempt01/handwritten/TransferCheckedWordStageRefinement01.lean",
+        "bytes": 9661,
+        "sha256": "459e7f1c43f126bc79685b7034da810802bf44ef76108cb3290906821f4aee60"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/rejected-checked-stage-attempt01/events.jsonl",
+        "bytes": 305,
+        "sha256": "d3fd1475175f4e5d3265f62bb8966b7f101b1962efc6308b2e6d857b85ba5fd9"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/rejected-checked-stage-attempt01/runs/01-TransferCheckedWordStageRefinement01/stdout.txt",
+        "bytes": 17551,
+        "sha256": "c5f4c4e0ea0a5809e0fd5255adaa46211c432fab2179af160d81a5438c022dee"
+      },
+      "exact_delta": "--- \n+++ \n@@ -86,17 +86,18 @@\n theorem every_checked_source_stage_outcome_projects_to_checked_numeric_stage {O E Other : Type}\n     (backend : Backend O E) (child : Delta O E) (previous : Option (WordTaggedObject Other))\n     (inputs : List CanonicalScalar) :\n-    (stageFields previous inputs true (readerForPrevious (backend.readerGate child) (backend.lookup child) previous)).map\n-      (fun result => result.map projectObjectPending) = checkedNumericStage backend child previous inputs := by\n+    (stageFields previous inputs true (readerForPrevious (Other := Other) (backend.readerGate child) (backend.lookup child) previous)).map\n+      (fun result => result.map projectObjectPending) = checkedNumericStage (Other := Other) backend child previous inputs := by\n   have typed (ordered members : List CanonicalScalar) :\n       (stageFields (Other := Other) (some (.inl (.opened ordered members))) inputs true\n-        (readerForPrevious (backend.readerGate child) (backend.lookup child) (some (.inl (.opened ordered members))))).map\n+        (readerForPrevious (Other := Other) (backend.readerGate child) (backend.lookup child) (some (.inl (.opened ordered members))))).map\n           (fun result => result.map projectObjectPending) =\n-        checkedNumericStage backend child (some (.inl (.opened ordered members))) inputs := by\n-    have wrapped : checkedNumericStage backend child (some (.inl (.opened ordered members))) inputs =\n+        checkedNumericStage (Other := Other) backend child (some (.inl (.opened ordered members))) inputs := by\n+    have wrapped : checkedNumericStage (Other := Other) backend child (some (.inl (.opened ordered members))) inputs =\n         .ok (inspect (installTypedPending backend ordered members) (2 ^ 64 - 1) blockCapacity child\n           (inputs.map (fun scalar => scalarKey scalar.words))) := by\n       unfold checkedNumericStage\n+      dsimp only\n       cases unique : uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) with\n       | false => simp only [Bool.false_eq_true, if_false, inspect, unique] <;> rfl\n       | true => simp only [if_true, checkedObject] <;> rfl\n@@ -113,19 +114,21 @@\n     cases object with\n     | inr other =>\n       unfold stageFields checkedNumericStage\n+      dsimp only\n       cases uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) <;> rfl\n     | inl pending =>\n       cases pending with\n       | opened ordered members => exact typed ordered members\n       | sealed ordered =>\n         unfold stageFields checkedNumericStage\n+        dsimp only [checkedObject, inspect, previousPending, projectObjectPending, decodeNative, decodeWordPending, restore]\n         cases uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) <;> rfl\n \n theorem returned_checked_source_stage_derives_successful_projected_numeric_stage {O E Other : Type}\n     (backend : Backend O E) (child : Delta O E) (previous : Option (WordTaggedObject Other))\n     (inputs : List CanonicalScalar) (object : WordTaggedObject Other)\n-    (returned : stageFields previous inputs true (readerForPrevious (backend.readerGate child) (backend.lookup child) previous) = .ok (.ok object)) :\n-    checkedNumericStage backend child previous inputs = .ok (.ok (projectObjectPending object)) := by\n+    (returned : stageFields previous inputs true (readerForPrevious (Other := Other) (backend.readerGate child) (backend.lookup child) previous) = .ok (.ok object)) :\n+    checkedNumericStage (Other := Other) backend child previous inputs = .ok (.ok (projectObjectPending object)) := by\n   rw [\u2190 every_checked_source_stage_outcome_projects_to_checked_numeric_stage, returned]\n   rfl\n \n",
+      "definitions_and_contracts_unchanged": true,
+      "scope": "Original entire failed attempt retained; proof-local normalization/elimination/phantom type annotations only"
+    },
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 18.21413710003253,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/rejected-checked-stage-attempt02/handwritten/TransferCheckedWordStageRefinement01.lean",
+        "bytes": 9936,
+        "sha256": "65ac078ea0ea9ce86cfff3333ae0ce1233b38244145ae9b880451a2b502e4afd"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/rejected-checked-stage-attempt02/events.jsonl",
+        "bytes": 305,
+        "sha256": "cd40b49527de31a0b36daee7f5167c97c68435e55ecc09178689ea3f73467f1e"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/rejected-checked-stage-attempt02/runs/01-TransferCheckedWordStageRefinement01/stdout.txt",
+        "bytes": 28288,
+        "sha256": "43e5770b69b230678c4b03713ef9ecfd581be0f3cf5fa9fa8219b8382fcd8118"
+      },
+      "exact_delta": "--- \n+++ \n@@ -97,6 +97,7 @@\n         .ok (inspect (installTypedPending backend ordered members) (2 ^ 64 - 1) blockCapacity child\n           (inputs.map (fun scalar => scalarKey scalar.words))) := by\n       unfold checkedNumericStage\n+      dsimp only\n       cases unique : uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) with\n       | false => simp only [Bool.false_eq_true, if_false, inspect, unique] <;> rfl\n       | true => simp only [if_true, checkedObject] <;> rfl\n@@ -113,12 +114,14 @@\n     cases object with\n     | inr other =>\n       unfold stageFields checkedNumericStage\n+      dsimp only\n       cases uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) <;> rfl\n     | inl pending =>\n       cases pending with\n       | opened ordered members => exact typed ordered members\n       | sealed ordered =>\n         unfold stageFields checkedNumericStage\n+        dsimp only [checkedObject, inspect, previousPending, projectObjectPending, decodeNative, decodeWordPending, restore]\n         cases uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) <;> rfl\n \n theorem returned_checked_source_stage_derives_successful_projected_numeric_stage {O E Other : Type}\n",
+      "definitions_and_contracts_unchanged": true,
+      "scope": "Original entire failed attempt retained; proof-local normalization/elimination/phantom type annotations only"
+    }
+  ],
+  "scope": "All source-shaped prior branches derive equality of modeled source stage result and checked numeric inspection: duplicate refusal precedes typed access, wrong-type panic is an outer error, sealed and other refusals stay intact, and absence defaults to the exact empty Open state. Constructed reader uses actual previous parameter membership and modeled fallible gate/lookup. Returned success projects the exact original-field append to numeric pending success. No caller typed-Open, inverse, admission, getter-success or desired-next-object premise. The old Other/default decode branch is prevented from participating in successful staging by checked access. Numeric wrapper repeats a pure duplicate check; result equality does not prove an identical native execution trace. CanonicalScalar and functional backend are explicit model types; real Any/TypeId/Ord/Scalar/collections/usize/authenticated reader/compiler/async/delta/ownership/full native trace remain owned OPEN. Two original failed Lean attempts and one unrun setup repair retained; definitions/contracts unchanged modulo explicit existing phantom type arguments. No native/control execution; full Transfer and combined replay OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "unrun_setup_pins": [
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/unrun-checked-stage-setup03/prepare.py",
+      "bytes": 47366,
+      "sha256": "556b1e0ae540d14820b6833195a3d05af03dec24a99a20561c3272ac2012e545"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-checked-word-stage-refinement-review01/packet01/unrun-checked-stage-setup03/prepare_recipe.py",
+      "bytes": 2722,
+      "sha256": "7128dc4e93e6becdafe547615a37ec3432a2f83c3eaf7c3e557eb9f26da43781"
+    }
+  ],
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
