@@ -1,0 +1,49 @@
+{
+  "status": "PASSED",
+  "kind": "Independent handwritten model/source order/failure scope review; no verifier",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-admission-review01/packet01/source/ShielddSecurity/TransferWordStageAdmission01.lean",
+    "bytes": 8381,
+    "sha256": "ff3b086e2217b4e7ff78372f45e6562244d493d8f5815702521fdd637f1a7eeb"
+  },
+  "fresh_reports": 6,
+  "static_association": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-admission-review01/packet01/context/saturating-capacity-shape.json",
+    "bytes": 2248,
+    "sha256": "828438c11cf8047b99a61ea0416a99cbc5821c5ee532d80ba36c580d9c5e0b94"
+  },
+  "rejected": [
+    {
+      "result": {
+        "reason": "Lean error/placeholder output",
+        "seconds": 17.939145000011194,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-admission-review01/packet01/rejected-admission-attempt01/handwritten/TransferWordStageAdmission01.lean",
+        "bytes": 8224,
+        "sha256": "185af4d305ecad38e928c878a9b4dd91e56deb7ba8b22bdb37850f0ef22d2937"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-admission-review01/packet01/rejected-admission-attempt01/events.jsonl",
+        "bytes": 309,
+        "sha256": "7d9141df104e198390321f6ef96742ac76f9e6cfeae65176f4caab6cd3423a74"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-admission-review01/packet01/rejected-admission-attempt01/runs/01-TransferWordStageAdmission01/stdout.txt",
+        "bytes": 15621,
+        "sha256": "17e0de9e73f02f742d1df193922cfb291d0657b3bd07b0d6a0ec1600065948c0"
+      },
+      "diagnostics": [
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-word-stage-admission-20261011-01\\project\\ShielddSecurity\\TransferWordStageAdmission01.lean:89:11: warning: Local variable 'unit' resembles constructor 'PUnit.unit' - write '.unit' (with a dot) or 'PUnit.unit' to use the constructor.",
+        "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-word-stage-admission-20261011-01\\project\\ShielddSecurity\\TransferWordStageAdmission01.lean:109:15: warning: Local variable 'unit' resembles constructor 'PUnit.unit' - write '.unit' (with a dot) or 'PUnit.unit' to use the constructor."
+      ],
+      "exact_delta": "--- \n+++ \n@@ -86,8 +86,8 @@\n       simp only [appendAfterCheckedRead, checkedObject, Option.getD_none] at success\n       cases admitted : admitOpen [] [] inputs checkDurable reader with\n       | error refusal => simp only [admitted] at success; cases success\n-      | ok unit =>\n-        cases unit\n+      | ok unitValue =>\n+        cases unitValue\n         rw [admitted] at success\n         have written : (.inl (.opened ([] ++ inputs) ([] ++ inputs)) : WordTaggedObject Other) = object :=\n           Except.ok.inj (Except.ok.inj success)\n@@ -106,8 +106,8 @@\n           simp only [appendAfterCheckedRead, checkedObject, Option.getD_some] at success\n           cases admitted : admitOpen ordered members inputs checkDurable reader with\n           | error refusal => simp only [admitted] at success; cases success\n-          | ok unit =>\n-            cases unit\n+          | ok unitValue =>\n+            cases unitValue\n             rw [admitted] at success\n             have written : (.inl (.opened (ordered ++ inputs) (members ++ inputs)) : WordTaggedObject Other) = object :=\n               Except.ok.inj (Except.ok.inj success)\n",
+      "all_definitions_and_theorem_contracts_unchanged": true
+    }
+  ],
+  "scope": "Returned whole modeled staging success derives true uniqueness check, actual previous absent-default/Open typed branch, exact natural capacity, pending freshness, required durable-reader callback success and exact original field append. Desired next object and admitted result are derived, not caller premises. Separate refusal lemmas retain explicit branch observations; outer nonreturning panic sentinel differs from inner returned refusal. Exact locked static stage control order independently reconstructed. Original failed pressure or warning-rejected attempt/source/log preserved; selected source and physical guards unchanged except harmless proof-local constructor-like binder rename in admission. Actual native TypeId/Any/downcast/Clone/BTreeSet/imbl/usize/private Scalar/compiler/reader/async/delta/ownership/liveness/complete trace and full Transfer remain owned OPEN; no executed native control. Combined replay UNRUN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
