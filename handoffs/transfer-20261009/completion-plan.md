@@ -1227,3 +1227,6 @@ Publish independently reviewed checked-word-fresh-snapshot original source model
 
 
 Publish exact fourth Merkle captured-row coverage: 51new modules, 375original reports, 424actual arithmetic rows3994..4417 plus shared copy200769. Independent full report/source/generation/import/history and guard272 memo review passed. All original1640 attempts147 failures retained. Full path/hash semantics, concrete field, legal seed/all assertion truths and native full Transfer remain OPEN; combined replay UNRUN.
+
+
+Publish exact fifth Merkle captured-row coverage: 51new modules375 original reports,424arithmetic positions4418..4841 and actual sharedcopy200769. Full independent report/generation/import/history/source scope and unchanged guard272 review passed. Original1691attempts147failed retained. Full path/hash semantics, concrete field/legal seed/all assertion truth and native/full Transfer remain OPEN; combined replay UNRUN.
