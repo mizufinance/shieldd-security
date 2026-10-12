@@ -1,0 +1,113 @@
+ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode : (bytes : List.{0} UInt8) →
+  Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.typed_source_field_constructor_accepts_exact_canonical_domain : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  Iff
+    (@Exists.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+      @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+        (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval
+          (ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram.bytes bytes))
+        (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar))
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferNullifierFieldCodec01.typed_source_field_constructor_accepts_exact_canonical_domain' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.source_nullifier_slice_accepts_exact_width_and_canonical_integer : ∀
+  (bytes : List.{0} UInt8),
+  Iff
+    (@Exists.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+      @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+        (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode bytes)
+        (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar))
+    (And (@Eq.{1} Nat (@List.length.{0} UInt8 bytes) (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE bytes)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferNullifierFieldCodec01.source_nullifier_slice_accepts_exact_width_and_canonical_integer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.returned_source_nullifier_has_exact_input_field_value_and_bytes : ∀
+  (bytes : List.{0} UInt8) (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode bytes)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar)),
+  And
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE bytes))
+    (@Eq.{1} (List.{0} UInt8)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+      bytes)
+'ShielddSecurity.TransferNullifierFieldCodec01.returned_source_nullifier_has_exact_input_field_value_and_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierEncode : (scalar :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+'ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierEncode' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.exact_source_nullifier_encoding_is_the_qualified_scalar_serializer : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (List.{0} UInt8)
+    (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+      (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierEncode scalar))
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+'ShielddSecurity.TransferNullifierFieldCodec01.exact_source_nullifier_encoding_is_the_qualified_scalar_serializer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.every_canonical_source_nullifier_encodes_to_its_mathematical_field : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+        (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierEncode scalar)))
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+'ShielddSecurity.TransferNullifierFieldCodec01.every_canonical_source_nullifier_encodes_to_its_mathematical_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.every_canonical_source_nullifier_encoding_decodes_to_the_original_field : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+        (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierEncode scalar)))
+    (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar)
+'ShielddSecurity.TransferNullifierFieldCodec01.every_canonical_source_nullifier_encoding_decodes_to_the_original_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.returned_source_nullifier_decoding_is_injective_on_all_accepted_byte_lists : ∀
+  (left right : List.{0} UInt8) (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (leftReturned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode left)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar))
+  (rightReturned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode right)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar)),
+  @Eq.{1} (List.{0} UInt8) left right
+'ShielddSecurity.TransferNullifierFieldCodec01.returned_source_nullifier_decoding_is_injective_on_all_accepted_byte_lists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldCodec01.source_nullifier_slice_rejects_every_incorrect_width : ∀
+  (bytes : List.{0} UInt8)
+  (wrongWidth :
+    @Ne.{1} Nat (@List.length.{0} UInt8 bytes) (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode bytes)
+    (@Option.none.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+'ShielddSecurity.TransferNullifierFieldCodec01.source_nullifier_slice_rejects_every_incorrect_width' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
