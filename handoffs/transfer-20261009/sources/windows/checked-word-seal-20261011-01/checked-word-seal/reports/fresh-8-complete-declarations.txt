@@ -1,0 +1,189 @@
+@ShielddSecurity.TransferCheckedWordSeal01.sealFields : {Other : Type} →
+  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    Except.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+'ShielddSecurity.TransferCheckedWordSeal01.sealFields' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordSeal01.sealAtKey : {Other : Type} →
+  (parent :
+      ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    (writes :
+        ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+      (key : Nat) →
+        Except.{0, 0} Unit
+          (Except.{0, 0} Unit
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+'ShielddSecurity.TransferCheckedWordSeal01.sealAtKey' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordSeal01.wrong_type_panics_before_seal_write : ∀ {Other : Type} (other : Other),
+  @Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferCheckedWordSeal01.sealFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other)))
+    (@Except.error.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      Unit.unit)
+'ShielddSecurity.TransferCheckedWordSeal01.wrong_type_panics_before_seal_write' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordSeal01.already_sealed_returns_refusal_before_write : ∀ {Other : Type}
+  (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferCheckedWordSeal01.sealFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed ordered))))
+    (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.error.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) Unit.unit))
+'ShielddSecurity.TransferCheckedWordSeal01.already_sealed_returns_refusal_before_write' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordSeal01.absent_defaults_to_empty_then_inserts_sealed : ∀ {Other : Type},
+  @Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferCheckedWordSeal01.sealFields Other
+      (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.ok.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+            (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)))))
+'ShielddSecurity.TransferCheckedWordSeal01.absent_defaults_to_empty_then_inserts_sealed' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordSeal01.open_seal_retains_every_original_ordered_field : ∀ {Other : Type}
+  (ordered members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferCheckedWordSeal01.sealFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members))))
+    (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.ok.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed ordered))))
+'ShielddSecurity.TransferCheckedWordSeal01.open_seal_retains_every_original_ordered_field' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordSeal01.returned_seal_derives_actual_prior_absent_or_open_and_exact_original_fields : ∀
+  {Other : Type} (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+  (returned :
+    @Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@ShielddSecurity.TransferCheckedWordSeal01.sealFields Other previous)
+      (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Except.ok.{0, 0} Unit (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object))),
+  @Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    fun (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    And
+      (Or
+        (And
+          (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous
+            (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+          (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) ordered
+            (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)))
+        (@Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+          fun (members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          @Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous
+            (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+              (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))))
+      (@Eq.{1} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed ordered)))
+'ShielddSecurity.TransferCheckedWordSeal01.returned_seal_derives_actual_prior_absent_or_open_and_exact_original_fields' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordSeal01.returned_cached_stage_reaches_exact_original_field_seal : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes staged :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey O E Other backend child parent writes key inputs)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          staged))),
+  @Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    fun (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    @Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      fun (_members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+      And
+        (@Eq.{1}
+          (Except.{0, 0} Unit
+            (Except.{0, 0} Unit
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+          (@ShielddSecurity.TransferCheckedWordSeal01.sealAtKey Other parent staged key)
+          (@Except.ok.{0, 0} Unit
+            (Except.{0, 0} Unit
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+            (@Except.ok.{0, 0} Unit
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              fun (other : Nat) =>
+              @ite.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                (@Eq.{1} Nat other key) (instDecidableEqNat other key)
+                (@Option.some.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                  (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                    (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                      (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+                        (@HAppend.hAppend.{0, 0, 0}
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@instHAppendOfAppend.{0}
+                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                            (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                          ordered inputs)))))
+                (staged other))))
+        (And
+          (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+            (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+              (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                  (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+                    (@HAppend.hAppend.{0, 0, 0}
+                      (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                      (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                      (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                      (@instHAppendOfAppend.{0}
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                      ordered inputs)))))
+            (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (@instHAppendOfAppend.{0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                  (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                ordered inputs)))
+          (And
+            (@Eq.{1} (Except.{0, 0} Unit Bool)
+              (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+                (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                  (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+                      (@HAppend.hAppend.{0, 0, 0}
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (@instHAppendOfAppend.{0}
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                        ordered inputs)))))
+              (@Except.ok.{0, 0} Unit Bool Bool.true))
+            (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+              (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+                (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                  (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+                      (@HAppend.hAppend.{0, 0, 0}
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (@instHAppendOfAppend.{0}
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                        ordered inputs)))))
+              (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.ok.{0, 0} Unit Unit Unit.unit)))))
+'ShielddSecurity.TransferCheckedWordSeal01.returned_cached_stage_reaches_exact_original_field_seal' depends on axioms: [propext,
+ Quot.sound]
