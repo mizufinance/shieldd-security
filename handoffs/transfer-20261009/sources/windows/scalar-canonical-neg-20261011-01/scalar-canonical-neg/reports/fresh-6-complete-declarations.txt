@@ -1,0 +1,58 @@
+ShielddSecurity.TransferScalarCanonicalNeg01.orWalk : (seed : UInt64) → List.{0} UInt64 → UInt64
+'ShielddSecurity.TransferScalarCanonicalNeg01.orWalk' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegMask : (words : List.{0} UInt64) → UInt64
+'ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegMask' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegWords : (words :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  List.{0} UInt64
+'ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarCanonicalNeg01.symbolic_or_zero_detector_is_exact_packed_word_zero : ∀ (seed : UInt64)
+  (words : List.{0} UInt64),
+  Iff
+    (@Eq.{1} UInt64 (ShielddSecurity.TransferScalarCanonicalNeg01.orWalk seed words)
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+    (And (@Eq.{1} UInt64 seed (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+      (@Eq.{1} Nat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+'ShielddSecurity.TransferScalarCanonicalNeg01.symbolic_or_zero_detector_is_exact_packed_word_zero' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalNeg01.source_boolean_cast_wrapping_subtract_mask_selects_exact_zero_or_all_ones : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} UInt64 (ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegMask words)
+    (@ite.{1} UInt64
+      (@Eq.{1} Nat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (instDecidableEqNat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 18446744073709551615) (@UInt64.instOfNat (nat_lit 18446744073709551615))))
+'ShielddSecurity.TransferScalarCanonicalNeg01.source_boolean_cast_wrapping_subtract_mask_selects_exact_zero_or_all_ones' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarCanonicalNeg01.source_four_sbb_and_nonzero_mask_derive_canonical_negation : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegWords
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegWords
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferScalarCanonicalNeg01.sourceNegWords
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+'ShielddSecurity.TransferScalarCanonicalNeg01.source_four_sbb_and_nonzero_mask_derive_canonical_negation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
