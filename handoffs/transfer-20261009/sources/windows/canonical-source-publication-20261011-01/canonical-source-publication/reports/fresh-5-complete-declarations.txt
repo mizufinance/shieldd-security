@@ -1,0 +1,428 @@
+@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields : {O E K X Tree A I : Type} →
+  (inputs : A → List.{0} I) →
+    (scalarOf : I → ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+      (requests :
+          List.{0} (ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest O E K X Tree A I inputs)) →
+        List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields' does not depend on any axioms
+@ShielddSecurity.TransferCanonicalSourcePublication01.checkedSctOrderedEntry : {Other : Type} →
+  Option.{0}
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+'ShielddSecurity.TransferCanonicalSourcePublication01.checkedSctOrderedEntry' does not depend on any axioms
+@ShielddSecurity.TransferCanonicalSourcePublication01.installed_canonical_inputs_are_exact_ordered_original_field_keys : ∀
+  {O E K X Tree A I : Type} (inputs : A → List.{0} I)
+  (scalarOf : I → ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (requests : List.{0} (ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest O E K X Tree A I inputs)),
+  @Eq.{1} (List.{0} Nat)
+    (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A
+      (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests O E K X Tree A I inputs
+        (fun (input : I) => ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (scalarOf input))
+        requests))
+    (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields O E K X Tree A I inputs scalarOf
+        requests))
+'ShielddSecurity.TransferCanonicalSourcePublication01.installed_canonical_inputs_are_exact_ordered_original_field_keys' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCanonicalSourcePublication01.constructed_sealed_codec_retains_exact_original_canonical_source_fields : ∀
+  {O E K X Tree A I : Type} (inputs : A → List.{0} I)
+  (scalarOf : I → ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (requests : List.{0} (ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest O E K X Tree A I inputs)),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending
+    (ShielddSecurity.TransferCanonicalWordPending01.encodeWordPending
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+        (@ShielddSecurity.TransferBlockPendingSequence01.allInputs O E K X Tree A
+          (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests O E K X Tree A I inputs
+            (fun (input : I) => ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (scalarOf input))
+            requests))))
+    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+      (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields O E K X Tree A I inputs scalarOf
+        requests))
+'ShielddSecurity.TransferCanonicalSourcePublication01.constructed_sealed_codec_retains_exact_original_canonical_source_fields' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferCanonicalSourcePublication01.returned_whole_canonical_source_driver_publishes_original_fields_checked_getter_and_exact_boundary : ∀
+  {Other E K X Tree A I : Type} (inputs : A → List.{0} I)
+  (scalarOf : I → ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (sourceRequests :
+    List.{0}
+      (ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        E K X Tree A I inputs))
+  (verifiable nonverifiable : ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+  (otherObjects :
+    ShielddSecurity.TransferStateDelta.View
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (queued : List.{0} A)
+  (writesOf :
+    Fin
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))) →
+      ShielddSecurity.TransferStateDelta.State
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+        List.{0} A → ShielddSecurity.TransferTaggedCodecPublication01.OtherFinalizationWrites Other E A)
+  (baseIo :
+    ShielddSecurity.TransferEndToEnd01.Io
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      E A)
+  (host :
+    ShielddSecurity.TransferHostSealedCommit01.Host
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (outcome :
+    ShielddSecurity.TransferEndToEnd01.Outcome
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      A)
+  (root : Nat)
+  (returned :
+    @Eq.{1}
+      (Option.{0}
+        (ShielddSecurity.TransferEndToEnd01.Outcome
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          A))
+      (@ShielddSecurity.TransferWordSourceDriver01.runCompleteBlock Other E K X Tree A I inputs
+        (fun (input : I) => ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (scalarOf input))
+        sourceRequests verifiable nonverifiable otherObjects queued writesOf baseIo host height)
+      (@Option.some.{0}
+        (ShielddSecurity.TransferEndToEnd01.Outcome
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          A)
+        outcome))
+  (success :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferEndToEnd01.Outcome.root
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        A outcome)
+      (@Option.some.{0} Nat root)),
+  @Exists.{1}
+    (Prod.{0, 0}
+      (ShielddSecurity.TransferStateDelta.State
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (List.{0} A))
+    fun
+      (final :
+        Prod.{0, 0}
+          (ShielddSecurity.TransferStateDelta.State
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+          (List.{0} A)) =>
+    @Exists.{1}
+      (ShielddSecurity.TransferStateDelta.State
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      fun
+        (state :
+          ShielddSecurity.TransferStateDelta.State
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) =>
+      @Exists.{1} ShielddSecurity.TransferWriterPrepareSource01.Frozen
+        fun (frozen : ShielddSecurity.TransferWriterPrepareSource01.Frozen) =>
+        And
+          (@Eq.{1}
+            (ShielddSecurity.TransferEndToEnd01.Outcome
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              A)
+            outcome
+            (@ShielddSecurity.TransferEndToEnd01.execute
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              E A (@ShielddSecurity.TransferWordSourceDriver01.installSourceOrderedTaggedIo Other E A writesOf baseIo)
+              (@ShielddSecurity.TransferHostSealedCommit01.Host.mk
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.phase
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                  host)
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.writer
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                  host)
+                (@Prod.fst.{0, 0}
+                  (ShielddSecurity.TransferStateDelta.State
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                  (List.{0} A) final)
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                  host)
+                (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                  host))
+              height
+              (@Prod.snd.{0, 0}
+                (ShielddSecurity.TransferStateDelta.State
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                (List.{0} A) final)))
+          (And
+            (@Eq.{1}
+              (Option.{0}
+                (ShielddSecurity.TransferStateDelta.State
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+              (@ShielddSecurity.TransferTakeCommitState01.Outcome.returned
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                A
+                (@ShielddSecurity.TransferHostEndBlock01.transferred
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                  E A
+                  (@ShielddSecurity.TransferEndToEnd01.Io.ending
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                    E A
+                    (@ShielddSecurity.TransferWordSourceDriver01.installSourceOrderedTaggedIo Other E A writesOf
+                      baseIo))
+                  (@ShielddSecurity.TransferHostSealedCommit01.Host.mk
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                    (@ShielddSecurity.TransferHostSealedCommit01.Host.phase
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                      host)
+                    (@ShielddSecurity.TransferHostSealedCommit01.Host.writer
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                      host)
+                    (@Prod.fst.{0, 0}
+                      (ShielddSecurity.TransferStateDelta.State
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                      (List.{0} A) final)
+                    (@ShielddSecurity.TransferHostSealedCommit01.Host.blockId
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                      host)
+                    (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                      host))
+                  height
+                  (@Prod.snd.{0, 0}
+                    (ShielddSecurity.TransferStateDelta.State
+                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                    (List.{0} A) final)))
+              (@Option.some.{0}
+                (ShielddSecurity.TransferStateDelta.State
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                state))
+            (And
+              (@Eq.{1} (List.{0} Nat)
+                (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                  E K X Tree A
+                  (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                    E K X Tree A I inputs
+                    (fun (input : I) =>
+                      ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (scalarOf input))
+                    sourceRequests))
+                (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+                  (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+                    ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+                  (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                    E K X Tree A I inputs scalarOf sourceRequests)))
+              (And
+                (@Eq.{1}
+                  (Option.{0}
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                  (@ShielddSecurity.TransferStateDelta.State.objects
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                    state
+                    (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                      ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+                  (@Option.some.{0}
+                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                    (@Sum.inl.{0, 0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                      ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+                      (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                        (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+                          (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                            E K X Tree A I inputs scalarOf sourceRequests))))))
+                (And
+                  (@Eq.{1}
+                    (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                    (@ShielddSecurity.TransferCanonicalSourcePublication01.checkedSctOrderedEntry Other
+                      (@ShielddSecurity.TransferStateDelta.State.objects
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                        state
+                        (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+                    (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                      (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                        E K X Tree A I inputs scalarOf sourceRequests)))
+                  (And
+                    (@Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+                      (@ShielddSecurity.TransferCheckedWordPublication01.checkedNativeEntry Other
+                        (@ShielddSecurity.TransferStateDelta.State.objects
+                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                          state
+                          (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                            ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+                      (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+                        (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.sealed
+                          (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                            E K X Tree A
+                            (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                              E K X Tree A I inputs
+                              (fun (input : I) =>
+                                ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (scalarOf input))
+                              sourceRequests)))))
+                    (And
+                      (@List.Nodup.{0} Nat
+                        (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                          E K X Tree A
+                          (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                            E K X Tree A I inputs
+                            (fun (input : I) =>
+                              ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (scalarOf input))
+                            sourceRequests)))
+                      (And
+                        (@LE.le.{0} Nat instLENat
+                          (@List.length.{0} Nat
+                            (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                              E K X Tree A
+                              (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                E K X Tree A I inputs
+                                (fun (input : I) =>
+                                  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                                    (scalarOf input))
+                                sourceRequests)))
+                          ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+                        (And
+                          (∀ (key : Nat),
+                            @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+                                (@ShielddSecurity.TransferBlockPendingSequence01.allInputs
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                  E K X Tree A
+                                  (@ShielddSecurity.TransferInstalledSourcePublication01.installRequests
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                    E K X Tree A I inputs
+                                    (fun (input : I) =>
+                                      ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                                        (scalarOf input))
+                                    sourceRequests))
+                                key →
+                              @LT.lt.{0} Nat instLTNat key
+                                ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                          (And
+                            (@Eq.{1} (List.{0} Nat)
+                              (ShielddSecurity.TransferPreparedAcceptedSource01.Prepared.accepted
+                                (ShielddSecurity.TransferWriterPrepareSource01.Frozen.insertions frozen))
+                              (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+                                (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+                                  ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                                    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+                                (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+                                  (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                  E K X Tree A I inputs scalarOf sourceRequests)))
+                            (And
+                              (@Eq.{1} (Option.{0} Nat)
+                                (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.applicationRoot
+                                  (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))
+                                (@Option.some.{0} Nat root))
+                              (And
+                                (@Eq.{1} ShielddSecurity.TransferWriterPrepareSource01.Phase
+                                  (@ShielddSecurity.TransferHostSealedCommit01.Host.writer
+                                    (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                    (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                      A outcome))
+                                  (ShielddSecurity.TransferWriterPrepareSource01.Phase.ready
+                                    (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen)))
+                                (And
+                                  (@Eq.{1} ShielddSecurity.TransferHostSealedCommit01.HostPhase
+                                    (@ShielddSecurity.TransferHostSealedCommit01.Host.phase
+                                      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                      (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                        A outcome))
+                                    ShielddSecurity.TransferHostSealedCommit01.HostPhase.idle)
+                                  (And
+                                    (@Eq.{1} (List.{0} Nat)
+                                      (ShielddSecurity.TransferReadback.Store.actualRoots
+                                        (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                          (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                            A outcome)))
+                                      (ShielddSecurity.TransferReadback.Boundary.roots
+                                        (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next frozen))))
+                                    (@Eq.{1} (Option.{0} ShielddSecurity.TransferReadback.Boundary)
+                                      (ShielddSecurity.TransferReadback.Store.boundary
+                                        (@ShielddSecurity.TransferHostSealedCommit01.Host.store
+                                          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                          (@ShielddSecurity.TransferEndToEnd01.Outcome.host
+                                            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                                              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                                            A outcome)))
+                                      (@Option.some.{0} ShielddSecurity.TransferReadback.Boundary
+                                        (ShielddSecurity.TransferWriterPrepareSource01.CommitBoundary.nullifiers
+                                          (ShielddSecurity.TransferWriterPrepareSource01.Frozen.next
+                                            frozen)))))))))))))))))
+'ShielddSecurity.TransferCanonicalSourcePublication01.returned_whole_canonical_source_driver_publishes_original_fields_checked_getter_and_exact_boundary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

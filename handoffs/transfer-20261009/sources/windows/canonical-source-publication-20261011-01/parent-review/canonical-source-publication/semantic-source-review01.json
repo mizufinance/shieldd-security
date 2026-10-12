@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independently reviewed canonical typed-source model and immutable metadata history; no verifier",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-source-publication-review01/packet01/source/ShielddSecurity/TransferCanonicalSourcePublication01.lean",
+    "bytes": 9444,
+    "sha256": "c242ecb96e49111e0691641cf65e1320e7355a3e7c04e0fc8fa55d6da0addf3b"
+  },
+  "fresh_reports": 5,
+  "metadata_correction": {
+    "error": "Fresh definition/theorem counters inherited as 3/5 although complete original declaration audits are 2/3. Corrected from source declaration kinds; raw source/object/type/axiom reports unchanged, no rerun or added proof credit. Corrected canonical retention parent carries its original metadata repair history.",
+    "original_archive": {
+      "bytes": 348664,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-canonical-source-publication-endpoint-20261011-01\\portable-windows-canonical-source-publication-endpoint01.tar.xz",
+      "sha256": "8aef5f2b045ce256cd441219bb5b046fab29b8459feda2493ca05316b41af6d1"
+    }
+  },
+  "unchanged_original_qualification_entries": [
+    "qualified/prepare.py",
+    "qualified/prepare_recipe.py",
+    "qualified/execute_bounded.py",
+    "qualified/plan.json",
+    "qualified/review.json",
+    "qualified/source-mapping.json",
+    "qualified/events.jsonl",
+    "source/ShielddSecurity/TransferCanonicalSourcePublication01.lean",
+    "reports/fresh-5-complete-declarations.txt"
+  ],
+  "original_metadata": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-source-publication-review01/packet01/superseded-metadata/review.json",
+    "bytes": 568983,
+    "sha256": "391ce7124ea6bb0df8b93925a45d3a425cb4414bb4b54be6b3707542b0671364"
+  },
+  "assembly_delta": "--- \n+++ \n@@ -31,14 +31,17 @@\n stdout = CURRENT / ('runs/01-' + MODULE + '/stdout.txt')\n fresh = m.audit(stdout.read_text(), plan['targets'][0]['audit_names'])\n assert len(fresh) == 5 and fresh == events[-1]['result']['audits']\n+declaration_kinds = __import__('re').findall(r'^(def|theorem|structure|inductive) ', m.code_only((CURRENT / ('handwritten/' + MODULE + '.lean')).read_text()), __import__('re').M)\n+assert len(declaration_kinds) == len(fresh)\n+assert declaration_kinds.count('def') == 2 and declaration_kinds.count('theorem') == 3\n assert pin(stdout) == events[-1]['result']['stdout']\n for obj in events[-1]['result']['objects']:\n     assert pin(obj['path']) == obj\n pool = json.loads(Path(plan['owned_import_pool']['path']).read_bytes())\n assert pool['objects'] == 128 and len(pool['inherited_public_reports']) == 1082\n-manager_endpoint = DIAG / 'transfer-canonical-source-word-retention-endpoint-20261011-01'\n+manager_endpoint = DIAG / 'transfer-canonical-source-word-retention-endpoint-20261011-02'\n manager_archive = manager_endpoint / 'portable-windows-canonical-source-word-retention-endpoint01.tar.xz'\n-assert pin(manager_archive)['sha256'] == 'a73c5de332a59b0aa773caeb664400521dad3094b7b6599f31ecca29a20c6e0d'\n+assert pin(manager_archive)['sha256'] == '5820d77836a349d7fd1735513c8c986900b46822de80c7327447a6deb16b33f5'\n with tarfile.open(manager_archive, 'r:xz') as tar:\n     manager_review = json.loads(tar.extractfile('review.json').read())\n     manager_reference = json.loads(tar.extractfile('context/inherited-reference.json').read())\n@@ -186,8 +189,14 @@\n add(DIAG.parent.parent / 'shieldd.lock', 'context/shieldd.lock', 'exact full runtime SHA')\n add(ROOT / 'prepare_assembly.py', 'prepare_assembly.py', 'exact assembly derivation source')\n add(Path(__file__), 'assemble.py', 'exact assembly source')\n+superseded = DIAG / 'transfer-canonical-source-publication-endpoint-20261011-01'\n+for name in ['prepare_assembly.py', 'assemble.py', 'manifest.json', 'review.json']:\n+    add(superseded / name, 'superseded-metadata/' + name, 'unchanged prior packet with stale declaration-kind counters; no failed proof or replay')\n+metadata_history = {'original_archive': pin(superseded / archive.name), 'error': 'Fresh definition/theorem counters inherited as 3/5 although complete original declaration audits are 2/3. Corrected from source declaration kinds; raw source/object/type/axiom reports unchanged, no rerun or added proof credit. Corrected canonical retention parent carries its original metadata repair history.'}\n+dump(ROOT / 'metadata-history.json', metadata_history)\n+add(ROOT / 'metadata-history.json', 'context/metadata-history.json', 'exact original superseded archive identity and correction scope')\n review = {'status': 'CANONICAL_SOURCE_WHOLE_BLOCK_ORIGINAL_FIELDS_AND_CHECKED_SCT_PUBLICATION_QUALIFIED',\n-    'fresh_sources': 1, 'fresh_definition_audits': 3, 'fresh_structure_audits': 0, 'fresh_theorem_audits': 5,\n+    'metadata_correction': metadata_history, 'fresh_sources': 1, 'fresh_definition_audits': declaration_kinds.count('def'), 'fresh_structure_audits': declaration_kinds.count('structure') + declaration_kinds.count('inductive'), 'fresh_theorem_audits': declaration_kinds.count('theorem'),\n     'fresh_complete_public_audits': 5, 'fresh_audits': fresh, 'inherited_complete_public_audits': 1082,\n     'inherited_reference': reference, 'compiler_result': events[-1]['result'], 'plan': pin(CURRENT / 'plan.json'),\n     'interfaces': mapping['interfaces'], 'runtime_sha': mapping['runtime_sha'],\n",
+  "scope": "Returned constructed whole canonical source-driver execution plus root success derives reached sealed object retaining exact ordered original canonical fields, successful checked SCT getter, mathematical key projection, exact accepted insertions and application-root/Ready/Idle/physical-root/boundary properties. Final object/state/walk/codec inverse/canonical bound/getter/frame are consequences. Input selector produces CanonicalScalar in an explicit typed domain; older modeled driver and its primitive/host callbacks are not thereby an actual native Rust trace. Original assembly metadata counters corrected from declaration kinds; complete qualification/source/object/full type/axiom reports unchanged, superseded metadata preserved, no Lean replay. Any/Clone/imbl/type/ownership/liveness/compiler/callee/OS/full native correspondence and full Transfer remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
