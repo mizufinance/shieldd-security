@@ -1,0 +1,183 @@
+ShielddSecurity.TransferScalarPowField01.source_constant_time_bit_step_derives_exact_field_exponent : ∀
+  (self current : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (exponent : Nat) (bit : Bool)
+  (currentValue :
+    @Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words current))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+          exponent)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarPowInvariant01.sourceConstantTimeStep self current bit)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) exponent
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (@ite.{1} Nat (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarPowField01.source_constant_time_bit_step_derives_exact_field_exponent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowField01.source_variable_time_bit_step_derives_exact_field_exponent : ∀
+  (self current : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (exponent : Nat) (bit : Bool)
+  (currentValue :
+    @Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words current))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+          exponent)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarPowInvariant01.sourceVariableTimeStep self current bit)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) exponent
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (@ite.{1} Nat (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarPowField01.source_variable_time_bit_step_derives_exact_field_exponent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowField01.symbolic_source_bit_power_fold_derives_exact_field_exponent : ∀
+  (self current : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (word : UInt64)
+  (indices : List.{0} Nat) (exponent : Nat)
+  (currentValue :
+    @Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words current))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+          exponent)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (@List.foldl.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (result : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (index : Nat) =>
+            ShielddSecurity.TransferScalarPowInvariant01.sourceConstantTimeStep self result
+              (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index))
+          current indices)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (@List.foldl.{0, 0} Nat Nat
+          (fun (value index : Nat) =>
+            @HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) value
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (@ite.{1} Nat
+                (@Eq.{1} Bool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+                (instDecidableEqBool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+          exponent indices))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarPowField01.symbolic_source_bit_power_fold_derives_exact_field_exponent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowField01.symbolic_source_word_power_fold_derives_exact_field_exponent : ∀
+  (self current : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (words : List.{0} UInt64)
+  (exponent : Nat)
+  (currentValue :
+    @Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words current))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+          exponent)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (@List.foldl.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar UInt64
+          (fun (result : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (word : UInt64) =>
+            @List.foldl.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+              (fun (next : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (index : Nat) =>
+                ShielddSecurity.TransferScalarPowInvariant01.sourceConstantTimeStep self next
+                  (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index))
+              result
+              (@List.reverse.{0} Nat (List.range (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+          current words)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (@List.foldl.{0, 0} Nat UInt64
+          (fun (value : Nat) (word : UInt64) =>
+            @List.foldl.{0, 0} Nat Nat
+              (fun (next index : Nat) =>
+                @HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) next
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (@ite.{1} Nat
+                    (@Eq.{1} Bool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index) Bool.true)
+                    (instDecidableEqBool (ShielddSecurity.TransferScalarPowInvariant01.sourcePowBit word index)
+                      Bool.true)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+              value
+              (@List.reverse.{0} Nat (List.range (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+          exponent words))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarPowField01.symbolic_source_word_power_fold_derives_exact_field_exponent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowField01.exact_source_constant_time_pow_has_mathematical_little_endian_field_power : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (exponent : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarPowInvariant01.sourcePow self exponent)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) exponent)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarPowField01.exact_source_constant_time_pow_has_mathematical_little_endian_field_power' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPowField01.exact_source_variable_time_pow_has_mathematical_little_endian_field_power : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (exponent : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarPowInvariant01.sourcePowVartime self exponent)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) exponent)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarPowField01.exact_source_variable_time_pow_has_mathematical_little_endian_field_power' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
