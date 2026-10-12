@@ -1,0 +1,176 @@
+@ShielddSecurity.TransferCheckedWordKnownFinalization01.wordMutations : {Other : Type} →
+  (tree : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) →
+    List.{0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+'ShielddSecurity.TransferCheckedWordKnownFinalization01.wordMutations' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferCheckedWordKnownFinalization01.selectedDelta : {O E Other : Type} →
+  (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+    (parent :
+        ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+      (writes :
+          ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+        ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E
+'ShielddSecurity.TransferCheckedWordKnownFinalization01.selectedDelta' does not depend on any axioms
+@ShielddSecurity.TransferCheckedWordKnownFinalization01.known_word_mutations_have_exact_corrected_source_key_order : ∀
+  {Other : Type} (tree : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other),
+  @Eq.{1} (List.{0} ShielddSecurity.TransferStateDelta.Bytes)
+    (@List.map.{0, 0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      ShielddSecurity.TransferStateDelta.Bytes
+      (fun
+          (mutation :
+            ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) =>
+        @ShielddSecurity.TransferFinalizationObjectFrames01.Mutation.key
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) mutation)
+      (@ShielddSecurity.TransferCheckedWordKnownFinalization01.wordMutations Other tree))
+    (@List.map.{0, 0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      ShielddSecurity.TransferStateDelta.Bytes
+      (fun
+          (mutation :
+            ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) =>
+        @ShielddSecurity.TransferFinalizationObjectFrames01.Mutation.key
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          mutation)
+      (@ShielddSecurity.TransferSourceOrderedFinalizer01.fixedMutations
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) tree))
+'ShielddSecurity.TransferCheckedWordKnownFinalization01.known_word_mutations_have_exact_corrected_source_key_order' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordKnownFinalization01.known_word_mutations_contain_only_exact_tree_put_and_deletion_tombstones : ∀
+  {Other : Type} (tree : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other),
+  @Eq.{1} (List.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@List.map.{0, 0}
+      (ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (fun
+          (mutation :
+            ShielddSecurity.TransferFinalizationObjectFrames01.Mutation
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) =>
+        @ShielddSecurity.TransferFinalizationObjectFrames01.Mutation.value
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) mutation)
+      (@ShielddSecurity.TransferCheckedWordKnownFinalization01.wordMutations Other tree))
+    (@List.cons.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@List.cons.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) tree)
+        (@List.cons.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          (@List.cons.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+            (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+            (@List.cons.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              (@List.cons.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                (@List.nil.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))))))))
+'ShielddSecurity.TransferCheckedWordKnownFinalization01.known_word_mutations_contain_only_exact_tree_put_and_deletion_tombstones' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordKnownFinalization01.returned_checked_word_block_survives_known_source_ordered_finishing_mutations : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes final :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (batches : List.{0} (Prod.{0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) Bool))
+  (tree : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+  (initiallyAbsent :
+    @Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@ShielddSecurity.TransferStateDelta.overlay (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        parent writes
+        (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferCheckedWordBlockDriver01.run O E Other backend child parent writes
+        (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)
+        batches)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          final))),
+  have finished :
+    ShielddSecurity.TransferStateDelta.Delta (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E :=
+    @ShielddSecurity.TransferFinalizationObjectFrames01.mutationWalk
+      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E
+      ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+      (@ShielddSecurity.TransferCheckedWordKnownFinalization01.selectedDelta O E Other child parent final)
+      (@ShielddSecurity.TransferCheckedWordKnownFinalization01.wordMutations Other tree);
+  And
+    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@ShielddSecurity.TransferStateDelta.State.objects
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@ShielddSecurity.TransferStateDelta.applyCache
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E
+          (@ShielddSecurity.TransferStateDelta.Delta.parent
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished)
+          (@ShielddSecurity.TransferStateDelta.Delta.cache
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished))
+        (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+          ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes))
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed
+            (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches)))))
+    (And
+      (@Eq.{1} (Except.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+        (@ShielddSecurity.TransferWordSctPendingRead01.sourceOrdered Other
+          (@ShielddSecurity.TransferStateDelta.State.objects
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            (@ShielddSecurity.TransferStateDelta.applyCache
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E
+              (@ShielddSecurity.TransferStateDelta.Delta.parent
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished)
+              (@ShielddSecurity.TransferStateDelta.Delta.cache
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished))
+            (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+              ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+        (@Except.ok.{0, 0} Unit (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+          (ShielddSecurity.TransferCheckedWordBlockDriver01.allFields batches)))
+      (And
+        (@Eq.{1} (Except.{0, 0} Unit Bool)
+          (@ShielddSecurity.TransferWordSctPendingRead01.sourceIsSealed Other
+            (@ShielddSecurity.TransferStateDelta.State.objects
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+              (@ShielddSecurity.TransferStateDelta.applyCache
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E
+                (@ShielddSecurity.TransferStateDelta.Delta.parent
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished)
+                (@ShielddSecurity.TransferStateDelta.Delta.cache
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished))
+              (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+          (@Except.ok.{0, 0} Unit Bool Bool.true))
+        (@Eq.{1} (Except.{0, 0} Unit (Except.{0, 0} Unit Unit))
+          (@ShielddSecurity.TransferWordSctPendingRead01.sourceEnsureSealed Other
+            (@ShielddSecurity.TransferStateDelta.State.objects
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+              (@ShielddSecurity.TransferStateDelta.applyCache
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E
+                (@ShielddSecurity.TransferStateDelta.Delta.parent
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished)
+                (@ShielddSecurity.TransferStateDelta.Delta.cache
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E finished))
+              (ShielddSecurity.TransferInjectiveKeyPublication01.keyCode
+                ShielddSecurity.TransferNullifierObjectKeys01.nullifierBytes)))
+          (@Except.ok.{0, 0} Unit (Except.{0, 0} Unit Unit) (@Except.ok.{0, 0} Unit Unit Unit.unit)))))
+'ShielddSecurity.TransferCheckedWordKnownFinalization01.returned_checked_word_block_survives_known_source_ordered_finishing_mutations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
