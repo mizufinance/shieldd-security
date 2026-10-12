@@ -1,0 +1,81 @@
+{
+  "status": "PASSED",
+  "fresh_reports": 4,
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-byte-input-review01/packet01/source/ShielddSecurity/TransferScalarWideByteInput01.lean",
+    "bytes": 4233,
+    "sha256": "52865fd73464c1f9d4886ce14a7f118cc6097470c9125fc7e46c75366d0bea74"
+  },
+  "rejected": [
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 19.108827199961524,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-byte-input-review01/packet01/rejected-wide-byte-input-attempt01/handwritten/TransferScalarWideByteInput01.lean",
+        "bytes": 4169,
+        "sha256": "7a56627af3dcaf75afd3fc902eea3a1193f6544a6a85dc667fc46f4b247a5a08"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-byte-input-review01/packet01/rejected-wide-byte-input-attempt01/events.jsonl",
+        "bytes": 293,
+        "sha256": "609995b21e76167481c4d489bf320662577b1152f195c4b4ef57264160418b00"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-wide-byte-input-review01/packet01/rejected-wide-byte-input-attempt01/runs/01-TransferScalarWideByteInput01/stdout.txt",
+        "bytes": 4543,
+        "sha256": "add0842218f9294924059c42ab699641ffc7e9efc78548c44425c53bb666ebd5"
+      },
+      "repair": "Remove only redundant rfl after highWidth rewrite has closed goal"
+    }
+  ],
+  "native_static_association": {
+    "library": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/shared-build-handoff/handoffs/transfer-20261009/sources/windows/bounded-native-codec-20261011-01/bounded-native-codec/qualified/context/runtime-library/bls12_381-0.8.0-scalar.rs",
+      "bytes": 36086,
+      "sha256": "986f81e7fcb783a668bc4ab55721b22d497c5860cd7136e3cc600d2d9c321475"
+    },
+    "body_sha256": "28de7d1d0ba9588741384d004fd21377f38dde80decfe98e8e045bf9001b9851",
+    "eight_byte_slices": [
+      [
+        "0",
+        "8"
+      ],
+      [
+        "8",
+        "16"
+      ],
+      [
+        "16",
+        "24"
+      ],
+      [
+        "24",
+        "32"
+      ],
+      [
+        "32",
+        "40"
+      ],
+      [
+        "40",
+        "48"
+      ],
+      [
+        "48",
+        "56"
+      ],
+      [
+        "56",
+        "64"
+      ]
+    ]
+  },
+  "scope": "For every64-byte UInt8 vector, two modeled four-word LE decoders cover exactly low32/high32 original bytes. Derived widths and LE append identity reconstruct the exact original512-bit integer, then reviewed R2/R3 wide constructor derives canonical field payload, exact original-byte modular scalar key and32-byte serialization width. No caller digit bound, legality, decoded-value or result premise. Authenticated bls12_3810.8.0 from_bytes_wide source has exactly eight adjacent eight-byte LE reads in ascending order into from_u512; static shape independently matched. Actual Rust slice/index/try_from/unwrap/array/UInt primitives/private Scalar/traits/compiler/callers/native trace correspondence remains owned OPEN; modeled total decoder is not a proof of native execution. Original failed attempt retained; only redundant highWidth rfl removed, all definitions/contracts/runner/physical/finite limits unchanged. Full Transfer/combined replay OPEN.",
+  "native_execution": "UNRUN",
+  "full_transfer": "OPEN",
+  "kind": "Independent arbitrary wide-byte premise/source/original history and exact native static shape review; no verifier",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}

@@ -1,0 +1,58 @@
+ShielddSecurity.TransferScalarWideByteInput01.sourceWideByteDigits : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))) →
+  Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferScalarWideByteInput01.sourceWideByteDigits' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWideByteInput01.sourceFromWideBytes : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarWideByteInput01.sourceFromWideBytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideByteInput01.source_eight_le_reads_reconstruct_the_exact_original_64_byte_integer : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (ShielddSecurity.TransferScalarWideByteInput01.sourceWideByteDigits bytes))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (ShielddSecurity.TransferScalarWideByteInput01.sourceWideByteDigits bytes))))))
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) bytes))
+'ShielddSecurity.TransferScalarWideByteInput01.source_eight_le_reads_reconstruct_the_exact_original_64_byte_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideByteInput01.arbitrary_64_source_bytes_derive_canonical_field_and_exact_modular_key : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferScalarWideByteInput01.sourceFromWideBytes bytes)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (And
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+          (ShielddSecurity.TransferScalarWideByteInput01.sourceFromWideBytes bytes))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+            (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) bytes))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      (@Eq.{1} Nat
+        (@List.length.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferScalarWideByteInput01.sourceFromWideBytes bytes))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+'ShielddSecurity.TransferScalarWideByteInput01.arbitrary_64_source_bytes_derive_canonical_field_and_exact_modular_key' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
