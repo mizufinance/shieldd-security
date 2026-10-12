@@ -1,0 +1,57 @@
+import ShielddSecurity.TransferPoseidonTailTemplate05Program01
+import ShielddSecurity.CompilerWindowRenaming05
+import ShielddSecurity.CompilerColumnRenaming05
+import ShielddSecurity.CapturedArithmetic45B0014
+import ShielddSecurity.CompilerIndexedCopyStream171
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.CapturedMerkleSparse243L00B09
+open Compiler CompilerAssertionBlock51
+open CompilerArithmeticTransport41 (p copy)
+def rows : List Row := ((TransferPoseidonTailTemplate05Program01.originalRows.drop 92).take 16).map
+ (fun row => CompilerColumnRenaming05.row (CompilerWindowRenaming05.swap 25064 396 848)
+   (CompilerColumnRenaming05.row (CompilerWindowRenaming05.swap 23076 396 1988) row))
+def indices : List Nat := List.range' 3290 16
+def localParent : Nat → Option Row
+ | 3290 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 260),[(26028,1)]⟩
+ | 3291 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 261),[(26029,1)]⟩
+ | 3292 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 262),[(26031,1)]⟩
+ | 3293 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 263),[(26030,4),(26031,1)]⟩
+ | 3294 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 264),[(26032,1)]⟩
+ | 3295 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 265),[(26033,1)]⟩
+ | 3296 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 266),[(26035,1)]⟩
+ | 3297 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 267),[(26034,4),(26035,1)]⟩
+ | 3298 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 268),[(26036,1)]⟩
+ | 3299 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 269),[(26037,1)]⟩
+ | 3300 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 270),[(26039,1)]⟩
+ | 3301 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 271),[(26038,4),(26039,1)]⟩
+ | 3302 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 272),[(26040,1)]⟩
+ | 3303 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 273),[(26041,1)]⟩
+ | 3304 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 274),[(26043,1)]⟩
+ | 3305 => some ⟨CompilerIndexedRecipe38.linear ArithmeticCoefficients39.value (CapturedArithmetic45B0014.inputs 275),[(26042,4),(26043,1)]⟩
+ | _ => none
+def localCheck : Bool := CompilerIndexedCopyStream171.check p copy localParent 200770 indices rows
+theorem local_checked : localCheck=true := by decide +kernel
+theorem count : rows.length=16 := by rfl
+end ShielddSecurity.CapturedMerkleSparse243L00B09
+
+set_option pp.all true in
+#check @ShielddSecurity.CapturedMerkleSparse243L00B09.rows
+#print axioms ShielddSecurity.CapturedMerkleSparse243L00B09.rows
+set_option pp.all true in
+#check @ShielddSecurity.CapturedMerkleSparse243L00B09.indices
+#print axioms ShielddSecurity.CapturedMerkleSparse243L00B09.indices
+set_option pp.all true in
+#check @ShielddSecurity.CapturedMerkleSparse243L00B09.localParent
+#print axioms ShielddSecurity.CapturedMerkleSparse243L00B09.localParent
+set_option pp.all true in
+#check @ShielddSecurity.CapturedMerkleSparse243L00B09.localCheck
+#print axioms ShielddSecurity.CapturedMerkleSparse243L00B09.localCheck
+set_option pp.all true in
+#check @ShielddSecurity.CapturedMerkleSparse243L00B09.local_checked
+#print axioms ShielddSecurity.CapturedMerkleSparse243L00B09.local_checked
+set_option pp.all true in
+#check @ShielddSecurity.CapturedMerkleSparse243L00B09.count
+#print axioms ShielddSecurity.CapturedMerkleSparse243L00B09.count
