@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,hashlib,sys,os
+W=Path('/Users/antoinecyr/Documents/Codex/2026-10-08/can/work');S=W/'mac-merkle-conservative235-source01';L=W/'mac-merkle-global-level185-source01'
+def require(b,m):
+ if not b:raise RuntimeError(m)
+def pin(p):
+ p=Path(p);b=p.read_bytes();return dict(path=str(p),bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+require(sys.flags.isolated and sys.flags.dont_write_bytecode and sys.flags.no_site and not sys.flags.optimize,'isolated preparation');require(not S.exists(),'fresh source');m=json.loads((L/'producer-manifest01.json').read_bytes());require(m['templates01.json']==pin(L/'templates01.json'),'exact prior closed template');v=json.loads((L/'templates01.json').read_bytes());n='CapturedMerkleGlobalLevel185L01';d=v['modules'][n];body=d['body'];old=['CapturedMerkleGlobalArithmetic184L01B'+str(i).zfill(2) for i in range(27)];new=[x if i not in[20,22,23] else ('CapturedMerkleGlobalArithmetic184L01B20' if i==20 else 'CapturedMerkleWide223Pilot')for i,x in enumerate(old) if i!=23];imports=''.join('import ShielddSecurity.'+x+'\n'for x in old);require(body.startswith(imports),'exact original import order');body=''.join('import ShielddSecurity.'+x+'\n'for x in new)+body[len(imports):];before='['+','.join(map(str,[16]*26+[8]))+']';after='['+','.join(map(str,[16]*22+[32,16,16,8]))+']';require(sum([16]*22+[32,16,16,8])==424 and body.count(before)==1,'complete finite partition');body=body.replace(before,after);start=body.index(' change AllSatisfied rho [');end=body.index('\ntheorem sound ',start);proof=' change AllSatisfied rho ['+','.join(x+'.rows'for x in new)+']\n';tail='True.intro'
+for x in reversed(new):tail='⟨'+x+'.sound rho satisfied,'+tail+'⟩'
+body=body[:start]+proof+' exact '+tail+'\n'+body[end:];require(all(x not in body for x in [old[22],old[23]]),'no superseded future declarations/imports')
+inputs={str(L/p):pin(L/p)for p in ['templates01.json','generation01.json','producer-manifest01.json']}
+for root in [W/'mac-merkle-global234-source01',W/'mac-merkle-wide223-source02']:
+ g=json.loads((root/'generation01.json').read_bytes())
+ for o in g['outputs']:require(pin(o['source']['path'])==o['source'],'exact inherited/future source');inputs[o['source']['path']]=o['source']
+space=os.statvfs(W);require(space.f_bavail*space.f_frsize>2*1024**3+1048576,'disk reserve');S.mkdir();(S/'prepare.py').write_bytes(Path(__file__).read_bytes());(S/'generate.py').write_bytes((W/'mac-shared-word-flags220-source04/generate.py').read_bytes());(S/'templates01.json').write_text(json.dumps(dict(modules={n:dict(body=body,names=d['names'])},inputs=inputs,scope='SOURCE_ONLY_UNRUN conservative original16-row partition, replacing dense index20 with thin local233/global23416-row exact transport source and index22/23 with one exact qualified32-row Wide223 pilot. Whole level arithmetic_count424/semantic predicates unchanged; counts26 groups. All other levels retain original sealed16-row providers. Failed32/64 exploratory predicates preserved and not retried.'),sort_keys=True,separators=(',',':'))+'\n')
