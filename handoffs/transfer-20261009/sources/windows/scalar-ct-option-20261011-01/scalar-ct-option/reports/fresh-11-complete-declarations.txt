@@ -1,0 +1,125 @@
+ShielddSecurity.TransferScalarCtOption01.SourceCtOption : (α : Type) → Type
+'ShielddSecurity.TransferScalarCtOption01.SourceCtOption' does not depend on any axioms
+@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionNew : {α : Type} →
+  (value : α) → (byte : UInt8) → ShielddSecurity.TransferScalarCtOption01.SourceCtOption α
+'ShielddSecurity.TransferScalarCtOption01.sourceCtOptionNew' does not depend on any axioms
+@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionIntoOption : {α : Type} →
+  (source : ShielddSecurity.TransferScalarCtOption01.SourceCtOption α) → Option.{0} α
+'ShielddSecurity.TransferScalarCtOption01.sourceCtOptionIntoOption' does not depend on any axioms
+@ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_constructor_retains_payload_and_byte_on_every_input : ∀
+  {α : Type} (value : α) (byte : UInt8),
+  And
+    (@Eq.{1} α
+      (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.value α
+        (@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionNew α value byte))
+      value)
+    (@Eq.{1} UInt8
+      (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.isSomeByte α
+        (@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionNew α value byte))
+      byte)
+'ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_constructor_retains_payload_and_byte_on_every_input' does not depend on any axioms
+@ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_conversion_returns_some_iff_stored_byte_one_and_exact_payload : ∀
+  {α : Type} (source : ShielddSecurity.TransferScalarCtOption01.SourceCtOption α) (value : α),
+  Iff
+    (@Eq.{1} (Option.{0} α) (@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionIntoOption α source)
+      (@Option.some.{0} α value))
+    (And
+      (@Eq.{1} UInt8 (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.isSomeByte α source)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1))))
+      (@Eq.{1} α (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.value α source) value))
+'ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_conversion_returns_some_iff_stored_byte_one_and_exact_payload' depends on axioms: [propext]
+ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  ShielddSecurity.TransferScalarCtOption01.SourceCtOption
+    (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_conversion_of_byte_constructor_equals_the_qualified_decoder : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+    (@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionIntoOption
+      (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes))
+    (ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption bytes)
+'ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_conversion_of_byte_constructor_equals_the_qualified_decoder' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCtOption01.every_source_byte_constructor_has_a_derived_valid_choice_byte : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @LT.lt.{0} Nat instLTNat
+    (UInt8.toNat
+      (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.isSomeByte
+        (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes)))
+    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+'ShielddSecurity.TransferScalarCtOption01.every_source_byte_constructor_has_a_derived_valid_choice_byte' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCtOption01.stored_source_byte_constructor_payload_is_canonical_with_exact_modular_field_value : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.value
+            (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.value
+          (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes)))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarCtOption01.stored_source_byte_constructor_payload_is_canonical_with_exact_modular_field_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_byte_conversion_accepts_the_entire_canonical_input_domain : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  Iff
+    (@Exists.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      fun (value : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+      @Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+        (@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionIntoOption
+          (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes))
+        (@Option.some.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) value))
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarCtOption01.exact_source_ct_option_byte_conversion_accepts_the_entire_canonical_input_domain' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarCtOption01.refused_source_ct_option_byte_constructor_still_retains_the_actual_canonical_payload : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (refused :
+    Not
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  And
+    (@Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+      (@ShielddSecurity.TransferScalarCtOption01.sourceCtOptionIntoOption
+        (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes))
+      (@Option.none.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))))
+    (And
+      (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.value
+          (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes))
+        (ShielddSecurity.TransferScalarCanonicalDecoder01.byteDecoderPayload bytes))
+      (@Eq.{1} UInt8
+        (@ShielddSecurity.TransferScalarCtOption01.SourceCtOption.isSomeByte
+          (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (ShielddSecurity.TransferScalarCtOption01.sourceByteDecoderCtOption bytes))
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0)))))
+'ShielddSecurity.TransferScalarCtOption01.refused_source_ct_option_byte_constructor_still_retains_the_actual_canonical_payload' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
