@@ -1,0 +1,70 @@
+ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram : Type
+'ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram' does not depend on any axioms
+ShielddSecurity.TransferScalarInputFamily01.sourceInputEval : ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram →
+  Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarInputFamily01.sourceInputEval' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferScalarInputFamily01.source_32_byte_family_constructor_retains_exact_choice_success_projection : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)
+      (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval
+        (ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram.bytes bytes)))
+    (ShielddSecurity.TransferScalarCanonicalDecoder01.sourceDecodeOption bytes)
+'ShielddSecurity.TransferScalarInputFamily01.source_32_byte_family_constructor_retains_exact_choice_success_projection' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInputFamily01.returned_source_32_byte_family_constructor_reserializes_exact_original_bytes : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval
+        (ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram.bytes bytes))
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar)),
+  @Eq.{1} (List.{0} UInt8)
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+    (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)
+'ShielddSecurity.TransferScalarInputFamily01.returned_source_32_byte_family_constructor_reserializes_exact_original_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInputFamily01.every_returned_source_input_family_derives_canonical_fields_and_exact_serialized_key : ∀
+  (program : ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram),
+  ShielddSecurity.TransferScalarInputFamily01.every_returned_source_input_family_derives_canonical_fields_and_exact_serialized_key.match_1.{1}
+    (fun (x : Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) => Prop)
+    (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval program) (fun (_ : Unit) => True)
+    fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (And
+        (@Eq.{1} Nat
+          (@List.length.{0} UInt8
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (And
+          (@LT.lt.{0} Nat instLTNat
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+              (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Eq.{1} Nat
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+              (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+            (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))))
+'ShielddSecurity.TransferScalarInputFamily01.every_returned_source_input_family_derives_canonical_fields_and_exact_serialized_key' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -1,0 +1,16 @@
+{
+  "decoder_body": "    pub fn from_bytes(bytes: &[u8; 32]) -> CtOption<Scalar> {\n        let mut tmp = Scalar([0, 0, 0, 0]);\n\n        tmp.0[0] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[0..8]).unwrap());\n        tmp.0[1] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[8..16]).unwrap());\n        tmp.0[2] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[16..24]).unwrap());\n        tmp.0[3] = u64::from_le_bytes(<[u8; 8]>::try_from(&bytes[24..32]).unwrap());\n\n        // Try to subtract the modulus\n        let (_, borrow) = sbb(tmp.0[0], MODULUS.0[0], 0);\n        let (_, borrow) = sbb(tmp.0[1], MODULUS.0[1], borrow);\n        let (_, borrow) = sbb(tmp.0[2], MODULUS.0[2], borrow);\n        let (_, borrow) = sbb(tmp.0[3], MODULUS.0[3], borrow);\n\n        // If the element is smaller than MODULUS then the\n        // subtraction will underflow, producing a borrow value\n        // of 0xffff...ffff. Otherwise, it'll be zero.\n        let is_some = (borrow as u8) & 1;\n\n        // Convert to Montgomery form by computing\n        // (a.R^0 * R^2) / R = a.R\n        tmp *= &R2;\n\n        CtOption::new(tmp, Choice::from(is_some))\n    }\n\n",
+  "library": {
+    "bytes": 36086,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bounded-native-codec-20261011-02\\context\\runtime-library\\bls12_381-0.8.0-scalar.rs",
+    "sha256": "986f81e7fcb783a668bc4ab55721b22d497c5860cd7136e3cc600d2d9c321475"
+  },
+  "r2_definition": "const R2: Scalar = Scalar([\n    0xc999_e990_f3f2_9c6d,\n    0x2b6c_edcb_8792_5c23,\n    0x05d3_1496_7254_398f,\n    0x0748_d9d9_9f59_ff11,\n]);",
+  "scope": "Exact R2 literal and from_bytes raw field parse/choice bit then tmp*=R2/CtOption constructor source association. Static only; native/compiler/private Scalar/Choice/CtOption/full trace binding separate.",
+  "words": [
+    14526898881837571181,
+    3129137299524312099,
+    419701826671360399,
+    524908885293268753
+  ]
+}
