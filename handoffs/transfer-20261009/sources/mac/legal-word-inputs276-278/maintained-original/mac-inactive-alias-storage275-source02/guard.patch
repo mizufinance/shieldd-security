@@ -1,0 +1,70 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution302/maintained/guard.py
++++ fresh-guard-after-immutable-alias-manifest
+@@ -470,6 +470,33 @@
+     st=os.lstat(root)
+     require(stat.S_ISDIR(st.st_mode),'ordinary census directory')
+     return (st.st_dev,st.st_ino,st.st_mode,st.st_size,st.st_mtime_ns,st.st_ctime_ns)
++# Lossless structural history of obsolete OWNED imported-input symlinks only.
++_ALIAS_DIRECTORY_PATTERN=r'/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution[0-9]+/own-cache/ShielddSecurity'
++_ALIAS_MANIFEST_PIN=None # filled with exact completed immutable producer pin, never a config override
++_ALIAS_INDEX=None
++_ALIAS_ROOT_CACHE={}
++_ALIAS_ROOT_CACHE_BYTES=0
++def preserved_alias_root(root):
++ global _ALIAS_INDEX,_ALIAS_ROOT_CACHE_BYTES
++ root=str(root)
++ if not re.fullmatch(_ALIAS_DIRECTORY_PATTERN,root):return {}
++ checked_pin(_ALIAS_MANIFEST_PIN)
++ if _ALIAS_INDEX is None:
++  data=strict_json(read_pin(_ALIAS_MANIFEST_PIN));require(set(data)=={'schema','directories','scope'}and data['schema']=='exact-inactive-input-alias-storage01','closed alias storage schema');require(isinstance(data['directories'],dict) and len(data['directories'])<=512,'finite obsolete roots')
++  for key,record in data['directories'].items():require(re.fullmatch(_ALIAS_DIRECTORY_PATTERN,key)and record['directory']==key,'exact owned historical alias root')
++  _ALIAS_INDEX=data['directories']
++ record=_ALIAS_INDEX.get(root)
++ if record is None:return {}
++ require(set(record)=={'directory','overlay','archive','decoded_bytes','decoded_sha256','links'},'closed root record');require(0<record['decoded_bytes']<=16*1024**2 and record['archive']['bytes']<=2*1024**2,'bounded alias archive')
++ checked_pin(record['archive']);checked_pin(record['overlay']);key=(root,record['archive']['sha256'],record['overlay']['sha256'])
++ if key in _ALIAS_ROOT_CACHE:return _ALIAS_ROOT_CACHE[key]
++ d=lzma.LZMADecompressor();raw=d.decompress(read_pin(record['archive']),max_length=record['decoded_bytes']+1);require(d.eof and not d.unused_data and len(raw)==record['decoded_bytes']and sha(raw)==record['decoded_sha256'],'alias archive EOF/size/SHA');value=strict_json(raw);require(set(value)=={'schema','directory','links'}and value['schema']=='exact-inactive-input-alias-root01'and value['directory']==root,'exact decoded alias root');links=value['links'];require(len(links)==record['links'],'exact alias count');overlay=strict_json(read_pin(record['overlay']))['aliases'];require({root+'/'+name:entry['target']for name,entry in links.items()}==overlay,'exact original overlay identity keyset')
++ for name,entry in links.items():
++  require(re.fullmatch(r'[A-Za-z0-9_]+\.(?:olean(?:\.private|\.server)?|ilean|ir)',name)and set(entry)=={'target','mode','mtime_ns','size'},'closed alias basename/record');require(stat.S_ISLNK(entry['mode'])and type(entry['mode'])is int and type(entry['mtime_ns'])is int and entry['mtime_ns']>=0 and type(entry['size'])is int and entry['size']==len(os.fsencode(entry['target']['path'])),'exact alias shape');checked_pin(entry['target'])
++ charge=history_size((key,links))
++ if len(_ALIAS_ROOT_CACHE)<512 and _ALIAS_ROOT_CACHE_BYTES+charge<=32*1024**2:_ALIAS_ROOT_CACHE[key]=links;_ALIAS_ROOT_CACHE_BYTES+=charge
++ return links
++
+ def directory_snapshot(root):
+     global _DIRECTORY_CACHE_BYTES
+     root=str(root);token=directory_token(root);cached=_DIRECTORY_CACHE.get(root)
+@@ -487,6 +514,10 @@
+             else:
+                 require(item.is_file(follow_symlinks=False),'unsupported census entry')
+                 entries.append((item.name,'file',0))
++    archived=preserved_alias_root(root)
++    require(not ({name for name,_,_ in entries}&set(archived)), 'archived input alias reappeared')
++    entries.extend((name,'link',v['size']) for name,v in archived.items())
++    links.update((name,v['target']['path']) for name,v in archived.items())
+     value=(tuple(entries),links)
+     require(directory_token(root)==token,'directory changed during census')
+     _DIRECTORY_PHASE[root]=token
+@@ -565,8 +596,12 @@
+         checked_pin(m['object'])
+         receipt=strict_json(read_pin(m['receipt']))
+         require(receipt['status']=='passed', 'inherited receipt not passed')
+-        for identity in m['current_slots'].values():
+-            if identity is not None: checked_pin(identity)
++        for suffix,identity in m['current_slots'].items():
++            require(suffix in SUFFIXES, 'qualified companion suffix')
++            path=pathlib.Path(m['object']['path']).parent/(name+suffix)
++            if identity is not None:
++                require(identity['path']==str(path),'qualified companion path');checked_pin(identity)
++            else:require(not path.exists() and not path.is_symlink(),'qualified companion absence')
+         selected=first_package_file(config['lean_path'],'ShielddSecurity.'+name,virtual)
+         require(selected in aliases and aliases[selected]==m['object'], 'actual first custom PACKAGE root')
+     for alias in config['alias_records']: checked_pin(alias)
+@@ -603,6 +638,7 @@
+                 key=parent+'/'+name
+                 if role=='dir':pending.append(key)
+                 elif role=='link':
++                    if name in preserved_alias_root(parent):continue # honestly absent historical aliases: no physical byte charge
+                     require(key in aliases and links[name]==aliases[key]['path'],'unapproved batch symlink')
+                     total+=link_bytes
+                 else:

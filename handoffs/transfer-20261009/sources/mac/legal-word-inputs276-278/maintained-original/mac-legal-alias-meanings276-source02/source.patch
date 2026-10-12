@@ -1,0 +1,20 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-legal-alias-meanings276-source01/templates01.json
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-legal-alias-meanings276-source02/templates01.json
+@@ -55,7 +55,7 @@
+  have third : column≠20935 := fun equal => outside (Or.inr (Or.inr equal))
+  simp only [fallback,if_neg first,if_neg second,if_neg third]
+ variable {F : Type} [Field F]
+-theorem bit_parity (number : Nat) : BooleanHints207.bitValue (decide (number%2=1))=(number%2:F) := by
++theorem bit_parity (number : Nat) : BooleanHints207.bitValue (decide (number%2=1))=((number%2:Nat):F) := by
+  by_cases one : number%2=1
+  · simp [BooleanHints207.bitValue,one]
+  · have zero : number%2=0 := by have bound:=Nat.mod_lt number (by decide : 0<2);omega
+@@ -69,6 +69,8 @@
+ theorem seeded_meaning (base : Nat → F) (numbers : Nat → Nat) (old : Nat → Bool) (column : Nat)
+  (selectedAlias : Alias column) :
+  SharedWordWitness221.seeded base (normalized numbers) (fallback numbers old) column=(normalized numbers column:F) := by
++ change BooleanHints207.seeded base (SharedWordWitness221.bits (normalized numbers) (fallback numbers old))
++  SharedWordWitness221.seedColumns column=(normalized numbers column:F)
+  rw [BooleanHints207.seeded_selected _ _ _ column (selected column selectedAlias)]
+  change BooleanHints207.bitValue (SharedWordFlags220.chosen
+   (SharedWordFlags220.assignments SharedWordWitness221.wordSlots (normalized numbers))

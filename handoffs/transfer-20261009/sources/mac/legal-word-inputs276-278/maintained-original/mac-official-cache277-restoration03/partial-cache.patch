@@ -1,0 +1,17 @@
+--- /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-official-cache277-restoration02/restore.py
++++ /Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-official-cache277-restoration03/restore.py
+@@ -81,8 +81,12 @@
+  require(os.statvfs(W).f_bavail*os.statvfs(W).f_frsize>=2*1024**3+sum((prefix/Path(str(relative)+suffix)).stat().st_size for suffix,v in item['wanted'].items()if v['sha256']is not None)+1048576,'install reserve with original floor')
+  for suffix,wanted in item['wanted'].items():
+   source=prefix/Path(str(relative)+suffix);target=Path(wanted['path'])
+-  if wanted['sha256']is None:require(not source.exists(),'historical companion absence');continue
+-  require(source.is_file()and not source.is_symlink(),'exact required companion');v=pin(source);require(v['sha256']==wanted['sha256'],'original official SHA');require(not target.exists()and not target.is_symlink(),'never overwrite official cache');target.parent.mkdir(parents=True,exist_ok=True)
++  if wanted['sha256']is None:
++   require(not target.exists()and not target.is_symlink(),'unselected companion stays absent');continue # original manifest did not include IR; extra scratch IR is recorded/discarded, never installed
++  require(source.is_file()and not source.is_symlink(),'exact required companion');v=pin(source);require(v['sha256']==wanted['sha256'],'original official SHA');require(not target.is_symlink(),'ordinary official cache target')
++  if target.exists():
++   require(target.is_file()and pin(target)['sha256']==wanted['sha256'],'only exact original partial installed output');outputs[str(target)]=pin(target);continue
++  target.parent.mkdir(parents=True,exist_ok=True)
+   with target.open('xb')as f:f.write(source.read_bytes());f.flush();os.fsync(f.fileno())
+   outputs[str(target)]=pin(target);require(outputs[str(target)]['sha256']==wanted['sha256'],'installed exact SHA')
+  put(runtime/('restored-'+str(index).zfill(4)+'.json'),dict(module=item['module'],input_archive=item['archive'],source=item['source'],command=command,exit=proc.returncode,elapsed=time.monotonic()-start,peak_group_rss=peak,cleanup=cleanup,objects=outputs,disposable_scratch=temporary,scope='Exact official cache restoration; no Lean compiler invocation or new qualification.'))
