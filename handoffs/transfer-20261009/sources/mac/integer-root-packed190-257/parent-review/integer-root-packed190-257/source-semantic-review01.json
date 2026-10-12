@@ -1,0 +1,86 @@
+{
+  "status": "PASSED",
+  "modules": 4,
+  "reports": 17,
+  "new_modules": 4,
+  "new_reports": 17,
+  "inherited_modules": 0,
+  "inherited_reports": 0,
+  "source_pins": [
+    {
+      "bytes": 2622,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-merkle-position-global190-source02/source-root/ShielddSecurity/CapturedMerklePositionGlobal190.lean",
+      "sha256": "b1105836185dd42c7363ffaeb51063295a219e45538696980dbee571b0d3aa45"
+    },
+    {
+      "bytes": 2974,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-packed-candidate257-source01/source-root/ShielddSecurity/CompilerPackedTruth257.lean",
+      "sha256": "c1fc3a81c0cb0fcb40cc0e1cb102c5fe8236fbbdd36b2ef2224a5053d35e85e0"
+    },
+    {
+      "bytes": 1259,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-packed-candidate257-source01/source-root/ShielddSecurity/CapturedPackedCandidate257.lean",
+      "sha256": "883c149694f8cc20b5f5421a70038d4a7e1523cedfb9b6f0c3c4fd69e48b68c3"
+    },
+    {
+      "bytes": 5660,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-merkle-integer-root191-source02/source-root/ShielddSecurity/CapturedMerkleIntegerRoot191.lean",
+      "sha256": "5cc4b1e04185dd684973ee631068d4ec5bedb466d553c3f476c75e3ff60181b0"
+    }
+  ],
+  "selected_history_attempts": 2272,
+  "selected_history_failures": 153,
+  "prior_repairs": [
+    {
+      "module": "CapturedMerklePositionGlobal190",
+      "original_source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-merkle-position-global190-source01/source-root/ShielddSecurity/CapturedMerklePositionGlobal190.lean",
+        "bytes": 2465,
+        "sha256": "0f5637ca1fe9aeec9a7e33766a224e87dcd103bc7ddeb34f8ec8927d87e083c7"
+      },
+      "delta": "--- \n+++ \n@@ -8,13 +8,14 @@\n namespace ShielddSecurity.CapturedMerklePositionGlobal190\n open Compiler CompilerAssertionBlock51\n open CapturedInitial73419Generic01 (p copy)\n-def bits (n : Nat) (i : Fin 32) : Bool := (encodeBits 32 n)[i.val]'(by simpa using i.isLt)\n+def bits (n : Nat) (i : Fin 32) : Bool := (encodeBits 32 n)[i.val]'(by rw [encodeBits_length];exact i.isLt)\n variable {F : Type} [Field F] [CharP F p]\n theorem encoding (rho : Nat \u2192 F) (satisfied : SatisfiesAt rho CapturedFullRelation58.rowAt 200770)\n  (n : Nat) (canonical : n<p) (meaning : (n:F)=rho 135) (i : Fin 32) :\n  rho (184+i.val)=MerkleQuaternary30.boolValue (bits n i) := by\n  have equal := CapturedMerkleBitsGlobal188.bit_fields rho satisfied n canonical meaning\n  have each := congrArg (fun xs : List F => xs[i.val]?) equal\n+ change (MerkleBits29.columns.map rho)[i.val]? = ((encodeBits 32 n).map (fun bit => if bit then (1:F) else 0))[i.val]? at each\n  have leftBound : i.val<(MerkleBits29.columns.map rho).length := by\n    rw [List.length_map,MerkleBits29.counts.2.2.2]\n    exact i.isLt\n@@ -22,7 +23,7 @@\n    simpa only [List.length_map,encodeBits_length] using i.isLt\n  rw [List.getElem?_eq_getElem leftBound,List.getElem?_eq_getElem rightBound] at each\n  have same := Option.some.inj each\n- simpa only [List.getElem_map,MerkleBits29.columns,List.getElem_range,bits,MerkleQuaternary30.boolValue] using same\n+ simpa only [List.getElem_map,MerkleBits29.columns,List.getElem_range',Nat.one_mul,bits,MerkleQuaternary30.boolValue] using same\n theorem anchor (rho : Nat \u2192 F) (one : rho 0=1)\n  (satisfied : SatisfiesAt rho CapturedFullRelation58.rowAt 200770)\n  (n : Nat) (canonical : n<p) (meaning : (n:F)=rho 135) :\n",
+      "semantic_effect": "Proof-only explicit finite indexing bounds/unfolding/power identities; position encoding definition retains same list index with corrected bound proof, no changed caller premises/result or numeric algorithm"
+    },
+    {
+      "module": "CapturedMerkleIntegerRoot191",
+      "original_source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-merkle-integer-root191-source01/source-root/ShielddSecurity/CapturedMerkleIntegerRoot191.lean",
+        "bytes": 5261,
+        "sha256": "f968f6b501499000edc723a84ff09b485a3c28aa5d5225b0164ca8c84f1924ad"
+      },
+      "delta": "--- \n+++ \n@@ -19,17 +19,22 @@\n    cases i with\n    | zero => simp only [encodeBits,List.getElem_cons_zero,Nat.pow_zero,Nat.div_one]\n    | succ i =>\n-     change (encodeBits width (n/2))[i]=decide (n/2^(i+1)%2=1)\n+     change (encodeBits width (n/2))[i]'(by rw [encodeBits_length];omega)=decide (n/2^(i+1)%2=1)\n      rw [ih (n/2) i (by omega)]\n      simp only [Nat.div_div_eq_div_mul,Nat.pow_succ,Nat.mul_comm]\n theorem slot (position : Nat) (level : Fin 16) :\n  position/4^level.val%4=\n  bitValue (CapturedMerklePositionGlobal190.bits position \u27e82*level.val,by have h:=level.isLt;omega\u27e9)+\n  2*bitValue (CapturedMerklePositionGlobal190.bits position \u27e82*level.val+1,by have h:=level.isLt;omega\u27e9) := by\n- have powers : 2^(2*level.val)=4^level.val := by\n-   simpa only [Nat.pow_mul] using (rfl : (2^2)^level.val=4^level.val)\n- simp only [CapturedMerklePositionGlobal190.bits,encoded_bit,bit_value,powers,Nat.pow_succ]\n- rw [\u2190Nat.div_div_eq_div_mul]\n+ have lowBound : 2*level.val<32 := by have h:=level.isLt;omega\n+ have highBound : 2*level.val+1<32 := by have h:=level.isLt;omega\n+ change position/4^level.val%4=\n+   bitValue ((encodeBits 32 position)[2*level.val]'(by rw [encodeBits_length];exact lowBound))+\n+   2*bitValue ((encodeBits 32 position)[2*level.val+1]'(by rw [encodeBits_length];exact highBound))\n+ rw [encoded_bit 32 position (2*level.val) lowBound,\n+   encoded_bit 32 position (2*level.val+1) highBound,bit_value,bit_value]\n+ have powers : 2^(2*level.val)=4^level.val := Nat.pow_mul 2 2 level.val\n+ rw [Nat.pow_succ,powers,\u2190Nat.div_div_eq_div_mul]\n  omega\n variable {F : Type} [Field F]\n def children (slot : Nat) (node a b c : F) (i : Fin 4) : F :=\n",
+      "semantic_effect": "Proof-only explicit finite indexing bounds/unfolding/power identities; position encoding definition retains same list index with corrected bound proof, no changed caller premises/result or numeric algorithm"
+    }
+  ],
+  "separate_terminal_failure": {
+    "receipt": {
+      "bytes": 2720,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution280/runtime/receipts/2273-MerkleFieldFold196.json",
+      "sha256": "6929d31f138cbeee992f296c45107f0f3a67aaedc630e0b70c5d90c79c95379b"
+    },
+    "source": {
+      "bytes": 3235,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-merkle-field-fold196-source01/source-root/ShielddSecurity/MerkleFieldFold196.lean",
+      "sha256": "7dc88d2c22c7885b9b3236cde880b721a81ef75832eb9183e8d1cedd03583297"
+    },
+    "stdout": {
+      "bytes": 5043,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution280/runtime/logs/2273-MerkleFieldFold196.stdout",
+      "sha256": "e116125564f202ea8a59d464a897b61fdefcc451762f035949f2f9035f256fa5"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution280/runtime/logs/2273-MerkleFieldFold196.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "complete_phase_ledger": {
+      "bytes": 6199,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution280/runtime/ledger.jsonl",
+      "sha256": "edd2a2d8528ab4f7d88ab481ccfcad564bf14f9e58795666e04149561463c216"
+    },
+    "qualified": false
+  },
+  "scope": "Original full captured SAT and normalized rho0=1 plus canonical natural position<p with cast=actualrho135 derive position<2^32, exact32 original bit fields184..215, and rho4 equal to the same-rho sixteen-step integer-position-indexed FIELD root. Base-four digit recovered from adjacent Boolean bits; exact0/1/2/3 child insertion, original sibling columns136+3level through138+3level, level+1 domain, reviewed hash6 parameters, registry field starting node. Root agrees symbolically with already reviewed ordered field root; no caller desired root/hash/path/bit encoding equality. Canonical representative/cast is an explicit semantic interface, concrete representation/SDK natural hashes/prime field interpretation remain owned OPEN. Generic packed-row helper legitimately takes selected actual parent truth and copy equality; captured wrapper internally discharges both through independent candidate arithmetic/copy construction, retaining only finite checker and Supported-index premises. Concrete component checker/support instances and legal seed/all22816assertions remain owned OPEN. Four original modules17 full reports; selected2272 history153failed preserved, terminal2273 field-fold unused-premise diagnostic refusal/source/rawlogs/full8eventphase280ledger independently preserved but not qualified. Repairs change finite index proof/unfolding/power rewrite only; guard280/279 remains approved e1e43. No Root Lean/native/combined replay, full Transfer OPEN.",
+  "full_transfer": "OPEN",
+  "root_verifier_execution": "NONE"
+}
