@@ -1,0 +1,168 @@
+@ShielddSecurity.TransferCheckedWordNullify01.nullifyAtKey : {O E Other : Type} →
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) →
+    (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+      (parent :
+          ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+        (writes :
+            ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+          (key : Nat) →
+            (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+              (sourceHasId : Bool) →
+                Except.{0, 0} Unit
+                  (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+                    (ShielddSecurity.TransferStateDelta.Writes
+                      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+'ShielddSecurity.TransferCheckedWordNullify01.nullifyAtKey' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferCheckedWordNullify01.empty_public_batch_skips_source_type_and_all_reads : ∀ {O E Other : Type}
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (sourceHasId : Bool),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+    (@ShielddSecurity.TransferCheckedWordNullify01.nullifyAtKey O E Other backend child parent writes key
+      (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) sourceHasId)
+    (@Except.ok.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        writes))
+'ShielddSecurity.TransferCheckedWordNullify01.empty_public_batch_skips_source_type_and_all_reads' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordNullify01.nonempty_missing_source_returns_refusal_before_type_and_reader : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (nonempty :
+    @Eq.{1} Bool (@List.isEmpty.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs) Bool.false),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+    (@ShielddSecurity.TransferCheckedWordNullify01.nullifyAtKey O E Other backend child parent writes key inputs
+      Bool.false)
+    (@Except.ok.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError.source))
+'ShielddSecurity.TransferCheckedWordNullify01.nonempty_missing_source_returns_refusal_before_type_and_reader' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordNullify01.nonempty_present_source_forwards_exact_checked_stage : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (nonempty :
+    @Eq.{1} Bool (@List.isEmpty.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs) Bool.false),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+    (@ShielddSecurity.TransferCheckedWordNullify01.nullifyAtKey O E Other backend child parent writes key inputs
+      Bool.true)
+    (@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey O E Other backend child parent writes key inputs)
+'ShielddSecurity.TransferCheckedWordNullify01.nonempty_present_source_forwards_exact_checked_stage' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordNullify01.returned_nonempty_public_batch_derives_source_and_actual_checked_stage : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes next :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (sourceHasId : Bool)
+  (nonempty :
+    @Eq.{1} Bool (@List.isEmpty.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs) Bool.false)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferCheckedWordNullify01.nullifyAtKey O E Other backend child parent writes key inputs
+        sourceHasId)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          next))),
+  And (@Eq.{1} Bool sourceHasId Bool.true)
+    (@Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey O E Other backend child parent writes key inputs)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          next)))
+'ShielddSecurity.TransferCheckedWordNullify01.returned_nonempty_public_batch_derives_source_and_actual_checked_stage' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferCheckedWordNullify01.returned_public_batch_derives_empty_identity_or_nonempty_source_and_stage : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes next :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (sourceHasId : Bool)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferCheckedWordNullify01.nullifyAtKey O E Other backend child parent writes key inputs
+        sourceHasId)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          next))),
+  Or
+    (And
+      (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) inputs
+        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+      (@Eq.{1}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        next writes))
+    (And
+      (@Eq.{1} Bool (@List.isEmpty.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs)
+        Bool.false)
+      (And (@Eq.{1} Bool sourceHasId Bool.true)
+        (@Eq.{1}
+          (Except.{0, 0} Unit
+            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+          (@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey O E Other backend child parent writes key
+            inputs)
+          (@Except.ok.{0, 0} Unit
+            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+            (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+              (ShielddSecurity.TransferStateDelta.Writes
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              next)))))
+'ShielddSecurity.TransferCheckedWordNullify01.returned_public_batch_derives_empty_identity_or_nonempty_source_and_stage' depends on axioms: [propext,
+ Quot.sound]
