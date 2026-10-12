@@ -1,0 +1,28 @@
+"""Known finishing frames and empty ephemeral snapshot construction, no verifier."""
+from pathlib import Path
+import argparse,json,hashlib,re
+J=Path(__file__).resolve().parent;W=J.parent
+p=argparse.ArgumentParser();p.add_argument('label',choices=['checked-word-known-finalization','checked-word-fresh-snapshot']);a=p.parse_args();known=a.label=='checked-word-known-finalization';M='TransferCheckedWordKnownFinalization01'if known else'TransferCheckedWordFreshSnapshot01';D=J/('windows-'+a.label+'-review01');P=D/'packet01';S=P/'source/ShielddSecurity'/(M+'.lean');s=S.read_text()
+def pin(p):
+ b=p.read_bytes();return dict(path=str(p),bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+plan=json.loads((P/'qualified/plan.json').read_text());assert all(pin(S)[k]==plan['targets'][0]['source'][k]for k in ['bytes','sha256'])
+assert re.findall(r'^(?:def|theorem) ([A-Za-z0-9_]+)',s,re.M)==re.findall(r'^#check @([^\n]+)',s,re.M)and s.count('#check @')==5
+assert not list(P.glob('rejected-*'));events=[json.loads(x)for x in(P/'qualified/events.jsonl').read_text().splitlines()];assert len(events)==2 and events[-1]['result']['status']=='passed'
+extra={}
+if known:
+ for token in ['(TransferSourceOrderedFinalizer01.fixedMutations tree).map','⟨mutation.key, mutation.permitted,','| .inl object => some object | .inr _ => none','[none, some tree, none, none, none, none]','initiallyAbsent : (overlay parent writes) (keyCode nullifierBytes) = none','returned : run backend child parent writes (keyCode nullifierBytes) batches = .ok (.ok final)','symbolic_known_finalization_mutation_walk_preserves_pending_observation','keyCode TransferInjectiveKeyPublication01.keyCode_is_injective','some (.inl (.sealed (allFields batches)))']:assert token in s
+ scope='Returned checked block derived exact global sealed canonical fields/getters survives the six known source-ordered post-seal object operations. Constructed wordMutations takes exact keys/permitted proofs from previously verified fixed recipe, translates actual tree put and five deletion tombstones, and retains functional selectedDelta parent/cache observations. No caller mutation list, permitted-key proof, getter-success or desired final object. This covers those six known operations only; hidden callees/full native App trace/tree values/source selection/Any/Clone/maps/Scalar/ownership/compiler/control/error/recovery remain owned OPEN. Initial absence and whole run success are conditional model antecedents. First original attempt passed, inherited history preserved; no replay/native execution; full Transfer/combined replay OPEN.'
+else:
+ for token in ['snapshotObjects {Other : Type} : View (WordTaggedObject Other) := fun _ => none','emptyLeaf {Other : Type} : Writes (WordTaggedObject Other) := fun _ => none','run backend child snapshotObjects emptyLeaf (keyCode nullifierBytes) batches','checkedLayers [some (emptyLeaf (Other := Other))] (some snapshotObjects)','(returned : runFromSnapshot backend child batches = .ok (.ok final))','backend child snapshotObjects emptyLeaf final (keyCode nullifierBytes) batches rfl returned','final other = none']:assert token in s
+ shape=json.loads((P/'context/source-fresh-snapshot-shape.json').read_text());assert shape['runtime_sha']=='844389ee069e1fb2e576708842d0b389b4d9a44a'
+ roots=[]
+ for old in shape['runtime_sources']:
+  name=old['path'].replace('\\','/').split('/')[-1];f=W/'runtime-snapshot/third_party/cnidarium-0.83.0/src'/name;assert all(pin(f)[k]==old[k]for k in ['bytes','sha256']);assert f.read_bytes()==(P/'runtime/third_party/cnidarium-0.83.0/src'/name).read_bytes();roots.append(pin(f))
+ snap=(W/'runtime-snapshot/third_party/cnidarium-0.83.0/src/snapshot.rs').read_text();delta=(W/'runtime-snapshot/third_party/cnidarium-0.83.0/src/delta.rs').read_text();cache=(W/'runtime-snapshot/third_party/cnidarium-0.83.0/src/cache.rs').read_text()
+ assert shape['snapshot_object_body']in snap and shape['state_delta_new_body']in delta and shape['cache_default_decl']in cache
+ assert 'layers: Vec::default()'in shape['state_delta_new_body']and 'leaf_cache: Arc::new(RwLock::new(Some(Cache::default())))'in shape['state_delta_new_body']
+ assert shape['snapshot_object_body'].count('        None')==2
+ extra=dict(runtime_sources=roots,source_shape=pin(P/'context/source-fresh-snapshot-shape.json'))
+ scope='Constructed source-shaped empty snapshot object view and live empty leaf discharge initial selected absence/default-empty/unsealed observations. Returned runFromSnapshot alone then derives exact actual final sealed original global fields and all three getters, capacity, uniqueness, every durable false lookup and absent other-key frames. No caller initial absence, invariant, intermediate walk/seal/getter/type-domain/inverse/desired-state premise. Exact locked Snapshot object_get/object_type None, StateDelta::new no layers/live default leaf, and Cache derived-default ephemeral BTreeMap source identities independently verified. This is ephemeral object initialization; persistent snapshot data, ICS23, actual native defaults/locks/Any/constructor/caller/compiler/control/recovery semantics remain owned OPEN. First attempt passed, inherited original history preserved; no replay/native execution; full Transfer/combined replay OPEN.'
+r=dict(status='PASSED_SOURCE_SCOPE',source=pin(S),fresh_reports=5,original_attempts=1,original_failed_attempts=0,scope=scope,full_transfer='OPEN',native_execution='UNRUN',kind='Precise constructed finishing/snapshot source scope; no verifier',**extra);(D/'semantic-source-review01.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(dict(status=r['status'],module=M,reports=5)))
+
