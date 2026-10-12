@@ -1,0 +1,61 @@
+ShielddSecurity.TransferScalarExtendedFamily01.ScalarExtendedProgram : Type
+'ShielddSecurity.TransferScalarExtendedFamily01.ScalarExtendedProgram' does not depend on any axioms
+ShielddSecurity.TransferScalarExtendedFamily01.sourceExtendedEval : ShielddSecurity.TransferScalarExtendedFamily01.ScalarExtendedProgram →
+  Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarExtendedFamily01.sourceExtendedEval' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarExtendedFamily01.every_returned_extended_source_program_derives_canonical_raw_fields_and_exact_key : ∀
+  (program : ShielddSecurity.TransferScalarExtendedFamily01.ScalarExtendedProgram),
+  ShielddSecurity.TransferScalarExtendedFamily01.every_returned_extended_source_program_derives_canonical_raw_fields_and_exact_key.match_1.{1}
+    (fun (x : Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) => Prop)
+    (ShielddSecurity.TransferScalarExtendedFamily01.sourceExtendedEval program) (fun (_ : Unit) => True)
+    fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (And
+        (@Eq.{1} Nat
+          (@List.length.{0} UInt8
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (And
+          (@LT.lt.{0} Nat instLTNat
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+              (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Eq.{1} Nat
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+              (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+            (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))))
+'ShielddSecurity.TransferScalarExtendedFamily01.every_returned_extended_source_program_derives_canonical_raw_fields_and_exact_key' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarExtendedFamily01.extended_source_invert_refuses_constructor_failure_or_exact_zero_payload : ∀
+  (program : ShielddSecurity.TransferScalarExtendedFamily01.ScalarExtendedProgram),
+  Iff
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarExtendedFamily01.sourceExtendedEval
+        (ShielddSecurity.TransferScalarExtendedFamily01.ScalarExtendedProgram.invert program))
+      (@Option.none.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+    (ShielddSecurity.TransferScalarExtendedFamily01.every_returned_extended_source_program_derives_canonical_raw_fields_and_exact_key.match_1.{1}
+      (fun (x : Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) => Prop)
+      (ShielddSecurity.TransferScalarExtendedFamily01.sourceExtendedEval program) (fun (_ : Unit) => True)
+      fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+      @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+          ShielddSecurity.TransferScalarPowInvariant01.sourceZero))
+'ShielddSecurity.TransferScalarExtendedFamily01.extended_source_invert_refuses_constructor_failure_or_exact_zero_payload' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
