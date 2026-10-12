@@ -1,0 +1,68 @@
+{
+  "status": "PASSED",
+  "kind": "Handwritten model scope, exact locked snippets and original failed history; no verifier",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-layer-flatten-review01/packet01/source/ShielddSecurity/TransferWordLayerFlatten01.lean",
+    "bytes": 4256,
+    "sha256": "b069856a5902865c8fbb9de0023f35f7b4a20295eac0f49b3345a6e186635372"
+  },
+  "fresh_reports": 4,
+  "rejected": [
+    {
+      "kind": "Original failed attempt; no accepted result",
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 17.74809120001737,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-layer-flatten-review01/packet01/unselected/01/handwritten/TransferWordLayerFlatten01.lean",
+        "bytes": 4102,
+        "sha256": "cd96c131e690664b7da80d2ad68bf2ebb96806d548a0a3115fec31533e3e26f3"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-layer-flatten-review01/packet01/unselected/01/events.jsonl",
+        "bytes": 286,
+        "sha256": "4eb68f6b4e55920f01ee466bd22d8ad3b32dc53a8e5f9863bddd6bc74ea45b8c"
+      },
+      "exact_delta": "--- \n+++ \n@@ -33,8 +33,10 @@\n   | nil => rfl\n   | cons layer rest ih =>\n     rw [List.map_cons, List.reverse_cons, selected_live_layer_prefix_composes_with_older_stack]\n-    change selectedLiveLayers ((rest.map (fun item => item.objects)).reverse)\n-      (applyCache parent layer).objects key = (applyLayers (applyCache parent layer) rest).objects key\n+    have singleton : (fun k => selectedLiveLayers [layer.objects] parent.objects k) = (applyCache parent layer).objects := by\n+      funext k\n+      cases selected : layer.objects k <;> simp only [selectedLiveLayers, applyCache, overlay, selected]\n+    rw [singleton]\n     exact ih (applyCache parent layer)\n \n theorem live_checked_stack_agrees_with_functional_layer_object_observation {Other E : Type}\n",
+      "all_definitions_and_theorem_contracts_unchanged": true
+    },
+    {
+      "kind": "Original failed attempt; no accepted result",
+      "result": {
+        "reason": "Physical memory pressure",
+        "seconds": 18.02127940003993,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-layer-flatten-review01/packet01/unselected/02/handwritten/TransferWordLayerFlatten01.lean",
+        "bytes": 4256,
+        "sha256": "b069856a5902865c8fbb9de0023f35f7b4a20295eac0f49b3345a6e186635372"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-layer-flatten-review01/packet01/unselected/02/events.jsonl",
+        "bytes": 299,
+        "sha256": "98fc8a5599027a2940b6593557617c7db137417081683c818b79869f70e9a080"
+      },
+      "exact_delta": "",
+      "all_definitions_and_theorem_contracts_unchanged": true
+    }
+  ],
+  "static_associations": [
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-layer-flatten-review01/packet01/context/saturating-capacity-shape.json",
+      "bytes": 2248,
+      "sha256": "828438c11cf8047b99a61ea0416a99cbc5821c5ee532d80ba36c580d9c5e0b94"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-layer-flatten-review01/packet01/context/checked-pending-read-shape.json",
+      "bytes": 4284,
+      "sha256": "cf37c92c9125a6b46041d072c5806a667d7f570c8e5fdd7805d9a8c63656fbbc"
+    }
+  ],
+  "scope": "Constructed live stack in newest-first lookup equals original functional oldest-first applyLayers and exact flatten object observation. No selected object/getter success premise; result may still panic on selected wrong type. Existing layer liveness is an explicit model domain. Exact locked Rust snippet association is static. Actual Any/TypeId/downcast/Clone/boxing/locks/imbl/private Scalar/compiler/ownership/liveness/concurrency/full trace remains owned OPEN; model panic sentinel is not an executed native control. Full Transfer OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}

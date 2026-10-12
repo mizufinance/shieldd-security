@@ -1,0 +1,155 @@
+@ShielddSecurity.TransferWordLayerFlatten01.selected_live_layer_prefix_composes_with_older_stack : ∀ {Other : Type}
+  (newer older :
+    List.{0}
+      (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.selectedLiveLayers Other
+      (@HAppend.hAppend.{0, 0, 0}
+        (List.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (List.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (List.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@instHAppendOfAppend.{0}
+          (List.{0}
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+          (@List.instAppend.{0}
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+        newer older)
+      parent key)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.selectedLiveLayers Other newer
+      (fun (k : Nat) => @ShielddSecurity.TransferWordLayeredObjectRead01.selectedLiveLayers Other older parent k) key)
+'ShielddSecurity.TransferWordLayerFlatten01.selected_live_layer_prefix_composes_with_older_stack' depends on axioms: [propext]
+@ShielddSecurity.TransferWordLayerFlatten01.reverse_live_object_lookup_is_exact_oldest_first_layer_application : ∀
+  {Other E : Type}
+  (layers :
+    List.{0}
+      (ShielddSecurity.TransferStateDelta.Cache (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E))
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat),
+  @Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.selectedLiveLayers Other
+      (@List.reverse.{0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@List.map.{0, 0}
+          (ShielddSecurity.TransferStateDelta.Cache (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+            E)
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          (fun
+              (layer :
+                ShielddSecurity.TransferStateDelta.Cache
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E) =>
+            @ShielddSecurity.TransferStateDelta.Cache.objects
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E layer)
+          layers))
+      (@ShielddSecurity.TransferStateDelta.State.objects
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent)
+      key)
+    (@ShielddSecurity.TransferStateDelta.State.objects
+      (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+      (@ShielddSecurity.TransferStateDelta.applyLayers
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E parent layers)
+      key)
+'ShielddSecurity.TransferWordLayerFlatten01.reverse_live_object_lookup_is_exact_oldest_first_layer_application' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordLayerFlatten01.live_checked_stack_agrees_with_functional_layer_object_observation : ∀
+  {Other E : Type}
+  (layers :
+    List.{0}
+      (ShielddSecurity.TransferStateDelta.Cache (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E))
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+      (@List.map.{0, 0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (Option.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Option.some.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@List.reverse.{0}
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          (@List.map.{0, 0}
+            (ShielddSecurity.TransferStateDelta.Cache (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+              E)
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+            (fun
+                (layer :
+                  ShielddSecurity.TransferStateDelta.Cache
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E) =>
+              @ShielddSecurity.TransferStateDelta.Cache.objects
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E layer)
+            layers)))
+      (@Option.some.{0}
+        (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@ShielddSecurity.TransferStateDelta.State.objects
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent))
+      key)
+    (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+      (@ShielddSecurity.TransferStateDelta.State.objects
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@ShielddSecurity.TransferStateDelta.applyLayers
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E parent layers)
+        key))
+'ShielddSecurity.TransferWordLayerFlatten01.live_checked_stack_agrees_with_functional_layer_object_observation' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordLayerFlatten01.live_checked_stack_agrees_with_exact_functional_flatten_object : ∀
+  {Other E : Type}
+  (layers :
+    List.{0}
+      (ShielddSecurity.TransferStateDelta.Cache (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E))
+  (parent : ShielddSecurity.TransferStateDelta.State (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+      (@List.map.{0, 0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (Option.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Option.some.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@List.reverse.{0}
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          (@List.map.{0, 0}
+            (ShielddSecurity.TransferStateDelta.Cache (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+              E)
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+            (fun
+                (layer :
+                  ShielddSecurity.TransferStateDelta.Cache
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E) =>
+              @ShielddSecurity.TransferStateDelta.Cache.objects
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E layer)
+            layers)))
+      (@Option.some.{0}
+        (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@ShielddSecurity.TransferStateDelta.State.objects
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent))
+      key)
+    (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+      (@ShielddSecurity.TransferStateDelta.State.objects
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@ShielddSecurity.TransferStateDelta.applyCache
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E parent
+          (@ShielddSecurity.TransferStateDelta.flatten
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E
+            (@ShielddSecurity.TransferStateDelta.empty
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) E)
+            layers))
+        key))
+'ShielddSecurity.TransferWordLayerFlatten01.live_checked_stack_agrees_with_exact_functional_flatten_object' depends on axioms: [propext,
+ Quot.sound]
