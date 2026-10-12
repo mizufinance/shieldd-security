@@ -1,0 +1,5 @@
+`TransferScalarSqrtAcceptance01` proves the mathematical meaning of the final `ff` square-root candidate check from the qualified modeled multiplication and constant-time equality operations. An arbitrary canonical candidate is accepted exactly when its square equals the input; success returns that checked candidate, and refusal means the candidate square fails. Six complete declaration and axiom reports qualify this source-model result.
+
+The candidate-producing loop, completeness for square inputs, native value origins and compiler/ABI correspondence remain separate obligations. This package gives no native execution or full Transfer certification credit. The SDK `Fq::sqrt` and Commonware circuit `Scalar::sqrt` have different producers and need separate joins.
+
+`refresh.py` checks the transported successful receipt and complete compiler reports, confirms the local locked `ff-0.13.0` helper bytes, and atomically writes compact evidence. Failed attempts, compiler logs, transport archives and objects stay local.
