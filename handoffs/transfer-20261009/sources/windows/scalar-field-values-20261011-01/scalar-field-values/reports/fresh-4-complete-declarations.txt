@@ -1,0 +1,81 @@
+ShielddSecurity.TransferScalarFieldValues01.canonical_montgomery_word_contract_derives_exact_field_product : ∀
+  (left right output : Nat)
+  (canonical : @LT.lt.{0} Nat instLTNat output ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (relation :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          output)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) left right)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse output)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse left)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse right)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarFieldValues01.canonical_montgomery_word_contract_derives_exact_field_product' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarFieldValues01.actual_modeled_canonical_multiply_has_exact_mathematical_field_value : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarPowInvariant01.sourceCanonicalMul left right)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarFieldValues01.actual_modeled_canonical_multiply_has_exact_mathematical_field_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarFieldValues01.actual_modeled_canonical_optimized_square_has_exact_mathematical_field_value : ∀
+  (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarPowInvariant01.sourceCanonicalSquare value)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarFieldValues01.actual_modeled_canonical_optimized_square_has_exact_mathematical_field_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarFieldValues01.symbolic_repeated_source_optimized_square_has_exact_mathematical_field_power : ∀
+  (count : Nat) (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferScalarPowInvariant01.sourceRepeatedSquare count value)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarFieldValues01.symbolic_repeated_source_optimized_square_has_exact_mathematical_field_power' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

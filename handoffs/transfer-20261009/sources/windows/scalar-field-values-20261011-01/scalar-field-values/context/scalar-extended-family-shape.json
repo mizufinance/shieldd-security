@@ -1,0 +1,36 @@
+{
+  "conditional_selection_body": "    fn conditional_select(a: &Self, b: &Self, choice: Choice) -> Self {\n        Scalar([\n            u64::conditional_select(&a.0[0], &b.0[0], choice),\n            u64::conditional_select(&a.0[1], &b.0[1], choice),\n            u64::conditional_select(&a.0[2], &b.0[2], choice),\n            u64::conditional_select(&a.0[3], &b.0[3], choice),\n        ])\n    }",
+  "from_u64_body": "    fn from(val: u64) -> Scalar {\n        Scalar([val, 0, 0, 0]) * R2\n    }",
+  "library": {
+    "bytes": 36086,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bounded-native-codec-20261011-02\\context\\runtime-library\\bls12_381-0.8.0-scalar.rs",
+    "sha256": "986f81e7fcb783a668bc4ab55721b22d497c5860cd7136e3cc600d2d9c321475"
+  },
+  "open": [
+    "native RNG/Choice/wordwise conditional selection/ct_eq/compiler/caller/public API origin",
+    "arbitrary private raw constructor escape",
+    "generic trait/helper caller trace beyond explicit represented program",
+    "mathematical exponent/inverse semantics",
+    "full Transfer certification"
+  ],
+  "random_body": "    fn random(mut rng: impl RngCore) -> Self {\n        let mut buf = [0; 64];\n        rng.fill_bytes(&mut buf);\n        Self::from_bytes_wide(&buf)\n    }",
+  "represented_constructor_family": [
+    "prior raw4/wide64/canonical bytes32 and add/sub/mul/neg/double input programs",
+    "five public constants",
+    "zero",
+    "one",
+    "fromU64",
+    "random64 byte input",
+    "add",
+    "sub",
+    "mul",
+    "neg",
+    "double",
+    "optimized square",
+    "pow",
+    "pow_vartime",
+    "exact source invert chain",
+    "Boolean selection"
+  ],
+  "scope": "Exact source API static associations and explicit represented family inventory; derive bounds solely from constructors and proved operation outputs. Native library/compiler/caller origin separate."
+}

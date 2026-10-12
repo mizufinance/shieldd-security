@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independent complete source contracts, exact failed-history and maintained pure source repair; no verifier/native launch",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-word-primitives-review01/packet01/source/ShielddSecurity/TransferScalarWordPrimitives01.lean",
+    "bytes": 6507,
+    "sha256": "6ad0195734c09c7d1b14f2c2e4d112c9b7f580874071b4a4e7a4390997d4ee8b"
+  },
+  "recipe": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-word-primitives-review01/packet01/qualified/prepare_recipe.py",
+    "bytes": 2281,
+    "sha256": "b064cb6e306b1bff362205cc4b593b0fdd68cb30b87ffb29aef06e7baf00b571"
+  },
+  "fresh_reports": 10,
+  "definitions": 4,
+  "theorems": 6,
+  "all_model_definitions_and_contracts_unchanged": true,
+  "pure_source_repair_exact": true,
+  "rejected": {
+    "source": {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-scalar-word-primitives-review01/packet01/rejected/02/handwritten/TransferScalarWordPrimitives01.lean",
+      "bytes": 6532,
+      "sha256": "de37974e7d7846c8fa191e2f3e43113723b1246e63499c8eec860f4db62fa512"
+    },
+    "result": {
+      "reason": "Lean exit 1",
+      "seconds": 17.02572869998403,
+      "status": "failed"
+    },
+    "diagnostics": [
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-word-primitives-20261011-02\\project\\ShielddSecurity\\TransferScalarWordPrimitives01.lean:61:74: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+      "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-scalar-word-primitives-20261011-02\\project\\ShielddSecurity\\TransferScalarWordPrimitives01.lean:69:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern"
+    ],
+    "exact_delta": "--- \n+++ \n@@ -58,14 +58,14 @@\n   have bounded := multiply_accumulate_of_four_words_fits_double_width radix64\n     a.toNat b.toNat c.toNat carry.toNat (by decide) a.toNat_lt b.toNat_lt c.toNat_lt carry.toNat_lt\n   change (((a.toNat % 2 ^ 128 + (b.toNat % 2 ^ 128 * (c.toNat % 2 ^ 128)) % 2 ^ 128) % 2 ^ 128) + carry.toNat % 2 ^ 128) % 2 ^ 128 = _\n-  rw [Nat.mod_add_mod, Nat.add_mod_mod, Nat.mod_mul_mod, Nat.mul_mod_mod, Nat.mod_add_mod, Nat.add_mod_mod]\n+  simp only [Nat.mod_add_mod, Nat.add_mod_mod, Nat.mod_mul_mod, Nat.mul_mod_mod]\n   exact Nat.mod_eq_of_lt bounded\n \n theorem split_double_word_preserves_full_integer (ret : BitVec 128) :\n     (split128 ret).1.toNat + radix64 * (split128 ret).2.toNat = ret.toNat := by\n   have bounded : ret.toNat < radix64 * radix64 := ret.isLt\n   have carryBound : ret.toNat / radix64 < radix64 := (Nat.div_lt_iff_lt_mul (by decide)).2 bounded\n-  change ret.toNat % 2 ^ 64 + radix64 * ((ret.toNat / radix64) % 2 ^ 64) = ret.toNat\n+  change ret.toNat % radix64 + radix64 * ((ret.toNat / radix64) % radix64) = ret.toNat\n   rw [Nat.mod_eq_of_lt carryBound]\n   exact Nat.mod_add_div ret.toNat radix64\n \n"
+  },
+  "scope": "UInt64 packing supplies raw range; BitVec128 widened MAC and low/high split conserve full integer without overflow. Actual Rust evaluation, carry schedule/subtraction/byte layout/congruence/type invariant remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN"
+}
