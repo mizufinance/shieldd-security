@@ -1,0 +1,125 @@
+ShielddSecurity.TransferScalarInvertField01.registersCorrespond : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) → (exponents : Nat → Option.{0} Nat) → Prop
+'ShielddSecurity.TransferScalarInvertField01.registersCorrespond' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertField01.corresponding_registers_derive_corresponding_operand_values : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (exponents : Nat → Option.{0} Nat)
+  (operand : ShielddSecurity.TransferScalarInvertMachine01.InvertOperand)
+  (correspond : ShielddSecurity.TransferScalarInvertField01.registersCorrespond self state exponents),
+  @Eq.{1} (Option.{0} Nat)
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value))
+      (ShielddSecurity.TransferScalarInvertMachine01.sourceOperand self state operand))
+    (@Option.map.{0, 0} Nat Nat
+      (fun (exponent : Nat) =>
+        @HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+            exponent)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (ShielddSecurity.TransferScalarInvertMachine01.sourceExponentOperand exponents operand))
+'ShielddSecurity.TransferScalarInvertField01.corresponding_registers_derive_corresponding_operand_values' depends on axioms: [propext]
+ShielddSecurity.TransferScalarInvertField01.successful_corresponding_source_operand_derives_exact_exponent_read : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (exponents : Nat → Option.{0} Nat)
+  (operand : ShielddSecurity.TransferScalarInvertMachine01.InvertOperand)
+  (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (correspond : ShielddSecurity.TransferScalarInvertField01.registersCorrespond self state exponents)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertMachine01.sourceOperand self state operand)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar value)),
+  @Exists.{1} Nat fun (exponent : Nat) =>
+    And
+      (@Eq.{1} (Option.{0} Nat) (ShielddSecurity.TransferScalarInvertMachine01.sourceExponentOperand exponents operand)
+        (@Option.some.{0} Nat exponent))
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+            exponent)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarInvertField01.successful_corresponding_source_operand_derives_exact_exponent_read' depends on axioms: [propext]
+ShielddSecurity.TransferScalarInvertField01.matching_register_updates_preserve_field_exponent_correspondence : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (exponents : Nat → Option.{0} Nat)
+  (target : Nat) (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (exponent : Nat)
+  (correspond : ShielddSecurity.TransferScalarInvertField01.registersCorrespond self state exponents)
+  (valueEquation :
+    @Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+          exponent)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  ShielddSecurity.TransferScalarInvertField01.registersCorrespond self
+    (ShielddSecurity.TransferScalarInvertMachine01.sourceRegisterPut state target value) fun (index : Nat) =>
+    @ite.{1} (Option.{0} Nat) (@Eq.{1} Nat index target) (instDecidableEqNat index target)
+      (@Option.some.{0} Nat exponent) (exponents index)
+'ShielddSecurity.TransferScalarInvertField01.matching_register_updates_preserve_field_exponent_correspondence' depends on axioms: [propext]
+ShielddSecurity.TransferScalarInvertField01.successful_source_instruction_derives_matching_exponent_instruction : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (state updated : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (exponents : Nat → Option.{0} Nat)
+  (instruction : ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction)
+  (correspond : ShielddSecurity.TransferScalarInvertField01.registersCorrespond self state exponents)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState)
+      (ShielddSecurity.TransferScalarInvertMachine01.sourceApply self state instruction)
+      (@Option.some.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState updated)),
+  @Exists.{1} (Nat → Option.{0} Nat) fun (nextExponents : Nat → Option.{0} Nat) =>
+    And
+      (@Eq.{1} (Option.{0} (Nat → Option.{0} Nat))
+        (ShielddSecurity.TransferScalarInvertMachine01.sourceExponentApply exponents instruction)
+        (@Option.some.{0} (Nat → Option.{0} Nat) nextExponents))
+      (ShielddSecurity.TransferScalarInvertField01.registersCorrespond self updated nextExponents)
+'ShielddSecurity.TransferScalarInvertField01.successful_source_instruction_derives_matching_exponent_instruction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertField01.successful_symbolic_source_walk_derives_matching_exponent_walk : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (instructions : List.{0} ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction)
+  (state result : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (exponents : Nat → Option.{0} Nat)
+  (correspond : ShielddSecurity.TransferScalarInvertField01.registersCorrespond self state exponents)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState)
+      (ShielddSecurity.TransferScalarInvertMachine01.sourceWalk self instructions state)
+      (@Option.some.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState result)),
+  @Exists.{1} (Nat → Option.{0} Nat) fun (resultExponents : Nat → Option.{0} Nat) =>
+    And
+      (@Eq.{1} (Option.{0} (Nat → Option.{0} Nat))
+        (ShielddSecurity.TransferScalarInvertMachine01.sourceExponentWalk exponents instructions)
+        (@Option.some.{0} (Nat → Option.{0} Nat) resultExponents))
+      (ShielddSecurity.TransferScalarInvertField01.registersCorrespond self result resultExponents)
+'ShielddSecurity.TransferScalarInvertField01.successful_symbolic_source_walk_derives_matching_exponent_walk' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertField01.exact_source_invert_payload_has_modulus_minus_two_field_power : ∀
+  (self value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertChain01.sourceInvertPayload self)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar value)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words value))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarInvertField01.exact_source_invert_payload_has_modulus_minus_two_field_power' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
