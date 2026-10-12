@@ -1,0 +1,53 @@
+ShielddSecurity.TransferScalarSquareDiagonal01.diagonalValue : List.{0} UInt64 → Nat
+'ShielddSecurity.TransferScalarSquareDiagonal01.diagonalValue' does not depend on any axioms
+ShielddSecurity.TransferScalarSquareDiagonal01.diagonalWalk : List.{0} UInt64 →
+  UInt64 → List.{0} UInt64 → Prod.{0, 0} (List.{0} UInt64) UInt64
+'ShielddSecurity.TransferScalarSquareDiagonal01.diagonalWalk' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSquareDiagonal01.symbolic_diagonal_and_cross_values_reconstruct_exact_square : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarSquareDiagonal01.diagonalValue words)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64)
+        (ShielddSecurity.TransferScalarSquareCross01.crossValue words)))
+'ShielddSecurity.TransferScalarSquareDiagonal01.symbolic_diagonal_and_cross_values_reconstruct_exact_square' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSquareDiagonal01.symbolic_diagonal_mac_adc_walk_derives_width_and_full_integer : ∀
+  (words : List.{0} UInt64) (carry : UInt64) (accumulated : List.{0} UInt64)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt64 accumulated)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (@List.length.{0} UInt64 words))),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+          (ShielddSecurity.TransferScalarSquareDiagonal01.diagonalWalk words carry accumulated)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (@List.length.{0} UInt64 words)))
+    (@Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+            (ShielddSecurity.TransferScalarSquareDiagonal01.diagonalWalk words carry accumulated)))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (@List.length.{0} UInt64 words)))
+          (UInt64.toNat
+            (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+              (ShielddSecurity.TransferScalarSquareDiagonal01.diagonalWalk words carry accumulated)))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords accumulated)
+          (ShielddSecurity.TransferScalarSquareDiagonal01.diagonalValue words))
+        (UInt64.toNat carry)))
+'ShielddSecurity.TransferScalarSquareDiagonal01.symbolic_diagonal_mac_adc_walk_derives_width_and_full_integer' depends on axioms: [propext,
+ Quot.sound]
