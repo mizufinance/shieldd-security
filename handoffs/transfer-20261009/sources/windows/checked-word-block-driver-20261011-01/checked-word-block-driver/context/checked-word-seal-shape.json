@@ -1,0 +1,10 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "source": {
+    "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\component\\tree.rs",
+    "bytes": 48880,
+    "sha256": "d95558d2c9da8e16419ab1a43c27052d672c607c46bd41b40daa7e9fdf7b1a65"
+  },
+  "excerpt": "    async fn seal_nullifier_block(&mut self) -> Result<()> {\n        let pending = self\n            .object_get::<PendingNullifierBlock>(state_key::nullifiers::pending_block())\n            .unwrap_or_default();\n        match pending {\n            PendingNullifierBlock::Sealed { .. } => {\n                anyhow::bail!(\"nullifier block was already sealed\")\n            }\n            PendingNullifierBlock::Open { ordered, .. } => {\n                self.object_put(\n                    state_key::nullifiers::pending_block(),\n                    PendingNullifierBlock::Sealed { ordered },\n                );\n                Ok(())\n            }\n        }\n    }\n",
+  "scope": "Authenticated static call/branch/value shape only; hash does not establish semantic correspondence."
+}
