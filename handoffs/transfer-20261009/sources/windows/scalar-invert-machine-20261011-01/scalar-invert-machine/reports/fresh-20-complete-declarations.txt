@@ -1,0 +1,112 @@
+ShielddSecurity.TransferScalarInvertMachine01.InvertOperand : Type
+'ShielddSecurity.TransferScalarInvertMachine01.InvertOperand' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction : Type
+'ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.RegisterState : Type
+'ShielddSecurity.TransferScalarInvertMachine01.RegisterState' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.registerInitialized : (state :
+    ShielddSecurity.TransferScalarInvertMachine01.RegisterState) →
+  (defined : List.{0} Nat) → Prop
+'ShielddSecurity.TransferScalarInvertMachine01.registerInitialized' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.operandInitialized : (defined : List.{0} Nat) →
+  ShielddSecurity.TransferScalarInvertMachine01.InvertOperand → Prop
+'ShielddSecurity.TransferScalarInvertMachine01.operandInitialized' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.sourceOperand : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) →
+    ShielddSecurity.TransferScalarInvertMachine01.InvertOperand →
+      Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarInvertMachine01.sourceOperand' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.sourceRegisterPut : (state :
+    ShielddSecurity.TransferScalarInvertMachine01.RegisterState) →
+  (target : Nat) →
+    (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+      ShielddSecurity.TransferScalarInvertMachine01.RegisterState
+'ShielddSecurity.TransferScalarInvertMachine01.sourceRegisterPut' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.instructionTarget : ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction →
+  Nat
+'ShielddSecurity.TransferScalarInvertMachine01.instructionTarget' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.instructionReadsInitialized : (defined : List.{0} Nat) →
+  ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction → Prop
+'ShielddSecurity.TransferScalarInvertMachine01.instructionReadsInitialized' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.sourceApply : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) →
+    ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction →
+      Option.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState
+'ShielddSecurity.TransferScalarInvertMachine01.sourceApply' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferScalarInvertMachine01.sourceWalk : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  List.{0} ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction →
+    ShielddSecurity.TransferScalarInvertMachine01.RegisterState →
+      Option.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState
+'ShielddSecurity.TransferScalarInvertMachine01.sourceWalk' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferScalarInvertMachine01.sourceAssigned : List.{0} Nat →
+  List.{0} ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction → List.{0} Nat
+'ShielddSecurity.TransferScalarInvertMachine01.sourceAssigned' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.sourceWellFormed : List.{0} Nat →
+  List.{0} ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction → Prop
+'ShielddSecurity.TransferScalarInvertMachine01.sourceWellFormed' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.sourceExponentOperand : (state : Nat → Option.{0} Nat) →
+  ShielddSecurity.TransferScalarInvertMachine01.InvertOperand → Option.{0} Nat
+'ShielddSecurity.TransferScalarInvertMachine01.sourceExponentOperand' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.sourceExponentApply : (state : Nat → Option.{0} Nat) →
+  ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction → Option.{0} (Nat → Option.{0} Nat)
+'ShielddSecurity.TransferScalarInvertMachine01.sourceExponentApply' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.sourceExponentWalk : (Nat → Option.{0} Nat) →
+  List.{0} ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction → Option.{0} (Nat → Option.{0} Nat)
+'ShielddSecurity.TransferScalarInvertMachine01.sourceExponentWalk' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.initialized_operand_has_exact_successful_source_read : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (defined : List.{0} Nat)
+  (operand : ShielddSecurity.TransferScalarInvertMachine01.InvertOperand)
+  (initialized : ShielddSecurity.TransferScalarInvertMachine01.registerInitialized state defined)
+  (good : ShielddSecurity.TransferScalarInvertMachine01.operandInitialized defined operand),
+  @Exists.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    fun (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertMachine01.sourceOperand self state operand)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar value)
+'ShielddSecurity.TransferScalarInvertMachine01.initialized_operand_has_exact_successful_source_read' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertMachine01.source_register_put_preserves_all_initialized_reads : ∀
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (defined : List.{0} Nat) (target : Nat)
+  (value : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (initialized : ShielddSecurity.TransferScalarInvertMachine01.registerInitialized state defined),
+  ShielddSecurity.TransferScalarInvertMachine01.registerInitialized
+    (ShielddSecurity.TransferScalarInvertMachine01.sourceRegisterPut state target value)
+    (@List.cons.{0} Nat target defined)
+'ShielddSecurity.TransferScalarInvertMachine01.source_register_put_preserves_all_initialized_reads' depends on axioms: [propext]
+ShielddSecurity.TransferScalarInvertMachine01.initialized_instruction_derives_successful_updated_registers : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (defined : List.{0} Nat)
+  (instruction : ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction)
+  (initialized : ShielddSecurity.TransferScalarInvertMachine01.registerInitialized state defined)
+  (good : ShielddSecurity.TransferScalarInvertMachine01.instructionReadsInitialized defined instruction),
+  @Exists.{1} ShielddSecurity.TransferScalarInvertMachine01.RegisterState
+    fun (updated : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState)
+        (ShielddSecurity.TransferScalarInvertMachine01.sourceApply self state instruction)
+        (@Option.some.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState updated))
+      (ShielddSecurity.TransferScalarInvertMachine01.registerInitialized updated
+        (@List.cons.{0} Nat (ShielddSecurity.TransferScalarInvertMachine01.instructionTarget instruction) defined))
+'ShielddSecurity.TransferScalarInvertMachine01.initialized_instruction_derives_successful_updated_registers' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertMachine01.well_formed_symbolic_inversion_walk_derives_successful_initialized_result : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (instructions : List.{0} ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction)
+  (state : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) (defined : List.{0} Nat)
+  (initialized : ShielddSecurity.TransferScalarInvertMachine01.registerInitialized state defined)
+  (good : ShielddSecurity.TransferScalarInvertMachine01.sourceWellFormed defined instructions),
+  @Exists.{1} ShielddSecurity.TransferScalarInvertMachine01.RegisterState
+    fun (result : ShielddSecurity.TransferScalarInvertMachine01.RegisterState) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState)
+        (ShielddSecurity.TransferScalarInvertMachine01.sourceWalk self instructions state)
+        (@Option.some.{0} ShielddSecurity.TransferScalarInvertMachine01.RegisterState result))
+      (ShielddSecurity.TransferScalarInvertMachine01.registerInitialized result
+        (ShielddSecurity.TransferScalarInvertMachine01.sourceAssigned defined instructions))
+'ShielddSecurity.TransferScalarInvertMachine01.well_formed_symbolic_inversion_walk_derives_successful_initialized_result' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
