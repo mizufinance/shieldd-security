@@ -1,0 +1,9 @@
+{
+  "library": {
+    "bytes": 36086,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bounded-native-codec-20261011-02\\context\\runtime-library\\bls12_381-0.8.0-scalar.rs",
+    "sha256": "986f81e7fcb783a668bc4ab55721b22d497c5860cd7136e3cc600d2d9c321475"
+  },
+  "scope": "Exact authenticated cached Scalar neg source four SBB MODULUS-self and four-limb OR zero detector Boolean cast wrapping-subtract mask. Model symbolic left OR walk starts at zero; native primitive/compiler/private Scalar/caller bindings remain separate.",
+  "source_neg_body": "    pub const fn neg(&self) -> Self {\n        // Subtract `self` from `MODULUS` to negate. Ignore the final\n        // borrow because it cannot underflow; self is guaranteed to\n        // be in the field.\n        let (d0, borrow) = sbb(MODULUS.0[0], self.0[0], 0);\n        let (d1, borrow) = sbb(MODULUS.0[1], self.0[1], borrow);\n        let (d2, borrow) = sbb(MODULUS.0[2], self.0[2], borrow);\n        let (d3, _) = sbb(MODULUS.0[3], self.0[3], borrow);\n\n        // `tmp` could be `MODULUS` if `self` was zero. Create a mask that is\n        // zero if `self` was zero, and `u64::max_value()` if self was nonzero.\n        let mask = (((self.0[0] | self.0[1] | self.0[2] | self.0[3]) == 0) as u64).wrapping_sub(1);\n\n        Scalar([d0 & mask, d1 & mask, d2 & mask, d3 & mask])\n    }"
+}

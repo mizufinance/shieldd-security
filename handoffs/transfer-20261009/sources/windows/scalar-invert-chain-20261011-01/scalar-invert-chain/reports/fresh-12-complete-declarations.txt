@@ -1,0 +1,106 @@
+ShielddSecurity.TransferScalarInvertChain01.sourceOperandDecider : (defined : List.{0} Nat) →
+  (operand : ShielddSecurity.TransferScalarInvertMachine01.InvertOperand) →
+    Decidable (ShielddSecurity.TransferScalarInvertMachine01.operandInitialized defined operand)
+'ShielddSecurity.TransferScalarInvertChain01.sourceOperandDecider' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.sourceInstructionDecider : (defined : List.{0} Nat) →
+  (instruction : ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction) →
+    Decidable (ShielddSecurity.TransferScalarInvertMachine01.instructionReadsInitialized defined instruction)
+'ShielddSecurity.TransferScalarInvertChain01.sourceInstructionDecider' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.sourceChainDecider : (defined : List.{0} Nat) →
+  (instructions : List.{0} ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction) →
+    Decidable (ShielddSecurity.TransferScalarInvertMachine01.sourceWellFormed defined instructions)
+'ShielddSecurity.TransferScalarInvertChain01.sourceChainDecider' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.sourceInvertInstructions : List.{0}
+  ShielddSecurity.TransferScalarInvertMachine01.InvertInstruction
+'ShielddSecurity.TransferScalarInvertChain01.sourceInvertInstructions' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertChain01.source_invert_instruction_reads_are_well_formed : ShielddSecurity.TransferScalarInvertMachine01.sourceWellFormed
+  (@List.nil.{0} Nat) ShielddSecurity.TransferScalarInvertChain01.sourceInvertInstructions
+'ShielddSecurity.TransferScalarInvertChain01.source_invert_instruction_reads_are_well_formed' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.source_invert_final_result_register_is_initialized : @Membership.mem.{0, 0}
+  Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+  (ShielddSecurity.TransferScalarInvertMachine01.sourceAssigned (@List.nil.{0} Nat)
+    ShielddSecurity.TransferScalarInvertChain01.sourceInvertInstructions)
+  (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferScalarInvertChain01.source_invert_final_result_register_is_initialized' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.source_invert_natural_exponent_instance_is_modulus_minus_two : @Eq.{1}
+  (Option.{0} Nat)
+  (@Bind.bind.{0, 0} Option.{0} (@Monad.toBind.{0, 0} Option.{0} instMonadOption.{0}) (Nat → Option.{0} Nat) Nat
+    (ShielddSecurity.TransferScalarInvertMachine01.sourceExponentWalk (fun (x : Nat) => @Option.none.{0} Nat)
+      ShielddSecurity.TransferScalarInvertChain01.sourceInvertInstructions)
+    fun (result : Nat → Option.{0} Nat) => result (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+  (@Option.some.{0} Nat
+    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+'ShielddSecurity.TransferScalarInvertChain01.source_invert_natural_exponent_instance_is_modulus_minus_two' does not depend on any axioms
+ShielddSecurity.TransferScalarInvertChain01.sourceInvertPayload : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarInvertChain01.sourceInvertPayload' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.sourceInvert : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarInvertChain01.sourceInvert' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.exact_source_invert_chain_derives_successful_canonical_payload : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Exists.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertChain01.sourceInvertPayload self)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar)
+'ShielddSecurity.TransferScalarInvertChain01.exact_source_invert_chain_derives_successful_canonical_payload' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.exact_source_invert_zero_refusal_is_derived : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferScalarInvertChain01.sourceInvert self)
+      (@Option.none.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        ShielddSecurity.TransferScalarPowInvariant01.sourceZero))
+'ShielddSecurity.TransferScalarInvertChain01.exact_source_invert_zero_refusal_is_derived' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInvertChain01.exact_returned_source_invert_derives_canonical_fields_and_exact_serialization : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  ShielddSecurity.TransferScalarInvertChain01.exact_returned_source_invert_derives_canonical_fields_and_exact_serialization.match_1.{1}
+    (fun (x : Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) => Prop)
+    (ShielddSecurity.TransferScalarInvertChain01.sourceInvert self) (fun (_ : Unit) => True)
+    fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (And
+        (@Eq.{1} Nat
+          (@List.length.{0} UInt8
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (And
+          (@LT.lt.{0} Nat instLTNat
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+              (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Eq.{1} Nat
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+              (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+            (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))))
+'ShielddSecurity.TransferScalarInvertChain01.exact_returned_source_invert_derives_canonical_fields_and_exact_serialization' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
