@@ -1,0 +1,190 @@
+@ShielddSecurity.TransferWordStageNumericRefinement01.installTypedPending : {O E : Type} →
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) →
+    (ordered members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+      ShielddSecurity.TransferNullifierBatchSource01.Backend O E
+'ShielddSecurity.TransferWordStageNumericRefinement01.installTypedPending' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferWordStageNumericRefinement01.typedDurableReader : (gate : Bool) →
+  (lookup : Nat → Option.{0} Bool) →
+    (members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit
+'ShielddSecurity.TransferWordStageNumericRefinement01.typedDurableReader' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferWordStageNumericRefinement01.original_field_pending_freshness_equals_numeric_pending_freshness : ∀
+  (members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Bool
+    (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs
+      fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+      Bool.not (ShielddSecurity.TransferCanonicalSourceMembership01.sourceOrdContains members scalar))
+    (@List.all.{0} Nat
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+        inputs)
+      fun (key : Nat) =>
+      Bool.not
+        (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+          (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+            (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+              ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+            members)
+          key))
+'ShielddSecurity.TransferWordStageNumericRefinement01.original_field_pending_freshness_equals_numeric_pending_freshness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageNumericRefinement01.typed_open_stage_has_exact_numeric_inspection_result_and_original_field_write : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))
+      inputs Bool.true
+      (ShielddSecurity.TransferWordStageNumericRefinement01.typedDurableReader
+        (@ShielddSecurity.TransferNullifierBatchSource01.Backend.readerGate O E backend child)
+        (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child) members))
+    (@Except.ok.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.map.{0, 0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        ShielddSecurity.TransferNullifierBatchSource01.Pending
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (fun (x : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+          @Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+            (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (@instHAppendOfAppend.{0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                  (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                ordered inputs)
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (@instHAppendOfAppend.{0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                  (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                members inputs)))
+        (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E
+          (@ShielddSecurity.TransferWordStageNumericRefinement01.installTypedPending O E backend ordered members)
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity child
+          (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+            (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+              ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+            inputs))))
+'ShielddSecurity.TransferWordStageNumericRefinement01.typed_open_stage_has_exact_numeric_inspection_result_and_original_field_write' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageNumericRefinement01.returned_typed_open_stage_derives_exact_numeric_pending_append : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+            (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))
+        inputs Bool.true
+        (ShielddSecurity.TransferWordStageNumericRefinement01.typedDurableReader
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.readerGate O E backend child)
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child) members))
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object))),
+  @Exists.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending
+    fun (next : ShielddSecurity.TransferNullifierBatchSource01.Pending) =>
+    And
+      (@Eq.{1}
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          ShielddSecurity.TransferNullifierBatchSource01.Pending)
+        (@ShielddSecurity.TransferNullifierBatchSource01.inspect O E
+          (@ShielddSecurity.TransferWordStageNumericRefinement01.installTypedPending O E backend ordered members)
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity child
+          (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+            (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+              ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+            inputs))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          ShielddSecurity.TransferNullifierBatchSource01.Pending next))
+      (@Eq.{1} ShielddSecurity.TransferNullifierBatchSource01.Pending next
+        (ShielddSecurity.TransferNullifierBatchSource01.appendPending
+          (ShielddSecurity.TransferPendingFiniteCodec01.restore
+            (ShielddSecurity.TransferCanonicalWordPending01.decodeWordPending
+              (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))
+          (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+            (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+              ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+            inputs)))
+'ShielddSecurity.TransferWordStageNumericRefinement01.returned_typed_open_stage_derives_exact_numeric_pending_append' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageNumericRefinement01.returned_typed_open_stage_derives_actual_lookup_unspent_and_pending_freshness : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+            (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))
+        inputs Bool.true
+        (ShielddSecurity.TransferWordStageNumericRefinement01.typedDurableReader
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.readerGate O E backend child)
+          (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child) members))
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object)))
+  (key : Nat),
+  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+        inputs)
+      key →
+    And
+      (@Eq.{1} (Option.{0} Bool) (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child key)
+        (@Option.some.{0} Bool Bool.false))
+      (@Eq.{1} Bool
+        (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+          (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+            (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+              ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+            members)
+          key)
+        Bool.false)
+'ShielddSecurity.TransferWordStageNumericRefinement01.returned_typed_open_stage_derives_actual_lookup_unspent_and_pending_freshness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

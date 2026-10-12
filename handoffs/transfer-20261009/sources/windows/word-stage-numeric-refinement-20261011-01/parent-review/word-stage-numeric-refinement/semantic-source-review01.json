@@ -1,0 +1,62 @@
+{
+  "status": "PASSED",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-numeric-refinement-review01/packet01/source/ShielddSecurity/TransferWordStageNumericRefinement01.lean",
+    "bytes": 9001,
+    "sha256": "537a3f144d1d57726e3e5002fb424312ef743e0344b4ebaa684346a852123348"
+  },
+  "fresh_reports": 6,
+  "kind": "Exact maintained proof-only repair and modeled reader/refinement scope; no verifier",
+  "rejected": [
+    {
+      "result": {
+        "reason": "Physical memory pressure",
+        "seconds": 11.566879999998491,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-numeric-refinement-review01/packet01/rejected-numeric-attempt01/handwritten/TransferWordStageNumericRefinement01.lean",
+        "bytes": 8981,
+        "sha256": "176b8b530f3cda3f1b2484b36a41e7b21b3d2aa510de3a0900ba13185824b81f"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-numeric-refinement-review01/packet01/rejected-numeric-attempt01/events.jsonl",
+        "bytes": 321,
+        "sha256": "50be054d2ef06d1ade94d6e0a787695010ef33b3cfae1505c950780e13bd245a"
+      },
+      "stdout": null,
+      "exact_delta": "--- \n+++ \n@@ -53,19 +53,19 @@\n           (fun _ => (.inl (.opened (ordered ++ inputs) (members ++ inputs)) : WordTaggedObject Other))) := by\n   simp only [stageFields, appendAfterCheckedRead, TransferWordObjectRead01.checkedObject, Option.getD_some,\n     admitOpen, inspect, installTypedPending, decodeWordPending, restore, List.length_map,\n-    TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd, Bool.false_eq_true, if_false, Bool.true_eq_true, if_true]\n+    TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd, Bool.false_eq_true, if_false, if_true]\n   rw [original_field_pending_freshness_equals_numeric_pending_freshness]\n   cases unique : TransferNullifierBatchSource01.uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) with\n-  | false => simp only [unique, Bool.false_eq_true, if_false]; rfl\n+  | false => simp only [Bool.false_eq_true, if_false] <;> rfl\n   | true =>\n-    simp only [unique, Bool.true_eq_true, if_true]\n+    simp only [if_true]\n     by_cases capacity : min (ordered.length + inputs.length) (2 ^ 64 - 1) \u2264 blockCapacity\n     \u00b7 simp only [if_pos capacity]\n       cases fresh : (inputs.map (fun scalar => scalarKey scalar.words)).all\n           (fun key => !(members.map (fun scalar => scalarKey scalar.words)).contains key) with\n-      | false => simp only [fresh, Bool.false_eq_true, if_false] <;> rfl\n+      | false => simp only [Bool.false_eq_true, if_false] <;> rfl\n       | true =>\n-        simp only [fresh, Bool.true_eq_true, if_true]\n+        simp only [if_true]\n         unfold typedDurableReader\n         cases observed : contains (backend.readerGate child) (backend.lookup child)\n             (fun key => (members.map (fun scalar => scalarKey scalar.words)).contains key)\n@@ -74,7 +74,7 @@\n         | some flags =>\n           simp only [observed]\n           cases unspent : zipUnspent (inputs.map (fun scalar => scalarKey scalar.words)) flags <;>\n-            simp only [unspent, Bool.false_eq_true, if_false, Bool.true_eq_true, if_true] <;> rfl\n+            simp only [Bool.false_eq_true, if_false, if_true] <;> rfl\n     \u00b7 simp only [if_neg capacity] <;> rfl\n \n theorem returned_typed_open_stage_derives_exact_numeric_pending_append {O E Other : Type}\n@@ -96,7 +96,7 @@\n     obtain \u27e8previous, _, previousEq, _, _, _, _, _, _, nextEq\u27e9 :=\n       TransferNullifierBatchSource01.inspection_success_order (installTypedPending backend ordered members)\n         (2 ^ 64 - 1) blockCapacity child (inputs.map (fun scalar => scalarKey scalar.words)) next inspected\n-    exact \u27e8next, inspected, nextEq.trans (congrArg\n+    exact \u27e8next, rfl, nextEq.trans (congrArg\n       (fun pending : Pending => appendPending pending (inputs.map (fun scalar => scalarKey scalar.words))) previousEq)\u27e9\n \n theorem returned_typed_open_stage_derives_actual_lookup_unspent_and_pending_freshness {O E Other : Type}\n",
+      "scope": "Entire original failed attempt retained, including any placeholder/partial reports; no accepted evidence",
+      "all_definitions_and_theorem_contracts_unchanged": true
+    },
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 18.173547799990047,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-numeric-refinement-review01/packet01/rejected-numeric-attempt02/handwritten/TransferWordStageNumericRefinement01.lean",
+        "bytes": 8981,
+        "sha256": "176b8b530f3cda3f1b2484b36a41e7b21b3d2aa510de3a0900ba13185824b81f"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-numeric-refinement-review01/packet01/rejected-numeric-attempt02/events.jsonl",
+        "bytes": 307,
+        "sha256": "fbedb52d27e17804e39e595fc223a290fb1df2dcb52b5eda9aeb2bf1e43d2e94"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-numeric-refinement-review01/packet01/rejected-numeric-attempt02/runs/01-TransferWordStageNumericRefinement01/stdout.txt",
+        "bytes": 17719,
+        "sha256": "c83ac7199e475003087adf54921a9e7062539b31f586eb1716d66a13772d26c1"
+      },
+      "exact_delta": "--- \n+++ \n@@ -53,19 +53,19 @@\n           (fun _ => (.inl (.opened (ordered ++ inputs) (members ++ inputs)) : WordTaggedObject Other))) := by\n   simp only [stageFields, appendAfterCheckedRead, TransferWordObjectRead01.checkedObject, Option.getD_some,\n     admitOpen, inspect, installTypedPending, decodeWordPending, restore, List.length_map,\n-    TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd, Bool.false_eq_true, if_false, Bool.true_eq_true, if_true]\n+    TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd, Bool.false_eq_true, if_false, if_true]\n   rw [original_field_pending_freshness_equals_numeric_pending_freshness]\n   cases unique : TransferNullifierBatchSource01.uniqueLoop [] (inputs.map (fun scalar => scalarKey scalar.words)) with\n-  | false => simp only [unique, Bool.false_eq_true, if_false]; rfl\n+  | false => simp only [Bool.false_eq_true, if_false] <;> rfl\n   | true =>\n-    simp only [unique, Bool.true_eq_true, if_true]\n+    simp only [if_true]\n     by_cases capacity : min (ordered.length + inputs.length) (2 ^ 64 - 1) \u2264 blockCapacity\n     \u00b7 simp only [if_pos capacity]\n       cases fresh : (inputs.map (fun scalar => scalarKey scalar.words)).all\n           (fun key => !(members.map (fun scalar => scalarKey scalar.words)).contains key) with\n-      | false => simp only [fresh, Bool.false_eq_true, if_false] <;> rfl\n+      | false => simp only [Bool.false_eq_true, if_false] <;> rfl\n       | true =>\n-        simp only [fresh, Bool.true_eq_true, if_true]\n+        simp only [if_true]\n         unfold typedDurableReader\n         cases observed : contains (backend.readerGate child) (backend.lookup child)\n             (fun key => (members.map (fun scalar => scalarKey scalar.words)).contains key)\n@@ -74,7 +74,7 @@\n         | some flags =>\n           simp only [observed]\n           cases unspent : zipUnspent (inputs.map (fun scalar => scalarKey scalar.words)) flags <;>\n-            simp only [unspent, Bool.false_eq_true, if_false, Bool.true_eq_true, if_true] <;> rfl\n+            simp only [Bool.false_eq_true, if_false, if_true] <;> rfl\n     \u00b7 simp only [if_neg capacity] <;> rfl\n \n theorem returned_typed_open_stage_derives_exact_numeric_pending_append {O E Other : Type}\n@@ -96,7 +96,7 @@\n     obtain \u27e8previous, _, previousEq, _, _, _, _, _, _, nextEq\u27e9 :=\n       TransferNullifierBatchSource01.inspection_success_order (installTypedPending backend ordered members)\n         (2 ^ 64 - 1) blockCapacity child (inputs.map (fun scalar => scalarKey scalar.words)) next inspected\n-    exact \u27e8next, inspected, nextEq.trans (congrArg\n+    exact \u27e8next, rfl, nextEq.trans (congrArg\n       (fun pending : Pending => appendPending pending (inputs.map (fun scalar => scalarKey scalar.words))) previousEq)\u27e9\n \n theorem returned_typed_open_stage_derives_actual_lookup_unspent_and_pending_freshness {O E Other : Type}\n",
+      "scope": "Entire original failed attempt retained, including any placeholder/partial reports; no accepted evidence",
+      "all_definitions_and_theorem_contracts_unchanged": true
+    }
+  ],
+  "scope": "Explicit typed Open prior object with original ordered/member canonical fields is projected into the existing numeric pending backend. Constructed durable reader uses existing modeled contains/zipUnspent and fallible gate/lookup interfaces. Entire staging result agrees with numeric inspection for every refusal and exact original-field append, without caller codec inverse/admission/desired object/getter-success premises. Returned success derives exact numeric pending append and lookup-unspent/pending-freshness observations. Previous typed Open and canonical input-type invariants are an explicit model domain, not arbitrary native Any reachability. Real authenticated reader/Scalar/Ord/collections/usize/compiler/async/delta/ownership/full source trace remains owned OPEN. Original startup pressure and failed proof-search diagnostics retained, all definitions/contracts unchanged; selected full types/axioms must independently pass. No native execution or control claim; full Transfer/combined replay OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}
