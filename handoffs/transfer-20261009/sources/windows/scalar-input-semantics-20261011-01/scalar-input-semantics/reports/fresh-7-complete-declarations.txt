@@ -1,0 +1,165 @@
+ShielddSecurity.TransferScalarInputSemantics01.mapped_canonical_option_binary_operation_preserves_derived_field_semantics : ∀
+  (left right : Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (sourceOp :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (mathOp : Nat → Nat → Nat)
+  (corresponds :
+    ∀ (a b : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+      @Eq.{1} Nat
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (sourceOp a b)))
+        (mathOp
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words a))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words b)))),
+  @Eq.{1} (Option.{0} Nat)
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (@Bind.bind.{0, 0} Option.{0} (@Monad.toBind.{0, 0} Option.{0} instMonadOption.{0})
+        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar left
+        fun (a : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        @Bind.bind.{0, 0} Option.{0} (@Monad.toBind.{0, 0} Option.{0} instMonadOption.{0})
+          ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+          ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar right
+          fun (b : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          @Pure.pure.{0, 0} Option.{0}
+            (@Applicative.toPure.{0, 0} Option.{0}
+              (@Alternative.toApplicative.{0, 0} Option.{0} instAlternativeOption.{0}))
+            ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar (sourceOp a b)))
+    (@Bind.bind.{0, 0} Option.{0} (@Monad.toBind.{0, 0} Option.{0} instMonadOption.{0}) Nat Nat
+      (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+        left)
+      fun (a : Nat) =>
+      @Bind.bind.{0, 0} Option.{0} (@Monad.toBind.{0, 0} Option.{0} instMonadOption.{0}) Nat Nat
+        (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          right)
+        fun (b : Nat) =>
+        @Pure.pure.{0, 0} Option.{0}
+          (@Applicative.toPure.{0, 0} Option.{0}
+            (@Alternative.toApplicative.{0, 0} Option.{0} instAlternativeOption.{0}))
+          Nat (mathOp a b))
+'ShielddSecurity.TransferScalarInputSemantics01.mapped_canonical_option_binary_operation_preserves_derived_field_semantics' does not depend on any axioms
+ShielddSecurity.TransferScalarInputSemantics01.mapped_canonical_option_unary_operation_preserves_derived_field_semantics : ∀
+  (value : Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (sourceOp :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (mathOp : Nat → Nat)
+  (corresponds :
+    ∀ (a : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+      @Eq.{1} Nat
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (sourceOp a)))
+        (mathOp
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words a)))),
+  @Eq.{1} (Option.{0} Nat)
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (@Bind.bind.{0, 0} Option.{0} (@Monad.toBind.{0, 0} Option.{0} instMonadOption.{0})
+        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar value
+        fun (a : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        @Pure.pure.{0, 0} Option.{0}
+          (@Applicative.toPure.{0, 0} Option.{0}
+            (@Alternative.toApplicative.{0, 0} Option.{0} instAlternativeOption.{0}))
+          ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar (sourceOp a)))
+    (@Bind.bind.{0, 0} Option.{0} (@Monad.toBind.{0, 0} Option.{0} instMonadOption.{0}) Nat Nat
+      (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+        value)
+      fun (a : Nat) =>
+      @Pure.pure.{0, 0} Option.{0}
+        (@Applicative.toPure.{0, 0} Option.{0} (@Alternative.toApplicative.{0, 0} Option.{0} instAlternativeOption.{0}))
+        Nat (mathOp a))
+'ShielddSecurity.TransferScalarInputSemantics01.mapped_canonical_option_unary_operation_preserves_derived_field_semantics' does not depend on any axioms
+ShielddSecurity.TransferScalarInputSemantics01.raw_source_input_constructor_has_derived_integer_residue_semantics : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Option.{0} Nat)
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval
+        (ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram.raw words)))
+    (@Option.some.{0} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarInputSemantics01.raw_source_input_constructor_has_derived_integer_residue_semantics' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInputSemantics01.wide_source_input_constructor_has_derived_integer_residue_semantics : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} (Option.{0} Nat)
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval
+        (ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram.wide bytes)))
+    (@Option.some.{0} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) bytes))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarInputSemantics01.wide_source_input_constructor_has_derived_integer_residue_semantics' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInputSemantics01.canonical_byte_source_input_constructor_has_derived_integer_and_refusal_semantics : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (Option.{0} Nat)
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval
+        (ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram.bytes bytes)))
+    (@ite.{1} (Option.{0} Nat)
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (Nat.decLt
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Option.some.{0} Nat
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)))
+      (@Option.none.{0} Nat))
+'ShielddSecurity.TransferScalarInputSemantics01.canonical_byte_source_input_constructor_has_derived_integer_and_refusal_semantics' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarInputSemantics01.mathematicalInputEval : ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram →
+  Option.{0} Nat
+'ShielddSecurity.TransferScalarInputSemantics01.mathematicalInputEval' does not depend on any axioms
+ShielddSecurity.TransferScalarInputSemantics01.entire_represented_source_input_evaluator_has_exact_independent_mathematical_field_semantics : ∀
+  (program : ShielddSecurity.TransferScalarInputFamily01.ScalarInputProgram),
+  @Eq.{1} (Option.{0} Nat)
+    (@Option.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+      (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+      (ShielddSecurity.TransferScalarInputFamily01.sourceInputEval program))
+    (ShielddSecurity.TransferScalarInputSemantics01.mathematicalInputEval program)
+'ShielddSecurity.TransferScalarInputSemantics01.entire_represented_source_input_evaluator_has_exact_independent_mathematical_field_semantics' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
