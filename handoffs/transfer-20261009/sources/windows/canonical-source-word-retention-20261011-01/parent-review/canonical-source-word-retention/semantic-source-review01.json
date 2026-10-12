@@ -1,0 +1,39 @@
+{
+  "status": "PASSED",
+  "kind": "Independently reviewed canonical typed-source model and immutable metadata history; no verifier",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-source-word-retention-review01/packet01/source/ShielddSecurity/TransferCanonicalSourceWordRetention01.lean",
+    "bytes": 3577,
+    "sha256": "f609a0e6c7d8049fca4e2b2a00135dfd789073fd984078c31c6d0abfeb6829bd"
+  },
+  "fresh_reports": 3,
+  "metadata_correction": {
+    "error": "Fresh definition/theorem counters were inherited as 3/5 although original complete audits are 0/3. Corrected from source declaration kinds; all original source/object/type/axiom reports unchanged, no rerun or added proof credit.",
+    "original_archive": {
+      "bytes": 344536,
+      "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-canonical-source-word-retention-endpoint-20261011-01\\portable-windows-canonical-source-word-retention-endpoint01.tar.xz",
+      "sha256": "a73c5de332a59b0aa773caeb664400521dad3094b7b6599f31ecca29a20c6e0d"
+    }
+  },
+  "unchanged_original_qualification_entries": [
+    "qualified/prepare.py",
+    "qualified/prepare_recipe.py",
+    "qualified/execute_bounded.py",
+    "qualified/plan.json",
+    "qualified/review.json",
+    "qualified/source-mapping.json",
+    "qualified/events.jsonl",
+    "source/ShielddSecurity/TransferCanonicalSourceWordRetention01.lean",
+    "reports/fresh-3-complete-declarations.txt"
+  ],
+  "original_metadata": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-canonical-source-word-retention-review01/packet01/superseded-metadata/review.json",
+    "bytes": 560649,
+    "sha256": "df0b26ae4df20e963b7e2987f32df3ddb43c502cb2286406f321e7764e5f5bc7"
+  },
+  "assembly_delta": "--- \n+++ \n@@ -31,6 +31,9 @@\n stdout = CURRENT / ('runs/01-' + MODULE + '/stdout.txt')\n fresh = m.audit(stdout.read_text(), plan['targets'][0]['audit_names'])\n assert len(fresh) == 3 and fresh == events[-1]['result']['audits']\n+declaration_kinds = __import__('re').findall(r'^(def|theorem|structure|inductive) ', m.code_only((CURRENT / ('handwritten/' + MODULE + '.lean')).read_text()), __import__('re').M)\n+assert len(declaration_kinds) == len(fresh)\n+assert declaration_kinds.count('def') == 0 and declaration_kinds.count('theorem') == 3\n assert pin(stdout) == events[-1]['result']['stdout']\n for obj in events[-1]['result']['objects']:\n     assert pin(obj['path']) == obj\n@@ -186,8 +189,14 @@\n add(DIAG.parent.parent / 'shieldd.lock', 'context/shieldd.lock', 'exact full runtime SHA')\n add(ROOT / 'prepare_assembly.py', 'prepare_assembly.py', 'exact assembly derivation source')\n add(Path(__file__), 'assemble.py', 'exact assembly source')\n+superseded = DIAG / 'transfer-canonical-source-word-retention-endpoint-20261011-01'\n+for name in ['prepare_assembly.py', 'assemble.py', 'manifest.json', 'review.json']:\n+    add(superseded / name, 'superseded-metadata/' + name, 'unchanged prior packet with stale declaration-kind counters; no failed proof or replay')\n+metadata_history = {'original_archive': pin(superseded / archive.name), 'error': 'Fresh definition/theorem counters were inherited as 3/5 although original complete audits are 0/3. Corrected from source declaration kinds; all original source/object/type/axiom reports unchanged, no rerun or added proof credit.'}\n+dump(ROOT / 'metadata-history.json', metadata_history)\n+add(ROOT / 'metadata-history.json', 'context/metadata-history.json', 'exact original superseded archive identity and correction scope')\n review = {'status': 'CANONICAL_SOURCE_RAW_WORD_AND_ORDERED_FIELD_RETENTION_QUALIFIED',\n-    'fresh_sources': 1, 'fresh_definition_audits': 3, 'fresh_structure_audits': 0, 'fresh_theorem_audits': 5,\n+    'metadata_correction': metadata_history, 'fresh_sources': 1, 'fresh_definition_audits': declaration_kinds.count('def'), 'fresh_structure_audits': declaration_kinds.count('structure') + declaration_kinds.count('inductive'), 'fresh_theorem_audits': declaration_kinds.count('theorem'),\n     'fresh_complete_public_audits': 3, 'fresh_audits': fresh, 'inherited_complete_public_audits': 1079,\n     'inherited_reference': reference, 'compiler_result': events[-1]['result'], 'plan': pin(CURRENT / 'plan.json'),\n     'interfaces': mapping['interfaces'], 'runtime_sha': mapping['runtime_sha'],\n",
+  "scope": "Canonical typed source scalar, whose raw four-word representative is below the exact modulus, is recovered in full from its source key through constructed LE/R2 encoder. Raw words, proof-bearing typed scalar and exact ordered source list identity are derived; no caller inverse or desired output premise. Native private Scalar invariant/constructor/compiler/selector correspondence remains owned OPEN. Original assembly metadata counters corrected from declaration kinds; complete qualification/source/object/full type/axiom reports unchanged, superseded metadata preserved, no Lean replay. Any/Clone/imbl/type/ownership/liveness/compiler/callee/OS/full native correspondence and full Transfer remain owned OPEN.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}

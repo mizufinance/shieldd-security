@@ -1,0 +1,35 @@
+ShielddSecurity.TransferCanonicalSourceWordRetention01.source_key_word_encoder_recovers_original_canonical_raw_vector : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+      (ShielddSecurity.TransferCanonicalWordPending01.encodeWordScalar
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)
+'ShielddSecurity.TransferCanonicalSourceWordRetention01.source_key_word_encoder_recovers_original_canonical_raw_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalSourceWordRetention01.source_key_word_encoder_recovers_entire_canonical_typed_scalar : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    (ShielddSecurity.TransferCanonicalWordPending01.encodeWordScalar
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+    scalar
+'ShielddSecurity.TransferCanonicalSourceWordRetention01.source_key_word_encoder_recovers_entire_canonical_typed_scalar' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalSourceWordRetention01.canonical_source_scalar_list_recovers_exact_ordered_original_fields : ∀
+  (source : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    (@List.map.{0, 0} Nat ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      ShielddSecurity.TransferCanonicalWordPending01.encodeWordScalar
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+        source))
+    source
+'ShielddSecurity.TransferCanonicalSourceWordRetention01.canonical_source_scalar_list_recovers_exact_ordered_original_fields' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
