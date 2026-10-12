@@ -1,4 +1,4 @@
-"""Regenerate three successful registry/word proofs and refresh compact evidence."""
+"""Regenerate successful registry/word/header proofs and refresh compact evidence."""
 from pathlib import Path
 import argparse,hashlib,json,os
 def pin(p):
@@ -31,6 +31,6 @@ for name,names in templates.items():
     modules[name]=dict(source_sha256=receipt['source']['sha256'],receipt_sha256=rp['sha256'],object_sha256=receipt['objects']['.olean']['sha256'],stdout_sha256=receipt['stdout']['sha256'],seconds=receipt['seconds'],peak_group_rss_bytes=receipt['peak_group_rss_bytes'],selected_custom_modules=len(plan['selected']),reports=len(receipt['audits']))
     reports+=receipt['audits']
 evidence=dict(status='passed',runtime_sha=plan['runtime_sha'],mathlib=plan['mathlib'],modules=modules,full_types_and_axioms=reports,refresh_sha256=pin(Path(__file__))['sha256'],reports=len(reports),full_transfer='OPEN',circuit_soundness='OPEN',total_legal_input_construction='OPEN',native_consequence='OPEN',certification=False,native_credit=0,
-scope='Concrete registry soundness and partial shared-row construction; canonical natural word interpretation derives cast meanings and255-bit bounds; independent registry encoder and its64/32-bit epoch/position bounds. Other smaller word bounds, remaining semantic components, all assertion/link truths, public/padded final closure and native correspondence remain open.')
+scope='Concrete registry soundness and partial shared-row construction; canonical natural word interpretation derives cast meanings and255-bit bounds; independent registry encoder and its64/32-bit epoch/position bounds; semantic header hash/commitment encoding and64/252-bit timestamp/blinding bounds; all three final link rows on the completed shared assignment. Other smaller word bounds, remaining semantic components, all assertion/link truths, public/padded final closure and native correspondence remain open.')
 (pending/'evidence.json').write_text(json.dumps(evidence,indent=2,sort_keys=True)+'\n');os.replace(pending,out);print(json.dumps(dict(status='passed',modules=len(modules),reports=len(reports))))
 
