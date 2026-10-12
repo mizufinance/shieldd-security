@@ -1,0 +1,252 @@
+ShielddSecurity.TransferScalarConstantEquality01.exact_word_or_wrapping_negation_high_bit_detects_nonzero : ∀
+  (word : UInt64),
+  @Eq.{1} UInt64
+    (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+      (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64)
+      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) word
+        (@Neg.neg.{0} UInt64 instNegUInt64 word))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 63) (@UInt64.instOfNat (nat_lit 63))))
+    (@ite.{1} UInt64 (@Eq.{1} UInt64 word (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+      (instDecidableEqUInt64 word (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+'ShielddSecurity.TransferScalarConstantEquality01.exact_word_or_wrapping_negation_high_bit_detects_nonzero' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.sourceWordCtEqByte : (a b : UInt64) → UInt8
+'ShielddSecurity.TransferScalarConstantEquality01.sourceWordCtEqByte' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.exact_source_unsigned_word_equality_byte_is_the_equality_boolean : ∀
+  (a b : UInt64),
+  @Eq.{1} UInt8 (ShielddSecurity.TransferScalarConstantEquality01.sourceWordCtEqByte a b)
+    (@ite.{1} UInt8
+      (@Eq.{1} Bool (@BEq.beq.{0} UInt64 (@instBEqOfDecidableEq.{0} UInt64 instDecidableEqUInt64) a b) Bool.true)
+      (instDecidableEqBool (@BEq.beq.{0} UInt64 (@instBEqOfDecidableEq.{0} UInt64 instDecidableEqUInt64) a b) Bool.true)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarConstantEquality01.exact_source_unsigned_word_equality_byte_is_the_equality_boolean' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.source_boolean_choice_byte_and_has_the_exact_boolean_value : ∀
+  (first second : Bool),
+  @Eq.{1} UInt8
+    (@HAnd.hAnd.{0, 0, 0} UInt8 UInt8 UInt8 (@instHAndOfAndOp.{0} UInt8 instAndOpUInt8)
+      (@ite.{1} UInt8 (@Eq.{1} Bool first Bool.true) (instDecidableEqBool first Bool.true)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+      (@ite.{1} UInt8 (@Eq.{1} Bool second Bool.true) (instDecidableEqBool second Bool.true)
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0)))))
+    (@ite.{1} UInt8 (@Eq.{1} Bool (Bool.and first second) Bool.true)
+      (instDecidableEqBool (Bool.and first second) Bool.true)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarConstantEquality01.source_boolean_choice_byte_and_has_the_exact_boolean_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities : ∀
+  (a b : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  Iff (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) a b)
+    (And
+      (@Eq.{1} UInt64
+        (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          Nat UInt64
+          (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+            @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) a
+          (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+          (@Decidable.byContradiction
+            (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            fun
+              (a :
+                Not
+                  (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+            ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_1
+              a))
+        (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          Nat UInt64
+          (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+            @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) b
+          (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+          (@Decidable.byContradiction
+            (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            fun
+              (a :
+                Not
+                  (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+            ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_1
+              a)))
+      (And
+        (@Eq.{1} UInt64
+          (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            Nat UInt64
+            (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+              @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) a
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@Decidable.byContradiction
+              (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              fun
+                (a :
+                  Not
+                    (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+              ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_2
+                a))
+          (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            Nat UInt64
+            (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+              @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) b
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@Decidable.byContradiction
+              (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              fun
+                (a :
+                  Not
+                    (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+              ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_2
+                a)))
+        (And
+          (@Eq.{1} UInt64
+            (@GetElem.getElem.{0, 0, 0}
+              (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat UInt64
+              (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+                @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) a
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@Decidable.byContradiction
+                (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                fun
+                  (a :
+                    Not
+                      (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+                ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_3
+                  a))
+            (@GetElem.getElem.{0, 0, 0}
+              (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat UInt64
+              (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+                @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) b
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@Decidable.byContradiction
+                (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                fun
+                  (a :
+                    Not
+                      (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+                ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_3
+                  a)))
+          (@Eq.{1} UInt64
+            (@GetElem.getElem.{0, 0, 0}
+              (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat UInt64
+              (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+                @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) a
+              (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+              (@Decidable.byContradiction
+                (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                fun
+                  (a :
+                    Not
+                      (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+                ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_4
+                  a))
+            (@GetElem.getElem.{0, 0, 0}
+              (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat UInt64
+              (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>
+                @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) b
+              (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+              (@Decidable.byContradiction
+                (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                fun
+                  (a :
+                    Not
+                      (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+                        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>
+                ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities._proof_4
+                  a))))))
+'ShielddSecurity.TransferScalarConstantEquality01.exact_four_word_vector_equality_is_all_four_component_equalities' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.sourceScalarWordsCtEqByte : (a b :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  UInt8
+'ShielddSecurity.TransferScalarConstantEquality01.sourceScalarWordsCtEqByte' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.exact_source_scalar_equality_byte_derives_exact_raw_word_equality : ∀
+  (a b : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} UInt8 (ShielddSecurity.TransferScalarConstantEquality01.sourceScalarWordsCtEqByte a b)
+    (@ite.{1} UInt8 (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) a b)
+      (@instDecidableEqVector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        instDecidableEqUInt64 a b)
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarConstantEquality01.exact_source_scalar_equality_byte_derives_exact_raw_word_equality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.exact_source_scalar_equality_byte_has_derived_zero_one_invariant : ∀
+  (a b : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @LT.lt.{0} Nat instLTNat
+    (UInt8.toNat (ShielddSecurity.TransferScalarConstantEquality01.sourceScalarWordsCtEqByte a b))
+    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+'ShielddSecurity.TransferScalarConstantEquality01.exact_source_scalar_equality_byte_has_derived_zero_one_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.sourceNotChoiceByte : (byte : UInt8) → UInt8
+'ShielddSecurity.TransferScalarConstantEquality01.sourceNotChoiceByte' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.sourceInvertFlagByte : (self :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  UInt8
+'ShielddSecurity.TransferScalarConstantEquality01.sourceInvertFlagByte' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.exact_source_invert_choice_flag_is_refusal_at_mathematical_zero : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} UInt8 (ShielddSecurity.TransferScalarConstantEquality01.sourceInvertFlagByte self)
+    (@ite.{1} UInt8
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (instDecidableEqNat
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words self))
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 0) (@UInt8.instOfNat (nat_lit 0)))
+      (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1))))
+'ShielddSecurity.TransferScalarConstantEquality01.exact_source_invert_choice_flag_is_refusal_at_mathematical_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarConstantEquality01.exact_source_invert_choice_flag_has_derived_zero_one_invariant : ∀
+  (self : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @LT.lt.{0} Nat instLTNat (UInt8.toNat (ShielddSecurity.TransferScalarConstantEquality01.sourceInvertFlagByte self))
+    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+'ShielddSecurity.TransferScalarConstantEquality01.exact_source_invert_choice_flag_has_derived_zero_one_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
