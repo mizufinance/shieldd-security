@@ -1,0 +1,104 @@
+{
+  "status": "PASSED",
+  "source": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/source/ShielddSecurity/TransferWordStageCachePublication01.lean",
+    "bytes": 7203,
+    "sha256": "40f24627bb7adaa725a27e4dbbad7afa2e40c60cdb7e1843dafef37031e25628"
+  },
+  "fresh_reports": 4,
+  "kind": "Exact original proof repairs, checked semantic/result/cache scope and retained metadata histories; no verifier",
+  "rejected": [
+    {
+      "result": {
+        "reason": "Lean exit 1",
+        "seconds": 18.68414239998674,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-cache-stage-attempt01/handwritten/TransferWordStageCachePublication01.lean",
+        "bytes": 7141,
+        "sha256": "1768bec39090e41485b2ab20300853d745c76455656e682200960c5eb1ec0d02"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-cache-stage-attempt01/events.jsonl",
+        "bytes": 304,
+        "sha256": "6a7fc607b7fff42024dc28e9f4e03ecf81899a5d4049546f71389a0fec3ee7b7"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-cache-stage-attempt01/runs/01-TransferWordStageCachePublication01/stdout.txt",
+        "bytes": 18344,
+        "sha256": "53b83eb4783fc3f81c80a76997694b0a61cb1c4e3ddaf291356b7c00e5857a2e"
+      },
+      "exact_delta": "--- \n+++ \n@@ -37,12 +37,14 @@\n         (readerForPrevious (backend.readerGate child) (backend.lookup child) ((overlay parent writes) key)) = .ok (.ok object) \u2227\n       next = (fun other => if other = key then some (some object) else writes other) := by\n   unfold stageAtKey at returned\n+  simp only [Except.map] at returned\n   cases staged : stageFields ((overlay parent writes) key) inputs true\n       (readerForPrevious (backend.readerGate child) (backend.lookup child) ((overlay parent writes) key)) with\n-  | error panic => simp only [Except.map] at returned; cases returned\n+  | error panic => rw [staged] at returned; cases returned\n   | ok result =>\n+    rw [staged] at returned\n     cases result with\n-    | error refusal => simp only [Except.map] at returned; cases returned\n+    | error refusal => cases returned\n     | ok object =>\n       have exactCache := Except.ok.inj (Except.ok.inj returned)\n       exact \u27e8object, rfl, exactCache.symm\u27e9\n@@ -73,7 +75,8 @@\n   have framed : next other = writes other := by\n     rw [cached]\n     exact if_neg different\n-  exact \u27e8framed, congrArg (fun selected => match selected with | none => parent other | some value => value) framed\u27e9\n+  refine \u27e8framed, ?_\u27e9\n+  simp only [overlay, framed]\n \n theorem returned_cached_source_stage_derives_checked_numeric_stage_at_actual_previous_slot {O E Other : Type}\n     (backend : Backend O E) (child : Delta O E) (parent : View (WordTaggedObject Other))\n",
+      "definitions_and_contracts_unchanged": true,
+      "scope": "Original entire failed attempt retained; proof-local normalization/elimination/phantom type annotations only"
+    },
+    {
+      "result": {
+        "reason": "Physical memory pressure",
+        "seconds": 20.25531169999158,
+        "status": "failed"
+      },
+      "source": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-cache-stage-attempt02/handwritten/TransferWordStageCachePublication01.lean",
+        "bytes": 7206,
+        "sha256": "de04c1c864102ce72a0194bc8340c9e3ad9be2e09719b9c7b1ddf528b391bf9d"
+      },
+      "events": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-cache-stage-attempt02/events.jsonl",
+        "bytes": 318,
+        "sha256": "21574a1cb962bad993f6597241ccbcade746cb4c32266d40ce8151fde344c737"
+      },
+      "stdout": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-cache-stage-attempt02/runs/01-TransferWordStageCachePublication01/stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "exact_delta": "--- \n+++ \n@@ -47,7 +47,7 @@\n     | error refusal => cases returned\n     | ok object =>\n       have exactCache := Except.ok.inj (Except.ok.inj returned)\n-      exact \u27e8object, staged, exactCache.symm\u27e9\n+      exact \u27e8object, rfl, exactCache.symm\u27e9\n \n theorem returned_cached_stage_derives_original_fields_checked_getter_and_all_other_key_frames {O E Other : Type}\n     (backend : Backend O E) (child : Delta O E) (parent : View (WordTaggedObject Other))\n",
+      "definitions_and_contracts_unchanged": true,
+      "scope": "Original entire failed attempt retained; proof-local normalization/elimination/phantom type annotations only"
+    }
+  ],
+  "scope": "Returned stage at the actual selected live functional parent/leaf cache slot derives exact original canonical ordered/member field append, one cached object write, checked next getter, all other-key frames, and successful checked numeric stage at the actual previous slot. Reader previous membership is constructed from that slot. No caller desired cache, expected previous value, inverse, type-domain, getter-success or field-frame premise. Functional live View/Writes and canonical input types remain explicit model domain; real applied layers/maps/Any/Clone/imbl/Scalar/usize/authenticated reader/compiler/async/ownership/full native trace remain owned OPEN. Original elimination failure and prelaunch physical-pressure stop retained with unchanged definitions/contracts/guards. Fresh assembly corrects inherited counts to134modules1121reports including all8 immediate predecessor reports; original archive and all five superseded metadata files retained. Source/object/plan/events/full reports and kernel result unchanged; no proof replay or extra qualification. Full Transfer/combined replay OPEN; no native/control execution.",
+  "full_transfer": "OPEN",
+  "native_execution": "UNRUN",
+  "metadata_history": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/context/metadata-history.json",
+    "bytes": 719,
+    "sha256": "053f11a8054cc546230cf66af0978b1839d674baa0ee07d9173989f249ebf95e"
+  },
+  "superseded_archive": {
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-review01/transport01.tar.xz",
+    "bytes": 363020,
+    "sha256": "d6fdd0ee2ddc545f7340d6322907fbb7e587e12dea96bab3b8946ddbabf10e30"
+  },
+  "superseded_metadata": [
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-metadata-endpoint03/assemble.py",
+      "bytes": 17227,
+      "sha256": "315150eb1634db42863befa2722a2535547d8825fcaffc8148fa6ee79a14b645"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-metadata-endpoint03/inherited-reference.json",
+      "bytes": 530589,
+      "sha256": "09b986502b9e7f2f0af9804dd53fe982df189ce77f16e665ad7802bc82773e1c"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-metadata-endpoint03/manifest.json",
+      "bytes": 576954,
+      "sha256": "280acdb93ee143589f36c0651d1c45d5cea1cf8e63ecb4e1763cb46902e3eceb"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-metadata-endpoint03/prepare_assembly.py",
+      "bytes": 4808,
+      "sha256": "e57719c66d699d407a8fe172ac202372abfca46f0dda7ca2ee01e5f8f7e60b81"
+    },
+    {
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/resumed-orchestration-20261009-01/windows-word-stage-cache-publication-corrected-review01/packet01/rejected-metadata-endpoint03/review.json",
+      "bytes": 616333,
+      "sha256": "69fdc3a78ee37f112b303eb69b85198229e810655139cef7971b1a8f830180e8"
+    }
+  ],
+  "original_kernel_result_unchanged": true,
+  "kernel_ancestry_review": "Independent full type, axioms, exact original object/source/report and unchanged physical guards PASSED"
+}

@@ -1,0 +1,213 @@
+@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey : {O E Other : Type} →
+  (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E) →
+    (child : ShielddSecurity.TransferStateDelta.Delta O E) →
+      (parent :
+          ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+        (writes :
+            ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+          (key : Nat) →
+            (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+              Except.{0, 0} Unit
+                (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+                  (ShielddSecurity.TransferStateDelta.Writes
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+'ShielddSecurity.TransferWordStageCachePublication01.stageAtKey' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordStageCachePublication01.returned_stage_at_key_derives_exact_returned_object_and_one_cache_write : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes next :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey O E Other backend child parent writes key inputs)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          next))),
+  @Exists.{1} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+    fun (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) =>
+    And
+      (@Eq.{1}
+        (Except.{0, 0} Unit
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+          (@ShielddSecurity.TransferStateDelta.overlay
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent writes key)
+          inputs Bool.true
+          (@ShielddSecurity.TransferCheckedWordStageRefinement01.readerForPrevious Other
+            (@ShielddSecurity.TransferNullifierBatchSource01.Backend.readerGate O E backend child)
+            (@ShielddSecurity.TransferNullifierBatchSource01.Backend.lookup O E backend child)
+            (@ShielddSecurity.TransferStateDelta.overlay
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent writes key)))
+        (@Except.ok.{0, 0} Unit
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object)))
+      (@Eq.{1}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        next fun (other : Nat) =>
+        @ite.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+          (@Eq.{1} Nat other key) (instDecidableEqNat other key)
+          (@Option.some.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+            (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object))
+          (writes other))
+'ShielddSecurity.TransferWordStageCachePublication01.returned_stage_at_key_derives_exact_returned_object_and_one_cache_write' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageCachePublication01.returned_cached_stage_derives_original_fields_checked_getter_and_all_other_key_frames : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes next :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey O E Other backend child parent writes key inputs)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          next))),
+  And
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat)
+        (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          inputs))
+      Bool.true)
+    (@Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      fun (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+      @Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+        fun (members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        And
+          (@LE.le.{0} Nat instLENat
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)
+              (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs))
+            ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+          (And
+            (@Eq.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+              (next key)
+              (@Option.some.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                  (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened
+                      (@HAppend.hAppend.{0, 0, 0}
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (@instHAppendOfAppend.{0}
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                        ordered inputs)
+                      (@HAppend.hAppend.{0, 0, 0}
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (@instHAppendOfAppend.{0}
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                        members inputs))))))
+            (And
+              (@Eq.{1}
+                (Except.{0, 0} Unit (Option.{0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending))
+                (@ShielddSecurity.TransferWordObjectRead01.checkedObject Other
+                  (@ShielddSecurity.TransferStateDelta.overlay
+                    (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent next key))
+                (@Except.ok.{0, 0} Unit (Option.{0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+                  (@Option.some.{0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending
+                    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened
+                      (@HAppend.hAppend.{0, 0, 0}
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (@instHAppendOfAppend.{0}
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                        ordered inputs)
+                      (@HAppend.hAppend.{0, 0, 0}
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                        (@instHAppendOfAppend.{0}
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                        members inputs)))))
+              (∀ (other : Nat),
+                @Ne.{1} Nat other key →
+                  And
+                    (@Eq.{1}
+                      (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                      (next other) (writes other))
+                    (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                      (@ShielddSecurity.TransferStateDelta.overlay
+                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent next other)
+                      (@ShielddSecurity.TransferStateDelta.overlay
+                        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent writes other))))))
+'ShielddSecurity.TransferWordStageCachePublication01.returned_cached_stage_derives_original_fields_checked_getter_and_all_other_key_frames' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageCachePublication01.returned_cached_source_stage_derives_checked_numeric_stage_at_actual_previous_slot : ∀
+  {O E Other : Type} (backend : ShielddSecurity.TransferNullifierBatchSource01.Backend O E)
+  (child : ShielddSecurity.TransferStateDelta.Delta O E)
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (writes next :
+    ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+      (@ShielddSecurity.TransferWordStageCachePublication01.stageAtKey O E Other backend child parent writes key inputs)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          next))),
+  @Exists.{1} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+    fun (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) =>
+    And
+      (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@ShielddSecurity.TransferStateDelta.overlay (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          parent next key)
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object))
+      (@Eq.{1}
+        (Except.{0, 0} Unit
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending))
+        (@ShielddSecurity.TransferCheckedWordStageRefinement01.checkedNumericStage O E Other backend child
+          (@ShielddSecurity.TransferStateDelta.overlay
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) parent writes key)
+          inputs)
+        (@Except.ok.{0, 0} Unit
+          (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending)
+          (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+            ShielddSecurity.TransferNullifierBatchSource01.Pending
+            (@ShielddSecurity.TransferCheckedWordStageRefinement01.projectObjectPending Other object))))
+'ShielddSecurity.TransferWordStageCachePublication01.returned_cached_source_stage_derives_checked_numeric_stage_at_actual_previous_slot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
