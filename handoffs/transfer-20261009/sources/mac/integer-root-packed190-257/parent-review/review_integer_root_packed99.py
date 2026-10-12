@@ -1,0 +1,37 @@
+"""Independent actual-position integer-root and packed candidate transfer boundary review."""
+from pathlib import Path
+import json,hashlib,re,difflib
+J=Path(__file__).resolve().parent;W=J.parent;D=J/'integer-root-packed190-257-review01';P=W/'mac-integer-root-packed190-257-kernel-result01'
+entries=json.loads((P/'source-object-receipt01.json').read_text());assert len(entries)==4
+def read(v):
+ b=Path(v['path']).read_bytes();assert len(b)==v['bytes']and hashlib.sha256(b).hexdigest()==v['sha256'];return b
+sources={e['module']:read(e['source']).decode()for e in entries}
+assert set(sources)=={'CapturedMerklePositionGlobal190','CapturedMerkleIntegerRoot191','CompilerPackedTruth257','CapturedPackedCandidate257'}
+s=sources['CapturedMerklePositionGlobal190']
+for t in ['(encodeBits 32 n)[i.val]','[Field F] [CharP F p]','(satisfied : SatisfiesAt rho CapturedFullRelation58.rowAt 200770)','(n : Nat) (canonical : n<p) (meaning : (n:F)=rho 135)','rho (184+i.val)=MerkleQuaternary30.boolValue (bits n i)','CapturedMerkleBitsGlobal188.bit_fields rho satisfied n canonical meaning','n<2^32 ∧ rho 4=MerkleOrdered34.root rho (bits n) 16','CapturedMerklePathGlobal187.anchor rho one satisfied','MerkleOrdered34.meaning_eq rho (bits n) (encoding rho satisfied n canonical meaning) 15']:assert t in s
+s=sources['CapturedMerkleIntegerRoot191']
+for t in ['bitValue (decide (n%2=1))=n%2','position/4^level.val%4=','2*bitValue (CapturedMerklePositionGlobal190.bits position','if slot=0 then [node,a,b,c] else if slot=1 then [a,node,b,c]','else if slot=2 then [a,b,node,c] else [a,b,c,node]','Poseidon.hash6 (castParameters TransferPoseidonCall04Shared01.parameters) 2','[((level.val+1 : Nat):F),xs 0,xs 1,xs 2,xs 3]','rho (136+3*level.val)','rho (137+3*level.val)','rho (138+3*level.val)','| 0 => MerkleInputMeaning28.registryMeaning rho','| n+1 => step rho position ⟨n%16','(position : Nat) (canonical : position<p) (meaning : (position:F)=rho 135)','position<2^32 ∧ rho 4=root rho position 16','CapturedMerklePositionGlobal190.anchor rho one satisfied position canonical meaning']:assert t in s
+s=sources['CompilerPackedTruth257']
+for t in ['(linked : rho copy=rho 0)','(truth : ∀ actual,parent position=some actual → Square','pack copy actual.a=pack copy target.a','pack copy actual.b=pack copy target.b','eval_pack copy actual.a rho linked','eval_pack copy actual.b rho linked','(truth : ∀ position∈indices,∀ actual,parent position=some actual → Square']:assert t in s
+s=sources['CapturedPackedCandidate257']
+for t in ['[Field F] [CharP F p]','(checked : CompilerIndexedCopyConstant178.check copy CapturedFullRelation58.rowAt 200770 indices targets=true)','(supports : ∀ index∈indices,CapturedArithmeticSelection252.Supported index)','Satisfies (CapturedFullRelation58.candidate base) targets','(CapturedFullRelation58.candidate_links base).2.2','(CapturedFullRelation58.candidate_arithmetic base)']:assert t in s
+assert 'SatisfiesAt'not in s and '(truth :'not in s
+repairs=[]
+def contracts(text):return [m.group(0).split(' := by')[0].strip()for m in re.finditer(r'(?m)^theorem [\s\S]*?(?=^(?:def|theorem|variable|end|set_option pp.all)|\Z)',text)]
+for module,root in [('CapturedMerklePositionGlobal190','mac-merkle-position-global190'),('CapturedMerkleIntegerRoot191','mac-merkle-integer-root191')]:
+ old=W/(root+'-source01')/'source-root/ShielddSecurity'/(module+'.lean');new=sources[module];before=old.read_text();assert contracts(before)==contracts(new)
+ delta=''.join(difflib.unified_diff(before.splitlines(True),new.splitlines(True)));repairs.append(dict(module=module,original_source=dict(path=str(old),bytes=old.stat().st_size,sha256=hashlib.sha256(old.read_bytes()).hexdigest()),delta=delta,semantic_effect='Proof-only explicit finite indexing bounds/unfolding/power identities; position encoding definition retains same list index with corrected bound proof, no changed caller premises/result or numeric algorithm'))
+hist=json.loads((D/'source-history-review01.json').read_text());assert hist['attempts']==2272 and hist['failed']==153
+audit=json.loads((D/'audit-result01.json').read_text());assert audit['modules'].__len__()==4 and audit['declarations']==17
+graph=json.loads((J/'source-integration-20261011-01/mac-source-closure2529.json').read_text())['custom_sources'];assert not(set(sources)&set(graph))
+imp=json.loads((D/'import-guard-review01.json').read_text());assert not(set(imp['custom_associations'])-set(graph)-set(sources))
+assert {e['guard_sha256']for e in imp['execution_configs']}=={'e1e43ace6927b7e3fe3904c69322be5fd6f62fcfe8839c5e75b97f418a394fa9'}
+scope=json.loads((P/'scope01.json').read_text());assert scope['new_modules']==4 and scope['new_reports']==17
+ledger=[json.loads(x)for x in read(scope['history']['complete_phase_ledger']).decode().splitlines()];assert len(ledger)==8 and [x['kind']for x in ledger]==['intent','result']*4
+failure=json.loads(read(scope['history']['terminal_failed']));assert failure['status']=='failed'and failure['module']=='MerkleFieldFold196'and failure['exit']==0 and failure['cleanup']['clean']and 'diagnostic refusal'in failure['error']
+assert json.loads(read(ledger[-1]['receipt']))==failure
+for k in ['source','stdout','stderr']:read(failure[k])
+assert failure['module']not in sources
+claim='Original full captured SAT and normalized rho0=1 plus canonical natural position<p with cast=actualrho135 derive position<2^32, exact32 original bit fields184..215, and rho4 equal to the same-rho sixteen-step integer-position-indexed FIELD root. Base-four digit recovered from adjacent Boolean bits; exact0/1/2/3 child insertion, original sibling columns136+3level through138+3level, level+1 domain, reviewed hash6 parameters, registry field starting node. Root agrees symbolically with already reviewed ordered field root; no caller desired root/hash/path/bit encoding equality. Canonical representative/cast is an explicit semantic interface, concrete representation/SDK natural hashes/prime field interpretation remain owned OPEN. Generic packed-row helper legitimately takes selected actual parent truth and copy equality; captured wrapper internally discharges both through independent candidate arithmetic/copy construction, retaining only finite checker and Supported-index premises. Concrete component checker/support instances and legal seed/all22816assertions remain owned OPEN. Four original modules17 full reports; selected2272 history153failed preserved, terminal2273 field-fold unused-premise diagnostic refusal/source/rawlogs/full8eventphase280ledger independently preserved but not qualified. Repairs change finite index proof/unfolding/power rewrite only; guard280/279 remains approved e1e43. No Root Lean/native/combined replay, full Transfer OPEN.'
+r=dict(status='PASSED',modules=4,reports=17,new_modules=4,new_reports=17,inherited_modules=0,inherited_reports=0,source_pins=[e['source']for e in entries],selected_history_attempts=2272,selected_history_failures=153,prior_repairs=repairs,separate_terminal_failure=dict(receipt=scope['history']['terminal_failed'],source=failure['source'],stdout=failure['stdout'],stderr=failure['stderr'],complete_phase_ledger=scope['history']['complete_phase_ledger'],qualified=False),scope=claim,full_transfer='OPEN',root_verifier_execution='NONE')
+out=D/'source-semantic-review01.json';assert not out.exists();out.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(dict(status='PASSED',modules=4,reports=17,history=2272,failed=153,separate_failed_field_fold=2273,full_transfer='OPEN')))
