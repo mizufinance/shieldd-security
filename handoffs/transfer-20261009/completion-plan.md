@@ -1272,3 +1272,6 @@ Publish exact eleventh Merkle captured-row coverage:51new modules375 original re
 
 
 Publish exact twelfth Merkle captured-row coverage:51new modules375 original reports,424arithmetic positions7386..7809 and actual sharedcopy200769. Full independent source/report/generation/import/history scope and unchanged guard273 review passed. Original2048attempts147failed retained. Full path/hash semantics/concrete field/legal seed/all assertion truth/native/full Transfer remain OPEN; combined replay UNRUN.
+
+
+Publish exact thirteenth Merkle captured-row coverage:51new modules375 original reports,424arithmetic positions7810..8233 and actual sharedcopy200769. Full independent source/report/generation/import/history scope and unchanged guard273 review passed. Original2099attempts147failed retained. Full path/hash semantics/concrete field/legal seed/all assertion truth/native/full Transfer remain OPEN; combined replay UNRUN.
