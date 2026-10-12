@@ -1,0 +1,49 @@
+ShielddSecurity.TransferScalarProgramInvariant01.ScalarProgram : Type
+'ShielddSecurity.TransferScalarProgramInvariant01.ScalarProgram' does not depend on any axioms
+ShielddSecurity.TransferScalarProgramInvariant01.certifyResult : (words : List.{0} UInt64) →
+  (width : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    (canonical :
+        @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) →
+      ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarProgramInvariant01.certifyResult' depends on axioms: [propext]
+ShielddSecurity.TransferScalarProgramInvariant01.sourceEval : ShielddSecurity.TransferScalarProgramInvariant01.ScalarProgram →
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferScalarProgramInvariant01.sourceEval' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferScalarProgramInvariant01.every_represented_source_program_derives_canonical_raw_fields_and_exact_serialized_key : ∀
+  (program : ShielddSecurity.TransferScalarProgramInvariant01.ScalarProgram),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+            (ShielddSecurity.TransferScalarProgramInvariant01.sourceEval program))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (And
+      (@Eq.{1} Nat
+        (@List.length.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                (ShielddSecurity.TransferScalarProgramInvariant01.sourceEval program)))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (And
+        (@LT.lt.{0} Nat instLTNat
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                  (ShielddSecurity.TransferScalarProgramInvariant01.sourceEval program)))))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@Eq.{1} Nat
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                  (ShielddSecurity.TransferScalarProgramInvariant01.sourceEval program)))))
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+              (ShielddSecurity.TransferScalarProgramInvariant01.sourceEval program))))))
+'ShielddSecurity.TransferScalarProgramInvariant01.every_represented_source_program_derives_canonical_raw_fields_and_exact_serialized_key' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
