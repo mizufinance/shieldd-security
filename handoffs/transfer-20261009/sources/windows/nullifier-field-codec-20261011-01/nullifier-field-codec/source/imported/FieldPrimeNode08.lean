@@ -1,0 +1,31 @@
+-- GENERATED from the exact parent candidate by generate-field-certificate-tree-20261009-01.py.
+import ShielddSecurity.LucasCertificate
+import ShielddSecurity.FieldPrimeNode01
+import ShielddSecurity.FieldPrimeNode02
+
+set_option maxHeartbeats 300000
+set_option maxRecDepth 4096
+
+namespace ShielddSecurity.FieldPrimeNode08
+open LucasCertificate
+
+def certificate : Certificate := ⟨19, 2, [⟨2, 9, 18⟩, ⟨3, 6, 7⟩, ⟨3, 6, 7⟩]⟩
+
+theorem checked : certificate.check = true := by decide +kernel
+
+theorem prime : Nat.Prime 19 := by
+  change Nat.Prime certificate.n
+  apply certificate_sound certificate _ checked
+  simp [certificate, FieldPrimeNode01.prime, FieldPrimeNode02.prime]
+
+end ShielddSecurity.FieldPrimeNode08
+
+set_option pp.all true in
+#check @ShielddSecurity.FieldPrimeNode08.certificate
+#print axioms ShielddSecurity.FieldPrimeNode08.certificate
+set_option pp.all true in
+#check @ShielddSecurity.FieldPrimeNode08.checked
+#print axioms ShielddSecurity.FieldPrimeNode08.checked
+set_option pp.all true in
+#check @ShielddSecurity.FieldPrimeNode08.prime
+#print axioms ShielddSecurity.FieldPrimeNode08.prime
