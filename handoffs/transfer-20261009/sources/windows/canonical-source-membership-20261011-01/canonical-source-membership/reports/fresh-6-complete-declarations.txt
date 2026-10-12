@@ -1,0 +1,166 @@
+ShielddSecurity.TransferCanonicalSourceMembership01.canonical_source_key_is_injective_on_entire_typed_fields : @Function.Injective.{1,
+      1}
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+  fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+  ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)
+'ShielddSecurity.TransferCanonicalSourceMembership01.canonical_source_key_is_injective_on_entire_typed_fields' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalSourceMembership01.sourceOrdContains : (fields :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) → Bool
+'ShielddSecurity.TransferCanonicalSourceMembership01.sourceOrdContains' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferCanonicalSourceMembership01.source_ord_equality_is_exact_source_key_equality : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} Ordering
+      (ShielddSecurity.TransferScalarReversedByteOrder01.compareHighFirst
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))))
+        (@List.reverse.{0} UInt8
+          (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))))
+      Ordering.eq)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+'ShielddSecurity.TransferCanonicalSourceMembership01.source_ord_equality_is_exact_source_key_equality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalSourceMembership01.source_ord_membership_is_exact_mapped_key_membership : ∀
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Bool (ShielddSecurity.TransferCanonicalSourceMembership01.sourceOrdContains fields scalar)
+    (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+        fields)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+'ShielddSecurity.TransferCanonicalSourceMembership01.source_ord_membership_is_exact_mapped_key_membership' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalSourceMembership01.mapped_source_key_uniqueness_iff_original_typed_field_uniqueness : ∀
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@List.Nodup.{0} Nat
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+        fields))
+    (@List.Nodup.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields)
+'ShielddSecurity.TransferCanonicalSourceMembership01.mapped_source_key_uniqueness_iff_original_typed_field_uniqueness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferCanonicalSourceMembership01.returned_whole_canonical_source_publication_derives_original_field_uniqueness_capacity_and_membership : ∀
+  {Other E K X Tree A I : Type} (inputs : A → List.{0} I)
+  (scalarOf : I → ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (sourceRequests :
+    List.{0}
+      (ShielddSecurity.TransferInstalledSourcePublication01.SourceRequest
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        E K X Tree A I inputs))
+  (verifiable nonverifiable : ShielddSecurity.TransferStateDelta.View ShielddSecurity.TransferStateDelta.Bytes)
+  (otherObjects :
+    ShielddSecurity.TransferStateDelta.View
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (queued : List.{0} A)
+  (writesOf :
+    Fin
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))) →
+      ShielddSecurity.TransferStateDelta.State
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+        List.{0} A → ShielddSecurity.TransferTaggedCodecPublication01.OtherFinalizationWrites Other E A)
+  (baseIo :
+    ShielddSecurity.TransferEndToEnd01.Io
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      E A)
+  (host :
+    ShielddSecurity.TransferHostSealedCommit01.Host
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (height :
+    Fin
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+  (outcome :
+    ShielddSecurity.TransferEndToEnd01.Outcome
+      (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      A)
+  (root : Nat)
+  (returned :
+    @Eq.{1}
+      (Option.{0}
+        (ShielddSecurity.TransferEndToEnd01.Outcome
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          A))
+      (@ShielddSecurity.TransferWordSourceDriver01.runCompleteBlock Other E K X Tree A I inputs
+        (fun (input : I) => ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words (scalarOf input))
+        sourceRequests verifiable nonverifiable otherObjects queued writesOf baseIo host height)
+      (@Option.some.{0}
+        (ShielddSecurity.TransferEndToEnd01.Outcome
+          (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          A)
+        outcome))
+  (success :
+    @Eq.{1} (Option.{0} Nat)
+      (@ShielddSecurity.TransferEndToEnd01.Outcome.root
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        A outcome)
+      (@Option.some.{0} Nat root)),
+  And
+    (@List.Nodup.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+        (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        E K X Tree A I inputs scalarOf sourceRequests))
+    (And
+      (@LE.le.{0} Nat instLENat
+        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+          (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+            (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+            E K X Tree A I inputs scalarOf sourceRequests))
+        ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+      (∀ (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+        @Eq.{1} Bool
+          (ShielddSecurity.TransferCanonicalSourceMembership01.sourceOrdContains
+            (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+              (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+              E K X Tree A I inputs scalarOf sourceRequests)
+            scalar)
+          (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+            (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+              (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+                ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+              (@ShielddSecurity.TransferCanonicalSourcePublication01.canonicalSourceFields
+                (ShielddSecurity.TransferBoundedNativeCodec01.ExtendedObject
+                  (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+                E K X Tree A I inputs scalarOf sourceRequests))
+            (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))))
+'ShielddSecurity.TransferCanonicalSourceMembership01.returned_whole_canonical_source_publication_derives_original_field_uniqueness_capacity_and_membership' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
