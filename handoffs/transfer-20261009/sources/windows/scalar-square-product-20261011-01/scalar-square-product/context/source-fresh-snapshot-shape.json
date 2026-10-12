@@ -1,0 +1,24 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "runtime_sources": [
+    {
+      "path": "C:\\src\\shieldd-pr160-844389ee\\third_party\\cnidarium-0.83.0\\src\\snapshot.rs",
+      "bytes": 21107,
+      "sha256": "f0c2a2fd0f04893b74b3172b534fbf64929af350569bba1466220e96e7c6a424"
+    },
+    {
+      "path": "C:\\src\\shieldd-pr160-844389ee\\third_party\\cnidarium-0.83.0\\src\\delta.rs",
+      "bytes": 18716,
+      "sha256": "6fc7d1612400dcab6fcd0e7ffde8a4ec063b53d4d340eec74f8cead44d7cb446"
+    },
+    {
+      "path": "C:\\src\\shieldd-pr160-844389ee\\third_party\\cnidarium-0.83.0\\src\\cache.rs",
+      "bytes": 5704,
+      "sha256": "6ce429dab14eb11b1ff364719255af0c2bf6da6a4a3963cdb5249e2feab12e34"
+    }
+  ],
+  "snapshot_object_body": "    fn object_get<T: Any + Send + Sync + Clone>(&self, _key: &str) -> Option<T> {\n        // No-op -- this will never be called internally, and `Snapshot` is not exposed in public API\n        None\n    }\n\n    fn object_type(&self, _key: &str) -> Option<std::any::TypeId> {\n        // No-op -- this will never be called internally, and `Snapshot` is not exposed in public API\n        None\n    }",
+  "state_delta_new_body": "    pub fn new(state: S) -> Self {\n        Self {\n            state: Arc::new(RwLock::new(Some(state))),\n            layers: Vec::default(),\n            leaf_cache: Arc::new(RwLock::new(Some(Cache::default()))),\n        }\n    }\n",
+  "cache_default_decl": "#[derive(Default, Debug)]\npub struct Cache {\n    /// Commit-only maintenance invalidations, never attached to readable deltas.\n    pub(crate) nonverifiable_ranges: Vec<std::ops::Range<Vec<u8>>>,\n    /// Unwritten changes to the consensus-critical state (stored in the JMT).\n    pub(crate) unwritten_changes: BTreeMap<String, Option<Vec<u8>>>,\n    /// Unwritten changes to non-consensus-critical state (stored in the nonverifiable storage).\n    pub(crate) nonverifiable_changes: BTreeMap<Vec<u8>, Option<Vec<u8>>>,\n    /// Unwritten changes to the object store.  A `None` value means a deletion.\n    pub(crate) ephemeral_objects: BTreeMap<&'static str, Option<Box<dyn Any + Send + Sync>>>,\n    /// A list of ABCI events that occurred while building this set of state changes.\n    pub(crate) events: Vec<abci::Event>,\n}\n",
+  "scope": "Exact static source identities and constructor/read shape. Native default-map/locks/constructor/caller/compiler semantic correspondence separate; no durable data or ICS23 claim."
+}
