@@ -1,0 +1,207 @@
+ShielddSecurity.TransferWordStageOrder01.admitOpen : (ordered members inputs :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (checkDurable : Bool) →
+    (reader :
+        List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+          Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit) →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit
+'ShielddSecurity.TransferWordStageOrder01.admitOpen' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordStageOrder01.appendAfterCheckedRead : {Other : Type} →
+  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+      (checkDurable : Bool) →
+        (reader :
+            List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+              Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit) →
+          Except.{0, 0} Unit
+            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+'ShielddSecurity.TransferWordStageOrder01.appendAfterCheckedRead' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordStageOrder01.stageFields : {Other : Type} →
+  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+      (checkDurable : Bool) →
+        (reader :
+            List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+              Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit) →
+          Except.{0, 0} Unit
+            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+'ShielddSecurity.TransferWordStageOrder01.stageFields' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordStageOrder01.duplicate_refusal_precedes_even_wrong_type_object_access : ∀ {Other : Type}
+  (other : Other) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+  (duplicate :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat)
+        (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          inputs))
+      Bool.false),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other))
+      inputs checkDurable reader)
+    (@Except.ok.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError.duplicate))
+'ShielddSecurity.TransferWordStageOrder01.duplicate_refusal_precedes_even_wrong_type_object_access' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageOrder01.unique_batch_wrong_type_panics_before_any_returned_staging_refusal : ∀
+  {Other : Type} (other : Other) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+  (unique :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat)
+        (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          inputs))
+      Bool.true),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other))
+      inputs checkDurable reader)
+    (@Except.error.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      Unit.unit)
+'ShielddSecurity.TransferWordStageOrder01.unique_batch_wrong_type_panics_before_any_returned_staging_refusal' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageOrder01.unique_batch_sealed_object_returns_sealed_refusal_before_admission : ∀
+  {Other : Type} (ordered inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+  (unique :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat)
+        (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          inputs))
+      Bool.true),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.sealed ordered)))
+      inputs checkDurable reader)
+    (@Except.ok.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        ShielddSecurity.TransferNullifierBatchSource01.BatchError.sealed))
+'ShielddSecurity.TransferWordStageOrder01.unique_batch_sealed_object_returns_sealed_refusal_before_admission' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageOrder01.admitted_open_append_writes_exact_original_ordered_and_member_fields : ∀
+  {Other : Type} (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+  (unique :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat)
+        (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          inputs))
+      Bool.true)
+  (admitted :
+    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+      (ShielddSecurity.TransferWordStageOrder01.admitOpen ordered members inputs checkDurable reader)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))
+      inputs checkDurable reader)
+    (@Except.ok.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened
+            (@HAppend.hAppend.{0, 0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+              (@instHAppendOfAppend.{0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+              ordered inputs)
+            (@HAppend.hAppend.{0, 0, 0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+              (@instHAppendOfAppend.{0} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+              members inputs)))))
+'ShielddSecurity.TransferWordStageOrder01.admitted_open_append_writes_exact_original_ordered_and_member_fields' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordStageOrder01.absent_object_defaults_open_and_admitted_append_retains_original_fields : ∀
+  {Other : Type} (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+  (unique :
+    @Eq.{1} Bool
+      (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop (@List.nil.{0} Nat)
+        (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+          (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+            ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+          inputs))
+      Bool.true)
+  (admitted :
+    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+      (ShielddSecurity.TransferWordStageOrder01.admitOpen
+        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) inputs checkDurable reader)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)),
+  @Eq.{1}
+    (Except.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+    (@ShielddSecurity.TransferWordStageOrder01.stageFields Other
+      (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) inputs checkDurable reader)
+    (@Except.ok.{0, 0} Unit
+      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+        (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened inputs inputs))))
+'ShielddSecurity.TransferWordStageOrder01.absent_object_defaults_open_and_admitted_append_retains_original_fields' depends on axioms: [propext,
+ Quot.sound]
