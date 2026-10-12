@@ -1,0 +1,23 @@
+{
+  "object_get_body": "    fn object_get<T: std::any::Any + Send + Sync + Clone>(&self, key: &'static str) -> Option<T> {\n        // Check if we have a cache hit in the leaf cache.\n        if let Some(entry) = self\n            .leaf_cache\n            .read()\n            .as_ref()\n            .expect(\"delta must not have been applied\")\n            .ephemeral_objects\n            .get(key)\n        {\n            return entry\n                .as_ref()\n                .map(|v| {\n                    v.downcast_ref().unwrap_or_else(|| panic!(\"unexpected type for key \\\"{key}\\\" in `StateDelta::object_get`: expected type {}\", std::any::type_name::<T>()))\n                })\n                .cloned();\n        }\n\n        // Iterate through the stack, top to bottom, to see if we have a cache hit.\n        for layer in self.layers.iter().rev() {\n            if let Some(entry) = layer\n                .read()\n                .as_ref()\n                .expect(\"delta must not have been applied\")\n                .ephemeral_objects\n                .get(key)\n            {\n                return entry\n                    .as_ref()\n                    .map(|v| {\n                    v.downcast_ref().unwrap_or_else(|| panic!(\"unexpected type for key \\\"{key}\\\" in `StateDelta::object_get`: expected type {}\", std::any::type_name::<T>()))\n                }).cloned();\n            }\n        }\n\n        // Fall through to the underlying store.\n        self.state\n            .read()\n            .as_ref()\n            .expect(\"delta must not have been applied\")\n            .object_get(key)\n    }\n\n",
+  "pending_stage_body": "async fn stage_nullifiers<S: StateWrite + ?Sized>(\n    state: &mut S,\n    nullifiers: &[Nullifier],\n    check_durable: bool,\n) -> Result<()> {\n    let mut local = BTreeSet::new();\n    for nullifier in nullifiers {\n        ensure!(\n            local.insert(*nullifier),\n            \"duplicate nullifier {nullifier} in batch\"\n        );\n    }\n    let pending = state\n        .object_get::<PendingNullifierBlock>(state_key::nullifiers::pending_block())\n        .unwrap_or_default();\n    let PendingNullifierBlock::Open {\n        mut ordered,\n        mut membership,\n    } = pending\n    else {\n        anyhow::bail!(\"cannot stage nullifiers after block sealing\");\n    };\n    ensure!(\n        ordered.len().saturating_add(nullifiers.len()) <= MAX_NULLIFIERS_PER_BLOCK,\n        \"block nullifier limit exceeded\"\n    );\n    for nullifier in nullifiers {\n        ensure!(\n            !membership.contains(nullifier),\n            \"nullifier {nullifier} was already spent in this block\"\n        );\n    }\n    if check_durable {\n        for (nullifier, spent) in nullifiers\n            .iter()\n            .zip(state.contains_nullifiers(nullifiers).await?)\n        {\n            ensure!(!spent, \"nullifier {nullifier} was already spent\");\n        }\n    }\n    ordered.extend(nullifiers.iter().copied());\n    membership.extend(nullifiers.iter().copied());\n    state.object_put(\n        state_key::nullifiers::pending_block(),\n        PendingNullifierBlock::Open {\n            ordered,\n            membership,\n        },\n    );\n    Ok(())\n}\n\n",
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "runtime_sources": [
+    {
+      "bytes": 18716,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\third_party\\cnidarium-0.83.0\\src\\delta.rs",
+      "sha256": "6fc7d1612400dcab6fcd0e7ffde8a4ec063b53d4d340eec74f8cead44d7cb446"
+    },
+    {
+      "bytes": 5704,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\third_party\\cnidarium-0.83.0\\src\\cache.rs",
+      "sha256": "6ce429dab14eb11b1ff364719255af0c2bf6da6a4a3963cdb5249e2feab12e34"
+    },
+    {
+      "bytes": 48880,
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\component\\tree.rs",
+      "sha256": "d95558d2c9da8e16419ab1a43c27052d672c607c46bd41b40daa7e9fdf7b1a65"
+    }
+  ],
+  "scope": "Static source association only. Wrong-type downcast panics before Option absence default. Native Any/Clone/lock/compiler/persistent-container/layers require separate semantic correspondence; no proof/runtime/control credit from source identity."
+}

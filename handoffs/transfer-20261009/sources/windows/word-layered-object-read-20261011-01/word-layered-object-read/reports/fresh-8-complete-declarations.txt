@@ -1,0 +1,178 @@
+@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers : {Other : Type} →
+  List.{0}
+      (Option.{0}
+        (ShielddSecurity.TransferStateDelta.Writes
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) →
+    Option.{0}
+        (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+      Nat → Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+'ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferWordLayeredObjectRead01.selectedLiveLayers : {Other : Type} →
+  List.{0}
+      (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) →
+      Nat → Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+'ShielddSecurity.TransferWordLayeredObjectRead01.selectedLiveLayers' does not depend on any axioms
+@ShielddSecurity.TransferWordLayeredObjectRead01.live_checked_stack_reads_exact_newest_selected_entry : ∀ {Other : Type}
+  (layers :
+    List.{0}
+      (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+      (@List.map.{0, 0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (Option.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Option.some.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        layers)
+      (@Option.some.{0}
+        (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        parent)
+      key)
+    (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other
+      (@ShielddSecurity.TransferWordLayeredObjectRead01.selectedLiveLayers Other layers parent key))
+'ShielddSecurity.TransferWordLayeredObjectRead01.live_checked_stack_reads_exact_newest_selected_entry' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordLayeredObjectRead01.applied_leaf_panics_before_any_underlying_read : ∀ {Other : Type}
+  (rest :
+    List.{0}
+      (Option.{0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+  (parent :
+    Option.{0}
+      (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (key : Nat),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+      (@List.cons.{0}
+        (Option.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Option.none.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        rest)
+      parent key)
+    (@Except.error.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending Unit.unit)
+'ShielddSecurity.TransferWordLayeredObjectRead01.applied_leaf_panics_before_any_underlying_read' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordLayeredObjectRead01.live_leaf_tombstone_stops_before_underlying_and_defaults : ∀
+  {Other : Type}
+  (leaf : ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (rest :
+    List.{0}
+      (Option.{0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+  (parent :
+    Option.{0}
+      (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (key : Nat)
+  (tombstone :
+    @Eq.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) (leaf key)
+      (@Option.some.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+      (@List.cons.{0}
+        (Option.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Option.some.{0}
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          leaf)
+        rest)
+      parent key)
+    (@Except.ok.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending
+      (ShielddSecurity.TransferPendingFiniteCodec01.NativePending.opened (@List.nil.{0} Nat) (@List.nil.{0} Nat)))
+'ShielddSecurity.TransferWordLayeredObjectRead01.live_leaf_tombstone_stops_before_underlying_and_defaults' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordLayeredObjectRead01.live_leaf_wrong_type_panics_without_older_typed_fallback : ∀
+  {Other : Type}
+  (leaf : ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (rest :
+    List.{0}
+      (Option.{0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+  (parent :
+    Option.{0}
+      (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (key : Nat) (other : Other)
+  (wrongType :
+    @Eq.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) (leaf key)
+      (@Option.some.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+          (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other)))),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+      (@List.cons.{0}
+        (Option.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Option.some.{0}
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          leaf)
+        rest)
+      parent key)
+    (@Except.error.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending Unit.unit)
+'ShielddSecurity.TransferWordLayeredObjectRead01.live_leaf_wrong_type_panics_without_older_typed_fallback' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordLayeredObjectRead01.live_leaf_map_miss_continues_at_the_next_layer : ∀ {Other : Type}
+  (leaf : ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (rest :
+    List.{0}
+      (Option.{0}
+        (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+  (parent :
+    Option.{0}
+      (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+  (key : Nat)
+  (miss :
+    @Eq.{1} (Option.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))) (leaf key)
+      (@Option.none.{0} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))),
+  @Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+      (@List.cons.{0}
+        (Option.{0}
+          (ShielddSecurity.TransferStateDelta.Writes
+            (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        (@Option.some.{0}
+          (ShielddSecurity.TransferStateDelta.Writes (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          leaf)
+        rest)
+      parent key)
+    (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other rest parent key)
+'ShielddSecurity.TransferWordLayeredObjectRead01.live_leaf_map_miss_continues_at_the_next_layer' depends on axioms: [propext,
+ Quot.sound]
+@ShielddSecurity.TransferWordLayeredObjectRead01.stack_fallback_panics_for_applied_parent_and_reads_live_parent : ∀
+  {Other : Type}
+  (parent : ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (key : Nat),
+  And
+    (@Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+      (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+        (@List.nil.{0}
+          (Option.{0}
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+        (@Option.none.{0}
+          (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+        key)
+      (@Except.error.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending Unit.unit))
+    (@Eq.{1} (Except.{0, 0} Unit ShielddSecurity.TransferPendingFiniteCodec01.NativePending)
+      (@ShielddSecurity.TransferWordLayeredObjectRead01.checkedLayers Other
+        (@List.nil.{0}
+          (Option.{0}
+            (ShielddSecurity.TransferStateDelta.Writes
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))))
+        (@Option.some.{0}
+          (ShielddSecurity.TransferStateDelta.View (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+          parent)
+        key)
+      (@ShielddSecurity.TransferWordObjectRead01.sourcePending Other (parent key)))
+'ShielddSecurity.TransferWordLayeredObjectRead01.stack_fallback_panics_for_applied_parent_and_reads_live_parent' depends on axioms: [propext,
+ Quot.sound]
