@@ -1287,3 +1287,6 @@ Publish independently reviewed scalar-square-cross original source model. 6 comp
 
 
 Publish exact fifteenth Merkle captured-row coverage:51new modules375 original reports,424arithmetic positions8658..9081 and actual sharedcopy200769. Full independent source/report/generation/import/history scope and unchanged guard273 review passed. Original2201attempts147failed retained. Full path/hash semantics/concrete field/legal seed/all assertion truth/native/full Transfer remain OPEN; combined replay UNRUN.
+
+
+Publish exact sixteenth Merkle captured-row coverage:51new modules375 original reports,424arithmetic positions9082..9505 and actual sharedcopy200769. Full independent source/report/generation/import/history scope and unchanged guard273 review passed. Original2252attempts147failed retained. Full path/hash semantics/concrete field/legal seed/all assertion truth/native/full Transfer remain OPEN; combined replay UNRUN.
