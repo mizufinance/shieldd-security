@@ -1,0 +1,20 @@
+{
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "getter": {
+    "source": {
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\component\\sct\\src\\component\\tree.rs",
+      "bytes": 48880,
+      "sha256": "d95558d2c9da8e16419ab1a43c27052d672c607c46bd41b40daa7e9fdf7b1a65"
+    },
+    "excerpt": "    fn pending_nullifiers(&self) -> imbl::Vector<Nullifier> {\n        self.object_get::<PendingNullifierBlock>(state_key::nullifiers::pending_block())\n            .map(|pending| pending.ordered().clone())\n            .unwrap_or_default()\n    }\n"
+  },
+  "host": {
+    "source": {
+      "path": "C:\\src\\shieldd-pr160-844389ee\\crates\\core\\app\\src\\app\\host.rs",
+      "bytes": 89723,
+      "sha256": "fc1c43378105957364e85054f5818eede0702ba9fc5a9d413f53669cb0bfab1d"
+    },
+    "excerpt": "        let accepted = state.pending_nullifiers().iter().copied().collect();\n        let prepared = self\n            .writer\n            .prepare(\n                state,\n                height,\n                self.block_id.context(\"active block identity is missing\")?,\n                accepted,\n            )\n            .await?;\n"
+  },
+  "scope": "Exact static getter clone then iter/copied/collect and writer.prepare accepted argument shape; native collection/Copy/ABI/Host/writer/callee correspondence separate."
+}

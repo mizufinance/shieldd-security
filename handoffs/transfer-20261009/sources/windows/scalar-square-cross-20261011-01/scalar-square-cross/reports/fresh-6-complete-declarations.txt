@@ -1,0 +1,82 @@
+ShielddSecurity.TransferScalarSquareCross01.crossValue : List.{0} UInt64 → Nat
+'ShielddSecurity.TransferScalarSquareCross01.crossValue' does not depend on any axioms
+ShielddSecurity.TransferScalarSquareCross01.crossWalk : List.{0} UInt64 → List.{0} UInt64 → List.{0} UInt64
+'ShielddSecurity.TransferScalarSquareCross01.crossWalk' does not depend on any axioms
+ShielddSecurity.TransferScalarSquareCross01.sourceCrossWords : (self :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  List.{0} UInt64
+'ShielddSecurity.TransferScalarSquareCross01.sourceCrossWords' does not depend on any axioms
+ShielddSecurity.TransferScalarSquareCross01.mac_row_appended_carry_derives_exact_width_and_integer_value : ∀
+  (multiplier : UInt64) (accumulated right : List.{0} UInt64)
+  (width : @Eq.{1} Nat (@List.length.{0} UInt64 accumulated) (@List.length.{0} UInt64 right)),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+          (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+          (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+            (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+              (@List.zip.{0, 0} UInt64 UInt64 accumulated right)))
+          (@List.cons.{0} UInt64
+            (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+              (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier
+                (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+                (@List.zip.{0, 0} UInt64 UInt64 accumulated right)))
+            (@List.nil.{0} UInt64))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 right)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+          (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+          (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+            (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+              (@List.zip.{0, 0} UInt64 UInt64 accumulated right)))
+          (@List.cons.{0} UInt64
+            (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+              (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier
+                (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+                (@List.zip.{0, 0} UInt64 UInt64 accumulated right)))
+            (@List.nil.{0} UInt64))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords accumulated)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords right))))
+'ShielddSecurity.TransferScalarSquareCross01.mac_row_appended_carry_derives_exact_width_and_integer_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSquareCross01.symbolic_shrinking_cross_walk_derives_width_and_exact_cross_value : ∀
+  (words accumulated : List.{0} UInt64)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt64 accumulated)
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (@List.length.{0} UInt64 words)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))),
+  And
+    (@Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarSquareCross01.crossWalk words accumulated))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (@List.length.{0} UInt64 words)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarSquareCross01.crossWalk words accumulated))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords accumulated)
+        (ShielddSecurity.TransferScalarSquareCross01.crossValue words)))
+'ShielddSecurity.TransferScalarSquareCross01.symbolic_shrinking_cross_walk_derives_width_and_exact_cross_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSquareCross01.source_six_cross_mac_prefix_derives_seven_words_and_exact_cross_integer : ∀
+  (self : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferScalarSquareCross01.sourceCrossWords self))
+      (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7))))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarSquareCross01.sourceCrossWords self))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarSquareCross01.crossValue
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) self))))
+'ShielddSecurity.TransferScalarSquareCross01.source_six_cross_mac_prefix_derives_seven_words_and_exact_cross_integer' depends on axioms: [propext,
+ Quot.sound]
