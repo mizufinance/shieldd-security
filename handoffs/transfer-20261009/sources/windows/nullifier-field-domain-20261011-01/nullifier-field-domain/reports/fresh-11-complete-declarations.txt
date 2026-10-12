@@ -1,0 +1,102 @@
+ShielddSecurity.TransferNullifierFieldDomain01.canonicalResidueBytes : (value :
+    Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) →
+  Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+'ShielddSecurity.TransferNullifierFieldDomain01.canonicalResidueBytes' depends on axioms: [propext]
+ShielddSecurity.TransferNullifierFieldDomain01.every_field_residue_has_exact_32_byte_little_endian_value : ∀
+  (value : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+        (ShielddSecurity.TransferNullifierFieldDomain01.canonicalResidueBytes value)))
+    (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus value)
+'ShielddSecurity.TransferNullifierFieldDomain01.every_field_residue_has_exact_32_byte_little_endian_value' depends on axioms: [propext]
+ShielddSecurity.TransferNullifierFieldDomain01.sourceResidueField : (value :
+    Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) →
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferNullifierFieldDomain01.sourceResidueField' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.every_field_residue_encoding_returns_the_actual_source_decoder_payload : ∀
+  (value : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+        (ShielddSecurity.TransferNullifierFieldDomain01.canonicalResidueBytes value)))
+    (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      (ShielddSecurity.TransferNullifierFieldDomain01.sourceResidueField value))
+'ShielddSecurity.TransferNullifierFieldDomain01.every_field_residue_encoding_returns_the_actual_source_decoder_payload' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.actual_source_residue_constructor_has_the_exact_mathematical_field_value : ∀
+  (value : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferNullifierFieldDomain01.sourceResidueField value)))
+    (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus value)
+'ShielddSecurity.TransferNullifierFieldDomain01.actual_source_residue_constructor_has_the_exact_mathematical_field_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.sourceFieldResidue : (scalar :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferNullifierFieldDomain01.sourceFieldResidue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.source_serializer_residue_projection_is_the_mathematical_field : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Nat
+    (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (ShielddSecurity.TransferNullifierFieldDomain01.sourceFieldResidue scalar))
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+'ShielddSecurity.TransferNullifierFieldDomain01.source_serializer_residue_projection_is_the_mathematical_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.source_residue_constructor_then_serializer_recovers_every_legal_residue : ∀
+  (value : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} (Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (ShielddSecurity.TransferNullifierFieldDomain01.sourceFieldResidue
+      (ShielddSecurity.TransferNullifierFieldDomain01.sourceResidueField value))
+    value
+'ShielddSecurity.TransferNullifierFieldDomain01.source_residue_constructor_then_serializer_recovers_every_legal_residue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.source_serializer_then_residue_constructor_recovers_every_canonical_raw_field : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    (ShielddSecurity.TransferNullifierFieldDomain01.sourceResidueField
+      (ShielddSecurity.TransferNullifierFieldDomain01.sourceFieldResidue scalar))
+    scalar
+'ShielddSecurity.TransferNullifierFieldDomain01.source_serializer_then_residue_constructor_recovers_every_canonical_raw_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.actual_source_decoder_covers_the_entire_legal_field_residue_domain : ∀
+  (value : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Exists.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+    And
+      (@Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+        (ShielddSecurity.TransferNullifierFieldCodec01.sourceNullifierSliceDecode
+          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+            (ShielddSecurity.TransferNullifierFieldDomain01.canonicalResidueBytes value)))
+        (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar scalar))
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))
+        (@Fin.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus value))
+'ShielddSecurity.TransferNullifierFieldDomain01.actual_source_decoder_covers_the_entire_legal_field_residue_domain' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferNullifierFieldDomain01.actual_source_residue_constructor_serializes_to_the_exact_original_residue_bytes : ∀
+  (value : Fin ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} (List.{0} UInt8)
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+          (ShielddSecurity.TransferNullifierFieldDomain01.sourceResidueField value))))
+    (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+      (ShielddSecurity.TransferNullifierFieldDomain01.canonicalResidueBytes value))
+'ShielddSecurity.TransferNullifierFieldDomain01.actual_source_residue_constructor_serializes_to_the_exact_original_residue_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
