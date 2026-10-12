@@ -1,0 +1,58 @@
+{
+  "status": "PASSED",
+  "modules": 1,
+  "reports": 7,
+  "new_modules": 1,
+  "new_reports": 7,
+  "inherited_modules": 0,
+  "inherited_reports": 0,
+  "source_pins": [
+    {
+      "bytes": 9727,
+      "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-shared-position264-source03/source-root/ShielddSecurity/SharedMerklePosition264.lean",
+      "sha256": "92e7b431c99ad5384a1d47a8aabfc7e69e5e1058d0cb531b79760cbf9b8514fd"
+    }
+  ],
+  "selected_history_attempts": 2361,
+  "selected_history_failures": 159,
+  "complete_phase_ledger": {
+    "bytes": 3071,
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution293/runtime/ledger.jsonl",
+    "sha256": "9eed4312d4e52c265f922ecaf45404a9266bc3846eb39680ce9750cdc5c9d825"
+  },
+  "subsequent_unqualified_receipt": {
+    "bytes": 2923,
+    "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution293/runtime/receipts/2362-SharedSeedShape265.json",
+    "sha256": "6f02581453af049d9b45dd2076702ca1e0bf70859e5c9322f0c4409ed1c9e0a5"
+  },
+  "repairs": [
+    {
+      "receipt": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution290/runtime/receipts/2359-SharedMerklePosition264.json",
+        "bytes": 4360,
+        "sha256": "3ec89e37829f810b82bafe633daa3cced55397848914fe4afe3b9c28c0d5059d"
+      },
+      "delta": "--- \n+++ \n@@ -33,7 +33,7 @@\n  (i : Fin 32) : SharedWordWitness221.completed base numbers fallback (184+i.val)=\n  MerkleQuaternary30.boolValue (CapturedMerklePositionGlobal190.bits (numbers 135) i) := by\n  have member : 184+i.val\u2208WordHints210.columns CapturedWordSlots211B000.W01.slot :=\n-   List.mem_range'.mpr \u27e8i.val,i.isLt,by simp only [Nat.one_mul]\u27e9\n+   List.mem_range'.mpr \u27e8i.val,i.isLt,by change 184+i.val=184+1*i.val; simp only [Nat.one_mul]\u27e9\n  have seedMember:=SharedWordWitness221.word_coverage\n    (CapturedWordSlots211B000.W01.slot,CapturedWordSlots211B000.W01.first) position_entry _ member\n  have original := CapturedFullRelation58.candidate_inputs\n@@ -53,6 +53,7 @@\n  CapturedMerkleIntegerRoot191.root (SharedWordWitness221.completed base numbers fallback) (numbers 135) 16 := by\n  have result:=CandidateMerkleMeaning261.output (SharedWordWitness221.seeded base numbers fallback)\n    ((SharedWordWitness221.seeded_fixed base numbers fallback).1.trans one)\n+ change eval (SharedWordWitness221.completed base numbers fallback) MerklePath33AnchorData.output=MerklePath33Meaning.meaning (SharedWordWitness221.completed base numbers fallback) 15 at result\n  rw [MerkleOrdered34.meaning_eq _ _ (encoding base numbers fallback coherent) 15 (by decide)] at result\n  exact result.trans (CapturedMerkleIntegerRoot191.root_eq _ _ 16)\n theorem position_value (representation : CanonicalRepresentation F)\n@@ -76,6 +77,7 @@\n  eval (SharedWordWitness221.completed base numbers fallback) MerklePath33AnchorData.output := by\n  have cast:=MerkleNaturalRoot197.root_cast representation (SharedWordWitness221.completed base numbers fallback) c\n  have position : (RegistryRecovery194.recover representation (SharedWordWitness221.completed base numbers fallback)).position=numbers 135 := position_value representation base numbers fallback bound meaning\n+ rw [position]\n  rw [position] at cast\n  exact cast.trans (integer_output base numbers fallback one coherent).symm\n theorem anchor_from_legal (representation : CanonicalRepresentation F) (c : TransferSem.Crypto)\n",
+      "diagnostics": [
+        "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-shared-position264-source01/source-root/ShielddSecurity/SharedMerklePosition264.lean:36:37: error: unsolved goals",
+        "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-shared-position264-source01/source-root/ShielddSecurity/SharedMerklePosition264.lean:56:5: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern",
+        "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-shared-position264-source01/source-root/ShielddSecurity/SharedMerklePosition264.lean:80:1: error: Type mismatch"
+      ]
+    },
+    {
+      "receipt": {
+        "path": "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-full-arithmetic45-execution291/runtime/receipts/2360-SharedMerklePosition264.json",
+        "bytes": 4361,
+        "sha256": "8424a0746071f5e6e2db211688f9afd6ac689c2f083f03c85cbabd5f0d78fcdb"
+      },
+      "delta": "--- \n+++ \n@@ -33,7 +33,7 @@\n  (i : Fin 32) : SharedWordWitness221.completed base numbers fallback (184+i.val)=\n  MerkleQuaternary30.boolValue (CapturedMerklePositionGlobal190.bits (numbers 135) i) := by\n  have member : 184+i.val\u2208WordHints210.columns CapturedWordSlots211B000.W01.slot :=\n-   List.mem_range'.mpr \u27e8i.val,i.isLt,by rfl\u27e9\n+   List.mem_range'.mpr \u27e8i.val,i.isLt,by change 184+i.val=184+1*i.val; simp only [Nat.one_mul]\u27e9\n  have seedMember:=SharedWordWitness221.word_coverage\n    (CapturedWordSlots211B000.W01.slot,CapturedWordSlots211B000.W01.first) position_entry _ member\n  have original := CapturedFullRelation58.candidate_inputs\n",
+      "diagnostics": [
+        "/Users/antoinecyr/Documents/Codex/2026-10-08/can/work/mac-shared-position264-source02/source-root/ShielddSecurity/SharedMerklePosition264.lean:36:40: error: Tactic `rfl` failed: The left-hand side"
+      ]
+    }
+  ],
+  "same_assignment": true,
+  "scope": "ONE exact SharedWordWitness221.completed assignment has original32position bits equal to the owned encoding of numbers135 under explicit shared-word coherence; completed original input preservation and Boolean seeded selection are derived. Complete16level FIELD output equals integer-position root on SAME assignment, then cast of modeled natural Registry root under explicit CanonicalRepresentation, position bound and seeded input meaning. Independent legal RegistrySem plus recovered-registry/anchor input encodings yields ACTUAL captured assertion row178117 from exact checked assertion163 and shared copy links; no fullSAT,desired row/path/root,or caller truth premise. Registry/anchor/position encoding premises are source witness bindings, not the desired captured row result, and remain OWNED legal-construction obligations until frame/fulllegal completion. ConcreteSDKfield/canonical representation/deployedCrypto/all remaining assertion truth/native/fullTransfer OPEN. Seven original reports; original failed2359/2360 retained, repair only three definitional change/rewrite adjustments then explicit range equality, all contracts byte-identical. Complete2361selected history159failed; subsequent2362shape heap refusal preserved separately unqualified. Root performs no verifier replay.",
+  "full_transfer": "OPEN",
+  "root_verifier_execution": "NONE"
+}
