@@ -1,0 +1,314 @@
+ShielddSecurity.TransferScalarPublicOrders01.checked_lucas_certificate_derives_exact_generator_order : ∀
+  (certificate : ShielddSecurity.LucasCertificate.Certificate)
+  (primes :
+    ∀ (entry : ShielddSecurity.LucasCertificate.FactorPower),
+      @Membership.mem.{0, 0} ShielddSecurity.LucasCertificate.FactorPower
+          (List.{0} ShielddSecurity.LucasCertificate.FactorPower)
+          (@List.instMembership.{0} ShielddSecurity.LucasCertificate.FactorPower)
+          (ShielddSecurity.LucasCertificate.Certificate.powers certificate) entry →
+        Nat.Prime (ShielddSecurity.LucasCertificate.FactorPower.factor entry))
+  (checked : @Eq.{1} Bool (ShielddSecurity.LucasCertificate.Certificate.check certificate) Bool.true),
+  @Eq.{1} Nat
+    (@orderOf.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+      (@Semiring.toMonoid.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+        (@CommSemiring.toSemiring.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+          (@CommRing.toCommSemiring.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+            (ZMod.commRing (ShielddSecurity.LucasCertificate.Certificate.n certificate)))))
+      (@Nat.cast.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+            (@Ring.toAddGroupWithOne.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+              (@CommRing.toRing.{0} (ZMod (ShielddSecurity.LucasCertificate.Certificate.n certificate))
+                (ZMod.commRing (ShielddSecurity.LucasCertificate.Certificate.n certificate))))))
+        (ShielddSecurity.LucasCertificate.Certificate.base certificate)))
+    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+      (ShielddSecurity.LucasCertificate.Certificate.n certificate)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferScalarPublicOrders01.checked_lucas_certificate_derives_exact_generator_order' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPublicOrders01.exact_source_generator_has_full_multiplicative_field_order : @Eq.{1} Nat
+  (@orderOf.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+    (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+          ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.generator))))
+  (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferScalarPublicOrders01.exact_source_generator_has_full_multiplicative_field_order' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPublicOrders01.exact_public_root_delta_and_inverse_binary_power_checks : And
+  (@Eq.{1} Nat
+    (ShielddSecurity.ModularPower.power ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))))
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+        ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnity)))
+  (And
+    (@Eq.{1} Nat
+      (ShielddSecurity.ModularPower.power ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+          ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.delta)))
+    (And
+      (@Eq.{1} Nat
+        (ShielddSecurity.ModularPower.power ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+          (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+            (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+              ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnity))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (And
+        (@Ne.{1} Nat
+          (ShielddSecurity.ModularPower.power ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+            (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+              (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+                ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnity))
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (And
+          (@Eq.{1} Nat
+            (ShielddSecurity.ModularPower.power ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+              (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+                (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+                  ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnityInverse))
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          (@Ne.{1} Nat
+            (ShielddSecurity.ModularPower.power ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+              (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+                (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+                  ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnityInverse))
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))))
+'ShielddSecurity.TransferScalarPublicOrders01.exact_public_root_delta_and_inverse_binary_power_checks' depends on axioms: [propext]
+ShielddSecurity.TransferScalarPublicOrders01.exact_source_root_and_delta_are_the_generator_powers : And
+  (@Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+          ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnity)))
+    (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@instHPow.{0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+        (@Monoid.toPow.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+            ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.generator)))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))))
+  (@Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+          ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.delta)))
+    (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@instHPow.{0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+        (@Monoid.toPow.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+            ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.generator)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))))
+'ShielddSecurity.TransferScalarPublicOrders01.exact_source_root_and_delta_are_the_generator_powers' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarPublicOrders01.binary_power_and_half_nonidentity_derive_exact_two_power_order : ∀
+  (value : ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (full :
+    @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+        (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@instHPow.{0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+          (@Monoid.toPow.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))
+        value
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+      (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) (nat_lit 1)
+        (@One.toOfNat1.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddMonoidWithOne.toOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@AddGroupWithOne.toAddMonoidWithOne.{0}
+              (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))))
+  (half :
+    @Ne.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+        (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@instHPow.{0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+          (@Monoid.toPow.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))
+        value
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))
+      (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) (nat_lit 1)
+        (@One.toOfNat1.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddMonoidWithOne.toOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@AddGroupWithOne.toAddMonoidWithOne.{0}
+              (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))))),
+  @Eq.{1} Nat
+    (@orderOf.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+      value)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+'ShielddSecurity.TransferScalarPublicOrders01.binary_power_and_half_nonidentity_derive_exact_two_power_order' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPublicOrders01.exact_source_root_and_inverse_have_order_two_to_the_thirty_two : And
+  (@Eq.{1} Nat
+    (@orderOf.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+            ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnity))))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+  (@Eq.{1} Nat
+    (@orderOf.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+            ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.rootOfUnityInverse))))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+'ShielddSecurity.TransferScalarPublicOrders01.exact_source_root_and_inverse_have_order_two_to_the_thirty_two' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarPublicOrders01.exact_source_delta_has_the_full_odd_part_field_order : And
+  (@Eq.{1} Nat
+    (@orderOf.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+          (ShielddSecurity.TransferScalarPublicConstants01.sourceConstantWords
+            ShielddSecurity.TransferScalarPublicConstants01.PublicConstant.delta))))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))))
+  (@Odd.{0} Nat Nat.instSemiring
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))))
+'ShielddSecurity.TransferScalarPublicOrders01.exact_source_delta_has_the_full_odd_part_field_order' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

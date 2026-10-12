@@ -1,0 +1,10 @@
+{
+  "library": {
+    "bytes": 36086,
+    "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-bounded-native-codec-20261011-02\\context\\runtime-library\\bls12_381-0.8.0-scalar.rs",
+    "sha256": "986f81e7fcb783a668bc4ab55721b22d497c5860cd7136e3cc600d2d9c321475"
+  },
+  "scope": "Exact cached source shifts for cross terms. Static association only; diagonal/reduction/native/compiler/caller remain separate.",
+  "shift_assignments": "        let r7 = r6 >> 63;\n        let r6 = (r6 << 1) | (r5 >> 63);\n        let r5 = (r5 << 1) | (r4 >> 63);\n        let r4 = (r4 << 1) | (r3 >> 63);\n        let r3 = (r3 << 1) | (r2 >> 63);\n        let r2 = (r2 << 1) | (r1 >> 63);\n        let r1 = r1 << 1;\n\n",
+  "square_body": "    pub const fn square(&self) -> Scalar {\n        let (r1, carry) = mac(0, self.0[0], self.0[1], 0);\n        let (r2, carry) = mac(0, self.0[0], self.0[2], carry);\n        let (r3, r4) = mac(0, self.0[0], self.0[3], carry);\n\n        let (r3, carry) = mac(r3, self.0[1], self.0[2], 0);\n        let (r4, r5) = mac(r4, self.0[1], self.0[3], carry);\n\n        let (r5, r6) = mac(r5, self.0[2], self.0[3], 0);\n\n        let r7 = r6 >> 63;\n        let r6 = (r6 << 1) | (r5 >> 63);\n        let r5 = (r5 << 1) | (r4 >> 63);\n        let r4 = (r4 << 1) | (r3 >> 63);\n        let r3 = (r3 << 1) | (r2 >> 63);\n        let r2 = (r2 << 1) | (r1 >> 63);\n        let r1 = r1 << 1;\n\n        let (r0, carry) = mac(0, self.0[0], self.0[0], 0);\n        let (r1, carry) = adc(0, r1, carry);\n        let (r2, carry) = mac(r2, self.0[1], self.0[1], carry);\n        let (r3, carry) = adc(0, r3, carry);\n        let (r4, carry) = mac(r4, self.0[2], self.0[2], carry);\n        let (r5, carry) = adc(0, r5, carry);\n        let (r6, carry) = mac(r6, self.0[3], self.0[3], carry);\n        let (r7, _) = adc(0, r7, carry);\n\n        Scalar::montgomery_reduce(r0, r1, r2, r3, r4, r5, r6, r7)\n    }"
+}
