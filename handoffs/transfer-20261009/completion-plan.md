@@ -1290,3 +1290,6 @@ Publish exact fifteenth Merkle captured-row coverage:51new modules375 original r
 
 
 Publish exact sixteenth Merkle captured-row coverage:51new modules375 original reports,424arithmetic positions9082..9505 and actual sharedcopy200769. Full independent source/report/generation/import/history scope and unchanged guard273 review passed. Original2252attempts147failed retained. Full path/hash semantics/concrete field/legal seed/all assertion truth/native/full Transfer remain OPEN; combined replay UNRUN.
+
+
+Publish complete sixteen-level FIELD-POLYNOMIAL path and actual anchor equality from the same full captured assignment with rho0=1:2new modules4original full reports. All15later families and first/prior predicates are derived from fullSAT, with no caller path/hash/anchor result premise. Exact6784path arithmetic positions2722..9505+one actualcopy200769;2254original attempts147failed retained. Independent public census/source regeneration/full reports/import/source-object-load/guard/history/semantic review PASSED. Concrete field/canonical natural representation/Boolean/integer position/root semantics/legal seed/all assertion completeness/native/full Transfer remain owned OPEN; combined replayUNRUN.
