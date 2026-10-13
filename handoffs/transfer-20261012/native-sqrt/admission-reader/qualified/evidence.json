@@ -1,0 +1,466 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.sourceScalarCallerMemory : (scalar :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  ShielddSecurity.TransferBlstArmCaller01.CallerMemory",
+      "full_type_sha256": "b6e672620db2939c1a6627b26d0f5c9d33691ad1d2341cca930351cc70e8640c",
+      "name": "ShielddSecurity.TransferBlstArmStage01.sourceScalarCallerMemory"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains : (fields :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192 Bool",
+      "full_type_sha256": "ca031e9231c938d26e825871a0417542e93bf7af5fa1c84d2e62e39c73b5914b",
+      "name": "ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.original_caller_order_membership_is_exact_qualified_source_membership : \u2200\n  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains fields scalar)\n    (ShielddSecurity.TransferCanonicalSourceMembership01.sourceOrdContains fields scalar)",
+      "full_type_sha256": "771d9b590ec4babf6f325a82a5bb5c2f39cdb8eda886f08a4de46a651acb7ecf",
+      "name": "ShielddSecurity.TransferBlstArmStage01.original_caller_order_membership_is_exact_qualified_source_membership"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen : (ordered members inputs :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  (checkDurable : Bool) \u2192\n    (reader :\n        List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n          Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit) \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit",
+      "full_type_sha256": "9065ef501606c4a970b13fa5f44c351dc66f2914fb8edfd5e6c70f8edd9352d9",
+      "name": "ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.original_caller_comparator_admission_is_the_qualified_original_field_admission : \u2200\n  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (checkDurable : Bool)\n  (reader :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit),\n  @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n    (ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen ordered members inputs checkDurable reader)\n    (ShielddSecurity.TransferWordStageOrder01.admitOpen ordered members inputs checkDurable reader)",
+      "full_type_sha256": "59eb5cd46517472c4576b25d037f35e72c1a52d716346cd696c159c719af3fc4",
+      "name": "ShielddSecurity.TransferBlstArmStage01.original_caller_comparator_admission_is_the_qualified_original_field_admission"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.returned_original_comparator_admission_derives_capacity_freshness_and_required_reader_success : \u2200\n  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (checkDurable : Bool)\n  (reader :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n  (returned :\n    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n      (ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen ordered members inputs checkDurable reader)\n      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)),\n  And\n    (@LE.le.{0} Nat instLENat\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)\n        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs))\n      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)\n    (And\n      (@Eq.{1} Bool\n        (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs\n          fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          Bool.not (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members scalar))\n        Bool.true)\n      (@Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n        (@ite.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n          (@Eq.{1} Bool checkDurable Bool.true) (instDecidableEqBool checkDurable Bool.true) (reader inputs)\n          (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))\n        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)))",
+      "full_type_sha256": "c904f568a430a2b407e455291cc6f95656c4b80260abeff5bcd4cef50b20eaf1",
+      "name": "ShielddSecurity.TransferBlstArmStage01.returned_original_comparator_admission_derives_capacity_freshness_and_required_reader_success"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.actual_constructor_input_projects_to_original_input_key_modulo_field : \u2200\n  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n        (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw)))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "13b843a376662a110dc24122215029f566ccd30a52b848faf16a032583883568",
+      "name": "ShielddSecurity.TransferBlstArmStage01.actual_constructor_input_projects_to_original_input_key_modulo_field"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.original_constructor_batch_entire_word_fields_are_unique_exactly_when_original_input_keys_are_unique : \u2200\n  (raw : List.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),\n  Iff\n    (@List.Nodup.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar\n      (@List.map.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar\n        ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw))\n    (@List.Nodup.{0} Nat\n      (@List.map.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat\n        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n          @HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        raw))",
+      "full_type_sha256": "dd4ffc207750a63dbfaef2db0d351ce2606bd0286301362d6cc8a35b621ac438",
+      "name": "ShielddSecurity.TransferBlstArmStage01.original_constructor_batch_entire_word_fields_are_unique_exactly_when_original_input_keys_are_unique"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmStage01.original_comparator_refuses_pending_collisions_before_the_durable_reader : \u2200\n  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (checkDurable : Bool)\n  (reader :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n  (capacity :\n    @LE.le.{0} Nat instLENat\n      (ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd\n        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)\n        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs))\n      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)\n  (collision :\n    @Eq.{1} Bool\n      (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs\n        fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n        Bool.not (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members scalar))\n      Bool.false),\n  @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n    (ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen ordered members inputs checkDurable reader)\n    (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit\n      ShielddSecurity.TransferNullifierBatchSource01.BatchError.pending)",
+      "full_type_sha256": "761d471505046cbcf519d320280eefefcfc8e8fb6d30147fdc30178a0fd8d427",
+      "name": "ShielddSecurity.TransferBlstArmStage01.original_comparator_refuses_pending_collisions_before_the_durable_reader"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmPending01.sourceOriginalUniqueLoop : List.{0}\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n  List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192 Bool",
+      "full_type_sha256": "c071986326db4322041bdcc4617e24f0567156286ae610ac6137d9f70b5e0e96",
+      "name": "ShielddSecurity.TransferBlstArmPending01.sourceOriginalUniqueLoop"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmPending01.original_comparator_contains_is_exact_original_key_contains : \u2200\n  (seen : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains seen field)\n    (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)\n      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat\n        (fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))\n        seen)\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))",
+      "full_type_sha256": "887b952297c4eb6fc552557a87d427fc613306927c968a76e1784696605b26d4",
+      "name": "ShielddSecurity.TransferBlstArmPending01.original_comparator_contains_is_exact_original_key_contains"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmPending01.original_insert_result_loop_is_exact_original_key_duplicate_loop : \u2200\n  (seen fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmPending01.sourceOriginalUniqueLoop seen fields)\n    (ShielddSecurity.TransferNullifierBatchSource01.uniqueLoop\n      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat\n        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))\n        seen)\n      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat\n        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))\n        fields))",
+      "full_type_sha256": "0760679e12c98c41a581463321da861fb519bdfdca351c5397e1f9bf8a4160df",
+      "name": "ShielddSecurity.TransferBlstArmPending01.original_insert_result_loop_is_exact_original_key_duplicate_loop"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmPending01.sourceOriginalAppend : {Other : Type} \u2192\n  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) \u2192\n    (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n      (checkDurable : Bool) \u2192\n        (reader :\n            List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n              Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit) \u2192\n          Except.{0, 0} Unit\n            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))",
+      "full_type_sha256": "50ea24a6ca2f863ac48c753b50953869bc65c02644ee593e6f8fd29adb19830d",
+      "name": "ShielddSecurity.TransferBlstArmPending01.sourceOriginalAppend"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmPending01.sourceOriginalStage : {Other : Type} \u2192\n  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) \u2192\n    (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n      (checkDurable : Bool) \u2192\n        (reader :\n            List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n              Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit) \u2192\n          Except.{0, 0} Unit\n            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))",
+      "full_type_sha256": "5e0e00aa761a5cfff91aaf0b3be8906a0591d583cc690dedf25b869678a6b079",
+      "name": "ShielddSecurity.TransferBlstArmPending01.sourceOriginalStage"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmPending01.original_comparator_append_is_exact_original_field_append : \u2200 {Other : Type}\n  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))\n  (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (checkDurable : Bool)\n  (reader :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit),\n  @Eq.{1}\n    (Except.{0, 0} Unit\n      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))\n    (@ShielddSecurity.TransferBlstArmPending01.sourceOriginalAppend Other previous inputs checkDurable reader)\n    (@ShielddSecurity.TransferWordStageOrder01.appendAfterCheckedRead Other previous inputs checkDurable reader)",
+      "full_type_sha256": "f51f5461e6282821c4ad1cd9bee28f7467e17a9e90c08c2a69eaa5de479ffffc",
+      "name": "ShielddSecurity.TransferBlstArmPending01.original_comparator_append_is_exact_original_field_append"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmPending01.original_comparator_whole_stage_is_exact_original_field_stage : \u2200\n  {Other : Type} (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))\n  (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (checkDurable : Bool)\n  (reader :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit),\n  @Eq.{1}\n    (Except.{0, 0} Unit\n      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))\n    (@ShielddSecurity.TransferBlstArmPending01.sourceOriginalStage Other previous inputs checkDurable reader)\n    (@ShielddSecurity.TransferWordStageOrder01.stageFields Other previous inputs checkDurable reader)",
+      "full_type_sha256": "fb7440e1911ad0fdaf10249cad5eb13077a3a5c4187aa2c58a8b9f1a61a05243",
+      "name": "ShielddSecurity.TransferBlstArmPending01.original_comparator_whole_stage_is_exact_original_field_stage"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmPending01.returned_original_comparator_stage_derives_all_checks_and_retains_entire_original_fields : \u2200\n  {Other : Type} (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))\n  (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (checkDurable : Bool)\n  (reader :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n  (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)\n  (returned :\n    @Eq.{1}\n      (Except.{0, 0} Unit\n        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))\n      (@ShielddSecurity.TransferBlstArmPending01.sourceOriginalStage Other previous inputs checkDurable reader)\n      (@Except.ok.{0, 0} Unit\n        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))\n        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object))),\n  And\n    (@Eq.{1} Bool\n      (ShielddSecurity.TransferBlstArmPending01.sourceOriginalUniqueLoop\n        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) inputs)\n      Bool.true)\n    (@Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n      fun (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n      @Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n        fun (members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n        And\n          (Or\n            (And\n              (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous\n                (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))\n              (And\n                (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) ordered\n                  (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))\n                (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) members\n                  (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))))\n            (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous\n              (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)\n                (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other\n                  (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))))\n          (And\n            (@LE.le.{0} Nat instLENat\n              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)\n                (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs))\n              ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)\n            (And\n              (@Eq.{1} Bool\n                (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs\n                  fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n                  Bool.not (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members field))\n                Bool.true)\n              (And\n                (@Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n                  (@ite.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n                    (@Eq.{1} Bool checkDurable Bool.true) (instDecidableEqBool checkDurable Bool.true) (reader inputs)\n                    (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))\n                  (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))\n                (@Eq.{1} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object\n                  (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other\n                    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened\n                      (@HAppend.hAppend.{0, 0, 0}\n                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                        (@instHAppendOfAppend.{0}\n                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))\n                        ordered inputs)\n                      (@HAppend.hAppend.{0, 0, 0}\n                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                        (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                        (@instHAppendOfAppend.{0}\n                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                          (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))\n                        members inputs))))))))",
+      "full_type_sha256": "533d2ddf1f75ad6aae5f28f8ea90a564a6d1ef4bf58c1640b4a3bb3a0763d660",
+      "name": "ShielddSecurity.TransferBlstArmPending01.returned_original_comparator_stage_derives_all_checks_and_retains_entire_original_fields"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmPending01.original_duplicate_refusal_precedes_wrong_type_object_and_reader : \u2200\n  {Other : Type} (other : Other) (inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (checkDurable : Bool)\n  (reader :\n    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192\n      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n  (duplicate :\n    @Eq.{1} Bool\n      (ShielddSecurity.TransferBlstArmPending01.sourceOriginalUniqueLoop\n        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) inputs)\n      Bool.false),\n  @Eq.{1}\n    (Except.{0, 0} Unit\n      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))\n    (@ShielddSecurity.TransferBlstArmPending01.sourceOriginalStage Other\n      (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)\n        (@Sum.inr.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other other))\n      inputs checkDurable reader)\n    (@Except.ok.{0, 0} Unit\n      (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))\n      (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n        (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)\n        ShielddSecurity.TransferNullifierBatchSource01.BatchError.duplicate))",
+      "full_type_sha256": "45802c31f78130d11027869645ed0dfab1e3c15d762e7dc48747a1a80e77b38c",
+      "name": "ShielddSecurity.TransferBlstArmPending01.original_duplicate_refusal_precedes_wrong_type_object_and_reader"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains : (pending :\n    ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) \u2192\n  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192 Bool",
+      "full_type_sha256": "d9ed2dc97f480f49c1e2f8565ad8394ee04aa4338832c29029f9d20a39fe08ee",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys : (pending :\n    ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) \u2192\n  List.{0} Nat",
+      "full_type_sha256": "210b6ad2a35b629a2264ae754da9fa2873306f946b40be5a40ae05b163aee01e",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.original_sdk_word_equality_is_exact_canonical_source_key_equality : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  Iff\n    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))",
+      "full_type_sha256": "864b9937d6959b7c9bc764359a3dbd8c1e9e23097f00ed5ce5ba1145c7d436df",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.original_sdk_word_equality_is_exact_canonical_source_key_equality"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.original_open_or_sealed_pending_contains_is_exact_original_key_membership : \u2200\n  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)\n  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains pending field)\n    (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)\n      (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys pending)\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))",
+      "full_type_sha256": "a4ae081fa6018f7cc73e9f4eb45639a419538f2d8f46a52d234c4918b5578fca",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.original_open_or_sealed_pending_contains_is_exact_original_key_membership"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceLookupFields : (lookup : Nat \u2192 Option.{0} Bool) \u2192\n  List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192 Option.{0} (List.{0} Bool)",
+      "full_type_sha256": "e164b30f098e7276f3c26e216a3609732554007d2c1167a1da5055e5edf35870",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceLookupFields"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_reader_map_is_exact_original_key_lookup_walk : \u2200\n  (lookup : Nat \u2192 Option.{0} Bool) (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} (Option.{0} (List.{0} Bool))\n    (ShielddSecurity.TransferBlstArmNullifierReader01.sourceLookupFields lookup fields)\n    (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup\n      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat\n        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))\n        fields))",
+      "full_type_sha256": "e9e1c00ea75b61d42b5bb572046f4b11324605d93a46686fc526a141482b0771",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_reader_map_is_exact_original_key_lookup_walk"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceJoinFields : (pending :\n    ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) \u2192\n  List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar \u2192 List.{0} Bool \u2192 List.{0} Bool",
+      "full_type_sha256": "2cf9498aed2b1688d5a608bd6c7418712adcb9d439b811996db488f081fcbf33",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceJoinFields"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_in_place_zip_is_exact_original_key_pending_join : \u2200\n  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)\n  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (flags : List.{0} Bool),\n  @Eq.{1} (List.{0} Bool) (ShielddSecurity.TransferBlstArmNullifierReader01.sourceJoinFields pending fields flags)\n    (ShielddSecurity.TransferNullifierReaderVector01.joinPending\n      (fun (key : Nat) =>\n        @List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)\n          (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys pending) key)\n      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat\n        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))\n        fields)\n      flags)",
+      "full_type_sha256": "deb65890c2244beed0d20ce352be0bff01699a9fba90c104c6cba8b55330e79a",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_in_place_zip_is_exact_original_key_pending_join"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields : (available : Bool) \u2192\n  (lookup : Nat \u2192 Option.{0} Bool) \u2192\n    (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) \u2192\n      (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192 Option.{0} (List.{0} Bool)",
+      "full_type_sha256": "357d41a00ebb8b96c954fbf9fdee9e97a03ee59f198f855afe9e26f256e4f388",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_contains_is_exact_original_key_reader_and_pending_join : \u2200\n  (available : Bool) (lookup : Nat \u2192 Option.{0} Bool)\n  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)\n  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} (Option.{0} (List.{0} Bool))\n    (ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields available lookup pending fields)\n    (ShielddSecurity.TransferNullifierReaderVector01.contains available lookup\n      (fun (key : Nat) =>\n        @List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)\n          (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys pending) key)\n      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat\n        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))\n        fields))",
+      "full_type_sha256": "07d34afba3f41bc5a1e19ef0e218f1f6f5f31e304b1cb5f8f6160180354d41d9",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_contains_is_exact_original_key_reader_and_pending_join"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceReaderCheck : (available : Bool) \u2192\n  (lookup : Nat \u2192 Option.{0} Bool) \u2192\n    (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) \u2192\n      (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n        Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit",
+      "full_type_sha256": "994d82693e3ce409c308f4e9b383257537f5daedb6d9f4e62f2bbd6d6813fbe0",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.sourceReaderCheck"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmNullifierReader01.returned_original_reader_check_derives_full_vector_and_every_original_input_unspent : \u2200\n  (available : Bool) (lookup : Nat \u2192 Option.{0} Bool)\n  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)\n  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (returned :\n    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)\n      (ShielddSecurity.TransferBlstArmNullifierReader01.sourceReaderCheck available lookup pending fields)\n      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)),\n  And (@Eq.{1} Bool available Bool.true)\n    (@Exists.{1} (List.{0} Bool) fun (flags : List.{0} Bool) =>\n      And\n        (@Eq.{1} (Option.{0} (List.{0} Bool))\n          (ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields available lookup pending fields)\n          (@Option.some.{0} (List.{0} Bool) flags))\n        (And\n          (@Eq.{1} Nat (@List.length.{0} Bool flags)\n            (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields))\n          (\u2200 (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n            @Membership.mem.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar\n                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                (@List.instMembership.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) fields\n                field \u2192\n              And\n                (@Eq.{1} (Option.{0} Bool)\n                  (lookup\n                    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n                      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))\n                  (@Option.some.{0} Bool Bool.false))\n                (@Eq.{1} Bool (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains pending field)\n                  Bool.false))))",
+      "full_type_sha256": "df59f0f02ea190e1dbc3361b952bf30a1a254d24d7835a02d701d1ebc5505934",
+      "name": "ShielddSecurity.TransferBlstArmNullifierReader01.returned_original_reader_check_derives_full_vector_and_every_original_input_unspent"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmStageReader01.sourceReaderFromPrevious : {Other : Type} \u2192\n  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) \u2192\n    (available : Bool) \u2192\n      (lookup : Nat \u2192 Option.{0} Bool) \u2192\n        (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n          Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit",
+      "full_type_sha256": "870dd2fcbd87e479e7d5aca94769e29322eb7bcc88103b5961db9995f3554d36",
+      "name": "ShielddSecurity.TransferBlstArmStageReader01.sourceReaderFromPrevious"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmStageReader01.sourceStageWithRequiredReader : {Other : Type} \u2192\n  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) \u2192\n    (available : Bool) \u2192\n      (lookup : Nat \u2192 Option.{0} Bool) \u2192\n        (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n          Except.{0, 0} Unit\n            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))",
+      "full_type_sha256": "28643628ea8a4e91884864aed920c0300837fdaf0c016406628b15c98e32fe67",
+      "name": "ShielddSecurity.TransferBlstArmStageReader01.sourceStageWithRequiredReader"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.TransferBlstArmStageReader01.returned_entire_original_stage_derives_captured_reader_all_input_observations_and_exact_append : \u2200\n  {Other : Type} (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))\n  (available : Bool) (lookup : Nat \u2192 Option.{0} Bool)\n  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)\n  (returned :\n    @Eq.{1}\n      (Except.{0, 0} Unit\n        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))\n      (@ShielddSecurity.TransferBlstArmStageReader01.sourceStageWithRequiredReader Other previous available lookup\n        fields)\n      (@Except.ok.{0, 0} Unit\n        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))\n        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError\n          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object))),\n  And\n    (@Eq.{1} Bool\n      (ShielddSecurity.TransferBlstArmPending01.sourceOriginalUniqueLoop\n        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) fields)\n      Bool.true)\n    (And (@Eq.{1} Bool available Bool.true)\n      (@Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n        fun (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n        @Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n          fun (members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n          And\n            (Or\n              (And\n                (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous\n                  (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))\n                (And\n                  (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) ordered\n                    (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))\n                  (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) members\n                    (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))))\n              (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous\n                (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)\n                  (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other\n                    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))))\n            (And\n              (@LE.le.{0} Nat instLENat\n                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                  (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)\n                  (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields))\n                ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)\n              (And\n                (@Eq.{1} Bool\n                  (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields\n                    fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>\n                    Bool.not (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members field))\n                  Bool.true)\n                (And\n                  (@Exists.{1} (List.{0} Bool) fun (flags : List.{0} Bool) =>\n                    And\n                      (@Eq.{1} (Option.{0} (List.{0} Bool))\n                        (ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields available lookup\n                          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)\n                          fields)\n                        (@Option.some.{0} (List.{0} Bool) flags))\n                      (@Eq.{1} Nat (@List.length.{0} Bool flags)\n                        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields)))\n                  (And\n                    (\u2200 (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n                      @Membership.mem.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar\n                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                          (@List.instMembership.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                          fields field \u2192\n                        And\n                          (@Eq.{1} (Option.{0} Bool)\n                            (lookup\n                              (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey\n                                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))\n                            (@Option.some.{0} Bool Bool.false))\n                          (@Eq.{1} Bool (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members field)\n                            Bool.false))\n                    (@Eq.{1} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object\n                      (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other\n                        (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened\n                          (@HAppend.hAppend.{0, 0, 0}\n                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                            (@instHAppendOfAppend.{0}\n                              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                              (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))\n                            ordered fields)\n                          (@HAppend.hAppend.{0, 0, 0}\n                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                            (@instHAppendOfAppend.{0}\n                              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n                              (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))\n                            members fields))))))))))",
+      "full_type_sha256": "04007ad62c26001c8185b413d6413a2b191e9ef6b753838dc5c49b927677c926",
+      "name": "ShielddSecurity.TransferBlstArmStageReader01.returned_entire_original_stage_derives_captured_reader_all_input_observations_and_exact_append"
+    }
+  ],
+  "dependency_sources_verified": 270,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 151341,
+    "sha256": "55222a10552728b82df843a6b49972214045474150576dfe8fed809b7f799ac6"
+  },
+  "modules": {
+    "TransferBlstArmNullifierReader01": {
+      "objects": [
+        {
+          "bytes": 241080,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-nullifier-reader-20261013-03\\project\\ShielddSecurity\\TransferBlstArmNullifierReader01.olean",
+          "sha256": "86e85dedeb33259dd6151e1ac3d0b91ec47503dc50dbb3007d6f215d43cf108c"
+        }
+      ],
+      "peak_rss_bytes": 1403838464,
+      "plan_identity": {
+        "bytes": 4672462,
+        "sha256": "a7eddba7b7f902399e96231a901986855f738dd8ba13c97d3a560977b664d924"
+      },
+      "report": {
+        "bytes": 9906,
+        "path": "receipts/TransferBlstArmNullifierReader01.full-types-and-axioms.txt",
+        "sha256": "8c68a2d72153dfdbf1fb9251a5b01b14e0d58ddde4065967bae87974d007a929"
+      },
+      "reports": 12,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact typed SCT reader/pending map and zip derive original-key behavior. Fresh explicit mapped-membership type annotation; returned check derives actual availability, full vector and every original input unspent. All native/authentication/private/collection/async/compiler interfaces retained.",
+      "seconds": 19.58019649994094,
+      "source": {
+        "bytes": 10045,
+        "sha256": "79ab36330b94621ce43c99ac0a3469d35733323c9a45e782827b615c84f7c666"
+      },
+      "source_closure_bound": 257
+    },
+    "TransferBlstArmPending01": {
+      "objects": [
+        {
+          "bytes": 176672,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-pending-20261013-02\\project\\ShielddSecurity\\TransferBlstArmPending01.olean",
+          "sha256": "e16e562f17883b47eaa9d34d349688196d5d421249ef92c443e7a974ecb78a83"
+        }
+      ],
+      "peak_rss_bytes": 1398599680,
+      "plan_identity": {
+        "bytes": 4594423,
+        "sha256": "a8e5d893cf49cb562918960ea973161c4a0bbe0886a222b0ecef9f05b38b623c"
+      },
+      "report": {
+        "bytes": 14456,
+        "path": "receipts/TransferBlstArmPending01.full-types-and-axioms.txt",
+        "sha256": "c8716d998a2f4cdfc6ab2f2a91c310c658fb51fed1e2c0ed998abc446c2efc12"
+      },
+      "reports": 9,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact comparator insert loop and typed whole-stage original-field append derive all checks and word retention. Fresh identical-match reflexivity repair; SDK SCT Ord/BLST bridge distinct from concrete collections/Any/Clone/async/compiler execution.",
+      "seconds": 19.14104120002594,
+      "source": {
+        "bytes": 7802,
+        "sha256": "dcd3d29587cd7eb4c70c40b3bb5adea94528504016569521b49b417622d3f8d6"
+      },
+      "source_closure_bound": 256
+    },
+    "TransferBlstArmStage01": {
+      "objects": [
+        {
+          "bytes": 92944,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-stage-20261013-02\\project\\ShielddSecurity\\TransferBlstArmStage01.olean",
+          "sha256": "d15a5d52788107f96ff2239a3e1e0896459c029a2332773ffb6281baf33046e2"
+        }
+      ],
+      "peak_rss_bytes": 1426407424,
+      "plan_identity": {
+        "bytes": 4521411,
+        "sha256": "6e22ac7f883c79acc6a174191c5e6d2e15dc42a41a8365e8288e94bf84d99c6b"
+      },
+      "report": {
+        "bytes": 9060,
+        "path": "receipts/TransferBlstArmStage01.full-types-and-axioms.txt",
+        "sha256": "9b6417a8a3d44c146b2bf9e9d5a3bfb686936ebd2b477503c2c7357166ff6f84"
+      },
+      "reports": 9,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Original constructor and actual serialized comparator derive original-field admission, uniqueness, capacity and pending freshness. Fresh projection-reduction repair; concrete collections/Any/Clone/async/pointer/ABI/compiler remain separate.",
+      "seconds": 19.235299000050873,
+      "source": {
+        "bytes": 7537,
+        "sha256": "b53413ec06bb23319e04d6faf35c90a2147bbda432ad7aa33b2b2b1d4f8c9687"
+      },
+      "source_closure_bound": 255
+    },
+    "TransferBlstArmStageReader01": {
+      "objects": [
+        {
+          "bytes": 125928,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-stage-reader-20261013-01\\project\\ShielddSecurity\\TransferBlstArmStageReader01.olean",
+          "sha256": "e24bb7ba4ddc70cc7589ff49bbccbaf7543a04117c09e8fab0dacd5f29083934"
+        }
+      ],
+      "peak_rss_bytes": 1396281344,
+      "plan_identity": {
+        "bytes": 4745009,
+        "sha256": "aa56a5094dffb60493999aa4bf542022dde619acb4eb0999ca31032ed4edbdb2"
+      },
+      "report": {
+        "bytes": 8677,
+        "path": "receipts/TransferBlstArmStageReader01.full-types-and-axioms.txt",
+        "sha256": "d6904b34babc0990a4f5c3f96af81f8349a9537f936705bdc5760b1feff744e0"
+      },
+      "reports": 3,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Whole original-field source stage and actual captured prior-object reader compose to derive every admission check, reader availability/full vector/all original-field durable and pending observations and exact original append. Actual async state frame/collections/Any/Clone/private/compiler/authenticated lookup remain explicit.",
+      "seconds": 18.937714600004256,
+      "source": {
+        "bytes": 5104,
+        "sha256": "21e835f74d69be34ee166a4134b1c1f31469fa89400da11c17f065ce13a72431"
+      },
+      "source_closure_bound": 258
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "b6d5d6784ef6357f9bdfc594512e324fcffe7226505ebd6ec200fd5428efee58"
+  },
+  "reports": 33,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Original-field source-model admission, typed pending membership and whole-stage reader composition. Derives duplicate/capacity/freshness checks, reader availability/alignment and exact append. Concrete SDK value origins, authenticated storage, collections/Any/Clone/async execution, inversion and compiler/ABI/ISA remain OPEN.",
+  "status": "passed"
+}
