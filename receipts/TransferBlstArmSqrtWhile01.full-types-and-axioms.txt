@@ -1,0 +1,167 @@
+ShielddSecurity.TransferBlstArmSqrtWhile01.scalarPrimeFact : Fact
+  (Nat.Prime ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmSqrtWhile01.scalarPrimeFact' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.scalarNonzero : @NeZero.{0} Nat
+  (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass) ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferBlstArmSqrtWhile01.scalarNonzero' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmSqrtWhile01.WordState : Type
+'ShielddSecurity.TransferBlstArmSqrtWhile01.WordState' does not depend on any axioms
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordUpdate : (state :
+    ShielddSecurity.TransferBlstArmSqrtWhile01.WordState) →
+  (index : Nat) → ShielddSecurity.TransferBlstArmSqrtWhile01.WordState
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordUpdate' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCheckedRoot : (input candidate :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCheckedRoot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.returned_original_word_final_check_derives_original_input_square : ∀
+  (input candidate returned : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCheckedRoot input candidate)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar returned)),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@instHPow.{0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+        (@Monoid.toPow.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@DivisionSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@Semifield.toDivisionSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@Field.toSemifield.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (@ZMod.instField ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+                    ShielddSecurity.TransferBlstArmSqrtWhile01.scalarPrimeFact)))))))
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words returned))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words input))
+'ShielddSecurity.TransferBlstArmSqrtWhile01.returned_original_word_final_check_derives_original_input_square' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordLoop : (input :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  Nat →
+    ShielddSecurity.TransferBlstArmSqrtWhile01.WordState →
+      Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordLoop' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.returned_original_word_loop_derives_original_input_square : ∀
+  (input returned : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (fuel : Nat)
+  (state : ShielddSecurity.TransferBlstArmSqrtWhile01.WordState)
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordLoop input fuel state)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar returned)),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@instHPow.{0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+        (@Monoid.toPow.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@DivisionSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@Semifield.toDivisionSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@Field.toSemifield.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (@ZMod.instField ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+                    ShielddSecurity.TransferBlstArmSqrtWhile01.scalarPrimeFact)))))))
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words returned))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words input))
+'ShielddSecurity.TransferBlstArmSqrtWhile01.returned_original_word_loop_derives_original_input_square' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordWhile : (input :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (state : ShielddSecurity.TransferBlstArmSqrtWhile01.WordState) →
+    Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordWhile' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.original_bounded_word_loop_agrees_with_actual_decreasing_word_while : ∀
+  (input : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (fuel : Nat)
+  (state : ShielddSecurity.TransferBlstArmSqrtWhile01.WordState)
+  (positive :
+    @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@Prod.snd.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (@Prod.snd.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+          (Prod.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat)
+          (@Prod.snd.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+            (Prod.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+              (Prod.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat))
+            state))))
+  (bounded :
+    @LE.le.{0} Nat instLENat
+      (@Prod.snd.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (@Prod.snd.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+          (Prod.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat)
+          (@Prod.snd.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+            (Prod.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+              (Prod.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat))
+            state)))
+      fuel),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    (ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordLoop input fuel state)
+    (ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordWhile input state)
+'ShielddSecurity.TransferBlstArmSqrtWhile01.original_bounded_word_loop_agrees_with_actual_decreasing_word_while' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCallerRoot : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCallerRoot' does not depend on any axioms
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCallerZero : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCallerZero' does not depend on any axioms
+ShielddSecurity.TransferBlstArmSqrtWhile01.original_caller_zero_has_the_exact_zero_field_meaning : @Eq.{1}
+  (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+      ShielddSecurity.TransferBlstArmSqrtWhile01.sourceCallerZero))
+  (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) (nat_lit 0)
+    (@Zero.toOfNat0.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@MulZeroClass.toZero.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@instMulZeroClassOfSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@DivisionSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Semifield.toDivisionSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@Field.toSemifield.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@ZMod.instField ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+                  ShielddSecurity.TransferBlstArmSqrtWhile01.scalarPrimeFact))))))))
+'ShielddSecurity.TransferBlstArmSqrtWhile01.original_caller_zero_has_the_exact_zero_field_meaning' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordInitial : (input :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (actualInverse : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    ShielddSecurity.TransferBlstArmSqrtWhile01.WordState
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordInitial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordSqrt : (input :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (actualInverse : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordSqrt' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmSqrtWhile01.returned_complete_original_word_source_sqrt_derives_original_input_square_without_inverse_correctness : ∀
+  (input returned : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (actualInverse : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (success :
+    @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+      (ShielddSecurity.TransferBlstArmSqrtWhile01.sourceWordSqrt input actualInverse)
+      (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar returned)),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HPow.hPow.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@instHPow.{0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) Nat
+        (@Monoid.toPow.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Semiring.toMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@DivisionSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@Semifield.toDivisionSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@Field.toSemifield.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (@ZMod.instField ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+                    ShielddSecurity.TransferBlstArmSqrtWhile01.scalarPrimeFact)))))))
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words returned))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words input))
+'ShielddSecurity.TransferBlstArmSqrtWhile01.returned_complete_original_word_source_sqrt_derives_original_input_square_without_inverse_correctness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
