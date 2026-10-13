@@ -186,3 +186,7 @@ The [UInt32 sqrt search counter](native-sqrt/word-counter/README.md) adds eight 
 The [exact inverse-factor recurrence](native-sqrt/inverse-factors/README.md) adds eight audited declarations with 283 authenticated dependencies. Arbitrary-count scaled matrix tracking is proved in the signed integer model; approximate batch, register-bound, termination and native obligations remain OPEN.
 
 The [retained randomized authorization key](authorization-randomized-key/README.md) adds ten exact assertions through 207 audited declarations across 80 modules. Union12913/22816, remaining9903, on the SAME assignment. Captured generator SDK identity, remaining semantic families and full endpoints remain OPEN.
+
+## Exact inverse coefficient bounds — 13 October 2026
+
+`native-sqrt/inverse-bounds` reconciles desktop packet `03b0164ed54d1ccf6a4c1bbe3d9eb7a96d07a129`: five complete type/axiom audits, 284 dependency sources, exact runtime files and inherited locked BLST identities. Initialized factor walks derive their coefficient bounds, including signed64 range through 47 iterations. Approximate batches, word interpretation, inverse termination and actual native correspondence remain open. All full endpoints remain OPEN; retained constructor coverage stays 12,913/22,816.
