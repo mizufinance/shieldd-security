@@ -190,3 +190,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## Exact inverse coefficient bounds — 13 October 2026
 
 `native-sqrt/inverse-bounds` reconciles desktop packet `03b0164ed54d1ccf6a4c1bbe3d9eb7a96d07a129`: five complete type/axiom audits, 284 dependency sources, exact runtime files and inherited locked BLST identities. Initialized factor walks derive their coefficient bounds, including signed64 range through 47 iterations. Approximate batches, word interpretation, inverse termination and actual native correspondence remain open. All full endpoints remain OPEN; retained constructor coverage stays 12,913/22,816.
+
+## Inverse signed correction — 13 October 2026
+
+`native-sqrt/inverse-correction` reconciles desktop packet `6d0d33d0129edb79f9ec2e02f23df8342f639046`: ten full type/axiom audits and 285 dependency sources. Exact correction constants and the two source-model adjustments derive unsigned wide range and preserve residue under an explicit signed512 input bound. Runtime and locked inverse source identities are independently matched. Input-bound production and actual native correspondence remain open; retained assertion coverage is unchanged at 12,913/22,816.
