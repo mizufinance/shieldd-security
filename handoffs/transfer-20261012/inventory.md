@@ -114,3 +114,5 @@ This is an inventory and plan checkpoint. It adds no proof, runtime execution, r
 The [strict-gap join](shared-strict-gap/README.md) adds eight audits across three modules and derives assertion1467 on the same assignment, retaining all previous guarantees. The [full encoder bytes](native-sqrt/full-byte/README.md) add six audits deriving all32 bytes; packed-limb normalization and native correspondence remain open.
 
 The [shared canonicality join](shared-canonicality/README.md) adds seven audits across two modules. Six original canonicality assertions now follow from independent semantic bounds and the exact derived bit windows; all previous same-assignment guarantees are retained.
+
+The [user word seed](shared-user-word-seed/README.md) adds thirteen audits and independently derives four sender/receiver lifecycle/position values and bounds. The updated assignment retains the10921-position union;remaining distinct smaller values are now **26**, with **11895** assertion/link positions remaining. Historical counts above describe their respective stages.
