@@ -1,0 +1,162 @@
+{
+  "certification": false,
+  "circuit_soundness": "OPEN",
+  "conditional_assertion_coverage": {
+    "canonicality_positions": [],
+    "new_positions": [],
+    "previous_union": 10921,
+    "remaining": 11895,
+    "remaining_smaller_word_values": 26,
+    "scope": "ONE assignment under independently legal TransferSem plus the still-unproved remaining smaller word bounds. Exact union; neither total construction nor certification.",
+    "total": 22816,
+    "union": 10921
+  },
+  "full_transfer": "OPEN",
+  "full_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.UserWordSeed342.values : List.{0} Nat",
+      "full_type_sha256": "93b6509c825f6dcafacdb48f79be72bbe33cdfd8771069e100ac1712e4d95f38",
+      "name": "ShielddSecurity.UserWordSeed342.values"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.UserWordSeed342.value : (w : ShielddSecurity.TransferSem.Witness) \u2192 (column : Nat) \u2192 Nat",
+      "full_type_sha256": "bc6f02a5b6b448fd3a2f37dc437ea89f39b4dbdc66034b5b8a4bf6fdc5926235",
+      "name": "ShielddSecurity.UserWordSeed342.value"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.UserWordSeed342.width : (column : Nat) \u2192 Nat",
+      "full_type_sha256": "2887e5e972f8dc3fd940082010a49ec53688f568468a0bf1e1b78aa872b815c9",
+      "name": "ShielddSecurity.UserWordSeed342.width"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.seed : (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (w : ShielddSecurity.TransferSem.Witness) \u2192 (column : Nat) \u2192 ShielddSecurity.ConcreteJubjubField01.F",
+      "full_type_sha256": "45d4b92e4eb03cd56d3625920395a193aa1ae4fa7d7d567a757270bb624fbb9b",
+      "name": "ShielddSecurity.UserWordSeed342.seed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.seed_value : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n      column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.UserWordSeed342.seed original w column)\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.UserWordSeed342.value w column))",
+      "full_type_sha256": "40a03a821ce320e67e0a38c3bebcb2dfb1b357582f321d3bd20f9ad54921174d",
+      "name": "ShielddSecurity.UserWordSeed342.seed_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.seed_outside : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (outside :\n    Not\n      (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n        column)),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.UserWordSeed342.seed original w column)\n    (original column)",
+      "full_type_sha256": "32d0921b542cab4beed41fe74dc7c13531c04a6706960e2383be8539d49d3672",
+      "name": "ShielddSecurity.UserWordSeed342.seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.value_bound : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n      column),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.UserWordSeed342.value w column)\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (ShielddSecurity.UserWordSeed342.width column))",
+      "full_type_sha256": "7eabf644b81d2b31dd6948f0ebb37786e27ca4d4dc5b623a213d77f00fc72c95",
+      "name": "ShielddSecurity.UserWordSeed342.value_bound"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.width_below_field : \u2200 (column : Nat),\n  @LT.lt.{0} Nat instLTNat\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (ShielddSecurity.UserWordSeed342.width column))\n    ShielddSecurity.TransferCore.fieldModulus",
+      "full_type_sha256": "fd22988b2df80482e93e031d4670d263978eb62eb6e58316901086e8b480cf23",
+      "name": "ShielddSecurity.UserWordSeed342.width_below_field"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.widths_checked : @Eq.{1} Bool\n  (@List.all.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat) ShielddSecurity.CapturedWordRoot213.words\n    fun (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat) =>\n    @Decidable.decide\n      (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n          (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)) \u2192\n        @Eq.{1} Nat\n          (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n          (ShielddSecurity.UserWordSeed342.width\n            (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))))\n      (@forall_prop_decidable\n        (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n          (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n        (fun\n            (a :\n              @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n                ShielddSecurity.UserWordSeed342.values\n                (ShielddSecurity.WordHints210.Slot.value\n                  (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) =>\n          @Eq.{1} Nat\n            (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n            (ShielddSecurity.UserWordSeed342.width\n              (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))))\n        (@List.instDecidableMemOfLawfulBEq.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat) Nat.instLawfulBEq\n          (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n          ShielddSecurity.UserWordSeed342.values)\n        fun\n          (h :\n            @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n              ShielddSecurity.UserWordSeed342.values\n              (ShielddSecurity.WordHints210.Slot.value\n                (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) =>\n        instDecidableEqNat\n          (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n          (ShielddSecurity.UserWordSeed342.width\n            (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))))\n  Bool.true",
+      "full_type_sha256": "5cb4319ff961e410cdf03f49c29fa607e2adce326549fb66211ee52ebd63be8b",
+      "name": "ShielddSecurity.UserWordSeed342.widths_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.word_width : \u2200 (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n  (member :\n    @Membership.mem.{0, 0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n      (List.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      (@List.instMembership.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      ShielddSecurity.CapturedWordRoot213.words entry)\n  (user :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))),\n  @Eq.{1} Nat (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n    (ShielddSecurity.UserWordSeed342.width\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))",
+      "full_type_sha256": "ce30c7eb9af6722c772e6e19b4dd7c7952f9c09c0d1157fa672fb7c99483458e",
+      "name": "ShielddSecurity.UserWordSeed342.word_width"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.combined_value : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n      column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.HeaderRegistrySeed299.combined\n      (ShielddSecurity.RegistryComparisonSeed318.seed\n        (ShielddSecurity.HighZeroSeed329.seed (ShielddSecurity.UserWordSeed342.seed original w) w) w)\n      c w column)\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.UserWordSeed342.value w column))",
+      "full_type_sha256": "0f368a8e30c1986324c441de3adf12fd609567799753464ba310b3a92081766f",
+      "name": "ShielddSecurity.UserWordSeed342.combined_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordSeed342.natural_bound : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n  (member :\n    @Membership.mem.{0, 0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n      (List.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      (@List.instMembership.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      ShielddSecurity.CapturedWordRoot213.words entry)\n  (user :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.UserWordSeed342.values\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))),\n  @LT.lt.{0} Nat instLTNat\n    (ShielddSecurity.WordNaturalSeed297.numbers\n      (ShielddSecurity.HeaderRegistrySeed299.combined\n        (ShielddSecurity.RegistryComparisonSeed318.seed\n          (ShielddSecurity.HighZeroSeed329.seed (ShielddSecurity.UserWordSeed342.seed original w) w) w)\n        c w)\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n      (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))",
+      "full_type_sha256": "2c564540bdf3c68ac564841feae3579c00d532eb37125248b1857bcb581cb23f",
+      "name": "ShielddSecurity.UserWordSeed342.natural_bound"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.UserWordConstruction343.legal_completed : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (remaining :\n    \u2200 (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat),\n      @Membership.mem.{0, 0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n          (List.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n          (@List.instMembership.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n          ShielddSecurity.CapturedWordRoot213.words entry \u2192\n        Not\n            (ShielddSecurity.LegalWordNormalization272.Alias\n              (ShielddSecurity.WordHints210.Slot.value\n                (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) \u2192\n          @LT.lt.{0} Nat instLTNat\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (@OfNat.ofNat.{0} Nat (nat_lit 255) (instOfNatNat (nat_lit 255))) \u2192\n            Not\n                (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n                  ShielddSecurity.HeaderSharedConstruction300.knownValues\n                  (ShielddSecurity.WordHints210.Slot.value\n                    (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) \u2192\n              Not\n                  (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n                    ShielddSecurity.RegistryComparisonSeed318.comparisonValues\n                    (ShielddSecurity.WordHints210.Slot.value\n                      (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) \u2192\n                Not\n                    (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n                      ShielddSecurity.UserWordSeed342.values\n                      (ShielddSecurity.WordHints210.Slot.value\n                        (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) \u2192\n                  @LT.lt.{0} Nat instLTNat\n                    (ShielddSecurity.WordNaturalSeed297.numbers\n                      (ShielddSecurity.HeaderRegistrySeed299.combined\n                        (ShielddSecurity.RegistryComparisonSeed318.seed\n                          (ShielddSecurity.HighZeroSeed329.seed (ShielddSecurity.UserWordSeed342.seed original w) w) w)\n                        c w)\n                      (ShielddSecurity.WordHints210.Slot.value\n                        (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                      (ShielddSecurity.WordHints210.Slot.width\n                        (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))),\n  @Exists.{1}\n    (Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n    fun\n      (initial :\n        Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n          ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n    And\n      (@ShielddSecurity.LegalSharedRows271.Rows ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (ShielddSecurity.HighZeroCompletionFrame332.assignment (ShielddSecurity.UserWordSeed342.seed original w) c w\n          initial))\n      (And\n        (@ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n          (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n          (ShielddSecurity.HighZeroCompletionFrame332.assignment (ShielddSecurity.UserWordSeed342.seed original w) c w\n            initial)\n          (fun (index : Nat) =>\n            ShielddSecurity.CapturedFullRelation58.rowAt\n              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954))) index))\n          (@OfNat.ofNat.{0} Nat (nat_lit 165) (instOfNatNat (nat_lit 165))))\n        (And\n          (ShielddSecurity.ComparisonConstruction328.Rows\n            (ShielddSecurity.HighZeroCompletionFrame332.assignment (ShielddSecurity.UserWordSeed342.seed original w) c w\n              initial))\n          (And\n            (ShielddSecurity.HighZeroConstruction334.Rows\n              (ShielddSecurity.HighZeroCompletionFrame332.assignment (ShielddSecurity.UserWordSeed342.seed original w) c\n                w initial))\n            (And\n              (@ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n                (ShielddSecurity.HighZeroCompletionFrame332.assignment (ShielddSecurity.UserWordSeed342.seed original w)\n                  c w initial)\n                (fun (index : Nat) =>\n                  ShielddSecurity.CapturedFullRelation58.rowAt\n                    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                      (@OfNat.ofNat.{0} Nat (nat_lit 179421) (instOfNatNat (nat_lit 179421))) index))\n                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n              (And\n                (ShielddSecurity.SharedCanonicalRows340.Rows\n                  (ShielddSecurity.HighZeroCompletionFrame332.assignment\n                    (ShielddSecurity.UserWordSeed342.seed original w) c w initial))\n                (And\n                  (@Eq.{1} Nat\n                    (@ShielddSecurity.PoseidonNatural192.CanonicalRepresentation.value\n                      ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n                      ShielddSecurity.ConcreteRegistrySharedEncoding294.representation\n                      (ShielddSecurity.HighZeroCompletionFrame332.assignment\n                        (ShielddSecurity.UserWordSeed342.seed original w) c w initial\n                        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))\n                    (ShielddSecurity.TransferSem.Crypto.hash\n                      (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c)\n                      ShielddSecurity.TransferSem.Domain.transferStatement\n                      (ShielddSecurity.TransferSem.publicFields\n                        (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)))\n                  (@Eq.{1} Nat\n                    (@ShielddSecurity.PoseidonNatural192.CanonicalRepresentation.value\n                      ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n                      ShielddSecurity.ConcreteRegistrySharedEncoding294.representation\n                      (ShielddSecurity.HighZeroCompletionFrame332.assignment\n                        (ShielddSecurity.UserWordSeed342.seed original w) c w initial\n                        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))\n                    (ShielddSecurity.TransferSem.Witness.blinding w))))))))",
+      "full_type_sha256": "adf523e8a486cd561aa232b909dcf72742ad05f29322e81ac6a246fef9953adf",
+      "name": "ShielddSecurity.UserWordConstruction343.legal_completed"
+    }
+  ],
+  "mathlib": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "modules": {
+    "UserWordConstruction343": {
+      "object_sha256": "46ede7b0c93ada2a76f92b9678d30f6d50a276b5694e88fa313cf63024505b91",
+      "peak_group_rss_bytes": 2719481856,
+      "receipt_sha256": "9133186b73c480023a942e7f4382b46cef785860ba498f485c652c63566caaf0",
+      "reports": 1,
+      "seconds": 2.487756624992471,
+      "selected_custom_modules": 3184,
+      "source_sha256": "845ec4748bc075d0d3a62a5431a1f82ffa206ee0f2d3a5704e298d3e5b2dd1ad",
+      "stdout_sha256": "db2c595524c7c537a6df2cfaa1a277996e58acadbfddba9c69163378f8376ed9"
+    },
+    "UserWordSeed342": {
+      "object_sha256": "ce29b1125ae5e452536e2abd9819373268e04ce89c8b388064b998325ded6a9b",
+      "peak_group_rss_bytes": 2758524928,
+      "receipt_sha256": "a4d0ec71065f9d0b457d58a748f1e328c590c2f290f993cd41cfe37a94ed21b8",
+      "reports": 12,
+      "seconds": 2.7577434580307454,
+      "selected_custom_modules": 3183,
+      "source_sha256": "3376ca697620af67ca45bb826a4237032ba08a7f3aecccaead1d65a9a7236b73",
+      "stdout_sha256": "26e6c6ee4cf29114b6026f4f7fd400ace63079f62de6ebca81285bd0e4a0b440"
+    }
+  },
+  "native_consequence": "OPEN",
+  "native_credit": 0,
+  "refresh_sha256": "7cf6b730e94ecc861ba7bed02bb2cbb001bb7ee09daf0f62191a8a3cae638226",
+  "reports": 13,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Independent UserSem encodes four original sender/receiver lifecycle/position values and derives their131/32-bit bounds. ONE updated assignment retains all previous rows/public/committed guarantees. Remaining smaller word values26, assertionunion10921/rem11895. All3fullTransfer endpointsOPEN.",
+  "status": "passed",
+  "total_legal_input_construction": "OPEN"
+}
