@@ -1,0 +1,72 @@
+import ShielddSecurity.CapturedBooleanRoot209
+import ShielddSecurity.UserSubgroupAvoid353B00
+import ShielddSecurity.UserSubgroupAvoid353B01
+import ShielddSecurity.UserSubgroupAvoid353B02
+import ShielddSecurity.UserSubgroupAvoid353B03
+import ShielddSecurity.UserSubgroupAvoid353B04
+import ShielddSecurity.UserSubgroupAvoid353B05
+import ShielddSecurity.UserSubgroupAvoid353B06
+import ShielddSecurity.UserSubgroupAvoid353B07
+import ShielddSecurity.UserSubgroupAvoid353B08
+import ShielddSecurity.UserSubgroupAvoid353B09
+import ShielddSecurity.UserSubgroupAvoid353B10
+import ShielddSecurity.UserSubgroupAvoid353B11
+import ShielddSecurity.UserSubgroupAvoid353B12
+import ShielddSecurity.UserSubgroupAvoid353B13
+import ShielddSecurity.UserSubgroupAvoid353B14
+import ShielddSecurity.UserSubgroupAvoid353B15
+import ShielddSecurity.UserSubgroupAvoid353B16
+import ShielddSecurity.UserSubgroupAvoid353B17
+import ShielddSecurity.UserSubgroupAvoid353B18
+import ShielddSecurity.UserSubgroupAvoid353B19
+import ShielddSecurity.UserSubgroupAvoid353B20
+import ShielddSecurity.UserSubgroupAvoid353B21
+import ShielddSecurity.UserSubgroupAvoid353B22
+import ShielddSecurity.UserSubgroupAvoid353B23
+import ShielddSecurity.UserSubgroupAvoid353B24
+import ShielddSecurity.UserSubgroupAvoid353B25
+import ShielddSecurity.UserSubgroupAvoid353B26
+import ShielddSecurity.UserSubgroupAvoid353B27
+import ShielddSecurity.UserSubgroupAvoid353B28
+import ShielddSecurity.UserSubgroupAvoid353B29
+import ShielddSecurity.UserSubgroupAvoid353B30
+import ShielddSecurity.UserSubgroupAvoid353B31
+import ShielddSecurity.UserSubgroupAvoid353B32
+import ShielddSecurity.UserSubgroupAvoid353B33
+import ShielddSecurity.UserSubgroupAvoid353B34
+import ShielddSecurity.UserSubgroupAvoid353B35
+import ShielddSecurity.UserSubgroupAvoid353B36
+import ShielddSecurity.UserSubgroupAvoid353B37
+import ShielddSecurity.UserSubgroupAvoid353B38
+import ShielddSecurity.UserSubgroupAvoid353B39
+import ShielddSecurity.UserSubgroupAvoid353B40
+import ShielddSecurity.UserSubgroupAvoid353B41
+import ShielddSecurity.UserSubgroupAvoid353B42
+import ShielddSecurity.UserSubgroupAvoid353B43
+import ShielddSecurity.UserSubgroupAvoid353B44
+import ShielddSecurity.UserSubgroupAvoid353B45
+import ShielddSecurity.UserSubgroupAvoid353B46
+import ShielddSecurity.UserSubgroupAvoid353B47
+import ShielddSecurity.UserSubgroupAvoid353B48
+import ShielddSecurity.UserSubgroupAvoid353B49
+import ShielddSecurity.UserSubgroupAvoid353B50
+import ShielddSecurity.UserSubgroupAvoid353B51
+import ShielddSecurity.UserSubgroupAvoid353B52
+import ShielddSecurity.UserSubgroupAvoid353B53
+import ShielddSecurity.UserSubgroupAvoid353B54
+import ShielddSecurity.UserSubgroupAvoid353B55
+import ShielddSecurity.UserSubgroupAvoid353B56
+import ShielddSecurity.UserSubgroupAvoid353B57
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.UserSubgroupAvoid353
+theorem checked : CapturedBooleanRoot209.slots.all (fun slot => decide (¬ (1504 ≤ slot.2 ∧ slot.2 < 1528) ∧ ¬ (1742 ≤ slot.2 ∧ slot.2 < 1766))) = true := by
+  simp only [CapturedBooleanRoot209.slots, List.all_append, UserSubgroupAvoid353B00.checked, UserSubgroupAvoid353B01.checked, UserSubgroupAvoid353B02.checked, UserSubgroupAvoid353B03.checked, UserSubgroupAvoid353B04.checked, UserSubgroupAvoid353B05.checked, UserSubgroupAvoid353B06.checked, UserSubgroupAvoid353B07.checked, UserSubgroupAvoid353B08.checked, UserSubgroupAvoid353B09.checked, UserSubgroupAvoid353B10.checked, UserSubgroupAvoid353B11.checked, UserSubgroupAvoid353B12.checked, UserSubgroupAvoid353B13.checked, UserSubgroupAvoid353B14.checked, UserSubgroupAvoid353B15.checked, UserSubgroupAvoid353B16.checked, UserSubgroupAvoid353B17.checked, UserSubgroupAvoid353B18.checked, UserSubgroupAvoid353B19.checked, UserSubgroupAvoid353B20.checked, UserSubgroupAvoid353B21.checked, UserSubgroupAvoid353B22.checked, UserSubgroupAvoid353B23.checked, UserSubgroupAvoid353B24.checked, UserSubgroupAvoid353B25.checked, UserSubgroupAvoid353B26.checked, UserSubgroupAvoid353B27.checked, UserSubgroupAvoid353B28.checked, UserSubgroupAvoid353B29.checked, UserSubgroupAvoid353B30.checked, UserSubgroupAvoid353B31.checked, UserSubgroupAvoid353B32.checked, UserSubgroupAvoid353B33.checked, UserSubgroupAvoid353B34.checked, UserSubgroupAvoid353B35.checked, UserSubgroupAvoid353B36.checked, UserSubgroupAvoid353B37.checked, UserSubgroupAvoid353B38.checked, UserSubgroupAvoid353B39.checked, UserSubgroupAvoid353B40.checked, UserSubgroupAvoid353B41.checked, UserSubgroupAvoid353B42.checked, UserSubgroupAvoid353B43.checked, UserSubgroupAvoid353B44.checked, UserSubgroupAvoid353B45.checked, UserSubgroupAvoid353B46.checked, UserSubgroupAvoid353B47.checked, UserSubgroupAvoid353B48.checked, UserSubgroupAvoid353B49.checked, UserSubgroupAvoid353B50.checked, UserSubgroupAvoid353B51.checked, UserSubgroupAvoid353B52.checked, UserSubgroupAvoid353B53.checked, UserSubgroupAvoid353B54.checked, UserSubgroupAvoid353B55.checked, UserSubgroupAvoid353B56.checked, UserSubgroupAvoid353B57.checked, Bool.true_and]
+
+end ShielddSecurity.UserSubgroupAvoid353
+
+set_option pp.all true in
+#check @ShielddSecurity.UserSubgroupAvoid353.checked
+#print axioms ShielddSecurity.UserSubgroupAvoid353.checked
