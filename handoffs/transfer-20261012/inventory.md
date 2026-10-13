@@ -120,3 +120,5 @@ The [shared canonicality join](shared-canonicality/README.md) adds seven audits 
 The [user word seed](shared-user-word-seed/README.md) adds thirteen audits and independently derives four sender/receiver lifecycle/position values and bounds. The updated assignment retains the10921-position union;remaining distinct smaller values are now **26**, with **11895** assertion/link positions remaining. Historical counts above describe their respective stages.
 
 The [shared user lifecycle join](shared-user-lifecycle/README.md) adds54 audits, deriving both67-row gated status/high-bit blocks while preserving prior guarantees. The [whole parser](native-sqrt/whole-parser/README.md) adds21 audits deriving every output limb from the source byte schedule.
+
+The [user point domain](user-point-domain/README.md) adds eleven audits deriving actual-model cofactor preimages and nonzero-x inverse equations for all six independent user points. The [byte roundtrip](native-sqrt/byte-roundtrip/README.md) adds nine audits connecting the LE writer, whole parser and BE writer, retaining Montgomery normalization as an open premise.
