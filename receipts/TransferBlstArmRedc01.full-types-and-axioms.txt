@@ -1,0 +1,123 @@
+ShielddSecurity.TransferBlstArmRedc01.sourceRedcLow : (low :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmRedc01.sourceRedcLow' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.original_redc_low_vector_retains_the_exact_four_round_output : ∀
+  (low : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (List.{0} UInt64)
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (ShielddSecurity.TransferBlstArmRedc01.sourceRedcLow low))
+    (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) low))
+'ShielddSecurity.TransferBlstArmRedc01.original_redc_low_vector_retains_the_exact_four_round_output' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.original_redc_low_half_derives_at_most_the_modulus : ∀
+  (low : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @LE.le.{0} Nat instLENat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferBlstArmRedc01.sourceRedcLow low)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferBlstArmRedc01.original_redc_low_half_derives_at_most_the_modulus' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.original_redc_low_half_derives_the_four_round_weighted_relation : ∀
+  (low : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferBlstArmRedc01.sourceRedcLow low))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) low))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmRedc01.original_redc_low_half_derives_the_four_round_weighted_relation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.original_fifth_borrow_flag_is_exact_overflow_and_low_borrow : ∀
+  (carry borrow : Bool),
+  @Eq.{1} Bool
+    (ShielddSecurity.TransferScalarBorrowWalk01.nextBorrow (UInt64.ofNat (Bool.toNat carry))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) borrow)
+    (Bool.and (Bool.not carry) borrow)
+'ShielddSecurity.TransferBlstArmRedc01.original_fifth_borrow_flag_is_exact_overflow_and_low_borrow' does not depend on any axioms
+ShielddSecurity.TransferBlstArmRedc01.original_four_word_add_and_fifth_borrow_select_derive_exact_normalization : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (bounded :
+    @LT.lt.{0} Nat instLTNat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) left))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) right)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords left right))
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) left))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) right))))
+'ShielddSecurity.TransferBlstArmRedc01.original_four_word_add_and_fifth_borrow_select_derive_exact_normalization' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.sourceRedcWords : (low high :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  List.{0} UInt64
+'ShielddSecurity.TransferBlstArmRedc01.sourceRedcWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.original_redc_all_raw_high_words_derive_exact_normalized_sum : ∀
+  (low high : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmRedc01.sourceRedcWords low high))
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferBlstArmRedc01.sourceRedcLow low)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) high))))
+'ShielddSecurity.TransferBlstArmRedc01.original_redc_all_raw_high_words_derive_exact_normalized_sum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.original_redc_all_raw_high_words_retain_four_output_words : ∀
+  (low high : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmRedc01.sourceRedcWords low high))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmRedc01.original_redc_all_raw_high_words_retain_four_output_words' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmRedc01.original_redc_derives_the_entire_wide_input_weighted_modular_relation : ∀
+  (low high : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmRedc01.sourceRedcWords low high)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) low))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) high))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmRedc01.original_redc_derives_the_entire_wide_input_weighted_modular_relation' depends on axioms: [propext,
+ Quot.sound]
