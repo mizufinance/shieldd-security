@@ -1,0 +1,9 @@
+import ShielddSecurity.AuthorizationWideComposition526C55B0
+import ShielddSecurity.AuthorizationWideComposition526C56B0
+import ShielddSecurity.AuthorizationWideComposition526C56B1
+namespace ShielddSecurity.AuthorizationWideComposition526
+def permutationCount : Nat := 3
+end ShielddSecurity.AuthorizationWideComposition526
+set_option pp.all true in
+#check @ShielddSecurity.AuthorizationWideComposition526.permutationCount
+#print axioms ShielddSecurity.AuthorizationWideComposition526.permutationCount

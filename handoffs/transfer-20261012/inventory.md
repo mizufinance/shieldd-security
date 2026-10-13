@@ -198,3 +198,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## Complete square-root word-state interpretation — 13 October 2026
 
 `native-sqrt/word-state` reconciles desktop packet `67783fdbffd4d3a89e017fe9e4bbc0d902b69b2b`: eight full type/axiom audits and 286 authenticated dependencies. The whole source-model word loop and decreasing while map to the qualified field recurrences, with checked-root and refusal branches. Initialization, inverse correspondence and actual native execution remain open; retained assertion coverage is unchanged.
+
+## Authorization hash connections and incoming-key reduction — 13 October 2026
+
+[Authorization hash connections](authorization-hash-connections/README.md) qualifies 109 modules and 692 complete type/axiom audits from fresh successful replay918. All three exact captured hashes are connected to their domains and inputs; assertion2253 is added by `IncomingConstruction534.legal_completed` on the SAME assignment. Atomic refresh922 reproduces generator outputs and authenticates the full successful receipts. Union12,914/22,816; remaining9,902. Regulated3772, SDK generator identity and full endpoints remain OPEN.
