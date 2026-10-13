@@ -144,3 +144,5 @@ The [shared last-second consumer](shared-last-second/README.md) adds37 audits ac
 The [authorization quotient consumer](shared-authorization-quotient/README.md) adds37 audits acrossfive modules andtwo original assertion positions. The [ARM64 reduction recurrence](native-sqrt/arm-reduction/README.md) adds seven source-model audits deriving zero overflow and all finite-round word equality; native ISA/compiler/caller correspondence remains open.
 
 The [shared IVK canonicality](shared-ivk-canonicality/README.md) adds101 audits across13 modules andtwo original scalar-order comparison assertions. Its captured502-row comparison is split into eight bounded segments.
+
+The [normalized original-value byte chain](native-sqrt/arm-normalized/README.md), [caller allocation/byte bridge](native-sqrt/arm-caller/README.md) and [conditional negation](native-sqrt/arm-cneg/README.md) add13/14/10 independently reconciled source audits. Original private representation, native pointer/register/ABI/compiler and selected-backend obligations remain open; native credit is zero.
