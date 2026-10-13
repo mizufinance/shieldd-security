@@ -1,0 +1,184 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.sourceBlstR0 : UInt64",
+      "full_type_sha256": "772d87ce2d28c7ba909c9bab5368ddfbb75c217281991766e64acef1dd365812",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.sourceBlstR0"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow : UInt64",
+      "full_type_sha256": "8d1f68465760dbd2e800506e6be86961e2c8e7b365c51ae7687561b210b47ecd",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier : (word : UInt64) \u2192 UInt64",
+      "full_type_sha256": "89e0747a8449e386989af56137f30094286021c2f5909e924f1839fdf2a56b8b",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.exact_locked_r0_and_modulus_low_limb_are_the_qualified_parameters : And\n  (@Eq.{1} UInt64 ShielddSecurity.TransferBlstArmCancellation01.sourceBlstR0\n    ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord)\n  (@Eq.{1} UInt64 ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow\n    (@List.headD.{0} UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))",
+      "full_type_sha256": "7cd407ab121c70d15129d67bd1bbf68401ffe336f8c3e7b7034e5cf804df0e15",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.exact_locked_r0_and_modulus_low_limb_are_the_qualified_parameters"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_wrapped_multiplier_has_the_qualified_low_word_value : \u2200\n  (word : UInt64),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))\n    (UInt64.toNat\n      (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64) word\n        ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))",
+      "full_type_sha256": "400a04f3173386787db7a2929c7ee702263537924ae7561c8f398c074c1102a8",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_wrapped_multiplier_has_the_qualified_low_word_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_low_word_sum_has_zero_remainder_from_the_locked_multiplier : \u2200\n  (word : UInt64),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word)\n        (UInt64.toNat\n          (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)\n            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)\n            ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow)))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)\n    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))",
+      "full_type_sha256": "75d175d3712ce3b4f51bcbc1ee6b089b41868ac507d13ea1cf07966b93ed2c5e",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_low_word_sum_has_zero_remainder_from_the_locked_multiplier"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_skipped_low_addition_has_only_the_derived_zero_or_radix_sum : \u2200\n  (word : UInt64),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word)\n      (UInt64.toNat\n        (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)\n          (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)\n          ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow)))\n    (@ite.{1} Nat (@Eq.{1} UInt64 word (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n      (instDecidableEqUInt64 word (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "7b4436abd03a6e479db8298863376564270102306bedf0be4f55d99b825b964d",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_skipped_low_addition_has_only_the_derived_zero_or_radix_sum"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry : (word : UInt64) \u2192 Bool",
+      "full_type_sha256": "98af01af6dffc1be9e91c31ae8c9cd05f4ca22a587e16cc2643a1dfb860e201d",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_subs_one_flag_predicate_is_the_derived_montgomery_low_add_carry : \u2200\n  (word : UInt64),\n  @Eq.{1} Nat (Bool.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry word))\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word)\n        (UInt64.toNat\n          (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)\n            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)\n            ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow)))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "be4297b76bf58fbd87ccce296bb7a8f4d490223850fc75a8670d486c8a88ca9c",
+      "name": "ShielddSecurity.TransferBlstArmCancellation01.actual_arm_subs_one_flag_predicate_is_the_derived_montgomery_low_add_carry"
+    }
+  ],
+  "dependency_sources_verified": 250,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 97386,
+    "sha256": "2d72a37fbded12d966cf2421c990aae3881c892ffe24e80143b5adaeab6903f5"
+  },
+  "modules": {
+    "TransferBlstArmCancellation01": {
+      "object_identity": {
+        "bytes": 105952,
+        "sha256": "aa4ea9f7566a5ef7e539f388ad1d4b829e4c811c47e12203402610a311581065"
+      },
+      "peak_rss_bytes": 821538816,
+      "plan_identity": {
+        "bytes": 3480185,
+        "sha256": "34af4acc2ab0c9c3bde5adb23ffdeb6cf0631a3e18791064a5eec8e623e8ea2b"
+      },
+      "report": {
+        "bytes": 4733,
+        "sha256": "ddcca6adaf768fe1e2db0bfc1c574a5a08b5c95b9f7180a0627629cae35d5cad"
+      },
+      "reports": 9,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Locked ARM64 BLST omitted low-product carry derived from exact r0 and p0 cancellation for everyUInt64 input; arithmetic predicate scope, native ISA/ABI/compiler/private correspondence separate",
+      "seconds": 8.102638699987438,
+      "source": {
+        "bytes": 4484,
+        "sha256": "8c32239035c9e412fe93269846601aed95a4ff83ed23fafda593bfb87cb4c85c"
+      }
+    }
+  },
+  "native_credit": 0,
+  "packet_id": "windows-blst-arm-cancellation-success01",
+  "refresh": {
+    "bytes": 4451,
+    "sha256": "1788734be6e368ede0b7d236fa5c7facd5248c828cf884deed6b41d48da742d2"
+  },
+  "reports": 9,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Only successful maintained source models and full type/axiom audits. Montgomery output normalization, native private representations, compiler/FFI/architecture, whole Transfer and certification remain separate obligations. Hashes establish identity only. No failed histories, logs or compiled caches included.",
+  "source_context": [
+    {
+      "bytes": 6751,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/locked-source-context.json",
+      "sha256": "ea5bfd3c202d60781328b66831e20952ba843cc40d3cf7c663fb4cdcd0685e18"
+    },
+    {
+      "bytes": 8241,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/mach-o/mul_mont_256-armv8.S",
+      "sha256": "768b46ac0b0566888ee8a0933c32158fe5f9d2ea0f4439e8d250ec5c549e6097"
+    },
+    {
+      "bytes": 14350,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulq_mont_256-x86_64.asm",
+      "sha256": "f69661638db7b6f8f1947bc5f077f5b0782bfacf1abda4067318910226bb2c56"
+    },
+    {
+      "bytes": 13703,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulx_mont_256-x86_64.asm",
+      "sha256": "0f67d8c45e7ce7cf7e15af3bcd90a0f0596d6d42e2ec440cd7fc7ab8cfc44903"
+    },
+    {
+      "bytes": 3862,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/bytes.h",
+      "sha256": "ab19306003f4033ed522238580836bc662334df2a9ed56e2f8bfa822e79e1ae9"
+    },
+    {
+      "bytes": 1342,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.c",
+      "sha256": "b5de026855b1f370a26c471abcc4f5a0debb2d195d7661844be6d87159cc0283"
+    },
+    {
+      "bytes": 1152,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.h",
+      "sha256": "e983c6c80045adc46379ff1fd088dbf85e20c4946eb98191835eed91f7598727"
+    },
+    {
+      "bytes": 16631,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/exports.c",
+      "sha256": "aa64e527fe4e3741863f7242232441e1e05d669ecc2da6096ac10e9666681b3f"
+    },
+    {
+      "bytes": 4310,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/fields.h",
+      "sha256": "2151a9b8bf00d5deb6444bbbfc836f9e6bab24a1e147131a028d155dbfa5a809"
+    },
+    {
+      "bytes": 36773,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/no_asm.h",
+      "sha256": "35bda15509ff6fea022a40249e732bc00b0ecc037c11f17b262aa822acca0253"
+    },
+    {
+      "bytes": 4865,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.c",
+      "sha256": "b8f189510e4795aa5a2d827ca8347a672cc36b7a9d5ab36457a3c3823916090a"
+    },
+    {
+      "bytes": 13749,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.h",
+      "sha256": "7aaeb0246108beabf3d315f435b0af08a62c6fce6c725ef70b060f9b70fe70e6"
+    },
+    {
+      "bytes": 8943,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/build.rs",
+      "sha256": "3b0a6eea2bf5c4d0c327fbe48f81b900e6896bdf92d4cfafcc1010d999b0fea7"
+    },
+    {
+      "bytes": 37392,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/src/bindings.rs",
+      "sha256": "8b0c44ba87b3493fb47f8aeacafa0d5aa278a2a8b5932a735f2d5cbc888bc386"
+    }
+  ],
+  "status": "passed"
+}
