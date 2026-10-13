@@ -1,0 +1,131 @@
+ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains : (pending :
+    ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) →
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) → Bool
+'ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys : (pending :
+    ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) →
+  List.{0} Nat
+'ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.original_sdk_word_equality_is_exact_canonical_source_key_equality : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+'ShielddSecurity.TransferBlstArmNullifierReader01.original_sdk_word_equality_is_exact_canonical_source_key_equality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.original_open_or_sealed_pending_contains_is_exact_original_key_membership : ∀
+  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains pending field)
+    (@List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+      (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys pending)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))
+'ShielddSecurity.TransferBlstArmNullifierReader01.original_open_or_sealed_pending_contains_is_exact_original_key_membership' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.sourceLookupFields : (lookup : Nat → Option.{0} Bool) →
+  List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar → Option.{0} (List.{0} Bool)
+'ShielddSecurity.TransferBlstArmNullifierReader01.sourceLookupFields' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_reader_map_is_exact_original_key_lookup_walk : ∀
+  (lookup : Nat → Option.{0} Bool) (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Option.{0} (List.{0} Bool))
+    (ShielddSecurity.TransferBlstArmNullifierReader01.sourceLookupFields lookup fields)
+    (ShielddSecurity.TransferNullifierReaderVector01.lookupAll lookup
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+        fields))
+'ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_reader_map_is_exact_original_key_lookup_walk' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.sourceJoinFields : (pending :
+    ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) →
+  List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar → List.{0} Bool → List.{0} Bool
+'ShielddSecurity.TransferBlstArmNullifierReader01.sourceJoinFields' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_in_place_zip_is_exact_original_key_pending_join : ∀
+  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (flags : List.{0} Bool),
+  @Eq.{1} (List.{0} Bool) (ShielddSecurity.TransferBlstArmNullifierReader01.sourceJoinFields pending fields flags)
+    (ShielddSecurity.TransferNullifierReaderVector01.joinPending
+      (fun (key : Nat) =>
+        @List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+          (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys pending) key)
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+        fields)
+      flags)
+'ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_in_place_zip_is_exact_original_key_pending_join' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields : (available : Bool) →
+  (lookup : Nat → Option.{0} Bool) →
+    (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) →
+      (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) → Option.{0} (List.{0} Bool)
+'ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_contains_is_exact_original_key_reader_and_pending_join : ∀
+  (available : Bool) (lookup : Nat → Option.{0} Bool)
+  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Option.{0} (List.{0} Bool))
+    (ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields available lookup pending fields)
+    (ShielddSecurity.TransferNullifierReaderVector01.contains available lookup
+      (fun (key : Nat) =>
+        @List.contains.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+          (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingKeys pending) key)
+      (@List.map.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar Nat
+        (fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+        fields))
+'ShielddSecurity.TransferBlstArmNullifierReader01.actual_typed_contains_is_exact_original_key_reader_and_pending_join' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.sourceReaderCheck : (available : Bool) →
+  (lookup : Nat → Option.{0} Bool) →
+    (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending) →
+      (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+        Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit
+'ShielddSecurity.TransferBlstArmNullifierReader01.sourceReaderCheck' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmNullifierReader01.returned_original_reader_check_derives_full_vector_and_every_original_input_unspent : ∀
+  (available : Bool) (lookup : Nat → Option.{0} Bool)
+  (pending : ShielddSecurity.TransferCanonicalWordPending01.WordNativePending)
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (returned :
+    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+      (ShielddSecurity.TransferBlstArmNullifierReader01.sourceReaderCheck available lookup pending fields)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)),
+  And (@Eq.{1} Bool available Bool.true)
+    (@Exists.{1} (List.{0} Bool) fun (flags : List.{0} Bool) =>
+      And
+        (@Eq.{1} (Option.{0} (List.{0} Bool))
+          (ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields available lookup pending fields)
+          (@Option.some.{0} (List.{0} Bool) flags))
+        (And
+          (@Eq.{1} Nat (@List.length.{0} Bool flags)
+            (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields))
+          (∀ (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+            @Membership.mem.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+                (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                (@List.instMembership.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) fields
+                field →
+              And
+                (@Eq.{1} (Option.{0} Bool)
+                  (lookup
+                    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))
+                  (@Option.some.{0} Bool Bool.false))
+                (@Eq.{1} Bool (ShielddSecurity.TransferBlstArmNullifierReader01.sourcePendingContains pending field)
+                  Bool.false))))
+'ShielddSecurity.TransferBlstArmNullifierReader01.returned_original_reader_check_derives_full_vector_and_every_original_input_unspent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
