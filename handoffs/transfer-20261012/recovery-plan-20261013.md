@@ -4,6 +4,16 @@ Assessment date: 13 October 2026. The Transfer proof remains incomplete. Resume 
 
 This plan supersedes the scheduling and stale current-status paragraphs in `execution-plan.md`. The existing inventory and historical evidence remain useful. This assessment did not rerun Lean or native tests and adds no certification credit.
 
+## Current execution checkpoint
+
+Published head: `17eb8584944f151e5568c019eff4f33447fc2756`. `FixedFamilyConstruction553.legal_completed` retains **13,165/22,816** assertion/link positions on ONE assignment; **9,651 remain**. Fresh replay959 and atomic qualification963 passed 131 modules and 795 type/axiom audits. All three full endpoints remain OPEN.
+
+The Mac has also passed all eight fixed-family initial adapters and their semantic join (replay962, nine modules). Replay961 is checking the remaining seven repeated fixed-base families and their common retained constructor. Only after successful original receipts and atomic qualification may the proposed union14,931 receive credit. The next circuit task is the selected payload-key variable-base construction, followed by the other remaining semantic families and the arbitrary-assignment direction.
+
+The desktop continues native inverse word refinement. Mac fallback replay964 stopped before the new candidate: `TransferScalarInverseCorrectness01` exceeded its fixed1536MiB Lean heap. Its earlier passing dependencies are development evidence only; no new native result is accepted. Preserve the unchanged guards and coordinate the desktop result before resuming that native replay.
+
+The numbered completion plan below remains in force. Older checkpoint sections are historical and do not supersede this checkpoint.
+
 ## Execution checkpoint after randomized authorization-key integration
 
 The recovered baseline below is historical. The current published constructor is `AuthorizationRkConstruction512.legal_completed`, qualified by `authorization-randomized-key/qualified/evidence.json` (80 modules, 207 audits), with **12,913 distinct assertions of 22,816 on one assignment; 9,903 remain**. All 177,954 arithmetic rows remain covered. The DH inverse, both authorization variable-multiply families, transmission equality and all 126 captured fixed-base randomizer windows are constructed. The three full endpoints and computed semantic public64 binding remain OPEN.
