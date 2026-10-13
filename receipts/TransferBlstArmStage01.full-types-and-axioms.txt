@@ -1,0 +1,127 @@
+ShielddSecurity.TransferBlstArmStage01.sourceScalarCallerMemory : (scalar :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  ShielddSecurity.TransferBlstArmCaller01.CallerMemory
+'ShielddSecurity.TransferBlstArmStage01.sourceScalarCallerMemory' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains : (fields :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) → Bool
+'ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmStage01.original_caller_order_membership_is_exact_qualified_source_membership : ∀
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains fields scalar)
+    (ShielddSecurity.TransferCanonicalSourceMembership01.sourceOrdContains fields scalar)
+'ShielddSecurity.TransferBlstArmStage01.original_caller_order_membership_is_exact_qualified_source_membership' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen : (ordered members inputs :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (checkDurable : Bool) →
+    (reader :
+        List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+          Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit) →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit
+'ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmStage01.original_caller_comparator_admission_is_the_qualified_original_field_admission : ∀
+  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit),
+  @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+    (ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen ordered members inputs checkDurable reader)
+    (ShielddSecurity.TransferWordStageOrder01.admitOpen ordered members inputs checkDurable reader)
+'ShielddSecurity.TransferBlstArmStage01.original_caller_comparator_admission_is_the_qualified_original_field_admission' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmStage01.returned_original_comparator_admission_derives_capacity_freshness_and_required_reader_success : ∀
+  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+  (returned :
+    @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+      (ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen ordered members inputs checkDurable reader)
+      (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)),
+  And
+    (@LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)
+        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs))
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+    (And
+      (@Eq.{1} Bool
+        (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs
+          fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          Bool.not (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members scalar))
+        Bool.true)
+      (@Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+        (@ite.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+          (@Eq.{1} Bool checkDurable Bool.true) (instDecidableEqBool checkDurable Bool.true) (reader inputs)
+          (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit Unit.unit)))
+'ShielddSecurity.TransferBlstArmStage01.returned_original_comparator_admission_derives_capacity_freshness_and_required_reader_success' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmStage01.actual_constructor_input_projects_to_original_input_key_modulo_field : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmStage01.actual_constructor_input_projects_to_original_input_key_modulo_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmStage01.original_constructor_batch_entire_word_fields_are_unique_exactly_when_original_input_keys_are_unique : ∀
+  (raw : List.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),
+  Iff
+    (@List.Nodup.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+      (@List.map.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+        ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw))
+    (@List.Nodup.{0} Nat
+      (@List.map.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat
+        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+          @HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        raw))
+'ShielddSecurity.TransferBlstArmStage01.original_constructor_batch_entire_word_fields_are_unique_exactly_when_original_input_keys_are_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmStage01.original_comparator_refuses_pending_collisions_before_the_durable_reader : ∀
+  (ordered members inputs : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (checkDurable : Bool)
+  (reader :
+    List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar →
+      Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+  (capacity :
+    @LE.le.{0} Nat instLENat
+      (ShielddSecurity.TransferPendingSaturatingCapacity01.sourceSaturatingLengthAdd
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)
+        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs))
+      ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+  (collision :
+    @Eq.{1} Bool
+      (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar inputs
+        fun (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        Bool.not (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members scalar))
+      Bool.false),
+  @Eq.{1} (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit)
+    (ShielddSecurity.TransferBlstArmStage01.sourceOriginalAdmitOpen ordered members inputs checkDurable reader)
+    (@Except.error.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit
+      ShielddSecurity.TransferNullifierBatchSource01.BatchError.pending)
+'ShielddSecurity.TransferBlstArmStage01.original_comparator_refuses_pending_collisions_before_the_durable_reader' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
