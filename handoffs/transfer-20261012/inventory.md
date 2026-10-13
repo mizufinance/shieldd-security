@@ -128,3 +128,5 @@ The [user subgroup seed/frame](user-subgroup-frame/README.md) adds76 audits acro
 The [six-user-subgroup join](shared-user-subgroups/README.md) adds100 audits across14 modules and36 original assertion positions, on one assignment under26 remaining smaller bounds. The [ARM64 cancellation predicate](native-sqrt/arm-cancellation/README.md) adds nine mathematical source audits;ISA/compiler/private Montgomery correspondence remains open.
 
 The [six user nonidentity checks](shared-user-nonidentity/README.md) add23 audits and six original positions. The [ARM64 arithmetic carry chains](native-sqrt/arm-carry/README.md) add six source-model audits;whole Montgomery and native correspondence remain open.
+
+The [user commitment/path inputs](shared-user-path-inputs/README.md) add85 audits across63 modules and98 original-input meanings, retaining prior constructor guarantees without a new assertion count. The [ARM64 product decomposition](native-sqrt/arm-products/README.md) adds seven arithmetic source audits;whole Montgomery/native correspondence remains open.
