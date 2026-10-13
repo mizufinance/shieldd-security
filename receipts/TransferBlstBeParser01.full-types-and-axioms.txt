@@ -1,0 +1,56 @@
+ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+'ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstBeParser01.reversing_the_actual_32_byte_index_map_twice_restores_every_original_byte : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes
+      (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes bytes))
+    bytes
+'ShielddSecurity.TransferBlstBeParser01.reversing_the_actual_32_byte_index_map_twice_restores_every_original_byte' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstBeParser01.sourceBEParseMemoryStep : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) →
+    (remaining : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+      Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferBlstBeParser01.sourceBEParseMemoryStep' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstBeParser01.actual_be_pointer_advance_and_redundant_store_are_the_le_step_on_reversed_bytes : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+  (remaining : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+    (ShielddSecurity.TransferBlstBeParser01.sourceBEParseMemoryStep bytes state remaining)
+    (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemoryStep
+      (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes bytes) state remaining)
+'ShielddSecurity.TransferBlstBeParser01.actual_be_pointer_advance_and_redundant_store_are_the_le_step_on_reversed_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstBeParser01.sourceBEParseMemory64 : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  (initial : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstBeParser01.sourceBEParseMemory64' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstBeParser01.actual_be_entire_pointer_and_memory_walk_is_the_qualified_le_walk_on_reversed_bytes : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (initial : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (ShielddSecurity.TransferBlstBeParser01.sourceBEParseMemory64 bytes initial)
+    (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemory64
+      (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes bytes) initial)
+'ShielddSecurity.TransferBlstBeParser01.actual_be_entire_pointer_and_memory_walk_is_the_qualified_le_walk_on_reversed_bytes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstBeParser01.actual_be_parser_of_actual_reversed_le_writer_recovers_every_original_limb : ∀
+  (words initial : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (ShielddSecurity.TransferBlstBeParser01.sourceBEParseMemory64
+      (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes
+        (ShielddSecurity.TransferBlstByteCaller01.sourceScalarLEBytes64 words))
+      initial)
+    words
+'ShielddSecurity.TransferBlstBeParser01.actual_be_parser_of_actual_reversed_le_writer_recovers_every_original_limb' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
