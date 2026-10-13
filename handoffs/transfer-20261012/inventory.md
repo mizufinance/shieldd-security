@@ -4,6 +4,8 @@ Current verified checkpoint: IvkInverseConstruction429 retains **11,136** of22,8
 
 The authorization window operation checkpoint qualifies 438 modules and 1,359 complete type/axiom audits: 754 exact captured add/double mappings, the two initial-window equality blocks, generic selector/window semantics, concrete source-level group interpretation, and legal trace construction. It adds no retained-assignment coverage. Actual selectors and full loop/assignment integration are successors. See [authorization window operations](authorization-window-operations/README.md).
 
+The authorization window layout checkpoint adds 254 modules and 2,163 complete audits for all252 selectors, all250 ordinary window joins and exact layouts, legal point/scalar interpretation, and a trace seed with completed-assignment preservation. Whole-family row integration remains OPEN, and the retained coverage remains11136. See [authorization window layouts](authorization-window-layout/README.md).
+
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
 This inventory describes the active Pari and direct Lean campaign. The older gnark and Decaf checkout opened by this chat is not its build baseline. Historical handoffs remain intact; their old counts and running-state observations must not override newer sources and receipts.
