@@ -1,0 +1,9 @@
+# Shared registry construction
+
+Ten maintained modules have 66 complete type and axiom reports. `SharedRegistryFirst165317.legal_completed` derives ONE assignment from independent `TransferSem` legality plus the remaining smaller word bounds. On that assignment it proves all arithmetic/Boolean/word rows, the first165 actual assertions, and the independent declared public hash and committed blinding meanings.
+
+Registered and subgroup seeds commute. Exact read/write frames preserve registry recovery, word-value columns, control10, and epoch indicator/inverse113/114. The35 registered tests and4 epoch tests use derived primitive guards; the regulated asset assertion164 uses independent registry legality. The104-row prefix and full165-row aggregate use checked row identities and reverse coverage.
+
+The conditional exact union is10906 of22816 assertion/link positions, with11910 remaining. This includes10783 Boolean positions,66 word sums,24 subgroup assertions, one anchor, three final links, and29 newly covered positions after overlap removal. The34 distinct smaller word values still need independent semantic encoding/bounds. The theorem does not prove every original input role, every remaining assertion, actual computed statement agreement with public64, arbitrary full circuit soundness, or native refinement. All three full Transfer endpoints remain OPEN.
+
+`refresh.py` validates maintained source bytes, the exact runtime/Mathlib selection, passed bounded module receipts, all complete type/axiom reports, physical resource floors and unchanged dependency/object identities. It atomically writes compact successful evidence and generated source copies. Its receipt map is supplied from the local build; raw streams, failed histories and objects stay local. No certification or native execution credit is added.

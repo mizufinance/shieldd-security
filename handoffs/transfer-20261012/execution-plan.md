@@ -49,7 +49,7 @@ The concrete field and partitioned Boolean exclusion checks have passed. On Mac,
 
 On desktop, review unpublished scalar/caller packets against the exact ancestry. Instantiate the native field and canonical codec/input interfaces needed by circuit C1 and runtime N1. Deliver concrete conversion contracts to Mac. Stop producing unrelated arithmetic lemmas once the required caller contract is discharged.
 
-The pack and policy packets are reconciled and published. The three named native controls passed on Mac with fresh development keys, exact relation/domain and unchanged diagnostic source/binary/key identities. Preserve this result and its artificial fault-injection limits; no repeated native run is needed without a relevant changed input or unresolved concern. The square-root final check is qualified, while producer completeness and the concrete mapping/caller joins remain open.
+The pack and policy packets are reconciled and published. The three named native controls passed on Mac with fresh development keys, exact relation/domain and unchanged diagnostic source/binary/key identities. Preserve this result and its artificial fault-injection limits; no repeated native run is needed without a relevant changed input or unresolved concern. Source-model ff/Commonware square-root completeness and mapping/caller joins are qualified. Two native map controls also passed. Exact private value origins, BLST limb/Montgomery encoding and actual group-clearing correspondence remain open.
 
 **Exit:** independently legal inputs yield one compatible seed without caller-supplied bound/coherence/meaning conclusions; the concrete representation interfaces used by that proof are qualified.
 
@@ -90,4 +90,4 @@ Perform one final Transfer-scoped guarded replay from the selected reproducible 
 
 Report which endpoint premise closed, its exact theorem and remaining premises, source/receipt identities, and actual time/RSS/olean measurements. Module counts are useful for tracking transport, not for estimating percent complete. The native refinement gap prevents a credible completion-time promise today. Measure a representative remaining constructor family and native caller join before estimating the rest.
 
-The next useful actions are source reconciliation, the small seed/exclusion repair on Mac, and the concrete native caller/representation census on desktop. Full replay follows endpoint closure; it is not the debugging loop.
+The Mac has qualified a same-assignment constructor for all first165 registry assertions and retained public/committed meanings; the conditional remainder is11910, with34 smaller word values still requiring independent semantic encoding/bounds. Next close the remaining original input roles and consumer families on that assignment. Desktop continues BLST encoder/Montgomery and projective/affine clearing bindings, then actual admission/execution correspondence. Full replay follows endpoint closure; it is not the debugging loop.
