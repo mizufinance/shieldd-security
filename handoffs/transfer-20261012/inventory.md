@@ -214,3 +214,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## First repeated fixed-base family — 13 October 2026
 
 [First fixed family](fixed-family-first/README.md) qualifies 131 modules and 795 full type/axiom audits from fresh replay959. `FixedFamilyConstruction553.legal_completed` adds exact assertions 5042..5291 on the SAME retained assignment using checked captured operations/selectors, shared tables, canonical scalar bits and point-trace frame preservation. Atomic qualification963 reproduces both generators and authenticates successful original receipts. Union 13,165/22,816; remaining 9,651. Other fixed families and initial rows, SDK generator identity and all full endpoints remain OPEN.
+
+## First inverse word correction — 13 October 2026
+
+[First inverse correction](native-sqrt/inverse-first/README.md) reconciles desktop packet `d27ae787927d3a978259872258ddbce185630f8a`: 15 complete type/axiom audits, 288 dependency sources and independently matched runtime/locked-library identities. Actual source-model carry conservation derives the full signed first adjustment and extra-top sign guard. Second correction, inverse-core completeness and actual native execution remain OPEN; retained circuit coverage is unchanged.
