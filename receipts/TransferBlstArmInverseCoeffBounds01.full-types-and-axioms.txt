@@ -1,0 +1,127 @@
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair : Type
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch : Type
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBound : (bound : Nat) →
+  (s : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair) → Prop
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBound' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientFlip : (negative : Bool) → (value : Int) → Int
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientFlip' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.original_coefficient_sign_correction_preserves_entire_magnitude : ∀
+  (negative : Bool) (value : Int),
+  @Eq.{1} Nat (Int.natAbs (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientFlip negative value))
+    (Int.natAbs value)
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.original_coefficient_sign_correction_preserves_entire_magnitude' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientStep : (batch :
+    ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch) →
+  (s : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair) →
+    ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientStep' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.initialized_factor_rows_derive_the_entire_next_coefficient_bound : ∀
+  (batch : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch)
+  (s : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair) (bound : Nat)
+  (bounded : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBound bound s),
+  ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBound
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) bound
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@Prod.fst.{0, 0} Nat (Prod.{0, 0} Nat (Prod.{0, 0} Nat (Prod.{0, 0} Bool Bool))) batch)))
+    (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientStep batch s)
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.initialized_factor_rows_derive_the_entire_next_coefficient_bound' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientBits : List.{0}
+    ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch →
+  Nat
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientBits' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientWalk : List.{0}
+    ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch →
+  ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair →
+    ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientWalk' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.symbolic_entire_coefficient_walk_derives_the_summed_factor_count_bound : ∀
+  (batches : List.{0} ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch)
+  (s : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair) (bound : Nat)
+  (bounded : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBound bound s),
+  ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBound
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) bound
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientBits batches)))
+    (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientWalk batches s)
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.symbolic_entire_coefficient_walk_derives_the_summed_factor_count_bound' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientInitial : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientInitial' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.original_unit_zero_coefficient_initialization_derives_the_entire_walk_magnitude_bound : ∀
+  (batches : List.{0} ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch),
+  ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBound
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientBits batches))
+    (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientWalk batches
+      ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientInitial)
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.original_unit_zero_coefficient_initialization_derives_the_entire_walk_magnitude_bound' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.factor_count_at_most_width_derives_both_entire_signed_coefficient_ranges : ∀
+  (batches : List.{0} ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch) (width : Nat)
+  (budget :
+    @LE.le.{0} Nat instLENat (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientBits batches) width),
+  have s : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair :=
+    ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientWalk batches
+      ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientInitial;
+  And
+    (@LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) width))
+      (@Prod.fst.{0, 0} Int Int s))
+    (And
+      (@LE.le.{0} Int Int.instLEInt (@Prod.fst.{0, 0} Int Int s)
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) width))
+      (And
+        (@LE.le.{0} Int Int.instLEInt
+          (@Neg.neg.{0} Int Int.instNegInt
+            (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+              (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) width))
+          (@Prod.snd.{0, 0} Int Int s))
+        (@LE.le.{0} Int Int.instLEInt (@Prod.snd.{0, 0} Int Int s)
+          (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+            (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) width))))
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.factor_count_at_most_width_derives_both_entire_signed_coefficient_ranges' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoeffBounds01.factor_count_at_most_512_derives_both_entire_signed_coefficient_ranges : ∀
+  (batches : List.{0} ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientBatch)
+  (budget :
+    @LE.le.{0} Nat instLENat (ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientBits batches)
+      (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))),
+  have s : ShielddSecurity.TransferBlstArmInverseCoeffBounds01.CoefficientPair :=
+    ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientWalk batches
+      ShielddSecurity.TransferBlstArmInverseCoeffBounds01.sourceCoefficientInitial;
+  And
+    (@LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))))
+      (@Prod.fst.{0, 0} Int Int s))
+    (And
+      (@LE.le.{0} Int Int.instLEInt (@Prod.fst.{0, 0} Int Int s)
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))))
+      (And
+        (@LE.le.{0} Int Int.instLEInt
+          (@Neg.neg.{0} Int Int.instNegInt
+            (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+              (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))))
+          (@Prod.snd.{0, 0} Int Int s))
+        (@LE.le.{0} Int Int.instLEInt (@Prod.snd.{0, 0} Int Int s)
+          (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+            (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))))))
+'ShielddSecurity.TransferBlstArmInverseCoeffBounds01.factor_count_at_most_512_derives_both_entire_signed_coefficient_ranges' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
