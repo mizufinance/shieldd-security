@@ -1,0 +1,977 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw : (left right :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "30f29022609ee2cfce8d7daf64af1b64f52ecadd33420830c27ceea084fc1a56",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.source_arm_add_raw_retains_four_limbs : \u2200\n  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw left right)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "8a20d06516aec4d158ba45790722f2a48a83b21de215d0c28d272e68f711b79a",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.source_arm_add_raw_retains_four_limbs"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.canonical_inputs_derive_actual_arm_add_zero_overflow_and_exact_integer_sum : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  And\n    (@Eq.{1} Bool\n      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))\n      Bool.false)\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))))",
+      "full_type_sha256": "f15946eed541d6b506bb9ebbd39f043dd3565f974c468fcb622dce03cd6ae710",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.canonical_inputs_derive_actual_arm_add_zero_overflow_and_exact_integer_sum"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords : (left right :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  List.{0} UInt64",
+      "full_type_sha256": "fb7797dfb6e93e68d9345fab44641b0cfd0db52d3f928140ff871b7422ced5fa",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.actual_fifth_subtraction_with_zero_overflow_retains_exact_low_borrow : \u2200\n  (borrow : Bool),\n  @Eq.{1} Bool\n    (ShielddSecurity.TransferScalarBorrowWalk01.nextBorrow\n      (UInt64.ofNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) borrow)\n    borrow",
+      "full_type_sha256": "c1554fd56170a20ca7cc185b85126009d810a1b56f916685f96b8d212c5722df",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.actual_fifth_subtraction_with_zero_overflow_retains_exact_low_borrow"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_every_qualified_sdk_output_word : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} (List.{0} UInt64)\n    (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))\n    (ShielddSecurity.TransferScalarCanonicalAdd01.sourceAddWords\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))",
+      "full_type_sha256": "a9a79186b1aeb7a970291c7f5cffe7ea42dc523a6cd24dbd2e5105c42d76b4d6",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_every_qualified_sdk_output_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_width_range_and_modular_sum : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  And\n    (@Eq.{1} Nat\n      (@List.length.{0} UInt64\n        (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n    (And\n      (@LT.lt.{0} Nat instLTNat\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@Eq.{1} Nat\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))\n        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)))\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))))\n          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))",
+      "full_type_sha256": "55770ed20ffc019bb4d665d50cf209583b31c8c7ca1352fb25dc988295f42deb",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_width_range_and_modular_sum"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.sourceArmAdd : (left right :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar",
+      "full_type_sha256": "d2fa108796dca2de38c00ce8d99077f7b850a3bd34163e5b1b8742af29c090da",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.sourceArmAdd"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_the_original_input_field_sum : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n        (ShielddSecurity.TransferBlstArmAdd01.sourceArmAdd left right)))\n    (@HAdd.hAdd.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@instHAdd.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@Distrib.toAdd.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@instDistribOfSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n              (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))\n      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))\n      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))",
+      "full_type_sha256": "5f56ff2e09a3f63f6747f2e9eeb3e92cd2610666d39e68d29b8b43fb694d0a08",
+      "name": "ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_the_original_input_field_sum"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.sourceCallerByteKey : (memory :\n    ShielddSecurity.TransferBlstArmCaller01.CallerMemory) \u2192\n  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192 List.{0} UInt8",
+      "full_type_sha256": "3c0dbc3dd3e518a57e6d07b9598b38ce39414734e02b84e6eb657b98078ec21c",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.sourceCallerByteKey"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.source_caller_byte_key_has_exactly_32_bytes : \u2200\n  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)\n  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat (@List.length.{0} UInt8 (ShielddSecurity.TransferBlstArmIdentity01.sourceCallerByteKey memory scratch))\n    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))",
+      "full_type_sha256": "12ff19a6b5b6ef7d0f396edb3fd193d2dbd6cc07860b87cea7575d3e9c7a5cbc",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.source_caller_byte_key_has_exactly_32_bytes"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.qualified_sdk_serializer_is_the_exact_bounded_integer_encoding : \u2200\n  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (List.{0} UInt8)\n    (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes\n      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n    (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue words))",
+      "full_type_sha256": "1b166a48c9a535357164a4cbd5c7b0e947a0ff659e723ff2e5789e2172aa3638",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.qualified_sdk_serializer_is_the_exact_bounded_integer_encoding"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.reverse_integer_encoding_byte_is_the_exact_big_endian_quotient : \u2200\n  (value : Nat) (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n  @Eq.{1} UInt8\n    (@GetElem.getElem.{0, 0, 0} (List.{0} UInt8) Nat UInt8\n      (fun (as : List.{0} UInt8) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} UInt8 as))\n      (@List.instGetElemNatLtLength.{0} UInt8)\n      (@List.reverse.{0} UInt8\n        (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value))\n      (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n      (@Eq.mpr.{0}\n        (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n          (@List.length.{0} UInt8\n            (@List.reverse.{0} UInt8\n              (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value))))\n        (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n          (@List.length.{0} UInt8\n            (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value)))\n        (@id.{0}\n          (@Eq.{1} Prop\n            (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n              (@List.length.{0} UInt8\n                (@List.reverse.{0} UInt8\n                  (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value))))\n            (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n              (@List.length.{0} UInt8\n                (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                  (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value))))\n          (@congrArg.{1, 1} Nat Prop\n            (@List.length.{0} UInt8\n              (@List.reverse.{0} UInt8\n                (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                  (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value)))\n            (@List.length.{0} UInt8\n              (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value))\n            (fun (_a : Nat) =>\n              @LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                _a)\n            (@List.length_reverse.{0} UInt8\n              (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value))))\n        (@Eq.mpr.{0}\n          (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n            (@List.length.{0} UInt8\n              (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value)))\n          (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n            (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          (@id.{0}\n            (@Eq.{1} Prop\n              (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                (@List.length.{0} UInt8\n                  (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value)))\n              (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n            (@congrArg.{1, 1} Nat Prop\n              (@List.length.{0} UInt8\n                (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE\n                  (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value))\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n              (fun (_a : Nat) =>\n                @LT.lt.{0} Nat instLTNat\n                  (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index) _a)\n              (ShielddSecurity.TransferScalarLittleEndianBytes01.typed_little_endian_encoding_has_exact_width\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) value)))\n          (@Fin.isLt (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index))))\n    (UInt8.ofNat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))\n            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))\n              (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index))))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))",
+      "full_type_sha256": "842c98380495b2844fc0dbf06b401f21553f15e1f3c0efa756ad0abc737e9040",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.reverse_integer_encoding_byte_is_the_exact_big_endian_quotient"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.original_caller_byte_key_is_exactly_the_qualified_reversed_sdk_encoding : \u2200\n  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)\n  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (List.{0} UInt8) (ShielddSecurity.TransferBlstArmIdentity01.sourceCallerByteKey memory scratch)\n    (@List.reverse.{0} UInt8\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n          (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n            (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n              (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n            memory))))",
+      "full_type_sha256": "d442417b2754d6be928102299a3214ace5bbeaf2e8142cbd809b6a952c9e2f15",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.original_caller_byte_key_is_exactly_the_qualified_reversed_sdk_encoding"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.sourceCallerOrd : (left right :\n    ShielddSecurity.TransferBlstArmCaller01.CallerMemory) \u2192\n  (leftScratch rightScratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n    Ordering",
+      "full_type_sha256": "b2f76692568150daf6792ed0d2d645bf2c59830d7eccb714ea9459b161e39d40",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.sourceCallerOrd"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.original_caller_array_comparison_derives_the_original_field_numeric_order : \u2200\n  (left right : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)\n  (leftScratch rightScratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Ordering (ShielddSecurity.TransferBlstArmIdentity01.sourceCallerOrd left right leftScratch rightScratch)\n    (@Ord.compare.{0} Nat instOrdNat\n      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n        (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          left))\n      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n        (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          right)))",
+      "full_type_sha256": "7b5e26ca9b32ed285e32cefe82ad52d7869e6aedc85edbd9f4d8b3e9d6992677",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.original_caller_array_comparison_derives_the_original_field_numeric_order"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.canonical_original_caller_hash_inputs_equal_iff_original_raw_words_equal : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (leftScratch rightScratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (leftScalar rightScalar leftOutput rightOutput :\n    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n  Iff\n    (@Eq.{1} (List.{0} UInt8)\n      (ShielddSecurity.TransferBlstArmIdentity01.sourceCallerByteKey\n        (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n          (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) leftScalar leftOutput))\n        leftScratch)\n      (ShielddSecurity.TransferBlstArmIdentity01.sourceCallerByteKey\n        (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)\n          (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) rightScalar rightOutput))\n        rightScratch))\n    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))",
+      "full_type_sha256": "79f33608284f5a8ef50c032d29156340a814acf84dd5913e42b7c9de6d373d81",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.canonical_original_caller_hash_inputs_equal_iff_original_raw_words_equal"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmIdentity01.canonical_original_caller_order_equality_agrees_with_original_raw_word_equality : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (leftScratch rightScratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (leftScalar rightScalar leftOutput rightOutput :\n    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n  Iff\n    (@Eq.{1} Ordering\n      (ShielddSecurity.TransferBlstArmIdentity01.sourceCallerOrd\n        (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n          (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) leftScalar leftOutput))\n        (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)\n          (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) rightScalar rightOutput))\n        leftScratch rightScratch)\n      Ordering.eq)\n    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))",
+      "full_type_sha256": "8734675713a6383be31e6328dce76dfe08c7ee74014d462e75527c2b86f006ba",
+      "name": "ShielddSecurity.TransferBlstArmIdentity01.canonical_original_caller_order_equality_agrees_with_original_raw_word_equality"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.actual_arm_add_chain_zero_seed_low_integer_is_exact_full_sum_modulo_radix : \u2200\n  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain Bool.false pairs)))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs)))\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs)))",
+      "full_type_sha256": "ed8de684104e7e4e5fc0734fce8bc0d35e9a76774d304fb3e04c542aef5df78b",
+      "name": "ShielddSecurity.TransferBlstArmSub01.actual_arm_add_chain_zero_seed_low_integer_is_exact_full_sum_modulo_radix"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.actual_arm_add_chain_zero_seed_derives_every_qualified_adc_low_word : \u2200\n  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),\n  @Eq.{1} (List.{0} UInt64)\n    (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n      (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain Bool.false pairs))\n    (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64\n      (ShielddSecurity.TransferScalarCanonicalAdd01.adcLoop\n        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) pairs))",
+      "full_type_sha256": "dbbe5731d84b65de16f873af53dde5f1c65965c24ff2c3c553a409886227a9f0",
+      "name": "ShielddSecurity.TransferBlstArmSub01.actual_arm_add_chain_zero_seed_derives_every_qualified_adc_low_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.sourceArmSubWords : (left right :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  List.{0} UInt64",
+      "full_type_sha256": "9a39004512899860f2bb3e8d908dd4f6f7ef6e67781ba2266b59a6058de4ca9d",
+      "name": "ShielddSecurity.TransferBlstArmSub01.sourceArmSubWords"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.actual_arm_sub_derives_every_qualified_sdk_output_word : \u2200\n  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (List.{0} UInt64) (ShielddSecurity.TransferBlstArmSub01.sourceArmSubWords left right)\n    (ShielddSecurity.TransferScalarCanonicalSub01.sourceSubWords left right)",
+      "full_type_sha256": "b7471cc8753680744b2624e184b7d57a6a0d317b1f3ed2ba1437b768eabf4d6d",
+      "name": "ShielddSecurity.TransferBlstArmSub01.actual_arm_sub_derives_every_qualified_sdk_output_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.actual_arm_sub_derives_the_four_limb_output_width : \u2200\n  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmSub01.sourceArmSubWords left right))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "efd216a2e91fb7f01291d95da5eecd644e7a1ed36cfa34a47374d022514dad0c",
+      "name": "ShielddSecurity.TransferBlstArmSub01.actual_arm_sub_derives_the_four_limb_output_width"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.canonical_actual_arm_sub_derives_the_canonical_raw_difference : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  And\n    (@LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (ShielddSecurity.TransferBlstArmSub01.sourceArmSubWords\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (ShielddSecurity.TransferBlstArmSub01.sourceArmSubWords\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)))\n            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))",
+      "full_type_sha256": "aa81dfe3b8817fcdd697f22fbe8928d39fe78d9012e60da75272b7f56ec5429d",
+      "name": "ShielddSecurity.TransferBlstArmSub01.canonical_actual_arm_sub_derives_the_canonical_raw_difference"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.sourceArmSub : (left right :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar",
+      "full_type_sha256": "e9178bc6800d1b4a381400eec827c810fc02dee983319c1d49f6c781b8eabe88",
+      "name": "ShielddSecurity.TransferBlstArmSub01.sourceArmSub"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmSub01.canonical_actual_arm_sub_derives_the_original_input_field_difference : \u2200\n  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),\n  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n        (ShielddSecurity.TransferBlstArmSub01.sourceArmSub left right)))\n    (@HSub.hSub.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@instHSub.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@SubNegMonoid.toSub.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@AddGroup.toSubNegMonoid.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (@AddGroupWithOne.toAddGroup.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n              (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n                (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n                  (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))))\n      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))\n      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))",
+      "full_type_sha256": "2334bcd0df01410ed2cfd0ea54ec6044781c2c51023f2d085d27180900d334f9",
+      "name": "ShielddSecurity.TransferBlstArmSub01.canonical_actual_arm_sub_derives_the_original_input_field_difference"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowPhase : (operand accumulator :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  (digit : UInt64) \u2192 Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "d3bb81e213f94add1af3497ebe2b003291bd566ba6cf520e8dfbcf468477398d",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowPhase"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_low_phase_retains_the_four_low_words : \u2200\n  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (digit : UInt64),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowPhase operand accumulator digit)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "316f7e796b1e4cbfde6f183742979f5593166bf549b5ba3789e6026b478cba24",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_low_phase_retains_the_four_low_words"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.boolean_carry_word_retains_the_exact_flag_integer : \u2200 (flag : Bool),\n  @Eq.{1} Nat (UInt64.toNat (UInt64.ofNat (Bool.toNat flag))) (Bool.toNat flag)",
+      "full_type_sha256": "f53dcb376358e47426403be46ed2cb720e4f25d6445ba91941e4bbe6707d6ce8",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.boolean_carry_word_retains_the_exact_flag_integer"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive : (operand accumulator :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  (digit : UInt64) \u2192 List.{0} UInt64",
+      "full_type_sha256": "453ee4b39cba9d6be6bab0fb0c9b1d0f117f5dcaf14646cf90296e01c4a0975c",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_retains_five_words : \u2200\n  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (digit : UInt64),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive operand accumulator digit))\n    (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))",
+      "full_type_sha256": "d1cfcc083f34b5532c9e269faae7f913a6a5f7018280f9d59df5d6056e7ab3c3",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_retains_five_words"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_derives_the_full_low_product_sum : \u2200\n  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (digit : UInt64),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n      (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive operand accumulator digit))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords digit\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) operand))))",
+      "full_type_sha256": "e185912fc97a61181448b165f0ce403e1923be78c561ddaaa382099625dbee80",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_derives_the_full_low_product_sum"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows : (operand accumulator :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  (digit : UInt64) \u2192 Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "5de728213546ebf760f48724fba97f3b62852e3a03fa9f7468f83debc9583512",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_retain_the_five_accumulator_words : \u2200\n  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (digit : UInt64),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows operand accumulator digit)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))",
+      "full_type_sha256": "d7e2972fe9fc34020db8883717db8df06dfba732194d7b4773f8c2c218da5afd",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_retain_the_five_accumulator_words"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_conserve_the_entire_original_accumulator_and_digit_product : \u2200\n  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (digit : UInt64),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows operand accumulator digit)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5))))\n        (Bool.toNat\n          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n            (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows operand accumulator digit)))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) operand))))",
+      "full_type_sha256": "c54b5a369a457cb2f3491e934dc3d6cb11de0495e6456085ed7a969dd2598be5",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_conserve_the_entire_original_accumulator_and_digit_product"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmMulRows01.canonical_operand_and_bounded_prior_accumulator_derive_no_discarded_product_overflow : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)\n  (prior :\n    @LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),\n  And\n    (@Eq.{1} Bool\n      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))\n      Bool.false)\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)\n          (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand))))))",
+      "full_type_sha256": "7f7351e4c4e470bf00e6818024688d80ae2be4d2862351540c27a7e204b4a74a",
+      "name": "ShielddSecurity.TransferBlstArmMulRows01.canonical_operand_and_bounded_prior_accumulator_derive_no_discarded_product_overflow"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.two_plain_integer_carry_equations_compose_without_limb_expansion : \u2200\n  (span first second flagA flagB rest low carry high : Nat)\n  (firstEquation :\n    @Eq.{1} Nat\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) first\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span flagA))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rest low) carry))\n  (secondEquation :\n    @Eq.{1} Nat\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) second\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span flagB))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) first high)),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) second\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) flagA flagB)))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rest low) carry)\n      high)",
+      "full_type_sha256": "01a99e1cd9084e6c24098d0a1bb666682e209ff1ffb742e057497484248b08c3",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.two_plain_integer_carry_equations_compose_without_limb_expansion"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.plain_low_cancellation_and_product_split_derive_the_radix_factor : \u2200\n  (radix word lowWord rest lowTail highWords multiplier modulus carry : Nat)\n  (productEquation :\n    @Eq.{1} Nat\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) lowWord\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix lowTail))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix highWords))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) multiplier modulus))\n  (cancellation :\n    @Eq.{1} Nat (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix carry)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) word lowWord)),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) word\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix rest))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) multiplier modulus))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rest lowTail) carry)\n        highWords))",
+      "full_type_sha256": "1ec703c9f9aad7117e5da7ad5cf5d1f52441eda7651fa6e01e3db5466c652544",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.plain_low_cancellation_and_product_split_derive_the_radix_factor"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.nonnegative_flag_weight_below_its_span_forces_zero : \u2200\n  (span low flags quotient : Nat) (bounded : @LT.lt.{0} Nat instLTNat quotient span)\n  (equation :\n    @Eq.{1} Nat\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) low\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span flags))\n      quotient),\n  @Eq.{1} Nat flags (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))",
+      "full_type_sha256": "0dbe292c2aceeaafbd44274fce54d3baf2bc5f76277b2d2b879fd2bc9edde5d6",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.nonnegative_flag_weight_below_its_span_forces_zero"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.symbolic_low_product_vector_cons_retains_the_head_product : \u2200\n  (multiplier word : UInt64) (rest : List.{0} UInt64),\n  @Eq.{1} (List.{0} UInt64)\n    (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier (@List.cons.{0} UInt64 word rest))\n    (@List.cons.{0} UInt64\n      (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier word))\n      (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier rest))",
+      "full_type_sha256": "d006b8ac6439387b9448d498e7c4adb8e789cdf114d288d3f77a5c3f72124e8c",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.symbolic_low_product_vector_cons_retains_the_head_product"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveLowProducts : (word : UInt64) \u2192 List.{0} UInt64",
+      "full_type_sha256": "a9bfd654846abb1bb651e90134cfd6a80541ce8a132fb26b90d5fc1339a0c94a",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveLowProducts"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass : (word : UInt64) \u2192\n  (rest : List.{0} UInt64) \u2192 Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "34f4bc4de99a50acf6eecb7007aca0924121bed00d47612eab3c7d43a0ba54e2",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass : (word : UInt64) \u2192\n  (rest : List.{0} UInt64) \u2192 Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "d09523a0410805ed59f37eadd28eddc46da22dadee5b77a3a8775afb3f8f7e61",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_low_product_tail_retains_four_words : \u2200\n  (word : UInt64),\n  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveLowProducts word))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "f6a0449c631cec27b2fd2d828b42941f95b0de7bf182cf6ebf7a0d0e7b07a3b1",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_low_product_tail_retains_four_words"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_first_pass_retains_four_words : \u2200 (word : UInt64)\n  (rest : List.{0} UInt64)\n  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "5748be41d9947d7277d70d3e8f73ebb0e7b626fa864b8afaca165887c738286b",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_first_pass_retains_four_words"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_second_pass_retains_four_words : \u2200 (word : UInt64)\n  (rest : List.{0} UInt64)\n  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "632053265a366cae23aab36519d319bb28dbc58a4573a18c3e882f12ca2cea4e",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_second_pass_retains_four_words"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.appending_one_zero_word_retains_the_exact_packed_integer : \u2200\n  (words : List.{0} UInt64),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)\n        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) words\n        (@List.cons.{0} UInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))\n          (@List.nil.{0} UInt64))))\n    (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)",
+      "full_type_sha256": "405b1307a0845dffb0cb604aab760bc9e0ec43a72e123d508c1f205b2a05e803",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.appending_one_zero_word_retains_the_exact_packed_integer"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_first_pass_has_the_exact_integer_conservation_equation : \u2200\n  (word : UInt64) (rest : List.{0} UInt64)\n  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (Bool.toNat\n          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n            (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords rest)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords\n            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)\n            (@List.drop.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n              ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords))))\n      (Bool.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry word)))",
+      "full_type_sha256": "a1c7550568e465c9a0e1e9f5c6d841c78f6ed2d2a60d598a46eb963cbd880a15",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_first_pass_has_the_exact_integer_conservation_equation"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_second_pass_has_the_exact_integer_conservation_equation : \u2200\n  (word : UInt64) (rest : List.{0} UInt64)\n  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (Bool.toNat\n          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n            (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords\n          (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)\n          ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords)))",
+      "full_type_sha256": "cac345d5a7a650c2f256305956ed39131d315f349caa619e59ce5719cdf98c2d",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_second_pass_has_the_exact_integer_conservation_equation"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_original_numerator_has_the_derived_exact_radix_factor : \u2200\n  (word : UInt64) (rest : List.{0} UInt64),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      ShielddSecurity.TransferScalarSerializationRange01.radix64\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords rest)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords\n                (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)\n                (@List.drop.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n                  ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords))))\n          (Bool.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry word)))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords\n            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)\n            ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords))))",
+      "full_type_sha256": "2c64dafff02c62e3d560cb53c2bc7aa4a5d4e0eb10da5f1bc0256c11681975ca",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_original_numerator_has_the_derived_exact_radix_factor"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_two_passes_retain_both_flags_in_the_exact_quotient_equation : \u2200\n  (word : UInt64) (rest : List.{0} UInt64)\n  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (Bool.toNat\n            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n              (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))\n          (Bool.toNat\n            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n              (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest))))))\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))\n          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "407542a6acb8dc6229d72301dc3a425b76bb996d7c3dd8e0d2d4380a7db39426",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_two_passes_retain_both_flags_in_the_exact_quotient_equation"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmFiveReduction01.bounded_five_input_elimination_derives_both_zero_flags_and_the_exact_quotient : \u2200\n  (word : UInt64) (rest : List.{0} UInt64)\n  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (bounded :\n    @LT.lt.{0} Nat instLTNat\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))\n            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n        ShielddSecurity.TransferScalarSerializationRange01.radix64)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),\n  And\n    (@Eq.{1} Bool\n      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest))\n      Bool.false)\n    (And\n      (@Eq.{1} Bool\n        (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest))\n        Bool.false)\n      (@Eq.{1} Nat\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n            (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))\n              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64)))",
+      "full_type_sha256": "f020f0ce5f97fde7637585b31d410ff2214e77b9ba8830505766a434184cc71c",
+      "name": "ShielddSecurity.TransferBlstArmFiveReduction01.bounded_five_input_elimination_derives_both_zero_flags_and_the_exact_quotient"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput : (operand accumulator :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  (digit : UInt64) \u2192 List.{0} UInt64",
+      "full_type_sha256": "8cbe79dc6f66506901e184ceebb28c18bcfdc4120f0427be18eab65286aaa80b",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.source_mul_step_input_is_exactly_its_head_and_four_word_tail : \u2200\n  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (digit : UInt64),\n  And\n    (@Eq.{1} (List.{0} UInt64) (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit)\n      (@List.cons.{0} UInt64\n        (@List.headD.{0} UInt64 (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit)\n          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n        (@List.tail.{0} UInt64\n          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit))))\n    (@Eq.{1} Nat\n      (@List.length.{0} UInt64\n        (@List.tail.{0} UInt64\n          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))",
+      "full_type_sha256": "843d18522446c9ccdfd3731f42d581d34977572d0ed41863b9a05d629e7ac3f8",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.source_mul_step_input_is_exactly_its_head_and_four_word_tail"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.canonical_operand_and_bounded_accumulator_derive_the_next_quotient_below_twice_modulus : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)\n  (prior :\n    @LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),\n  @LT.lt.{0} Nat instLTNat\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (UInt64.toNat\n            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier\n              (@List.headD.{0} UInt64\n                (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)\n                (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))\n          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "99ff8830da9d4c59a1f6f74f59d258782cd4e953a5a78ddca90559f74b76edf5",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.canonical_operand_and_bounded_accumulator_derive_the_next_quotient_below_twice_modulus"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords : (operand accumulator :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  (digit : UInt64) \u2192 List.{0} UInt64",
+      "full_type_sha256": "7110064d2fbf5cc27af8e6f55c4a7170002b7504d7496b1da1bcd50f906c462f",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.bounded_original_multiplication_step_derives_both_zero_elimination_flags : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)\n  (prior :\n    @LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),\n  And\n    (@Eq.{1} Bool\n      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass\n          (@List.headD.{0} UInt64\n            (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)\n            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n          (@List.tail.{0} UInt64\n            (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))))\n      Bool.false)\n    (And\n      (@Eq.{1} Bool\n        (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass\n            (@List.headD.{0} UInt64\n              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)\n              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n            (@List.tail.{0} UInt64\n              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))))\n        Bool.false)\n      (@Eq.{1} Nat\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (UInt64.toNat\n                (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier\n                  (@List.headD.{0} UInt64\n                    (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n                      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)\n                    (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))\n              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64)))",
+      "full_type_sha256": "81f6ffda1d0670bbf331789637a3e6a1bebd333dfa66d94e7145c8fc78ec838a",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.bounded_original_multiplication_step_derives_both_zero_elimination_flags"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.original_multiplication_step_derives_width_range_and_exact_scaled_integer : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)\n  (prior :\n    @LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),\n  And\n    (@Eq.{1} Nat\n      (@List.length.{0} UInt64\n        (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords\n          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))\n      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n    (And\n      (@LT.lt.{0} Nat instLTNat\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n      (@Eq.{1} Nat\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n            (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)))\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)\n              (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)))))\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (UInt64.toNat\n              (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier\n                (@List.headD.{0} UInt64\n                  (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n                    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)\n                  (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))\n            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))",
+      "full_type_sha256": "799236cbb12f4348a10a2e56d22b082ef4bb3737bb9dc9d941ee679b7d000ffb",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.original_multiplication_step_derives_width_range_and_exact_scaled_integer"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate : Type",
+      "full_type_sha256": "0e0858f1c6325d3d44980f53f551230e5edaae19538eef46da92cd4431903a3c",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep : (operand :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  (accumulator : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate) \u2192\n    (digit : UInt64) \u2192 ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate",
+      "full_type_sha256": "8171f97d8a294041dc7a520b41e8629dbc84228f1c6023a090e0c1126cd22d97",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_fixed_vector_is_every_actual_output_word : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (accumulator : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate) (digit : UInt64),\n  @Eq.{1} (List.{0} UInt64)\n    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n      (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n          @LT.lt.{0} Nat instLTNat\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n        (ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep operand accumulator digit)))\n    (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)\n      (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n          @LT.lt.{0} Nat instLTNat\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n        accumulator)\n      digit)",
+      "full_type_sha256": "286b68a01842e2d04803e5b7d29b6485bfa2bff9ef3feed45899467edc91a32b",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_fixed_vector_is_every_actual_output_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_derives_the_full_scaled_integer_from_the_original_input : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (accumulator : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate) (digit : UInt64),\n  @Eq.{1} Nat\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      ShielddSecurity.TransferScalarSerializationRange01.radix64\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n          (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n            (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n              @LT.lt.{0} Nat instLTNat\n                (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                  (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n            (ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep operand accumulator digit)))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n              (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n                @LT.lt.{0} Nat instLTNat\n                  (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n              accumulator)))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)\n          (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (UInt64.toNat\n          (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier\n            (@List.headD.{0} UInt64\n              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput\n                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)\n                (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n                  (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n                    @LT.lt.{0} Nat instLTNat\n                      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n                  accumulator)\n                digit)\n              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))",
+      "full_type_sha256": "99226208fc52a9983d5728eed220c51814630a1380c4c791835d2c31537ff963",
+      "name": "ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_derives_the_full_scaled_integer_from_the_original_input"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosWalk : (operand :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  List.{0} UInt64 \u2192\n    ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate \u2192\n      ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate",
+      "full_type_sha256": "1ee1f8548761319facfcd56a9e7a5be74d5c2771792d46d60cecc7e7d9658441",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosWalk"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.symbolic_original_cios_walk_derives_the_entire_radix_weighted_product_relation : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) (digits : List.{0} UInt64)\n  (accumulator : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 digits))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n              (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n                @LT.lt.{0} Nat instLTNat\n                  (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n              (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosWalk operand digits accumulator)))))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n              (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n                @LT.lt.{0} Nat instLTNat\n                  (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n              accumulator)))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)))\n          (ShielddSecurity.TransferScalarWordPrimitives01.packWords digits)))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "09bea83eea5d670dc6746718ec5341b3be93bb72d4d1e1d28f418bd00773544a",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.symbolic_original_cios_walk_derives_the_entire_radix_weighted_product_relation"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosZero : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate",
+      "full_type_sha256": "0a151b4562d877caf96b9631e8104fa953d8711a1383a1b806db4098d49a0b4f",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosZero"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.original_cios_zero_has_zero_packed_input : @Eq.{1} Nat\n  (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n      (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n          @LT.lt.{0} Nat instLTNat\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n        ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosZero)))\n  (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))",
+      "full_type_sha256": "966a09d1b0b36bc2b6814d0e399e0e285f464d1fe0605d221bf04eedbbeeed22",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.original_cios_zero_has_zero_packed_input"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_four_original_cios_blocks_derive_the_full_input_product_relation : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (digits : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n              (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n                @LT.lt.{0} Nat instLTNat\n                  (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n              (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosWalk operand\n                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) digits)\n                ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosZero)))))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) digits)))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "5794e2401ab373ce15f63dd0d9c069e53119d59ed004e85837bcfc24b8178475",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_four_original_cios_blocks_derive_the_full_input_product_relation"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosFinalWords : (words :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  List.{0} UInt64",
+      "full_type_sha256": "03d112460c69a3113b0120d9e3d744a2428331ca7648d91829be88bb734f2ef7",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosFinalWords"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_final_cios_zero_high_word_comparison_derives_the_qualified_borrow_selector : \u2200\n  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (List.{0} UInt64) (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosFinalWords words)\n    (ShielddSecurity.TransferBlstArmNormalized01.sourceArmBorrowSelect\n      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))",
+      "full_type_sha256": "bb8e24bb258880f186d87e0f9676c2e1457783de4b2e64e1a260babe5aa92048",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_final_cios_zero_high_word_comparison_derives_the_qualified_borrow_selector"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_final_original_cios_output_derives_canonical_width_and_range : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (digits : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  And\n    (@Eq.{1} Nat\n      (@List.length.{0} UInt64\n        (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosFinalWords\n          (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n            (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n              @LT.lt.{0} Nat instLTNat\n                (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                  (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n            (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosWalk operand\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) digits)\n              ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosZero))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n    (@LT.lt.{0} Nat instLTNat\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosFinalWords\n          (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n            (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n              @LT.lt.{0} Nat instLTNat\n                (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n                  (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n            (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosWalk operand\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) digits)\n              ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosZero))))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "32831a590f031591e1ec2929db9f14b41a7980de1efa555ca915c58a1c732ed3",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_final_original_cios_output_derives_canonical_width_and_range"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosProduct : (operand :\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) \u2192\n  (digits : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar",
+      "full_type_sha256": "119443dd7b2587e615d7b4b7c621a8f32634f78dae3d84aec31967396a955382",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosProduct"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.original_cios_product_fixed_vector_is_the_actual_selected_words : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (digits : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (List.{0} UInt64)\n    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n        (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosProduct operand digits)))\n    (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosFinalWords\n      (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>\n          @LT.lt.{0} Nat instLTNat\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n        (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosWalk operand\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) digits)\n          ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosZero)))",
+      "full_type_sha256": "799aa5baaa68d3a2524fd64cf5486acbe637ee5731ea954cf7f98f314d44cddd",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.original_cios_product_fixed_vector_is_the_actual_selected_words"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_original_four_block_product_and_final_selector_derive_the_montgomery_contract : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (digits : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n              (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosProduct operand digits)))))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) digits)))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "d341c3696c29db4cc7052b18fa43ddc4af86e3facd91ce6c1d97cf1ca437e274",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_original_four_block_product_and_final_selector_derive_the_montgomery_contract"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_original_cios_program_derives_the_two_original_input_field_values_product : \u2200\n  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)\n  (digits : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n        (ShielddSecurity.TransferBlstArmCiosWalk01.sourceCiosProduct operand digits)))\n    (@HMul.hMul.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@instHMul.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@Distrib.toMul.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@instDistribOfSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n              (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))\n      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand))\n      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning digits))",
+      "full_type_sha256": "1a1dfdf4662da89ab86923bb21ea91b68d39941d8bc67c7468d351e552d1df08",
+      "name": "ShielddSecurity.TransferBlstArmCiosWalk01.actual_original_cios_program_derives_the_two_original_input_field_values_product"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar",
+      "full_type_sha256": "046ed2ac7c9efd8a4647aa345a3ff8aa0c1de871679c516db062bcea6014723c",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_words_are_exactly_the_qualified_sdk_r2_words : @Eq.{1}\n  (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n    ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand)\n  ShielddSecurity.TransferScalarR2Payload01.sourceR2",
+      "full_type_sha256": "efb1a78a7c44a4e4ae1ffe7f5b44479585903a5cdec9059b11637968b336ad52",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_words_are_exactly_the_qualified_sdk_r2_words"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_original_field_value_is_the_single_montgomery_radix : @Eq.{1}\n  Nat\n  (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n      ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand))\n  (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64\n      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "6470693f96bcd29e5d2875f070292f38d19e9878daeb90383bfb02c168f6a05a",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_original_field_value_is_the_single_montgomery_radix"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.two_plain_modular_radix_factors_cancel_on_every_raw_integer : \u2200\n  (modulus radix inverse raw : Nat)\n  (cancellation :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix inverse) modulus)\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) radix modulus)\n        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) inverse raw) modulus))\n      modulus)\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) raw modulus)",
+      "full_type_sha256": "91f95c3afb35f1b6cbbea76e51fc781389ae9e027cc67e03a2ab8f53dd77c265",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.two_plain_modular_radix_factors_cancel_on_every_raw_integer"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs : (raw :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar",
+      "full_type_sha256": "afe8e7952f7827c72c39ad5431357ae0983995a30e2859f69dedb63de8e228b1",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_derives_the_original_four_limb_integer_field_value : \u2200\n  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n        (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw)))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "115918b2db346b32ae71d9c0113a85de8b30a8dc46ad66debeb2574109497f9b",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_derives_the_original_four_limb_integer_field_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_word_meaning_is_the_original_input_field_cast : \u2200\n  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning\n      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n        (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw)))\n    (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n              (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw)))",
+      "full_type_sha256": "393eb1dbaf8224d4b39590551dc041929e098e35b2be4fb67dbf053552f99985",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_word_meaning_is_the_original_input_field_cast"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_and_original_as_slice_caller_derive_every_original_input_field_byte : \u2200\n  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (scalarPrior outputPrior : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n  @Eq.{1} UInt8\n    (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) Nat\n      UInt8\n      (fun (x : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (i : Nat) =>\n        @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n      (@Vector.instGetElemNatLt.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n      (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          (ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice\n            (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n              (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n                (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words\n                (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw))\n              (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n                (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) scalarPrior\n                outputPrior))\n            scratch)))\n      (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n      (@Decidable.byContradiction\n        (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n        (Nat.decLt (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n        fun\n          (a :\n            Not\n              (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>\n        ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_and_original_as_slice_caller_derive_every_original_input_field_byte._proof_1\n          index a))\n    (ShielddSecurity.TransferCommonwareMapBytes01.canonicalBEByte\n      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw)))\n      index)",
+      "full_type_sha256": "8c20211740eefaba96a9eec3c8a38a3ed87558857810a256bd1cdb001b7ad748",
+      "name": "ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_and_original_as_slice_caller_derive_every_original_input_field_byte"
+    }
+  ],
+  "dependency_sources_verified": 266,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 154202,
+    "sha256": "fc2fe035960a9f60c05217944eda4a3cb8f561619e83c0a137d0e5d01b72ed19"
+  },
+  "modules": {
+    "TransferBlstArmAdd01": {
+      "objects": [
+        {
+          "bytes": 157824,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-add-20261013-02\\project\\ShielddSecurity\\TransferBlstArmAdd01.olean",
+          "sha256": "e078b69b1ec453f1e9cca5e0a8df995cc7de1db86e74ada3ef5f51f991507327"
+        }
+      ],
+      "peak_rss_bytes": 1399525376,
+      "plan_identity": {
+        "bytes": 4026960,
+        "sha256": "9a9cf0e686c9630bfab72fba5f39a11726546102619cb06819ab02fe8128dd69"
+      },
+      "report": {
+        "bytes": 8478,
+        "path": "receipts/TransferBlstArmAdd01.full-types-and-axioms.txt",
+        "sha256": "d68593c26fa260a7934c6dd7db1cb8ae10c24eb4349dc1209256af9449f5b754"
+      },
+      "reports": 9,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Locked ARM BLST add arithmetic incl fifth borrow comparison derives zero overflow, every original SDK output word, canonical output and field sum from canonical input limbs; native ISA/ABI/compiler and upstream constructor representation remain separate",
+      "seconds": 18.37478979997104,
+      "source": {
+        "bytes": 8625,
+        "sha256": "a5d7f8e06e948e89088bb3dd2ccc60e9157f06d5f8e7e1ed4e8d8586679a32ee"
+      },
+      "source_closure_bound": 249
+    },
+    "TransferBlstArmCiosStep01": {
+      "objects": [
+        {
+          "bytes": 182184,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-cios-step-20261013-02\\project\\ShielddSecurity\\TransferBlstArmCiosStep01.olean",
+          "sha256": "5e6bbbc744147cc837d97ca965d116bf7c613e217fe82647561dcb470338fdcf"
+        }
+      ],
+      "peak_rss_bytes": 1407795200,
+      "plan_identity": {
+        "bytes": 4239930,
+        "sha256": "3326c1539a8ae504e3ae3c13034e2d83044c5a7d18047260811f3e9162069cd5"
+      },
+      "report": {
+        "bytes": 18046,
+        "path": "receipts/TransferBlstArmCiosStep01.full-types-and-axioms.txt",
+        "sha256": "2e7d63c06f6307a7e0992836bd251be5ea5e58b58805cbde6665fcbd8d6f2e03"
+      },
+      "reports": 10,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Original locked ARM CIOS digit multiplication/addition/elimination derives input-based quotient bound, zero flags, four-word next domain below2p and exact scaled integer; no chosen correction or output bound supplied, whole constructor/native ISA/ABI/compiler separate",
+      "seconds": 18.590577600058168,
+      "source": {
+        "bytes": 10700,
+        "sha256": "40f7d31e9419a09796fbaafcb0a4dd7b29be5737dc026c2e04fdde7725923272"
+      },
+      "source_closure_bound": 251
+    },
+    "TransferBlstArmCiosWalk01": {
+      "objects": [
+        {
+          "bytes": 177904,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-cios-walk-20261013-01\\project\\ShielddSecurity\\TransferBlstArmCiosWalk01.olean",
+          "sha256": "3324802916d710805d16665a964d147202a7aac87e93bd9af109f533c72279ac"
+        }
+      ],
+      "peak_rss_bytes": 1408778240,
+      "plan_identity": {
+        "bytes": 4310778,
+        "sha256": "ab40349c76ff7d88452d234d9a5d2cd7d84d9c85698974ba542f6a1c7e6b8078"
+      },
+      "report": {
+        "bytes": 17668,
+        "path": "receipts/TransferBlstArmCiosWalk01.full-types-and-axioms.txt",
+        "sha256": "957fa9f588287faa995af12bfeab18797e81a1950c2dd5408ea76306193d59a1"
+      },
+      "reports": 12,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Original ARM multiplication symbolic CIOS walk derives radix-weighted product and actual four-block/fifth-word selection canonical output plus original input field product; entire finite right input with canonical left operand, native ISA/ABI/compiler and constructor separate",
+      "seconds": 19.40182189992629,
+      "source": {
+        "bytes": 10379,
+        "sha256": "8a49361be1d7b6c6131c5fbf485e9d70ce5328dad4b9c164d4dac7dc642a118e"
+      },
+      "source_closure_bound": 252
+    },
+    "TransferBlstArmConstructor01": {
+      "objects": [
+        {
+          "bytes": 78216,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-constructor-20261013-02\\project\\ShielddSecurity\\TransferBlstArmConstructor01.olean",
+          "sha256": "24e9ea4eb936189f2c7f3c97a38d76884b77b8b1fb583aca86fb3039cd9a0d22"
+        }
+      ],
+      "peak_rss_bytes": 1433866240,
+      "plan_identity": {
+        "bytes": 4382424,
+        "sha256": "6e9ca4882ce9da16bfa315ca653ba8fbd01f83e6ef8c2b22bf7597397228fc15"
+      },
+      "report": {
+        "bytes": 9826,
+        "path": "receipts/TransferBlstArmConstructor01.full-types-and-axioms.txt",
+        "sha256": "09fea33d14ec89e30a4dfe53b3160d6246bb421edbab223651c5caf1313960bb"
+      },
+      "reports": 8,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Original locked blst_fr_from_uint64 leftR2 canonical input constant plus complete ARM CIOS implementation derives arbitrary original4-limb input field value and every original caller byte; output canonicality derived, native selected backend/ISA/pointer/ABI/compiler separate",
+      "seconds": 19.435203800094314,
+      "source": {
+        "bytes": 5973,
+        "sha256": "04a6dfb5dba2d5b80badf0857f2fc20c3dd06b1f8cf06ecafc285e543cac9293"
+      },
+      "source_closure_bound": 253
+    },
+    "TransferBlstArmFiveReduction01": {
+      "objects": [
+        {
+          "bytes": 221512,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-five-reduction-20261013-10\\project\\ShielddSecurity\\TransferBlstArmFiveReduction01.olean",
+          "sha256": "09f6db4d0c72dea067fed04232ee5ba0b079a71d053fb489dc4d76e3be7fd914"
+        }
+      ],
+      "peak_rss_bytes": 1435791360,
+      "plan_identity": {
+        "bytes": 4171688,
+        "sha256": "874277f67025cb047297d6f049504ed896ef7d954940708f1cb26349367f6f1b"
+      },
+      "report": {
+        "bytes": 17925,
+        "path": "receipts/TransferBlstArmFiveReduction01.full-types-and-axioms.txt",
+        "sha256": "14d414573886e2ad4c26c8aa93817a8eb9cadeec83438b9c101d04fcb9083dbe"
+      },
+      "reports": 16,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Locked ARM five-limb exact quotient retaining both flags via explicit pass unfolding and generic zero-padding lemma; zero flags derived from range, full constructor and native ISA/ABI/compiler separate",
+      "seconds": 18.627891800017096,
+      "source": {
+        "bytes": 14201,
+        "sha256": "57d04a56d8be14b48c342e663bf180f89e307afa2594470686ebc27023e3979b"
+      },
+      "source_closure_bound": 250
+    },
+    "TransferBlstArmIdentity01": {
+      "objects": [
+        {
+          "bytes": 105152,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-identity-20261013-03\\project\\ShielddSecurity\\TransferBlstArmIdentity01.olean",
+          "sha256": "c8c097554f65b04f4a5ec17cb640a147e60e88df614a34f9ef8ef0ef8cecc4ca"
+        }
+      ],
+      "peak_rss_bytes": 1409318912,
+      "plan_identity": {
+        "bytes": 3958555,
+        "sha256": "448012591db63fc1a2aad9ad94a798425f8172beac34b7cd2263a5b7317af8dc"
+      },
+      "report": {
+        "bytes": 15039,
+        "path": "receipts/TransferBlstArmIdentity01.full-types-and-axioms.txt",
+        "sha256": "2f1616cb68b7859d1701ea2b8ee6ae4ed7a8b5a7a3a0286f8b0ec4ae927de484"
+      },
+      "reports": 9,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Original source caller BE hash input and Ord comparison derive exact old qualified scalar encoding and numeric order; canonical raw input proves hash-input/order equality iff original words, HashSet/OrdSet/native ABI/compiler/private origins remain explicit",
+      "seconds": 18.948863399971742,
+      "source": {
+        "bytes": 8626,
+        "sha256": "464a419027ac30248efebb14cac378725c2af7a5a4a1877cf604ff4a85213620"
+      },
+      "source_closure_bound": 248
+    },
+    "TransferBlstArmMulRows01": {
+      "objects": [
+        {
+          "bytes": 158312,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-mul-rows-20261013-01\\project\\ShielddSecurity\\TransferBlstArmMulRows01.olean",
+          "sha256": "71f23d1e9f287edb4544ade9b099160177989a707446dee00dea784fe2ba39c0"
+        }
+      ],
+      "peak_rss_bytes": 1406812160,
+      "plan_identity": {
+        "bytes": 4097979,
+        "sha256": "387e349eea8e589efcac8f74537accffbb83c61b06c2dc4ef7c5e1809086619a"
+      },
+      "report": {
+        "bytes": 7923,
+        "path": "receipts/TransferBlstArmMulRows01.full-types-and-axioms.txt",
+        "sha256": "33dcf88b9950cd1edb46c136d5252748912dc8c857f13c596f84437359a479c5"
+      },
+      "reports": 10,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Locked ARM mul_mont_sparse_256 low products/carry capture/shifted high product additions derive exact entire five-limb accumulator plus digit product and no discarded overflow under canonical operand and derived intermediate domain; reduction, constructor, native ISA/ABI/compiler correspondence separate",
+      "seconds": 18.581723599985708,
+      "source": {
+        "bytes": 10108,
+        "sha256": "34f2936dea37979deaf330aa961018edaf4530b3917272fdcd8e20948da78982"
+      },
+      "source_closure_bound": 249
+    },
+    "TransferBlstArmSub01": {
+      "objects": [
+        {
+          "bytes": 95984,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-sub-20261013-01\\project\\ShielddSecurity\\TransferBlstArmSub01.olean",
+          "sha256": "7c050f48b60ab53c6f774729cb9b375670080d8c72cd9f39ef9adc28d3071ec1"
+        }
+      ],
+      "peak_rss_bytes": 1392697344,
+      "plan_identity": {
+        "bytes": 4026913,
+        "sha256": "a74d7ddc98394be34dee65d9915eb82f0c7718c89ef624691bde7660718fda72"
+      },
+      "report": {
+        "bytes": 7467,
+        "path": "receipts/TransferBlstArmSub01.full-types-and-axioms.txt",
+        "sha256": "072ba7a41a27b48b8f4534edaa3d92a8340a96377d157584a676c12059a2b140"
+      },
+      "reports": 8,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Locked ARM BLST subtraction arithmetic incl borrow mask and discarded final add-back carry derives every original SDK output word, canonical output and original field difference; native ISA/ABI/compiler and upstream private constructors remain separate",
+      "seconds": 18.369370999978855,
+      "source": {
+        "bytes": 6815,
+        "sha256": "ce5a35bd1a8f2132304055bfc43f3d9a93a80470c56684394983e51905ecbe86"
+      },
+      "source_closure_bound": 249
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "ee557fec48b0f867a45f8ca9804519c9e1e4302c68b738ca4d9a70df7310b811"
+  },
+  "reports": 82,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Eight source-model ARM64 arithmetic, Montgomery product and constructor bridges. Concrete native backend/ISA/ABI/compiler/private value origins and full Transfer remain OPEN.",
+  "status": "passed"
+}
