@@ -222,3 +222,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## Second inverse correction mask — 13 October 2026
 
 [Second correction mask](native-sqrt/inverse-mask/README.md) reconciles desktop packet `be1febb2bf1f48de0421994c43f1a7b3644da4dd`: ten complete type/axiom audits and289 dependency sources. The actual source-model masks and carry chain derive the two-complement operand value under the explicit extra-top range -1..1. Range production, full correction composition, inverse-core completeness and native execution remain OPEN.
+
+## Eight repeated fixed-base families — 13 October 2026
+
+[Eight fixed families](fixed-families/README.md) qualifies 458 modules and 4,890 full type/axiom audits from successful replays961/962. `FixedFamiliesConstruction556.legal_completed` covers all eight families, including initial selectors, on the SAME retained assignment. Atomic qualification991 reproduces both generators and authenticates original successful receipts. The 2,016-position family union adds1,766 positions beyond the first family: retained union14,931/22,816, remaining7,885. SDK generator identity and all full endpoints remain OPEN.
