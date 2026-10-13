@@ -1,0 +1,166 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry : (a b : UInt64) \u2192 (carry : Bool) \u2192 Prod.{0, 0} UInt64 Bool",
+      "full_type_sha256": "2e2265800b5e1104302969ba283ef3ae1dd16b303f53e557d0499ec2951782f3",
+      "name": "ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCarryChains01.actual_two_operand_add_with_carry_fits_less_than_two_radices : \u2200\n  (a b : UInt64) (carry : Bool),\n  @LT.lt.{0} Nat instLTNat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a) (UInt64.toNat b))\n      (Bool.toNat carry))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      ShielddSecurity.TransferScalarSerializationRange01.radix64\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "2d378b33972a2ea8470480949b22c58a120e83dcd1d76d4dda3b273da167bf60",
+      "name": "ShielddSecurity.TransferBlstArmCarryChains01.actual_two_operand_add_with_carry_fits_less_than_two_radices"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCarryChains01.actual_add_carry_arithmetic_conserves_the_full_integer : \u2200 (a b : UInt64)\n  (carry : Bool),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (UInt64.toNat\n        (@Prod.fst.{0, 0} UInt64 Bool (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry a b carry)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (Bool.toNat\n          (@Prod.snd.{0, 0} UInt64 Bool (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry a b carry)))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a) (UInt64.toNat b))\n      (Bool.toNat carry))",
+      "full_type_sha256": "6beda3e1455baefb5125e49c1ed70145e7bd4f4f681840c5a690dbd21b1f909c",
+      "name": "ShielddSecurity.TransferBlstArmCarryChains01.actual_add_carry_arithmetic_conserves_the_full_integer"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain : (carry : Bool) \u2192\n  List.{0} (Prod.{0, 0} UInt64 UInt64) \u2192 Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "e36835f35623434893477ae20c7f58b0a90893d598d373aad15651958f9548b8",
+      "name": "ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmCarryChains01.actual_add_chain_retains_the_source_limb_count : \u2200 (carry : Bool)\n  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry pairs)))\n    (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs)",
+      "full_type_sha256": "0a2fd629abcbe5a22315366cc7cf1ccfb0c79ae9da01d6c04296c28d8ba2e4ee",
+      "name": "ShielddSecurity.TransferBlstArmCarryChains01.actual_add_chain_retains_the_source_limb_count"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmCarryChains01.symbolic_actual_add_chain_conserves_the_limb_integer_and_final_flag : \u2200\n  (carry : Bool) (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry pairs)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs))\n        (Bool.toNat\n          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n            (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry pairs)))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs)))\n      (Bool.toNat carry))",
+      "full_type_sha256": "ca9838d8a16d3e3d8b8e2859d53bef1d5ba7c394aaeb416c8f077b1434ac0031",
+      "name": "ShielddSecurity.TransferBlstArmCarryChains01.symbolic_actual_add_chain_conserves_the_limb_integer_and_final_flag"
+    }
+  ],
+  "dependency_sources_verified": 251,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 97009,
+    "sha256": "a21ddaf1f3ba6f5981d12e27d1f7e232877beac1f9addf93270e95bbe0ea61c2"
+  },
+  "modules": {
+    "TransferBlstArmCarryChains01": {
+      "object_identity": {
+        "bytes": 222680,
+        "sha256": "8c56ca887eec98745176185b5907c4a9cf1d631b33937d0646ac4032d43368d0"
+      },
+      "peak_rss_bytes": 1403129856,
+      "plan_identity": {
+        "bytes": 3548431,
+        "sha256": "0c42deae35da6692c0dce63dea859e683c76dad3f018a8080c59309c00530b9e"
+      },
+      "report": {
+        "bytes": 4309,
+        "sha256": "bc9bbbe0335f2c23674715c7aa6955277272fb953c3156b5c306db12790fafc4"
+      },
+      "reports": 6,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Arithmetic interpretation of locked ARM64 adds/adcs/adc chains, symbolic packed-integer conservation for Montgomery helper; no chosen carries or outputs, ISA/ABI/compiler/private origins open",
+      "seconds": 19.08022359997267,
+      "source": {
+        "bytes": 4645,
+        "sha256": "70c461357af4ac20e32c245e0644ba5bf4740f32482f10c44ff88b7b93c1d605"
+      }
+    }
+  },
+  "native_credit": 0,
+  "packet_id": "windows-blst-arm-carry-success01",
+  "refresh": {
+    "bytes": 4437,
+    "sha256": "74e11947e7175e887667fc613a8e68b335de4f26b5c032c707fe31983f14ece6"
+  },
+  "reports": 6,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Only successful maintained source models and full type/axiom audits. Montgomery output normalization, native private representations, compiler/FFI/architecture, whole Transfer and certification remain separate obligations. Hashes establish identity only. No failed histories, logs or compiled caches included.",
+  "source_context": [
+    {
+      "bytes": 6751,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/locked-source-context.json",
+      "sha256": "ea5bfd3c202d60781328b66831e20952ba843cc40d3cf7c663fb4cdcd0685e18"
+    },
+    {
+      "bytes": 8241,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/mach-o/mul_mont_256-armv8.S",
+      "sha256": "768b46ac0b0566888ee8a0933c32158fe5f9d2ea0f4439e8d250ec5c549e6097"
+    },
+    {
+      "bytes": 14350,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulq_mont_256-x86_64.asm",
+      "sha256": "f69661638db7b6f8f1947bc5f077f5b0782bfacf1abda4067318910226bb2c56"
+    },
+    {
+      "bytes": 13703,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulx_mont_256-x86_64.asm",
+      "sha256": "0f67d8c45e7ce7cf7e15af3bcd90a0f0596d6d42e2ec440cd7fc7ab8cfc44903"
+    },
+    {
+      "bytes": 3862,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/bytes.h",
+      "sha256": "ab19306003f4033ed522238580836bc662334df2a9ed56e2f8bfa822e79e1ae9"
+    },
+    {
+      "bytes": 1342,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.c",
+      "sha256": "b5de026855b1f370a26c471abcc4f5a0debb2d195d7661844be6d87159cc0283"
+    },
+    {
+      "bytes": 1152,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.h",
+      "sha256": "e983c6c80045adc46379ff1fd088dbf85e20c4946eb98191835eed91f7598727"
+    },
+    {
+      "bytes": 16631,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/exports.c",
+      "sha256": "aa64e527fe4e3741863f7242232441e1e05d669ecc2da6096ac10e9666681b3f"
+    },
+    {
+      "bytes": 4310,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/fields.h",
+      "sha256": "2151a9b8bf00d5deb6444bbbfc836f9e6bab24a1e147131a028d155dbfa5a809"
+    },
+    {
+      "bytes": 36773,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/no_asm.h",
+      "sha256": "35bda15509ff6fea022a40249e732bc00b0ecc037c11f17b262aa822acca0253"
+    },
+    {
+      "bytes": 4865,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.c",
+      "sha256": "b8f189510e4795aa5a2d827ca8347a672cc36b7a9d5ab36457a3c3823916090a"
+    },
+    {
+      "bytes": 13749,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.h",
+      "sha256": "7aaeb0246108beabf3d315f435b0af08a62c6fce6c725ef70b060f9b70fe70e6"
+    },
+    {
+      "bytes": 8943,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/build.rs",
+      "sha256": "3b0a6eea2bf5c4d0c327fbe48f81b900e6896bdf92d4cfafcc1010d999b0fea7"
+    },
+    {
+      "bytes": 37392,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/src/bindings.rs",
+      "sha256": "8b0c44ba87b3493fb47f8aeacafa0d5aa278a2a8b5932a735f2d5cbc888bc386"
+    }
+  ],
+  "status": "passed"
+}
