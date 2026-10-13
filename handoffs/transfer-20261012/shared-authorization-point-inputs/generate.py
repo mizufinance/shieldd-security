@@ -1,0 +1,15 @@
+from pathlib import Path
+import argparse,json,hashlib,os
+root=Path(__file__).resolve().parent
+ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,required=True);a=ap.parse_args();out=a.output.resolve();assert not out.exists();tmp=out.with_name(out.name+'.pending');tmp.mkdir()
+columns=json.loads((root/'columns.json').read_bytes());assert len(columns)==9 and len(set(columns))==9;literal=str(columns).replace(' ','');leaves=json.loads((root/'leaves.json').read_bytes());assert len(leaves)==58;sources=tmp/'source-root/ShielddSecurity';sources.mkdir(parents=True);outputs={}
+def emit(name,imports,body,names):
+ text=''.join('import '+n+'\n' for n in imports)+'set_option autoImplicit false\nset_option maxHeartbeats 900000\nset_option maxRecDepth 8192\nnoncomputable section\nnamespace ShielddSecurity.'+name+'\n'+body+'\nend ShielddSecurity.'+name+'\n'
+ names=['ShielddSecurity.'+name+'.'+n for n in names];text+=''.join('\nset_option pp.all true in\n#check @'+n+'\n#print axioms '+n+'\n' for n in names);p=sources/(name+'.lean');p.write_text(text);outputs[name]=dict(sha256=hashlib.sha256(p.read_bytes()).hexdigest(),audits=names)
+proofs=[]
+for i,leaf in enumerate(leaves):
+ name='AuthorizationPointAvoid406B'+str(i).zfill(2);proofs.append(name)
+ emit(name,['ShielddSecurity.'+leaf],'theorem checked : '+leaf+'.slots.all (fun pair => decide\n    (pair.2 ∉ '+literal+')) = true := by decide +kernel',['checked'])
+body='theorem checked : CapturedBooleanRoot209.slots.all (fun slot => decide (slot.2 ∉ '+literal+')) = true := by\n  simp only [CapturedBooleanRoot209.slots, List.all_append, '+', '.join(n+'.checked' for n in proofs)+', Bool.true_and]\n'
+emit('AuthorizationPointAvoid406',['ShielddSecurity.CapturedBooleanRoot209']+['ShielddSecurity.'+n for n in proofs],body,['checked'])
+(tmp/'generation.json').write_text(json.dumps(outputs,sort_keys=True)+'\n');os.replace(tmp,out);print(json.dumps(dict(modules=len(outputs),scope='Boolean exclusion of9 independent authorization point/key columns only; no row or full Transfer credit.')))
