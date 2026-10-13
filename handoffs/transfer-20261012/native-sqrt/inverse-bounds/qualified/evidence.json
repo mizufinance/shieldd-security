@@ -1,0 +1,99 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds : (bound : Int) \u2192\n  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors) \u2192 Prop",
+      "full_type_sha256": "42c9e2f2d063776405d53b9c353ae73e29f63c0042c52f09eb13f4d95230e10f",
+      "name": "ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseBounds01.original_factor_step_derives_doubled_coefficient_bounds : \u2200 (bound : Int)\n  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)\n  (bounded : ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds bound s),\n  ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds\n    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) bound)\n    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)",
+      "full_type_sha256": "9bc4c46da9b1364c1ccde42f5216183f6f69aa7b6e88f971eed91f64565e9cf6",
+      "name": "ShielddSecurity.TransferBlstArmInverseBounds01.original_factor_step_derives_doubled_coefficient_bounds"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseBounds01.symbolic_original_factor_walk_derives_all_coefficient_bounds : \u2200\n  (count : Nat) (bound : Int) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)\n  (bounded : ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds bound s),\n  ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds\n    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n      bound)\n    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)",
+      "full_type_sha256": "43d450d24d74209fd163de0d40458cfe442a34247850b7e1d5b7b41482dc6e40",
+      "name": "ShielddSecurity.TransferBlstArmInverseBounds01.symbolic_original_factor_walk_derives_all_coefficient_bounds"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseBounds01.original_initialized_factor_walk_derives_its_power_of_two_coefficient_bounds : \u2200\n  (count a b : Nat),\n  ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds\n    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b))",
+      "full_type_sha256": "a6a0c5efe35ea98657a3cd87932bf5669759d232f66e4b5ec7a43899fc6c4a1f",
+      "name": "ShielddSecurity.TransferBlstArmInverseBounds01.original_initialized_factor_walk_derives_its_power_of_two_coefficient_bounds"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseBounds01.every_original_final_inner_walk_coefficient_fits_the_signed_word : \u2200\n  (count a b : Nat)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))),\n  have s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b);\n  And\n    (@LE.le.{0} Int Int.instLEInt\n      (@Neg.neg.{0} Int Int.instNegInt\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 s))\n    (And\n      (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 s)\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))\n      (And\n        (@LE.le.{0} Int Int.instLEInt\n          (@Neg.neg.{0} Int Int.instNegInt\n            (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n              (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n              (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 s))\n        (And\n          (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 s)\n            (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n              (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n              (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))\n          (And\n            (@LE.le.{0} Int Int.instLEInt\n              (@Neg.neg.{0} Int Int.instNegInt\n                (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n                  (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 s))\n            (And\n              (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 s)\n                (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n                  (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))\n              (And\n                (@LE.le.{0} Int Int.instLEInt\n                  (@Neg.neg.{0} Int Int.instNegInt\n                    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n                      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n                      (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))\n                  (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 s))\n                (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 s)\n                  (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n                    (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n                    (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))))))))",
+      "full_type_sha256": "c7ddec8a80c4df7eb4c0496fc32fc733c9294afca20518f372f9ea062824f080",
+      "name": "ShielddSecurity.TransferBlstArmInverseBounds01.every_original_final_inner_walk_coefficient_fits_the_signed_word"
+    }
+  ],
+  "dependency_sources_verified": 284,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 155015,
+    "sha256": "4b5e20eea10550984a8bff2daa6c816ff62d29ec5518a501cffb795e47276f90"
+  },
+  "modules": {
+    "TransferBlstArmInverseBounds01": {
+      "objects": [
+        {
+          "bytes": 387504,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-bounds-20261013-02\\project\\ShielddSecurity\\TransferBlstArmInverseBounds01.olean",
+          "sha256": "d86a55fe01b25512f61d4a904fc55e0689ed813422ecdedda6a3ae09bf4fb3e1"
+        }
+      ],
+      "peak_rss_bytes": 1440194560,
+      "plan_identity": {
+        "bytes": 5120897,
+        "sha256": "f9936acc18d6509e79d7fbf30d70dadeef01901d594ce212ad38bbdf95db0608"
+      },
+      "report": {
+        "bytes": 6642,
+        "path": "receipts/TransferBlstArmInverseBounds01.full-types-and-axioms.txt",
+        "sha256": "cbd1bedee368a48acc4695bc8d35ac08a31ce4ef5c155ff66cd217af1e2f12e1"
+      },
+      "reports": 5,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact inner-loop coefficient bounds derive from initialization and factor updates, and every count<=47 fits signed64 integer range. Fresh explicit let separator fixes final theorem parsing; failed history retained, fixed caps unchanged. Actual register interpretation, approximate31 batches, GCD termination and full native inverse/execution remain open.",
+      "seconds": 20.01244159997441,
+      "source": {
+        "bytes": 4267,
+        "sha256": "949af7d8d65272bff8c666cbe6616016714d920a4ab52332aabe57684358a18a"
+      },
+      "source_closure_bound": 266
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "39c67abd78121e26830b2c40a2d6cd0cf274139ab4d6da713304743447d1f5d6"
+  },
+  "reports": 5,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "The exact inverse factor recurrence bounds signed coefficients at each modeled step and in the final 47-step loop. Approximate 31-step batch correspondence, signed word interpretation, gcd termination, correction inputs and native execution remain OPEN.",
+  "status": "passed"
+}
