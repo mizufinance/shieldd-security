@@ -202,3 +202,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## Authorization hash connections and incoming-key reduction — 13 October 2026
 
 [Authorization hash connections](authorization-hash-connections/README.md) qualifies 109 modules and 692 complete type/axiom audits from fresh successful replay918. All three exact captured hashes are connected to their domains and inputs; assertion2253 is added by `IncomingConstruction534.legal_completed` on the SAME assignment. Atomic refresh922 reproduces generator outputs and authenticates the full successful receipts. Union12,914/22,816; remaining9,902. Regulated3772, SDK generator identity and full endpoints remain OPEN.
+
+## Complete observed-inverse square-root interpretation — 13 October 2026
+
+`native-sqrt/whole-sqrt` reconciles desktop packet `faefa668757d7d5c12be73e0a2795acc4da67933`: three complete type/axiom audits and287 authenticated dependencies. Whole source-model word sqrt, including zero and initialization, maps to the observed-inverse field while. The arbitrary inverse-word parameter is retained; inverse correctness, actual compiled execution and all endpoints remain OPEN. Constructor assertion coverage is unchanged.
