@@ -1,0 +1,44 @@
+-- GENERATED from table.json by generate.py. Do not hand edit.
+import ShielddSecurity.AuthorizationFixedSelectors481B000
+import ShielddSecurity.AuthorizationFixedSelectors481B001
+import ShielddSecurity.AuthorizationFixedSelectors481B002
+import ShielddSecurity.AuthorizationFixedSelectors481B003
+import ShielddSecurity.AuthorizationFixedSelectors481B004
+import ShielddSecurity.AuthorizationFixedSelectors481B005
+import ShielddSecurity.AuthorizationFixedSelectors481B006
+import ShielddSecurity.AuthorizationFixedSelectors481B007
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.AuthorizationFixedSelectors481G00
+open Compiler CompilerArithmeticTransport41 FixedSelectorAdapter480 ConcreteJubjubField01
+def tables : List (Entry × Group.Point F) := AuthorizationFixedSelectors481B000.tables++AuthorizationFixedSelectors481B001.tables++AuthorizationFixedSelectors481B002.tables++AuthorizationFixedSelectors481B003.tables++AuthorizationFixedSelectors481B004.tables++AuthorizationFixedSelectors481B005.tables++AuthorizationFixedSelectors481B006.tables++AuthorizationFixedSelectors481B007.tables
+def entries : List Entry := AuthorizationFixedSelectors481B000.entries++AuthorizationFixedSelectors481B001.entries++AuthorizationFixedSelectors481B002.entries++AuthorizationFixedSelectors481B003.entries++AuthorizationFixedSelectors481B004.entries++AuthorizationFixedSelectors481B005.entries++AuthorizationFixedSelectors481B006.entries++AuthorizationFixedSelectors481B007.entries
+theorem checked : entries.all check=true := by
+  simp only [entries,List.all_append,AuthorizationFixedSelectors481B000.checked,AuthorizationFixedSelectors481B001.checked,AuthorizationFixedSelectors481B002.checked,AuthorizationFixedSelectors481B003.checked,AuthorizationFixedSelectors481B004.checked,AuthorizationFixedSelectors481B005.checked,AuthorizationFixedSelectors481B006.checked,AuthorizationFixedSelectors481B007.checked,Bool.true_and]
+theorem geometry_checked : tables.all (fun item => decide (FixedTableGeometry482.Equations (CapturedFirstSubgroup81.d:F) (base item.1) (twice item.1) (triple item.1) item.2))=true := by
+  simp only [tables,List.all_append,AuthorizationFixedSelectors481B000.geometry_checked,AuthorizationFixedSelectors481B001.geometry_checked,AuthorizationFixedSelectors481B002.geometry_checked,AuthorizationFixedSelectors481B003.geometry_checked,AuthorizationFixedSelectors481B004.geometry_checked,AuthorizationFixedSelectors481B005.geometry_checked,AuthorizationFixedSelectors481B006.geometry_checked,AuthorizationFixedSelectors481B007.geometry_checked,Bool.true_and]
+theorem count : entries.length=16 := by rfl
+
+end ShielddSecurity.AuthorizationFixedSelectors481G00
+
+set_option pp.all true in
+#check @ShielddSecurity.AuthorizationFixedSelectors481G00.tables
+#print axioms ShielddSecurity.AuthorizationFixedSelectors481G00.tables
+
+set_option pp.all true in
+#check @ShielddSecurity.AuthorizationFixedSelectors481G00.entries
+#print axioms ShielddSecurity.AuthorizationFixedSelectors481G00.entries
+
+set_option pp.all true in
+#check @ShielddSecurity.AuthorizationFixedSelectors481G00.checked
+#print axioms ShielddSecurity.AuthorizationFixedSelectors481G00.checked
+
+set_option pp.all true in
+#check @ShielddSecurity.AuthorizationFixedSelectors481G00.geometry_checked
+#print axioms ShielddSecurity.AuthorizationFixedSelectors481G00.geometry_checked
+
+set_option pp.all true in
+#check @ShielddSecurity.AuthorizationFixedSelectors481G00.count
+#print axioms ShielddSecurity.AuthorizationFixedSelectors481G00.count
