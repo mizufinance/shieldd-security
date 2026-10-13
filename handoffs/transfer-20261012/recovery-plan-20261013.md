@@ -4,6 +4,16 @@ Assessment date: 13 October 2026. The Transfer proof remains incomplete. Resume 
 
 This plan supersedes the scheduling and stale current-status paragraphs in `execution-plan.md`. The existing inventory and historical evidence remain useful. This assessment did not rerun Lean or native tests and adds no certification credit.
 
+## Execution checkpoint after authorization multiplier integration
+
+The recovered baseline below is historical. The current published constructor is `AuthorizationDhConstruction474.legal_completed`, qualified by `authorization-dh/qualified/evidence.json`, with **12,651 distinct assertions of 22,816 on one assignment; 10,165 remain**. The two authorization variable-multiply families and transmission equality are constructed from independently legal input, with concrete mathematical source group operations. All177,954 arithmetic rows remain covered. The three full endpoints and computed semantic public64 binding remain OPEN.
+
+The DH nonidentity/inverse consumer at assertion 3771 is integrated: semantic domain, inverse seed preservation, exact row construction and arbitrary satisfying-assignment nonzero recovery passed. Continue with authorization commitments and fixed-base randomizer multiplication, then the later component families. The remaining source-pattern scan identifies4,837 candidate add/double operations across29 contiguous groups (9,674 candidate assertion positions), leaving491 other positions. These are planning candidates, not proof credit. Reuse the checked operation/selector adapters and symbolic trace construction, but separately establish each family’s exact row/column map, semantic inputs, seed preservation, legal constructor and arbitrary-assignment recovery.
+
+Desktop source packets through typed-word square-root search are reconciled. The latest search packet has10 audits against277 authenticated dependency sources; the preceding observed-inverse field interpretation has6 audits. Their scopes do not establish actual UInt32, compiler/ISA, pointer/Clone, inverse completeness or the full native consequence. Desktop connectivity is restored: reading the chat and dispatching coordination messages succeed. The status-wait API remains unreliable, so use compact chat reads while the desktop repairs and qualifies its outer-loop packet. Reconcile that packet when published.
+
+Unchanged finite resource limits remain in force. Successful proof types/axioms, exact source/object identities and generator reproduction are required before counting another assertion. Failed elaboration or memory attempts remain excluded.
+
 ## Recovered baseline
 
 | Item | Current observation |

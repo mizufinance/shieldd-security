@@ -166,3 +166,5 @@ The [retained authorization window constructor](authorization-window-constructio
 The [typed-word sqrt search](native-sqrt/word-search/README.md) adds ten audited declarations with277 authenticated source dependencies, deriving field-search/correction agreement and returned-index bounds. Actual UInt32, outer-loop integration, inverse completeness and native/compiler correspondence remain OPEN; native credit is zero.
 
 The [authorization multiplier completion](authorization-multiply-completion/README.md) adds14 exact assertions on the SAME retained assignment through49 audited declarations acrossnine modules. Both variable-multiply families and transmission equality are complete within the constructor. Union12650/22816, remaining10166. DH nonidentity/inverse, later hash families and all full endpoints remain OPEN.
+
+The [authorization DH inverse constraint](authorization-dh/README.md) adds assertion 3771 on the same retained assignment, with 47 audited declarations across seven modules and separate arbitrary satisfying-assignment nonzero recovery. Union 12651/22816, remaining 10165. Full endpoints remain OPEN.
