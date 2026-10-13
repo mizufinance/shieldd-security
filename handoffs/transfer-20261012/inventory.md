@@ -6,6 +6,8 @@ The authorization window operation checkpoint qualifies 438 modules and 1,359 co
 
 The authorization window layout checkpoint adds 254 modules and 2,163 complete audits for all252 selectors, all250 ordinary window joins and exact layouts, legal point/scalar interpretation, and a trace seed with completed-assignment preservation. Whole-family row integration remains OPEN, and the retained coverage remains11136. See [authorization window layouts](authorization-window-layout/README.md).
 
+The desktop field-operator/publication checkpoint adds five source-model modules and43 audits with a275-source closure, exact runtime files and locked BLST identities. It binds constructor publication, SDK/ARM word equality, BE parsing, full field-codec round trips and the square/exponent caller. Native inversion and execution/storage correspondence remain OPEN. See [field operators](native-sqrt/field-operators/README.md).
+
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
 This inventory describes the active Pari and direct Lean campaign. The older gnark and Decaf checkout opened by this chat is not its build baseline. Historical handoffs remain intact; their old counts and running-state observations must not override newer sources and receipts.
