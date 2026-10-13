@@ -172,3 +172,5 @@ The [authorization DH inverse constraint](authorization-dh/README.md) adds asser
 The [typed-word sqrt outer loop](native-sqrt/word-while/README.md) adds 16 audited declarations with 278 authenticated dependency sources. Decreasing-index termination and returned-root soundness use the modeled final square check with arbitrary actual inverse words. Actual native execution and inverse completeness remain OPEN.
 
 The [typed-word sqrt caller composition](native-sqrt/word-caller/README.md) adds five audited declarations with 279 authenticated dependency sources. A returned word-source root derives the normalized SDK root and all 32 bytes through the modeled caller guard and conditional negation. Actual execution and completeness remain OPEN.
+
+The [ARM source-model wide reduction](native-sqrt/arm-redc/README.md) adds ten audited declarations with 280 authenticated dependency sources. All raw high-half words retain the fifth carry/borrow and satisfy the complete wide-input weighted modular relation. Inverse correctness and actual native execution remain OPEN.
