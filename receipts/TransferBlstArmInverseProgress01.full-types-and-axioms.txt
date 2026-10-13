@@ -1,0 +1,72 @@
+ShielddSecurity.TransferBlstArmInverseProgress01.original_exact_factor_step_halves_the_input_product : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @LE.le.{0} Nat instLENat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+'ShielddSecurity.TransferBlstArmInverseProgress01.original_exact_factor_step_halves_the_input_product' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProgress01.symbolic_original_exact_factor_walk_derives_scaled_product_decrease : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @LE.le.{0} Nat instLENat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+'ShielddSecurity.TransferBlstArmInverseProgress01.symbolic_original_exact_factor_walk_derives_scaled_product_decrease' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProgress01.original_exact_factor_walk_retains_odd_second_input : ∀ (count : Nat)
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInverseProgress01.original_exact_factor_walk_retains_odd_second_input' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProgress01.exact_original_walk_reaches_zero_first_input_from_the_derived_product_bound : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (bounded :
+    @LT.lt.{0} Nat instLTNat
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)),
+  And
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)))
+'ShielddSecurity.TransferBlstArmInverseProgress01.exact_original_walk_reaches_zero_first_input_from_the_derived_product_bound' depends on axioms: [propext,
+ Quot.sound]
