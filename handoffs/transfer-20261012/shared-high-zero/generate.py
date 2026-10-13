@@ -13,4 +13,3 @@ for i,leaf in enumerate(leaves):
 body='theorem checked : CapturedBooleanRoot209.slots.all (fun slot => decide (slot.2≠1111 ∧ slot.2≠1372)) = true := by\n  simp only [CapturedBooleanRoot209.slots, List.all_append, '+', '.join(n+'.checked' for n in proofs)+', Bool.true_and]\n'
 emit('HighZeroInverseAvoid331',['ShielddSecurity.CapturedBooleanRoot209']+['ShielddSecurity.'+n for n in proofs],body,['checked'])
 (tmp/'generation.json').write_text(json.dumps(outputs,sort_keys=True)+'\n');os.replace(tmp,out);print(json.dumps(dict(modules=len(outputs),scope='Boolean inverse exclusion1111/1372 only; no row or full Transfer credit.')))
-
