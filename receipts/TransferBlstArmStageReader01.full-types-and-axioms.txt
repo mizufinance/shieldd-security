@@ -1,0 +1,117 @@
+@ShielddSecurity.TransferBlstArmStageReader01.sourceReaderFromPrevious : {Other : Type} →
+  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    (available : Bool) →
+      (lookup : Nat → Option.{0} Bool) →
+        (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+          Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError Unit
+'ShielddSecurity.TransferBlstArmStageReader01.sourceReaderFromPrevious' depends on axioms: [propext, Quot.sound]
+@ShielddSecurity.TransferBlstArmStageReader01.sourceStageWithRequiredReader : {Other : Type} →
+  (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) →
+    (available : Bool) →
+      (lookup : Nat → Option.{0} Bool) →
+        (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+          Except.{0, 0} Unit
+            (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+              (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+'ShielddSecurity.TransferBlstArmStageReader01.sourceStageWithRequiredReader' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@ShielddSecurity.TransferBlstArmStageReader01.returned_entire_original_stage_derives_captured_reader_all_input_observations_and_exact_append : ∀
+  {Other : Type} (previous : Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+  (available : Bool) (lookup : Nat → Option.{0} Bool)
+  (fields : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (object : ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+  (returned :
+    @Eq.{1}
+      (Except.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+      (@ShielddSecurity.TransferBlstArmStageReader01.sourceStageWithRequiredReader Other previous available lookup
+        fields)
+      (@Except.ok.{0, 0} Unit
+        (Except.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other))
+        (@Except.ok.{0, 0} ShielddSecurity.TransferNullifierBatchSource01.BatchError
+          (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object))),
+  And
+    (@Eq.{1} Bool
+      (ShielddSecurity.TransferBlstArmPending01.sourceOriginalUniqueLoop
+        (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) fields)
+      Bool.true)
+    (And (@Eq.{1} Bool available Bool.true)
+      (@Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+        fun (ordered : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+        @Exists.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+          fun (members : List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+          And
+            (Or
+              (And
+                (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous
+                  (@Option.none.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)))
+                (And
+                  (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) ordered
+                    (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                  (@Eq.{1} (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) members
+                    (@List.nil.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))))
+              (@Eq.{1} (Option.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)) previous
+                (@Option.some.{0} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other)
+                  (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                    (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)))))
+            (And
+              (@LE.le.{0} Nat instLENat
+                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                  (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar ordered)
+                  (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields))
+                ShielddSecurity.TransferNullifierConsensusLimits01.blockCapacity)
+              (And
+                (@Eq.{1} Bool
+                  (@List.all.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields
+                    fun (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) =>
+                    Bool.not (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members field))
+                  Bool.true)
+                (And
+                  (@Exists.{1} (List.{0} Bool) fun (flags : List.{0} Bool) =>
+                    And
+                      (@Eq.{1} (Option.{0} (List.{0} Bool))
+                        (ShielddSecurity.TransferBlstArmNullifierReader01.sourceContainsFields available lookup
+                          (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened ordered members)
+                          fields)
+                        (@Option.some.{0} (List.{0} Bool) flags))
+                      (@Eq.{1} Nat (@List.length.{0} Bool flags)
+                        (@List.length.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar fields)))
+                  (And
+                    (∀ (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+                      @Membership.mem.{0, 0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+                          (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          (@List.instMembership.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                          fields field →
+                        And
+                          (@Eq.{1} (Option.{0} Bool)
+                            (lookup
+                              (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+                                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))
+                            (@Option.some.{0} Bool Bool.false))
+                          (@Eq.{1} Bool (ShielddSecurity.TransferBlstArmStage01.sourceOriginalOrdContains members field)
+                            Bool.false))
+                    (@Eq.{1} (ShielddSecurity.TransferWordObjectCodec01.WordTaggedObject Other) object
+                      (@Sum.inl.{0, 0} ShielddSecurity.TransferCanonicalWordPending01.WordNativePending Other
+                        (ShielddSecurity.TransferCanonicalWordPending01.WordNativePending.opened
+                          (@HAppend.hAppend.{0, 0, 0}
+                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                            (@instHAppendOfAppend.{0}
+                              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                              (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                            ordered fields)
+                          (@HAppend.hAppend.{0, 0, 0}
+                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                            (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                            (@instHAppendOfAppend.{0}
+                              (List.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+                              (@List.instAppend.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar))
+                            members fields))))))))))
+'ShielddSecurity.TransferBlstArmStageReader01.returned_entire_original_stage_derives_captured_reader_all_input_observations_and_exact_append' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
