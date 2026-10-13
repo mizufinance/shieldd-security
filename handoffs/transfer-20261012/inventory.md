@@ -136,3 +136,5 @@ The [authorization scalar inputs](shared-auth-scalar-inputs/README.md) derive th
 The [independent word construction](independent-word-construction/README.md) derives all 23 remaining smaller word bounds through 16 audits and retains the prior assertion union without caller-supplied bounds. Subsequent joins must prove the actual semantic consumers on this same assignment; zero remaining bounds does not imply zero remaining assertions.
 
 The [final encoded word meanings](encoded-word-meanings/README.md) add74 audits across61 modules, preserving all26 authorization and remaining smaller word values after shared completion. The assertion union is unchanged; actual consumer joins remain open.
+
+The [independent final word bits](encoded-word-bits/README.md) derive all26 value encodings through nine audits. The [ARM64 round quotient](native-sqrt/arm-round/README.md) adds seven arithmetic source audits with the final carry retained; native ISA/compiler/caller correspondence remains open.
