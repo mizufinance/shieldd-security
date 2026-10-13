@@ -1,6 +1,6 @@
 # Transfer proof remaining work inventory
 
-Current verified checkpoint: QuotientConstruction385 retains **11,101** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,715** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
+Current verified checkpoint: IvkCanonicalConstruction391 retains **11,103** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,713** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
 
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
@@ -142,3 +142,5 @@ The [independent final word bits](encoded-word-bits/README.md) derive all26 valu
 The [shared last-second consumer](shared-last-second/README.md) adds37 audits acrossfive modules andtwo original assertion positions.
 
 The [authorization quotient consumer](shared-authorization-quotient/README.md) adds37 audits acrossfive modules andtwo original assertion positions. The [ARM64 reduction recurrence](native-sqrt/arm-reduction/README.md) adds seven source-model audits deriving zero overflow and all finite-round word equality; native ISA/compiler/caller correspondence remains open.
+
+The [shared IVK canonicality](shared-ivk-canonicality/README.md) adds101 audits across13 modules andtwo original scalar-order comparison assertions. Its captured502-row comparison is split into eight bounded segments.
