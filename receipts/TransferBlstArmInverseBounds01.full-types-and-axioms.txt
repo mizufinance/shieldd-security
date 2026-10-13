@@ -1,0 +1,91 @@
+ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds : (bound : Int) →
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors) → Prop
+'ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseBounds01.original_factor_step_derives_doubled_coefficient_bounds : ∀ (bound : Int)
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (bounded : ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds bound s),
+  ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds
+    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) bound)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)
+'ShielddSecurity.TransferBlstArmInverseBounds01.original_factor_step_derives_doubled_coefficient_bounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBounds01.symbolic_original_factor_walk_derives_all_coefficient_bounds : ∀
+  (count : Nat) (bound : Int) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (bounded : ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds bound s),
+  ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds
+    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+      bound)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)
+'ShielddSecurity.TransferBlstArmInverseBounds01.symbolic_original_factor_walk_derives_all_coefficient_bounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBounds01.original_initialized_factor_walk_derives_its_power_of_two_coefficient_bounds : ∀
+  (count a b : Nat),
+  ShielddSecurity.TransferBlstArmInverseBounds01.CoefficientBounds
+    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b))
+'ShielddSecurity.TransferBlstArmInverseBounds01.original_initialized_factor_walk_derives_its_power_of_two_coefficient_bounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBounds01.every_original_final_inner_walk_coefficient_fits_the_signed_word : ∀
+  (count a b : Nat)
+  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))),
+  have s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b);
+  And
+    (@LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 s))
+    (And
+      (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 s)
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+      (And
+        (@LE.le.{0} Int Int.instLEInt
+          (@Neg.neg.{0} Int Int.instNegInt
+            (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+              (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 s))
+        (And
+          (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 s)
+            (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+              (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+          (And
+            (@LE.le.{0} Int Int.instLEInt
+              (@Neg.neg.{0} Int Int.instNegInt
+                (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+                  (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 s))
+            (And
+              (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 s)
+                (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+                  (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+              (And
+                (@LE.le.{0} Int Int.instLEInt
+                  (@Neg.neg.{0} Int Int.instNegInt
+                    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+                      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+                  (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 s))
+                (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 s)
+                  (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+                    (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))))))))
+'ShielddSecurity.TransferBlstArmInverseBounds01.every_original_final_inner_walk_coefficient_fits_the_signed_word' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
