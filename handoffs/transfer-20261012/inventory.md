@@ -176,3 +176,5 @@ The [typed-word sqrt caller composition](native-sqrt/word-caller/README.md) adds
 The [ARM source-model wide reduction](native-sqrt/arm-redc/README.md) adds ten audited declarations with 280 authenticated dependency sources. All raw high-half words retain the fifth carry/borrow and satisfy the complete wide-input weighted modular relation. Inverse correctness and actual native execution remain OPEN.
 
 The [retained authorization fixed-base windows](authorization-fixed-construction/README.md) add 250 distinct assertions on the SAME assignment through 857 audited declarations across 256 modules. Union 12901/22816, remaining 9915. The generator is specialized to the checked captured point; its SDK identity and all full endpoints remain OPEN.
+
+The [retained first fixed-window equalities](authorization-fixed-initial/README.md) add two exact assertions through nine audited declarations across two modules. Union12903/22816, remaining9913, on the SAME assignment. Final randomized-key joins and full endpoints remain OPEN.
