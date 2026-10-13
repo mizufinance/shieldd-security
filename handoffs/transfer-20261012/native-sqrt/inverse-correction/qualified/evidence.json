@@ -1,0 +1,132 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2 : Vector.{0} UInt64\n  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "7425f359bc12824db648b652483e1417c8bd4fb2d41175de157027342a45ea85",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.original_rx2_words_are_exactly_twice_the_scalar_modulus : @Eq.{1} Nat\n  (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n      ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))\n  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)",
+      "full_type_sha256": "b9512016676f1835f9030024c9c9aadc2db01e8aad7084c71d0c2cc3d49d7576",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.original_rx2_words_are_exactly_twice_the_scalar_modulus"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix : Int",
+      "full_type_sha256": "6ffd6e1272b6591143bbc5bcd1958c32b14307d0bac4d6b44d97bf75400f998b",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift : Int",
+      "full_type_sha256": "b3ed0dec9e64d50a74b3c808d1b4e9aab397a74de1537363d0a1028e3df96e85",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_is_between_half_and_whole_wide_radix : And\n  (@LT.lt.{0} Int Int.instLTInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))\n    ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)\n  (And\n    (@LT.lt.{0} Int Int.instLTInt ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift\n      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)\n    (@LT.lt.{0} Int Int.instLTInt ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n        ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)))",
+      "full_type_sha256": "e4167b6f0e084bc4ab0c08ad703c452fbdb0d75ac84147febc5f9527605baaa7",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_is_between_half_and_whole_wide_radix"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedFirst : (value : Int) \u2192 Int",
+      "full_type_sha256": "145bf196a9f9e48968ce34a0d8c1d55081df897ea2f69492227a96e58e699bfd",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedFirst"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection : (value : Int) \u2192 Int",
+      "full_type_sha256": "ae827cf5f845aaf1922750b52796498ae8270dc3ec44c521f548d3e0f754b251",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_derive_unsigned_wide_range : \u2200\n  (value : Int)\n  (lower :\n    @LE.le.{0} Int Int.instLEInt\n      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix) value)\n  (upper : @LE.le.{0} Int Int.instLEInt value ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix),\n  And\n    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))\n      (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection value))\n    (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection value)\n      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)",
+      "full_type_sha256": "b01f762d9c3e498cf66718fbb7323d74489f21c393fcca1c3c6a548e3d070ed5",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_derive_unsigned_wide_range"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_has_zero_scalar_field_residue : @Eq.{1}\n  (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n  (@Int.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (@AddGroupWithOne.toIntCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))\n    ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)\n  (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) (nat_lit 0)\n    (@Zero.toOfNat0.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@MulZeroClass.toZero.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@instMulZeroClassOfSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n              (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))))",
+      "full_type_sha256": "98ff2b9b6d747a046343b7733ad63ba51f4927d191292506de9ead75841b732b",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_has_zero_scalar_field_residue"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_retain_the_original_coefficient_field_residue : \u2200\n  (value : Int),\n  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n    (@Int.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@AddGroupWithOne.toIntCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))\n      (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection value))\n    (@Int.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n      (@AddGroupWithOne.toIntCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)\n            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))\n      value)",
+      "full_type_sha256": "09705f68ead26aa23e1ef2a776d5c0c3eb7ba7c711696f6a6e14306878289884",
+      "name": "ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_retain_the_original_coefficient_field_residue"
+    }
+  ],
+  "dependency_sources_verified": 285,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 155610,
+    "sha256": "540a6d7bda6c8fe3e34eac84015e27ecf3e118f0d5bc8480330340384ba2e04d"
+  },
+  "modules": {
+    "TransferBlstArmInverseSign01": {
+      "objects": [
+        {
+          "bytes": 184168,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-sign-20261013-02\\project\\ShielddSecurity\\TransferBlstArmInverseSign01.olean",
+          "sha256": "59b990f9d4612ff4d85194f4a85b0d0ae98c29f7f704136ba96bf79af314a469"
+        }
+      ],
+      "peak_rss_bytes": 1414217728,
+      "plan_identity": {
+        "bytes": 5043220,
+        "sha256": "ac69251db6f0abae75d0804edccfacb8b307f04e9435485710526d21bad109e4"
+      },
+      "report": {
+        "bytes": 6479,
+        "path": "receipts/TransferBlstArmInverseSign01.full-types-and-axioms.txt",
+        "sha256": "979911f467ddaeaf6b804a49cc40c55f7eea04a75e5020d7bac1d9c39318ddca"
+      },
+      "reports": 10,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact rx2 words and integer interpretation of original inverse two signed high-half adjustments derive unsigned512 range under explicit coefficient range and preserve field residue. Fresh zeta-reduction and local field-cast simp repair; failed history retained, finite caps unchanged. Coefficient production, actual word/carry and full ct-inverse/native execution remain open.",
+      "seconds": 19.754278099979274,
+      "source": {
+        "bytes": 3904,
+        "sha256": "8f14c7f23ac5eb8bd39227b0bbb921841a551bd1bfd937c223f20399951306a1"
+      },
+      "source_closure_bound": 265
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "39c67abd78121e26830b2c40a2d6cd0cf274139ab4d6da713304743447d1f5d6"
+  },
+  "reports": 10,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Under the explicit signed 512-bit input range, the modeled source adjustments yield unsigned wide words preserving scalar-field residue. Derivation of the inverse-core input range, approximate batches, signed register interpretation, gcd termination and actual native execution remain OPEN.",
+  "status": "passed"
+}
