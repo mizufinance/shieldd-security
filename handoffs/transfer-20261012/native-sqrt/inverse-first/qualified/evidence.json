@@ -1,0 +1,177 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.WideState : Type",
+      "full_type_sha256": "143c0aeedf088cf0a8ace184ba57fc5fc757296c533da656ed307a500d37e9b7",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.WideState"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.symbolic_word_append_has_the_entire_radix_weighted_value : \u2200\n  (low high : List.{0} UInt64),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)\n        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords low)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low))\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords high)))",
+      "full_type_sha256": "22a848277ad46566ad6df2ce6984ae5d6e1247236a0c77310433764a0c86254f",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.symbolic_word_append_has_the_entire_radix_weighted_value"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw : (s :\n    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) \u2192\n  Nat",
+      "full_type_sha256": "70839d5c0d1d48d88ad5b5361220fa214b5d58be36ab4fe5cbb8b715e4fcaa2f",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning : (s :\n    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) \u2192\n  Int",
+      "full_type_sha256": "7882979af49bb56c5c3c010e207230706a48114b511c05d890605ed05601e879",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix : Int",
+      "full_type_sha256": "e077a48f5f03ea673ba47938e02f5b31e130cef602c1c8f6638c8465c540edd8",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.original_two_four_word_halves_derive_the_unsigned_wide_range : \u2200\n  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),\n  And\n    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw s)))\n    (@LT.lt.{0} Int Int.instLTInt\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw s))\n      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)",
+      "full_type_sha256": "f698f8a53bd95e6535022854d9299c4d51c6c6f1a4f9e2bfd26fe466a3384624",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.original_two_four_word_halves_derive_the_unsigned_wide_range"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.original_extra_top_sign_is_the_entire_signed_wide_value_sign : \u2200\n  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),\n  Iff\n    (@LT.lt.{0} Int Int.instLTInt\n      (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int\n        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int) s))\n      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))\n    (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)\n      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))",
+      "full_type_sha256": "979567dd85a443c4e3fdeb77ef5ee2a723f6730e0b4754c58c3a9a2ff89a39c9",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.original_extra_top_sign_is_the_entire_signed_wide_value_sign"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh : (high :\n    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "0ab64d71ae5fa5b2aeb36ee8a667b62c8fb8d2de451ca354823e391baa37e1a4",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.original_high_add_vector_retains_every_source_addition_word : \u2200\n  (high : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} (List.{0} UInt64)\n    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh high))\n    (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n      (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw high\n        ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))",
+      "full_type_sha256": "e647b45a629abaa82b38103aca53574e3b2ec2b69d24c2047472d09043232d46",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.original_high_add_vector_retains_every_source_addition_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.original_high_addition_threads_its_actual_four_word_carry : \u2200\n  (high : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Int\n    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n      (@Nat.cast.{0} Int instNatCastInt\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            (ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh high))))\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix\n        (@Nat.cast.{0} Int instNatCastInt\n          (Bool.toNat\n            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n              (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw high\n                ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))))))\n    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n      (@Nat.cast.{0} Int instNatCastInt\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) high)))\n      (@Nat.cast.{0} Int instNatCastInt\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n            ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))))",
+      "full_type_sha256": "caa596f2e2b8b5d8d17b24f7f89c27232d258c4730ef1aff247de32999cf1895",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.original_high_addition_threads_its_actual_four_word_carry"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.original_wide_radix_is_the_square_of_the_four_word_radix : @Eq.{1} Int\n  ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix\n  (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n    ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix\n    ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix)",
+      "full_type_sha256": "7dae099d09ad8464d93147cda5af8e053c80de0adead549cdf299606490dc9f4",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.original_wide_radix_is_the_square_of_the_four_word_radix"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstAddedState : (s :\n    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) \u2192\n  ShielddSecurity.TransferBlstArmInverseFirst01.WideState",
+      "full_type_sha256": "0b3d0f9d93177b784d5eaed2fdcb6c279c33272fb92b2e5fab09fb036b55d9b4",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstAddedState"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.original_first_high_word_addition_derives_the_entire_signed_integer_adjustment : \u2200\n  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),\n  @Eq.{1} Int\n    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning\n      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstAddedState s))\n    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)\n      ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)",
+      "full_type_sha256": "2353ed16dc5099f8cdd30f2bb165cd19d0138c278663a68b34dc6e1188504949",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.original_first_high_word_addition_derives_the_entire_signed_integer_adjustment"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection : (s :\n    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) \u2192\n  ShielddSecurity.TransferBlstArmInverseFirst01.WideState",
+      "full_type_sha256": "2f2c2ed9be4b52c4ab2eaad58b20feb18b1dc471b2d02c03f2e63eb7fea407e7",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFirst01.original_first_signed_word_correction_is_the_qualified_signed_integer_correction : \u2200\n  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),\n  @Eq.{1} Int\n    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning\n      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection s))\n    (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedFirst\n      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))",
+      "full_type_sha256": "590cbdea77e51eea2835e66f3891745fcbd18c015befe49a8e61c2bc14821a6f",
+      "name": "ShielddSecurity.TransferBlstArmInverseFirst01.original_first_signed_word_correction_is_the_qualified_signed_integer_correction"
+    }
+  ],
+  "dependency_sources_verified": 288,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 157196,
+    "sha256": "8a6ebb35bc2c481d6a456f75d1e6c2afbb91552e94ecb72aa589fbf3a6caf7d1"
+  },
+  "modules": {
+    "TransferBlstArmInverseFirst01": {
+      "objects": [
+        {
+          "bytes": 228032,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-first-20261013-04\\project\\ShielddSecurity\\TransferBlstArmInverseFirst01.olean",
+          "sha256": "d781e59aa968c879ff35debc0e39d6d4e7aefa1f39aa623c7158c95e689d67df"
+        }
+      ],
+      "peak_rss_bytes": 1438584832,
+      "plan_identity": {
+        "bytes": 5340853,
+        "sha256": "2d32b29bb2ea083a80c1c6b9e372d4fce7c08ab6d4babf14bc7f13ccb8ed3024"
+      },
+      "report": {
+        "bytes": 8819,
+        "path": "receipts/TransferBlstArmInverseFirst01.full-types-and-axioms.txt",
+        "sha256": "5715e164f5c9b42f436547636ee921654f3e013df32226b8f42f51bf4f61d4eb"
+      },
+      "reports": 15,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Actual first inverse high-word addition and captured carry derive full signed adjustment and extra-top sign guard. Fresh unchanged source after preflight02/03 memory interruptions before Lean; full qualified dependency closure and fixed limits preserved. No desired carry/output/value premises. Coefficient production, second word correction and native execution remain open.",
+      "seconds": 19.724244600045495,
+      "source": {
+        "bytes": 8895,
+        "sha256": "392cb75f47e2f1dde5f93e0708e998c7221f4436673755e5264459ac280e0d45"
+      },
+      "source_closure_bound": 269
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "39c67abd78121e26830b2c40a2d6cd0cf274139ab4d6da713304743447d1f5d6"
+  },
+  "reports": 15,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "The exact first inverse word-carry adjustment and full signed-state guard implement the first integer correction in the source model. Second adjustment, inverse-core completeness, compiled native execution and all full endpoints remain OPEN.",
+  "status": "passed"
+}
