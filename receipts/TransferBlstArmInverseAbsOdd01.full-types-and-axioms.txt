@@ -1,0 +1,13 @@
+ShielddSecurity.TransferBlstArmInverseAbsOdd01.odd_signed_integer_absolute_value_retains_oddness : ∀ (value : Int)
+  (odd :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (Int.natAbs value)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInverseAbsOdd01.odd_signed_integer_absolute_value_retains_oddness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
