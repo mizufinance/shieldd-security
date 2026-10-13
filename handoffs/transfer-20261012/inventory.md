@@ -210,3 +210,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## Retained regulated commitment — 13 October 2026
 
 [Regulated commitment](regulated-commitment/README.md) qualifies seven modules and31 full type/axiom audits from fresh replay944. Exact assertion3772 follows from the captured selectors, semantic RNK/commitment hashes and independent legal regulated implication, on the SAME retained assignment. Qualification945 regenerates captured rows and authenticates successful original receipts. Union12,915/22,816; remaining9,901. All full endpoints and captured generator SDK identity remain OPEN.
+
+## First repeated fixed-base family — 13 October 2026
+
+[First fixed family](fixed-family-first/README.md) qualifies 131 modules and 795 full type/axiom audits from fresh replay959. `FixedFamilyConstruction553.legal_completed` adds exact assertions 5042..5291 on the SAME retained assignment using checked captured operations/selectors, shared tables, canonical scalar bits and point-trace frame preservation. Atomic qualification963 reproduces both generators and authenticates successful original receipts. Union 13,165/22,816; remaining 9,651. Other fixed families and initial rows, SDK generator identity and all full endpoints remain OPEN.
