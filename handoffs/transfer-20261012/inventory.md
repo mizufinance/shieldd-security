@@ -182,3 +182,5 @@ The [retained first fixed-window equalities](authorization-fixed-initial/README.
 The [ARM source-model inverse tail](native-sqrt/inverse-tail/README.md) adds six audited declarations with 281 authenticated dependencies. Observed wide words derive canonical tail output and caller bytes. The ct-inverse recurrence, inverse identity and actual native execution remain OPEN.
 
 The [UInt32 sqrt search counter](native-sqrt/word-counter/README.md) adds eight audited declarations and 282 authenticated dependencies. Counter refinement within the 1–32 schedule and successful correction subtraction are proved; outer-loop range propagation and actual native execution remain OPEN.
+
+The [exact inverse-factor recurrence](native-sqrt/inverse-factors/README.md) adds eight audited declarations with 283 authenticated dependencies. Arbitrary-count scaled matrix tracking is proved in the signed integer model; approximate batch, register-bound, termination and native obligations remain OPEN.
