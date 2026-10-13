@@ -206,3 +206,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## Complete observed-inverse square-root interpretation — 13 October 2026
 
 `native-sqrt/whole-sqrt` reconciles desktop packet `faefa668757d7d5c12be73e0a2795acc4da67933`: three complete type/axiom audits and287 authenticated dependencies. Whole source-model word sqrt, including zero and initialization, maps to the observed-inverse field while. The arbitrary inverse-word parameter is retained; inverse correctness, actual compiled execution and all endpoints remain OPEN. Constructor assertion coverage is unchanged.
+
+## Retained regulated commitment — 13 October 2026
+
+[Regulated commitment](regulated-commitment/README.md) qualifies seven modules and31 full type/axiom audits from fresh replay944. Exact assertion3772 follows from the captured selectors, semantic RNK/commitment hashes and independent legal regulated implication, on the SAME retained assignment. Qualification945 regenerates captured rows and authenticates successful original receipts. Union12,915/22,816; remaining9,901. All full endpoints and captured generator SDK identity remain OPEN.
