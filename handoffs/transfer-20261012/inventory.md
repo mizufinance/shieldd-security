@@ -122,3 +122,5 @@ The [user word seed](shared-user-word-seed/README.md) adds thirteen audits and i
 The [shared user lifecycle join](shared-user-lifecycle/README.md) adds54 audits, deriving both67-row gated status/high-bit blocks while preserving prior guarantees. The [whole parser](native-sqrt/whole-parser/README.md) adds21 audits deriving every output limb from the source byte schedule.
 
 The [user point domain](user-point-domain/README.md) adds eleven audits deriving actual-model cofactor preimages and nonzero-x inverse equations for all six independent user points. The [byte roundtrip](native-sqrt/byte-roundtrip/README.md) adds nine audits connecting the LE writer, whole parser and BE writer, retaining Montgomery normalization as an open premise.
+
+The [user subgroup seed/frame](user-subgroup-frame/README.md) adds76 audits across61 modules, preserving48 independent point/preimage/doubling/inverse inputs through all shared completion stages. Actual six subgroup blocks are being joined next.
