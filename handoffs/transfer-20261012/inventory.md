@@ -170,3 +170,5 @@ The [authorization multiplier completion](authorization-multiply-completion/READ
 The [authorization DH inverse constraint](authorization-dh/README.md) adds assertion 3771 on the same retained assignment, with 47 audited declarations across seven modules and separate arbitrary satisfying-assignment nonzero recovery. Union 12651/22816, remaining 10165. Full endpoints remain OPEN.
 
 The [typed-word sqrt outer loop](native-sqrt/word-while/README.md) adds 16 audited declarations with 278 authenticated dependency sources. Decreasing-index termination and returned-root soundness use the modeled final square check with arbitrary actual inverse words. Actual native execution and inverse completeness remain OPEN.
+
+The [typed-word sqrt caller composition](native-sqrt/word-caller/README.md) adds five audited declarations with 279 authenticated dependency sources. A returned word-source root derives the normalized SDK root and all 32 bytes through the modeled caller guard and conditional negation. Actual execution and completeness remain OPEN.
