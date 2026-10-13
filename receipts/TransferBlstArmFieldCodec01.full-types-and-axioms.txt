@@ -1,0 +1,132 @@
+ShielddSecurity.TransferBlstArmFieldCodec01.sourceSdkLEBytes : (field :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+'ShielddSecurity.TransferBlstArmFieldCodec01.sourceSdkLEBytes' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.sdk_byte_vector_is_the_exact_original_sdk_serializer : ∀
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (List.{0} UInt8)
+    (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+      (ShielddSecurity.TransferBlstArmFieldCodec01.sourceSdkLEBytes field))
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))
+'ShielddSecurity.TransferBlstArmFieldCodec01.sdk_byte_vector_is_the_exact_original_sdk_serializer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.full_arm_from_mont_vector_has_the_original_input_numeric_value : ∀
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))))
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+'ShielddSecurity.TransferBlstArmFieldCodec01.full_arm_from_mont_vector_has_the_original_input_numeric_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.sdk_serializer_bytes_are_the_actual_limb_writer_of_derived_from_mont_words : ∀
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (ShielddSecurity.TransferBlstArmFieldCodec01.sourceSdkLEBytes field)
+    (ShielddSecurity.TransferBlstByteCaller01.sourceScalarLEBytes64
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))
+'ShielddSecurity.TransferBlstArmFieldCodec01.sdk_serializer_bytes_are_the_actual_limb_writer_of_derived_from_mont_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.sourceScalarFrCheckWords : (raw :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Bool
+'ShielddSecurity.TransferBlstArmFieldCodec01.sourceScalarFrCheckWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.original_four_limb_check_underflow_is_exact_parsed_raw_modulus_range : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  Iff
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk Bool.false
+          (@List.zip.{0, 0} UInt64 UInt64
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw)
+            ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords)))
+      Bool.true)
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmFieldCodec01.original_four_limb_check_underflow_is_exact_parsed_raw_modulus_range' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.original_scalar_check_accepts_every_derived_canonical_raw_value_including_zero : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (canonical :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmFieldCodec01.sourceScalarFrCheckWords raw) Bool.true
+'ShielddSecurity.TransferBlstArmFieldCodec01.original_scalar_check_accepts_every_derived_canonical_raw_value_including_zero' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.sourceReadAllowZero : (bytes :
+    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+  (parseScratch frScratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmFieldCodec01.sourceReadAllowZero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.reconstructing_original_from_mont_words_restores_the_entire_original_field : ∀
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+    (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field)))
+    field
+'ShielddSecurity.TransferBlstArmFieldCodec01.reconstructing_original_from_mont_words_restores_the_entire_original_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.original_sdk_field_to_commonware_allowzero_call_returns_the_entire_original_field : ∀
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (parseScratch frScratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Option.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+    (ShielddSecurity.TransferBlstArmFieldCodec01.sourceReadAllowZero
+      (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes
+        (ShielddSecurity.TransferBlstArmFieldCodec01.sourceSdkLEBytes field))
+      parseScratch frScratch)
+    (@Option.some.{0} ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar field)
+'ShielddSecurity.TransferBlstArmFieldCodec01.original_sdk_field_to_commonware_allowzero_call_returns_the_entire_original_field' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.actual_reverse_byte_index_map_is_the_original_vector_reverse : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes bytes)
+    (@Vector.reverse.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)
+'ShielddSecurity.TransferBlstArmFieldCodec01.actual_reverse_byte_index_map_is_the_original_vector_reverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.actual_reverse_byte_index_map_reverses_the_entire_original_byte_list : ∀
+  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} (List.{0} UInt8)
+    (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+      (ShielddSecurity.TransferBlstBeParser01.sourceReverseBytes bytes))
+    (@List.reverse.{0} UInt8
+      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))
+'ShielddSecurity.TransferBlstArmFieldCodec01.actual_reverse_byte_index_map_reverses_the_entire_original_byte_list' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.sourceCommonwareToSdkWords : (field :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (scalarPrior outputPrior : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) →
+    (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+      Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferBlstArmFieldCodec01.sourceCommonwareToSdkWords' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFieldCodec01.original_commonware_native_field_call_returns_the_entire_original_sdk_word_vector : ∀
+  (field : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (scalarPrior outputPrior : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Option.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+    (ShielddSecurity.TransferBlstArmFieldCodec01.sourceCommonwareToSdkWords field scalarPrior outputPrior scratch)
+    (@Option.some.{0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words field))
+'ShielddSecurity.TransferBlstArmFieldCodec01.original_commonware_native_field_call_returns_the_entire_original_sdk_word_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
