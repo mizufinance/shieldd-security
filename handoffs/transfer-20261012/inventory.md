@@ -1,6 +1,6 @@
 # Transfer proof remaining work inventory
 
-Current verified checkpoint: UserSubgroupConstruction357 retains **11,091** of22,816 assertion/link positions on ONE assignment under **26** remaining smaller-word bounds; **11,725** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, total independent construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
+Current verified checkpoint: UserNonidentityConstruction360 retains **11,097** of22,816 assertion/link positions on ONE assignment under **26** remaining smaller-word bounds; **11,719** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, total independent construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
 
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
@@ -126,3 +126,5 @@ The [user point domain](user-point-domain/README.md) adds eleven audits deriving
 The [user subgroup seed/frame](user-subgroup-frame/README.md) adds76 audits across61 modules, preserving48 independent point/preimage/doubling/inverse inputs through all shared completion stages. Actual six subgroup blocks are being joined next.
 
 The [six-user-subgroup join](shared-user-subgroups/README.md) adds100 audits across14 modules and36 original assertion positions, on one assignment under26 remaining smaller bounds. The [ARM64 cancellation predicate](native-sqrt/arm-cancellation/README.md) adds nine mathematical source audits;ISA/compiler/private Montgomery correspondence remains open.
+
+The [six user nonidentity checks](shared-user-nonidentity/README.md) add23 audits and six original positions. The [ARM64 arithmetic carry chains](native-sqrt/arm-carry/README.md) add six source-model audits;whole Montgomery and native correspondence remain open.
