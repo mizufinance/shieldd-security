@@ -1,0 +1,12 @@
+import ShielddSecurity.AuthorizationRkCapture506B05Base
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.AuthorizationRkCapture506B05Check3
+open AuthorizationRkCapture506B05
+theorem checked : (List.range 16).all (fun offset => decide (CapturedFullArithmetic52.rowAt (41724+(48+offset))=arithmeticRows[48+offset]?)) = true := by decide +kernel
+end ShielddSecurity.AuthorizationRkCapture506B05Check3
+set_option pp.all true in
+#check @ShielddSecurity.AuthorizationRkCapture506B05Check3.checked
+#print axioms ShielddSecurity.AuthorizationRkCapture506B05Check3.checked
