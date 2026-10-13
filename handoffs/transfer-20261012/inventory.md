@@ -1,6 +1,6 @@
 # Transfer proof remaining work inventory
 
-Current verified checkpoint: AuthorizationPointConstruction408 retains **11,123** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,693** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
+Current verified checkpoint: AuthorizationSubgroupConstruction411 retains **11,129** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived**. **11,687** positions remain. Six authorization subgroup rows are now joined. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history. The current execution plan is [the 13 October recovery plan](recovery-plan-20261013.md).
 
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
