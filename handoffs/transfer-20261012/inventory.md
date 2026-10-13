@@ -1,6 +1,6 @@
 # Transfer proof remaining work inventory
 
-Current verified checkpoint: EncodedWordConstruction374 retains **11,097** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,719** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
+Current verified checkpoint: LastSecondConstruction380 retains **11,099** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,717** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
 
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
@@ -138,3 +138,5 @@ The [independent word construction](independent-word-construction/README.md) der
 The [final encoded word meanings](encoded-word-meanings/README.md) add74 audits across61 modules, preserving all26 authorization and remaining smaller word values after shared completion. The assertion union is unchanged; actual consumer joins remain open.
 
 The [independent final word bits](encoded-word-bits/README.md) derive all26 value encodings through nine audits. The [ARM64 round quotient](native-sqrt/arm-round/README.md) adds seven arithmetic source audits with the final carry retained; native ISA/compiler/caller correspondence remains open.
+
+The [shared last-second consumer](shared-last-second/README.md) adds37 audits acrossfive modules andtwo original assertion positions.

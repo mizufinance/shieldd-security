@@ -103,3 +103,5 @@ Current constructor: AuthScalarConstruction368 retains the full previous same-as
 Current constructor: IndependentWordConstruction371 derives all smaller word bounds from independently legal TransferSem, with no caller-supplied bounds. Union11097/rem11719. Next derive final meanings of all newly encoded values and complete captured compliance/user and authorization consumers on the same assignment. Computed public64, arbitrary-assignment soundness, full actual/padded construction and native consequence remain OPEN.
 
 EncodedWordConstruction374 now retains all26 new final value meanings through74 audits, with exact Boolean/word exclusions and no remaining word-bound premise. Derive their exact bit meanings next, then reuse symbolic semantic proofs to close actual captured consumers.
+
+Current constructor: LastSecondConstruction380 derives both actual last-second comparison assertions. Exactunion11099/rem11717, all smaller word bounds derived. Reuse the checked symbolic comparison structure for authorization quotient and scalar-order consumers, then remaining original input roles and captured semantic consumers. All full endpoint contracts remain OPEN.
