@@ -184,3 +184,5 @@ The [ARM source-model inverse tail](native-sqrt/inverse-tail/README.md) adds six
 The [UInt32 sqrt search counter](native-sqrt/word-counter/README.md) adds eight audited declarations and 282 authenticated dependencies. Counter refinement within the 1–32 schedule and successful correction subtraction are proved; outer-loop range propagation and actual native execution remain OPEN.
 
 The [exact inverse-factor recurrence](native-sqrt/inverse-factors/README.md) adds eight audited declarations with 283 authenticated dependencies. Arbitrary-count scaled matrix tracking is proved in the signed integer model; approximate batch, register-bound, termination and native obligations remain OPEN.
+
+The [retained randomized authorization key](authorization-randomized-key/README.md) adds ten exact assertions through 207 audited declarations across 80 modules. Union12913/22816, remaining9903, on the SAME assignment. Captured generator SDK identity, remaining semantic families and full endpoints remain OPEN.
