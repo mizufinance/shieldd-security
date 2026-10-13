@@ -1,5 +1,7 @@
 # Transfer proof remaining work inventory
 
+Current verified checkpoint: UserLifecycleConstruction349 retains **11,055** of22,816 assertion/link positions on ONE assignment under **26** remaining smaller-word bounds; **11,761** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, total independent construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
+
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
 This inventory describes the active Pari and direct Lean campaign. The older gnark and Decaf checkout opened by this chat is not its build baseline. Historical handoffs remain intact; their old counts and running-state observations must not override newer sources and receipts.
@@ -116,3 +118,5 @@ The [strict-gap join](shared-strict-gap/README.md) adds eight audits across thre
 The [shared canonicality join](shared-canonicality/README.md) adds seven audits across two modules. Six original canonicality assertions now follow from independent semantic bounds and the exact derived bit windows; all previous same-assignment guarantees are retained.
 
 The [user word seed](shared-user-word-seed/README.md) adds thirteen audits and independently derives four sender/receiver lifecycle/position values and bounds. The updated assignment retains the10921-position union;remaining distinct smaller values are now **26**, with **11895** assertion/link positions remaining. Historical counts above describe their respective stages.
+
+The [shared user lifecycle join](shared-user-lifecycle/README.md) adds54 audits, deriving both67-row gated status/high-bit blocks while preserving prior guarantees. The [whole parser](native-sqrt/whole-parser/README.md) adds21 audits deriving every output limb from the source byte schedule.
