@@ -81,3 +81,11 @@ The next concrete Mac deliverable is the captured authorization hash semantics a
 Completion requires all three concrete endpoints, zero unproved assertion positions on the final assignment, exact observables/padding, justified residual external assumptions, and a reproducible final replay at the full runtime SHA. There is no defensible completion-time estimate yet: the native correspondence and full soundness gaps are larger than the row counter expresses.
 
 Evidence anchors: `shared-authorization-point-inputs/qualified/evidence.json`, `shared-authorization-point-inputs/coverage-base.json` (SHA-256 `46e28955e4021e9b4e8d8af152d0438a36dfc7331e904753f7920eac88d3b8db`), constructor408 source, local executions612/614 under the campaign work directory, `circuits/ShielddSecurity/TransferFullCarrierAcceptance.lean`, `circuits/ShielddSecurity/TransferSem.lean`, and the recovered desktop chat. Local receipts were inspected, not fully requalified in this planning pass.
+
+## Accepted checkpoint: incoming-key reduction — 13 October 2026
+
+The current accepted constructor is `IncomingConstruction534.legal_completed`: **12,914/22,816** distinct assertions on one assignment, **9,902 remaining**. Fresh replay918 passed all109 modules and692 audits; atomic qualification922 reproduced all captured generators and authenticated successful original receipts. All three authorization hashes now have arithmetic semantics and exact domain/input/absorption bindings. Incoming-key equality2253 is constructed from the independent legal scalar relation.
+
+The desktop word-state packet67783f was reconciled as qualification921 and published: eight audits,286 authenticated dependencies. The complete source-model sqrt word loop maps to its field recurrence; source initialization, inverse correspondence and actual native execution remain separate.
+
+Next: derive the regulated hash inputs and selected ring on the retained assignment, connect calls56/57 to the semantic RNK commitment, and add exact assertion3772. The desktop continues source sqrt initialization composition and signed word/carry adjustment for inverse. Then continue the remaining exact semantic families, public64 binding and all three endpoint contracts above. All three endpoints remain OPEN; these counts are not proof-completion percentages.
