@@ -1,0 +1,416 @@
+{
+  "certification": false,
+  "circuit_soundness": "OPEN",
+  "conditional_assertion_coverage": {
+    "new_positions": [
+      3772
+    ],
+    "positions": [
+      3772
+    ],
+    "previous_union": 12914,
+    "remaining": 9901,
+    "remaining_smaller_word_values": 0,
+    "scope": "ONE retained legal-input assignment; concrete source group operations. Full arbitrary-assignment soundness, total construction, computed public64 binding and native consequence remain OPEN.",
+    "total": 22816,
+    "union": 12915
+  },
+  "full_transfer": "OPEN",
+  "full_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.Inputs : (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (w : ShielddSecurity.TransferSem.Witness) \u2192 Prop",
+      "full_type_sha256": "0eec10303da7ee948e3788b149a19eebddf15a2361b3fb43a4c2da21d5d861db",
+      "name": "ShielddSecurity.RegulatedInputFrame536.Inputs"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.base_commitment : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.SemanticWordFrame373.assignment original c w initial senderInitial receiverInitial\n      (@OfNat.ofNat.{0} Nat (nat_lit 1528) (instOfNatNat (nat_lit 1528))))\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.TransferSem.User.rnkCommitment (ShielddSecurity.TransferSem.Witness.sender w)))",
+      "full_type_sha256": "5098e78014dfe23d77967b9fa1abb5888962a8ff927a0cb9cc4980cef9e38d3e",
+      "name": "ShielddSecurity.RegulatedInputFrame536.base_commitment"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.header : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  have rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F :=\n    ShielddSecurity.AuthorizationSharedFrame420B.assignment original c w authInitial initial senderInitial\n      receiverInitial;\n  And\n    (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))\n      (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n        (ShielddSecurity.TransferSem.Witness.asset w)))\n    (And\n      (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n        (rho (@OfNat.ofNat.{0} Nat (nat_lit 10) (instOfNatNat (nat_lit 10))))\n        (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n          (@Eq.{1} Bool (ShielddSecurity.TransferSem.Witness.regulated w) Bool.true)\n          (instDecidableEqBool (ShielddSecurity.TransferSem.Witness.regulated w) Bool.true)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact))))))))))\n      (And\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n          (rho (@OfNat.ofNat.{0} Nat (nat_lit 23) (instOfNatNat (nat_lit 23))))\n          (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n            (ShielddSecurity.TransferCore.Affine.x\n              (ShielddSecurity.TransferSem.AssetLeaf.ring (ShielddSecurity.TransferSem.Witness.registry w)))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n          (rho (@OfNat.ofNat.{0} Nat (nat_lit 24) (instOfNatNat (nat_lit 24))))\n          (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n            (ShielddSecurity.TransferCore.Affine.y\n              (ShielddSecurity.TransferSem.AssetLeaf.ring (ShielddSecurity.TransferSem.Witness.registry w)))))))",
+      "full_type_sha256": "3b49cbf1e8b79fb96ce7782e74750db00da4ad27cccba9bd2bab84e9248c3558",
+      "name": "ShielddSecurity.RegulatedInputFrame536.header"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.shared : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedInputFrame536.Inputs\n    (ShielddSecurity.AuthorizationSharedFrame420B.assignment original c w authInitial initial senderInitial\n      receiverInitial)\n    w",
+      "full_type_sha256": "200ce5189864fc23141d3c39e0f1c905ed6f7766dcd8a3e509be8bb29b4cc080",
+      "name": "ShielddSecurity.RegulatedInputFrame536.shared"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.trace : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteAuthorizationCrypto430.crypto c) w)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedInputFrame536.Inputs\n    (ShielddSecurity.AuthorizationTraceAssignment457.assignment original c w legal authInitial initial senderInitial\n      receiverInitial)\n    w",
+      "full_type_sha256": "70d4441589efda4e568b2a635123a031e86884dbc9a93dd7f89bbf55ce224c03",
+      "name": "ShielddSecurity.RegulatedInputFrame536.trace"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.dh : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteAuthorizationCrypto430.crypto c) w)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedInputFrame536.Inputs\n    (ShielddSecurity.AuthorizationDhSeed473.assignment original c w legal authInitial initial senderInitial\n      receiverInitial)\n    w",
+      "full_type_sha256": "c84f85ce2322db31c6c221dd0cb261de8c72dbc984d185e0e5bae9715c84b088",
+      "name": "ShielddSecurity.RegulatedInputFrame536.dh"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.fixed : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedInputFrame536.Inputs\n    (ShielddSecurity.AuthorizationFixedSeed487.assignment original c w legal authInitial initial senderInitial\n      receiverInitial)\n    w",
+      "full_type_sha256": "8836982f4b5a09282af010cd7d94efcded5a4473c746f5347fadd40eaba76d7c",
+      "name": "ShielddSecurity.RegulatedInputFrame536.fixed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedInputFrame536.rk : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedInputFrame536.Inputs\n    (ShielddSecurity.AuthorizationRkSeed505.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial)\n    w",
+      "full_type_sha256": "64d9462cee8dd583e205a191b437c3b0cd61c9ae43ca877a9ba18d1539373cae",
+      "name": "ShielddSecurity.RegulatedInputFrame536.rk"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedPointFrame537.Points : (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (c : ShielddSecurity.TransferSem.Crypto) \u2192 (w : ShielddSecurity.TransferSem.Witness) \u2192 Prop",
+      "full_type_sha256": "68c692cdaa781dbca0fbd67726bfb070bf31e3be4d0e9421e631995151d0c20f",
+      "name": "ShielddSecurity.RegulatedPointFrame537.Points"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedPointFrame537.trace : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteAuthorizationCrypto430.crypto c) w)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedPointFrame537.Points\n    (ShielddSecurity.AuthorizationTraceAssignment457.assignment original c w legal authInitial initial senderInitial\n      receiverInitial)\n    c w",
+      "full_type_sha256": "2038f61572ea8f4770008cd0f9d11f17662b3de8dea61ae56431fcc259d25bfa",
+      "name": "ShielddSecurity.RegulatedPointFrame537.trace"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedPointFrame537.dh : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteAuthorizationCrypto430.crypto c) w)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedPointFrame537.Points\n    (ShielddSecurity.AuthorizationDhSeed473.assignment original c w legal authInitial initial senderInitial\n      receiverInitial)\n    c w",
+      "full_type_sha256": "ed7c9da80462b2e33702bced559abbe82842eedd62350e9446c5faf1c552d341",
+      "name": "ShielddSecurity.RegulatedPointFrame537.dh"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedPointFrame537.fixed : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedPointFrame537.Points\n    (ShielddSecurity.AuthorizationFixedSeed487.assignment original c w legal authInitial initial senderInitial\n      receiverInitial)\n    (ShielddSecurity.AuthorizationFixedDomain485.withGenerator c) w",
+      "full_type_sha256": "b50950319cf2996a448a9cfb5218cc3dad51790a7c578b7b8e317afd1e84cb3c",
+      "name": "ShielddSecurity.RegulatedPointFrame537.fixed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedPointFrame537.rk : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  ShielddSecurity.RegulatedPointFrame537.Points\n    (ShielddSecurity.AuthorizationRkSeed505.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial)\n    (ShielddSecurity.AuthorizationFixedDomain485.withGenerator c) w",
+      "full_type_sha256": "e937696a2419385199ea84a47c8e6a4725be06077ecd92834074e2bad3762b2a",
+      "name": "ShielddSecurity.RegulatedPointFrame537.rk"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.RegulatedCapture538.ring_checked : @Eq.{1} Bool\n  (ShielddSecurity.CompilerRowSlice63.check ShielddSecurity.CapturedFullArithmetic52.rowAt\n    (@OfNat.ofNat.{0} Nat (nat_lit 11060) (instOfNatNat (nat_lit 11060)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) ShielddSecurity.RegulatedCapture538.ringRows)\n  Bool.true",
+      "full_type_sha256": "bcfdec0d69b0f3e326cfb96435c28dbd12e4659cc6dda3fb0bd2de6dd859f870",
+      "name": "ShielddSecurity.RegulatedCapture538.ring_checked"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.RegulatedCapture538.gate_checked : @Eq.{1} Bool\n  (ShielddSecurity.CompilerRowSlice63.check ShielddSecurity.CapturedFullArithmetic52.rowAt\n    (@OfNat.ofNat.{0} Nat (nat_lit 39192) (instOfNatNat (nat_lit 39192)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) ShielddSecurity.RegulatedCapture538.gatedRows)\n  Bool.true",
+      "full_type_sha256": "05e4b27248b459f24d752e6b10366c873bd64c481bf8f4a1415d3dfc56b937ee",
+      "name": "ShielddSecurity.RegulatedCapture538.gate_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.RegulatedCapture538.ring_y : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  (rho : Nat \u2192 F)\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954)))),\n  @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 33798) (instOfNatNat (nat_lit 33798))))\n    (@HMul.hMul.{0, 0, 0} F F F\n      (@instHMul.{0} F\n        (@Distrib.toMul.{0} F\n          (@instDistribOfSemiring.{0} F\n            (@DivisionSemiring.toSemiring.{0} F\n              (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n      (rho (@OfNat.ofNat.{0} Nat (nat_lit 10) (instOfNatNat (nat_lit 10))))\n      (@HSub.hSub.{0, 0, 0} F F F\n        (@instHSub.{0} F\n          (@SubNegMonoid.toSub.{0} F\n            (@AddGroup.toSubNegMonoid.{0} F\n              (@AddGroupWithOne.toAddGroup.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n        (rho (@OfNat.ofNat.{0} Nat (nat_lit 24) (instOfNatNat (nat_lit 24))))\n        (@HMul.hMul.{0, 0, 0} F F F\n          (@instHMul.{0} F\n            (@Distrib.toMul.{0} F\n              (@instDistribOfSemiring.{0} F\n                (@DivisionSemiring.toSemiring.{0} F\n                  (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n          (@OfNat.ofNat.{0} F (nat_lit 29108985603249989484651727880329493522712908252517904247459350893053326313050)\n            (@instOfNatAtLeastTwo.{0} F\n              (nat_lit 29108985603249989484651727880329493522712908252517904247459350893053326313050)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat\n                (@OfNat.ofNat.{0} Nat\n                  (nat_lit 29108985603249989484651727880329493522712908252517904247459350893053326313049)\n                  (instOfNatNat\n                    (nat_lit 29108985603249989484651727880329493522712908252517904247459350893053326313049)))\n                (@Nat.instNeZeroSucc\n                  (@OfNat.ofNat.{0} Nat\n                    (nat_lit 29108985603249989484651727880329493522712908252517904247459350893053326313048)\n                    (instOfNatNat\n                      (nat_lit 29108985603249989484651727880329493522712908252517904247459350893053326313048)))))))\n          (rho ShielddSecurity.CompilerArithmeticTransport41.copy))))",
+      "full_type_sha256": "e2fba651764bfd52acb7b4df52083ca6ef17c9dfff0d4b40ea79e11b4c97128d",
+      "name": "ShielddSecurity.RegulatedCapture538.ring_y"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.RegulatedCapture538.gate_value : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  (rho : Nat \u2192 F)\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954)))),\n  @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 61930) (instOfNatNat (nat_lit 61930))))\n    (@HMul.hMul.{0, 0, 0} F F F\n      (@instHMul.{0} F\n        (@Distrib.toMul.{0} F\n          (@instDistribOfSemiring.{0} F\n            (@DivisionSemiring.toSemiring.{0} F\n              (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n      (rho (@OfNat.ofNat.{0} Nat (nat_lit 10) (instOfNatNat (nat_lit 10))))\n      (@HSub.hSub.{0, 0, 0} F F F\n        (@instHSub.{0} F\n          (@SubNegMonoid.toSub.{0} F\n            (@AddGroup.toSubNegMonoid.{0} F\n              (@AddGroupWithOne.toAddGroup.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n        (@ShielddSecurity.eval F inst rho ShielddSecurity.AuthorizationHash530C57.result)\n        (rho (@OfNat.ofNat.{0} Nat (nat_lit 1528) (instOfNatNat (nat_lit 1528))))))",
+      "full_type_sha256": "2622e02dc99a33e252db20695dbe3c974a53d32f7678d38fcd2008afcab38525",
+      "name": "ShielddSecurity.RegulatedCapture538.gate_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedCapture538.actual_checked : @Eq.{1} Bool\n  (ShielddSecurity.CompilerRowSlice63.check ShielddSecurity.CapturedFullRelation58.rowAt\n    (@OfNat.ofNat.{0} Nat (nat_lit 181726) (instOfNatNat (nat_lit 181726)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ShielddSecurity.RegulatedCapture538.actualRows)\n  Bool.true",
+      "full_type_sha256": "79625967ba8f72b9b4e74e9429f2094ff85f421fb86fb5c7ed417412c827f9b3",
+      "name": "ShielddSecurity.RegulatedCapture538.actual_checked"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.RegulatedCapture538.forward_checked : @Eq.{1} Bool\n  (ShielddSecurity.VariableOperationAdapter434.covers ShielddSecurity.RegulatedCapture538.templates\n    ShielddSecurity.RegulatedCapture538.actualRows)\n  Bool.true",
+      "full_type_sha256": "c074804c3a54f2f918d96c4c1beac145ff2d1d7510b3a48dc9a0fa5032e76080",
+      "name": "ShielddSecurity.RegulatedCapture538.forward_checked"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.RegulatedCapture538.reverse_checked : @Eq.{1} Bool\n  (ShielddSecurity.VariableOperationAdapter434.covers ShielddSecurity.RegulatedCapture538.actualRows\n    ShielddSecurity.RegulatedCapture538.templates)\n  Bool.true",
+      "full_type_sha256": "95a83903dd3b8dead1fc164a30b240bef70866977bd35259a7157c5292faf034",
+      "name": "ShielddSecurity.RegulatedCapture538.reverse_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.RegulatedCapture538.Rows : {F : Type} \u2192 [Field.{0} F] \u2192 (rho : Nat \u2192 F) \u2192 Prop",
+      "full_type_sha256": "c40d6c03a52c258c9abc6d6da7b2cef03feb5d7eba7266e2f8c186f9ed273338",
+      "name": "ShielddSecurity.RegulatedCapture538.Rows"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.RegulatedCapture538.rows_iff : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  (rho : Nat \u2192 F),\n  Iff (@ShielddSecurity.RegulatedCapture538.Rows F inst rho)\n    (@Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 61930) (instOfNatNat (nat_lit 61930))))\n      (@OfNat.ofNat.{0} F (nat_lit 0)\n        (@Zero.toOfNat0.{0} F\n          (@MulZeroClass.toZero.{0} F\n            (@instMulZeroClassOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))",
+      "full_type_sha256": "815b738e827f1b5e3c5c49adc1c1d314bbcbc2fbf21e51a57884123add1a875e",
+      "name": "ShielddSecurity.RegulatedCapture538.rows_iff"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.RegulatedPorts539.regulated_inputs : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  (rho : Nat \u2192 F)\n  (one :\n    @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} F (nat_lit 1)\n        (@One.toOfNat1.{0} F\n          (@AddMonoidWithOne.toOne.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n  (copied :\n    @Eq.{1} F (rho ShielddSecurity.CompilerArithmeticTransport41.copy)\n      (@OfNat.ofNat.{0} F (nat_lit 1)\n        (@One.toOfNat1.{0} F\n          (@AddMonoidWithOne.toOne.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n  (flag :\n    @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 10) (instOfNatNat (nat_lit 10))))\n      (@OfNat.ofNat.{0} F (nat_lit 1)\n        (@One.toOfNat1.{0} F\n          (@AddMonoidWithOne.toOne.{0} F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n              (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954))))\n  (dx dy ax ay tx ty asset rx ry : F)\n  (hdx : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 3763) (instOfNatNat (nat_lit 3763)))) dx)\n  (hdy : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 3764) (instOfNatNat (nat_lit 3764)))) dy)\n  (hax : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 1504) (instOfNatNat (nat_lit 1504)))) ax)\n  (hay : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 1505) (instOfNatNat (nat_lit 1505)))) ay)\n  (htx : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 1512) (instOfNatNat (nat_lit 1512)))) tx)\n  (hty : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 1513) (instOfNatNat (nat_lit 1513)))) ty)\n  (ha : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))) asset)\n  (hrx : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 23) (instOfNatNat (nat_lit 23)))) rx)\n  (hry : @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 24) (instOfNatNat (nat_lit 24)))) ry),\n  @Eq.{1} (List.{0} F) (@ShielddSecurity.AuthorizationHash530C56.values F inst rho)\n    (@List.cons.{0} F dx\n      (@List.cons.{0} F dy\n        (@List.cons.{0} F ax\n          (@List.cons.{0} F ay\n            (@List.cons.{0} F tx\n              (@List.cons.{0} F ty\n                (@List.cons.{0} F asset (@List.cons.{0} F rx (@List.cons.{0} F ry (@List.nil.{0} F))))))))))",
+      "full_type_sha256": "4070c9d24ce33326e68f344232ca6a0da61b5abaa292eed241295078da66fe72",
+      "name": "ShielddSecurity.RegulatedPorts539.regulated_inputs"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedNatural540.key_hash : \u2200 (c : ShielddSecurity.TransferSem.Crypto) (values : List.{0} Nat)\n  (length : @Eq.{1} Nat (@List.length.{0} Nat values) (@OfNat.ofNat.{0} Nat (nat_lit 9) (instOfNatNat (nat_lit 9)))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.TransferSem.Crypto.hash (ShielddSecurity.AuthorizationFixedDomain485.crypto c)\n        ShielddSecurity.TransferSem.Domain.regulatedNullifierKey values))\n    (@ShielddSecurity.Poseidon.hash6 ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@ShielddSecurity.Poseidon.castParameters ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))\n        ShielddSecurity.AuthorizationHash530C56.parameters)\n      (@OfNat.ofNat.{0} Nat (nat_lit 17) (instOfNatNat (nat_lit 17)))\n      (@List.map.{0, 0} Nat ShielddSecurity.ConcreteJubjubField01.F\n        (fun (x : Nat) =>\n          @Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n            x)\n        values))",
+      "full_type_sha256": "c9d8d7351a9d51fa4ed825dac00a2f664bc40e47f6eb8c77aefd2c8a6fa63679",
+      "name": "ShielddSecurity.RegulatedNatural540.key_hash"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedNatural540.commitment_hash : \u2200 (c : ShielddSecurity.TransferSem.Crypto) (value : Nat),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.TransferSem.Crypto.hash (ShielddSecurity.AuthorizationFixedDomain485.crypto c)\n        ShielddSecurity.TransferSem.Domain.regulatedNullifierCommitment (@List.cons.{0} Nat value (@List.nil.{0} Nat))))\n    (@ShielddSecurity.Poseidon.hash3 ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@ShielddSecurity.Poseidon.castParameters ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))\n        ShielddSecurity.AuthorizationHash530C57.parameters)\n      (@OfNat.ofNat.{0} Nat (nat_lit 18) (instOfNatNat (nat_lit 18)))\n      (@List.cons.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n          value)\n        (@List.nil.{0} ShielddSecurity.ConcreteJubjubField01.F)))",
+      "full_type_sha256": "088f15425201143da99419e146151da395ca98da32706e1deae37c1d12e799d6",
+      "name": "ShielddSecurity.RegulatedNatural540.commitment_hash"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedMeaning541.inputs : \u2200 (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (data : ShielddSecurity.RegulatedInputFrame536.Inputs rho w)\n  (points :\n    ShielddSecurity.RegulatedPointFrame537.Points rho (ShielddSecurity.AuthorizationFixedDomain485.withGenerator c) w)\n  (one :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (copied :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho ShielddSecurity.CompilerArithmeticTransport41.copy)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) rho\n      ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954))))\n  (regulated : @Eq.{1} Bool (ShielddSecurity.TransferSem.Witness.regulated w) Bool.true),\n  @Eq.{1} (List.{0} ShielddSecurity.ConcreteJubjubField01.F)\n    (@ShielddSecurity.AuthorizationHash530C56.values ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) rho)\n    (@List.map.{0, 0} ShielddSecurity.ConcreteJubjubField01.F ShielddSecurity.ConcreteJubjubField01.F\n      (fun (x : ShielddSecurity.ConcreteJubjubField01.F) => x)\n      (@Bind.bind.{0, 0} List.{0} (@Monad.toBind.{0, 0} List.{0} List.instMonad.{0}) Nat\n        ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.RegulatedMeaning541.keyInputs c w) fun (a : Nat) =>\n        @Pure.pure.{0, 0} List.{0}\n          (@Applicative.toPure.{0, 0} List.{0} (@Monad.toApplicative.{0, 0} List.{0} List.instMonad.{0}))\n          ShielddSecurity.ConcreteJubjubField01.F\n          (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n            a)))",
+      "full_type_sha256": "e8732403e7904f41abf92729c16bb67f9f6def42d33d591e29294becd139fe39",
+      "name": "ShielddSecurity.RegulatedMeaning541.inputs"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedMeaning541.key_meaning : \u2200 (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (data : ShielddSecurity.RegulatedInputFrame536.Inputs rho w)\n  (points :\n    ShielddSecurity.RegulatedPointFrame537.Points rho (ShielddSecurity.AuthorizationFixedDomain485.withGenerator c) w)\n  (one :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (copied :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho ShielddSecurity.CompilerArithmeticTransport41.copy)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) rho\n      ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954))))\n  (regulated : @Eq.{1} Bool (ShielddSecurity.TransferSem.Witness.regulated w) Bool.true),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.eval ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) rho\n      ShielddSecurity.AuthorizationHash530C56.result)\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.TransferSem.rnk (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w))",
+      "full_type_sha256": "177371cf08120e5c01b50ed12e3d18e5f2f6dde72fa1dc2c8346008fa1bc1161",
+      "name": "ShielddSecurity.RegulatedMeaning541.key_meaning"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedMeaning541.commitment_meaning : \u2200 (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (data : ShielddSecurity.RegulatedInputFrame536.Inputs rho w)\n  (points :\n    ShielddSecurity.RegulatedPointFrame537.Points rho (ShielddSecurity.AuthorizationFixedDomain485.withGenerator c) w)\n  (one :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (copied :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho ShielddSecurity.CompilerArithmeticTransport41.copy)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) rho\n      ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954))))\n  (regulated : @Eq.{1} Bool (ShielddSecurity.TransferSem.Witness.regulated w) Bool.true),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.eval ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) rho\n      ShielddSecurity.AuthorizationHash530C57.result)\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.TransferSem.Crypto.hash (ShielddSecurity.AuthorizationFixedDomain485.crypto c)\n        ShielddSecurity.TransferSem.Domain.regulatedNullifierCommitment\n        (@List.cons.{0} Nat (ShielddSecurity.TransferSem.rnk (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n          (@List.nil.{0} Nat))))",
+      "full_type_sha256": "7754dedebc9f74d768ff3f5d3f48e8c7bcd559927563c5aaac4eff787696b706",
+      "name": "ShielddSecurity.RegulatedMeaning541.commitment_meaning"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedConstruction542.gated_zero : \u2200 (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (data : ShielddSecurity.RegulatedInputFrame536.Inputs rho w)\n  (points :\n    ShielddSecurity.RegulatedPointFrame537.Points rho (ShielddSecurity.AuthorizationFixedDomain485.withGenerator c) w)\n  (one :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (copied :\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (rho ShielddSecurity.CompilerArithmeticTransport41.copy)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) rho\n      ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954)))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (rho (@OfNat.ofNat.{0} Nat (nat_lit 61930) (instOfNatNat (nat_lit 61930))))\n    (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n      (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@ZMod.instField ShielddSecurity.Scalar.modulus\n                    ShielddSecurity.ConcreteJubjubField01.primeFact))))))))",
+      "full_type_sha256": "24e24b2539b6be9bd6c976b92272b1a45a65ad38d8c36f76cfd7c7ebecfe6fc4",
+      "name": "ShielddSecurity.RegulatedConstruction542.gated_zero"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedConstruction542.commitment_rows : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  @ShielddSecurity.RegulatedCapture538.Rows ShielddSecurity.ConcreteJubjubField01.F\n    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n    (ShielddSecurity.AuthorizationRkSeed505.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial)",
+      "full_type_sha256": "5e398292c308585e947bfc62026fabb2f015c04037adda3ac9f6494de6430db2",
+      "name": "ShielddSecurity.RegulatedConstruction542.commitment_rows"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.RegulatedConstruction542.legal_completed : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w),\n  @Exists.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n    fun (rkInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n    @Exists.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n      fun (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n      @Exists.{1}\n        (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n          ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n        fun\n          (senderInitial :\n            Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n              ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n        @Exists.{1}\n          (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n            ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n          fun\n            (receiverInitial :\n              Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n                ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n          @Exists.{1}\n            (Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n              ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n            fun\n              (initial :\n                Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n                  ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n            And\n              (ShielddSecurity.AuthorizationRkConstruction512.Earlier original c w legal rkInitial authInitial initial\n                senderInitial receiverInitial)\n              (And\n                (ShielddSecurity.AuthorizationRkConstruction512.Rows\n                  (ShielddSecurity.AuthorizationRkSeed505.assignment original c w legal rkInitial authInitial initial\n                    senderInitial receiverInitial))\n                (And\n                  (@ShielddSecurity.IncomingReduction533.Rows ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n                    (ShielddSecurity.AuthorizationRkSeed505.assignment original c w legal rkInitial authInitial initial\n                      senderInitial receiverInitial))\n                  (@ShielddSecurity.RegulatedCapture538.Rows ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n                    (ShielddSecurity.AuthorizationRkSeed505.assignment original c w legal rkInitial authInitial initial\n                      senderInitial receiverInitial))))",
+      "full_type_sha256": "6bc99c21c39019860b945e1e85bd55997fcc9bd0766394aadaa9d9f5d08bad7e",
+      "name": "ShielddSecurity.RegulatedConstruction542.legal_completed"
+    }
+  ],
+  "generation": {
+    "inputs": {
+      "generator/generate.py": "8d05148bac29602f3af87ba12ed9aa351877d24088362b50a0b47914105973f9",
+      "generator/rows.json": "a6c7f7544e66a71ce94f49038285354b4dd45f8131cfa4afed268994db186a28"
+    },
+    "sources": {
+      "RegulatedCapture538": {
+        "bytes": 5658,
+        "sha256": "f41048c2dc459c0c18febaacd513f2a3e5c33cb2a91e161785c59455d8af1ac0"
+      }
+    }
+  },
+  "mathlib": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "modules": {
+    "RegulatedCapture538": {
+      "object_sha256": "e218079ff1b12f2430523263b7c3eae78d187c15f939c43ff8e2d485f5576ccf",
+      "peak_group_rss_bytes": 2862563328,
+      "receipt_sha256": "7da39f0d12af2875c4c0545bead55ecae1eaa32a5c191c5bf1edbab648fdfe6a",
+      "reports": 9,
+      "seconds": 3.289873792033177,
+      "selected_custom_modules": 4871,
+      "source_sha256": "f41048c2dc459c0c18febaacd513f2a3e5c33cb2a91e161785c59455d8af1ac0",
+      "stdout_sha256": "c4fe70ffc7311af8abf6c30a8fc2818926ea90e7da57108cd6b62e9cefbc11a2"
+    },
+    "RegulatedConstruction542": {
+      "object_sha256": "5dffd580b667b0e7ebb2f585baacb6ec2587da81ca385ed5fbe2786ba17344a5",
+      "peak_group_rss_bytes": 2857877504,
+      "receipt_sha256": "fe428de3424eadc67ae896ed9af4ba034398f5c33a1016356bda566404aa335a",
+      "reports": 3,
+      "seconds": 3.2815397499944083,
+      "selected_custom_modules": 4871,
+      "source_sha256": "7c2d7441d436a5435f8e793134aa5f5aef4d3e0b3ca354c9add7ef3def0c7fa1",
+      "stdout_sha256": "f3d78780260ceb7004832ecae0d9dd71374f133704f0e331b32af5f8fa066d89"
+    },
+    "RegulatedInputFrame536": {
+      "object_sha256": "37cbeb807e8946d7d86878b48262323cb56c99321b422c01eca820027f3805ea",
+      "peak_group_rss_bytes": 2928394240,
+      "receipt_sha256": "be0dfd7e73e07a42c97062a6aa83eba5add0de4ded791e8b2e4d994372d9f769",
+      "reports": 8,
+      "seconds": 3.842307333019562,
+      "selected_custom_modules": 4871,
+      "source_sha256": "d6bcd6452356a25ff159df86fbe2a3557e8a137fa00b256cca44051142981ce9",
+      "stdout_sha256": "4bec1dc78f5fe51f4c1262b2cc74cef51ec7ae2239c5e3d54b4865b65a9a6f05"
+    },
+    "RegulatedMeaning541": {
+      "object_sha256": "3a0ecc7fbac55c373dcb840397bcf34c5c2421fd35a14aadf50b5eba1b62f793",
+      "peak_group_rss_bytes": 2931228672,
+      "receipt_sha256": "a5e867c8f28ea157a32ada546bae6a4275600f1a1aedfed81d00ac6e6b3f07b2",
+      "reports": 3,
+      "seconds": 3.28893766697729,
+      "selected_custom_modules": 4871,
+      "source_sha256": "726c96c10f418c7504221c2c5decf4e7c4447934005d5a8758c344f3a25c6da7",
+      "stdout_sha256": "7cbab7977b65a9eaf537dd3f7ba554f8059621159655048c6a256402a921a0dc"
+    },
+    "RegulatedNatural540": {
+      "object_sha256": "5cadfd856549b535b63aeba6d4d9942e2dce60d0b459ebf8a0ce5371b81a54b5",
+      "peak_group_rss_bytes": 2924462080,
+      "receipt_sha256": "eca501d01d4df1b4ca4aa5c1409b9a5ebe7cdc5b8d6b2af353f134a4a154e8f0",
+      "reports": 2,
+      "seconds": 3.2820832079742104,
+      "selected_custom_modules": 4871,
+      "source_sha256": "345283c13dfb39d0ff6571f6440ad566d4cb165f247936a81c23c8f3051b4dc9",
+      "stdout_sha256": "ebb81d8e91bbd0d867ea7f502b311029cbcbba202702812c827c343d608e3230"
+    },
+    "RegulatedPointFrame537": {
+      "object_sha256": "6dd33a91ab4d5134551f7db264453461017224f9ffd634b9f510bd5f83be2739",
+      "peak_group_rss_bytes": 2917924864,
+      "receipt_sha256": "7e838e91fcec08f0d9bdf12dfe467e65ce1df824eadb5b2bcc825fa04967e545",
+      "reports": 5,
+      "seconds": 3.2918952500331216,
+      "selected_custom_modules": 4871,
+      "source_sha256": "062e4a3152b077b2c76cc884758a8851f244bada7cc8ddbc8a81503ecdeeccea",
+      "stdout_sha256": "5b051ad9da5cff48f8a0a6396a191d538be977f3d7384cd3740765e9930e34a8"
+    },
+    "RegulatedPorts539": {
+      "object_sha256": "fad87ece2b09522459c63fa78a55f193fc67372191beaadf9ba530e74feb9713",
+      "peak_group_rss_bytes": 2818949120,
+      "receipt_sha256": "9366dc3c003e3330d8b5612edce729f100b1fad6e2fd009069cc0ef02908e8d3",
+      "reports": 1,
+      "seconds": 3.0147928750375286,
+      "selected_custom_modules": 4871,
+      "source_sha256": "155c7ead564770a343828f1a594074aac74e42a56bf76fe19264b121f8952334",
+      "stdout_sha256": "8cc965fbc7da41988b0f65b183d81ebcd65f5f5e348e554aa5c561dd733c54bf"
+    }
+  },
+  "native_consequence": "OPEN",
+  "native_credit": 0,
+  "refresh_sha256": "f31111ec70658614334aa925a81dc013ce0132b0f47816c05c1f5e9951dee476",
+  "reports": 31,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Regulated commitment assertion3772 is constructed on the SAME retained assignment through exact selector rows, field input/point preservation, captured RNK hash and commitment hash semantics, and the independent legal regulated implication. Captured generator SDK identity and all full endpoints remain OPEN.",
+  "status": "passed",
+  "total_legal_input_construction": "OPEN"
+}
