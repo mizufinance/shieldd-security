@@ -1,0 +1,123 @@
+ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand' does not depend on any axioms
+ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_words_are_exactly_the_qualified_sdk_r2_words : @Eq.{1}
+  (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+    ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand)
+  ShielddSecurity.TransferScalarR2Payload01.sourceR2
+'ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_words_are_exactly_the_qualified_sdk_r2_words' does not depend on any axioms
+ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_original_field_value_is_the_single_montgomery_radix : @Eq.{1}
+  Nat
+  (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+      ShielddSecurity.TransferBlstArmConstructor01.sourceBlstR2Operand))
+  (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmConstructor01.locked_blst_rRR_original_field_value_is_the_single_montgomery_radix' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmConstructor01.two_plain_modular_radix_factors_cancel_on_every_raw_integer : ∀
+  (modulus radix inverse raw : Nat)
+  (cancellation :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix inverse) modulus)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) radix modulus)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) inverse raw) modulus))
+      modulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) raw modulus)
+'ShielddSecurity.TransferBlstArmConstructor01.two_plain_modular_radix_factors_cancel_on_every_raw_integer' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs : (raw :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_derives_the_original_four_limb_integer_field_value : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_derives_the_original_four_limb_integer_field_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_word_meaning_is_the_original_input_field_cast : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw)))
+    (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw)))
+'ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_word_meaning_is_the_original_input_field_cast' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_and_original_as_slice_caller_derive_every_original_input_field_byte : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (scalarPrior outputPrior : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} UInt8
+    (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) Nat
+      UInt8
+      (fun (x : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (i : Nat) =>
+        @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Vector.instGetElemNatLt.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          (ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice
+            (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+                (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+                (ShielddSecurity.TransferBlstArmConstructor01.sourceFrFromLimbs raw))
+              (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+                (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) scalarPrior
+                outputPrior))
+            scratch)))
+      (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+      (@Decidable.byContradiction
+        (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Nat.decLt (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        fun
+          (a :
+            Not
+              (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>
+        ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_and_original_as_slice_caller_derive_every_original_input_field_byte._proof_1
+          index a))
+    (ShielddSecurity.TransferCommonwareMapBytes01.canonicalBEByte
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw)))
+      index)
+'ShielddSecurity.TransferBlstArmConstructor01.original_locked_constructor_and_original_as_slice_caller_derive_every_original_input_field_byte' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

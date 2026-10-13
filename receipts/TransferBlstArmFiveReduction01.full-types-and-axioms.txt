@@ -1,0 +1,250 @@
+ShielddSecurity.TransferBlstArmFiveReduction01.two_plain_integer_carry_equations_compose_without_limb_expansion : ∀
+  (span first second flagA flagB rest low carry high : Nat)
+  (firstEquation :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) first
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span flagA))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rest low) carry))
+  (secondEquation :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) second
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span flagB))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) first high)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) second
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) flagA flagB)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rest low) carry)
+      high)
+'ShielddSecurity.TransferBlstArmFiveReduction01.two_plain_integer_carry_equations_compose_without_limb_expansion' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.plain_low_cancellation_and_product_split_derive_the_radix_factor : ∀
+  (radix word lowWord rest lowTail highWords multiplier modulus carry : Nat)
+  (productEquation :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) lowWord
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix lowTail))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix highWords))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) multiplier modulus))
+  (cancellation :
+    @Eq.{1} Nat (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix carry)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) word lowWord)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) word
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix rest))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) multiplier modulus))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rest lowTail) carry)
+        highWords))
+'ShielddSecurity.TransferBlstArmFiveReduction01.plain_low_cancellation_and_product_split_derive_the_radix_factor' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.nonnegative_flag_weight_below_its_span_forces_zero : ∀
+  (span low flags quotient : Nat) (bounded : @LT.lt.{0} Nat instLTNat quotient span)
+  (equation :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) low
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) span flags))
+      quotient),
+  @Eq.{1} Nat flags (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmFiveReduction01.nonnegative_flag_weight_below_its_span_forces_zero' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.symbolic_low_product_vector_cons_retains_the_head_product : ∀
+  (multiplier word : UInt64) (rest : List.{0} UInt64),
+  @Eq.{1} (List.{0} UInt64)
+    (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier (@List.cons.{0} UInt64 word rest))
+    (@List.cons.{0} UInt64
+      (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier word))
+      (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier rest))
+'ShielddSecurity.TransferBlstArmFiveReduction01.symbolic_low_product_vector_cons_retains_the_head_product' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveLowProducts : (word : UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveLowProducts' does not depend on any axioms
+ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass : (word : UInt64) →
+  (rest : List.{0} UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass' does not depend on any axioms
+ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass : (word : UInt64) →
+  (rest : List.{0} UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass' does not depend on any axioms
+ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_low_product_tail_retains_four_words : ∀
+  (word : UInt64),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveLowProducts word))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_low_product_tail_retains_four_words' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_first_pass_retains_four_words : ∀ (word : UInt64)
+  (rest : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_first_pass_retains_four_words' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_second_pass_retains_four_words : ∀ (word : UInt64)
+  (rest : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_second_pass_retains_four_words' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmFiveReduction01.appending_one_zero_word_retains_the_exact_packed_integer : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) words
+        (@List.cons.{0} UInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+          (@List.nil.{0} UInt64))))
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+'ShielddSecurity.TransferBlstArmFiveReduction01.appending_one_zero_word_retains_the_exact_packed_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.five_input_first_pass_has_the_exact_integer_conservation_equation : ∀
+  (word : UInt64) (rest : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Bool.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords rest)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords
+            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)
+            (@List.drop.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+              ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords))))
+      (Bool.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry word)))
+'ShielddSecurity.TransferBlstArmFiveReduction01.five_input_first_pass_has_the_exact_integer_conservation_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.five_input_second_pass_has_the_exact_integer_conservation_equation : ∀
+  (word : UInt64) (rest : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Bool.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords
+          (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)
+          ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords)))
+'ShielddSecurity.TransferBlstArmFiveReduction01.five_input_second_pass_has_the_exact_integer_conservation_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_original_numerator_has_the_derived_exact_radix_factor : ∀
+  (word : UInt64) (rest : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords rest)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords
+                (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)
+                (@List.drop.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                  ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords))))
+          (Bool.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry word)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords
+            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)
+            ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords))))
+'ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_original_numerator_has_the_derived_exact_radix_factor' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_two_passes_retain_both_flags_in_the_exact_quotient_equation : ∀
+  (word : UInt64) (rest : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (Bool.toNat
+            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+              (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest)))
+          (Bool.toNat
+            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+              (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest))))))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferBlstArmFiveReduction01.five_input_elimination_two_passes_retain_both_flags_in_the_exact_quotient_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmFiveReduction01.bounded_five_input_elimination_derives_both_zero_flags_and_the_exact_quotient : ∀
+  (word : UInt64) (rest : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (bounded :
+    @LT.lt.{0} Nat instLTNat
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass word rest))
+      Bool.false)
+    (And
+      (@Eq.{1} Bool
+        (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest))
+        Bool.false)
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass word rest)))
+        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))
+              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64)))
+'ShielddSecurity.TransferBlstArmFiveReduction01.bounded_five_input_elimination_derives_both_zero_flags_and_the_exact_quotient' depends on axioms: [propext,
+ Quot.sound]

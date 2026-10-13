@@ -1,0 +1,120 @@
+ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw : (left right :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw' does not depend on any axioms
+ShielddSecurity.TransferBlstArmAdd01.source_arm_add_raw_retains_four_limbs : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw left right)))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmAdd01.source_arm_add_raw_retains_four_limbs' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmAdd01.canonical_inputs_derive_actual_arm_add_zero_overflow_and_exact_integer_sum : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+      Bool.false)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))))
+'ShielddSecurity.TransferBlstArmAdd01.canonical_inputs_derive_actual_arm_add_zero_overflow_and_exact_integer_sum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords : (left right :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  List.{0} UInt64
+'ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmAdd01.actual_fifth_subtraction_with_zero_overflow_retains_exact_low_borrow : ∀
+  (borrow : Bool),
+  @Eq.{1} Bool
+    (ShielddSecurity.TransferScalarBorrowWalk01.nextBorrow
+      (UInt64.ofNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) borrow)
+    borrow
+'ShielddSecurity.TransferBlstArmAdd01.actual_fifth_subtraction_with_zero_overflow_retains_exact_low_borrow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_every_qualified_sdk_output_word : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (List.{0} UInt64)
+    (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))
+    (ShielddSecurity.TransferScalarCanonicalAdd01.sourceAddWords
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))
+'ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_every_qualified_sdk_output_word' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_width_range_and_modular_sum : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddWords
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)))
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+'ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_width_range_and_modular_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmAdd01.sourceArmAdd : (left right :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmAdd01.sourceArmAdd' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_the_original_input_field_sum : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferBlstArmAdd01.sourceArmAdd left right)))
+    (@HAdd.hAdd.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@instHAdd.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@Distrib.toAdd.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@instDistribOfSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+'ShielddSecurity.TransferBlstArmAdd01.canonical_actual_arm_add_derives_the_original_input_field_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

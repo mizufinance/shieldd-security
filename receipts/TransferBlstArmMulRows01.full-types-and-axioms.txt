@@ -1,0 +1,107 @@
+ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowPhase : (operand accumulator :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  (digit : UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowPhase' does not depend on any axioms
+ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_low_phase_retains_the_four_low_words : ∀
+  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (digit : UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowPhase operand accumulator digit)))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_low_phase_retains_the_four_low_words' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmMulRows01.boolean_carry_word_retains_the_exact_flag_integer : ∀ (flag : Bool),
+  @Eq.{1} Nat (UInt64.toNat (UInt64.ofNat (Bool.toNat flag))) (Bool.toNat flag)
+'ShielddSecurity.TransferBlstArmMulRows01.boolean_carry_word_retains_the_exact_flag_integer' does not depend on any axioms
+ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive : (operand accumulator :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  (digit : UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive' does not depend on any axioms
+ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_retains_five_words : ∀
+  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (digit : UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive operand accumulator digit))
+    (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+'ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_retains_five_words' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_derives_the_full_low_product_sum : ∀
+  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (digit : UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddLowFive operand accumulator digit))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords digit
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) operand))))
+'ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_extended_low_phase_derives_the_full_low_product_sum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows : (operand accumulator :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  (digit : UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows' does not depend on any axioms
+ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_retain_the_five_accumulator_words : ∀
+  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (digit : UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows operand accumulator digit)))
+    (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+'ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_retain_the_five_accumulator_words' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_conserve_the_entire_original_accumulator_and_digit_product : ∀
+  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (digit : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows operand accumulator digit)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5))))
+        (Bool.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows operand accumulator digit)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) operand))))
+'ShielddSecurity.TransferBlstArmMulRows01.source_mul_add_rows_conserve_the_entire_original_accumulator_and_digit_product' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmMulRows01.canonical_operand_and_bounded_prior_accumulator_derive_no_discarded_product_overflow : ∀
+  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)
+  (prior :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))
+      Bool.false)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmMulRows01.sourceMulAddRows
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand))))))
+'ShielddSecurity.TransferBlstArmMulRows01.canonical_operand_and_bounded_prior_accumulator_derive_no_discarded_product_overflow' depends on axioms: [propext,
+ Quot.sound]

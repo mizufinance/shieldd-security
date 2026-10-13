@@ -1,0 +1,141 @@
+ShielddSecurity.TransferBlstArmCneg01.sourceArmCnegWords : (flag : Bool) →
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmCneg01.sourceArmCnegWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_retains_the_four_limb_width : ∀ (flag : Bool)
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmCneg01.sourceArmCnegWords flag words))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_retains_the_four_limb_width' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.source_modulus_subtraction_on_canonical_input_has_no_borrow_and_exact_difference : ∀
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk Bool.false
+          (@List.zip.{0, 0} UInt64 UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))))
+      Bool.false)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk Bool.false
+            (@List.zip.{0, 0} UInt64 UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))))
+'ShielddSecurity.TransferBlstArmCneg01.source_modulus_subtraction_on_canonical_input_has_no_borrow_and_exact_difference' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_derives_the_canonical_raw_output : ∀ (flag : Bool)
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmCneg01.sourceArmCnegWords flag
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+    (@ite.{1} Nat (@Eq.{1} Bool flag Bool.true) (instDecidableEqBool flag Bool.true)
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar))))
+'ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_derives_the_canonical_raw_output' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_derives_output_canonicality : ∀ (flag : Bool)
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmCneg01.sourceArmCnegWords flag
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_derives_output_canonicality' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.sourceArmCneg : (flag : Bool) →
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmCneg01.sourceArmCneg' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.original_fr_word_meaning_is_the_raw_montgomery_residue : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning words)
+    (@HMul.hMul.{0, 0, 0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@instHMul.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@Distrib.toMul.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@instDistribOfSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse)
+      (@Nat.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@AddMonoidWithOne.toNatCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@AddGroupWithOne.toAddMonoidWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))))
+'ShielddSecurity.TransferBlstArmCneg01.original_fr_word_meaning_is_the_raw_montgomery_residue' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_derives_the_input_field_negation : ∀ (flag : Bool)
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferBlstArmCneg01.sourceArmCneg flag scalar)))
+    (@ite.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) (@Eq.{1} Bool flag Bool.true)
+      (instDecidableEqBool flag Bool.true)
+      (@Neg.neg.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@NegZeroClass.toNeg.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@SubNegZeroMonoid.toNegZeroClass.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@SubtractionMonoid.toSubNegZeroMonoid.{0}
+              (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (@SubtractionCommMonoid.toSubtractionMonoid.{0}
+                (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                (@AddCommGroup.toDivisionAddCommMonoid.{0}
+                  (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                  (@Ring.toAddCommGroup.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                    (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+                      (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))))))
+        (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+'ShielddSecurity.TransferBlstArmCneg01.source_arm_cneg_derives_the_input_field_negation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.sourceCallerCorrectedRoot : (choice : Bool) →
+  (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+    (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+      ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar
+'ShielddSecurity.TransferBlstArmCneg01.sourceCallerCorrectedRoot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCneg01.original_caller_byte_guard_and_cneg_derive_the_same_canonical_root : ∀
+  (choice : Bool) (scalar : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words
+        (ShielddSecurity.TransferBlstArmCneg01.sourceCallerCorrectedRoot choice scalar scratch)))
+    (ShielddSecurity.TransferCommonwareMapRoots01.normalizeRoot choice
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words scalar)))
+'ShielddSecurity.TransferBlstArmCneg01.original_caller_byte_guard_and_cneg_derive_the_same_canonical_root' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

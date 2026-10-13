@@ -1,0 +1,247 @@
+ShielddSecurity.TransferBlstArmCaller01.CallerMemory : Type
+'ShielddSecurity.TransferBlstArmCaller01.CallerMemory' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCaller01.sourceScalarFromFr : (memory :
+    ShielddSecurity.TransferBlstArmCaller01.CallerMemory) →
+  ShielddSecurity.TransferBlstArmCaller01.CallerMemory
+'ShielddSecurity.TransferBlstArmCaller01.sourceScalarFromFr' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.sourceBendianFromScalar : (memory :
+    ShielddSecurity.TransferBlstArmCaller01.CallerMemory) →
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    ShielddSecurity.TransferBlstArmCaller01.CallerMemory
+'ShielddSecurity.TransferBlstArmCaller01.sourceBendianFromScalar' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice : (memory :
+    ShielddSecurity.TransferBlstArmCaller01.CallerMemory) →
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+    ShielddSecurity.TransferBlstArmCaller01.CallerMemory
+'ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice' depends on axioms: [propext, Classical.choice, Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.scalar_from_fr_preserves_input_and_output_allocations : ∀
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory),
+  And
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+        (ShielddSecurity.TransferBlstArmCaller01.sourceScalarFromFr memory))
+      (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+        memory))
+    (@Eq.{1} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          (ShielddSecurity.TransferBlstArmCaller01.sourceScalarFromFr memory)))
+      (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          memory)))
+'ShielddSecurity.TransferBlstArmCaller01.scalar_from_fr_preserves_input_and_output_allocations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.bendian_from_scalar_preserves_input_and_scalar_allocations : ∀
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+        (ShielddSecurity.TransferBlstArmCaller01.sourceBendianFromScalar memory scratch))
+      (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+        memory))
+    (@Eq.{1} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Prod.fst.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          (ShielddSecurity.TransferBlstArmCaller01.sourceBendianFromScalar memory scratch)))
+      (@Prod.fst.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          memory)))
+'ShielddSecurity.TransferBlstArmCaller01.bendian_from_scalar_preserves_input_and_scalar_allocations' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.caller_as_slice_derives_every_original_input_field_byte : ∀
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} UInt8
+    (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) Nat
+      UInt8
+      (fun (x : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (i : Nat) =>
+        @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Vector.instGetElemNatLt.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          (ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice memory scratch)))
+      (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+      (@Decidable.byContradiction
+        (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Nat.decLt (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        fun
+          (a :
+            Not
+              (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)
+                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>
+        ShielddSecurity.TransferBlstArmCaller01.caller_as_slice_derives_every_original_input_field_byte._proof_1 index
+          a))
+    (ShielddSecurity.TransferCommonwareMapBytes01.canonicalBEByte
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          memory))
+      index)
+'ShielddSecurity.TransferBlstArmCaller01.caller_as_slice_derives_every_original_input_field_byte' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.caller_as_slice_preserves_original_input_words : ∀
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+      (ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice memory scratch))
+    (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+        (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+      memory)
+'ShielddSecurity.TransferBlstArmCaller01.caller_as_slice_preserves_original_input_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.caller_as_slice_is_independent_of_prior_byte_allocations_and_parser_scratch : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (scalarA scalarB outputA outputB : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+  (scratchA scratchB : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+    (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+        (ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice
+          (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+              (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+            words
+            (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+              (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) scalarA outputA))
+          scratchA)))
+    (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+      (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+        (ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice
+          (@Prod.mk.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+              (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+            words
+            (@Prod.mk.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+              (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) scalarB outputB))
+          scratchB)))
+'ShielddSecurity.TransferBlstArmCaller01.caller_as_slice_is_independent_of_prior_byte_allocations_and_parser_scratch' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.sourceCallerSignGuard : (choice : Bool) →
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory) →
+    (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) → Bool
+'ShielddSecurity.TransferBlstArmCaller01.sourceCallerSignGuard' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.caller_byte31_mask_derives_original_input_field_parity : ∀
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (UInt8.toNat
+      (@HAnd.hAnd.{0, 0, 0} UInt8 UInt8 UInt8 (@instHAndOfAndOp.{0} UInt8 instAndOpUInt8)
+        (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          Nat UInt8
+          (fun (x : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (i : Nat) =>
+            @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (@Vector.instGetElemNatLt.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+          (@Prod.snd.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+                (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+              (ShielddSecurity.TransferBlstArmCaller01.sourceAsSlice memory scratch)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+          (@Decidable.byContradiction
+            (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            fun
+              (a :
+                Not
+                  (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>
+            ShielddSecurity.TransferBlstArmCaller01.sourceCallerSignGuard._proof_1 a))
+        (@OfNat.ofNat.{0} UInt8 (nat_lit 1) (@UInt8.instOfNat (nat_lit 1)))))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@ZMod.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+          (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+              (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+            memory)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'ShielddSecurity.TransferBlstArmCaller01.caller_byte31_mask_derives_original_input_field_parity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.caller_sign_guard_derives_the_original_input_field_guard : ∀ (choice : Bool)
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Bool (ShielddSecurity.TransferBlstArmCaller01.sourceCallerSignGuard choice memory scratch)
+    (@bne.{0} Bool (@instBEqOfDecidableEq.{0} Bool instDecidableEqBool)
+      (@BEq.beq.{0} Nat (@instBEqOfDecidableEq.{0} Nat instDecidableEqNat)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@ZMod.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+            (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+              (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+                  (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+                memory)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      choice)
+'ShielddSecurity.TransferBlstArmCaller01.caller_sign_guard_derives_the_original_input_field_guard' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.sourceCallerSelectedMeaning : (choice : Bool) →
+  (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory) →
+    (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+      ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferBlstArmCaller01.sourceCallerSelectedMeaning' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCaller01.caller_selected_meaning_derives_the_qualified_root_normalizer : ∀
+  (choice : Bool) (memory : ShielddSecurity.TransferBlstArmCaller01.CallerMemory)
+  (scratch : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (ShielddSecurity.TransferBlstArmCaller01.sourceCallerSelectedMeaning choice memory scratch)
+    (ShielddSecurity.TransferCommonwareMapRoots01.normalizeRoot choice
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning
+        (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+            (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+          memory)))
+'ShielddSecurity.TransferBlstArmCaller01.caller_selected_meaning_derives_the_qualified_root_normalizer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

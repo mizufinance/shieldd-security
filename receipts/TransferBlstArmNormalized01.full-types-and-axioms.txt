@@ -1,0 +1,99 @@
+ShielddSecurity.TransferBlstArmNormalized01.sourceArmBorrowSelect : (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmNormalized01.sourceArmBorrowSelect' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmNormalized01.actual_final_borrow_select_retains_the_four_word_width : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmNormalized01.sourceArmBorrowSelect words))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmNormalized01.actual_final_borrow_select_retains_the_four_word_width' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmNormalized01.actual_final_borrow_select_derives_exact_single_modulus_normalization : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceArmBorrowSelect words))
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+'ShielddSecurity.TransferBlstArmNormalized01.actual_final_borrow_select_derives_exact_single_modulus_normalization' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.actual_final_borrow_select_derives_the_qualified_normalized_word_vector : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (List.{0} UInt64) (ShielddSecurity.TransferBlstArmNormalized01.sourceArmBorrowSelect words)
+    (ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize words)
+'ShielddSecurity.TransferBlstArmNormalized01.actual_final_borrow_select_derives_the_qualified_normalized_word_vector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontWords : (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontWords' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_source_program_derives_every_qualified_output_word : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (List.{0} UInt64) (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontWords words)
+    (ShielddSecurity.TransferScalarMaskedNormalization01.sourceNormalize
+      (ShielddSecurity.TransferScalarFourRoundWrapper01.nativeRounds
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+'ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_source_program_derives_every_qualified_output_word' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_source_program_retains_the_four_limb_width : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontWords words))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_source_program_retains_the_four_limb_width' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_source_program_derives_the_original_montgomery_value : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)))
+    (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue words)
+'ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_source_program_derives_the_original_montgomery_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector : (words :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_fixed_vector_is_the_actual_four_output_words : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (List.{0} UInt64)
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector words))
+    (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+'ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_fixed_vector_is_the_actual_four_output_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning : (words :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_output_derives_its_input_representation_field_value : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector words)))
+    (@ZMod.val ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning words))
+'ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_output_derives_its_input_representation_field_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_and_complete_encoder_chain_derive_every_input_field_byte : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),
+  @Eq.{1} UInt8
+    (ShielddSecurity.TransferBlstByteCaller01.sourceScalarBendianBytes64
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceArmFromMontVector words) index)
+    (ShielddSecurity.TransferCommonwareMapBytes01.canonicalBEByte
+      (ShielddSecurity.TransferBlstArmNormalized01.sourceBlstFrWordMeaning words) index)
+'ShielddSecurity.TransferBlstArmNormalized01.actual_full_from_mont_and_complete_encoder_chain_derive_every_input_field_byte' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

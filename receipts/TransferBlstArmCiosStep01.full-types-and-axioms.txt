@@ -1,0 +1,246 @@
+ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput : (operand accumulator :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  (digit : UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCiosStep01.source_mul_step_input_is_exactly_its_head_and_four_word_tail : ∀
+  (operand accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (digit : UInt64),
+  And
+    (@Eq.{1} (List.{0} UInt64) (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit)
+      (@List.cons.{0} UInt64
+        (@List.headD.{0} UInt64 (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit)
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+        (@List.tail.{0} UInt64
+          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit))))
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (@List.tail.{0} UInt64
+          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput operand accumulator digit)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferBlstArmCiosStep01.source_mul_step_input_is_exactly_its_head_and_four_word_tail' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCiosStep01.canonical_operand_and_bounded_accumulator_derive_the_next_quotient_below_twice_modulus : ∀
+  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)
+  (prior :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @LT.lt.{0} Nat instLTNat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (UInt64.toNat
+            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier
+              (@List.headD.{0} UInt64
+                (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)
+                (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmCiosStep01.canonical_operand_and_bounded_accumulator_derive_the_next_quotient_below_twice_modulus' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords : (operand accumulator :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  (digit : UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCiosStep01.bounded_original_multiplication_step_derives_both_zero_elimination_flags : ∀
+  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)
+  (prior :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveFirstPass
+          (@List.headD.{0} UInt64
+            (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+          (@List.tail.{0} UInt64
+            (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))))
+      Bool.false)
+    (And
+      (@Eq.{1} Bool
+        (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmFiveReduction01.sourceFiveSecondPass
+            (@List.headD.{0} UInt64
+              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+            (@List.tail.{0} UInt64
+              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))))
+        Bool.false)
+      (@Eq.{1} Nat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))
+        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (UInt64.toNat
+                (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier
+                  (@List.headD.{0} UInt64
+                    (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+                      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)
+                    (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64)))
+'ShielddSecurity.TransferBlstArmCiosStep01.bounded_original_multiplication_step_derives_both_zero_elimination_flags' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCiosStep01.original_multiplication_step_derives_width_range_and_exact_scaled_integer : ∀
+  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (accumulator : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (digit : UInt64)
+  (prior :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords
+            (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      (@Eq.{1} Nat
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) accumulator))
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)
+              (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+                (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)))))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (UInt64.toNat
+              (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier
+                (@List.headD.{0} UInt64
+                  (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+                    (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand) accumulator digit)
+                  (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+            ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+'ShielddSecurity.TransferBlstArmCiosStep01.original_multiplication_step_derives_width_range_and_exact_scaled_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate : Type
+'ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep : (operand :
+    ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar) →
+  (accumulator : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate) →
+    (digit : UInt64) → ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate
+'ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_fixed_vector_is_every_actual_output_word : ∀
+  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (accumulator : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate) (digit : UInt64),
+  @Eq.{1} (List.{0} UInt64)
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+          @LT.lt.{0} Nat instLTNat
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+        (ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep operand accumulator digit)))
+    (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepWords
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)
+      (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+          @LT.lt.{0} Nat instLTNat
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+        accumulator)
+      digit)
+'ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_fixed_vector_is_every_actual_output_word' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_derives_the_full_scaled_integer_from_the_original_input : ∀
+  (operand : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar)
+  (accumulator : ShielddSecurity.TransferBlstArmCiosStep01.SourceIntermediate) (digit : UInt64),
+  @Eq.{1} Nat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+              @LT.lt.{0} Nat instLTNat
+                (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+                  (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+            (ShielddSecurity.TransferBlstArmCiosStep01.sourceCiosStep operand accumulator digit)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+                @LT.lt.{0} Nat instLTNat
+                  (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+                    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+              accumulator)))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat digit)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (UInt64.toNat
+          (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier
+            (@List.headD.{0} UInt64
+              (ShielddSecurity.TransferBlstArmCiosStep01.sourceMulStepInput
+                (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words operand)
+                (@Subtype.val.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                  (fun (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) =>
+                    @LT.lt.{0} Nat instLTNat
+                      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+                        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words))
+                      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+                  accumulator)
+                digit)
+              (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferBlstArmCiosStep01.original_cios_step_derives_the_full_scaled_integer_from_the_original_input' depends on axioms: [propext,
+ Quot.sound]
