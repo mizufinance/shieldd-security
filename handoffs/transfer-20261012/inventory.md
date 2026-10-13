@@ -1,6 +1,6 @@
 # Transfer proof remaining work inventory
 
-Current verified checkpoint: IndependentWordConstruction371 retains **11,097** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,719** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
+Current verified checkpoint: EncodedWordConstruction374 retains **11,097** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,719** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
 
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
@@ -134,3 +134,5 @@ The [user commitment/path inputs](shared-user-path-inputs/README.md) add85 audit
 The [authorization scalar inputs](shared-auth-scalar-inputs/README.md) derive three more word bounds through 14 audits, retaining the same assertion union. The complete user record input encoding is retained; actual compliance hash/path consumers remain open.
 
 The [independent word construction](independent-word-construction/README.md) derives all 23 remaining smaller word bounds through 16 audits and retains the prior assertion union without caller-supplied bounds. Subsequent joins must prove the actual semantic consumers on this same assignment; zero remaining bounds does not imply zero remaining assertions.
+
+The [final encoded word meanings](encoded-word-meanings/README.md) add74 audits across61 modules, preserving all26 authorization and remaining smaller word values after shared completion. The assertion union is unchanged; actual consumer joins remain open.
