@@ -1,0 +1,171 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit : (multiplier operand : UInt64) \u2192 Prod.{0, 0} UInt64 UInt64",
+      "full_type_sha256": "9e1a5d24d05842f151a1776544904eb9afa12855a955e3255fb39b603fc0d938",
+      "name": "ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmProducts01.actual_product_low_and_high_words_conserve_the_full_integer : \u2200\n  (multiplier operand : UInt64),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (UInt64.toNat\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier operand)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (UInt64.toNat\n          (@Prod.snd.{0, 0} UInt64 UInt64\n            (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier operand)))))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier) (UInt64.toNat operand))",
+      "full_type_sha256": "7131a7f571cb40b8a63d33dc46fba9522ee369e6f425d9b12fdc949e0ce4417c",
+      "name": "ShielddSecurity.TransferBlstArmProducts01.actual_product_low_and_high_words_conserve_the_full_integer"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmProducts01.actual_product_low_word_is_the_source_wrapped_mul : \u2200\n  (multiplier operand : UInt64),\n  @Eq.{1} UInt64\n    (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier operand))\n    (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64) multiplier operand)",
+      "full_type_sha256": "410232689cfd89f6c9b599c8b84ac121519328238487fa0ced287ef1540ba499",
+      "name": "ShielddSecurity.TransferBlstArmProducts01.actual_product_low_word_is_the_source_wrapped_mul"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords : (multiplier : UInt64) \u2192\n  (words : List.{0} UInt64) \u2192 List.{0} UInt64",
+      "full_type_sha256": "c78106f5ed4e1d793ff8955430458a32a16ce5afd6d88a22928bcf60ede53161",
+      "name": "ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords : (multiplier : UInt64) \u2192\n  (words : List.{0} UInt64) \u2192 List.{0} UInt64",
+      "full_type_sha256": "dc5939492acee9a502485e263c177f7e3a1267cfb281d5de8cf746142b9f67ee",
+      "name": "ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmProducts01.source_product_vectors_retain_the_source_modulus_limb_count : \u2200\n  (multiplier : UInt64) (words : List.{0} UInt64),\n  And\n    (@Eq.{1} Nat\n      (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier words))\n      (@List.length.{0} UInt64 words))\n    (@Eq.{1} Nat\n      (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords multiplier words))\n      (@List.length.{0} UInt64 words))",
+      "full_type_sha256": "3f444f930f4fd76b34cb510576762baa164b91bbdb63ff54f3af84fda28fd034",
+      "name": "ShielddSecurity.TransferBlstArmProducts01.source_product_vectors_retain_the_source_modulus_limb_count"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmProducts01.symbolic_packed_low_and_high_product_vectors_conserve_the_full_product : \u2200\n  (multiplier : UInt64) (words : List.{0} UInt64),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier words))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n          (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords multiplier words))))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))",
+      "full_type_sha256": "4941b02203250b07f3c39de42fbbd91ed56bc69c28623e0a41a5ec9e18a0c066",
+      "name": "ShielddSecurity.TransferBlstArmProducts01.symbolic_packed_low_and_high_product_vectors_conserve_the_full_product"
+    }
+  ],
+  "dependency_sources_verified": 251,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 97179,
+    "sha256": "9a5d5e276ca11c6ab5183d200bc02a0034484e7ddb3d5be562e3c4769007a81b"
+  },
+  "modules": {
+    "TransferBlstArmProducts01": {
+      "object_identity": {
+        "bytes": 90312,
+        "sha256": "87e8f9e57c3f07516b270620b5184eb6ab378f6ef5e184987eb715d1086e518e"
+      },
+      "peak_rss_bytes": 1410215936,
+      "plan_identity": {
+        "bytes": 3546429,
+        "sha256": "858922231adbae7e062d06abb3ea2a0dc4910c9aa6ec83d33dd3c5a7f38c158d"
+      },
+      "report": {
+        "bytes": 3776,
+        "sha256": "4c124242c9bcadb6559a5b1a6c93f2aa41c5d38414ebbe01a90a3239dc12a996"
+      },
+      "reports": 7,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Locked ARM64 Montgomery mul/umulh pairs: derived wrapped low product and symbolic packed low/high multiplication conservation; directly supports two-phase helper, ISA/ABI/compiler/private origins separate",
+      "seconds": 18.705174700007774,
+      "source": {
+        "bytes": 4320,
+        "sha256": "ead5a5349eac152f2c1683412db2a1a7d89821c8d56246a7ba1449fe500adcdf"
+      }
+    }
+  },
+  "native_credit": 0,
+  "packet_id": "windows-blst-arm-products-success01",
+  "refresh": {
+    "bytes": 4441,
+    "sha256": "26ff9b79d8bd394a20b3f928b18060b315c6b28f7c62bdbfa4af0dd24595901d"
+  },
+  "reports": 7,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Only successful maintained source models and full type/axiom audits. Montgomery output normalization, native private representations, compiler/FFI/architecture, whole Transfer and certification remain separate obligations. Hashes establish identity only. No failed histories, logs or compiled caches included.",
+  "source_context": [
+    {
+      "bytes": 6751,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/locked-source-context.json",
+      "sha256": "ea5bfd3c202d60781328b66831e20952ba843cc40d3cf7c663fb4cdcd0685e18"
+    },
+    {
+      "bytes": 8241,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/mach-o/mul_mont_256-armv8.S",
+      "sha256": "768b46ac0b0566888ee8a0933c32158fe5f9d2ea0f4439e8d250ec5c549e6097"
+    },
+    {
+      "bytes": 14350,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulq_mont_256-x86_64.asm",
+      "sha256": "f69661638db7b6f8f1947bc5f077f5b0782bfacf1abda4067318910226bb2c56"
+    },
+    {
+      "bytes": 13703,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulx_mont_256-x86_64.asm",
+      "sha256": "0f67d8c45e7ce7cf7e15af3bcd90a0f0596d6d42e2ec440cd7fc7ab8cfc44903"
+    },
+    {
+      "bytes": 3862,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/bytes.h",
+      "sha256": "ab19306003f4033ed522238580836bc662334df2a9ed56e2f8bfa822e79e1ae9"
+    },
+    {
+      "bytes": 1342,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.c",
+      "sha256": "b5de026855b1f370a26c471abcc4f5a0debb2d195d7661844be6d87159cc0283"
+    },
+    {
+      "bytes": 1152,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.h",
+      "sha256": "e983c6c80045adc46379ff1fd088dbf85e20c4946eb98191835eed91f7598727"
+    },
+    {
+      "bytes": 16631,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/exports.c",
+      "sha256": "aa64e527fe4e3741863f7242232441e1e05d669ecc2da6096ac10e9666681b3f"
+    },
+    {
+      "bytes": 4310,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/fields.h",
+      "sha256": "2151a9b8bf00d5deb6444bbbfc836f9e6bab24a1e147131a028d155dbfa5a809"
+    },
+    {
+      "bytes": 36773,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/no_asm.h",
+      "sha256": "35bda15509ff6fea022a40249e732bc00b0ecc037c11f17b262aa822acca0253"
+    },
+    {
+      "bytes": 4865,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.c",
+      "sha256": "b8f189510e4795aa5a2d827ca8347a672cc36b7a9d5ab36457a3c3823916090a"
+    },
+    {
+      "bytes": 13749,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.h",
+      "sha256": "7aaeb0246108beabf3d315f435b0af08a62c6fce6c725ef70b060f9b70fe70e6"
+    },
+    {
+      "bytes": 8943,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/build.rs",
+      "sha256": "3b0a6eea2bf5c4d0c327fbe48f81b900e6896bdf92d4cfafcc1010d999b0fea7"
+    },
+    {
+      "bytes": 37392,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/src/bindings.rs",
+      "sha256": "8b0c44ba87b3493fb47f8aeacafa0d5aa278a2a8b5932a735f2d5cbc888bc386"
+    }
+  ],
+  "status": "passed"
+}

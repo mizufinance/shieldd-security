@@ -1,0 +1,72 @@
+import ShielddSecurity.CapturedBooleanRoot209
+import ShielddSecurity.UserRecordAvoid362B00
+import ShielddSecurity.UserRecordAvoid362B01
+import ShielddSecurity.UserRecordAvoid362B02
+import ShielddSecurity.UserRecordAvoid362B03
+import ShielddSecurity.UserRecordAvoid362B04
+import ShielddSecurity.UserRecordAvoid362B05
+import ShielddSecurity.UserRecordAvoid362B06
+import ShielddSecurity.UserRecordAvoid362B07
+import ShielddSecurity.UserRecordAvoid362B08
+import ShielddSecurity.UserRecordAvoid362B09
+import ShielddSecurity.UserRecordAvoid362B10
+import ShielddSecurity.UserRecordAvoid362B11
+import ShielddSecurity.UserRecordAvoid362B12
+import ShielddSecurity.UserRecordAvoid362B13
+import ShielddSecurity.UserRecordAvoid362B14
+import ShielddSecurity.UserRecordAvoid362B15
+import ShielddSecurity.UserRecordAvoid362B16
+import ShielddSecurity.UserRecordAvoid362B17
+import ShielddSecurity.UserRecordAvoid362B18
+import ShielddSecurity.UserRecordAvoid362B19
+import ShielddSecurity.UserRecordAvoid362B20
+import ShielddSecurity.UserRecordAvoid362B21
+import ShielddSecurity.UserRecordAvoid362B22
+import ShielddSecurity.UserRecordAvoid362B23
+import ShielddSecurity.UserRecordAvoid362B24
+import ShielddSecurity.UserRecordAvoid362B25
+import ShielddSecurity.UserRecordAvoid362B26
+import ShielddSecurity.UserRecordAvoid362B27
+import ShielddSecurity.UserRecordAvoid362B28
+import ShielddSecurity.UserRecordAvoid362B29
+import ShielddSecurity.UserRecordAvoid362B30
+import ShielddSecurity.UserRecordAvoid362B31
+import ShielddSecurity.UserRecordAvoid362B32
+import ShielddSecurity.UserRecordAvoid362B33
+import ShielddSecurity.UserRecordAvoid362B34
+import ShielddSecurity.UserRecordAvoid362B35
+import ShielddSecurity.UserRecordAvoid362B36
+import ShielddSecurity.UserRecordAvoid362B37
+import ShielddSecurity.UserRecordAvoid362B38
+import ShielddSecurity.UserRecordAvoid362B39
+import ShielddSecurity.UserRecordAvoid362B40
+import ShielddSecurity.UserRecordAvoid362B41
+import ShielddSecurity.UserRecordAvoid362B42
+import ShielddSecurity.UserRecordAvoid362B43
+import ShielddSecurity.UserRecordAvoid362B44
+import ShielddSecurity.UserRecordAvoid362B45
+import ShielddSecurity.UserRecordAvoid362B46
+import ShielddSecurity.UserRecordAvoid362B47
+import ShielddSecurity.UserRecordAvoid362B48
+import ShielddSecurity.UserRecordAvoid362B49
+import ShielddSecurity.UserRecordAvoid362B50
+import ShielddSecurity.UserRecordAvoid362B51
+import ShielddSecurity.UserRecordAvoid362B52
+import ShielddSecurity.UserRecordAvoid362B53
+import ShielddSecurity.UserRecordAvoid362B54
+import ShielddSecurity.UserRecordAvoid362B55
+import ShielddSecurity.UserRecordAvoid362B56
+import ShielddSecurity.UserRecordAvoid362B57
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.UserRecordAvoid362
+theorem checked : CapturedBooleanRoot209.slots.all (fun slot => decide (¬ (1504 ≤ slot.2 ∧ slot.2 < 1579) ∧ ¬ (1742 ≤ slot.2 ∧ slot.2 < 1817))) = true := by
+  simp only [CapturedBooleanRoot209.slots, List.all_append, UserRecordAvoid362B00.checked, UserRecordAvoid362B01.checked, UserRecordAvoid362B02.checked, UserRecordAvoid362B03.checked, UserRecordAvoid362B04.checked, UserRecordAvoid362B05.checked, UserRecordAvoid362B06.checked, UserRecordAvoid362B07.checked, UserRecordAvoid362B08.checked, UserRecordAvoid362B09.checked, UserRecordAvoid362B10.checked, UserRecordAvoid362B11.checked, UserRecordAvoid362B12.checked, UserRecordAvoid362B13.checked, UserRecordAvoid362B14.checked, UserRecordAvoid362B15.checked, UserRecordAvoid362B16.checked, UserRecordAvoid362B17.checked, UserRecordAvoid362B18.checked, UserRecordAvoid362B19.checked, UserRecordAvoid362B20.checked, UserRecordAvoid362B21.checked, UserRecordAvoid362B22.checked, UserRecordAvoid362B23.checked, UserRecordAvoid362B24.checked, UserRecordAvoid362B25.checked, UserRecordAvoid362B26.checked, UserRecordAvoid362B27.checked, UserRecordAvoid362B28.checked, UserRecordAvoid362B29.checked, UserRecordAvoid362B30.checked, UserRecordAvoid362B31.checked, UserRecordAvoid362B32.checked, UserRecordAvoid362B33.checked, UserRecordAvoid362B34.checked, UserRecordAvoid362B35.checked, UserRecordAvoid362B36.checked, UserRecordAvoid362B37.checked, UserRecordAvoid362B38.checked, UserRecordAvoid362B39.checked, UserRecordAvoid362B40.checked, UserRecordAvoid362B41.checked, UserRecordAvoid362B42.checked, UserRecordAvoid362B43.checked, UserRecordAvoid362B44.checked, UserRecordAvoid362B45.checked, UserRecordAvoid362B46.checked, UserRecordAvoid362B47.checked, UserRecordAvoid362B48.checked, UserRecordAvoid362B49.checked, UserRecordAvoid362B50.checked, UserRecordAvoid362B51.checked, UserRecordAvoid362B52.checked, UserRecordAvoid362B53.checked, UserRecordAvoid362B54.checked, UserRecordAvoid362B55.checked, UserRecordAvoid362B56.checked, UserRecordAvoid362B57.checked, Bool.true_and]
+
+end ShielddSecurity.UserRecordAvoid362
+
+set_option pp.all true in
+#check @ShielddSecurity.UserRecordAvoid362.checked
+#print axioms ShielddSecurity.UserRecordAvoid362.checked
