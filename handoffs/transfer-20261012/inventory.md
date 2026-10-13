@@ -194,3 +194,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## Inverse signed correction — 13 October 2026
 
 `native-sqrt/inverse-correction` reconciles desktop packet `6d0d33d0129edb79f9ec2e02f23df8342f639046`: ten full type/axiom audits and 285 dependency sources. Exact correction constants and the two source-model adjustments derive unsigned wide range and preserve residue under an explicit signed512 input bound. Runtime and locked inverse source identities are independently matched. Input-bound production and actual native correspondence remain open; retained assertion coverage is unchanged at 12,913/22,816.
+
+## Complete square-root word-state interpretation — 13 October 2026
+
+`native-sqrt/word-state` reconciles desktop packet `67783fdbffd4d3a89e017fe9e4bbc0d902b69b2b`: eight full type/axiom audits and 286 authenticated dependencies. The whole source-model word loop and decreasing while map to the qualified field recurrences, with checked-root and refusal branches. Initialization, inverse correspondence and actual native execution remain open; retained assertion coverage is unchanged.
