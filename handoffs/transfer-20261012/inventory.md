@@ -1,6 +1,6 @@
 # Transfer proof remaining work inventory
 
-Current verified checkpoint: ScalarCanonicalConstruction397 retains **11,121** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,695** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
+Current verified checkpoint: AuthorizationClampConstruction403 retains **11,123** of22,816 assertion/link positions on ONE assignment from independent legal TransferSem, with **all smaller word bounds derived** and no supplied word-bound premise. **11,693** positions remain. The actual computed public64 binding, arbitrary-assignment soundness, full actual/padded construction and pinned native consequence are OPEN. Later paragraphs preserve component-stage counts as history.
 
 As of 12 October 2026, the full Transfer proof remains open. There are three required results: arbitrary-assignment circuit soundness, total construction for independently legal inputs, and the consequence of actual pinned runtime admission and execution. Numerous reviewed component proofs support these results, but none of the three concrete final proving declarations is recorded as complete.
 
@@ -148,3 +148,5 @@ The [shared IVK canonicality](shared-ivk-canonicality/README.md) adds101 audits 
 The [normalized original-value byte chain](native-sqrt/arm-normalized/README.md), [caller allocation/byte bridge](native-sqrt/arm-caller/README.md) and [conditional negation](native-sqrt/arm-cneg/README.md) add13/14/10 independently reconciled source audits. Original private representation, native pointer/register/ABI/compiler and selected-backend obligations remain open; native credit is zero.
 
 The [remaining shared scalar canonicality](shared-scalar-canonicality/README.md) derives18 original assertions through520 distinct audited declarations and105 sources. Unchanged mapping proofs are re-audited through a fresh closed producer; no failed code or logs are published.
+
+The [shared authorization clamp](shared-authorization-clamp/README.md) adds111 audits across14 modules andtwo original comparator/product-gate assertions, including the independently derived q8 field-wrap exclusion bound.
