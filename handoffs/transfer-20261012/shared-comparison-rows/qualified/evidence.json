@@ -1,0 +1,441 @@
+{
+  "certification": false,
+  "circuit_soundness": "OPEN",
+  "conditional_assertion_coverage": {
+    "comparison_ranges": [
+      [
+        939,
+        1068
+      ],
+      [
+        1072,
+        1202
+      ],
+      [
+        1203,
+        1332
+      ],
+      [
+        1336,
+        1466
+      ]
+    ],
+    "new_positions": [
+      1068,
+      1202,
+      1332,
+      1466
+    ],
+    "previous_union": 10906,
+    "remaining": 11906,
+    "remaining_smaller_word_values": 30,
+    "scope": "ONE assignment under independently legal TransferSem plus the still-unproved remaining smaller word bounds. Exact union; neither total construction nor certification.",
+    "total": 22816,
+    "union": 10910
+  },
+  "full_transfer": "OPEN",
+  "full_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.borrowColumns : List.{0} Nat",
+      "full_type_sha256": "03b0ac2d08d5af77e493f6aa722ddd8c5762a44f6bb097b059028fa73bba8539",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.borrowColumns"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.windows_checked : @Eq.{1} Bool\n  (@List.all.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat) ShielddSecurity.CapturedWordRoot213.words\n    fun (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat) =>\n    @List.all.{0} Nat ShielddSecurity.ComparisonBorrowFrame324.borrowColumns fun (column : Nat) =>\n      @Decidable.decide\n        (Or\n          (@LT.lt.{0} Nat instLTNat column\n            (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n          (@LE.le.{0} Nat instLENat\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n            column))\n        (@instDecidableOr\n          (@LT.lt.{0} Nat instLTNat column\n            (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n          (@LE.le.{0} Nat instLENat\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n            column)\n          (Nat.decLt column\n            (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n          (Nat.decLe\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n            column)))\n  Bool.true",
+      "full_type_sha256": "9c1b2294a254273ca08c00c4ef9adaba42582dc578d3d34952194f25af890c74",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.windows_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.outside_assignments : \u2200 (numbers : Nat \u2192 Nat) (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.ComparisonBorrowFrame324.borrowColumns column),\n  Not\n    (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@List.map.{0, 0} (Prod.{0, 0} Nat Bool) Nat (@Prod.fst.{0, 0} Nat Bool)\n        (ShielddSecurity.SharedWordFlags220.assignments ShielddSecurity.SharedWordWitness221.wordSlots numbers))\n      column)",
+      "full_type_sha256": "3b17fcb5d6a3bd426eec788e39d4eee801ff4580705e5f236f6fe94196c8c707",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.outside_assignments"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.ComparisonBorrowFrame324.flag_frame : \u2200 {K : Type} [inst : Field.{0} K]\n  [@CharP.{0} K\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} K\n        (@Ring.toAddGroupWithOne.{0} K (@DivisionRing.toRing.{0} K (@Field.toDivisionRing.{0} K inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  [inst_2 : DecidableEq.{1} K] (base : Nat \u2192 K) (numbers : Nat \u2192 Nat) (fallback : Nat \u2192 Bool) (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.ComparisonBorrowFrame324.borrowColumns column)\n  (boolean :\n    Or\n      (@Eq.{1} K (base column)\n        (@OfNat.ofNat.{0} K (nat_lit 0)\n          (@Zero.toOfNat0.{0} K\n            (@MulZeroClass.toZero.{0} K\n              (@instMulZeroClassOfSemiring.{0} K\n                (@DivisionSemiring.toSemiring.{0} K\n                  (@Semifield.toDivisionSemiring.{0} K (@Field.toSemifield.{0} K inst))))))))\n      (@Eq.{1} K (base column)\n        (@OfNat.ofNat.{0} K (nat_lit 1)\n          (@One.toOfNat1.{0} K\n            (@AddMonoidWithOne.toOne.{0} K\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} K\n                (@Ring.toAddGroupWithOne.{0} K (@DivisionRing.toRing.{0} K (@Field.toDivisionRing.{0} K inst)))))))))\n  (meaning : @Eq.{1} Bool (fallback column) (@ShielddSecurity.ZeroHintWordFrame303.flags K inst inst_2 base column)),\n  @Eq.{1} K (@ShielddSecurity.SharedWordWitness221.completed K inst base numbers fallback column) (base column)",
+      "full_type_sha256": "ffb683f9bc5c34eec4ed3a32aef544f3faae310738bcd8641dd8263134e2ba9e",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.flag_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.value : (w : ShielddSecurity.TransferSem.Witness) \u2192\n  (column : Nat) \u2192 ShielddSecurity.ConcreteJubjubField01.F",
+      "full_type_sha256": "669810687e7deeb5d69893f559bf9f93b4d7eedf9d19681579e6c4ac158282ea",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.seed_value : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.ComparisonBorrowFrame324.borrowColumns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.RegistryComparisonSeed318.seed original w column)\n    (ShielddSecurity.ComparisonBorrowFrame324.value w column)",
+      "full_type_sha256": "589a88a71cd2f9997d66ad1fdee4fe616086ea2ff0da76116e48c6ee482f3178",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.seed_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.value_boolean : \u2200 (w : ShielddSecurity.TransferSem.Witness) (column : Nat),\n  Or\n    (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.ComparisonBorrowFrame324.value w column)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n        (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n    (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.ComparisonBorrowFrame324.value w column)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "8d47ff54871902ffc2faf2bc161f54921ce0e7c28aa52726dfe34c6a035674c8",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.value_boolean"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.prepared_value : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.ComparisonBorrowFrame324.borrowColumns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.RegisteredConstructorFrame309.prepared (ShielddSecurity.RegistryComparisonSeed318.seed original w)\n      c w column)\n    (ShielddSecurity.ComparisonBorrowFrame324.value w column)",
+      "full_type_sha256": "3f0108eb834c118304115beaaab80f8f04b98880ca1d627ea5dc510fa3cb6790",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.prepared_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonBorrowFrame324.completed_value : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.ComparisonBorrowFrame324.borrowColumns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.HeaderRegisteredConstruction310.completed\n      (ShielddSecurity.RegistryComparisonSeed318.seed original w) c w initial column)\n    (ShielddSecurity.ComparisonBorrowFrame324.value w column)",
+      "full_type_sha256": "8a43937d8ee1707461c16a37eba144e14dd6c3cc7aa08df79e7652d2893f63bf",
+      "name": "ShielddSecurity.ComparisonBorrowFrame324.completed_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonConstruction328.Rows : (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192 Prop",
+      "full_type_sha256": "60e7c6bf125bbf7c23cfa5ebf869b99e516c6f5968a8e1e86d7c8af1bcaacde6",
+      "name": "ShielddSecurity.ComparisonConstruction328.Rows"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonConstruction328.legal_completed : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (remaining :\n    \u2200 (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat),\n      @Membership.mem.{0, 0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n          (List.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n          (@List.instMembership.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n          ShielddSecurity.CapturedWordRoot213.words entry \u2192\n        Not\n            (ShielddSecurity.LegalWordNormalization272.Alias\n              (ShielddSecurity.WordHints210.Slot.value\n                (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) \u2192\n          @LT.lt.{0} Nat instLTNat\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (@OfNat.ofNat.{0} Nat (nat_lit 255) (instOfNatNat (nat_lit 255))) \u2192\n            Not\n                (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n                  ShielddSecurity.HeaderSharedConstruction300.knownValues\n                  (ShielddSecurity.WordHints210.Slot.value\n                    (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) \u2192\n              Not\n                  (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n                    ShielddSecurity.RegistryComparisonSeed318.comparisonValues\n                    (ShielddSecurity.WordHints210.Slot.value\n                      (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))) \u2192\n                @LT.lt.{0} Nat instLTNat\n                  (ShielddSecurity.WordNaturalSeed297.numbers\n                    (ShielddSecurity.HeaderRegistrySeed299.combined\n                      (ShielddSecurity.RegistryComparisonSeed318.seed original w) c w)\n                    (ShielddSecurity.WordHints210.Slot.value\n                      (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                    (ShielddSecurity.WordHints210.Slot.width\n                      (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))),\n  @Exists.{1}\n    (Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n    fun\n      (initial :\n        Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n          ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n    And\n      (@ShielddSecurity.LegalSharedRows271.Rows ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial))\n      (And\n        (@ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n          (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n          (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n          (fun (index : Nat) =>\n            ShielddSecurity.CapturedFullRelation58.rowAt\n              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954))) index))\n          (@OfNat.ofNat.{0} Nat (nat_lit 165) (instOfNatNat (nat_lit 165))))\n        (And\n          (ShielddSecurity.ComparisonConstruction328.Rows\n            (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial))\n          (And\n            (@Eq.{1} Nat\n              (@ShielddSecurity.PoseidonNatural192.CanonicalRepresentation.value ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n                ShielddSecurity.ConcreteRegistrySharedEncoding294.representation\n                (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial\n                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))\n              (ShielddSecurity.TransferSem.Crypto.hash (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c)\n                ShielddSecurity.TransferSem.Domain.transferStatement\n                (ShielddSecurity.TransferSem.publicFields (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c)\n                  w)))\n            (@Eq.{1} Nat\n              (@ShielddSecurity.PoseidonNatural192.CanonicalRepresentation.value ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n                ShielddSecurity.ConcreteRegistrySharedEncoding294.representation\n                (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial\n                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))\n              (ShielddSecurity.TransferSem.Witness.blinding w)))))",
+      "full_type_sha256": "4a1556e052c64ee7cbed14749779ccb6be65c833757c91002a431505a1de703f",
+      "name": "ShielddSecurity.ComparisonConstruction328.legal_completed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonDifferenceBits326.difference_canonical : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.RegistrySem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.RegistryComparisonSeed318.comparisonValues column),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.RegistryComparisonSeed318.difference w column)\n    ShielddSecurity.TransferCore.fieldModulus",
+      "full_type_sha256": "eb5ce29de2a21c284e666801ec0a267ab9f6c00adb98c1089af725adb7cf7447",
+      "name": "ShielddSecurity.ComparisonDifferenceBits326.difference_canonical"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonDifferenceBits326.number_value : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.RegistrySem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n  (member :\n    @Membership.mem.{0, 0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n      (List.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      (@List.instMembership.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      ShielddSecurity.CapturedWordRoot213.words entry)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.RegistryComparisonSeed318.comparisonValues\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))),\n  @Eq.{1} Nat\n    (ShielddSecurity.HeaderRegisteredConstruction310.numbers (ShielddSecurity.RegistryComparisonSeed318.seed original w)\n      c w (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n    (ShielddSecurity.RegistryComparisonSeed318.difference w\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))",
+      "full_type_sha256": "c9f5b08f41442599649c6660a85b95e89b77dee194d27192e97c7d5fede5aa01",
+      "name": "ShielddSecurity.ComparisonDifferenceBits326.number_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonDifferenceBits326.bits : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.RegistrySem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n  (member :\n    @Membership.mem.{0, 0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n      (List.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      (@List.instMembership.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      ShielddSecurity.CapturedWordRoot213.words entry)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.RegistryComparisonSeed318.comparisonValues\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n  (index : Nat),\n  @LT.lt.{0} Nat instLTNat index\n      (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)) \u2192\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.HeaderRegisteredConstruction310.completed\n        (ShielddSecurity.RegistryComparisonSeed318.seed original w) c w initial\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n          index))\n      (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n        (@Eq.{1} Bool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits\n                (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n                (ShielddSecurity.RegistryComparisonSeed318.difference w\n                  (ShielddSecurity.WordHints210.Slot.value\n                    (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))))\n              index)\n            Bool.false)\n          Bool.true)\n        (instDecidableEqBool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits\n                (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n                (ShielddSecurity.RegistryComparisonSeed318.difference w\n                  (ShielddSecurity.WordHints210.Slot.value\n                    (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))))\n              index)\n            Bool.false)\n          Bool.true)\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n          (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n          (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "3678e2f046192dd26811f87eb65b7ccae87bfe64fd09b375b1dd3f859d82c1f7",
+      "name": "ShielddSecurity.ComparisonDifferenceBits326.bits"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonDifferenceBits326.first_high : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.RegistrySem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (index : Nat),\n  @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) \u2192\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.HeaderRegisteredConstruction310.completed\n        (ShielddSecurity.RegistryComparisonSeed318.seed original w) c w initial\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 983) (instOfNatNat (nat_lit 983))) index))\n      (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n        (@Eq.{1} Bool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                  (ShielddSecurity.RegistryComparisonSeed318.high (ShielddSecurity.TransferSem.Witness.asset w))\n                  (ShielddSecurity.RegistryComparisonSeed318.high\n                    (ShielddSecurity.TransferSem.AssetLeaf.value (ShielddSecurity.TransferSem.Witness.registry w)))))\n              index)\n            Bool.false)\n          Bool.true)\n        (instDecidableEqBool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                  (ShielddSecurity.RegistryComparisonSeed318.high (ShielddSecurity.TransferSem.Witness.asset w))\n                  (ShielddSecurity.RegistryComparisonSeed318.high\n                    (ShielddSecurity.TransferSem.AssetLeaf.value (ShielddSecurity.TransferSem.Witness.registry w)))))\n              index)\n            Bool.false)\n          Bool.true)\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n          (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n          (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "4151991b837b283bfb75b66f6c45c91f0346d319e93860f4e41bfbeb982a3593",
+      "name": "ShielddSecurity.ComparisonDifferenceBits326.first_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonDifferenceBits326.first_low : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.RegistrySem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (index : Nat),\n  @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) \u2192\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.HeaderRegisteredConstruction310.completed\n        (ShielddSecurity.RegistryComparisonSeed318.seed original w) c w initial\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 1114) (instOfNatNat (nat_lit 1114))) index))\n      (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n        (@Eq.{1} Bool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                  (ShielddSecurity.RegistryComparisonSeed318.low (ShielddSecurity.TransferSem.Witness.asset w))\n                  (ShielddSecurity.RegistryComparisonSeed318.low\n                    (ShielddSecurity.TransferSem.AssetLeaf.value (ShielddSecurity.TransferSem.Witness.registry w)))))\n              index)\n            Bool.false)\n          Bool.true)\n        (instDecidableEqBool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                  (ShielddSecurity.RegistryComparisonSeed318.low (ShielddSecurity.TransferSem.Witness.asset w))\n                  (ShielddSecurity.RegistryComparisonSeed318.low\n                    (ShielddSecurity.TransferSem.AssetLeaf.value (ShielddSecurity.TransferSem.Witness.registry w)))))\n              index)\n            Bool.false)\n          Bool.true)\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n          (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n          (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "a274a066fe8de95959fe333302f3230f69ae738b6ccad1f4395d24e033971d4f",
+      "name": "ShielddSecurity.ComparisonDifferenceBits326.first_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonDifferenceBits326.second_high : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.RegistrySem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (index : Nat),\n  @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) \u2192\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.HeaderRegisteredConstruction310.completed\n        (ShielddSecurity.RegistryComparisonSeed318.seed original w) c w initial\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 1244) (instOfNatNat (nat_lit 1244))) index))\n      (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n        (@Eq.{1} Bool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                  (ShielddSecurity.RegistryComparisonSeed318.high\n                    (ShielddSecurity.TransferSem.AssetLeaf.nextValue (ShielddSecurity.TransferSem.Witness.registry w)))\n                  (ShielddSecurity.RegistryComparisonSeed318.high (ShielddSecurity.TransferSem.Witness.asset w))))\n              index)\n            Bool.false)\n          Bool.true)\n        (instDecidableEqBool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                  (ShielddSecurity.RegistryComparisonSeed318.high\n                    (ShielddSecurity.TransferSem.AssetLeaf.nextValue (ShielddSecurity.TransferSem.Witness.registry w)))\n                  (ShielddSecurity.RegistryComparisonSeed318.high (ShielddSecurity.TransferSem.Witness.asset w))))\n              index)\n            Bool.false)\n          Bool.true)\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n          (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n          (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "d6248d7694901b0bd841094f6a8fb5c45b81b81b6c897ab56be9dae859210b73",
+      "name": "ShielddSecurity.ComparisonDifferenceBits326.second_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.ComparisonDifferenceBits326.second_low : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.RegistrySem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (index : Nat),\n  @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) \u2192\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.HeaderRegisteredConstruction310.completed\n        (ShielddSecurity.RegistryComparisonSeed318.seed original w) c w initial\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 1375) (instOfNatNat (nat_lit 1375))) index))\n      (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n        (@Eq.{1} Bool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                  (ShielddSecurity.RegistryComparisonSeed318.low\n                    (ShielddSecurity.TransferSem.AssetLeaf.nextValue (ShielddSecurity.TransferSem.Witness.registry w)))\n                  (ShielddSecurity.RegistryComparisonSeed318.low (ShielddSecurity.TransferSem.Witness.asset w))))\n              index)\n            Bool.false)\n          Bool.true)\n        (instDecidableEqBool\n          (@Option.getD.{0} Bool\n            (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n              (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n              (@List.instGetElem?NatLtLength.{0} Bool)\n              (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                (ShielddSecurity.BoundedLimbComparison119.difference\n                  (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                  (ShielddSecurity.RegistryComparisonSeed318.low\n                    (ShielddSecurity.TransferSem.AssetLeaf.nextValue (ShielddSecurity.TransferSem.Witness.registry w)))\n                  (ShielddSecurity.RegistryComparisonSeed318.low (ShielddSecurity.TransferSem.Witness.asset w))))\n              index)\n            Bool.false)\n          Bool.true)\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n          (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n        (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n          (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@ZMod.instField ShielddSecurity.Scalar.modulus\n                        ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "6fe3b4717921f1499b1ca4c1c3b7095876d0d5a8878d38b6e13e58cbb7166009",
+      "name": "ShielddSecurity.ComparisonDifferenceBits326.second_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.ComparisonSeedFixed325.write_fixed : \u2200 {F : Type} [inst : Field.{0} F] (base : Nat \u2192 F)\n  (start width n : Nat)\n  (bits :\n    \u2200 (index : Nat),\n      @LT.lt.{0} Nat instLTNat index width \u2192\n        @Eq.{1} F (base (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) start index))\n          (@ite.{1} F\n            (@Eq.{1} Bool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool) (ShielddSecurity.encodeBits width n) index)\n                Bool.false)\n              Bool.true)\n            (instDecidableEqBool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool) (ShielddSecurity.encodeBits width n) index)\n                Bool.false)\n              Bool.true)\n            (@OfNat.ofNat.{0} F (nat_lit 1)\n              (@One.toOfNat1.{0} F\n                (@AddMonoidWithOne.toOne.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n            (@OfNat.ofNat.{0} F (nat_lit 0)\n              (@Zero.toOfNat0.{0} F\n                (@MulZeroClass.toZero.{0} F\n                  (@instMulZeroClassOfSemiring.{0} F\n                    (@DivisionSemiring.toSemiring.{0} F\n                      (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))),\n  @Eq.{1} ((column : Nat) \u2192 F) (@ShielddSecurity.writeBits F inst base start (ShielddSecurity.encodeBits width n)) base",
+      "full_type_sha256": "e01517f49d8e5a48ab8dc7554aaf303ab5716e8cdced4d4f977622e49feb3a01",
+      "name": "ShielddSecurity.ComparisonSeedFixed325.write_fixed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.ComparisonSeedFixed325.first_high : \u2200 {F : Type} [inst : Field.{0} F] (base : Nat \u2192 F) (a b : Nat)\n  (borrow :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 981) (instOfNatNat (nat_lit 981))))\n      (@ShielddSecurity.BinaryComparison100.bit F inst (ShielddSecurity.BoundedLimbComparison119.borrow a b)))\n  (difference :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 982) (instOfNatNat (nat_lit 982))))\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (ShielddSecurity.BoundedLimbComparison119.difference\n          (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) a b)))\n  (bits :\n    \u2200 (index : Nat),\n      @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) \u2192\n        @Eq.{1} F\n          (base\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 983) (instOfNatNat (nat_lit 983))) index))\n          (@ite.{1} F\n            (@Eq.{1} Bool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (instDecidableEqBool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (@OfNat.ofNat.{0} F (nat_lit 1)\n              (@One.toOfNat1.{0} F\n                (@AddMonoidWithOne.toOne.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n            (@OfNat.ofNat.{0} F (nat_lit 0)\n              (@Zero.toOfNat0.{0} F\n                (@MulZeroClass.toZero.{0} F\n                  (@instMulZeroClassOfSemiring.{0} F\n                    (@DivisionSemiring.toSemiring.{0} F\n                      (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))),\n  @Eq.{1} (Nat \u2192 F) (@ShielddSecurity.CapturedRegistryHighLimb121.seeded F inst base a b) base",
+      "full_type_sha256": "a1074549297f642470545db408f6bd839c07aaf8eb8e94b9a81e7c30df96d7db",
+      "name": "ShielddSecurity.ComparisonSeedFixed325.first_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.ComparisonSeedFixed325.first_low : \u2200 {F : Type} [inst : Field.{0} F] (base : Nat \u2192 F) (a b : Nat)\n  (borrow :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 1112) (instOfNatNat (nat_lit 1112))))\n      (@ShielddSecurity.BinaryComparison100.bit F inst (ShielddSecurity.BoundedLimbComparison119.borrow a b)))\n  (difference :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 1113) (instOfNatNat (nat_lit 1113))))\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (ShielddSecurity.BoundedLimbComparison119.difference\n          (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) a b)))\n  (bits :\n    \u2200 (index : Nat),\n      @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) \u2192\n        @Eq.{1} F\n          (base\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 1114) (instOfNatNat (nat_lit 1114))) index))\n          (@ite.{1} F\n            (@Eq.{1} Bool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (instDecidableEqBool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (@OfNat.ofNat.{0} F (nat_lit 1)\n              (@One.toOfNat1.{0} F\n                (@AddMonoidWithOne.toOne.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n            (@OfNat.ofNat.{0} F (nat_lit 0)\n              (@Zero.toOfNat0.{0} F\n                (@MulZeroClass.toZero.{0} F\n                  (@instMulZeroClassOfSemiring.{0} F\n                    (@DivisionSemiring.toSemiring.{0} F\n                      (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))),\n  @Eq.{1} (Nat \u2192 F) (@ShielddSecurity.CapturedRegistryLowLimb130.seeded F inst base a b) base",
+      "full_type_sha256": "e52ac926ce4d634129256ac2fdb913d1a605e01cbf24ae06437341a01a53bcd5",
+      "name": "ShielddSecurity.ComparisonSeedFixed325.first_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.ComparisonSeedFixed325.second_high : \u2200 {F : Type} [inst : Field.{0} F] (base : Nat \u2192 F) (a b : Nat)\n  (borrow :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 1242) (instOfNatNat (nat_lit 1242))))\n      (@ShielddSecurity.BinaryComparison100.bit F inst (ShielddSecurity.BoundedLimbComparison119.borrow a b)))\n  (difference :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 1243) (instOfNatNat (nat_lit 1243))))\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (ShielddSecurity.BoundedLimbComparison119.difference\n          (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) a b)))\n  (bits :\n    \u2200 (index : Nat),\n      @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) \u2192\n        @Eq.{1} F\n          (base\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 1244) (instOfNatNat (nat_lit 1244))) index))\n          (@ite.{1} F\n            (@Eq.{1} Bool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (instDecidableEqBool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (@OfNat.ofNat.{0} F (nat_lit 1)\n              (@One.toOfNat1.{0} F\n                (@AddMonoidWithOne.toOne.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n            (@OfNat.ofNat.{0} F (nat_lit 0)\n              (@Zero.toOfNat0.{0} F\n                (@MulZeroClass.toZero.{0} F\n                  (@instMulZeroClassOfSemiring.{0} F\n                    (@DivisionSemiring.toSemiring.{0} F\n                      (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))),\n  @Eq.{1} (Nat \u2192 F) (@ShielddSecurity.CapturedNextHighLimb134.seeded F inst base a b) base",
+      "full_type_sha256": "a3ac50cc39c20dce8191e4b05e63e42046d5d19686607256b4739b5ff1b7c4bc",
+      "name": "ShielddSecurity.ComparisonSeedFixed325.second_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.ComparisonSeedFixed325.second_low : \u2200 {F : Type} [inst : Field.{0} F] (base : Nat \u2192 F) (a b : Nat)\n  (borrow :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 1373) (instOfNatNat (nat_lit 1373))))\n      (@ShielddSecurity.BinaryComparison100.bit F inst (ShielddSecurity.BoundedLimbComparison119.borrow a b)))\n  (difference :\n    @Eq.{1} F (base (@OfNat.ofNat.{0} Nat (nat_lit 1374) (instOfNatNat (nat_lit 1374))))\n      (@Nat.cast.{0} F\n        (@AddMonoidWithOne.toNatCast.{0} F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n            (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n        (ShielddSecurity.BoundedLimbComparison119.difference\n          (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) a b)))\n  (bits :\n    \u2200 (index : Nat),\n      @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) \u2192\n        @Eq.{1} F\n          (base\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 1375) (instOfNatNat (nat_lit 1375))) index))\n          (@ite.{1} F\n            (@Eq.{1} Bool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (instDecidableEqBool\n              (@Option.getD.{0} Bool\n                (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n                  (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n                  (@List.instGetElem?NatLtLength.{0} Bool)\n                  (ShielddSecurity.encodeBits (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n                    (ShielddSecurity.BoundedLimbComparison119.difference\n                      (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) a b))\n                  index)\n                Bool.false)\n              Bool.true)\n            (@OfNat.ofNat.{0} F (nat_lit 1)\n              (@One.toOfNat1.{0} F\n                (@AddMonoidWithOne.toOne.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n            (@OfNat.ofNat.{0} F (nat_lit 0)\n              (@Zero.toOfNat0.{0} F\n                (@MulZeroClass.toZero.{0} F\n                  (@instMulZeroClassOfSemiring.{0} F\n                    (@DivisionSemiring.toSemiring.{0} F\n                      (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))),\n  @Eq.{1} (Nat \u2192 F) (@ShielddSecurity.CapturedNextLowLimb141.seeded F inst base a b) base",
+      "full_type_sha256": "84df9f88e69530e2815a1ebe65972acff7ae85ddf64d9ef51c62f6975e941e91",
+      "name": "ShielddSecurity.ComparisonSeedFixed325.second_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.assignment : (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (c : ShielddSecurity.TransferSem.Crypto) \u2192\n    (w : ShielddSecurity.TransferSem.Witness) \u2192\n      (initial :\n          Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n            ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n        Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F",
+      "full_type_sha256": "28d654cbca0ab4c740d900e5fa7ddf3e0f1f7a87d22459ca35cd6bfa439ac9a7",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.assignment"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.linked : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial\n      ShielddSecurity.CompilerArithmeticTransport41.copy)\n    (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))",
+      "full_type_sha256": "16192567a80a9653725fe6f36d2c43c4e00b6f35dbb59f069f850c25def47c74",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.linked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.asset_high : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.fieldBinary ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@List.map.{0, 0} Nat ShielddSecurity.ConcreteJubjubField01.F\n        (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n        (List.range'\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 471) (instOfNatNat (nat_lit 471)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))))\n          (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.RegistryComparisonSeed318.high (ShielddSecurity.TransferSem.Witness.asset w)))",
+      "full_type_sha256": "b2f743d2ec4660052323a1d7e1e022978bdcf2dc52161c6a3eb3a8fce50a12ad",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.asset_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.asset_low : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.fieldBinary ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@List.map.{0, 0} Nat ShielddSecurity.ConcreteJubjubField01.F\n        (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n        (List.range' (@OfNat.ofNat.{0} Nat (nat_lit 471) (instOfNatNat (nat_lit 471)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.RegistryComparisonSeed318.low (ShielddSecurity.TransferSem.Witness.asset w)))",
+      "full_type_sha256": "b52b1535a8725831f41e61aa317fd7c3f8b344565c458372453946538922e46b",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.asset_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.value_high : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.fieldBinary ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@List.map.{0, 0} Nat ShielddSecurity.ConcreteJubjubField01.F\n        (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n        (List.range'\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 216) (instOfNatNat (nat_lit 216)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))))\n          (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.RegistryComparisonSeed318.high\n        (ShielddSecurity.TransferSem.AssetLeaf.value (ShielddSecurity.TransferSem.Witness.registry w))))",
+      "full_type_sha256": "b564f5bad5e78fa9433d9eecb4a11b1b3ab1a01e4b127a3944834aca714e7564",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.value_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.value_low : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.fieldBinary ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@List.map.{0, 0} Nat ShielddSecurity.ConcreteJubjubField01.F\n        (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n        (List.range' (@OfNat.ofNat.{0} Nat (nat_lit 216) (instOfNatNat (nat_lit 216)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.RegistryComparisonSeed318.low\n        (ShielddSecurity.TransferSem.AssetLeaf.value (ShielddSecurity.TransferSem.Witness.registry w))))",
+      "full_type_sha256": "a47b9ea7bfe75468c3932478cbadf0ea3c53bd9804b0d66bd6115ecf23c0d857",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.value_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.next_high : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.fieldBinary ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@List.map.{0, 0} Nat ShielddSecurity.ConcreteJubjubField01.F\n        (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n        (List.range'\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 726) (instOfNatNat (nat_lit 726)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))))\n          (@OfNat.ofNat.{0} Nat (nat_lit 127) (instOfNatNat (nat_lit 127)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.RegistryComparisonSeed318.high\n        (ShielddSecurity.TransferSem.AssetLeaf.nextValue (ShielddSecurity.TransferSem.Witness.registry w))))",
+      "full_type_sha256": "8228f823904bc0aaa641443b07c126869488d89a955e5a6645e0b289ebaaad80",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.next_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.next_low : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.fieldBinary ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n      (@List.map.{0, 0} Nat ShielddSecurity.ConcreteJubjubField01.F\n        (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n        (List.range' (@OfNat.ofNat.{0} Nat (nat_lit 726) (instOfNatNat (nat_lit 726)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.RegistryComparisonSeed318.low\n        (ShielddSecurity.TransferSem.AssetLeaf.nextValue (ShielddSecurity.TransferSem.Witness.registry w))))",
+      "full_type_sha256": "b71820bc369c9b479b5b4224790a5b07c64d0a9f59838f00fbc09026bdfb156b",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.next_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.first_high : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n    (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n    (fun (index : Nat) =>\n      ShielddSecurity.CapturedFullRelation58.rowAt\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 178893) (instOfNatNat (nat_lit 178893))) index))\n    (@OfNat.ofNat.{0} Nat (nat_lit 130) (instOfNatNat (nat_lit 130)))",
+      "full_type_sha256": "53a0f89d7e7a251517d8d80066d500d1ed7b88051ea4f28a0b5e460e37196b7d",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.first_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.first_low : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n    (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n    (fun (index : Nat) =>\n      ShielddSecurity.CapturedFullRelation58.rowAt\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 179026) (instOfNatNat (nat_lit 179026))) index))\n    (@OfNat.ofNat.{0} Nat (nat_lit 131) (instOfNatNat (nat_lit 131)))",
+      "full_type_sha256": "31213f41b22dfc3f5a77cd04d2a6adae74399d7f8c0ab5589611a5db3044e4d0",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.first_low"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.second_high : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n    (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n    (fun (index : Nat) =>\n      ShielddSecurity.CapturedFullRelation58.rowAt\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 179157) (instOfNatNat (nat_lit 179157))) index))\n    (@OfNat.ofNat.{0} Nat (nat_lit 130) (instOfNatNat (nat_lit 130)))",
+      "full_type_sha256": "e9059f02b3c88455f50bd28caa2f7a8021638a1d384b6a8a246885a31492abd5",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.second_high"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.SharedComparisonBlocks327.second_low : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w),\n  @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n    (ShielddSecurity.SharedComparisonBlocks327.assignment original c w initial)\n    (fun (index : Nat) =>\n      ShielddSecurity.CapturedFullRelation58.rowAt\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 179290) (instOfNatNat (nat_lit 179290))) index))\n    (@OfNat.ofNat.{0} Nat (nat_lit 131) (instOfNatNat (nat_lit 131)))",
+      "full_type_sha256": "59317b5534831fa52602b4ee5d779907f186fa5c1858d62a7309e476148d222e",
+      "name": "ShielddSecurity.SharedComparisonBlocks327.second_low"
+    }
+  ],
+  "mathlib": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "modules": {
+    "ComparisonBorrowFrame324": {
+      "object_sha256": "317ad43818c0048a157bfbaa45d4d5354fce3a4bc65775f18c88784183cc36e5",
+      "peak_group_rss_bytes": 2798141440,
+      "receipt_sha256": "aa6ceb2f0b481c73a5ceb828ac4b7625b54734d3717f3b6c0b083ab4d994eaf3",
+      "reports": 9,
+      "seconds": 3.6245815419824794,
+      "selected_custom_modules": 3107,
+      "source_sha256": "353e34af79c4334146f447f7810e4fedf741d4be3754ad434e037105e187f30e",
+      "stdout_sha256": "e4760c81661fe385abc631c2fd61c7f8ab50ffe5640c83c30381f6b168dbaeb4"
+    },
+    "ComparisonConstruction328": {
+      "object_sha256": "5ffde21e9c3756ad4e984dad747bf2c7548d59e31dd589912d8a7dca5d47c614",
+      "peak_group_rss_bytes": 2696445952,
+      "receipt_sha256": "00b12c14b677f76efe01b8dd2ba01af47862e7b143dbb06e6602ab1753e0a8db",
+      "reports": 2,
+      "seconds": 2.7308013750007376,
+      "selected_custom_modules": 3111,
+      "source_sha256": "a1aa8025f8fa77292ac6d938ca4c96fe5fe113123249d2dc8b130f22d2d53041",
+      "stdout_sha256": "3231563833c99eecb17297c857df92e56ae1d03bdc25676f940ce48167c84f17"
+    },
+    "ComparisonDifferenceBits326": {
+      "object_sha256": "52fd4dac30fbe662b0e8fb691ecc7132530d173299dca1168641fefd8cf9cd77",
+      "peak_group_rss_bytes": 2800025600,
+      "receipt_sha256": "1e538642cbb9d9421aba2a8367b2dae53f388beaea3fe96062490e28d1cc9b6f",
+      "reports": 7,
+      "seconds": 2.7713830830180086,
+      "selected_custom_modules": 3108,
+      "source_sha256": "93f567726ea6c667c82d064c62e720c10e4a1b4ad252a890b2ead2aa7162ca81",
+      "stdout_sha256": "347f280295ec724a837ff235b7062b1fc214f8765c0e1ad03964829b9b6a7622"
+    },
+    "ComparisonSeedFixed325": {
+      "object_sha256": "f98be38f7d63299991ecd09e0f2d4a76bb1b4e12a108420e4d9bfada1534bbd8",
+      "peak_group_rss_bytes": 1660993536,
+      "receipt_sha256": "55584fef4be6235ab169e32cd0d280636aa00b0f380dda4914b207af9ab84448",
+      "reports": 5,
+      "seconds": 1.383412708004471,
+      "selected_custom_modules": 754,
+      "source_sha256": "bef319861974a87e72276b0a8bc47741904b935c62983d5c6b22784481b976ab",
+      "stdout_sha256": "bf5d75071b81417e7849dbe887645ce5402a6c627b9f4af691f0cbf3994f1a64"
+    },
+    "SharedComparisonBlocks327": {
+      "object_sha256": "8b4c2fc16f0c3197c250b6aa68ab25135d905369f7cab7b0b2eecd0ae88cb8f2",
+      "peak_group_rss_bytes": 2784444416,
+      "receipt_sha256": "9446b865f0d12d0763d0848e7ec2bebbeb980b1a088ef291c74528d19c8ee976",
+      "reports": 12,
+      "seconds": 2.734819624980446,
+      "selected_custom_modules": 3110,
+      "source_sha256": "af8fe418f2911bfaf5e5d9a2eb53ece988dc4972e68f2c3080af227556213ad9",
+      "stdout_sha256": "96290e1857e6bb343153f035295b7fbd25c636d01457dc1a7f5ecc3b11904a2c"
+    }
+  },
+  "native_consequence": "OPEN",
+  "native_credit": 0,
+  "refresh_sha256": "e27d28508c4a5d1517bfe9672c4326dd938ce0f26b3b9faebe2f8fbc94bfc38b",
+  "reports": 35,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Independent TransferSem legality derives all comparison operands, borrow flags, difference values and bit windows on ONE constructed assignment; qualified original comparison seeds are proved fixed there. Four actual blocks522positions hold together with the earlier arithmetic/Boolean/word/first165/public/committed guarantees, under30 remaining smaller word bounds. The exact conditional union is10910/rem11906. Canonicality/exclusion/gap, other consumer families, computed public64 statement and all3fullendpoints remainOPEN.",
+  "status": "passed",
+  "total_legal_input_construction": "OPEN"
+}
