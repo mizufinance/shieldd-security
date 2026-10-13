@@ -1,0 +1,61 @@
+ShielddSecurity.TransferBlstArmInverseApproxInput01.original_full_limb_input_has_the_exact_low31_radix_expansion : ∀
+  (low : UInt64) (rest : List.{0} UInt64),
+  @Eq.{1} Nat (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 low rest))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)
+            (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 8589934592) (instOfNatNat (nat_lit 8589934592)))
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords rest)))))
+'ShielddSecurity.TransferBlstArmInverseApproxInput01.original_full_limb_input_has_the_exact_low31_radix_expansion' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseApproxInput01.original_full_limb_input_signed_cast_has_the_exact_radix_expansion : ∀
+  (low : UInt64) (rest : List.{0} UInt64),
+  @Eq.{1} Int
+    (@Nat.cast.{0} Int instNatCastInt
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 low rest)))
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483648) (@instOfNat (nat_lit 2147483648)))
+        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+            (@OfNat.ofNat.{0} Int (nat_lit 8589934592) (@instOfNat (nat_lit 8589934592)))
+            (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords rest))))))
+'ShielddSecurity.TransferBlstArmInverseApproxInput01.original_full_limb_input_signed_cast_has_the_exact_radix_expansion' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseApproxInput01.original_low31_replacement_signed_cast_has_the_exact_radix_expansion : ∀
+  (high low : UInt64),
+  @Eq.{1} Int
+    (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low))
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat high)
+            (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483648) (@instOfNat (nat_lit 2147483648))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))))
+'ShielddSecurity.TransferBlstArmInverseApproxInput01.original_low31_replacement_signed_cast_has_the_exact_radix_expansion' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseApproxInput01.original_full_input_and_low31_approximation_have_an_exact_signed_radix_difference : ∀
+  (high low : UInt64) (rest : List.{0} UInt64),
+  @Exists.{1} Int fun (difference : Int) =>
+    @Eq.{1} Int
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 low rest)))
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2147483648) (@instOfNat (nat_lit 2147483648))) difference))
+'ShielddSecurity.TransferBlstArmInverseApproxInput01.original_full_input_and_low31_approximation_have_an_exact_signed_radix_difference' depends on axioms: [propext,
+ Quot.sound]
