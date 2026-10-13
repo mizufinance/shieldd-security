@@ -218,3 +218,7 @@ The [retained randomized authorization key](authorization-randomized-key/README.
 ## First inverse word correction — 13 October 2026
 
 [First inverse correction](native-sqrt/inverse-first/README.md) reconciles desktop packet `d27ae787927d3a978259872258ddbce185630f8a`: 15 complete type/axiom audits, 288 dependency sources and independently matched runtime/locked-library identities. Actual source-model carry conservation derives the full signed first adjustment and extra-top sign guard. Second correction, inverse-core completeness and actual native execution remain OPEN; retained circuit coverage is unchanged.
+
+## Second inverse correction mask — 13 October 2026
+
+[Second correction mask](native-sqrt/inverse-mask/README.md) reconciles desktop packet `be1febb2bf1f48de0421994c43f1a7b3644da4dd`: ten complete type/axiom audits and289 dependency sources. The actual source-model masks and carry chain derive the two-complement operand value under the explicit extra-top range -1..1. Range production, full correction composition, inverse-core completeness and native execution remain OPEN.
