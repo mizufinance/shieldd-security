@@ -1,0 +1,332 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.actual_shift_or_parser_step_has_the_exact_full_wrapped_integer_value : \u2200\n  (word : UInt64) (byte : UInt8),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseStep word byte))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat word)\n          (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))\n        (UInt8.toNat byte))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "8b50879919ef14de19e2d60e120118edbf1cc2f965c9c51c1df04f5818ddb370",
+      "name": "ShielddSecurity.TransferBlstParserValue01.actual_shift_or_parser_step_has_the_exact_full_wrapped_integer_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.sourceReverseParserWord : (bytes : List.{0} UInt8) \u2192 (seed : UInt64) \u2192 UInt64",
+      "full_type_sha256": "99ae4603618c044a2d967d7a6b98045750f86bd60c81cd1fcd5c86385005424d",
+      "name": "ShielddSecurity.TransferBlstParserValue01.sourceReverseParserWord"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.symbolic_reverse_parser_word_recurrence_derives_the_full_integer_prefix : \u2200\n  (bytes : List.{0} UInt8) (seed : UInt64),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstParserValue01.sourceReverseParserWord bytes seed))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE bytes)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) (@List.length.{0} UInt8 bytes))\n          (UInt64.toNat seed)))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "a02c66dfaf557447cf3826f973bd2b02199aa36ae42c264d1c3a71e721683023",
+      "name": "ShielddSecurity.TransferBlstParserValue01.symbolic_reverse_parser_word_recurrence_derives_the_full_integer_prefix"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.actual_zero_seed_reverse_parser_word_is_the_low_64_bits_of_all_input_bytes : \u2200\n  (bytes : List.{0} UInt8),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (ShielddSecurity.TransferBlstParserValue01.sourceReverseParserWord bytes\n        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE bytes)\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "35172761a957e6fc65fc954d9e59731275c0c0dd7f0215a9c294419544531fc6",
+      "name": "ShielddSecurity.TransferBlstParserValue01.actual_zero_seed_reverse_parser_word_is_the_low_64_bits_of_all_input_bytes"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.source_parser_memory_fold_word_projects_to_the_actual_byte_word_fold : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (indices : List.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n  (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),\n  @Eq.{1} UInt64\n    (@Prod.fst.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (@List.foldl.{0, 0}\n        (Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))\n        (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n        (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemoryStep bytes) state indices))\n    (@List.foldl.{0, 0} UInt64 UInt8 ShielddSecurity.TransferBlstByteCaller01.sourceLEParseStep\n      (@Prod.fst.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) state)\n      (@List.map.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) UInt8\n        (fun (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) =>\n          @GetElem.getElem.{0, 0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            Nat UInt8\n            (fun (x : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (i : Nat) =>\n              @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (@Vector.instGetElemNatLt.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) bytes\n            (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n            (@Decidable.byContradiction\n              (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n              (Nat.decLt (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n              fun\n                (a :\n                  Not\n                    (@LT.lt.{0} Nat instLTNat\n                      (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>\n              ShielddSecurity.TransferBlstParserValue01.source_parser_memory_fold_word_projects_to_the_actual_byte_word_fold._proof_1\n                index a))\n        indices))",
+      "full_type_sha256": "4092578e4f19ccd584e93082565d5ea54031d633d6a1c6c3c65acff753dc485b",
+      "name": "ShielddSecurity.TransferBlstParserValue01.source_parser_memory_fold_word_projects_to_the_actual_byte_word_fold"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.actual_descending_index_data_is_the_reversed_input_byte_array : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n  @Eq.{1} (List.{0} UInt8)\n    (@List.map.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) UInt8\n      (fun (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) =>\n        @GetElem.getElem.{0, 0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          Nat UInt8\n          (fun (x : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (i : Nat) =>\n            @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          (@Vector.instGetElemNatLt.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) bytes\n          (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n          (@Decidable.byContradiction\n            (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Nat.decLt (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            fun\n              (a :\n                Not\n                  (@LT.lt.{0} Nat instLTNat\n                    (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>\n            ShielddSecurity.TransferBlstParserValue01.source_parser_memory_fold_word_projects_to_the_actual_byte_word_fold._proof_1\n              index a))\n      (@List.reverse.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n        (List.finRange (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))))\n    (@List.reverse.{0} UInt8\n      (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))",
+      "full_type_sha256": "bbe9f54996ba4c55fd6dd38672d44d81893ac34c652f1d237da92db0f5ce14c3",
+      "name": "ShielddSecurity.TransferBlstParserValue01.actual_descending_index_data_is_the_reversed_input_byte_array"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.sourceActualParserFinalState : (bytes :\n    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) \u2192\n  (initialBuffer : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n    Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))",
+      "full_type_sha256": "bebf31950347b0f2d03d81cbd6f05e6c4b06e5c68dedfb858fd8171513b16b11",
+      "name": "ShielddSecurity.TransferBlstParserValue01.sourceActualParserFinalState"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.actual_parser_final_word_derives_the_low_64_bits_of_the_input_byte_array : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (initialBuffer : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (@Prod.fst.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (ShielddSecurity.TransferBlstParserValue01.sourceActualParserFinalState bytes initialBuffer)))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE\n        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "b30ae705d15b7f071d700d81b0a41e2ed4aa0378afb51d2602a8bf6a1a697459",
+      "name": "ShielddSecurity.TransferBlstParserValue01.actual_parser_final_word_derives_the_low_64_bits_of_the_input_byte_array"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.actual_parser_final_store_contains_the_exact_final_word : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (initialBuffer : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} UInt64\n    (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat\n      UInt64\n      (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>\n        @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemory64 bytes initialBuffer)\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n      (@Decidable.byContradiction\n        (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        fun\n          (a :\n            Not\n              (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n                (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>\n        ShielddSecurity.TransferBlstParserValue01.actual_parser_final_store_contains_the_exact_final_word._proof_1 a))\n    (@Prod.fst.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (ShielddSecurity.TransferBlstParserValue01.sourceActualParserFinalState bytes initialBuffer))",
+      "full_type_sha256": "46e0c0ea17a59746dec5feb2fac68b2ab744d8407d50bee74cbb36cebc0d042f",
+      "name": "ShielddSecurity.TransferBlstParserValue01.actual_parser_final_store_contains_the_exact_final_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserValue01.actual_memory_parser_derives_the_entire_low_word_from_every_input_byte_array : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (initialBuffer : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat\n        UInt64\n        (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>\n          @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemory64 bytes initialBuffer)\n        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n        (@Decidable.byContradiction\n          (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Nat.decLt (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          fun\n            (a :\n              Not\n                (@LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>\n          ShielddSecurity.TransferBlstParserValue01.actual_parser_final_store_contains_the_exact_final_word._proof_1\n            a)))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE\n        (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "85fab3b14d2db65a817af911b549d85e53a7a4c21cc1af6528db8fc58cfe47b1",
+      "name": "ShielddSecurity.TransferBlstParserValue01.actual_memory_parser_derives_the_entire_low_word_from_every_input_byte_array"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserState01.FrontierInvariant : (bytes :\n    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) \u2192\n  (frontier : Nat) \u2192\n    (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) \u2192\n      Prop",
+      "full_type_sha256": "a443e187cedd0d294e8ccd80e6a76ee911e154874b18c7c34825fb91941e2bc5",
+      "name": "ShielddSecurity.TransferBlstParserState01.FrontierInvariant"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserState01.actual_parser_initial_memory_derives_the_frontier_invariant : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (initialBuffer : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  ShielddSecurity.TransferBlstParserState01.FrontierInvariant bytes\n    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n    (@Prod.mk.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) initialBuffer)",
+      "full_type_sha256": "299ac44e678b4dbe792821e1363305a8e407ad80c06faac3bf99794919608b1d",
+      "name": "ShielddSecurity.TransferBlstParserState01.actual_parser_initial_memory_derives_the_frontier_invariant"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserState01.actual_descending_parser_step_derives_the_next_word_value : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))\n  (meaning :\n    @Eq.{1} Nat\n      (UInt64.toNat\n        (@Prod.fst.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          state))\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE\n          (@List.drop.{0} UInt8\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n            (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)))\n        ShielddSecurity.TransferScalarSerializationRange01.radix64)),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseStep\n        (@Prod.fst.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          state)\n        (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          Nat UInt8\n          (fun (x : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (i : Nat) =>\n            @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          (@Vector.instGetElemNatLt.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) bytes\n          (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n          (@Decidable.byContradiction\n            (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Nat.decLt (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            fun\n              (a :\n                Not\n                  (@LT.lt.{0} Nat instLTNat\n                    (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>\n            ShielddSecurity.TransferBlstParserState01.actual_descending_parser_step_derives_the_next_word_value._proof_1\n              bytes index state a))))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE\n        (@List.drop.{0} UInt8 (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "6a1732b9c496c69f30f22988440f0bc9905e0db5cc73afbc6ad7f343c4dfb078",
+      "name": "ShielddSecurity.TransferBlstParserState01.actual_descending_parser_step_derives_the_next_word_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserState01.actual_parser_step_derives_both_word_and_completed_limb_rows : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (index : Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))\n  (ready :\n    ShielddSecurity.TransferBlstParserState01.FrontierInvariant bytes\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n      state),\n  ShielddSecurity.TransferBlstParserState01.FrontierInvariant bytes\n    (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) index)\n    (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemoryStep bytes state index)",
+      "full_type_sha256": "3c412e80b273306eb8851862022a8843895663627416abe0f6de65b9fb96e8c3",
+      "name": "ShielddSecurity.TransferBlstParserState01.actual_parser_step_derives_both_word_and_completed_limb_rows"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserSchedule01.sourceMemoryWalk : (bytes :\n    Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) \u2192\n  (count : Nat) \u2192\n    @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) \u2192\n      Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) \u2192\n        Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))",
+      "full_type_sha256": "ce1897c07948653fb15f9440a10aa55ddb521fac58272817e778e09b36dfa575",
+      "name": "ShielddSecurity.TransferBlstParserSchedule01.sourceMemoryWalk"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserSchedule01.symbolic_memory_walk_completes_every_parser_frontier : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (count : Nat)\n  (inside : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))\n  (ready : ShielddSecurity.TransferBlstParserState01.FrontierInvariant bytes count state),\n  ShielddSecurity.TransferBlstParserState01.FrontierInvariant bytes\n    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n    (ShielddSecurity.TransferBlstParserSchedule01.sourceMemoryWalk bytes count inside state)",
+      "full_type_sha256": "5b0e63aa617ee731fde5432491fc21a698db09962ec47ce52a360b094caf4d4a",
+      "name": "ShielddSecurity.TransferBlstParserSchedule01.symbolic_memory_walk_completes_every_parser_frontier"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserSchedule01.sourceDescendingIndices : (count : Nat) \u2192\n  (inside : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) \u2192\n    List.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))",
+      "full_type_sha256": "879b1d2d4336625734fffc0e715079fb00d83c9601ea0d18a73ae53f8deeb377",
+      "name": "ShielddSecurity.TransferBlstParserSchedule01.sourceDescendingIndices"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserSchedule01.actual_descending_index_schedule_has_the_symbolic_last_index_recurrence : \u2200\n  (count : Nat)\n  (inside :\n    @LE.le.{0} Nat instLENat\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))),\n  @Eq.{1} (List.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n    (ShielddSecurity.TransferBlstParserSchedule01.sourceDescendingIndices\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n      inside)\n    (@List.cons.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n      (@Fin.mk (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) count\n        (@Decidable.byContradiction\n          (@LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          (Nat.decLt count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          fun\n            (a :\n              Not (@LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>\n          ShielddSecurity.TransferBlstParserSchedule01.sourceMemoryWalk._proof_4 count inside a))\n      (ShielddSecurity.TransferBlstParserSchedule01.sourceDescendingIndices count\n        (@Decidable.byContradiction\n          (@LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          (Nat.decLe count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n          fun\n            (a :\n              Not (@LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))) =>\n          ShielddSecurity.TransferBlstParserSchedule01.sourceMemoryWalk._proof_3 count inside a)))",
+      "full_type_sha256": "089efe747d3ec46e24ae0c8a9a16e064f8d113a655a0e6615119bf0e783dacda",
+      "name": "ShielddSecurity.TransferBlstParserSchedule01.actual_descending_index_schedule_has_the_symbolic_last_index_recurrence"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserSchedule01.symbolic_memory_walk_is_the_actual_descending_index_fold : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))) (count : Nat)\n  (inside : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (state : Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),\n  @Eq.{1} (Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))\n    (ShielddSecurity.TransferBlstParserSchedule01.sourceMemoryWalk bytes count inside state)\n    (@List.foldl.{0, 0}\n      (Prod.{0, 0} UInt64 (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))\n      (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n      (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemoryStep bytes) state\n      (ShielddSecurity.TransferBlstParserSchedule01.sourceDescendingIndices count inside))",
+      "full_type_sha256": "e289de2fa0d097b686905f9ddb85cbb2ce0fea6f843101ad3b045a528334e43a",
+      "name": "ShielddSecurity.TransferBlstParserSchedule01.symbolic_memory_walk_is_the_actual_descending_index_fold"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserSchedule01.actual_full_32_byte_schedule_is_the_exact_fin32_reverse : @Eq.{1}\n  (List.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n  (ShielddSecurity.TransferBlstParserSchedule01.sourceDescendingIndices\n    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n    (@of_decide_eq_true\n      (@LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n      (Nat.decLe (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n      (@id.{0}\n        (@Eq.{1} Bool\n          (@Decidable.decide\n            (@LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n            (Nat.decLe (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))\n              (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))\n          Bool.true)\n        (@Eq.refl.{1} Bool Bool.true))))\n  (@List.reverse.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n    (List.finRange (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))",
+      "full_type_sha256": "0fd248d43f7ce791bdf19ca81011ce956990be041887655c69041cce8642e943",
+      "name": "ShielddSecurity.TransferBlstParserSchedule01.actual_full_32_byte_schedule_is_the_exact_fin32_reverse"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstParserSchedule01.actual_parser_every_limb_is_the_reconstructed_byte_suffix : \u2200\n  (bytes : Vector.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))\n  (initialBuffer : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (limb : Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (@GetElem.getElem.{0, 0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Nat\n        UInt64\n        (fun (x : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) (i : Nat) =>\n          @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (@Vector.instGetElemNatLt.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (ShielddSecurity.TransferBlstByteCaller01.sourceLEParseMemory64 bytes initialBuffer)\n        (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) limb)\n        (@Decidable.byContradiction\n          (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) limb)\n            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          (Nat.decLt (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) limb)\n            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n          fun\n            (a :\n              Not\n                (@LT.lt.{0} Nat instLTNat (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) limb)\n                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))) =>\n          ShielddSecurity.TransferBlstParserSchedule01.actual_parser_every_limb_is_the_reconstructed_byte_suffix._proof_1\n            limb a)))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE\n        (@List.drop.{0} UInt8\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))\n            (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) limb))\n          (@Vector.toList.{0} UInt8 (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))) bytes)))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "d4c4804f2c0783e942433f437d6d978b45d928d0181854c7640b9a36810087f6",
+      "name": "ShielddSecurity.TransferBlstParserSchedule01.actual_parser_every_limb_is_the_reconstructed_byte_suffix"
+    }
+  ],
+  "dependency_sources_verified": 245,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 100773,
+    "sha256": "9861e34737e66e7c7dff622b923d60ef2a6a17a3cd49433a002d50143eb6f506"
+  },
+  "modules": {
+    "TransferBlstParserSchedule01": {
+      "object_identity": {
+        "bytes": 117632,
+        "sha256": "afcb5cc91947ed653ea11a087a5eaf0df352a47d89bab51add6c41d809590f19"
+      },
+      "peak_rss_bytes": 1397809152,
+      "plan_identity": {
+        "bytes": 3273901,
+        "sha256": "9c55ac907f06f250b0946106528bfb3faaff898effbbf367d8b18c67cc521f76"
+      },
+      "report": {
+        "bytes": 9234,
+        "sha256": "f81ec505809a37dcf80dcd989700022e755a40112b135fb9b76ef1edcdbc7aed"
+      },
+      "reports": 7,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact source descending32-byte parser schedule, symbolic frontier closure, every64-bit output limb from byte suffix for arbitrary initial buffer; no desired limb/output premises or native/compiler credit",
+      "seconds": 19.078162100049667,
+      "source": {
+        "bytes": 4346,
+        "sha256": "951041f6ec0fb969a25e0aeb0c00b8256351c4af416b11c72d06cec2546f5672"
+      }
+    },
+    "TransferBlstParserState01": {
+      "object_identity": {
+        "bytes": 145416,
+        "sha256": "e6e26f4faffd83be189968bcbdfce038d681cbacc2115e1bee3135feb012b98b"
+      },
+      "peak_rss_bytes": 1412071424,
+      "plan_identity": {
+        "bytes": 3205631,
+        "sha256": "9f4bd0bc31d2457c912cc0ad156c5429b4f675fd08ee27391c5eb0c81a208e7b"
+      },
+      "report": {
+        "bytes": 5717,
+        "sha256": "0e2169124aaa128ab393726a560d956b3fcec606b923873413e072293df00170"
+      },
+      "reports": 4,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Actual descending byte-parser frontier: arbitrary initial memory, exact next word value and every completed limb row; no desired output premises, no native/compiler credit",
+      "seconds": 18.446105400042143,
+      "source": {
+        "bytes": 3375,
+        "sha256": "fec2e5ac521dc50e3a22c8ee46960ae7c361020128a6bf2ce45cf78ee5492083"
+      }
+    },
+    "TransferBlstParserValue01": {
+      "object_identity": {
+        "bytes": 152040,
+        "sha256": "594984e0576a305d3a9042b2cd9ba8337ee8893e1efb69f13017bf63263f8ccd"
+      },
+      "peak_rss_bytes": 1406332928,
+      "plan_identity": {
+        "bytes": 3140112,
+        "sha256": "81549115c2dbe28b06af7f40715a58af36b02a22603a573494296723f777901c"
+      },
+      "report": {
+        "bytes": 13696,
+        "sha256": "222b666b6b18ebd3cb1a6e32071afd6c7d9acd202ef7696f05cb6899d5055f23"
+      },
+      "reports": 10,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact wrapped full-word parser arithmetic and symbolic reverse recurrence; actual32-byte memory trace derives all64 low-word bits for arbitrary initial buffer; no native/compiler or upstream Montgomery credit",
+      "seconds": 23.29005979996873,
+      "source": {
+        "bytes": 7033,
+        "sha256": "c43c4d23692af6af64caf3689b2bd3e5cb7bed0d8fc1c1114657bcfd465a27e9"
+      }
+    }
+  },
+  "native_credit": 0,
+  "packet_id": "windows-blst-whole-parser-success01",
+  "refresh": {
+    "bytes": 4426,
+    "sha256": "be6cd815d07416c9a2f9789158919667e0d69f6f3ad1ebffb076551da4c388f8"
+  },
+  "reports": 21,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Only successful maintained source models and full type/axiom audits. Montgomery output normalization, native private representations, compiler/FFI/architecture, whole Transfer and certification remain separate obligations. Hashes establish identity only. No failed histories, logs or compiled caches included.",
+  "source_context": [
+    {
+      "bytes": 3620,
+      "path": "context/transfer-blst-source-binding-20261012-01/locked-source-context.json",
+      "sha256": "5eab2dd7398ad8ef5bc26dd77661e5baf94b04c6bc81fa15a8298f7431cd4820"
+    },
+    {
+      "bytes": 3862,
+      "path": "context/transfer-blst-source-binding-20261012-01/context/blst/src/bytes.h",
+      "sha256": "ab19306003f4033ed522238580836bc662334df2a9ed56e2f8bfa822e79e1ae9"
+    },
+    {
+      "bytes": 16631,
+      "path": "context/transfer-blst-source-binding-20261012-01/context/blst/src/exports.c",
+      "sha256": "aa64e527fe4e3741863f7242232441e1e05d669ecc2da6096ac10e9666681b3f"
+    },
+    {
+      "bytes": 4310,
+      "path": "context/transfer-blst-source-binding-20261012-01/context/blst/src/fields.h",
+      "sha256": "2151a9b8bf00d5deb6444bbbfc836f9e6bab24a1e147131a028d155dbfa5a809"
+    },
+    {
+      "bytes": 4865,
+      "path": "context/transfer-blst-source-binding-20261012-01/context/blst/src/vect.c",
+      "sha256": "b8f189510e4795aa5a2d827ca8347a672cc36b7a9d5ab36457a3c3823916090a"
+    },
+    {
+      "bytes": 13749,
+      "path": "context/transfer-blst-source-binding-20261012-01/context/blst/src/vect.h",
+      "sha256": "7aaeb0246108beabf3d315f435b0af08a62c6fce6c725ef70b060f9b70fe70e6"
+    },
+    {
+      "bytes": 8943,
+      "path": "context/transfer-blst-source-binding-20261012-01/context/build.rs",
+      "sha256": "3b0a6eea2bf5c4d0c327fbe48f81b900e6896bdf92d4cfafcc1010d999b0fea7"
+    },
+    {
+      "bytes": 37392,
+      "path": "context/transfer-blst-source-binding-20261012-01/context/src/bindings.rs",
+      "sha256": "8b0c44ba87b3493fb47f8aeacafa0d5aa278a2a8b5932a735f2d5cbc888bc386"
+    }
+  ],
+  "status": "passed"
+}
