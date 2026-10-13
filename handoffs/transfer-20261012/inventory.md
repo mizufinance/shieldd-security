@@ -158,3 +158,5 @@ The [remaining shared scalar canonicality](shared-scalar-canonicality/README.md)
 The [shared authorization clamp](shared-authorization-clamp/README.md) adds111 audits across14 modules andtwo original comparator/product-gate assertions, including the independently derived q8 field-wrap exclusion bound.
 
 The [authorization point/key input encoding](shared-authorization-point-inputs/README.md) adds86 audits across63 sources, independently deriving the clearing preimage and retaining all nine new original-input meanings. The assertion union is unchanged.
+
+The [observed inverse field interpretation](native-sqrt/observed-inverse/README.md) adds six audited declarations with a 276-module authenticated source closure. Returned-root soundness in the modeled field while-loop does not require inverse correctness; inverse completeness and actual word-loop/native execution correspondence remain OPEN. Retained assertion coverage is unchanged.
