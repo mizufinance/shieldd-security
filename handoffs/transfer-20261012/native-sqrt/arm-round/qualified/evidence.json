@@ -1,0 +1,172 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmRound01.sourceFirstAdditionPass : (word : UInt64) \u2192\n  (rest : List.{0} UInt64) \u2192 Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "78b35efe689a12d6a3437fc9802746e2580012dae127092c377da0f181303e8c",
+      "name": "ShielddSecurity.TransferBlstArmRound01.sourceFirstAdditionPass"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionInput : (word : UInt64) \u2192\n  (rest : List.{0} UInt64) \u2192 List.{0} UInt64",
+      "full_type_sha256": "1e7851c8cbb27d14c21b87672ca2c175481a68c0e0b3e77136f4ffe2fab08f56",
+      "name": "ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionInput"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionPass : (word : UInt64) \u2192\n  (rest : List.{0} UInt64) \u2192 Prod.{0, 0} (List.{0} UInt64) Bool",
+      "full_type_sha256": "f9435bd46fac774209beb05d2a6eb91f64f223d4dcc868b84eb7d5cd3103fdcf",
+      "name": "ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionPass"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmRound01.actual_source_first_pass_preserves_three_tail_limbs : \u2200 (word : UInt64)\n  (rest : List.{0} UInt64)\n  (three : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmRound01.sourceFirstAdditionPass word rest)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))",
+      "full_type_sha256": "616121f6c3d0c71a4b6f23562fff72cb41ddbb03abb28295f8e39094faf4608e",
+      "name": "ShielddSecurity.TransferBlstArmRound01.actual_source_first_pass_preserves_three_tail_limbs"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmRound01.actual_source_second_pass_input_has_four_limbs : \u2200 (word : UInt64)\n  (rest : List.{0} UInt64)\n  (three : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))),\n  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionInput word rest))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "28037f60a43e454fb3499b002bef26fe05a34a903fbed3d8fcb1e0401af109a0",
+      "name": "ShielddSecurity.TransferBlstArmRound01.actual_source_second_pass_input_has_four_limbs"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmRound01.actual_source_second_pass_preserves_four_output_limbs : \u2200 (word : UInt64)\n  (rest : List.{0} UInt64)\n  (three : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))),\n  @Eq.{1} Nat\n    (@List.length.{0} UInt64\n      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n        (ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionPass word rest)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))",
+      "full_type_sha256": "64eacf72432b41d2ba0373fdd758cc6accf072ec1b5ee3513387fc6cc51ee940",
+      "name": "ShielddSecurity.TransferBlstArmRound01.actual_source_second_pass_preserves_four_output_limbs"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmRound01.symbolic_actual_two_addition_passes_derive_the_montgomery_quotient : \u2200\n  (word : UInt64) (rest : List.{0} UInt64)\n  (three : @Eq.{1} Nat (@List.length.{0} UInt64 rest) (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool\n          (ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionPass word rest)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n        (Bool.toNat\n          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool\n            (ShielddSecurity.TransferBlstArmRound01.sourceSecondAdditionPass word rest)))))\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))\n          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64)",
+      "full_type_sha256": "7f23d832c8a25a58bc6cc21ac4afd510affa0238d42ce485c8a6aa97728eca11",
+      "name": "ShielddSecurity.TransferBlstArmRound01.symbolic_actual_two_addition_passes_derive_the_montgomery_quotient"
+    }
+  ],
+  "dependency_sources_verified": 253,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 97988,
+    "sha256": "39555cb7a6becdb3622d95be53a951db624c6c08c2f3876c0f32c6e959e12f99"
+  },
+  "modules": {
+    "TransferBlstArmRound01": {
+      "object_identity": {
+        "bytes": 179136,
+        "sha256": "6fc66d6cfcf9fbd98ce03fefd6d1f854d1ef57f558ff70f170b3fc3b0a5d6975"
+      },
+      "peak_rss_bytes": 1430585344,
+      "plan_identity": {
+        "bytes": 3681466,
+        "sha256": "394dcd166b55633199b589def386dee688ae3211d4eda3852b0052b4faa5224e"
+      },
+      "report": {
+        "bytes": 4269,
+        "sha256": "9829541f814374f32b63d9f26c606ec4806eedec9ee79d2b5e8249af96734d2b"
+      },
+      "reports": 7,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Locked ARM64 two-pass Montgomery helper derives radix quotient and retained final arithmetic overflow flag using symbolic product/add recurrences; native ISA/ABI/compiler/private origins remain separate",
+      "seconds": 19.123282100015786,
+      "source": {
+        "bytes": 7534,
+        "sha256": "8eaf4be86ae12c255f190606416dd262733567e0720e8eb8ef20c3daea470aaa"
+      }
+    }
+  },
+  "native_credit": 0,
+  "packet_id": "windows-blst-arm-round-success01",
+  "refresh": {
+    "bytes": 4457,
+    "sha256": "8a7d58124e638baa2c357eb71d05916df3d560943e2ef3fbecfd2ca8a1cd7885"
+  },
+  "reports": 7,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Only successful maintained source models and full type/axiom audits. Montgomery output normalization, native private representations, compiler/FFI/architecture, whole Transfer and certification remain separate obligations. Hashes establish identity only. No failed histories, logs or compiled caches included.",
+  "source_context": [
+    {
+      "bytes": 6751,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/locked-source-context.json",
+      "sha256": "ea5bfd3c202d60781328b66831e20952ba843cc40d3cf7c663fb4cdcd0685e18"
+    },
+    {
+      "bytes": 8241,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/mach-o/mul_mont_256-armv8.S",
+      "sha256": "768b46ac0b0566888ee8a0933c32158fe5f9d2ea0f4439e8d250ec5c549e6097"
+    },
+    {
+      "bytes": 14350,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulq_mont_256-x86_64.asm",
+      "sha256": "f69661638db7b6f8f1947bc5f077f5b0782bfacf1abda4067318910226bb2c56"
+    },
+    {
+      "bytes": 13703,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/build/win64/mulx_mont_256-x86_64.asm",
+      "sha256": "0f67d8c45e7ce7cf7e15af3bcd90a0f0596d6d42e2ec440cd7fc7ab8cfc44903"
+    },
+    {
+      "bytes": 3862,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/bytes.h",
+      "sha256": "ab19306003f4033ed522238580836bc662334df2a9ed56e2f8bfa822e79e1ae9"
+    },
+    {
+      "bytes": 1342,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.c",
+      "sha256": "b5de026855b1f370a26c471abcc4f5a0debb2d195d7661844be6d87159cc0283"
+    },
+    {
+      "bytes": 1152,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/consts.h",
+      "sha256": "e983c6c80045adc46379ff1fd088dbf85e20c4946eb98191835eed91f7598727"
+    },
+    {
+      "bytes": 16631,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/exports.c",
+      "sha256": "aa64e527fe4e3741863f7242232441e1e05d669ecc2da6096ac10e9666681b3f"
+    },
+    {
+      "bytes": 4310,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/fields.h",
+      "sha256": "2151a9b8bf00d5deb6444bbbfc836f9e6bab24a1e147131a028d155dbfa5a809"
+    },
+    {
+      "bytes": 36773,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/no_asm.h",
+      "sha256": "35bda15509ff6fea022a40249e732bc00b0ecc037c11f17b262aa822acca0253"
+    },
+    {
+      "bytes": 4865,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.c",
+      "sha256": "b8f189510e4795aa5a2d827ca8347a672cc36b7a9d5ab36457a3c3823916090a"
+    },
+    {
+      "bytes": 13749,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/blst/src/vect.h",
+      "sha256": "7aaeb0246108beabf3d315f435b0af08a62c6fce6c725ef70b060f9b70fe70e6"
+    },
+    {
+      "bytes": 8943,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/build.rs",
+      "sha256": "3b0a6eea2bf5c4d0c327fbe48f81b900e6896bdf92d4cfafcc1010d999b0fea7"
+    },
+    {
+      "bytes": 37392,
+      "path": "context/transfer-blst-montgomery-source-binding-20261012-01/context/src/bindings.rs",
+      "sha256": "8b0c44ba87b3493fb47f8aeacafa0d5aa278a2a8b5932a735f2d5cbc888bc386"
+    }
+  ],
+  "status": "passed"
+}

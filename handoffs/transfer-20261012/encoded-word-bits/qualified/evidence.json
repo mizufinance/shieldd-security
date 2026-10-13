@@ -1,0 +1,121 @@
+{
+  "certification": false,
+  "circuit_soundness": "OPEN",
+  "conditional_assertion_coverage": {
+    "new_positions": [],
+    "previous_union": 11097,
+    "remaining": 11719,
+    "remaining_smaller_word_values": 0,
+    "scope": "ONE assignment from independently legal TransferSem. All smaller word bounds derived. Exact partial assertion union; neither full circuit construction nor certification.",
+    "total": 22816,
+    "union": 11097,
+    "user_nonidentity_positions": []
+  },
+  "full_transfer": "OPEN",
+  "full_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.value : (w : ShielddSecurity.TransferSem.Witness) \u2192 (column : Nat) \u2192 Nat",
+      "full_type_sha256": "18c271c140a983d38a66574ee29c82b3ea66489281b9f3129b0a4b0916cdaa9f",
+      "name": "ShielddSecurity.EncodedWordBits375.value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.width : (column : Nat) \u2192 Nat",
+      "full_type_sha256": "34ff6001c1141337ed2f601b6c30f86fa2e2beb55c22544a4feca61d09bece0b",
+      "name": "ShielddSecurity.EncodedWordBits375.width"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.base : (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (w : ShielddSecurity.TransferSem.Witness) \u2192\n    (senderInitial receiverInitial :\n        Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n          ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n      Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F",
+      "full_type_sha256": "5fb8560dd129527302c41f89f95fc12a5cc87e840d0e64326de367519af62c1f",
+      "name": "ShielddSecurity.EncodedWordBits375.base"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.value_bound : \u2200 (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (column : Nat) (inside : ShielddSecurity.SemanticWordFrame373.Inside column),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.EncodedWordBits375.value w column)\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (ShielddSecurity.EncodedWordBits375.width column))",
+      "full_type_sha256": "d8f2b56627fc436df196b52675ce37f10e5cbbf546369093b78a102dc382ce68",
+      "name": "ShielddSecurity.EncodedWordBits375.value_bound"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.width_below_field : \u2200 (column : Nat),\n  @LT.lt.{0} Nat instLTNat\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) (ShielddSecurity.EncodedWordBits375.width column))\n    ShielddSecurity.TransferCore.fieldModulus",
+      "full_type_sha256": "54286ddd7a84cc42da94b4665e612a0c3909fb4268c54385a3a0409e856d0f6d",
+      "name": "ShielddSecurity.EncodedWordBits375.width_below_field"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.final_value : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat) (inside : ShielddSecurity.SemanticWordFrame373.Inside column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.SemanticWordFrame373.assignment original c w initial senderInitial receiverInitial column)\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.EncodedWordBits375.value w column))",
+      "full_type_sha256": "e873fab6809eb939dce0003ade53a27d460f9c1151cda8a6260e9616fd6f2242",
+      "name": "ShielddSecurity.EncodedWordBits375.final_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.prepared_number : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (column : Nat) (inside : ShielddSecurity.SemanticWordFrame373.Inside column),\n  @Eq.{1} Nat\n    (ShielddSecurity.HeaderRegisteredConstruction310.numbers\n      (ShielddSecurity.UserLifecycleWord345.originalBase\n        (ShielddSecurity.EncodedWordBits375.base original w senderInitial receiverInitial) w)\n      c w column)\n    (ShielddSecurity.EncodedWordBits375.value w column)",
+      "full_type_sha256": "7cde87d7e7aa072adb22ac7bb0280c6eedab388fa000c3168f90626f1a2c38f7",
+      "name": "ShielddSecurity.EncodedWordBits375.prepared_number"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.EncodedWordBits375.aliases_checked : @Eq.{1} Bool\n  (@List.all.{0} Nat ShielddSecurity.SemanticWordFrame373.values fun (column : Nat) =>\n    @Decidable.decide (Not (ShielddSecurity.LegalWordNormalization272.Alias column))\n      (@instDecidableNot (ShielddSecurity.LegalWordNormalization272.Alias column)\n        (ShielddSecurity.LegalWordNormalization272.aliasDecidable column)))\n  Bool.true",
+      "full_type_sha256": "26e1fdd98253ad81091dac300fc7e5686d94272890729edf59081caa16691316",
+      "name": "ShielddSecurity.EncodedWordBits375.aliases_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.EncodedWordBits375.selected_bits : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.ConcreteRegistrySharedEncoding294.crypto c) w)\n  (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n  (member :\n    @Membership.mem.{0, 0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat)\n      (List.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      (@List.instMembership.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat))\n      ShielddSecurity.CapturedWordRoot213.words entry)\n  (inside :\n    ShielddSecurity.SemanticWordFrame373.Inside\n      (ShielddSecurity.WordHints210.Slot.value (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n  (index : Nat),\n  @LT.lt.{0} Nat instLTNat index\n      (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)) \u2192\n    @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.SemanticWordFrame373.assignment original c w initial senderInitial receiverInitial\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n          index))\n      (@ShielddSecurity.BooleanHints207.bitValue ShielddSecurity.ConcreteJubjubField01.F\n        (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n        (@Option.getD.{0} Bool\n          (@GetElem?.getElem?.{0, 0, 0} (List.{0} Bool) Nat Bool\n            (fun (as : List.{0} Bool) (i : Nat) => @LT.lt.{0} Nat instLTNat i (@List.length.{0} Bool as))\n            (@List.instGetElem?NatLtLength.{0} Bool)\n            (ShielddSecurity.encodeBits\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (ShielddSecurity.EncodedWordBits375.value w\n                (ShielddSecurity.WordHints210.Slot.value\n                  (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))))\n            index)\n          Bool.false))",
+      "full_type_sha256": "5f1c8a4d996d83d0acaea474f1d2c03b9f0e57bac2f066c438aabb3630905454",
+      "name": "ShielddSecurity.EncodedWordBits375.selected_bits"
+    }
+  ],
+  "mathlib": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "modules": {
+    "EncodedWordBits375": {
+      "object_sha256": "bcd30187e8b2dd93d7b8356948fe55cea95a83d7baff89c0663b704bca473cd4",
+      "peak_group_rss_bytes": 2806267904,
+      "receipt_sha256": "f6f028a4dc6b14c3f2a0d68106a3b404cf57dca0e0f4601f9bdd26009248c1d4",
+      "reports": 9,
+      "seconds": 2.755014583002776,
+      "selected_custom_modules": 3401,
+      "source_sha256": "029a428fc293fb5d4b078f2c6a5337dc1912fe705da3687538271ceaaf8d0d05",
+      "stdout_sha256": "04274ad1e3d8c367b458c0d958c386ed60e8268ae8241ed3a4aaccc8c66ca547"
+    }
+  },
+  "native_consequence": "OPEN",
+  "native_credit": 0,
+  "refresh_sha256": "08208662da188f6b1d4137fbfa61aa2677b3f16bc58f0c887730267f141d4435",
+  "reports": 9,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "All 26 authorization and remaining smaller word values have exact independently derived final bit meanings on the same shared assignment. No supplied bit, bound or consumer-row conclusions. No assertion gain: union11097/rem11719. Actual consumers and all full endpoints remain OPEN.",
+  "status": "passed",
+  "total_legal_input_construction": "OPEN"
+}
