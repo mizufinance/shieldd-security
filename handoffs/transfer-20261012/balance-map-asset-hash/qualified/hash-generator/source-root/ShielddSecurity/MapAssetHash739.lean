@@ -1,0 +1,42 @@
+/- Generated from maintained map asset-hash template. -/
+import ShielddSecurity.MapAssetHashPermutation738
+import ShielddSecurity.MapAssetHashCapture734
+import ShielddSecurity.PoseidonHash3OneBlock08
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.MapAssetHash739
+open Compiler CompilerAssertionBlock51
+open CapturedInitial73419Generic01 (p copy)
+noncomputable def parameters := MapAssetHashPermutation738.parameters
+noncomputable def result := MapAssetHashPermutation738.result
+variable {F : Type} [Field F] [CharP F p]
+attribute [local irreducible] SatisfiesAt
+
+theorem initial (rho : Nat → F) (one : rho 0=1) :
+    (fun i => eval rho (MapAssetHashPermutation738.before i))=
+      Poseidon.absorb (Poseidon.initial 26 1) [rho 6] := by
+  funext i
+  have cases : i=0 ∨ i=1 ∨ i=2 := by have h:=i.isLt;simp only [Fin.ext_iff];omega
+  rcases cases with rfl|rfl|rfl <;>
+    simp [MapAssetHashPermutation738.before,MapAssetHashCapture734C186B0R00.before,
+      Poseidon.absorb,Poseidon.initial,eval,one,Fin.val_ofNat]
+
+theorem hash (rho : Nat → F) (one : rho 0=1) (linked : rho copy=rho 0)
+    (arithmetic : SatisfiesAt rho CapturedFullArithmetic52.rowAt 177954) :
+    eval rho result=Poseidon.hash3 (Poseidon.castParameters parameters) 26 [rho 6] := by
+  have permutation := MapAssetHashPermutation738.permutation rho one linked arithmetic
+  rw [initial rho one] at permutation
+  have joined := PoseidonHash3OneBlock08.hash3_of_one_block (Poseidon.castParameters parameters) 26 [rho 6]
+    (Poseidon.initial 26 1) (fun i => eval rho (MapAssetHashPermutation738.after i)) rfl rfl permutation
+  simpa only [MapAssetHashPermutation738.result_port,result] using joined
+end ShielddSecurity.MapAssetHash739
+
+set_option pp.all true in
+#check @ShielddSecurity.MapAssetHash739.initial
+#print axioms ShielddSecurity.MapAssetHash739.initial
+
+set_option pp.all true in
+#check @ShielddSecurity.MapAssetHash739.hash
+#print axioms ShielddSecurity.MapAssetHash739.hash
