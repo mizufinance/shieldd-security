@@ -1,0 +1,25 @@
+{
+  "transport": "f6ac3018e275aab1f4f7cfc314b2893675185818",
+  "original_source_sha256": "21707922a1a49e10c744c5a826fce7d5dbb7a503e44fa8a845cf52c95fbd8637",
+  "variant_source_sha256": "b4823431cb0bb756752ea79fafc58874dcf5cf37c677d52e172df91a90380a92",
+  "audit_append_only": false,
+  "declarations": [
+    "sourceWindowLow31Word",
+    "original_high33_fragment_has_the_exact_unsigned_quotient",
+    "original_low31_fragment_has_the_exact_original_remainder",
+    "original_typed_low31_bitfield_replacement_has_its_entire_nat_value",
+    "original_typed_low31_bitfield_replacement_preserves_all_original_low_bits",
+    "original_entire_low31_replacement_value_fits_its_unsigned_word"
+  ],
+  "proof_repairs": [
+    {
+      "before": "UInt64.toNat_ofBitVec, BitVec.toNat_append",
+      "after": "UInt64.toNat_ofBitVec, BitVec.append_eq, BitVec.toNat_append"
+    },
+    {
+      "before": "Nat.mul_mod_left, zero_add, Nat.mod_mod",
+      "after": "Nat.mul_mod_left, Nat.zero_mod, Nat.zero_add, Nat.mod_mod"
+    }
+  ],
+  "review": "Proof tactic repairs only: normalize explicit BitVec.append before the concatenation theorem; use core-qualified Nat.zero_add and reduce zero modulo. Declaration signatures and definition body unchanged. Original failed replay2105 retained; repaired source02 passed2113."
+}
