@@ -1,0 +1,70 @@
+ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_low31_radix_is_an_exact_multiple_of_each_prefix_radix : ∀
+  (count : Nat)
+  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))),
+  @Eq.{1} Int (@OfNat.ofNat.{0} Int (nat_lit 2147483648) (@instOfNat (nat_lit 2147483648)))
+    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)))
+'ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_low31_radix_is_an_exact_multiple_of_each_prefix_radix' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_full_low31_input_lift_derives_an_exact_lift_for_every_prefix : ∀
+  (count approx : Nat) (input delta : Int)
+  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (lifted :
+    @Eq.{1} Int input
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) (@Nat.cast.{0} Int instNatCastInt approx)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2147483648) (@instOfNat (nat_lit 2147483648))) delta))),
+  @Exists.{1} Int fun (prefixDelta : Int) =>
+    @Eq.{1} Int input
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) (@Nat.cast.{0} Int instNatCastInt approx)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+            (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+          prefixDelta))
+'ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_full_low31_input_lift_derives_an_exact_lift_for_every_prefix' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_initialized_factor_prefixes_divide_both_entire_input_rows : ∀
+  (count : Nat) (highA lowA highB lowB : UInt64) (restA restB : List.{0} UInt64)
+  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat lowB)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB));
+  And
+    (@Dvd.dvd.{0} Int Int.instDvd
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 factors)
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA))))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 factors)
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB))))))
+    (@Dvd.dvd.{0} Int Int.instDvd
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 factors)
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA))))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 factors)
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB))))))
+'ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_initialized_factor_prefixes_divide_both_entire_input_rows' depends on axioms: [propext,
+ Quot.sound]
