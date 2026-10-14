@@ -1,0 +1,55 @@
+ShielddSecurity.TransferBlstArmInverseOrderGap01.signed_error_natabs_bound_derives_both_integer_budget_bounds : ∀
+  (error : Int) (budget : Nat) (bounded : @LE.le.{0} Nat instLENat (Int.natAbs error) budget),
+  And (@LE.le.{0} Int Int.instLEInt (@Neg.neg.{0} Int Int.instNegInt (@Nat.cast.{0} Int instNatCastInt budget)) error)
+    (@LE.le.{0} Int Int.instLEInt error (@Nat.cast.{0} Int instNatCastInt budget))
+'ShielddSecurity.TransferBlstArmInverseOrderGap01.signed_error_natabs_bound_derives_both_integer_budget_bounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOrderGap01.opposing_scaled_orders_bound_the_entire_actual_gap : ∀ (x y : Int)
+  (p q scale budget : Nat)
+  (leftError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt p))))
+      budget)
+  (rightError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) y
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt q))))
+      budget)
+  (actualOrder : @LE.le.{0} Int Int.instLEInt y x) (approximateOrder : @LE.le.{0} Nat instLENat p q),
+  @LE.le.{0} Nat instLENat (Int.natAbs (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x y))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) budget)
+'ShielddSecurity.TransferBlstArmInverseOrderGap01.opposing_scaled_orders_bound_the_entire_actual_gap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOrderGap01.either_opposing_order_case_bounds_the_entire_actual_gap : ∀ (x y : Int)
+  (p q scale budget : Nat)
+  (leftError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt p))))
+      budget)
+  (rightError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) y
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt q))))
+      budget)
+  (opposing :
+    Or (And (@LE.le.{0} Int Int.instLEInt y x) (@LE.le.{0} Nat instLENat p q))
+      (And (@LE.le.{0} Int Int.instLEInt x y) (@LE.le.{0} Nat instLENat q p))),
+  @LE.le.{0} Nat instLENat (Int.natAbs (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x y))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) budget)
+'ShielddSecurity.TransferBlstArmInverseOrderGap01.either_opposing_order_case_bounds_the_entire_actual_gap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
