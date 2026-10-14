@@ -1,0 +1,41 @@
+-- GENERATED from data.json and maintained templates. Do not hand edit.
+import ShielddSecurity.RecoveryInverseCapture779F0
+import ShielddSecurity.RecoveryInverseCapture779F1
+import ShielddSecurity.RecoveryInverseSeed778
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.RecoveryInverseCapture779
+open Compiler CompilerArithmeticTransport41 CompilerAssertionBlock51 ConcreteJubjubField01
+
+def position (slot : Fin 2) : Nat := if slot.val=0 then 6052 else 7455
+def output (slot : Fin 2) : Nat := if slot.val=0 then 96229 else 106556
+
+def Rows (rho : Nat → F) (slot : Fin 2) : Prop :=
+  SatisfiesAt rho (fun i => CapturedFullRelation58.rowAt (177954+position slot+i)) 1
+
+theorem equation (rho : Nat → F) (arithmetic : SatisfiesAt rho CapturedFullArithmetic52.rowAt 177954) (slot : Fin 2) :
+    rho (output slot)=rho (RecoveryInverseSeed778.hint slot)*rho (RecoveryInverseSeed778.operand slot) := by
+  rcases slot with ⟨slot,bound⟩
+  have cases : slot=0 ∨ slot=1 := by omega
+  rcases cases with rfl|rfl
+  · exact RecoveryInverseCapture779F0.equation rho arithmetic
+  · exact RecoveryInverseCapture779F1.equation rho arithmetic
+
+theorem rows (rho : Nat → F) (one : rho copy=1) (slot : Fin 2) (inverse : rho (output slot)=1) : Rows rho slot := by
+  rcases slot with ⟨slot,bound⟩
+  have cases : slot=0 ∨ slot=1 := by omega
+  rcases cases with rfl|rfl
+  · exact RecoveryInverseCapture779F0.rows rho one inverse
+  · exact RecoveryInverseCapture779F1.rows rho one inverse
+end ShielddSecurity.RecoveryInverseCapture779
+set_option pp.all true in
+#check @ShielddSecurity.RecoveryInverseCapture779.Rows
+#print axioms ShielddSecurity.RecoveryInverseCapture779.Rows
+set_option pp.all true in
+#check @ShielddSecurity.RecoveryInverseCapture779.equation
+#print axioms ShielddSecurity.RecoveryInverseCapture779.equation
+set_option pp.all true in
+#check @ShielddSecurity.RecoveryInverseCapture779.rows
+#print axioms ShielddSecurity.RecoveryInverseCapture779.rows
