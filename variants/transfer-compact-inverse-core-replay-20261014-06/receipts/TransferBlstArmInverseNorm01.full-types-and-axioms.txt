@@ -1,0 +1,68 @@
+ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds : (bound : Nat) →
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors) → Prop
+'ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseNorm01.subtracting_two_bounded_rows_derives_the_doubled_row_sum_bound : ∀
+  (a b c d : Int) (bound : Nat)
+  (left :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs a) (Int.natAbs b)) bound)
+  (right :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs c) (Int.natAbs d)) bound),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (Int.natAbs (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) a c))
+      (Int.natAbs (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) b d)))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) bound)
+'ShielddSecurity.TransferBlstArmInverseNorm01.subtracting_two_bounded_rows_derives_the_doubled_row_sum_bound' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNorm01.original_exact_factor_step_derives_doubled_row_sum_bounds : ∀ (bound : Nat)
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (bounded : ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds bound s),
+  ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) bound)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)
+'ShielddSecurity.TransferBlstArmInverseNorm01.original_exact_factor_step_derives_doubled_row_sum_bounds' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNorm01.symbolic_original_factor_walk_derives_its_full_row_sum_bounds : ∀
+  (count bound : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (bounded : ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds bound s),
+  ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+      bound)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)
+'ShielddSecurity.TransferBlstArmInverseNorm01.symbolic_original_factor_walk_derives_its_full_row_sum_bounds' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNorm01.original_initialized_factor_walk_derives_row_sums_at_most_its_radix_power : ∀
+  (count a b : Nat),
+  ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b))
+'ShielddSecurity.TransferBlstArmInverseNorm01.original_initialized_factor_walk_derives_row_sums_at_most_its_radix_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNorm01.original_simultaneous_factor_sign_correction_preserves_row_sum : ∀
+  (a b : Int),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs (@Neg.neg.{0} Int Int.instNegInt a))
+      (Int.natAbs (@Neg.neg.{0} Int Int.instNegInt b)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs a) (Int.natAbs b))
+'ShielddSecurity.TransferBlstArmInverseNorm01.original_simultaneous_factor_sign_correction_preserves_row_sum' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseNorm01.bounded_signed_inputs_and_factor_row_derive_the_actual_linear_combination_bound : ∀
+  (u v f g : Int) (inputBound rowBound : Nat) (left : @LE.le.{0} Nat instLENat (Int.natAbs u) inputBound)
+  (right : @LE.le.{0} Nat instLENat (Int.natAbs v) inputBound)
+  (row :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f) (Int.natAbs g)) rowBound),
+  @LE.le.{0} Nat instLENat
+    (Int.natAbs
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) u f)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) v g)))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) inputBound rowBound)
+'ShielddSecurity.TransferBlstArmInverseNorm01.bounded_signed_inputs_and_factor_row_derive_the_actual_linear_combination_bound' depends on axioms: [propext]
