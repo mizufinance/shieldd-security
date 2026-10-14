@@ -1,0 +1,163 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  Nat",
+      "full_type_sha256": "190b632662bce8a1e56ed8a43b566ecdf5b7eacb0b071fccb5127c2b0dbf84de",
+      "name": "ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFullWidth01.positive_upper_power_bounds_log2_plus_one : \u2200 (input width : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) width)\n  (upper :\n    @LT.lt.{0} Nat instLTNat input\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) width)),\n  @LE.le.{0} Nat instLENat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Nat.log2 input)\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n    width",
+      "full_type_sha256": "eebc617b2ff8259e8c701f97c316b72300c624eb807fe1390efd2de15ae4f422",
+      "name": "ShielddSecurity.TransferBlstArmInverseFullWidth01.positive_upper_power_bounds_log2_plus_one"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFullWidth01.lower_power_bounds_the_exact_log2 : \u2200 (input power : Nat)\n  (lower :\n    @LE.le.{0} Nat instLENat\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) power)\n      input),\n  @LE.le.{0} Nat instLENat power (Nat.log2 input)",
+      "full_type_sha256": "79f07b496a6b47e99d31d6813ecb7ecff9a0cfc42b4e76c3c63398748302853b",
+      "name": "ShielddSecurity.TransferBlstArmInverseFullWidth01.lower_power_bounds_the_exact_log2"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFullWidth01.original_computed_shift_plus64_is_the_exact_clipped_full_input_joint_bitwidth : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)\n      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n    (ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth a b)",
+      "full_type_sha256": "4d3e5d8df6688a7c670e9600c6e51f56a0a584dca92088c1629d008262b47936",
+      "name": "ShielddSecurity.TransferBlstArmInverseFullWidth01.original_computed_shift_plus64_is_the_exact_clipped_full_input_joint_bitwidth"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseFullWidth01.original31_final_cases_identify_the_small_component_bound_at_the_actual_clipped_bitwidth : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have windows : Prod.{0, 0} UInt64 UInt64 :=\n    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;\n  have approxA : Nat :=\n    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a);\n  have approxB : Nat :=\n    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b);\n  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB;\n  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);\n  have final : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients\n      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) approxA approxB\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  Or\n    (And\n      (\u2200 (index : Nat),\n        @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) \u2192\n          @Eq.{1} Nat\n            (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index approximate))\n            (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index actual)))\n      (@Eq.{1} (Prod.{0, 0} Int Int) final\n        (@Prod.mk.{0, 0} Int Int\n          (@Nat.cast.{0} Int instNatCastInt\n            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk\n                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) actual)))\n          (@Nat.cast.{0} Int instNatCastInt\n            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk\n                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) actual))))))\n    (@LT.lt.{0} Nat instLTNat\n      (@Min.min.{0} Nat instMinNat (Int.natAbs (@Prod.fst.{0, 0} Int Int final))\n        (Int.natAbs (@Prod.snd.{0, 0} Int Int final)))\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth a b)\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))))",
+      "full_type_sha256": "25523d924c6c89149b42af582fff0a91de5c525762b62087a3daaa19b547b1d3",
+      "name": "ShielddSecurity.TransferBlstArmInverseFullWidth01.original31_final_cases_identify_the_small_component_bound_at_the_actual_clipped_bitwidth"
+    }
+  ],
+  "dependency_sources_verified": 345,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 113445,
+    "sha256": "3bff74e2116e1bea39cb0243a688b4ba3e462ab1d5cf1616d6f01ea4e85ddd67"
+  },
+  "modules": {
+    "TransferBlstArmInverseFullWidth01": {
+      "objects": [
+        {
+          "bytes": 154960,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-full-width-20261014-02\\project\\ShielddSecurity\\TransferBlstArmInverseFullWidth01.olean",
+          "sha256": "24da09bb7aa39913e13a1a145f715fe1b801ad7618a683fdfa13afc68f8c8d58"
+        }
+      ],
+      "peak_rss_bytes": 1061429248,
+      "plan_identity": {
+        "bytes": 309643,
+        "sha256": "123dfed1698aa0896e5825263a6f72d5853e7f98760068e236a517a7edb605f1"
+      },
+      "report": {
+        "bytes": 6387,
+        "path": "receipts/TransferBlstArmInverseFullWidth01.full-types-and-axioms.txt",
+        "sha256": "5aeab3eb60db0bd849779be4b8233207aae8035838f0f1395c9756ec6c59243c"
+      },
+      "reports": 5,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Fresh exact computed shift plus64 equals clipped full-input joint log2 bitwidth, derived from original word powers and zero-window fallback; final source cases express first-mismatch small component at width minus31. Total pair bitlength progress and native execution remain open.",
+      "seconds": 14.153934699999809,
+      "source": {
+        "bytes": 5641,
+        "sha256": "047542c8e9ddc9b6a62ad9a378b54df5e9af2fc57d9ea975191a5f10907c0369"
+      },
+      "source_closure_bound": 39
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 5,
+  "object_provenance_inputs": {
+    "bytes": 2179,
+    "sha256": "d8690477bda28594ad2d22a39479031e30a2e1ab4c08c24d1931607b0f025ae4"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseFullWidth01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 405047,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-full-width-20261014-02-owned-floor\\composition-review.json",
+        "sha256": "c59fd7f5bd1e4b222f917636556d85390d2d9dc00d1f965ab07e7d0a6a0066e7"
+      },
+      "owned_imports": 41
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "dbb16d6e0eeb85174192ebe5537d2ee7afbe369a8f1a64850e90a6ca85433d42"
+  },
+  "reports": 5,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 4363,
+    "sha256": "cb47c5ac7e6fb47426580523a26df75176271a139b28a999042a6d5cdec240d3"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "One source-model module proves the computed shift plus64 equals the exact clipped joint bitwidth of both original four-word inputs, without a desired width premise, and expresses the exhaustive31-step alignment or strict small signed-component alternative using that width. Total pair bitlength progress, machine execution and full Transfer endpoints remain OPEN. Native credit zero.",
+  "status": "passed"
+}
