@@ -1,0 +1,49 @@
+{
+  "additional_actual_trace_obligations": [
+    "Signed row quotients agree with actual nonnegative input observations before the first mismatch",
+    "Actual/approximate parity agreement at every earlier prefix",
+    "All earlier control transitions synchronized",
+    "Identify source shift with full input bitlength width",
+    "Prove post-mismatch lasting behavior and31bit progress"
+  ],
+  "bounded_model_check": false,
+  "certification": false,
+  "formal_negative_control": false,
+  "kernel_receipt": null,
+  "native_credit": 0,
+  "observations": [
+    {
+      "case": "Ties do not certify divergence",
+      "finding": "Both weak opposing-order conjunctions hold; both modeled comparisons choose the same ordered branch. Strict disagreement excludes this case.",
+      "values": {
+        "p": 1,
+        "q": 1,
+        "x": 1,
+        "y": 1
+      }
+    },
+    {
+      "case": "Order disagreement does not certify an odd control step",
+      "finding": "Strict comparison disagreement holds, but actual and approximate first inputs are both even, so their full modeled factor steps choose the halving branch. Odd parity/trace premises are required for an actual ordering-control mismatch.",
+      "values": {
+        "p": 0,
+        "q": 1,
+        "x": 2,
+        "y": 1
+      }
+    }
+  ],
+  "original_domain_premises": [
+    "count<31 for a within-loop comparison prefix",
+    "Original lowB odd",
+    "Source-derived selected high windows; no desired quotient premise"
+  ],
+  "returned_word_review": "BFXIL observations must rewrite both approximation inputs in the existing recurrence/error theorem; preserve original sourceApproxLow31 meaning. Dependencies remainUNRUN until receiving-host receipts pass.",
+  "runtime_test": false,
+  "status": "STATIC_PREMISE_REVIEW_UNVERIFIED",
+  "targets": [
+    "TransferBlstArmInverseWindowBfxil01",
+    "TransferBlstArmInverseWindowReturned01",
+    "TransferBlstArmInverseOrderStep01"
+  ]
+}
