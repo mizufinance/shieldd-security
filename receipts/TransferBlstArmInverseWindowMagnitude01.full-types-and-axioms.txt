@@ -1,0 +1,57 @@
+ShielddSecurity.TransferBlstArmInverseWindowMagnitude01.exact_entire_input_uint64_quotient_bounds_the_entire_input_magnitude : ∀
+  (input shift : Nat) (high : UInt64)
+  (window :
+    @Eq.{1} Nat (UInt64.toNat high)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) input
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))),
+  @LT.lt.{0} Nat instLTNat input
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) shift
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+'ShielddSecurity.TransferBlstArmInverseWindowMagnitude01.exact_entire_input_uint64_quotient_bounds_the_entire_input_magnitude' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWindowMagnitude01.original_source_selected_window_derives_both_full_input_upper_power_bounds : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  And
+    (@LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+    (@LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))
+'ShielddSecurity.TransferBlstArmInverseWindowMagnitude01.original_source_selected_window_derives_both_full_input_upper_power_bounds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowMagnitude01.original_nonzero_joint_clz_derives_the_exact_raw_word_power_interval : ∀
+  (highA highB : UInt64)
+  (nonzero :
+    @Ne.{1} UInt64 (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB)
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),
+  have count : Nat :=
+    @BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+      (@BitVec.clz (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+        (UInt64.toBitVec
+          (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB)));
+  And
+    (@LE.le.{0} Nat instLENat
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63))) count))
+      (UInt64.toNat (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB)))
+    (@LT.lt.{0} Nat instLTNat
+      (UInt64.toNat (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count)))
+'ShielddSecurity.TransferBlstArmInverseWindowMagnitude01.original_nonzero_joint_clz_derives_the_exact_raw_word_power_interval' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
