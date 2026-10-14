@@ -1,0 +1,12 @@
+import ShielddSecurity.VolumeOutputHashCapture913
+import ShielddSecurity.VolumeOutputHash918C149
+import ShielddSecurity.VolumeOutputHash918C150
+import ShielddSecurity.VolumeOutputHash918C151
+import ShielddSecurity.VolumeOutputHash918C152
+import ShielddSecurity.VolumeOutputHash918C153
+namespace ShielddSecurity.VolumeOutputHashes919
+def callCount : Nat := 5
+end ShielddSecurity.VolumeOutputHashes919
+set_option pp.all true in
+#check @ShielddSecurity.VolumeOutputHashes919.callCount
+#print axioms ShielddSecurity.VolumeOutputHashes919.callCount
