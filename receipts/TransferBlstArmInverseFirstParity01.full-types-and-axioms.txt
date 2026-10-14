@@ -1,0 +1,87 @@
+ShielddSecurity.TransferBlstArmInverseFirstParity01.original_inputs_and_earlier_control_synchronization_derive_both_natural_loop_parities : ∀
+  (count : Nat) (highA highB : UInt64) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b));
+  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);
+  (∀ (index : Nat),
+      @LT.lt.{0} Nat instLTNat index count →
+        @Eq.{1} Nat
+          (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index approximate))
+          (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index actual))) →
+    And
+      (@Eq.{1} Nat
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count actual))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count approximate))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+      (@Eq.{1} Nat
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count actual))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count approximate))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+'ShielddSecurity.TransferBlstArmInverseFirstParity01.original_inputs_and_earlier_control_synchronization_derive_both_natural_loop_parities' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFirstParity01.original_source_first_control_mismatch_derives_the_exact_loop_gap_without_a_parity_premise : ∀
+  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have windows : Prod.{0, 0} UInt64 UInt64 :=
+    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;
+  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b));
+  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);
+  ShielddSecurity.TransferBlstArmInverseFirstMismatch01.sourceFirstControlMismatch count approximate actual →
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count actual)))
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count actual)))))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+'ShielddSecurity.TransferBlstArmInverseFirstParity01.original_source_first_control_mismatch_derives_the_exact_loop_gap_without_a_parity_premise' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
