@@ -1,0 +1,233 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep : (p q : Nat) \u2192\n  (x y : Int) \u2192 Prod.{0, 0} Int Int",
+      "full_type_sha256": "2c9a9ce26ec9929a9e606f0cea56915ac72f9f4e67fd6dffe007b913f6e8a08b",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignedStep01.scaled_observation_outside_the_error_budget_is_strictly_above_the_budget : \u2200\n  (value : Int) (approx scale budget : Nat)\n  (error :\n    @LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) value\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)\n            (@Nat.cast.{0} Int instNatCastInt approx))))\n      budget)\n  (outside : @LT.lt.{0} Nat instLTNat budget (Int.natAbs value)),\n  @LT.lt.{0} Int Int.instLTInt (@Nat.cast.{0} Int instNatCastInt budget) value",
+      "full_type_sha256": "4cd793d5c5ad9153540821b2d9f5258aee258f26ce0e216cb6a50b2bdc699873",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignedStep01.scaled_observation_outside_the_error_budget_is_strictly_above_the_budget"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignedStep01.original_signed_control_step_preserves_a_component_within_one_error_budget : \u2200\n  (x y : Int) (p q scale budget : Nat)\n  (small : @LE.le.{0} Nat instLENat (@Min.min.{0} Nat instMinNat (Int.natAbs x) (Int.natAbs y)) budget)\n  (leftError :\n    @LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)\n            (@Nat.cast.{0} Int instNatCastInt p))))\n      budget)\n  (rightError :\n    @LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) y\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)\n            (@Nat.cast.{0} Int instNatCastInt q))))\n      budget),\n  @LE.le.{0} Nat instLENat\n    (@Min.min.{0} Nat instMinNat\n      (Int.natAbs\n        (@Prod.fst.{0, 0} Int Int (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y)))\n      (Int.natAbs\n        (@Prod.snd.{0, 0} Int Int\n          (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y))))\n    budget",
+      "full_type_sha256": "f6d31adf5e74ce5b162d9a330625df69a0d82bcf4af38d9dbc9380546d6c7c24",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignedStep01.original_signed_control_step_preserves_a_component_within_one_error_budget"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignedStep01.every_signed_control_step_does_not_increase_the_larger_magnitude : \u2200\n  (x y : Int) (p q : Nat),\n  @LE.le.{0} Nat instLENat\n    (@Max.max.{0} Nat Nat.instMax\n      (Int.natAbs\n        (@Prod.fst.{0, 0} Int Int (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y)))\n      (Int.natAbs\n        (@Prod.snd.{0, 0} Int Int\n          (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y))))\n    (@Max.max.{0} Nat Nat.instMax (Int.natAbs x) (Int.natAbs y))",
+      "full_type_sha256": "9beeb62776947c053f633d5b7bc2a6d9f7b7486bcf28e6f6b5d3d3c46c10ac10",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignedStep01.every_signed_control_step_does_not_increase_the_larger_magnitude"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowTransition01.scaled_value_divided_by_the_next_power_is_its_exact_signed_half : \u2200\n  (count : Nat) (value : Int),\n  @Eq.{1} Int\n    (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n        value)\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value\n      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))",
+      "full_type_sha256": "f924a46dd526b9a4dcc980be4f5013c11464cdfba9b54015208abddebf9be202",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowTransition01.scaled_value_divided_by_the_next_power_is_its_exact_signed_half"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowTransition01.doubled_tracked_row_divided_by_the_next_power_is_the_exact_signed_value : \u2200\n  (count : Nat) (f g inputA inputB value : Int)\n  (row :\n    @Eq.{1} Int\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n        value)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) f inputA)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) g inputB))),\n  @Eq.{1} Int\n    (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) f)\n          inputA)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) g)\n          inputB))\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n    value",
+      "full_type_sha256": "2bf331288cf3d1dbbe4aa5b9b4bf2593300ac2180bd817e9728eb2415c854125",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowTransition01.doubled_tracked_row_divided_by_the_next_power_is_the_exact_signed_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowTransition01.original_controlled_coefficients_derive_the_complete_signed_control_step : \u2200\n  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors) (inputA inputB x y : Int)\n  (leftRow :\n    @Eq.{1} Int\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n        x)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 s) inputA)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 s) inputB)))\n  (rightRow :\n    @Eq.{1} Int\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n        y)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 s) inputA)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 s) inputB))),\n  @Eq.{1} (Prod.{0, 0} Int Int)\n    (@Prod.mk.{0, 0} Int Int\n      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)\n        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))\n            inputA)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))\n            inputB))\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))\n      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)\n        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))\n            inputA)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1\n              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))\n            inputB))\n        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))\n    (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s) x y)",
+      "full_type_sha256": "b0286da454c7675c8e52e027617c72d5ed4a1a75fc6408ccef86af7cbb4d544b",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowTransition01.original_controlled_coefficients_derive_the_complete_signed_control_step"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowTransition01.original_four_word_factor_quotients_follow_the_exact_signed_control_step : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have windows : Prod.{0, 0} UInt64 UInt64 :=\n    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;\n  have approxA : Nat :=\n    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a);\n  have approxB : Nat :=\n    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b);\n  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB);\n  have old : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count approxA approxB\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  @Eq.{1} (Prod.{0, 0} Int Int)\n    (ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n      approxA approxB\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))\n    (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors) (@Prod.fst.{0, 0} Int Int old)\n      (@Prod.snd.{0, 0} Int Int old))",
+      "full_type_sha256": "04e8daae00d45bd85df50a7ef73e182c7b9476a58dcae20d930035c7823d093b",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowTransition01.original_four_word_factor_quotients_follow_the_exact_signed_control_step"
+    }
+  ],
+  "dependency_sources_verified": 348,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 115868,
+    "sha256": "9f767dce30055a25b3d259e5c8dabd6c90b8b0ba68eda1230658c03a8d557748"
+  },
+  "modules": {
+    "TransferBlstArmInverseRowTransition01": {
+      "objects": [
+        {
+          "bytes": 106920,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-row-transition-20261014-02\\project\\ShielddSecurity\\TransferBlstArmInverseRowTransition01.olean",
+          "sha256": "a7b6fd54c522ae1960caf34439f4484ec6ce267b3eedc1df002fceb357e1643b"
+        }
+      ],
+      "peak_rss_bytes": 1056428032,
+      "plan_identity": {
+        "bytes": 363289,
+        "sha256": "aa59b1314586199478c1c3bf47d75140bd0a38322bf36926584028670c79e6f2"
+      },
+      "report": {
+        "bytes": 9969,
+        "path": "receipts/TransferBlstArmInverseRowTransition01.full-types-and-axioms.txt",
+        "sha256": "84263a98faa6e5736583c20ffda0f5f873b82faab460cef0fd0dde6bd26e3186"
+      },
+      "reports": 4,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Fresh exact both-coordinate signed transition derived from original initialized coefficient updates and full-input low31 divisibility. No chosen next quotient; sharp lasting induction follows. Total pair bitlength progress and native multiplication/ISA remain open.",
+      "seconds": 13.6570886000045,
+      "source": {
+        "bytes": 7147,
+        "sha256": "2d971007c9ecfd4cd445492c42b7ab2bd8206bccead928b72723af7fbe14059c"
+      },
+      "source_closure_bound": 42
+    },
+    "TransferBlstArmInverseSignedStep01": {
+      "objects": [
+        {
+          "bytes": 249192,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-signed-step-20261014-02\\project\\ShielddSecurity\\TransferBlstArmInverseSignedStep01.olean",
+          "sha256": "4e90e611cb8f238eb8857c546d4770db637aae463fa26926b7f30e0180a03965"
+        }
+      ],
+      "peak_rss_bytes": 1067712512,
+      "plan_identity": {
+        "bytes": 344867,
+        "sha256": "c6b3cf59ee1a2f17a884b474dd4d678ec8cb950916bc6454b1e2ee295c16a2ac"
+      },
+      "report": {
+        "bytes": 3281,
+        "path": "receipts/TransferBlstArmInverseSignedStep01.full-types-and-axioms.txt",
+        "sha256": "5e85f34a1681c6e2a4ea35971f2477d56e1c3b782a4efedbd09238a30e749a73"
+      },
+      "reports": 4,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Fresh pure signed control transition, one-error-budget small-component preservation under bounded approximation errors, and maximum magnitude monotonicity. Exact original row correspondence/sharp lasting composition follows separately. Total pair progress and native execution open.",
+      "seconds": 13.880100499998662,
+      "source": {
+        "bytes": 7206,
+        "sha256": "18fb4f3a681d47b89f5109c98a34ec22c33ae7c9656106b6256830952ca085ef"
+      },
+      "source_closure_bound": 41
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 8,
+  "object_provenance_inputs": {
+    "bytes": 2614,
+    "sha256": "9b404d3add38108091f442d6a47301747df7bd688c375cc1d4f0daf30f77e0d6"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseRowTransition01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 470391,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-row-transition-20261014-02-owned-floor\\composition-review.json",
+        "sha256": "1604cbaba40ed92a08b74c16d500748cc3d4c17eb6d9d9283d636fc06a9d4fea"
+      },
+      "owned_imports": 44
+    },
+    "TransferBlstArmInverseSignedStep01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 448325,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-signed-step-20261014-02-owned-floor\\composition-review.json",
+        "sha256": "85c2d6f9e52bcb10a83ac7aa27b4eaaab77aa4462a1df5bbccc1f50ecb6a2363"
+      },
+      "owned_imports": 43
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "b6bbdf8f154c3f2c193c443f0243ebaa28dbaa3d5335e35b7ad750d240c1a2fe"
+  },
+  "reports": 8,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 8043,
+    "sha256": "853848855d24b21c6ba0116d1df385e24d6996be8e6f2f8ac029fbcc32599544"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Two source-model modules define the signed controlled half/difference step, prove preservation of a small component under explicit approximation-error bounds and nonincrease of the maximum magnitude, and derive the exact signed transition from tracked source coefficient rows. Original four-word quotients instantiate that transition through31 steps under the explicit odd low-word premise. Sharper instantiated bounds, total pair-size decrease, machine execution and full Transfer remain OPEN. Native credit zero.",
+  "status": "passed"
+}
