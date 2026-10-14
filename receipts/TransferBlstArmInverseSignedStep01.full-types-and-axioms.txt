@@ -1,0 +1,58 @@
+ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep : (p q : Nat) →
+  (x y : Int) → Prod.{0, 0} Int Int
+'ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseSignedStep01.scaled_observation_outside_the_error_budget_is_strictly_above_the_budget : ∀
+  (value : Int) (approx scale budget : Nat)
+  (error :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) value
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt approx))))
+      budget)
+  (outside : @LT.lt.{0} Nat instLTNat budget (Int.natAbs value)),
+  @LT.lt.{0} Int Int.instLTInt (@Nat.cast.{0} Int instNatCastInt budget) value
+'ShielddSecurity.TransferBlstArmInverseSignedStep01.scaled_observation_outside_the_error_budget_is_strictly_above_the_budget' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedStep01.original_signed_control_step_preserves_a_component_within_one_error_budget : ∀
+  (x y : Int) (p q scale budget : Nat)
+  (small : @LE.le.{0} Nat instLENat (@Min.min.{0} Nat instMinNat (Int.natAbs x) (Int.natAbs y)) budget)
+  (leftError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt p))))
+      budget)
+  (rightError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) y
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt q))))
+      budget),
+  @LE.le.{0} Nat instLENat
+    (@Min.min.{0} Nat instMinNat
+      (Int.natAbs
+        (@Prod.fst.{0, 0} Int Int (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y)))
+      (Int.natAbs
+        (@Prod.snd.{0, 0} Int Int
+          (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y))))
+    budget
+'ShielddSecurity.TransferBlstArmInverseSignedStep01.original_signed_control_step_preserves_a_component_within_one_error_budget' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedStep01.every_signed_control_step_does_not_increase_the_larger_magnitude : ∀
+  (x y : Int) (p q : Nat),
+  @LE.le.{0} Nat instLENat
+    (@Max.max.{0} Nat Nat.instMax
+      (Int.natAbs
+        (@Prod.fst.{0, 0} Int Int (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y)))
+      (Int.natAbs
+        (@Prod.snd.{0, 0} Int Int
+          (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q x y))))
+    (@Max.max.{0} Nat Nat.instMax (Int.natAbs x) (Int.natAbs y))
+'ShielddSecurity.TransferBlstArmInverseSignedStep01.every_signed_control_step_does_not_increase_the_larger_magnitude' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
