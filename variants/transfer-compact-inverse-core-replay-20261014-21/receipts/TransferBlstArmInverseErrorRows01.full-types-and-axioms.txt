@@ -1,0 +1,125 @@
+ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients : (count approxA approxB : Nat) →
+  (inputA inputB : Int) → Prod.{0, 0} Int Int
+'ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseErrorRows01.symbolic_exact_scaled_row_and_coefficient_norm_preserve_the_input_error_bound : ∀
+  (count errorBound : Nat) (inputA inputB approxA approxB scale f g actual approx : Int)
+  (leftError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) inputA
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale approxA)))
+      errorBound)
+  (rightError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) inputB
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale approxB)))
+      errorBound)
+  (rowNorm :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f) (Int.natAbs g))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count))
+  (actualRow :
+    @Eq.{1} Int
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+        actual)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) f inputA)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) g inputB)))
+  (approxRow :
+    @Eq.{1} Int
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+        approx)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) f approxA)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) g approxB))),
+  @LE.le.{0} Nat instLENat
+    (Int.natAbs
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) actual
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale approx)))
+    errorBound
+'ShielddSecurity.TransferBlstArmInverseErrorRows01.symbolic_exact_scaled_row_and_coefficient_norm_preserve_the_input_error_bound' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseErrorRows01.original_initialized_factor_quotients_preserve_both_full_input_error_bounds : ∀
+  (count approxA approxB errorBound : Nat) (inputA inputB scale : Int)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) approxB
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (leftError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) inputA
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale
+            (@Nat.cast.{0} Int instNatCastInt approxA))))
+      errorBound)
+  (rightError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) inputB
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale
+            (@Nat.cast.{0} Int instNatCastInt approxB))))
+      errorBound)
+  (leftDivisible :
+    @Dvd.dvd.{0} Int Int.instDvd
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB)))
+          inputA)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB)))
+          inputB)))
+  (rightDivisible :
+    @Dvd.dvd.{0} Int Int.instDvd
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB)))
+          inputA)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB)))
+          inputB))),
+  And
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+          (@Prod.fst.{0, 0} Int Int
+            (ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count approxA approxB inputA
+              inputB))
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale
+            (@Nat.cast.{0} Int instNatCastInt
+              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+                (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+                  (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB)))))))
+      errorBound)
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+          (@Prod.snd.{0, 0} Int Int
+            (ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count approxA approxB inputA
+              inputB))
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale
+            (@Nat.cast.{0} Int instNatCastInt
+              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+                (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+                  (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB)))))))
+      errorBound)
+'ShielddSecurity.TransferBlstArmInverseErrorRows01.original_initialized_factor_quotients_preserve_both_full_input_error_bounds' depends on axioms: [propext,
+ Quot.sound]
