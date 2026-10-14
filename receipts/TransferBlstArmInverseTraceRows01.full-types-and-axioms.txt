@@ -1,0 +1,96 @@
+ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl : (s :
+    ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors) →
+  Nat
+'ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceSameFactorRows : (s t :
+    ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors) →
+  Prop
+'ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceSameFactorRows' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseTraceRows01.symbolic_factor_walk_successor_is_the_last_factor_step : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @Eq.{1} ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      s)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+'ShielddSecurity.TransferBlstArmInverseTraceRows01.symbolic_factor_walk_successor_is_the_last_factor_step' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseTraceRows01.equal_factor_rows_and_controls_derive_equal_next_factor_rows : ∀
+  (s t : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (rows : ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceSameFactorRows s t)
+  (controls :
+    @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl s)
+      (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl t)),
+  ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceSameFactorRows
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep t)
+'ShielddSecurity.TransferBlstArmInverseTraceRows01.equal_factor_rows_and_controls_derive_equal_next_factor_rows' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTraceRows01.synchronized_earlier_prefix_controls_derive_equal_entire_factor_rows : ∀
+  (count : Nat) (s t : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (initialRows : ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceSameFactorRows s t),
+  (∀ (index : Nat),
+      @LT.lt.{0} Nat instLTNat index count →
+        @Eq.{1} Nat
+          (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index s))
+          (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index t))) →
+    ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceSameFactorRows
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count t)
+'ShielddSecurity.TransferBlstArmInverseTraceRows01.synchronized_earlier_prefix_controls_derive_equal_entire_factor_rows' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTraceRows01.synchronized_initialized_prefix_identifies_both_signed_actual_quotients : ∀
+  (count approxA approxB inputA inputB : Nat)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) inputB
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (synchronized :
+    ∀ (index : Nat),
+      @LT.lt.{0} Nat instLTNat index count →
+        @Eq.{1} Nat
+          (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB)))
+          (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial inputA inputB)))),
+  @Eq.{1} (Prod.{0, 0} Int Int)
+    (ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count approxA approxB
+      (@Nat.cast.{0} Int instNatCastInt inputA) (@Nat.cast.{0} Int instNatCastInt inputB))
+    (@Prod.mk.{0, 0} Int Int
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial inputA inputB))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial inputA inputB)))))
+'ShielddSecurity.TransferBlstArmInverseTraceRows01.synchronized_initialized_prefix_identifies_both_signed_actual_quotients' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTraceRows01.matched_parity_and_different_controls_derive_strict_signed_comparison_disagreement : ∀
+  (actual approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (parity :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a actual)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a approximate)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+  (mismatch :
+    @Ne.{1} Nat (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl actual)
+      (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl approximate)),
+  ShielddSecurity.TransferBlstArmInverseOrderStep01.sourceComparisonDisagreement
+    (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a actual))
+    (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b actual))
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a approximate)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b approximate)
+'ShielddSecurity.TransferBlstArmInverseTraceRows01.matched_parity_and_different_controls_derive_strict_signed_comparison_disagreement' depends on axioms: [propext,
+ Quot.sound]
