@@ -1,0 +1,112 @@
+ShielddSecurity.TransferBlstArmInverseFinalCases01.three_low31_error_budgets_are_strictly_below_the_shift_plus33_power : ∀
+  (shift : Nat),
+  @LT.lt.{0} Nat instLTNat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) shift
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) shift
+        (@OfNat.ofNat.{0} Nat (nat_lit 33) (instOfNatNat (nat_lit 33)))))
+'ShielddSecurity.TransferBlstArmInverseFinalCases01.three_low31_error_budgets_are_strictly_below_the_shift_plus33_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFinalCases01.original_first_mismatch_derives_a_strict_final_signed_small_component_bound : ∀
+  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have windows : Prod.{0, 0} UInt64 UInt64 :=
+    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;
+  have approxA : Nat :=
+    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a);
+  have approxB : Nat :=
+    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b);
+  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB;
+  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);
+  have final : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) approxA approxB
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+  ShielddSecurity.TransferBlstArmInverseFirstMismatch01.sourceFirstControlMismatch count approximate actual →
+    @LT.lt.{0} Nat instLTNat
+      (@Min.min.{0} Nat instMinNat (Int.natAbs (@Prod.fst.{0, 0} Int Int final))
+        (Int.natAbs (@Prod.snd.{0, 0} Int Int final)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 33) (instOfNatNat (nat_lit 33)))))
+'ShielddSecurity.TransferBlstArmInverseFinalCases01.original_first_mismatch_derives_a_strict_final_signed_small_component_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFinalCases01.original31_controls_derive_exact_final_alignment_or_a_strict_small_signed_component : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have windows : Prod.{0, 0} UInt64 UInt64 :=
+    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;
+  have approxA : Nat :=
+    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a);
+  have approxB : Nat :=
+    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b);
+  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB;
+  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);
+  have final : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) approxA approxB
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+  Or
+    (And
+      (∀ (index : Nat),
+        @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) →
+          @Eq.{1} Nat
+            (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index approximate))
+            (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index actual)))
+      (@Eq.{1} (Prod.{0, 0} Int Int) final
+        (@Prod.mk.{0, 0} Int Int
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) actual)))
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) actual))))))
+    (@LT.lt.{0} Nat instLTNat
+      (@Min.min.{0} Nat instMinNat (Int.natAbs (@Prod.fst.{0, 0} Int Int final))
+        (Int.natAbs (@Prod.snd.{0, 0} Int Int final)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 33) (instOfNatNat (nat_lit 33))))))
+'ShielddSecurity.TransferBlstArmInverseFinalCases01.original31_controls_derive_exact_final_alignment_or_a_strict_small_signed_component' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
