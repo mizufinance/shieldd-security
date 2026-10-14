@@ -1,0 +1,99 @@
+ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow : Type
+'ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow : (highA highB lowA lowB : UInt64) →
+  ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow
+'ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_high_bounds_and_a_bounded_count : ∀
+  (highA highB lowA lowB : UInt64),
+  have w : ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow :=
+    ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow highA highB lowA lowB;
+  And
+    (@LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)
+      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+    (And
+      (@LT.lt.{0} Nat instLTNat
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))))
+      (@LT.lt.{0} Nat instLTNat
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))))
+'ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_high_bounds_and_a_bounded_count' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_entire_aligned_word_values : ∀
+  (highA highB lowA lowB : UInt64),
+  have w : ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow :=
+    ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow highA highB lowA lowB;
+  And
+    (@Eq.{1} Nat
+      (UInt64.toNat
+        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w) lowA
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))
+          (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w)))
+        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat lowA)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+              (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))))))
+    (@Eq.{1} Nat
+      (UInt64.toNat
+        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w) lowB
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))
+          (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w)))
+        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat lowB)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+              (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))))))
+'ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_entire_aligned_word_values' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowClz01.original_zero_clz_fallback_returns_both_original_low_word_values : ∀
+  (highA highB lowA lowB : UInt64)
+  (zero :
+    @Eq.{1} Nat
+      (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+        (@BitVec.clz (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+          (UInt64.toBitVec
+            (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  have w : ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow :=
+    ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow highA highB lowA lowB;
+  And
+    (@Eq.{1} Nat
+      (UInt64.toNat
+        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w) lowA
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))
+      (UInt64.toNat lowA))
+    (@Eq.{1} Nat
+      (UInt64.toNat
+        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w) lowB
+          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))
+      (UInt64.toNat lowB))
+'ShielddSecurity.TransferBlstArmInverseWindowClz01.original_zero_clz_fallback_returns_both_original_low_word_values' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
