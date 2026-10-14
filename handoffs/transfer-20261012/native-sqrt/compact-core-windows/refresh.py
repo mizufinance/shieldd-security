@@ -56,6 +56,10 @@ for record in review['packets']:
  if name=='TransferBlstArmInverseNorm01':
   old='import Mathlib.Algebra.Group.Nat.Defs\n'+old
   old=old.replace('by rw [pow_succ]; ring','by rw [Nat.pow_succ]; simp only [Nat.mul_assoc]').replace('_ = inputBound*(f.natAbs+g.natAbs) := by ring','_ = inputBound*(f.natAbs+g.natAbs) := by rw [Nat.mul_add]')
+ if name=='TransferBlstArmInverseApproxError01':
+  old='import Mathlib.Algebra.Group.Nat.Defs\n'+old
+  old=old.replace('2^shift*(low.toNat%2147483648) := by ring','2^shift*(low.toNat%2147483648) := by simp only [Nat.mul_add, Nat.mul_comm, Nat.add_assoc, Nat.add_comm]')
+  old=old.replace('_ = scale*(quotient+1) := by ring','_ = scale*(quotient+1) := by simp only [Nat.mul_add] <;> omega').replace('rw [scale,←pow_add]','rw [scale,←Nat.pow_add]')
  if name in ['TransferBlstArmInverseFactors01','TransferBlstArmInverseApproxBits01']:
   old=old.replace('#check @ShielddSecurity.'+name+'.','#check @').replace('#print axioms ShielddSecurity.'+name+'.','#print axioms ')
  assert old==source.decode().replace('\r\n','\n'),name
@@ -78,7 +82,7 @@ for record in review['packets']:
   reports.append(dict(name=declaration,full_type=full,**actual));left=left[:m.start()]+left[m.end():]
  assert not left.strip();modules[name]=dict(source=ident(source),audits=len(checks),seconds=result['seconds'],peak_rss_bytes=result['peak_rss_bytes'],report=ident(raw),objects=result['objects']);owned[name]=modules[name]
  packets.append(dict(packet=record['packet'],manifest=record['manifest'],external_modules=len(external['modules']),external_file_identities=len(external['immutable_files']),owned_imports=len(floor['selected'])))
-assert len(modules)==3 and len(reports)==18
+assert len(modules)==4 and len(reports)==24
 pending=out.with_name(out.name+'.pending');assert not pending.exists();pending.mkdir()
 for name,b in sources.items():p=pending/'source/ShielddSecurity'/(name+'.lean');p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
 evidence=dict(status='passed',runtime_sha=review['runtime_sha'],transport_commit=review['transport_commit'],modules=modules,reports=len(reports),complete_types_and_axioms=reports,independent_baseline_matches=len(reports),packets=packets,legacy_owned_objects_reused=False,source_contracts_unchanged=True,seconds=seconds,scope=review['scope'],baseline_review=ident((root/'baseline-review.json').read_bytes()),refresh=ident(Path(__file__).read_bytes()),full_transfer='OPEN',native_credit=0,new_cumulative_credit=0,certification=False)
