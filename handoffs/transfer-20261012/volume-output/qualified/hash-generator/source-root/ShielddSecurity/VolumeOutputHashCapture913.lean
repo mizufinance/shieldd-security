@@ -1,0 +1,17 @@
+/- Generated from maintained volume output-hash generator; edit generator or templates. -/
+import ShielddSecurity.VolumeOutputHashCapture913C149B0R00
+import ShielddSecurity.VolumeOutputHashCapture913C149B0R01
+import ShielddSecurity.VolumeOutputHashCapture913C150B0R00
+import ShielddSecurity.VolumeOutputHashCapture913C150B0R01
+import ShielddSecurity.VolumeOutputHashCapture913C151B0R00
+import ShielddSecurity.VolumeOutputHashCapture913C151B0R01
+import ShielddSecurity.VolumeOutputHashCapture913C152B0R00
+import ShielddSecurity.VolumeOutputHashCapture913C152B0R01
+import ShielddSecurity.VolumeOutputHashCapture913C153B0R00
+import ShielddSecurity.VolumeOutputHashCapture913C153B0R01
+namespace ShielddSecurity.VolumeOutputHashCapture913
+noncomputable def phaseCount : Nat := 10
+end ShielddSecurity.VolumeOutputHashCapture913
+set_option pp.all true in
+#check @ShielddSecurity.VolumeOutputHashCapture913.phaseCount
+#print axioms ShielddSecurity.VolumeOutputHashCapture913.phaseCount
