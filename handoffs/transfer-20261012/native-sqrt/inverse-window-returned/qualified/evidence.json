@@ -1,0 +1,128 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  Prod.{0, 0} UInt64 UInt64",
+      "full_type_sha256": "a735907022fc765f664feacba2d87aeae4292deb757cac2660b0afbf2e615ed0",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_approximation_words_have_the_existing_model_observations : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),\n  And\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords a b)))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a)))\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (@Prod.snd.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords a b)))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.snd.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b)))",
+      "full_type_sha256": "db0635dff829ca7fa6b4bf79380a143f49a9c4a356934984cf4de9122b6e5d08",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_approximation_words_have_the_existing_model_observations"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_word_producer_derives_both_entire_input_factor_prefix_error_bounds : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have approximation : Prod.{0, 0} UInt64 UInt64 :=\n    ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords a b;\n  have shift : Nat := ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b;\n  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n        (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 approximation))\n        (UInt64.toNat (@Prod.snd.{0, 0} UInt64 UInt64 approximation)));\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count\n      (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 approximation))\n      (UInt64.toNat (@Prod.snd.{0, 0} UInt64 UInt64 approximation))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  And\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.fst.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.snd.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))",
+      "full_type_sha256": "22ab7e14b5dca5afe0f9add0d05533a1e5753053276a50a5c137ba6668985c81",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_word_producer_derives_both_entire_input_factor_prefix_error_bounds"
+    }
+  ],
+  "dependency_sources_verified": 326,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 178990,
+    "sha256": "042952192d4593871bedaa2d42649874538fd4441ba4924475ce0ade5ed37320"
+  },
+  "modules": {
+    "TransferBlstArmInverseWindowReturned01": {
+      "objects": [
+        {
+          "bytes": 40096,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-window-returned-20261014-03\\project\\ShielddSecurity\\TransferBlstArmInverseWindowReturned01.olean",
+          "sha256": "fb39381820019eef32c1566244c5990b4984438694499c66dce160c88c6eb80f"
+        }
+      ],
+      "peak_rss_bytes": 1393463296,
+      "plan_identity": {
+        "bytes": 7662285,
+        "sha256": "5686ad466e5d0a7571b94f71066ef12d0ddbfc9ab90876f5a3fb59693f37e277"
+      },
+      "report": {
+        "bytes": 5646,
+        "path": "receipts/TransferBlstArmInverseWindowReturned01.full-types-and-axioms.txt",
+        "sha256": "1f27937bf3ef16f3a69920ffdbb51a0abbd5958afaaeb121865340e6d436ede0"
+      },
+      "reports": 3,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Actual typed returned-word producer has original approximation observations and derives both entire-input factor-prefix error bounds. Count<=31 and original lowBodd explicit; desired windows/rows not supplied. Retain original qualified definition-owner closure for this target; do not mix replacement-boundary objects. Fresh8GiB pressure-aware profile. ISA/caller and batch progress open.",
+      "seconds": 33.150946900001145,
+      "source": {
+        "bytes": 3617,
+        "sha256": "98ab8d082af0be83ab17535182e7a1c4514c11771f184d86822d13f629d7786c"
+      },
+      "source_closure_bound": 285
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 3,
+  "refresh": {
+    "bytes": 7877,
+    "sha256": "42c74c530093f59ee8f32b377fda2f8ace7256558020607bdc5e601a559d35d0"
+  },
+  "reports": 3,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 4025,
+    "sha256": "a58a96d765c668c8527cd7393103a9a4f416c9dd8eeb7e8d0381c41b889b76f1"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Typed returned-word producer connects selected/aligned windows and low31 replacement to the existing source-model observations and both whole-input factor-prefix error bounds. Count <=31 and original low-word oddness remain explicit. This adds three source-model audits; compiled ISA/caller provenance, progress, actual native consequence and full Transfer endpoints remain OPEN. Native credit is zero.",
+  "status": "passed"
+}
