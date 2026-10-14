@@ -1,0 +1,153 @@
+-- GENERATED from families.json by generate.py. Do not hand edit.
+import ShielddSecurity.FixedFamilies544F00B00
+import ShielddSecurity.FixedFamilies544F00B01
+import ShielddSecurity.FixedFamilies544F00B02
+import ShielddSecurity.FixedFamilies544F00B03
+import ShielddSecurity.FixedFamilies544F00B04
+import ShielddSecurity.FixedFamilies544F00B05
+import ShielddSecurity.FixedFamilies544F00B06
+import ShielddSecurity.FixedFamilies544F00B07
+import ShielddSecurity.FixedFamilies544F00B08
+import ShielddSecurity.FixedFamilies544F00B09
+import ShielddSecurity.FixedFamilies544F00B10
+import ShielddSecurity.FixedFamilies544F00B11
+import ShielddSecurity.FixedFamilies544F00B12
+import ShielddSecurity.FixedFamilies544F00B13
+import ShielddSecurity.FixedFamilies544F00B14
+import ShielddSecurity.FixedFamilies544F00B15
+import ShielddSecurity.FixedFamilies544F00B16
+import ShielddSecurity.FixedFamilies544F00B17
+import ShielddSecurity.FixedFamilies544F00B18
+import ShielddSecurity.FixedFamilies544F00B19
+import ShielddSecurity.FixedFamilies544F00B20
+import ShielddSecurity.FixedFamilies544F00B21
+import ShielddSecurity.FixedFamilies544F00B22
+import ShielddSecurity.FixedFamilies544F00B23
+import ShielddSecurity.FixedFamilies544F00B24
+import ShielddSecurity.FixedFamilies544F00B25
+import ShielddSecurity.FixedFamilies544F00B26
+import ShielddSecurity.FixedFamilies544F00B27
+import ShielddSecurity.FixedFamilies544F00B28
+import ShielddSecurity.FixedFamilies544F00B29
+import ShielddSecurity.FixedFamilies544F00B30
+import ShielddSecurity.FixedFamilies544F00B31
+import ShielddSecurity.FixedFamilies544F00B32
+import ShielddSecurity.FixedFamilies544F00B33
+import ShielddSecurity.FixedFamilies544F00B34
+import ShielddSecurity.FixedFamilies544F00B35
+import ShielddSecurity.FixedFamilies544F00B36
+import ShielddSecurity.FixedFamilies544F00B37
+import ShielddSecurity.FixedFamilies544F00B38
+import ShielddSecurity.FixedFamilies544F00B39
+import ShielddSecurity.FixedFamilies544F00B40
+import ShielddSecurity.FixedFamilies544F00B41
+import ShielddSecurity.FixedFamilies544F00B42
+import ShielddSecurity.FixedFamilies544F00B43
+import ShielddSecurity.FixedFamilies544F00B44
+import ShielddSecurity.FixedFamilies544F00B45
+import ShielddSecurity.FixedFamilies544F00B46
+import ShielddSecurity.FixedFamilies544F00B47
+import ShielddSecurity.FixedFamilies544F00B48
+import ShielddSecurity.FixedFamilies544F00B49
+import ShielddSecurity.FixedFamilies544F00B50
+import ShielddSecurity.FixedFamilies544F00B51
+import ShielddSecurity.FixedFamilies544F00B52
+import ShielddSecurity.FixedFamilies544F00B53
+import ShielddSecurity.FixedFamilies544F00B54
+import ShielddSecurity.FixedFamilies544F00B55
+import ShielddSecurity.FixedFamilies544F00B56
+import ShielddSecurity.FixedFamilies544F00B57
+import ShielddSecurity.FixedFamilies544F00B58
+import ShielddSecurity.FixedFamilies544F00B59
+import ShielddSecurity.FixedFamilies544F00B60
+import ShielddSecurity.FixedFamilies544F00B61
+import ShielddSecurity.FixedFamilies544F00B62
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.FixedFamilies544F00
+open FixedFamilyJoin543
+noncomputable def layout : Layout := ⟨4931,5183,5042⟩
+noncomputable def entries : List Entry := FixedFamilies544F00B00.entries++FixedFamilies544F00B01.entries++FixedFamilies544F00B02.entries++FixedFamilies544F00B03.entries++FixedFamilies544F00B04.entries++FixedFamilies544F00B05.entries++FixedFamilies544F00B06.entries++FixedFamilies544F00B07.entries++FixedFamilies544F00B08.entries++FixedFamilies544F00B09.entries++FixedFamilies544F00B10.entries++FixedFamilies544F00B11.entries++FixedFamilies544F00B12.entries++FixedFamilies544F00B13.entries++FixedFamilies544F00B14.entries++FixedFamilies544F00B15.entries++FixedFamilies544F00B16.entries++FixedFamilies544F00B17.entries++FixedFamilies544F00B18.entries++FixedFamilies544F00B19.entries++FixedFamilies544F00B20.entries++FixedFamilies544F00B21.entries++FixedFamilies544F00B22.entries++FixedFamilies544F00B23.entries++FixedFamilies544F00B24.entries++FixedFamilies544F00B25.entries++FixedFamilies544F00B26.entries++FixedFamilies544F00B27.entries++FixedFamilies544F00B28.entries++FixedFamilies544F00B29.entries++FixedFamilies544F00B30.entries++FixedFamilies544F00B31.entries++FixedFamilies544F00B32.entries++FixedFamilies544F00B33.entries++FixedFamilies544F00B34.entries++FixedFamilies544F00B35.entries++FixedFamilies544F00B36.entries++FixedFamilies544F00B37.entries++FixedFamilies544F00B38.entries++FixedFamilies544F00B39.entries++FixedFamilies544F00B40.entries++FixedFamilies544F00B41.entries++FixedFamilies544F00B42.entries++FixedFamilies544F00B43.entries++FixedFamilies544F00B44.entries++FixedFamilies544F00B45.entries++FixedFamilies544F00B46.entries++FixedFamilies544F00B47.entries++FixedFamilies544F00B48.entries++FixedFamilies544F00B49.entries++FixedFamilies544F00B50.entries++FixedFamilies544F00B51.entries++FixedFamilies544F00B52.entries++FixedFamilies544F00B53.entries++FixedFamilies544F00B54.entries++FixedFamilies544F00B55.entries++FixedFamilies544F00B56.entries++FixedFamilies544F00B57.entries++FixedFamilies544F00B58.entries++FixedFamilies544F00B59.entries++FixedFamilies544F00B60.entries++FixedFamilies544F00B61.entries++FixedFamilies544F00B62.entries
+theorem checked : entries.all (check layout)=true := by
+  have h0 : FixedFamilies544F00B00.entries.all (check layout)=true := FixedFamilies544F00B00.checked
+  have h1 : FixedFamilies544F00B01.entries.all (check layout)=true := FixedFamilies544F00B01.checked
+  have h2 : FixedFamilies544F00B02.entries.all (check layout)=true := FixedFamilies544F00B02.checked
+  have h3 : FixedFamilies544F00B03.entries.all (check layout)=true := FixedFamilies544F00B03.checked
+  have h4 : FixedFamilies544F00B04.entries.all (check layout)=true := FixedFamilies544F00B04.checked
+  have h5 : FixedFamilies544F00B05.entries.all (check layout)=true := FixedFamilies544F00B05.checked
+  have h6 : FixedFamilies544F00B06.entries.all (check layout)=true := FixedFamilies544F00B06.checked
+  have h7 : FixedFamilies544F00B07.entries.all (check layout)=true := FixedFamilies544F00B07.checked
+  have h8 : FixedFamilies544F00B08.entries.all (check layout)=true := FixedFamilies544F00B08.checked
+  have h9 : FixedFamilies544F00B09.entries.all (check layout)=true := FixedFamilies544F00B09.checked
+  have h10 : FixedFamilies544F00B10.entries.all (check layout)=true := FixedFamilies544F00B10.checked
+  have h11 : FixedFamilies544F00B11.entries.all (check layout)=true := FixedFamilies544F00B11.checked
+  have h12 : FixedFamilies544F00B12.entries.all (check layout)=true := FixedFamilies544F00B12.checked
+  have h13 : FixedFamilies544F00B13.entries.all (check layout)=true := FixedFamilies544F00B13.checked
+  have h14 : FixedFamilies544F00B14.entries.all (check layout)=true := FixedFamilies544F00B14.checked
+  have h15 : FixedFamilies544F00B15.entries.all (check layout)=true := FixedFamilies544F00B15.checked
+  have h16 : FixedFamilies544F00B16.entries.all (check layout)=true := FixedFamilies544F00B16.checked
+  have h17 : FixedFamilies544F00B17.entries.all (check layout)=true := FixedFamilies544F00B17.checked
+  have h18 : FixedFamilies544F00B18.entries.all (check layout)=true := FixedFamilies544F00B18.checked
+  have h19 : FixedFamilies544F00B19.entries.all (check layout)=true := FixedFamilies544F00B19.checked
+  have h20 : FixedFamilies544F00B20.entries.all (check layout)=true := FixedFamilies544F00B20.checked
+  have h21 : FixedFamilies544F00B21.entries.all (check layout)=true := FixedFamilies544F00B21.checked
+  have h22 : FixedFamilies544F00B22.entries.all (check layout)=true := FixedFamilies544F00B22.checked
+  have h23 : FixedFamilies544F00B23.entries.all (check layout)=true := FixedFamilies544F00B23.checked
+  have h24 : FixedFamilies544F00B24.entries.all (check layout)=true := FixedFamilies544F00B24.checked
+  have h25 : FixedFamilies544F00B25.entries.all (check layout)=true := FixedFamilies544F00B25.checked
+  have h26 : FixedFamilies544F00B26.entries.all (check layout)=true := FixedFamilies544F00B26.checked
+  have h27 : FixedFamilies544F00B27.entries.all (check layout)=true := FixedFamilies544F00B27.checked
+  have h28 : FixedFamilies544F00B28.entries.all (check layout)=true := FixedFamilies544F00B28.checked
+  have h29 : FixedFamilies544F00B29.entries.all (check layout)=true := FixedFamilies544F00B29.checked
+  have h30 : FixedFamilies544F00B30.entries.all (check layout)=true := FixedFamilies544F00B30.checked
+  have h31 : FixedFamilies544F00B31.entries.all (check layout)=true := FixedFamilies544F00B31.checked
+  have h32 : FixedFamilies544F00B32.entries.all (check layout)=true := FixedFamilies544F00B32.checked
+  have h33 : FixedFamilies544F00B33.entries.all (check layout)=true := FixedFamilies544F00B33.checked
+  have h34 : FixedFamilies544F00B34.entries.all (check layout)=true := FixedFamilies544F00B34.checked
+  have h35 : FixedFamilies544F00B35.entries.all (check layout)=true := FixedFamilies544F00B35.checked
+  have h36 : FixedFamilies544F00B36.entries.all (check layout)=true := FixedFamilies544F00B36.checked
+  have h37 : FixedFamilies544F00B37.entries.all (check layout)=true := FixedFamilies544F00B37.checked
+  have h38 : FixedFamilies544F00B38.entries.all (check layout)=true := FixedFamilies544F00B38.checked
+  have h39 : FixedFamilies544F00B39.entries.all (check layout)=true := FixedFamilies544F00B39.checked
+  have h40 : FixedFamilies544F00B40.entries.all (check layout)=true := FixedFamilies544F00B40.checked
+  have h41 : FixedFamilies544F00B41.entries.all (check layout)=true := FixedFamilies544F00B41.checked
+  have h42 : FixedFamilies544F00B42.entries.all (check layout)=true := FixedFamilies544F00B42.checked
+  have h43 : FixedFamilies544F00B43.entries.all (check layout)=true := FixedFamilies544F00B43.checked
+  have h44 : FixedFamilies544F00B44.entries.all (check layout)=true := FixedFamilies544F00B44.checked
+  have h45 : FixedFamilies544F00B45.entries.all (check layout)=true := FixedFamilies544F00B45.checked
+  have h46 : FixedFamilies544F00B46.entries.all (check layout)=true := FixedFamilies544F00B46.checked
+  have h47 : FixedFamilies544F00B47.entries.all (check layout)=true := FixedFamilies544F00B47.checked
+  have h48 : FixedFamilies544F00B48.entries.all (check layout)=true := FixedFamilies544F00B48.checked
+  have h49 : FixedFamilies544F00B49.entries.all (check layout)=true := FixedFamilies544F00B49.checked
+  have h50 : FixedFamilies544F00B50.entries.all (check layout)=true := FixedFamilies544F00B50.checked
+  have h51 : FixedFamilies544F00B51.entries.all (check layout)=true := FixedFamilies544F00B51.checked
+  have h52 : FixedFamilies544F00B52.entries.all (check layout)=true := FixedFamilies544F00B52.checked
+  have h53 : FixedFamilies544F00B53.entries.all (check layout)=true := FixedFamilies544F00B53.checked
+  have h54 : FixedFamilies544F00B54.entries.all (check layout)=true := FixedFamilies544F00B54.checked
+  have h55 : FixedFamilies544F00B55.entries.all (check layout)=true := FixedFamilies544F00B55.checked
+  have h56 : FixedFamilies544F00B56.entries.all (check layout)=true := FixedFamilies544F00B56.checked
+  have h57 : FixedFamilies544F00B57.entries.all (check layout)=true := FixedFamilies544F00B57.checked
+  have h58 : FixedFamilies544F00B58.entries.all (check layout)=true := FixedFamilies544F00B58.checked
+  have h59 : FixedFamilies544F00B59.entries.all (check layout)=true := FixedFamilies544F00B59.checked
+  have h60 : FixedFamilies544F00B60.entries.all (check layout)=true := FixedFamilies544F00B60.checked
+  have h61 : FixedFamilies544F00B61.entries.all (check layout)=true := FixedFamilies544F00B61.checked
+  have h62 : FixedFamilies544F00B62.entries.all (check layout)=true := FixedFamilies544F00B62.checked
+  simp only [entries,List.all_append,h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11,h12,h13,h14,h15,h16,h17,h18,h19,h20,h21,h22,h23,h24,h25,h26,h27,h28,h29,h30,h31,h32,h33,h34,h35,h36,h37,h38,h39,h40,h41,h42,h43,h44,h45,h46,h47,h48,h49,h50,h51,h52,h53,h54,h55,h56,h57,h58,h59,h60,h61,h62,Bool.true_and]
+theorem matched : entries.all FixedWindowMeaning491.check=true := by
+  simp only [entries,List.all_append,FixedFamilies544F00B00.matched,FixedFamilies544F00B01.matched,FixedFamilies544F00B02.matched,FixedFamilies544F00B03.matched,FixedFamilies544F00B04.matched,FixedFamilies544F00B05.matched,FixedFamilies544F00B06.matched,FixedFamilies544F00B07.matched,FixedFamilies544F00B08.matched,FixedFamilies544F00B09.matched,FixedFamilies544F00B10.matched,FixedFamilies544F00B11.matched,FixedFamilies544F00B12.matched,FixedFamilies544F00B13.matched,FixedFamilies544F00B14.matched,FixedFamilies544F00B15.matched,FixedFamilies544F00B16.matched,FixedFamilies544F00B17.matched,FixedFamilies544F00B18.matched,FixedFamilies544F00B19.matched,FixedFamilies544F00B20.matched,FixedFamilies544F00B21.matched,FixedFamilies544F00B22.matched,FixedFamilies544F00B23.matched,FixedFamilies544F00B24.matched,FixedFamilies544F00B25.matched,FixedFamilies544F00B26.matched,FixedFamilies544F00B27.matched,FixedFamilies544F00B28.matched,FixedFamilies544F00B29.matched,FixedFamilies544F00B30.matched,FixedFamilies544F00B31.matched,FixedFamilies544F00B32.matched,FixedFamilies544F00B33.matched,FixedFamilies544F00B34.matched,FixedFamilies544F00B35.matched,FixedFamilies544F00B36.matched,FixedFamilies544F00B37.matched,FixedFamilies544F00B38.matched,FixedFamilies544F00B39.matched,FixedFamilies544F00B40.matched,FixedFamilies544F00B41.matched,FixedFamilies544F00B42.matched,FixedFamilies544F00B43.matched,FixedFamilies544F00B44.matched,FixedFamilies544F00B45.matched,FixedFamilies544F00B46.matched,FixedFamilies544F00B47.matched,FixedFamilies544F00B48.matched,FixedFamilies544F00B49.matched,FixedFamilies544F00B50.matched,FixedFamilies544F00B51.matched,FixedFamilies544F00B52.matched,FixedFamilies544F00B53.matched,FixedFamilies544F00B54.matched,FixedFamilies544F00B55.matched,FixedFamilies544F00B56.matched,FixedFamilies544F00B57.matched,FixedFamilies544F00B58.matched,FixedFamilies544F00B59.matched,FixedFamilies544F00B60.matched,FixedFamilies544F00B61.matched,FixedFamilies544F00B62.matched,Bool.true_and]
+theorem schedule : entries.map (fun e => e.index)=List.range' 1 125 := by
+  simp only [entries,List.map_append,FixedFamilies544F00B00.schedule,FixedFamilies544F00B01.schedule,FixedFamilies544F00B02.schedule,FixedFamilies544F00B03.schedule,FixedFamilies544F00B04.schedule,FixedFamilies544F00B05.schedule,FixedFamilies544F00B06.schedule,FixedFamilies544F00B07.schedule,FixedFamilies544F00B08.schedule,FixedFamilies544F00B09.schedule,FixedFamilies544F00B10.schedule,FixedFamilies544F00B11.schedule,FixedFamilies544F00B12.schedule,FixedFamilies544F00B13.schedule,FixedFamilies544F00B14.schedule,FixedFamilies544F00B15.schedule,FixedFamilies544F00B16.schedule,FixedFamilies544F00B17.schedule,FixedFamilies544F00B18.schedule,FixedFamilies544F00B19.schedule,FixedFamilies544F00B20.schedule,FixedFamilies544F00B21.schedule,FixedFamilies544F00B22.schedule,FixedFamilies544F00B23.schedule,FixedFamilies544F00B24.schedule,FixedFamilies544F00B25.schedule,FixedFamilies544F00B26.schedule,FixedFamilies544F00B27.schedule,FixedFamilies544F00B28.schedule,FixedFamilies544F00B29.schedule,FixedFamilies544F00B30.schedule,FixedFamilies544F00B31.schedule,FixedFamilies544F00B32.schedule,FixedFamilies544F00B33.schedule,FixedFamilies544F00B34.schedule,FixedFamilies544F00B35.schedule,FixedFamilies544F00B36.schedule,FixedFamilies544F00B37.schedule,FixedFamilies544F00B38.schedule,FixedFamilies544F00B39.schedule,FixedFamilies544F00B40.schedule,FixedFamilies544F00B41.schedule,FixedFamilies544F00B42.schedule,FixedFamilies544F00B43.schedule,FixedFamilies544F00B44.schedule,FixedFamilies544F00B45.schedule,FixedFamilies544F00B46.schedule,FixedFamilies544F00B47.schedule,FixedFamilies544F00B48.schedule,FixedFamilies544F00B49.schedule,FixedFamilies544F00B50.schedule,FixedFamilies544F00B51.schedule,FixedFamilies544F00B52.schedule,FixedFamilies544F00B53.schedule,FixedFamilies544F00B54.schedule,FixedFamilies544F00B55.schedule,FixedFamilies544F00B56.schedule,FixedFamilies544F00B57.schedule,FixedFamilies544F00B58.schedule,FixedFamilies544F00B59.schedule,FixedFamilies544F00B60.schedule,FixedFamilies544F00B61.schedule,FixedFamilies544F00B62.schedule]
+  rfl
+
+end ShielddSecurity.FixedFamilies544F00
+set_option pp.all true in
+#check @ShielddSecurity.FixedFamilies544F00.checked
+#print axioms ShielddSecurity.FixedFamilies544F00.checked
+set_option pp.all true in
+#check @ShielddSecurity.FixedFamilies544F00.matched
+#print axioms ShielddSecurity.FixedFamilies544F00.matched
+set_option pp.all true in
+#check @ShielddSecurity.FixedFamilies544F00.schedule
+#print axioms ShielddSecurity.FixedFamilies544F00.schedule
