@@ -1,0 +1,62 @@
+ShielddSecurity.TransferBlstArmInversePrefixError01.original_entire_input_factor_prefixes_preserve_both_initial_window_error_bounds : ∀
+  (count shift : Nat) (highA lowA highB lowB : UInt64) (restA restB : List.{0} UInt64)
+  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat lowB)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (highWindowA :
+    @Eq.{1} Nat (UInt64.toNat highA)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+  (highWindowB :
+    @Eq.{1} Nat (UInt64.toNat highB)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))),
+  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB));
+  have actual : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB)
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA)))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB)));
+  And
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.fst.{0, 0} Int Int actual)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+            (@Nat.cast.{0} Int instNatCastInt
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))
+            (@Nat.cast.{0} Int instNatCastInt
+              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.snd.{0, 0} Int Int actual)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+            (@Nat.cast.{0} Int instNatCastInt
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))
+            (@Nat.cast.{0} Int instNatCastInt
+              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors)))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))
+'ShielddSecurity.TransferBlstArmInversePrefixError01.original_entire_input_factor_prefixes_preserve_both_initial_window_error_bounds' depends on axioms: [propext,
+ Quot.sound]
