@@ -1,0 +1,72 @@
+import ShielddSecurity.VolumeCandidateSeed848
+import ShielddSecurity.VolumeCandidateWordFrame847
+import ShielddSecurity.HeaderRegisteredConstruction310
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.VolumeCandidateHeaderFrame849
+open ConcreteJubjubField01 ConcreteRegistrySharedEncoding294 TransferSem
+open VolumeCandidateLayout846 (columns flags plain)
+
+theorem prepared (original : Nat → F) (c : Crypto) (w : TransferSem.Witness)
+    (column : Nat) (member : column∈columns) :
+    RegisteredConstructorFrame309.prepared original c w column=original column := by
+  have bounds := VolumeCandidateLayout846.bounds column member
+  have alternatives := VolumeCandidateLayout846.alternatives column member
+  rw [RegisteredConstructorFrame309.prepared_outside original c w column (by omega)
+    (by change column≠200692 ∧ column≠1 ∧ column≠2; omega)]
+  unfold HeaderRegistrySeed299.combined
+  rw [RegistryNaturalSeed298.untouched _ w.registry column (by
+      simp only [RegistryNaturalSeed298.fixedColumns,List.mem_cons,List.not_mem_nil,or_false]
+      omega) (by omega),
+    HeaderRegistrySeed299.seed_outside original c w column (by omega) (by omega)]
+
+theorem group (base : Nat → F) (initial : Fin 4 → Group.Point F)
+    (column : Nat) (member : column∈columns) :
+    CapturedFourSubgroupSeed89.seeded base initial column=base column := by
+  have bounds := VolumeCandidateLayout846.bounds column member
+  have alternatives := VolumeCandidateLayout846.alternatives column member
+  exact CapturedFourSubgroupSeed89.seeded_outside base initial column (by
+    simp only [CapturedFourSubgroupSeed89.hintColumns,List.mem_cons,List.not_mem_nil,or_false]
+    omega)
+
+theorem completed (original : Nat → F) (c : Crypto) (w : TransferSem.Witness)
+    (initial : Fin 4 → Group.Point F) (column : Nat) (member : column∈columns)
+    (boolean : column∈flags → original column=0 ∨ original column=1) :
+    HeaderRegisteredConstruction310.completed original c w initial column=original column := by
+  let base := CapturedFourSubgroupSeed89.seeded
+    (RegisteredConstructorFrame309.prepared original c w) initial
+  have preserved : base column=original column :=
+    (group _ initial column member).trans (prepared original c w column member)
+  change SharedWordWitness221.completed base
+    (LegalWordNormalization272.normalized (HeaderRegisteredConstruction310.numbers original c w))
+    (HeaderRegisteredConstruction310.fallback original c w) column=original column
+  have checked : columns.all (fun col => decide (col∈flags ∨ col∈plain))=true := by decide +kernel
+  rcases of_decide_eq_true (List.all_eq_true.mp checked column member) with flag|plainMember
+  · have bound := VolumeCandidateLayout846.bounds column member
+    have aliasOutside : ¬LegalWordNormalization272.Alias column := by
+      simp only [LegalWordNormalization272.Alias]
+      omega
+    have meaning : HeaderRegisteredConstruction310.fallback original c w column=
+        ZeroHintWordFrame303.flags base column := by
+      unfold HeaderRegisteredConstruction310.fallback
+      rw [LegalAliasMeanings276.fallback_fixed _ _ column aliasOutside]
+      unfold ZeroHintWordFrame303.flags
+      have groupValue := group (RegisteredConstructorFrame309.prepared original c w) initial column member
+      change base column=RegisteredConstructorFrame309.prepared original c w column at groupValue
+      rw [groupValue]
+    exact (VolumeCandidateWordFrame847.flag_frame base _ _ column member
+      (by rw [preserved]; exact boolean flag) meaning).trans preserved
+  · exact (VolumeCandidateWordFrame847.plain_frame base _ _ column plainMember).trans preserved
+
+end ShielddSecurity.VolumeCandidateHeaderFrame849
+set_option pp.all true in
+#check @ShielddSecurity.VolumeCandidateHeaderFrame849.prepared
+#print axioms ShielddSecurity.VolumeCandidateHeaderFrame849.prepared
+set_option pp.all true in
+#check @ShielddSecurity.VolumeCandidateHeaderFrame849.group
+#print axioms ShielddSecurity.VolumeCandidateHeaderFrame849.group
+set_option pp.all true in
+#check @ShielddSecurity.VolumeCandidateHeaderFrame849.completed
+#print axioms ShielddSecurity.VolumeCandidateHeaderFrame849.completed
