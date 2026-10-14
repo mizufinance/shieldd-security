@@ -60,6 +60,15 @@ for record in review['packets']:
   old='import Mathlib.Algebra.Group.Nat.Defs\n'+old
   old=old.replace('2^shift*(low.toNat%2147483648) := by ring','2^shift*(low.toNat%2147483648) := by simp only [Nat.mul_add, Nat.mul_comm, Nat.add_assoc, Nat.add_comm]')
   old=old.replace('_ = scale*(quotient+1) := by ring','_ = scale*(quotient+1) := by simp only [Nat.mul_add] <;> omega').replace('rw [scale,←pow_add]','rw [scale,←Nat.pow_add]')
+ if name=='TransferBlstArmInverseApproxInput01':
+  old=old.replace('import ShielddSecurity.TransferBlstArmInverseApproxBits01\n','import ShielddSecurity.TransferBlstArmInverseApproxBits01\nimport Mathlib.Algebra.Ring.Int.Defs\nimport Mathlib.Data.Nat.Cast.Basic\nimport ShielddSecurity.TransferScalarWordPrimitives01\nimport ShielddSecurity.TransferScalarSerializationRange01\n')
+  old=old.replace('    _ = _ := by ring','    _ = _ := by\n      have factor : (2147483648 : Nat) * 8589934592 = 18446744073709551616 := by decide +kernel\n      rw [Nat.mul_add, ←factor, Nat.mul_assoc, Nat.add_assoc]')
+  old=old.replace('simpa only [Nat.cast_add,Nat.cast_mul,Nat.cast_ofNat] using cast','simpa only [Int.natCast_add,Int.natCast_mul] using cast').replace('\n  ring\n','\n  omega\n')
+ if name=='TransferBlstArmInverseApproxRows01':
+  old=old.replace('import ShielddSecurity.TransferBlstArmInverseApproxInput01\n','import ShielddSecurity.TransferBlstArmInverseApproxInput01\nimport ShielddSecurity.TransferBlstArmInverseFactors01\n')
+  for i in [0,1]:
+   old=old.replace(f'_ = (s.f{i}*(approxA:Int)+s.g{i}*(approxB:Int))+scale*(s.f{i}*deltaA+s.g{i}*deltaB) := by ring',f'_ = (s.f{i}*(approxA:Int)+s.g{i}*(approxB:Int))+scale*(s.f{i}*deltaA+s.g{i}*deltaB) := by\n        simp only [Int.mul_add, Int.mul_left_comm, Int.add_assoc, Int.add_left_comm, Int.add_comm]')
+   old=old.replace(f'by rw [← tracked.{i+1}]; ring',f'by rw [← tracked.{i+1}]; simp only [Int.mul_add, Int.add_assoc]')
  if name in ['TransferBlstArmInverseFactors01','TransferBlstArmInverseApproxBits01']:
   old=old.replace('#check @ShielddSecurity.'+name+'.','#check @').replace('#print axioms ShielddSecurity.'+name+'.','#print axioms ')
  assert old==source.decode().replace('\r\n','\n'),name
@@ -82,7 +91,7 @@ for record in review['packets']:
   reports.append(dict(name=declaration,full_type=full,**actual));left=left[:m.start()]+left[m.end():]
  assert not left.strip();modules[name]=dict(source=ident(source),audits=len(checks),seconds=result['seconds'],peak_rss_bytes=result['peak_rss_bytes'],report=ident(raw),objects=result['objects']);owned[name]=modules[name]
  packets.append(dict(packet=record['packet'],manifest=record['manifest'],external_modules=len(external['modules']),external_file_identities=len(external['immutable_files']),owned_imports=len(floor['selected'])))
-assert len(modules)==4 and len(reports)==24
+assert len(modules)==6 and len(reports)==30
 pending=out.with_name(out.name+'.pending');assert not pending.exists();pending.mkdir()
 for name,b in sources.items():p=pending/'source/ShielddSecurity'/(name+'.lean');p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
 evidence=dict(status='passed',runtime_sha=review['runtime_sha'],transport_commit=review['transport_commit'],modules=modules,reports=len(reports),complete_types_and_axioms=reports,independent_baseline_matches=len(reports),packets=packets,legacy_owned_objects_reused=False,source_contracts_unchanged=True,seconds=seconds,scope=review['scope'],baseline_review=ident((root/'baseline-review.json').read_bytes()),refresh=ident(Path(__file__).read_bytes()),full_transfer='OPEN',native_credit=0,new_cumulative_credit=0,certification=False)
