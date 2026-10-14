@@ -1,0 +1,49 @@
+ShielddSecurity.TransferBlstArmInverseOrderStep01.sourceComparisonDisagreement : (x y : Int) → (p q : Nat) → Prop
+'ShielddSecurity.TransferBlstArmInverseOrderStep01.sourceComparisonDisagreement' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseOrderStep01.strict_comparison_disagreement_derives_the_opposing_order_gap_premise : ∀
+  (x y : Int) (p q : Nat)
+  (disagreement : ShielddSecurity.TransferBlstArmInverseOrderStep01.sourceComparisonDisagreement x y p q),
+  Or (And (@LE.le.{0} Int Int.instLEInt y x) (@LE.le.{0} Nat instLENat p q))
+    (And (@LE.le.{0} Int Int.instLEInt x y) (@LE.le.{0} Nat instLENat q p))
+'ShielddSecurity.TransferBlstArmInverseOrderStep01.strict_comparison_disagreement_derives_the_opposing_order_gap_premise' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseOrderStep01.strict_source_prefix_comparison_disagreement_derives_the_entire_signed_gap_bound : ∀
+  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have windows : Prod.{0, 0} UInt64 UInt64 :=
+    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;
+  have shift : Nat := ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b;
+  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b)));
+  have actual : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+  ShielddSecurity.TransferBlstArmInverseOrderStep01.sourceComparisonDisagreement (@Prod.fst.{0, 0} Int Int actual)
+      (@Prod.snd.{0, 0} Int Int actual) (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors) →
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.fst.{0, 0} Int Int actual)
+          (@Prod.snd.{0, 0} Int Int actual)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) shift
+          (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))))
+'ShielddSecurity.TransferBlstArmInverseOrderStep01.strict_source_prefix_comparison_disagreement_derives_the_entire_signed_gap_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
