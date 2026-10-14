@@ -1,0 +1,56 @@
+ShielddSecurity.TransferBlstArmInverseFullWindowBounds01.original_nonzero_raw_joint_clz_count_is_strictly_below64 : ∀
+  (highA highB : UInt64)
+  (nonzero :
+    @Ne.{1} UInt64 (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB)
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),
+  @LT.lt.{0} Nat instLTNat
+    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+      (@BitVec.clz (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+        (UInt64.toBitVec
+          (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+'ShielddSecurity.TransferBlstArmInverseFullWindowBounds01.original_nonzero_raw_joint_clz_count_is_strictly_below64' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFullWindowBounds01.original_nonzero_selected_upper_window_derives_a_full_input_lower_power : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (nonzero :
+    @Ne.{1} UInt64
+      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highA
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highB
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),
+  Or
+    (@LE.le.{0} Nat instLENat
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+    (@LE.le.{0} Nat instLENat
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))))
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+'ShielddSecurity.TransferBlstArmInverseFullWindowBounds01.original_nonzero_selected_upper_window_derives_a_full_input_lower_power' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFullWindowBounds01.original_zero_selected_upper_window_has_exactly_zero_source_shift : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (zero :
+    @Eq.{1} UInt64
+      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highA
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highB
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),
+  @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseFullWindowBounds01.original_zero_selected_upper_window_has_exactly_zero_source_shift' depends on axioms: [propext,
+ Quot.sound]
