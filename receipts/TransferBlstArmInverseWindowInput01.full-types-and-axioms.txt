@@ -1,0 +1,58 @@
+ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowDivisor : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Nat
+'ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowDivisor' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Nat
+'ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowInput01.original_source_computed_window_divisor_is_the_exact_shift_power : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowDivisor a b)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b))
+'ShielddSecurity.TransferBlstArmInverseWindowInput01.original_source_computed_window_divisor_is_the_exact_shift_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowInput01.original_staged_four_word_window_derives_both_entire_input_quotients : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} (Prod.{0, 0} Nat Nat) (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceFourWordAlignedValues a b)
+    (@Prod.mk.{0, 0} Nat Nat
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+        (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowDivisor a b))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)
+        (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowDivisor a b)))
+'ShielddSecurity.TransferBlstArmInverseWindowInput01.original_staged_four_word_window_derives_both_entire_input_quotients' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowInput01.original_source_window_words_derive_the_high_window_premises_for_both_entire_inputs : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  And
+    (@Eq.{1} Nat
+      (UInt64.toNat
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b)))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b))))
+    (@Eq.{1} Nat
+      (UInt64.toNat
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b)))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b))))
+'ShielddSecurity.TransferBlstArmInverseWindowInput01.original_source_window_words_derive_the_high_window_premises_for_both_entire_inputs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
