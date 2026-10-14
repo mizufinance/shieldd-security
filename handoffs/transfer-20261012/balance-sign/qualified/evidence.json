@@ -1,0 +1,662 @@
+{
+  "batches": [
+    {
+      "dependency_manifest_sha256": "4b13ea9e98b62d4ec59883b1548ebea483f300d298c493de84e30cff5362cfe6",
+      "invalidated": 0,
+      "replayed": 6,
+      "root": "BalanceSignBindings652",
+      "selected": 5355
+    },
+    {
+      "dependency_manifest_sha256": "fadf74c6a20379fe9ebd5b32b979c88251c414f22be0bd932ae13442a5862cbf",
+      "invalidated": 0,
+      "replayed": 1,
+      "root": "BalanceWordValues653",
+      "selected": 5356
+    },
+    {
+      "dependency_manifest_sha256": "28d5caa2df01e0b6c6b6d7d855b451d685764215b1a4ddc470395942a26e7c67",
+      "invalidated": 0,
+      "replayed": 1,
+      "root": "BalanceSignCapture654",
+      "selected": 3759
+    },
+    {
+      "dependency_manifest_sha256": "bb860aa442d9aa87cc098970d8759b443157e92f30973c16dca858e1a2ba9419",
+      "invalidated": 0,
+      "replayed": 1,
+      "root": "BalanceSignRow655",
+      "selected": 5358
+    },
+    {
+      "dependency_manifest_sha256": "3f42b1fb751aaff07126f82d4941e7829cd6f29b17231dd9be1eaefd77e39db9",
+      "invalidated": 1,
+      "replayed": 2,
+      "root": "BalanceSignConstruction669",
+      "selected": 7194
+    }
+  ],
+  "certification": false,
+  "circuit_soundness": "OPEN",
+  "computed_public64_binding": "OPEN",
+  "conditional_assertion_coverage": {
+    "new_positions": [
+      21913
+    ],
+    "positions": [
+      21913
+    ],
+    "previous_union": 21759,
+    "remaining": 1056,
+    "total": 22816,
+    "union": 21760
+  },
+  "full_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignLayout647.bounds : \u2200 (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  And (@LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711))) column)\n    (@LT.lt.{0} Nat instLTNat column (@OfNat.ofNat.{0} Nat (nat_lit 21712) (instOfNatNat (nat_lit 21712))))",
+      "full_type_sha256": "563f89e44904f925ffa1862fbc30bff9491b23e9f5b4f6c5bc292c08256792fe",
+      "name": "ShielddSecurity.BalanceSignLayout647.bounds"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignLayout647.plain_columns : \u2200 (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.plain\n      column),\n  @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.columns\n    column",
+      "full_type_sha256": "4554a0bdc5e911127185e56f18e29baa8f5730a0b585d3ca6d949dc15f7542b9",
+      "name": "ShielddSecurity.BalanceSignLayout647.plain_columns"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.BalanceSignWordFrame648.windows_checked : @Eq.{1} Bool\n  (@List.all.{0} (Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat) ShielddSecurity.CapturedWordRoot213.words\n    fun (entry : Prod.{0, 0} ShielddSecurity.WordHints210.Slot Nat) =>\n    @List.all.{0} Nat ShielddSecurity.BalanceSignLayout647.columns fun (column : Nat) =>\n      @Decidable.decide\n        (Or\n          (@LT.lt.{0} Nat instLTNat column\n            (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n          (@LE.le.{0} Nat instLENat\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n            column))\n        (@instDecidableOr\n          (@LT.lt.{0} Nat instLTNat column\n            (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n          (@LE.le.{0} Nat instLENat\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n            column)\n          (Nat.decLt column\n            (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n          (Nat.decLe\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (ShielddSecurity.WordHints210.Slot.start (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry))\n              (ShielddSecurity.WordHints210.Slot.width (@Prod.fst.{0, 0} ShielddSecurity.WordHints210.Slot Nat entry)))\n            column)))\n  Bool.true",
+      "full_type_sha256": "388b254b4b2acd602374ae314f60724c75521b70d0a1831f54d7e2967d945071",
+      "name": "ShielddSecurity.BalanceSignWordFrame648.windows_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignWordFrame648.outside_assignments : \u2200 (numbers : Nat \u2192 Nat) (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  Not\n    (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      (@List.map.{0, 0} (Prod.{0, 0} Nat Bool) Nat (@Prod.fst.{0, 0} Nat Bool)\n        (ShielddSecurity.SharedWordFlags220.assignments ShielddSecurity.SharedWordWitness221.wordSlots numbers))\n      column)",
+      "full_type_sha256": "c4bb0d03b4c3cfdbfa489712f0c96fbc3c1fce1d8ce1bb55d08986398417000a",
+      "name": "ShielddSecurity.BalanceSignWordFrame648.outside_assignments"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignWordFrame648.plain_unselected : \u2200 (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.plain\n      column),\n  Not\n    (@Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.SharedWordWitness221.seedColumns column)",
+      "full_type_sha256": "aaa0d528a203616767f96d4ef302ccf155ded36752d219686a6c7dbbf69982aa",
+      "name": "ShielddSecurity.BalanceSignWordFrame648.plain_unselected"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.BalanceSignWordFrame648.flag_frame : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  [inst_2 : DecidableEq.{1} F] (base : Nat \u2192 F) (numbers : Nat \u2192 Nat) (fallback : Nat \u2192 Bool) (column : Nat)\n  (selected :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    Or\n      (@Eq.{1} F (base column)\n        (@OfNat.ofNat.{0} F (nat_lit 0)\n          (@Zero.toOfNat0.{0} F\n            (@MulZeroClass.toZero.{0} F\n              (@instMulZeroClassOfSemiring.{0} F\n                (@DivisionSemiring.toSemiring.{0} F\n                  (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))))\n      (@Eq.{1} F (base column)\n        (@OfNat.ofNat.{0} F (nat_lit 1)\n          (@One.toOfNat1.{0} F\n            (@AddMonoidWithOne.toOne.{0} F\n              (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))))\n  (meaning : @Eq.{1} Bool (fallback column) (@ShielddSecurity.ZeroHintWordFrame303.flags F inst inst_2 base column)),\n  @Eq.{1} F (@ShielddSecurity.SharedWordWitness221.completed F inst base numbers fallback column) (base column)",
+      "full_type_sha256": "403c8cc243c4b5e84b3cba18dda1ccfb9080857db44325615b2a1d5f3729450f",
+      "name": "ShielddSecurity.BalanceSignWordFrame648.flag_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.BalanceSignWordFrame648.plain_frame : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  [DecidableEq.{1} F] (base : Nat \u2192 F) (numbers : Nat \u2192 Nat) (fallback : Nat \u2192 Bool) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.plain\n      column),\n  @Eq.{1} F (@ShielddSecurity.SharedWordWitness221.completed F inst base numbers fallback column) (base column)",
+      "full_type_sha256": "30598e950efb121a8d34c82e42dc7d4c98f3d10b1b4fe03c44d007764134bfd4",
+      "name": "ShielddSecurity.BalanceSignWordFrame648.plain_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignHeaderFrame649.prepared : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.RegisteredConstructorFrame309.prepared original c w column) (original column)",
+      "full_type_sha256": "058a141cc386b7b80aae8578f2feace0416865c81c6865768e7d0e430be0e594",
+      "name": "ShielddSecurity.BalanceSignHeaderFrame649.prepared"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignHeaderFrame649.group : \u2200 (base : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ShielddSecurity.CapturedFourSubgroupSeed89.seeded ShielddSecurity.ConcreteJubjubField01.F\n      (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact) base initial\n      column)\n    (base column)",
+      "full_type_sha256": "d36e4b78f16d6c0d9a348e96b004428b18cb22ee4f7b2313309f887822666697",
+      "name": "ShielddSecurity.BalanceSignHeaderFrame649.group"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignHeaderFrame649.completed : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.HeaderRegisteredConstruction310.completed original c w initial column) (original column)",
+      "full_type_sha256": "e739c5929922f1bda853fa69fefee20008f67ffa2d62133a24eadf0d9ed95854",
+      "name": "ShielddSecurity.BalanceSignHeaderFrame649.completed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.userSeed : (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (w : ShielddSecurity.TransferSem.Witness) \u2192\n    (senderInitial receiverInitial :\n        Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n          ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n      Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F",
+      "full_type_sha256": "c5a71c7db7764919352709f49a6d8e30204d1cba48997c2fdba4156a9e0088c2",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.userSeed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.user_seed_outside : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (w : ShielddSecurity.TransferSem.Witness)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.BalanceSignSemanticFrame650.userSeed original w senderInitial receiverInitial column)\n    (original column)",
+      "full_type_sha256": "e3d97cfb52b60409293c58c7f759ed162f89c45c360eb53dc616f773b51fb5ac",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.user_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.user_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.UserLifecycleWord345.assignment\n      (ShielddSecurity.UserSubgroupSeed352.seed original w senderInitial receiverInitial) c w initial column)\n    (original column)",
+      "full_type_sha256": "a6ea72ae5ab13aaaf6ce74d6afbca8ae17c5007d3696e617b43cf5998ab28e11",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.user_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.semanticSeed : (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (w : ShielddSecurity.TransferSem.Witness) \u2192 Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F",
+      "full_type_sha256": "144c7a6e0e13f475f9eb502517899ff94279a2bad0bef8b99a6d8b60b5bdf80d",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.semanticSeed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.semantic_seed_outside : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.BalanceSignSemanticFrame650.semanticSeed original w column) (original column)",
+      "full_type_sha256": "8eb4462ed0c14d50ede73578aa363eb55e9af18e51cefaeaf6b5cfed8d581979",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.semantic_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.semantic_frame : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.SemanticWordFrame373.assignment original c w initial senderInitial receiverInitial column)\n    (original column)",
+      "full_type_sha256": "b97a2017cba7ca8e71ad06c13dbe0ae1ad7d5eab275b267aa137eb57384778b6",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.semantic_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.authorizationSeed : (original :\n    Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (c : ShielddSecurity.TransferSem.Crypto) \u2192\n    (w : ShielddSecurity.TransferSem.Witness) \u2192\n      (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n        Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F",
+      "full_type_sha256": "52a91a138922dbeb7df48d615e5cffffbf1b5780cbbef40941a708e1b3874beb",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.authorizationSeed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.authorization_seed_outside : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.BalanceSignSemanticFrame650.authorizationSeed original c w authInitial column) (original column)",
+      "full_type_sha256": "1ce7d016d651f5815ddaf1eb9feb5aa07accdab8a42ad898218c670c544433b8",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.authorization_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignSemanticFrame650.authorization_frame : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.AuthorizationSharedFrame420B.assignment original c w authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "639fc05d9bd4ff232bf04a42d06455eda05188332fc4e30cd90ce698adf3de40",
+      "name": "ShielddSecurity.BalanceSignSemanticFrame650.authorization_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.rk_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.AuthorizationRkSeed505.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "5bf62ec568e5b98eb4a3f47386170b4a6610a926772c1160090049c2a5a8bc72",
+      "name": "ShielddSecurity.BalanceSignRetained651.rk_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.fixed_seed_outside : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.FixedFamilySeed549.seed original w column)\n    (original column)",
+      "full_type_sha256": "52bbb169ccf575901e7e3668d0266512da271bbdc6c426ae7c9277a65c2edf93",
+      "name": "ShielddSecurity.BalanceSignRetained651.fixed_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.fixed_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.FixedFamilyBindings551.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "f5f041945417b9478f520af57b0c866e64a31261e50c45818ae06eb874bfc5b0",
+      "name": "ShielddSecurity.BalanceSignRetained651.fixed_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.payload_seed_outside : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.PayloadTraceSeed564.seed original c w legal column)\n    (original column)",
+      "full_type_sha256": "06a82e2084aeaab0ff5edfbe49213a8efc9992df6559953e16d398c043eae88c",
+      "name": "ShielddSecurity.BalanceSignRetained651.payload_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.payload_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.PayloadBindings565.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "75ddd120f270315cb6c4d0e5d4d4cb9eed966f543c403ca26feb0916b85a579e",
+      "name": "ShielddSecurity.BalanceSignRetained651.payload_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.published_seed_outside : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.PublishedPointSeed584.seed original w column)\n    (original column)",
+      "full_type_sha256": "53b9fc546eddf9be2776c268c8d6cf2b436bee97a1c2ca028ce0faced0e6ef72",
+      "name": "ShielddSecurity.BalanceSignRetained651.published_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.published_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.PublishedPointSeed584.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "e0618325bde25b48a51abeb4c8844c35e74b1e71b072f9db44e267394a036351",
+      "name": "ShielddSecurity.BalanceSignRetained651.published_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.inverse_seed_outside : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.PublishedInverseSeed592.seed original w column)\n    (original column)",
+      "full_type_sha256": "f96cd0840320fec9927467cfe1aca79438d264d006df83f80caa0966cbc89d17",
+      "name": "ShielddSecurity.BalanceSignRetained651.inverse_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.inverse_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.PublishedInverseSeed592.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "8e031a9a9c3616caae2e7f50b115a4dd12120e626864748f48a288de4fdea376",
+      "name": "ShielddSecurity.BalanceSignRetained651.inverse_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.ownership_seed_outside : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.OwnershipTrace603.seed original c w legal column)\n    (original column)",
+      "full_type_sha256": "e97d72c1930c8982b94c1c86723b3b2d1c3b911a1ac215742b3788905ee02544",
+      "name": "ShielddSecurity.BalanceSignRetained651.ownership_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.ownership_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.OwnershipBindings604.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "3c8a0b1162fa9c4ac525ebffa2bf6db278dcaccd87864cc95861fbedbeb25d4d",
+      "name": "ShielddSecurity.BalanceSignRetained651.ownership_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.tier_seed_outside : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.DetectionGroupDomain611.crypto c) w) (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.TierTrace616.seed original c w legal column)\n    (original column)",
+      "full_type_sha256": "7ddc86802741669ccd2f1e6a262a927e7dbd703c02180ce6a8305833ec92e497",
+      "name": "ShielddSecurity.BalanceSignRetained651.tier_seed_outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRetained651.tier_frame : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.DetectionGroupDomain611.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat)\n      ShielddSecurity.BalanceSignLayout647.columns column)\n  (boolean :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.BalanceSignLayout647.flags\n        column \u2192\n      Or\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n            (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (original column)\n          (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n            (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.TierBindings617.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (original column)",
+      "full_type_sha256": "b4723d16c68762099d63192f0199305e2f9bb7b551a1240c142982827ceae9af",
+      "name": "ShielddSecurity.BalanceSignRetained651.tier_frame"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignBindings652.outside : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (w : ShielddSecurity.TransferSem.Witness) (column : Nat)\n  (different : @Ne.{1} Nat column (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711)))),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F (ShielddSecurity.BalanceSignBindings652.seed original w column)\n    (original column)",
+      "full_type_sha256": "f299b92c9a6b07913edd12431844fd62988d585154530e1a680b35f7f5f79241",
+      "name": "ShielddSecurity.BalanceSignBindings652.outside"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignBindings652.selected : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (w : ShielddSecurity.TransferSem.Witness),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.BalanceSignBindings652.seed original w\n      (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711))))\n    (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (@Eq.{1} Bool (ShielddSecurity.BalanceSignBindings652.negative w) Bool.true)\n      (instDecidableEqBool (ShielddSecurity.BalanceSignBindings652.negative w) Bool.true)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n        (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "1e8601fc3c62c59e5efbe2e51f635777ed32195aaf6830201e745967a8d96e71",
+      "name": "ShielddSecurity.BalanceSignBindings652.selected"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignBindings652.sign_boolean : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (w : ShielddSecurity.TransferSem.Witness),\n  Or\n    (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.BalanceSignBindings652.seed original w\n        (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n        (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n    (@Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (ShielddSecurity.BalanceSignBindings652.seed original w\n        (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "9806d8fd5703d6504753ea947b800b4095b04e74f383e1ec85375c6f0f847925",
+      "name": "ShielddSecurity.BalanceSignBindings652.sign_boolean"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignBindings652.flag : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.DetectionGroupDomain611.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.BalanceSignBindings652.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711))))\n    (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (@Eq.{1} Bool (ShielddSecurity.BalanceSignBindings652.negative w) Bool.true)\n      (instDecidableEqBool (ShielddSecurity.BalanceSignBindings652.negative w) Bool.true)\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 1)\n        (@One.toOfNat1.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n      (@OfNat.ofNat.{0} ShielddSecurity.ConcreteJubjubField01.F (nat_lit 0)\n        (@Zero.toOfNat0.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@MulZeroClass.toZero.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@instMulZeroClassOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))",
+      "full_type_sha256": "a16eb78766be3ddcda2d23740e61c20baab20acc92b113dc3e64a656486d21ba",
+      "name": "ShielddSecurity.BalanceSignBindings652.flag"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignBindings652.signed_magnitude : \u2200 (w : ShielddSecurity.TransferSem.Witness),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (@ite.{1} ShielddSecurity.ConcreteJubjubField01.F\n      (@Eq.{1} Bool (ShielddSecurity.BalanceSignBindings652.negative w) Bool.true)\n      (instDecidableEqBool (ShielddSecurity.BalanceSignBindings652.negative w) Bool.true)\n      (@Neg.neg.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@NegZeroClass.toNeg.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@SubNegZeroMonoid.toNegZeroClass.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@SubtractionMonoid.toSubNegZeroMonoid.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@SubtractionCommMonoid.toSubtractionMonoid.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@AddCommGroup.toDivisionAddCommMonoid.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Ring.toAddCommGroup.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                      (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                        (@ZMod.instField ShielddSecurity.Scalar.modulus\n                          ShielddSecurity.ConcreteJubjubField01.primeFact)))))))))\n        (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n          (ShielddSecurity.RemainingWordSeed369.magnitude w)))\n      (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n        (ShielddSecurity.RemainingWordSeed369.magnitude w)))\n    (@HSub.hSub.{0, 0, 0} ShielddSecurity.ConcreteJubjubField01.F ShielddSecurity.ConcreteJubjubField01.F\n      ShielddSecurity.ConcreteJubjubField01.F\n      (@instHSub.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@SubNegMonoid.toSub.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddGroup.toSubNegMonoid.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddGroup.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))))\n      (@HAdd.hAdd.{0, 0, 0} ShielddSecurity.ConcreteJubjubField01.F ShielddSecurity.ConcreteJubjubField01.F\n        ShielddSecurity.ConcreteJubjubField01.F\n        (@instHAdd.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Distrib.toAdd.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@instDistribOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))\n        (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n          (ShielddSecurity.TransferSem.Spend.amount\n            (ShielddSecurity.TransferSem.Witness.spends w\n              (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (nat_lit 0)\n                (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0))))))\n        (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n          (ShielddSecurity.TransferSem.Spend.amount\n            (ShielddSecurity.TransferSem.Witness.spends w\n              (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (nat_lit 1)\n                (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 1)))))))\n      (@HAdd.hAdd.{0, 0, 0} ShielddSecurity.ConcreteJubjubField01.F ShielddSecurity.ConcreteJubjubField01.F\n        ShielddSecurity.ConcreteJubjubField01.F\n        (@instHAdd.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Distrib.toAdd.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@instDistribOfSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@DivisionSemiring.toSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@Semifield.toDivisionSemiring.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toSemifield.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact)))))))\n        (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n          (ShielddSecurity.TransferSem.Output.amount\n            (ShielddSecurity.TransferSem.Witness.outputs w\n              (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (nat_lit 0)\n                (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0))))))\n        (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                  (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                    (@ZMod.instField ShielddSecurity.Scalar.modulus\n                      ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n          (ShielddSecurity.TransferSem.Output.amount\n            (ShielddSecurity.TransferSem.Witness.outputs w\n              (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (nat_lit 1)\n                (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 1))))))))",
+      "full_type_sha256": "0ffc7f540f61b1c36fc1ad4a7e9c9c5bb6af318f0648c3e526c250df30ad9f13",
+      "name": "ShielddSecurity.BalanceSignBindings652.signed_magnitude"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceWordValues653.values : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.DetectionGroupDomain611.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (column : Nat)\n  (member :\n    @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) ShielddSecurity.RemainingWordSeed369.values\n      column),\n  @Eq.{1} ShielddSecurity.ConcreteJubjubField01.F\n    (ShielddSecurity.BalanceSignBindings652.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial column)\n    (@Nat.cast.{0} ShielddSecurity.ConcreteJubjubField01.F\n      (@AddMonoidWithOne.toNatCast.{0} ShielddSecurity.ConcreteJubjubField01.F\n        (@AddGroupWithOne.toAddMonoidWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n          (@Ring.toAddGroupWithOne.{0} ShielddSecurity.ConcreteJubjubField01.F\n            (@DivisionRing.toRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n              (@Field.toDivisionRing.{0} ShielddSecurity.ConcreteJubjubField01.F\n                (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact))))))\n      (ShielddSecurity.RemainingWordSeed369.value w column))",
+      "full_type_sha256": "396686410d01ae1a9cf9f41c7a7b94b8226242a930a859cc63ea6876182b7770",
+      "name": "ShielddSecurity.BalanceWordValues653.values"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignCapture654.product_checked : @Eq.{1} Bool\n  (ShielddSecurity.CompilerRowSlice63.check ShielddSecurity.CapturedFullArithmetic52.rowAt\n    (@OfNat.ofNat.{0} Nat (nat_lit 167507) (instOfNatNat (nat_lit 167507)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) ShielddSecurity.BalanceSignCapture654.productRows)\n  Bool.true",
+      "full_type_sha256": "a9d67e47405213b6b263b67a6b8abca1ca294ec60fd38c4faa121afd0d67958d",
+      "name": "ShielddSecurity.BalanceSignCapture654.product_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignCapture654.assertion_checked : @Eq.{1} Bool\n  (ShielddSecurity.CompilerRowSlice63.check ShielddSecurity.CapturedFullRelation58.rowAt\n    (@OfNat.ofNat.{0} Nat (nat_lit 199867) (instOfNatNat (nat_lit 199867)))\n    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ShielddSecurity.BalanceSignCapture654.assertionRows)\n  Bool.true",
+      "full_type_sha256": "6821d9e205fe9425aac93d16bd94626b028dd2f92890ecf48802ed6e5b673a6e",
+      "name": "ShielddSecurity.BalanceSignCapture654.assertion_checked"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignCapture654.shape_checked : And\n  (@Eq.{1} Bool\n    (ShielddSecurity.VariableOperationAdapter434.covers ShielddSecurity.BalanceSignCapture654.template\n      ShielddSecurity.BalanceSignCapture654.assertionRows)\n    Bool.true)\n  (@Eq.{1} Bool\n    (ShielddSecurity.VariableOperationAdapter434.covers ShielddSecurity.BalanceSignCapture654.assertionRows\n      ShielddSecurity.BalanceSignCapture654.template)\n    Bool.true)",
+      "full_type_sha256": "dfa8dc21969820322ac2ad3d89f10bd83438b9b9fedb077f185a2f57419dd33b",
+      "name": "ShielddSecurity.BalanceSignCapture654.shape_checked"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.BalanceSignCapture654.product : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  (rho : Nat \u2192 F)\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954)))),\n  @Eq.{1} F (rho (@OfNat.ofNat.{0} Nat (nat_lit 190245) (instOfNatNat (nat_lit 190245))))\n    (@HMul.hMul.{0, 0, 0} F F F\n      (@instHMul.{0} F\n        (@Distrib.toMul.{0} F\n          (@instDistribOfSemiring.{0} F\n            (@DivisionSemiring.toSemiring.{0} F\n              (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n      (rho (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711))))\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        (@Neg.neg.{0} F\n          (@NegZeroClass.toNeg.{0} F\n            (@SubNegZeroMonoid.toNegZeroClass.{0} F\n              (@SubtractionMonoid.toSubNegZeroMonoid.{0} F\n                (@SubtractionCommMonoid.toSubtractionMonoid.{0} F\n                  (@AddCommGroup.toDivisionAddCommMonoid.{0} F\n                    (@Ring.toAddCommGroup.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))))))\n          (@OfNat.ofNat.{0} F (nat_lit 2)\n            (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n              (@AddMonoidWithOne.toNatCast.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n              (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n                (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))))\n        (rho (@OfNat.ofNat.{0} Nat (nat_lit 21712) (instOfNatNat (nat_lit 21712))))))",
+      "full_type_sha256": "624edf90ded6a7f3118afab9a48fc7a7d1d2e0b2bb0548c48b4a0caf27140e93",
+      "name": "ShielddSecurity.BalanceSignCapture654.product"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "@ShielddSecurity.BalanceSignCapture654.rows_iff : \u2200 {F : Type} [inst : Field.{0} F]\n  [@CharP.{0} F\n      (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n        (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst))))\n      ShielddSecurity.CompilerArithmeticTransport41.p]\n  (rho : Nat \u2192 F)\n  (arithmetic :\n    @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho ShielddSecurity.CapturedFullArithmetic52.rowAt\n      (@OfNat.ofNat.{0} Nat (nat_lit 177954) (instOfNatNat (nat_lit 177954)))),\n  Iff\n    (@ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt F inst rho\n      (fun (i : Nat) =>\n        ShielddSecurity.CapturedFullRelation58.rowAt\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 199867) (instOfNatNat (nat_lit 199867))) i))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n    (@Eq.{1} F\n      (@HSub.hSub.{0, 0, 0} F F F\n        (@instHSub.{0} F\n          (@SubNegMonoid.toSub.{0} F\n            (@AddGroup.toSubNegMonoid.{0} F\n              (@AddGroupWithOne.toAddGroup.{0} F\n                (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n        (@HSub.hSub.{0, 0, 0} F F F\n          (@instHSub.{0} F\n            (@SubNegMonoid.toSub.{0} F\n              (@AddGroup.toSubNegMonoid.{0} F\n                (@AddGroupWithOne.toAddGroup.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n          (@HAdd.hAdd.{0, 0, 0} F F F\n            (@instHAdd.{0} F\n              (@Distrib.toAdd.{0} F\n                (@instDistribOfSemiring.{0} F\n                  (@DivisionSemiring.toSemiring.{0} F\n                    (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n            (rho (@OfNat.ofNat.{0} Nat (nat_lit 4281) (instOfNatNat (nat_lit 4281))))\n            (rho (@OfNat.ofNat.{0} Nat (nat_lit 4534) (instOfNatNat (nat_lit 4534)))))\n          (rho (@OfNat.ofNat.{0} Nat (nat_lit 4789) (instOfNatNat (nat_lit 4789)))))\n        (rho (@OfNat.ofNat.{0} Nat (nat_lit 6194) (instOfNatNat (nat_lit 6194)))))\n      (@HMul.hMul.{0, 0, 0} F F F\n        (@instHMul.{0} F\n          (@Distrib.toMul.{0} F\n            (@instDistribOfSemiring.{0} F\n              (@DivisionSemiring.toSemiring.{0} F\n                (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n        (@HSub.hSub.{0, 0, 0} F F F\n          (@instHSub.{0} F\n            (@SubNegMonoid.toSub.{0} F\n              (@AddGroup.toSubNegMonoid.{0} F\n                (@AddGroupWithOne.toAddGroup.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n          (@OfNat.ofNat.{0} F (nat_lit 1)\n            (@One.toOfNat1.{0} F\n              (@AddMonoidWithOne.toOne.{0} F\n                (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                  (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))))\n          (@HMul.hMul.{0, 0, 0} F F F\n            (@instHMul.{0} F\n              (@Distrib.toMul.{0} F\n                (@instDistribOfSemiring.{0} F\n                  (@DivisionSemiring.toSemiring.{0} F\n                    (@Semifield.toDivisionSemiring.{0} F (@Field.toSemifield.{0} F inst))))))\n            (@OfNat.ofNat.{0} F (nat_lit 2)\n              (@instOfNatAtLeastTwo.{0} F (nat_lit 2)\n                (@AddMonoidWithOne.toNatCast.{0} F\n                  (@AddGroupWithOne.toAddMonoidWithOne.{0} F\n                    (@Ring.toAddGroupWithOne.{0} F (@DivisionRing.toRing.{0} F (@Field.toDivisionRing.{0} F inst)))))\n                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))\n                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))\n            (rho (@OfNat.ofNat.{0} Nat (nat_lit 21711) (instOfNatNat (nat_lit 21711))))))\n        (rho (@OfNat.ofNat.{0} Nat (nat_lit 21712) (instOfNatNat (nat_lit 21712))))))",
+      "full_type_sha256": "ec8ead4480696edcdfffce058833ffde0454f2d1689a1acc114d450fd0a64628",
+      "name": "ShielddSecurity.BalanceSignCapture654.rows_iff"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignRow655.row : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.DetectionGroupDomain611.crypto c) w)\n  (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (initial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n  (senderInitial receiverInitial :\n    Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n      ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F),\n  @ShielddSecurity.CompilerAssertionBlock51.SatisfiesAt ShielddSecurity.ConcreteJubjubField01.F\n    (@ZMod.instField ShielddSecurity.Scalar.modulus ShielddSecurity.ConcreteJubjubField01.primeFact)\n    (ShielddSecurity.BalanceSignBindings652.assignment original c w legal rkInitial authInitial initial senderInitial\n      receiverInitial)\n    (fun (i : Nat) =>\n      ShielddSecurity.CapturedFullRelation58.rowAt\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 199867) (instOfNatNat (nat_lit 199867))) i))\n    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))",
+      "full_type_sha256": "de0bf20c57f11a684aff0f76c8f7088b05b0d0e4e5ab60df010fad234924bcb6",
+      "name": "ShielddSecurity.BalanceSignRow655.row"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.OwnershipConstruction608.Rows : (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192 Prop",
+      "full_type_sha256": "47df491ef6ad07f41bcf286160b8206e458dd764ec82eb3b91a2528cf5c2112d",
+      "name": "ShielddSecurity.OwnershipConstruction608.Rows"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.OwnershipConstruction608.Earlier : (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (c : ShielddSecurity.TransferSem.Crypto) \u2192\n    (w : ShielddSecurity.TransferSem.Witness) \u2192\n      (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w) \u2192\n        (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n          (initial :\n              Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n                ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n            (senderInitial receiverInitial :\n                Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n                  ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n              Prop",
+      "full_type_sha256": "d32f069d89ed13a453f75af23ff200904ce0d92f2720e7b17a1ade50c299cc0f",
+      "name": "ShielddSecurity.OwnershipConstruction608.Earlier"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.OwnershipConstruction608.legal_completed : \u2200 (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F)\n  (c : ShielddSecurity.TransferSem.Crypto) (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.AuthorizationFixedDomain485.crypto c) w),\n  @Exists.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n    fun (rkInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n    @Exists.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n      fun (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n      @Exists.{1}\n        (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n          ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n        fun\n          (senderInitial :\n            Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n              ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n        @Exists.{1}\n          (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n            ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n          fun\n            (receiverInitial :\n              Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n                ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n          @Exists.{1}\n            (Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n              ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n            fun\n              (initial :\n                Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n                  ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n            And\n              (ShielddSecurity.OwnershipConstruction608.Earlier original c w legal rkInitial authInitial initial\n                senderInitial receiverInitial)\n              (ShielddSecurity.OwnershipConstruction608.Rows\n                (ShielddSecurity.OwnershipBindings604.assignment original c w legal rkInitial authInitial initial\n                  senderInitial receiverInitial))",
+      "full_type_sha256": "711f82bc06e7d6a7ee5fb667cb398516efea2b1cd1e8e113479f974a2a9acf16",
+      "name": "ShielddSecurity.OwnershipConstruction608.legal_completed"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignConstruction669.Rows : (rho : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192 Prop",
+      "full_type_sha256": "8c3f8e45f4a67192c0eecc678ec8fb69798a0cb6a7aeb38abb9cbb316db89516",
+      "name": "ShielddSecurity.BalanceSignConstruction669.Rows"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignConstruction669.Earlier : (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) \u2192\n  (c : ShielddSecurity.TransferSem.Crypto) \u2192\n    (w : ShielddSecurity.TransferSem.Witness) \u2192\n      (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.DetectionGroupDomain611.crypto c) w) \u2192\n        (rkInitial authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n          (initial :\n              Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n                ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n            (senderInitial receiverInitial :\n                Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n                  ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) \u2192\n              Prop",
+      "full_type_sha256": "94fbd90d47f7e637f0543928f2a0846a53c9893be59c8694b5e4faf10623a76f",
+      "name": "ShielddSecurity.BalanceSignConstruction669.Earlier"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.BalanceSignConstruction669.legal_completed : \u2200\n  (original : Nat \u2192 ShielddSecurity.ConcreteJubjubField01.F) (c : ShielddSecurity.TransferSem.Crypto)\n  (w : ShielddSecurity.TransferSem.Witness)\n  (legal : ShielddSecurity.TransferSem.TransferSem (ShielddSecurity.DetectionGroupDomain611.crypto c) w),\n  @Exists.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n    fun (rkInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n    @Exists.{1} (ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n      fun (authInitial : ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n      @Exists.{1}\n        (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n          ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n        fun\n          (senderInitial :\n            Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n              ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n        @Exists.{1}\n          (Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n            ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n          fun\n            (receiverInitial :\n              Fin (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))) \u2192\n                ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n          @Exists.{1}\n            (Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n              ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F)\n            fun\n              (initial :\n                Fin (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) \u2192\n                  ShielddSecurity.Group.Point ShielddSecurity.ConcreteJubjubField01.F) =>\n            And\n              (ShielddSecurity.BalanceSignConstruction669.Earlier original c w legal rkInitial authInitial initial\n                senderInitial receiverInitial)\n              (ShielddSecurity.BalanceSignConstruction669.Rows\n                (ShielddSecurity.BalanceSignBindings652.assignment original c w legal rkInitial authInitial initial\n                  senderInitial receiverInitial))",
+      "full_type_sha256": "ad8d8d7ebccacad90b77742d1350040d6c97943ad07002f330569ade3c95a6ad",
+      "name": "ShielddSecurity.BalanceSignConstruction669.legal_completed"
+    }
+  ],
+  "generation": {
+    "BalanceSignCapture654": {
+      "bytes": 3688,
+      "sha256": "f645c381bcc7df9706ab02627e17b35a3a923e7437f8eddef2794d59d12f4f6e"
+    }
+  },
+  "guard_sha256": "ae632f1392cd3602694f35b8003698d30a409bc6b2fff6d596446d5b014fb9a0",
+  "mathlib": "c5ea00351c28e24afc9f0f84379aa41082b1188f",
+  "modules": {
+    "BalanceSignBindings652": {
+      "object_sha256": "8b9efee894c5ce90ec48aa4bf57323b41d7d658a57520f4762f7106d7ad7a77f",
+      "peak_group_rss_bytes": 2981216256,
+      "receipt_sha256": "502bd025e629cca58064899504f8fc5db769b3a7a690eb1699cd220ac405e4d9",
+      "reports": 5,
+      "seconds": 3.342031500011217,
+      "source_sha256": "4054d5d0f571f32022d618ce5d1e7333c6b69e71000900334505f9ad6dcb372c",
+      "source_signature": "cf113705dc03c93a6f3441f4b3fbf8f7335109bc57b9ffea0589ee95ec6b3df8"
+    },
+    "BalanceSignCapture654": {
+      "object_sha256": "b5a49da705d9c83be963addbd44e6c938cc5e50708992d4185cd2ddda54683a5",
+      "peak_group_rss_bytes": 2825961472,
+      "receipt_sha256": "1641a72882f99bb142798a240cf87bdc6183e96a760ff7e5d7d8a0370328b63c",
+      "reports": 5,
+      "seconds": 3.6310160830034874,
+      "source_sha256": "f645c381bcc7df9706ab02627e17b35a3a923e7437f8eddef2794d59d12f4f6e",
+      "source_signature": "2fcfc23bcb06251d393b9af79458837eb0d226bd386030bcdca850998420109c"
+    },
+    "BalanceSignConstruction669": {
+      "object_sha256": "565559a4ef4bb78eca33d74b4444ec8ee0128e0de330a1b454dfde624ab5e18a",
+      "peak_group_rss_bytes": 3141926912,
+      "receipt_sha256": "1a8b9b40652286db75ea8cf8f19495827fc051e42945eada0a0f7247fded82cb",
+      "reports": 3,
+      "seconds": 4.221194332989398,
+      "source_sha256": "d2f298b10525a985eda500e999d93e3f1de2ee8d9b46a1baca2a03f88b280274",
+      "source_signature": "0b04c0eec37df98495add5fd2ac0d93057948a40f76f192a804c7e1cbf854c2c"
+    },
+    "BalanceSignHeaderFrame649": {
+      "object_sha256": "431728d02b2689f6b9f1e34289090b00c645a7983c1adc6163ffdd9f453cfcb7",
+      "peak_group_rss_bytes": 2773991424,
+      "receipt_sha256": "e1ca0acc03cba6d3081992da376df068507ba821a1783da5e3b1eebfa21154aa",
+      "reports": 3,
+      "seconds": 2.7778255420271307,
+      "source_sha256": "215a72a727dbac6c3d52aef622c48d9668155c870d4808f009204bfdab5e0794",
+      "source_signature": "b83d8734361751aca77123d0105461c7296ed807f16970e488e30548b4162513"
+    },
+    "BalanceSignLayout647": {
+      "object_sha256": "ef89cb3cc600eb325b6a78c7b37ea1c26220486ec2b44dc507d20156198a003e",
+      "peak_group_rss_bytes": 1767555072,
+      "receipt_sha256": "df11e7cb6f6b59faa99af317c489360da601dd776ebb5bffb5121cef30b7f059",
+      "reports": 2,
+      "seconds": 1.9638505420298316,
+      "source_sha256": "ae0487488a9466548a0cc067573e400aa81af292f3cecce1bf74463f69234c80",
+      "source_signature": "947577bbc01885e8659b2760b7b2bf7e9417063db1835a20c3d9e13856112693"
+    },
+    "BalanceSignRetained651": {
+      "object_sha256": "3a1d6d2d0fe0f109b0abb0e9c8c77c328cdf7c130ad13520ee3653ae639fc2ac",
+      "peak_group_rss_bytes": 2976268288,
+      "receipt_sha256": "ebe3c19347cd1aa92d1db21672566c07de9cc616a86113eb2ca142814724e711",
+      "reports": 13,
+      "seconds": 3.615429125027731,
+      "source_sha256": "5997bb0003865dbedeb08e26cbfd144b49a8b5eeeb51698ba78fc537e3acebcb",
+      "source_signature": "7d1f708643809bcc0a22440788bdbe766201b72c21856726baa930c773f97701"
+    },
+    "BalanceSignRow655": {
+      "object_sha256": "db0d87e8a25053543c128ea7918310d301c1baf812a12adee2b14b599bd774d9",
+      "peak_group_rss_bytes": 2953134080,
+      "receipt_sha256": "36c6a3532d80a9edff5db0dbfc7b30e19e8ec874e5f51dc64d636db1e43aafbc",
+      "reports": 1,
+      "seconds": 4.431225333013572,
+      "source_sha256": "02efc1b96e9c9c40de78acd2ad10b9930d1faef04a760a52071c1554e951db25",
+      "source_signature": "71b8d28528691239ac0289d0a62fca87e3e5acd87976a78a2d0a4b5973f47e0a"
+    },
+    "BalanceSignSemanticFrame650": {
+      "object_sha256": "4128586d6c4be9874c63fa99e3ce7b3f23e0f6b0cf083adb043090b63c156107",
+      "peak_group_rss_bytes": 2811904000,
+      "receipt_sha256": "df2aee88697af423068ded580109704e244ba3fafb0fd4a696cc1988189a0c3a",
+      "reports": 9,
+      "seconds": 3.0587762920185924,
+      "source_sha256": "2418f6b9d9196c80fb690170162698b7f8457e4d37e9f5d295ad105e4c8bc8fc",
+      "source_signature": "e78f0c9650409701642603d56469ff1d079676de111c8fe4a03bf07074132f4d"
+    },
+    "BalanceSignWordFrame648": {
+      "object_sha256": "12eb75b668d916d53a6d994ceaa9bd4edd8e68791419da7bac5de30131c188af",
+      "peak_group_rss_bytes": 2763177984,
+      "receipt_sha256": "75fce10c628ae8c3e0cee75f277cc112e450ea0ae283e11601a9160634d2845f",
+      "reports": 5,
+      "seconds": 3.0711973749566823,
+      "source_sha256": "40276ea0e40f468b033f0d4bb18f928ff695f6b15a96fe0f575388e990589ec5",
+      "source_signature": "305c0d1e6293b074ffb67e87e7b41b9308755306134f0169c0c8c50020c66715"
+    },
+    "BalanceWordValues653": {
+      "object_sha256": "b7dbaa856e0e1578bb80015ea7986fb0baff82648b5c9cc9799aefa184628e24",
+      "peak_group_rss_bytes": 2935275520,
+      "receipt_sha256": "af732bd25f3fad86b11a4f7271e836800392f14d59aa00e2d231500539e8c81d",
+      "reports": 1,
+      "seconds": 3.8984807080123574,
+      "source_sha256": "7233a3007c6a63dfa11b12c41f1cddb1d1c23be5681ad4e8bdbee1f0c5b72a42",
+      "source_signature": "ae35dc8a981dd689c21cf3301d410a4a46895da02703a32cc942f7b8725456de"
+    },
+    "OwnershipConstruction608": {
+      "object_sha256": "a5ccc88f59903befea28488eb0cc5786d9326f5b5fad145f5c84f269a28ec86d",
+      "peak_group_rss_bytes": 3057451008,
+      "receipt_sha256": "bdaac702cb31c7a341abeae596287d8e771c8f4c2f2934c38e4c7e092834856b",
+      "reports": 3,
+      "seconds": 4.468437250005081,
+      "source_sha256": "37b59cdccbc90f6563fc725ddb8727db7f9bf399e020025fa79dfaeba5380e15",
+      "source_signature": "f0376510ae00dcf00f5b833180b9ee524a07b6944f272f8bcd3f7dab806900d9"
+    }
+  },
+  "native_consequence": "OPEN",
+  "native_credit": 0,
+  "prior_evidence_sha256": "a6850488cc579cd562ab4ab5a7bf9a626f2e82ab55118de7e8f9066a8bcf0207",
+  "refresh_sha256": "b0bf5c17a8bba76650b88817085cf5602c72b8f338db75ad5166a30fab58708d",
+  "reports": 50,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Signed magnitude assertion21913 on one retained legal-input assignment, with derived negative flag, canonical amount and magnitude words, exact captured arithmetic and assertion rows, and preservation of the tier constructor. This does not establish the asset map, balance multiplication or public commitment. Full Transfer endpoints remain open.",
+  "status": "passed",
+  "total_legal_input_construction": "OPEN"
+}
