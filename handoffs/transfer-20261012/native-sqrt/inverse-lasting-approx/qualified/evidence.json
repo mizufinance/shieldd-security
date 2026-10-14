@@ -1,0 +1,225 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseMinWalk01.two_component_bounds_derive_the_exact_minimum_order : \u2200 (a b c d : Nat)\n  (left : @LE.le.{0} Nat instLENat a c) (right : @LE.le.{0} Nat instLENat b d),\n  @LE.le.{0} Nat instLENat (@Min.min.{0} Nat instMinNat a b) (@Min.min.{0} Nat instMinNat c d)",
+      "full_type_sha256": "8bbc5cfc8b18a96438a72b983ce12dfe5778accad47b5dc34e37e469d5274e1d",
+      "name": "ShielddSecurity.TransferBlstArmInverseMinWalk01.two_component_bounds_derive_the_exact_minimum_order"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseMinWalk01.every_original_factor_step_does_not_increase_its_natural_minimum : \u2200\n  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),\n  @LE.le.{0} Nat instLENat\n    (@Min.min.{0} Nat instMinNat\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a\n        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b\n        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)))\n    (@Min.min.{0} Nat instMinNat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))",
+      "full_type_sha256": "922c57d93300606f11571c954b6e6265c392a356744c65d64aededdc3dbc4396",
+      "name": "ShielddSecurity.TransferBlstArmInverseMinWalk01.every_original_factor_step_does_not_increase_its_natural_minimum"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseMinWalk01.every_symbolic_factor_walk_preserves_its_initial_natural_minimum_bound : \u2200\n  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),\n  @LE.le.{0} Nat instLENat\n    (@Min.min.{0} Nat instMinNat\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a\n        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b\n        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)))\n    (@Min.min.{0} Nat instMinNat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))",
+      "full_type_sha256": "d54cb6dac8d3ea5ff9e42d54f4bd06eaa56aecc4d476d02a2b848655fe5e6ba3",
+      "name": "ShielddSecurity.TransferBlstArmInverseMinWalk01.every_symbolic_factor_walk_preserves_its_initial_natural_minimum_bound"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseMinWalk01.symbolic_original_factor_walk_composes_at_any_prefix : \u2200\n  (before after : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),\n  @Eq.{1} ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors\n    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) before after) s)\n    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk after\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk before s))",
+      "full_type_sha256": "2d09d1ea194baa6df447745f076a4f796c67d38fa9f332e6942a9bc62194488c",
+      "name": "ShielddSecurity.TransferBlstArmInverseMinWalk01.symbolic_original_factor_walk_composes_at_any_prefix"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSmallApprox01.bounded_actual_value_and_scaled_error_derive_a_small_natural_approximation : \u2200\n  (actual : Int) (approx scale budget : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) scale)\n  (small :\n    @LE.le.{0} Nat instLENat (Int.natAbs actual)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale budget))\n  (error :\n    @LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) actual\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)\n            (@Nat.cast.{0} Int instNatCastInt approx))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale budget)),\n  @LE.le.{0} Nat instLENat approx\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) budget)",
+      "full_type_sha256": "fdbbb8f7c8c150836bec88fc285cc88a1c92808bf95b47bf6802e3ffc459a019",
+      "name": "ShielddSecurity.TransferBlstArmInverseSmallApprox01.bounded_actual_value_and_scaled_error_derive_a_small_natural_approximation"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSmallApprox01.original_first_mismatch_next_natural_approximation_is_at_most_two_to_32 : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have windows : Prod.{0, 0} UInt64 UInt64 :=\n    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;\n  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b));\n  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);\n  ShielddSecurity.TransferBlstArmInverseFirstMismatch01.sourceFirstControlMismatch count approximate actual \u2192\n    @LE.le.{0} Nat instLENat\n      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a\n        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n          approximate))\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))",
+      "full_type_sha256": "6537d58d796f5e23308ba0272bbc2d7d949273dc1c883c8b5490feefbcce2899",
+      "name": "ShielddSecurity.TransferBlstArmInverseSmallApprox01.original_first_mismatch_next_natural_approximation_is_at_most_two_to_32"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSmallApprox01.original_first_mismatch_preserves_a_small_natural_approximation_for_every_remaining_step : \u2200\n  (count remaining : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have windows : Prod.{0, 0} UInt64 UInt64 :=\n    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;\n  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b));\n  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);\n  ShielddSecurity.TransferBlstArmInverseFirstMismatch01.sourceFirstControlMismatch count approximate actual \u2192\n    @LE.le.{0} Nat instLENat\n      (@Min.min.{0} Nat instMinNat\n        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a\n          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n              remaining)\n            approximate))\n        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b\n          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n              remaining)\n            approximate)))\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))",
+      "full_type_sha256": "a244181bb18322764ad87ce47ff3e0f7137b93d3b94add374da5dbf9f1af3850",
+      "name": "ShielddSecurity.TransferBlstArmInverseSmallApprox01.original_first_mismatch_preserves_a_small_natural_approximation_for_every_remaining_step"
+    }
+  ],
+  "dependency_sources_verified": 339,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 112918,
+    "sha256": "7a40aa4923a44bb4f5db0cfff0f759292ddd19a613066a84dc809691f415cb32"
+  },
+  "modules": {
+    "TransferBlstArmInverseMinWalk01": {
+      "objects": [
+        {
+          "bytes": 46752,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-min-walk-20261014-03\\project\\ShielddSecurity\\TransferBlstArmInverseMinWalk01.olean",
+          "sha256": "32e139b9805cc8a343eed6ba46271a7724400de4b53bbb18412617311e029685"
+        }
+      ],
+      "peak_rss_bytes": 1055039488,
+      "plan_identity": {
+        "bytes": 194260,
+        "sha256": "2b2cb406065720a09ed686c5de2d1e5c9e5b3df1122bc1da13ca43ece6205f82"
+      },
+      "report": {
+        "bytes": 2924,
+        "path": "receipts/TransferBlstArmInverseMinWalk01.full-types-and-axioms.txt",
+        "sha256": "e224f1f8853efe32b329fb5daea474d80bcacd37ff41f84f38950f03d0d7b149"
+      },
+      "reports": 4,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Fresh symbolic natural-minimum monotonicity with reusable two-component minimum lemma, entire approximation-walk preservation and prefix composition. Actual quotient lasting bound, 31-bit progress and native execution remain separate.",
+      "seconds": 13.714276999999129,
+      "source": {
+        "bytes": 3363,
+        "sha256": "a391ad186d6165895f1c109d20aed88611113bc078cbfb11c68ebca96aafafff"
+      },
+      "source_closure_bound": 31
+    },
+    "TransferBlstArmInverseSmallApprox01": {
+      "objects": [
+        {
+          "bytes": 102344,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-small-approx-20261014-02\\project\\ShielddSecurity\\TransferBlstArmInverseSmallApprox01.olean",
+          "sha256": "94594cf3fa810f8845b6d85689d71d3a816eb3498c6b2052b873ab5aeedf4328"
+        }
+      ],
+      "peak_rss_bytes": 1057964032,
+      "plan_identity": {
+        "bytes": 209928,
+        "sha256": "7f409b70ac07e4b2aec798305ed70c8cc14f204ae0799ba9ec0a726dd368c514"
+      },
+      "report": {
+        "bytes": 7022,
+        "path": "receipts/TransferBlstArmInverseSmallApprox01.full-types-and-axioms.txt",
+        "sha256": "cee0efc7746634c074915a970cac65c54da2403c7a4fe819d669bacaea7e6997"
+      },
+      "reports": 3,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Fresh original first-mismatch next natural approximation bound and lasting natural approximation minimum at most2^32. Derives bound from actual next quotient and original prefix error. Lasting signed quotient, bitlength progress and native execution remain separate.",
+      "seconds": 13.65571519999503,
+      "source": {
+        "bytes": 5098,
+        "sha256": "f32c9248bd2604b88762a639911d964f498be4cae61d51ff3983503a18ee4f53"
+      },
+      "source_closure_bound": 32
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 7,
+  "object_provenance_inputs": {
+    "bytes": 1300,
+    "sha256": "9e2612feb9fb3ef59dca2095d20b960c33dea5d27ae21ded0b7504fdef33708f"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseMinWalk01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 264926,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-min-walk-20261014-03-owned-floor\\composition-review.json",
+        "sha256": "7ae5ac7637a0b349fb5c0bc5c9c621c77d4ff7bb9883e5535636d6bc4d1e5848"
+      },
+      "owned_imports": 34
+    },
+    "TransferBlstArmInverseSmallApprox01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 283901,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-small-approx-20261014-02-owned-floor\\composition-review.json",
+        "sha256": "d7931b9861e84ea440b034a7a15d1d29da89d436ab88e73b7921d05060ac22f7"
+      },
+      "owned_imports": 35
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "6c1859eb766eb3bbcfb47e38ee64d2ef5ffac9cb971ab903e5236ed397d42121"
+  },
+  "reports": 7,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 7595,
+    "sha256": "41d2a222dea7bdd06bb53e00daedb613d682478848aa0111e699e961cf1cc5a8"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Two source-model modules derive and preserve a small natural approximation coordinate after an original-input first mismatch. The minimum recurrence holds through all branches, and the first-mismatch consequence derives a coordinate at most 2^32 and preserves that bound through the remaining natural walk. Signed lasting bounds, 31-bit batch progress, native ISA/caller correspondence and full Transfer endpoints remain OPEN. No native execution or certification credit.",
+  "status": "passed"
+}
