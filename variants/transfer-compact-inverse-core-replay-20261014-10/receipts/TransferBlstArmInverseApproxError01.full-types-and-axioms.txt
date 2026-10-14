@@ -1,0 +1,117 @@
+ShielddSecurity.TransferBlstArmInverseApproxError01.original_high_window_and_low31_replacement_have_the_entire_remainder_equation : ∀
+  (value shift : Nat) (high low : UInt64)
+  (highWindow :
+    @Eq.{1} Nat (UInt64.toNat high)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+          (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat high)
+            (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) value
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) value
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))))
+'ShielddSecurity.TransferBlstArmInverseApproxError01.original_high_window_and_low31_replacement_have_the_entire_remainder_equation' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseApproxError01.symbolic_scaled_remainder_pair_is_strictly_below_the_combined_radix : ∀
+  (scale quotient remainder : Nat)
+  (quotientBound :
+    @LT.lt.{0} Nat instLTNat quotient (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))
+  (remainderBound : @LT.lt.{0} Nat instLTNat remainder scale),
+  @LT.lt.{0} Nat instLTNat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale quotient) remainder)
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale
+      (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))
+'ShielddSecurity.TransferBlstArmInverseApproxError01.symbolic_scaled_remainder_pair_is_strictly_below_the_combined_radix' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseApproxError01.symbolic_bounded_remainder_difference_has_strict_integer_magnitude : ∀
+  (actual expected upperRemainder lowerRemainder budget : Nat)
+  (conserved :
+    @Eq.{1} Nat (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) expected upperRemainder)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) actual lowerRemainder))
+  (upperBound : @LT.lt.{0} Nat instLTNat upperRemainder budget)
+  (lowerBound : @LT.lt.{0} Nat instLTNat lowerRemainder budget),
+  @LT.lt.{0} Nat instLTNat
+    (Int.natAbs
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Nat.cast.{0} Int instNatCastInt actual)
+        (@Nat.cast.{0} Int instNatCastInt expected)))
+    budget
+'ShielddSecurity.TransferBlstArmInverseApproxError01.symbolic_bounded_remainder_difference_has_strict_integer_magnitude' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseApproxError01.original_low31_replacement_has_strict_initial_scaled_integer_error : ∀
+  (value shift : Nat) (high low : UInt64)
+  (highWindow :
+    @Eq.{1} Nat (UInt64.toNat high)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))),
+  @LT.lt.{0} Nat instLTNat
+    (Int.natAbs
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Nat.cast.{0} Int instNatCastInt value)
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+            (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low)))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))
+'ShielddSecurity.TransferBlstArmInverseApproxError01.original_low31_replacement_has_strict_initial_scaled_integer_error' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseApproxError01.original_width_normalization_has_the_exact_initial_error_radix : ∀
+  (width : Nat) (wide : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) width),
+  @Eq.{1} Nat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) width
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) width
+        (@OfNat.ofNat.{0} Nat (nat_lit 33) (instOfNatNat (nat_lit 33)))))
+'ShielddSecurity.TransferBlstArmInverseApproxError01.original_width_normalization_has_the_exact_initial_error_radix' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseApproxError01.original_common_width_high_window_derives_the_paper_initial_error_bound : ∀
+  (value width : Nat) (high low : UInt64)
+  (wide : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) width)
+  (highWindow :
+    @Eq.{1} Nat (UInt64.toNat high)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) width
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))))),
+  @LT.lt.{0} Nat instLTNat
+    (Int.natAbs
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Nat.cast.{0} Int instNatCastInt value)
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) width
+                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))))
+            (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low)))))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) width
+        (@OfNat.ofNat.{0} Nat (nat_lit 33) (instOfNatNat (nat_lit 33)))))
+'ShielddSecurity.TransferBlstArmInverseApproxError01.original_common_width_high_window_derives_the_paper_initial_error_bound' depends on axioms: [propext,
+ Quot.sound]
