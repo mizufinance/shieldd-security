@@ -74,6 +74,11 @@ for record in review['packets']:
  if name=='TransferBlstArmInverseErrorRows01':
   old=old.replace('_ = ((2:Int)^count)*actual-scale*(((2:Int)^count)*approx) := by ring','_ = ((2:Int)^count)*actual-scale*(((2:Int)^count)*approx) := by simp only [Int.mul_sub, Int.mul_left_comm]')
   old=old.replace('_ = _ := by rw [actualRow,approxRow]; ring','_ = _ := by\n        rw [actualRow,approxRow,Int.sub_mul,Int.sub_mul,Int.mul_add]\n        simp only [Int.mul_comm, Int.mul_left_comm]\n        omega')
+ if name=='TransferBlstArmInverseWindowPrefix01':
+  old=old.replace('import ShielddSecurity.TransferBlstArmInverseWindowSelect01\n','import ShielddSecurity.TransferBlstArmInverseWindowSelect01\nimport Mathlib.Tactic.Ring.Basic\n')
+  old=old.replace('Nat.mul_zero, add_zero, pow_two]\n    ring','Nat.mul_zero, Nat.add_zero, Nat.pow_two]\n    simp only [Nat.mul_add, Nat.mul_assoc, Nat.add_assoc, Nat.add_comm]')
+  old=old.replace('Nat.mul_zero, add_zero]\n    ring','Nat.mul_zero, Nat.add_zero]\n    ring1').replace('not_ne_iff.mp','Classical.not_not.mp').replace('simpa only [one_mul, add_zero]','simpa only [Nat.one_mul, Nat.add_zero]')
+ if name=='TransferBlstArmInverseWindowJoint01':old=old.replace('not_ne_iff.mp','Classical.not_not.mp')
  if name in ['TransferBlstArmInverseFactors01','TransferBlstArmInverseApproxBits01']:
   old=old.replace('#check @ShielddSecurity.'+name+'.','#check @').replace('#print axioms ShielddSecurity.'+name+'.','#print axioms ')
  assert old==source.decode().replace('\r\n','\n'),name
@@ -96,7 +101,7 @@ for record in review['packets']:
   reports.append(dict(name=declaration,full_type=full,**actual));left=left[:m.start()]+left[m.end():]
  assert not left.strip();modules[name]=dict(source=ident(source),audits=len(checks),seconds=result['seconds'],peak_rss_bytes=result['peak_rss_bytes'],report=ident(raw),objects=result['objects']);owned[name]=modules[name]
  packets.append(dict(packet=record['packet'],manifest=record['manifest'],external_modules=len(external['modules']),external_file_identities=len(external['immutable_files']),owned_imports=len(floor['selected'])))
-assert len(modules)==8 and len(reports)==36
+assert len(modules)==10 and len(reports)==44
 pending=out.with_name(out.name+'.pending');assert not pending.exists();pending.mkdir()
 for name,b in sources.items():p=pending/'source/ShielddSecurity'/(name+'.lean');p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
 evidence=dict(status='passed',runtime_sha=review['runtime_sha'],transport_commit=review['transport_commit'],modules=modules,reports=len(reports),complete_types_and_axioms=reports,independent_baseline_matches=len(reports),packets=packets,legacy_owned_objects_reused=False,source_contracts_unchanged=True,seconds=seconds,scope=review['scope'],baseline_review=ident((root/'baseline-review.json').read_bytes()),refresh=ident(Path(__file__).read_bytes()),full_transfer='OPEN',native_credit=0,new_cumulative_credit=0,certification=False)
