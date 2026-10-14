@@ -1,7 +1,7 @@
 {
   "baseline_review": {
-    "bytes": 10175,
-    "sha256": "b0eda1d7fc9edd0c560a07bc4bb92ea9141debed7c47efae0bbe75e6247d3a59"
+    "bytes": 13399,
+    "sha256": "58afe511536e88fd92170ee4e68297dc651c64017661646d66c1bb978fc169d7"
   },
   "certification": false,
   "complete_types_and_axioms": [
@@ -433,10 +433,116 @@
       "full_type": "ShielddSecurity.TransferBlstArmInversePrefixError01.original_entire_input_factor_prefixes_preserve_both_initial_window_error_bounds : \u2200\n  (count shift : Nat) (highA lowA highB lowB : UInt64) (restA restB : List.{0} UInt64)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat lowB)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n  (highWindowA :\n    @Eq.{1} Nat (UInt64.toNat highA)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))\n  (highWindowB :\n    @Eq.{1} Nat (UInt64.toNat highB)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))),\n  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB));\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB)\n      (@Nat.cast.{0} Int instNatCastInt\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA)))\n      (@Nat.cast.{0} Int instNatCastInt\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB)));\n  And\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.fst.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.snd.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))",
       "full_type_sha256": "4e7a4fe60010d41df76997e26cb76816a1004f622c81e595ac0529745e23ac82",
       "name": "ShielddSecurity.TransferBlstArmInversePrefixError01.original_entire_input_factor_prefixes_preserve_both_initial_window_error_bounds"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowError01.original_source_produced_four_word_windows_derive_both_factor_prefix_error_bounds : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have windows : Prod.{0, 0} UInt64 UInt64 :=\n    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;\n  have shift : Nat := ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b;\n  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b)));\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  And\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.fst.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.snd.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))",
+      "full_type_sha256": "2f2129357e94ce87e2bf72726d4639f63687c948cdc544e169ca35fab4fd2623",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowError01.original_source_produced_four_word_windows_derive_both_factor_prefix_error_bounds"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.sourceWindowLow31Word : (high low : UInt64) \u2192 UInt64",
+      "full_type_sha256": "7a7bdad8ecfbbf4b49bf1a414523daadcd05419c1c4d9679411e31edb31bf4b5",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.sourceWindowLow31Word"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_high33_fragment_has_the_exact_unsigned_quotient : \u2200\n  (high : UInt64),\n  @Eq.{1} Nat\n    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 33) (instOfNatNat (nat_lit 33)))\n      (@BitVec.extractLsb' (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 33) (instOfNatNat (nat_lit 33))) (UInt64.toBitVec high)))\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat high)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))",
+      "full_type_sha256": "26fe682f41dfdd5738cbc24827df010c0f3a1618580c08ed35651d9e9b2d7242",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_high33_fragment_has_the_exact_unsigned_quotient"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_low31_fragment_has_the_exact_original_remainder : \u2200\n  (low : UInt64),\n  @Eq.{1} Nat\n    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))\n      (@BitVec.extractLsb' (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) (UInt64.toBitVec low)))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))",
+      "full_type_sha256": "98c8f64223a938a0e8ce22768315505077c430b48fdaf63850eaa7f20cfbff7e",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_low31_fragment_has_the_exact_original_remainder"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_typed_low31_bitfield_replacement_has_its_entire_nat_value : \u2200\n  (high low : UInt64),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowBfxil01.sourceWindowLow31Word high low))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat high)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))))",
+      "full_type_sha256": "dbbcd6e4ff5053023d546af5d9de6c5a251986618c231f8a951661af862b7df5",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_typed_low31_bitfield_replacement_has_its_entire_nat_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_typed_low31_bitfield_replacement_preserves_all_original_low_bits : \u2200\n  (high low : UInt64),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowBfxil01.sourceWindowLow31Word high low))\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))",
+      "full_type_sha256": "c4f461d56f98e4336132c5938ea68c108ab084a76d789062ec190eccad78220e",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_typed_low31_bitfield_replacement_preserves_all_original_low_bits"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_entire_low31_replacement_value_fits_its_unsigned_word : \u2200\n  (high low : UInt64),\n  @LT.lt.{0} Nat instLTNat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat high)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))))\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))",
+      "full_type_sha256": "0ddc0b111cd78edb9b01eaed3888ae8325457c6527dcf998faa40ea92a262f2b",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxil01.original_entire_low31_replacement_value_fits_its_unsigned_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxilBridge01.original_typed_bfxil_word_observation_is_the_existing_low31_approximation : \u2200\n  (high low : UInt64),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowBfxil01.sourceWindowLow31Word high low))\n    (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low)",
+      "full_type_sha256": "df63f64f8a8cf7b3dbd958bb93d4e70215e01b8b871e553a4311f0ea323465e9",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxilBridge01.original_typed_bfxil_word_observation_is_the_existing_low31_approximation"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowBfxilBridge01.original_typed_bfxil_approximation_retains_oddness_from_the_original_low_word : \u2200\n  (high low : UInt64)\n  (odd :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat low)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowBfxil01.sourceWindowLow31Word high low))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))",
+      "full_type_sha256": "c0fb72e5ba6c7dceb6ba0c2b5e2e08b0f43fd47d5f174bb21043acaa93e21697",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowBfxilBridge01.original_typed_bfxil_approximation_retains_oddness_from_the_original_low_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  Prod.{0, 0} UInt64 UInt64",
+      "full_type_sha256": "a735907022fc765f664feacba2d87aeae4292deb757cac2660b0afbf2e615ed0",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_approximation_words_have_the_existing_model_observations : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),\n  And\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords a b)))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a)))\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (@Prod.snd.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords a b)))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.snd.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b)))",
+      "full_type_sha256": "db0635dff829ca7fa6b4bf79380a143f49a9c4a356934984cf4de9122b6e5d08",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_approximation_words_have_the_existing_model_observations"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_word_producer_derives_both_entire_input_factor_prefix_error_bounds : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have approximation : Prod.{0, 0} UInt64 UInt64 :=\n    ShielddSecurity.TransferBlstArmInverseWindowReturned01.sourceFourWordApproximationWords a b;\n  have shift : Nat := ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b;\n  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n        (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 approximation))\n        (UInt64.toNat (@Prod.snd.{0, 0} UInt64 UInt64 approximation)));\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count\n      (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 approximation))\n      (UInt64.toNat (@Prod.snd.{0, 0} UInt64 UInt64 approximation))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  And\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.fst.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.snd.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))",
+      "full_type_sha256": "22ab7e14b5dca5afe0f9add0d05533a1e5753053276a50a5c137ba6668985c81",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowReturned01.original_returned_word_producer_derives_both_entire_input_factor_prefix_error_bounds"
     }
   ],
   "full_transfer": "OPEN",
-  "independent_baseline_matches": 51,
+  "independent_baseline_matches": 63,
   "legacy_owned_objects_reused": false,
   "modules": {
     "TransferBlstArmInverseApproxBits01": {
@@ -495,6 +601,26 @@
         {
           "bytes": 33704,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxBits01.olean",
+          "sha256": "d6519d3b45a0fb8375384f619efdd45a3180175229a8c91a40297b313c37a607"
+        },
+        {
+          "bytes": 33704,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxBits01.olean",
+          "sha256": "d6519d3b45a0fb8375384f619efdd45a3180175229a8c91a40297b313c37a607"
+        },
+        {
+          "bytes": 33704,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxBits01.olean",
+          "sha256": "d6519d3b45a0fb8375384f619efdd45a3180175229a8c91a40297b313c37a607"
+        },
+        {
+          "bytes": 33704,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxBits01.olean",
+          "sha256": "d6519d3b45a0fb8375384f619efdd45a3180175229a8c91a40297b313c37a607"
+        },
+        {
+          "bytes": 33704,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxBits01.olean",
           "sha256": "d6519d3b45a0fb8375384f619efdd45a3180175229a8c91a40297b313c37a607"
         }
       ],
@@ -556,6 +682,26 @@
           "bytes": 174032,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxError01.olean",
           "sha256": "c3b4cef194023675cb080640b18962be5bd75838b6d89f89a267fc2fc086637a"
+        },
+        {
+          "bytes": 174032,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxError01.olean",
+          "sha256": "c3b4cef194023675cb080640b18962be5bd75838b6d89f89a267fc2fc086637a"
+        },
+        {
+          "bytes": 174032,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxError01.olean",
+          "sha256": "c3b4cef194023675cb080640b18962be5bd75838b6d89f89a267fc2fc086637a"
+        },
+        {
+          "bytes": 174032,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxError01.olean",
+          "sha256": "c3b4cef194023675cb080640b18962be5bd75838b6d89f89a267fc2fc086637a"
+        },
+        {
+          "bytes": 174032,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxError01.olean",
+          "sha256": "c3b4cef194023675cb080640b18962be5bd75838b6d89f89a267fc2fc086637a"
         }
       ],
       "peak_rss_bytes": 577134592,
@@ -611,6 +757,26 @@
           "bytes": 116120,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxInput01.olean",
           "sha256": "4da39615c00ac5eb8dc906b35bb7d615bccf8fa9f7a094d8514f33b2278f2243"
+        },
+        {
+          "bytes": 116120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxInput01.olean",
+          "sha256": "4da39615c00ac5eb8dc906b35bb7d615bccf8fa9f7a094d8514f33b2278f2243"
+        },
+        {
+          "bytes": 116120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxInput01.olean",
+          "sha256": "4da39615c00ac5eb8dc906b35bb7d615bccf8fa9f7a094d8514f33b2278f2243"
+        },
+        {
+          "bytes": 116120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxInput01.olean",
+          "sha256": "4da39615c00ac5eb8dc906b35bb7d615bccf8fa9f7a094d8514f33b2278f2243"
+        },
+        {
+          "bytes": 116120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxInput01.olean",
+          "sha256": "4da39615c00ac5eb8dc906b35bb7d615bccf8fa9f7a094d8514f33b2278f2243"
         }
       ],
       "peak_rss_bytes": 1017434112,
@@ -661,6 +827,26 @@
           "bytes": 54880,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxRows01.olean",
           "sha256": "90f7d003c60db3c0dd236c7a232fcdf45d9f9b7fa6b3704725307041ea008a8b"
+        },
+        {
+          "bytes": 54880,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxRows01.olean",
+          "sha256": "90f7d003c60db3c0dd236c7a232fcdf45d9f9b7fa6b3704725307041ea008a8b"
+        },
+        {
+          "bytes": 54880,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxRows01.olean",
+          "sha256": "90f7d003c60db3c0dd236c7a232fcdf45d9f9b7fa6b3704725307041ea008a8b"
+        },
+        {
+          "bytes": 54880,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxRows01.olean",
+          "sha256": "90f7d003c60db3c0dd236c7a232fcdf45d9f9b7fa6b3704725307041ea008a8b"
+        },
+        {
+          "bytes": 54880,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseApproxRows01.olean",
+          "sha256": "90f7d003c60db3c0dd236c7a232fcdf45d9f9b7fa6b3704725307041ea008a8b"
         }
       ],
       "peak_rss_bytes": 1009565696,
@@ -700,6 +886,26 @@
         {
           "bytes": 114744,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseErrorRows01.olean",
+          "sha256": "569fecb2fc3b2e63bb39ac786472c1975bfe462226a945d97e103c4410f722d8"
+        },
+        {
+          "bytes": 114744,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseErrorRows01.olean",
+          "sha256": "569fecb2fc3b2e63bb39ac786472c1975bfe462226a945d97e103c4410f722d8"
+        },
+        {
+          "bytes": 114744,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseErrorRows01.olean",
+          "sha256": "569fecb2fc3b2e63bb39ac786472c1975bfe462226a945d97e103c4410f722d8"
+        },
+        {
+          "bytes": 114744,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseErrorRows01.olean",
+          "sha256": "569fecb2fc3b2e63bb39ac786472c1975bfe462226a945d97e103c4410f722d8"
+        },
+        {
+          "bytes": 114744,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseErrorRows01.olean",
           "sha256": "569fecb2fc3b2e63bb39ac786472c1975bfe462226a945d97e103c4410f722d8"
         }
       ],
@@ -776,6 +982,26 @@
           "bytes": 380256,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseFactors01.olean",
           "sha256": "83a4cc5148c36972a135f0867ee275c6073b519f2a67c8c669b9bf29ac25560a"
+        },
+        {
+          "bytes": 380256,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseFactors01.olean",
+          "sha256": "83a4cc5148c36972a135f0867ee275c6073b519f2a67c8c669b9bf29ac25560a"
+        },
+        {
+          "bytes": 380256,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseFactors01.olean",
+          "sha256": "83a4cc5148c36972a135f0867ee275c6073b519f2a67c8c669b9bf29ac25560a"
+        },
+        {
+          "bytes": 380256,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseFactors01.olean",
+          "sha256": "83a4cc5148c36972a135f0867ee275c6073b519f2a67c8c669b9bf29ac25560a"
+        },
+        {
+          "bytes": 380256,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseFactors01.olean",
+          "sha256": "83a4cc5148c36972a135f0867ee275c6073b519f2a67c8c669b9bf29ac25560a"
         }
       ],
       "peak_rss_bytes": 602218496,
@@ -841,6 +1067,26 @@
           "bytes": 148456,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseNorm01.olean",
           "sha256": "a27a9880f44b43c78531e7021029d29ab426a9c35ae0739d4d764c4080e2e6ec"
+        },
+        {
+          "bytes": 148456,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseNorm01.olean",
+          "sha256": "a27a9880f44b43c78531e7021029d29ab426a9c35ae0739d4d764c4080e2e6ec"
+        },
+        {
+          "bytes": 148456,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseNorm01.olean",
+          "sha256": "a27a9880f44b43c78531e7021029d29ab426a9c35ae0739d4d764c4080e2e6ec"
+        },
+        {
+          "bytes": 148456,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseNorm01.olean",
+          "sha256": "a27a9880f44b43c78531e7021029d29ab426a9c35ae0739d4d764c4080e2e6ec"
+        },
+        {
+          "bytes": 148456,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseNorm01.olean",
+          "sha256": "a27a9880f44b43c78531e7021029d29ab426a9c35ae0739d4d764c4080e2e6ec"
         }
       ],
       "peak_rss_bytes": 570990592,
@@ -886,6 +1132,26 @@
           "bytes": 67608,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixDiv01.olean",
           "sha256": "dd820317e2604f09bf81cff966a1d04ba0f22214bbe4669011595d3ab8b6ffa0"
+        },
+        {
+          "bytes": 67608,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixDiv01.olean",
+          "sha256": "dd820317e2604f09bf81cff966a1d04ba0f22214bbe4669011595d3ab8b6ffa0"
+        },
+        {
+          "bytes": 67608,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixDiv01.olean",
+          "sha256": "dd820317e2604f09bf81cff966a1d04ba0f22214bbe4669011595d3ab8b6ffa0"
+        },
+        {
+          "bytes": 67608,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixDiv01.olean",
+          "sha256": "dd820317e2604f09bf81cff966a1d04ba0f22214bbe4669011595d3ab8b6ffa0"
+        },
+        {
+          "bytes": 67608,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixDiv01.olean",
+          "sha256": "dd820317e2604f09bf81cff966a1d04ba0f22214bbe4669011595d3ab8b6ffa0"
         }
       ],
       "peak_rss_bytes": 1008041984,
@@ -906,6 +1172,26 @@
           "bytes": 29664,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\project\\ShielddSecurity\\TransferBlstArmInversePrefixError01.olean",
           "sha256": "227d82175252a6882bd8cc98c946e48a4d03bad862dfb2eed86d8edcff1aaf3f"
+        },
+        {
+          "bytes": 29664,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixError01.olean",
+          "sha256": "227d82175252a6882bd8cc98c946e48a4d03bad862dfb2eed86d8edcff1aaf3f"
+        },
+        {
+          "bytes": 29664,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixError01.olean",
+          "sha256": "227d82175252a6882bd8cc98c946e48a4d03bad862dfb2eed86d8edcff1aaf3f"
+        },
+        {
+          "bytes": 29664,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixError01.olean",
+          "sha256": "227d82175252a6882bd8cc98c946e48a4d03bad862dfb2eed86d8edcff1aaf3f"
+        },
+        {
+          "bytes": 29664,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInversePrefixError01.olean",
+          "sha256": "227d82175252a6882bd8cc98c946e48a4d03bad862dfb2eed86d8edcff1aaf3f"
         }
       ],
       "peak_rss_bytes": 1002221568,
@@ -919,6 +1205,96 @@
         "sha256": "a84cac3928b865efb5a30805f457c948a22743c14189ae9b3059c7561f76dd23"
       }
     },
+    "TransferBlstArmInverseWindowBfxil01": {
+      "audits": 6,
+      "objects": [
+        {
+          "bytes": 51640,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\project\\ShielddSecurity\\TransferBlstArmInverseWindowBfxil01.olean",
+          "sha256": "d5523a58944d8b4625ca94266b76da6c9f4657415986c08f19da803629bb1c91"
+        },
+        {
+          "bytes": 51640,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowBfxil01.olean",
+          "sha256": "d5523a58944d8b4625ca94266b76da6c9f4657415986c08f19da803629bb1c91"
+        },
+        {
+          "bytes": 51640,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowBfxil01.olean",
+          "sha256": "d5523a58944d8b4625ca94266b76da6c9f4657415986c08f19da803629bb1c91"
+        }
+      ],
+      "peak_rss_bytes": 417091584,
+      "report": {
+        "bytes": 6431,
+        "sha256": "030946fd46edc64dc8dfd5574041c38ad1992cd3ee5ec6d135f712d7ad6933c8"
+      },
+      "seconds": 3.696110299999418,
+      "source": {
+        "bytes": 3641,
+        "sha256": "3abd59dd3aba0f514f5c384a8d382c1cfb0b55f58afc37343a84280f7dfabc7d"
+      }
+    },
+    "TransferBlstArmInverseWindowBfxilBridge01": {
+      "audits": 2,
+      "objects": [
+        {
+          "bytes": 20488,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\project\\ShielddSecurity\\TransferBlstArmInverseWindowBfxilBridge01.olean",
+          "sha256": "ed0932ccded93b74d08ee1a1ea235ae42282e75727fc690508fd1764739b3fc5"
+        },
+        {
+          "bytes": 20488,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowBfxilBridge01.olean",
+          "sha256": "ed0932ccded93b74d08ee1a1ea235ae42282e75727fc690508fd1764739b3fc5"
+        }
+      ],
+      "peak_rss_bytes": 564088832,
+      "report": {
+        "bytes": 1461,
+        "sha256": "5bc1040155ca338894211898622c99cee28d817565a3fc4fd5c40f802b39601e"
+      },
+      "seconds": 5.846333399997093,
+      "source": {
+        "bytes": 1850,
+        "sha256": "52ef135d20afd4fcb44206f94ea5d184fb0c75be50e18872d6e973dbaaaffa24"
+      }
+    },
+    "TransferBlstArmInverseWindowError01": {
+      "audits": 1,
+      "objects": [
+        {
+          "bytes": 22600,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\project\\ShielddSecurity\\TransferBlstArmInverseWindowError01.olean",
+          "sha256": "75baf1f12b62cdd1c981a402f7d2be05398ae72a34461d7bae1710c61887b0aa"
+        },
+        {
+          "bytes": 22600,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowError01.olean",
+          "sha256": "75baf1f12b62cdd1c981a402f7d2be05398ae72a34461d7bae1710c61887b0aa"
+        },
+        {
+          "bytes": 22600,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowError01.olean",
+          "sha256": "75baf1f12b62cdd1c981a402f7d2be05398ae72a34461d7bae1710c61887b0aa"
+        },
+        {
+          "bytes": 22600,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowError01.olean",
+          "sha256": "75baf1f12b62cdd1c981a402f7d2be05398ae72a34461d7bae1710c61887b0aa"
+        }
+      ],
+      "peak_rss_bytes": 1049632768,
+      "report": {
+        "bytes": 4467,
+        "sha256": "91eb7c65180e4a9a2dfa6dbdde732c16bb575c4ca866dbc15c2145059f80d816"
+      },
+      "seconds": 13.53226700000232,
+      "source": {
+        "bytes": 2673,
+        "sha256": "2ac3101e7e2962121e73f57217ceba436b80afdb2f5447df908d831305e7949d"
+      }
+    },
     "TransferBlstArmInverseWindowInput01": {
       "audits": 6,
       "objects": [
@@ -930,6 +1306,26 @@
         {
           "bytes": 98120,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowInput01.olean",
+          "sha256": "5ada48aa3e7bc42d5f22b34ec970bbd91e422bc4874ca0d0a7f4ffbd56a6e6e7"
+        },
+        {
+          "bytes": 98120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowInput01.olean",
+          "sha256": "5ada48aa3e7bc42d5f22b34ec970bbd91e422bc4874ca0d0a7f4ffbd56a6e6e7"
+        },
+        {
+          "bytes": 98120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowInput01.olean",
+          "sha256": "5ada48aa3e7bc42d5f22b34ec970bbd91e422bc4874ca0d0a7f4ffbd56a6e6e7"
+        },
+        {
+          "bytes": 98120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowInput01.olean",
+          "sha256": "5ada48aa3e7bc42d5f22b34ec970bbd91e422bc4874ca0d0a7f4ffbd56a6e6e7"
+        },
+        {
+          "bytes": 98120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowInput01.olean",
           "sha256": "5ada48aa3e7bc42d5f22b34ec970bbd91e422bc4874ca0d0a7f4ffbd56a6e6e7"
         }
       ],
@@ -960,6 +1356,26 @@
         {
           "bytes": 42848,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowJoint01.olean",
+          "sha256": "99651f6385694a474680441aea0e76af32b67c9ecd4b6bb0778131ba0f396edd"
+        },
+        {
+          "bytes": 42848,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowJoint01.olean",
+          "sha256": "99651f6385694a474680441aea0e76af32b67c9ecd4b6bb0778131ba0f396edd"
+        },
+        {
+          "bytes": 42848,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowJoint01.olean",
+          "sha256": "99651f6385694a474680441aea0e76af32b67c9ecd4b6bb0778131ba0f396edd"
+        },
+        {
+          "bytes": 42848,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowJoint01.olean",
+          "sha256": "99651f6385694a474680441aea0e76af32b67c9ecd4b6bb0778131ba0f396edd"
+        },
+        {
+          "bytes": 42848,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowJoint01.olean",
           "sha256": "99651f6385694a474680441aea0e76af32b67c9ecd4b6bb0778131ba0f396edd"
         }
       ],
@@ -996,6 +1412,26 @@
           "bytes": 99424,
           "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-30\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowPrefix01.olean",
           "sha256": "a914b591b71c6b0ab25e4181cb9433da0f2f680769138e681bf87e592e81a174"
+        },
+        {
+          "bytes": 99424,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-31\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowPrefix01.olean",
+          "sha256": "a914b591b71c6b0ab25e4181cb9433da0f2f680769138e681bf87e592e81a174"
+        },
+        {
+          "bytes": 99424,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-32\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowPrefix01.olean",
+          "sha256": "a914b591b71c6b0ab25e4181cb9433da0f2f680769138e681bf87e592e81a174"
+        },
+        {
+          "bytes": 99424,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-33\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowPrefix01.olean",
+          "sha256": "a914b591b71c6b0ab25e4181cb9433da0f2f680769138e681bf87e592e81a174"
+        },
+        {
+          "bytes": 99424,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\owned-floor\\modules\\ShielddSecurity\\TransferBlstArmInverseWindowPrefix01.olean",
+          "sha256": "a914b591b71c6b0ab25e4181cb9433da0f2f680769138e681bf87e592e81a174"
         }
       ],
       "peak_rss_bytes": 1063067648,
@@ -1007,6 +1443,26 @@
       "source": {
         "bytes": 6010,
         "sha256": "13f1c05a97d17048b0033d776c8db370e64ce45abbb7002e6e47c59a69c61179"
+      }
+    },
+    "TransferBlstArmInverseWindowReturned01": {
+      "audits": 3,
+      "objects": [
+        {
+          "bytes": 40096,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-compact-inverse-core-replay-20261014-35\\project\\ShielddSecurity\\TransferBlstArmInverseWindowReturned01.olean",
+          "sha256": "fb39381820019eef32c1566244c5990b4984438694499c66dce160c88c6eb80f"
+        }
+      ],
+      "peak_rss_bytes": 1051181056,
+      "report": {
+        "bytes": 5646,
+        "sha256": "1f27937bf3ef16f3a69920ffdbb51a0abbd5958afaaeb121865340e6d436ede0"
+      },
+      "seconds": 13.597375599994848,
+      "source": {
+        "bytes": 3617,
+        "sha256": "98ab8d082af0be83ab17535182e7a1c4514c11771f184d86822d13f629d7786c"
       }
     }
   },
@@ -1132,17 +1588,57 @@
       },
       "owned_imports": 19,
       "packet": "transfer-compact-inverse-core-replay-20261014-30"
+    },
+    {
+      "external_file_identities": 16111,
+      "external_modules": 2794,
+      "manifest": {
+        "bytes": 4042,
+        "sha256": "7177d0dce885d0382bad4cf47b8b5f1e8dd62ba95d24fc213b35047e1b5f115f"
+      },
+      "owned_imports": 20,
+      "packet": "transfer-compact-inverse-core-replay-20261014-31"
+    },
+    {
+      "external_file_identities": 16111,
+      "external_modules": 2794,
+      "manifest": {
+        "bytes": 4043,
+        "sha256": "fe8b39bb93ce165b5a9fdbf834f36660315c26875dc526deeb99e3b133bb6f20"
+      },
+      "owned_imports": 21,
+      "packet": "transfer-compact-inverse-core-replay-20261014-32"
+    },
+    {
+      "external_file_identities": 16111,
+      "external_modules": 2794,
+      "manifest": {
+        "bytes": 4060,
+        "sha256": "f8b85ef49da058588c1c8af1deef4d791d682adec464bd71ab643004e11e97c0"
+      },
+      "owned_imports": 22,
+      "packet": "transfer-compact-inverse-core-replay-20261014-33"
+    },
+    {
+      "external_file_identities": 16111,
+      "external_modules": 2794,
+      "manifest": {
+        "bytes": 4052,
+        "sha256": "384b8989dd27a319eb557729803e82f91dcf9ffd4846ed328d5553f1fed0929c"
+      },
+      "owned_imports": 23,
+      "packet": "transfer-compact-inverse-core-replay-20261014-35"
     }
   ],
   "refresh": {
     "bytes": 13076,
-    "sha256": "1b1325dfe6eb88c6ece6abe65d8fb2f4cba76be2c9a639efc50764183d452adc"
+    "sha256": "3930d01848a81016c7cf6904f6d4c5110ddda6757697d2f219126e5e0158ce2d"
   },
-  "reports": 51,
+  "reports": 63,
   "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
-  "scope": "Twelve compact core replacements on the accepted packing boundary; identical original theorem types and axiom sets, no cumulative or native credit. Affected importers must be freshly compiled.",
-  "seconds": 118.85173119999672,
+  "scope": "Sixteen compact core replacements on the accepted packing boundary; identical original theorem types and axiom sets, no cumulative or native credit. Affected importers must be freshly compiled.",
+  "seconds": 155.5238174999904,
   "source_contracts_unchanged": true,
   "status": "passed",
-  "transport_commit": "ea4d761fc1b2d983f3bb01887768370db64857fb"
+  "transport_commit": "a30c5ea87130aa57dd6e4aa717e6c9a734d56c05"
 }
