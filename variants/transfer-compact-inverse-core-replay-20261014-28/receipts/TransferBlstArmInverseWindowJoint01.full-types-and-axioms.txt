@@ -1,0 +1,59 @@
+ShielddSecurity.TransferBlstArmInverseWindowJoint01.original_joint_clz_count_is_64_exactly_when_the_joint_high_word_is_zero : ∀
+  (highA highB : UInt64),
+  Iff
+    (@Eq.{1} Nat
+      (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+        (@BitVec.clz (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+          (UInt64.toBitVec
+            (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+    (@Eq.{1} UInt64 (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB)
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseWindowJoint01.original_joint_clz_count_is_64_exactly_when_the_joint_high_word_is_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowJoint01.original_nonzero_joint_high_window_retains_the_selected_high_words_and_raw_clz : ∀
+  (highA highB lowA lowB : UInt64)
+  (nonzero :
+    @Ne.{1} UInt64 (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB)
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),
+  @Eq.{1} ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow
+    (ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow highA highB lowA lowB)
+    (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.mk highA highB
+      (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+        (@BitVec.clz (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))
+          (UInt64.toBitVec
+            (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB)))))
+'ShielddSecurity.TransferBlstArmInverseWindowJoint01.original_nonzero_joint_high_window_retains_the_selected_high_words_and_raw_clz' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowJoint01.original_selected_joint_window_is_zero_exactly_when_all_original_upper_joint_words_are_zero : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  have selected : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters :=
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b;
+  Iff
+    (@Eq.{1} UInt64
+      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highA selected)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highB selected))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+    (And
+      (@Eq.{1} UInt64
+        (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 a)
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 b))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+      (And
+        (@Eq.{1} UInt64
+          (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)
+            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 b))
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+        (@Eq.{1} UInt64
+          (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 a)
+            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 b))
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+'ShielddSecurity.TransferBlstArmInverseWindowJoint01.original_selected_joint_window_is_zero_exactly_when_all_original_upper_joint_words_are_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
