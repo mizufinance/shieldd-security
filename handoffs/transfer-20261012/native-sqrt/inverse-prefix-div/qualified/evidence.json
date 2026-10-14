@@ -1,0 +1,80 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_low31_radix_is_an_exact_multiple_of_each_prefix_radix : \u2200\n  (count : Nat)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))),\n  @Eq.{1} Int (@OfNat.ofNat.{0} Int (nat_lit 2147483648) (@instOfNat (nat_lit 2147483648)))\n    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)))",
+      "full_type_sha256": "8c486ea306db0551aa27f709a8a788d6fa1fc92efa129d838bcf66147a780759",
+      "name": "ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_low31_radix_is_an_exact_multiple_of_each_prefix_radix"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_full_low31_input_lift_derives_an_exact_lift_for_every_prefix : \u2200\n  (count approx : Nat) (input delta : Int)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (lifted :\n    @Eq.{1} Int input\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) (@Nat.cast.{0} Int instNatCastInt approx)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (@OfNat.ofNat.{0} Int (nat_lit 2147483648) (@instOfNat (nat_lit 2147483648))) delta))),\n  @Exists.{1} Int fun (prefixDelta : Int) =>\n    @Eq.{1} Int input\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) (@Nat.cast.{0} Int instNatCastInt approx)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n            (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n          prefixDelta))",
+      "full_type_sha256": "575cada67d4ec1914720388ed8f51d8e599e506d1b395bcea9bc52b54db39918",
+      "name": "ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_full_low31_input_lift_derives_an_exact_lift_for_every_prefix"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_initialized_factor_prefixes_divide_both_entire_input_rows : \u2200\n  (count : Nat) (highA lowA highB lowB : UInt64) (restA restB : List.{0} UInt64)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat lowB)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB));\n  And\n    (@Dvd.dvd.{0} Int Int.instDvd\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 factors)\n          (@Nat.cast.{0} Int instNatCastInt\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA))))\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 factors)\n          (@Nat.cast.{0} Int instNatCastInt\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB))))))\n    (@Dvd.dvd.{0} Int Int.instDvd\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 factors)\n          (@Nat.cast.{0} Int instNatCastInt\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA))))\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 factors)\n          (@Nat.cast.{0} Int instNatCastInt\n            (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB))))))",
+      "full_type_sha256": "42e3305864f9fe0c314b394a2b07b6e4cd194c2b0de22b95f55dccef1f8d2a6b",
+      "name": "ShielddSecurity.TransferBlstArmInversePrefixDiv01.original_initialized_factor_prefixes_divide_both_entire_input_rows"
+    }
+  ],
+  "dependency_sources_verified": 312,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 170688,
+    "sha256": "be58c0d5ed963a9332e8af0ce0e1a7c76921091c02a14c6b095e91bef810bfb1"
+  },
+  "modules": {
+    "TransferBlstArmInversePrefixDiv01": {
+      "objects": [
+        {
+          "bytes": 93632,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-prefix-div-20261014-01\\project\\ShielddSecurity\\TransferBlstArmInversePrefixDiv01.olean",
+          "sha256": "a651b21281c0bebc31040c0a6d383da2d34b4e98e5e7bc96a1c9be23d1db985e"
+        }
+      ],
+      "peak_rss_bytes": 1398833152,
+      "plan_identity": {
+        "bytes": 5843886,
+        "sha256": "b31cc0e4977dfed6562d09049a27ea7742d3d02c2442fca4290f240505113c51"
+      },
+      "report": {
+        "bytes": 5280,
+        "path": "receipts/TransferBlstArmInversePrefixDiv01.full-types-and-axioms.txt",
+        "sha256": "31c3a580ce128867608a77e439c2bd1ba6f00c2731a8cd0cd3e9e12fde1dda3d"
+      },
+      "reports": 3,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Every initialized factor-walk prefix count<=31 divides both entire original limb inputs exactly, derived from low31 input lifts, odd original lowB and original factor tracking. No selected output/coefficient premise; CLZ/high-window selection, approximate progress and native execution remain open.",
+      "seconds": 20.0684057000326,
+      "source": {
+        "bytes": 4262,
+        "sha256": "004bf9d2f2f39f18e07ddfef384652782bab9564f66c9a79c9b2a58389ffa4de"
+      },
+      "source_closure_bound": 269
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "39c67abd78121e26830b2c40a2d6cd0cf274139ab4d6da713304743447d1f5d6"
+  },
+  "reports": 3,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Exact divisibility of both original full-input factor rows by 2^n follows from initialized source-prefix invariants under oddness. High-window correspondence, approximation progress, complete inverse core, compiled ISA/ABI execution and all full Transfer endpoints remain OPEN.",
+  "status": "passed"
+}
