@@ -1,0 +1,48 @@
+/- Generated from maintained volume path-hash generator; edit generator or templates. -/
+import ShielddSecurity.VolumePathHashPermutation930C132
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.VolumePathHash931C132
+open Compiler CompilerAssertionBlock51
+open CapturedInitial73419Generic01 (p copy)
+noncomputable def parameters := VolumePathHashPermutation930C132.parameters
+noncomputable def result := VolumePathHashPermutation930C132.result
+noncomputable def inputs : List Linear := [[(0,8)],[(112276,5579934908212736977238010113730457006906792843192217773053283881663622591681),(112280,50978946942794420813356136484142315443152313428221265043903658432145007475423),(112284,51737743277955608982399432577620617083998176562860787771480331520415801857016),(112288,280754542936071555323583947036382301904172335755315562603417507239324752636),(112292,44773762128641970103070913747625047847186741019957383563700055475244115610384),(112296,28552781024861804928696238677004241170376447700649499575281496751792046985224),(112298,1),(112302,1)],[(8409,1),(112298,52435875175126190479447740508185965837690552500527637822603658699938581184512),(112304,1)],[(8410,1),(112306,1)],[(8411,1),(112308,1)]]
+variable {F : Type} [Field F] [CharP F p]
+attribute [local irreducible] SatisfiesAt
+theorem initial (rho : Nat → F) (one : rho 0=1) :
+    (fun i => eval rho (VolumePathHashPermutation930C132.before i))=Poseidon.absorb (Poseidon.initial 1 5) (inputs.map (eval rho)) := by
+  funext i
+  have cases : i=0 ∨ i=1 ∨ i=2 ∨ i=3 ∨ i=4 ∨ i=5 := by have h:=i.isLt;simp only [Fin.ext_iff];omega
+  rcases cases with rfl|rfl|rfl|rfl|rfl|rfl
+  · change eval rho [(0,1281)]=((1281:Nat):F)
+    norm_num [eval,one]
+  · change eval rho [(0,8)]=0+eval rho [(0,8)]
+    exact (zero_add _).symm
+  · change eval rho [(112276,5579934908212736977238010113730457006906792843192217773053283881663622591681),(112280,50978946942794420813356136484142315443152313428221265043903658432145007475423),(112284,51737743277955608982399432577620617083998176562860787771480331520415801857016),(112288,280754542936071555323583947036382301904172335755315562603417507239324752636),(112292,44773762128641970103070913747625047847186741019957383563700055475244115610384),(112296,28552781024861804928696238677004241170376447700649499575281496751792046985224),(112298,1),(112302,1)]=0+eval rho [(112276,5579934908212736977238010113730457006906792843192217773053283881663622591681),(112280,50978946942794420813356136484142315443152313428221265043903658432145007475423),(112284,51737743277955608982399432577620617083998176562860787771480331520415801857016),(112288,280754542936071555323583947036382301904172335755315562603417507239324752636),(112292,44773762128641970103070913747625047847186741019957383563700055475244115610384),(112296,28552781024861804928696238677004241170376447700649499575281496751792046985224),(112298,1),(112302,1)]
+    exact (zero_add _).symm
+  · change eval rho [(8409,1),(112298,52435875175126190479447740508185965837690552500527637822603658699938581184512),(112304,1)]=0+eval rho [(8409,1),(112298,52435875175126190479447740508185965837690552500527637822603658699938581184512),(112304,1)]
+    exact (zero_add _).symm
+  · change eval rho [(8410,1),(112306,1)]=0+eval rho [(8410,1),(112306,1)]
+    exact (zero_add _).symm
+  · change eval rho [(8411,1),(112308,1)]=0+eval rho [(8411,1),(112308,1)]
+    exact (zero_add _).symm
+theorem hash (rho : Nat → F) (one : rho 0=1) (linked : rho copy=rho 0)
+    (arithmetic : SatisfiesAt rho CapturedFullArithmetic52.rowAt 177954) :
+    eval rho result=Poseidon.hash6 (Poseidon.castParameters parameters) 1 (inputs.map (eval rho)) := by
+  have permutation := VolumePathHashPermutation930C132.permutation rho one linked arithmetic
+  rw [initial rho one] at permutation
+  have joined := Poseidon.hash6_of_one_block (Poseidon.castParameters parameters) 1 (inputs.map (eval rho))
+    (Poseidon.initial 1 5) (fun i => eval rho (VolumePathHashPermutation930C132.after i)) rfl rfl permutation
+  simpa only [VolumePathHashPermutation930C132.result_port,result] using joined
+end ShielddSecurity.VolumePathHash931C132
+
+set_option pp.all true in
+#check @ShielddSecurity.VolumePathHash931C132.initial
+#print axioms ShielddSecurity.VolumePathHash931C132.initial
+
+set_option pp.all true in
+#check @ShielddSecurity.VolumePathHash931C132.hash
+#print axioms ShielddSecurity.VolumePathHash931C132.hash
