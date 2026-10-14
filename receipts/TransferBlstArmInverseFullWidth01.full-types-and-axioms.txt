@@ -1,0 +1,92 @@
+ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Nat
+'ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseFullWidth01.positive_upper_power_bounds_log2_plus_one : ∀ (input width : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) width)
+  (upper :
+    @LT.lt.{0} Nat instLTNat input
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) width)),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Nat.log2 input)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    width
+'ShielddSecurity.TransferBlstArmInverseFullWidth01.positive_upper_power_bounds_log2_plus_one' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFullWidth01.lower_power_bounds_the_exact_log2 : ∀ (input power : Nat)
+  (lower :
+    @LE.le.{0} Nat instLENat
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) power)
+      input),
+  @LE.le.{0} Nat instLENat power (Nat.log2 input)
+'ShielddSecurity.TransferBlstArmInverseFullWidth01.lower_power_bounds_the_exact_log2' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFullWidth01.original_computed_shift_plus64_is_the_exact_clipped_full_input_joint_bitwidth : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowShift a b)
+      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+    (ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth a b)
+'ShielddSecurity.TransferBlstArmInverseFullWidth01.original_computed_shift_plus64_is_the_exact_clipped_full_input_joint_bitwidth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFullWidth01.original31_final_cases_identify_the_small_component_bound_at_the_actual_clipped_bitwidth : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have windows : Prod.{0, 0} UInt64 UInt64 :=
+    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;
+  have approxA : Nat :=
+    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a);
+  have approxB : Nat :=
+    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b);
+  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial approxA approxB;
+  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);
+  have final : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) approxA approxB
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+  Or
+    (And
+      (∀ (index : Nat),
+        @LT.lt.{0} Nat instLTNat index (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) →
+          @Eq.{1} Nat
+            (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index approximate))
+            (ShielddSecurity.TransferBlstArmInverseTraceRows01.sourceFactorControl
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk index actual)))
+      (@Eq.{1} (Prod.{0, 0} Int Int) final
+        (@Prod.mk.{0, 0} Int Int
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) actual)))
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) actual))))))
+    (@LT.lt.{0} Nat instLTNat
+      (@Min.min.{0} Nat instMinNat (Int.natAbs (@Prod.fst.{0, 0} Int Int final))
+        (Int.natAbs (@Prod.snd.{0, 0} Int Int final)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (ShielddSecurity.TransferBlstArmInverseFullWidth01.sourceClippedJointBitwidth a b)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))))
+'ShielddSecurity.TransferBlstArmInverseFullWidth01.original31_final_cases_identify_the_small_component_bound_at_the_actual_clipped_bitwidth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
