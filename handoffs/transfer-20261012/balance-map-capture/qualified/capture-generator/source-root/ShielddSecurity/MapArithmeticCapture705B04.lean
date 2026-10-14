@@ -1,0 +1,30 @@
+-- GENERATED from extraction.json. Do not hand edit.
+import ShielddSecurity.MapArithmeticAdapter704
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.MapArithmeticCapture705B04
+open MapArithmeticAdapter704
+noncomputable def entry0 : Entry := ⟨1169182,true,[(190201,1)],[(190201,1)],[(190204,1)],[],167466,[⟨[(190201,1)],[(190204,1)]⟩]⟩
+theorem checked0 : check entry0=true := by decide +kernel
+noncomputable def entry1 : Entry := ⟨1169183,false,[(190203,1)],[(190204,1)],[(190205,1)],[(190206,1)],167467,[⟨[(190203,1),(190204,52435875175126190479447740508185965837690552500527637822603658699938581184512)],[(190206,1)]⟩,⟨[(190203,1),(190204,1)],[(190205,4),(190206,1)]⟩]⟩
+theorem checked1 : check entry1=true := by decide +kernel
+noncomputable def entry2 : Entry := ⟨1169188,false,[(190205,19257038036680949359750312669786877991949435402254120286184196891950884077233),(200692,1)],[(190205,33178837138445241119697427838399087845741117098273517536419461807987697107280),(200692,1)],[(190207,1)],[(190208,1)],167469,[⟨[(190205,38514076073361898719500625339573755983898870804508240572368393783901768154466)],[(190208,1)]⟩,⟨[(200692,2)],[(190207,4),(190208,1)]⟩]⟩
+theorem checked2 : check entry2=true := by decide +kernel
+noncomputable def entry3 : Entry := ⟨1169189,false,[(21196,1)],[(190207,1)],[(190209,1)],[(190210,1)],167471,[⟨[(21196,1),(190207,52435875175126190479447740508185965837690552500527637822603658699938581184512)],[(190210,1)]⟩,⟨[(21196,1),(190207,1)],[(190209,4),(190210,1)]⟩]⟩
+theorem checked3 : check entry3=true := by decide +kernel
+noncomputable def entry4 : Entry := ⟨1169190,false,[(190197,1)],[(190201,1)],[(190211,1)],[(190212,1)],167473,[⟨[(190197,1),(190201,52435875175126190479447740508185965837690552500527637822603658699938581184512)],[(190212,1)]⟩,⟨[(190197,1),(190201,1)],[(190211,4),(190212,1)]⟩]⟩
+theorem checked4 : check entry4=true := by decide +kernel
+noncomputable def entry5 : Entry := ⟨1169191,false,[(190201,1)],[(190197,1)],[(190213,1)],[(190214,1)],167475,[⟨[(190197,52435875175126190479447740508185965837690552500527637822603658699938581184512),(190201,1)],[(190214,1)]⟩,⟨[(190197,1),(190201,1)],[(190213,4),(190214,1)]⟩]⟩
+theorem checked5 : check entry5=true := by decide +kernel
+noncomputable def entry6 : Entry := ⟨1169193,false,[(190211,1),(190213,1)],[(190205,33178837138445241119697427838399087845741117098273517536419461807987697107280),(200692,1)],[(190215,1)],[(190216,1)],167477,[⟨[(190205,19257038036680949359750312669786877991949435402254120286184196891950884077233),(190211,1),(190213,1),(200692,52435875175126190479447740508185965837690552500527637822603658699938581184512)],[(190216,1)]⟩,⟨[(190205,33178837138445241119697427838399087845741117098273517536419461807987697107280),(190211,1),(190213,1),(200692,1)],[(190215,4),(190216,1)]⟩]⟩
+theorem checked6 : check entry6=true := by decide +kernel
+noncomputable def entries : List Entry := [entry0,entry1,entry2,entry3,entry4,entry5,entry6]
+theorem checked : entries.all check=true := by
+  simp only [entries,List.all_cons,List.all_nil,checked0,checked1,checked2,checked3,checked4,checked5,checked6,Bool.true_and]
+end ShielddSecurity.MapArithmeticCapture705B04
+
+set_option pp.all true in
+#check @ShielddSecurity.MapArithmeticCapture705B04.checked
+#print axioms ShielddSecurity.MapArithmeticCapture705B04.checked
