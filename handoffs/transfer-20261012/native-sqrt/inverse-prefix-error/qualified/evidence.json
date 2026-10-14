@@ -1,0 +1,62 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInversePrefixError01.original_entire_input_factor_prefixes_preserve_both_initial_window_error_bounds : \u2200\n  (count shift : Nat) (highA lowA highB lowB : UInt64) (restA restB : List.{0} UInt64)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat lowB)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n  (highWindowA :\n    @Eq.{1} Nat (UInt64.toNat highA)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))\n  (highWindowB :\n    @Eq.{1} Nat (UInt64.toNat highB)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))),\n  have factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=\n    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count\n      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)\n        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB));\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highA lowA)\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 highB lowB)\n      (@Nat.cast.{0} Int instNatCastInt\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowA restA)))\n      (@Nat.cast.{0} Int instNatCastInt\n        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 lowB restB)));\n  And\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.fst.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))\n    (@LE.le.{0} Nat instLENat\n      (Int.natAbs\n        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Prod.snd.{0, 0} Int Int actual)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n            (@Nat.cast.{0} Int instNatCastInt\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))\n            (@Nat.cast.{0} Int instNatCastInt\n              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b factors)))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648)))))",
+      "full_type_sha256": "4e7a4fe60010d41df76997e26cb76816a1004f622c81e595ac0529745e23ac82",
+      "name": "ShielddSecurity.TransferBlstArmInversePrefixError01.original_entire_input_factor_prefixes_preserve_both_initial_window_error_bounds"
+    }
+  ],
+  "dependency_sources_verified": 313,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 171419,
+    "sha256": "966432ef3f3274681dee85dc6aeafbc335904ad3a20e0798dc3c8728a823ebd1"
+  },
+  "modules": {
+    "TransferBlstArmInversePrefixError01": {
+      "objects": [
+        {
+          "bytes": 34944,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-prefix-error-20261014-01\\project\\ShielddSecurity\\TransferBlstArmInversePrefixError01.olean",
+          "sha256": "a2b1ea269fa7e1d8d00517b3033cf30c0d4a759b2289892478039fe050ff48bf"
+        }
+      ],
+      "peak_rss_bytes": 1389350912,
+      "plan_identity": {
+        "bytes": 6564690,
+        "sha256": "a0622d5811a09cc3c7d506f12663c1732e0811ee9e5b21a00ef5964b00766bc9"
+      },
+      "report": {
+        "bytes": 4541,
+        "path": "receipts/TransferBlstArmInversePrefixError01.full-types-and-axioms.txt",
+        "sha256": "a68a5db0bbe55bca2f1a6cf05994b587196c9e6b601fa4d2f217728242bbba16"
+      },
+      "reports": 1,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Every original initialized factor prefix count<=31 preserves full-input approximation error through defined exact row quotients, deriving all divisibility and coefficient norms. High-window equality to full input divided by2^shift remains explicit. Original lowB oddness and initialized controls only; CLZ/window discharge, first divergence/progress and native execution remain open.",
+      "seconds": 19.44498539995402,
+      "source": {
+        "bytes": 3574,
+        "sha256": "4e28990a59afb37b3a2ba073b5c36abf3cddb2df460aee631b870045be0f5f8b"
+      },
+      "source_closure_bound": 273
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "39c67abd78121e26830b2c40a2d6cd0cf274139ab4d6da713304743447d1f5d6"
+  },
+  "reports": 1,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Both actual full-input factor-prefix quotient errors are bounded using derived exact row divisibility and coefficient norms under oddness, bounded prefix length, and explicit high-window correspondence. High-window discharge, approximate progress, complete inverse core, compiled ISA/ABI execution and all full Transfer endpoints remain OPEN.",
+  "status": "passed"
+}
