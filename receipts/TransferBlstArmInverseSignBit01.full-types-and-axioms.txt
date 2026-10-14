@@ -1,0 +1,41 @@
+ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit : (word : UInt64) → Nat
+'ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_the_exact_unsigned_half_radix_quotient : ∀
+  (word : UInt64),
+  @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit word)
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat word)
+      (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808))))
+'ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_the_exact_unsigned_half_radix_quotient' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_binary_and_is_one_exactly_at_the_sign_threshold : ∀
+  (word : UInt64),
+  And
+    (@LE.le.{0} Nat instLENat (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit word)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (Iff
+      (@Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit word)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (@LE.le.{0} Nat instLENat
+        (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))
+        (UInt64.toNat word)))
+'ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_binary_and_is_one_exactly_at_the_sign_threshold' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignBit01.original_coded_signed_factor_top_bit_is_one_exactly_when_the_factor_is_negative : ∀
+  (value : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      value)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt value
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  Iff
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode value))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseSignBit01.original_coded_signed_factor_top_bit_is_one_exactly_when_the_factor_is_negative' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
