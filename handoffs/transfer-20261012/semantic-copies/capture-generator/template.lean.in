@@ -1,0 +1,32 @@
+import ShielddSecurity.MapArithmeticAdapter704
+set_option autoImplicit false
+set_option maxHeartbeats 900000
+set_option maxRecDepth 8192
+noncomputable section
+namespace ShielddSecurity.@@NAME@@
+open Compiler CompilerArithmeticTransport41 CompilerAssertionBlock51 ConcreteJubjubField01
+@@DEFINITION@@
+theorem checked : CompilerRowSlice63.check CapturedFullRelation58.rowAt (177954+@@POSITION@@) 1 rows=true := by decide +kernel
+
+theorem satisfies (rho : Nat → F) (equal : rho @@LEFT@@=rho @@RIGHT@@) :
+    SatisfiesAt rho (fun i => CapturedFullRelation58.rowAt (177954+@@POSITION@@+i)) 1 := by
+  apply (CompilerRowSlice63.selected_satisfies_iff CapturedFullRelation58.rowAt (177954+@@POSITION@@) 1 rows checked rho).mp
+  intro row member
+  simp only [rows,List.mem_cons,List.not_mem_nil,or_false] at member
+  subst row
+  change eval rho [(@@LEFT@@,(p:Int)-1),(@@RIGHT@@,1)]*
+    eval rho [(@@LEFT@@,(p:Int)-1),(@@RIGHT@@,1)]=eval rho []
+  have shape : canonical p [(@@LEFT@@,(p:Int)-1),(@@RIGHT@@,1)]=
+    canonical p [(@@LEFT@@,-1),(@@RIGHT@@,1)] := by decide +kernel
+  rw [canonical_equal rho _ _ shape]
+  simp only [eval,Int.cast_one,one_mul,Int.cast_neg,add_zero,equal]
+  ring
+end ShielddSecurity.@@NAME@@
+
+set_option pp.all true in
+#check @ShielddSecurity.@@NAME@@.checked
+#print axioms ShielddSecurity.@@NAME@@.checked
+
+set_option pp.all true in
+#check @ShielddSecurity.@@NAME@@.satisfies
+#print axioms ShielddSecurity.@@NAME@@.satisfies
