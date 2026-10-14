@@ -1,0 +1,598 @@
+{
+  "baseline_review": {
+    "bytes": 23087,
+    "sha256": "ec3a3c75fda42875db14f1f1f3a5a0dab1268f3b2bac75cc00503bd9b8d41c9b"
+  },
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus : Nat",
+      "full_type_sha256": "2d5560e5e57e43868caac0a35c232a0d26fb9e15fda9478cd261c3b0e7cb3216",
+      "name": "ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.radix64 : Nat",
+      "full_type_sha256": "43b49f6086720585dc51d582d500894b0244719b6d746bd4db239972e2c2bf1a",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.radix64"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.reduceRounds : (modulus radix accumulator : Nat) \u2192 List.{0} Nat \u2192 Nat",
+      "full_type_sha256": "c3bf103c465800a8036c205f49e4db2a60e4b9e593ead83fcaea0c335626f9df",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.reduceRounds"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.normalize : (modulus accumulator : Nat) \u2192 Nat",
+      "full_type_sha256": "f90c8794e52ae11509535a1ebafdecbbd65292a5326774c747e184eae46ebe24",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.normalize"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.one_round_preserves_symbolic_range : \u2200\n  (modulus radix accumulator multiplier rounds : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)\n  (word : @LT.lt.{0} Nat instLTNat multiplier radix)\n  (initial :\n    @LT.lt.{0} Nat instLTNat accumulator\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rounds\n            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))),\n  @LT.lt.{0} Nat instLTNat\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) accumulator\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) multiplier modulus))\n      radix)\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix rounds))",
+      "full_type_sha256": "259ec47e424c7b34d61aa3120a5ea54eefc46abb772185592e00e19f9d42ee41",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.one_round_preserves_symbolic_range"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.all_rounds_finish_at_most_modulus : \u2200 (modulus radix : Nat)\n  (digits : List.{0} Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)\n  (words :\n    \u2200 (digit : Nat),\n      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) digits digit \u2192\n        @LT.lt.{0} Nat instLTNat digit radix)\n  (accumulator : Nat)\n  (initial :\n    @LT.lt.{0} Nat instLTNat accumulator\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix\n          (@List.length.{0} Nat digits)))),\n  @LT.lt.{0} Nat instLTNat\n    (ShielddSecurity.TransferScalarSerializationRange01.reduceRounds modulus radix accumulator digits)\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))",
+      "full_type_sha256": "f5f4fca969fcacee3a3f98e560a922920895e8125c426970bc56e333bcaf6c00",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.all_rounds_finish_at_most_modulus"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.final_subtraction_is_canonical : \u2200 (modulus accumulator : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) modulus)\n  (bounded :\n    @LT.lt.{0} Nat instLTNat accumulator\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarSerializationRange01.normalize modulus accumulator) modulus",
+      "full_type_sha256": "a1640fc7c1c543c4eaea616d53653532280460e0a58b016298b4a088cd39109c",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.final_subtraction_is_canonical"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.finite_word_vector_reduction_is_canonical : \u2200 (modulus radix : Nat)\n  (positiveModulus : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) modulus)\n  (positiveRadix : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)\n  (digits : List.{0} (Fin radix)) (accumulator : Nat)\n  (rawBound :\n    @LT.lt.{0} Nat instLTNat accumulator\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix\n        (@List.length.{0} (Fin radix) digits))),\n  @LT.lt.{0} Nat instLTNat\n    (ShielddSecurity.TransferScalarSerializationRange01.normalize modulus\n      (ShielddSecurity.TransferScalarSerializationRange01.reduceRounds modulus radix accumulator\n        (@List.map.{0, 0} (Fin radix) Nat (@Fin.val radix) digits)))\n    modulus",
+      "full_type_sha256": "a7d6639ef6afa2e517c6f45d9ebbbde176cb0064a44f7009c828e225efdef308",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.finite_word_vector_reduction_is_canonical"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarSerializationRange01.four_u64_rounds_reduce_into_actual_nullifier_field : \u2200\n  (digits : List.{0} (Fin ShielddSecurity.TransferScalarSerializationRange01.radix64))\n  (four :\n    @Eq.{1} Nat (@List.length.{0} (Fin ShielddSecurity.TransferScalarSerializationRange01.radix64) digits)\n      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (raw : Nat)\n  (fourWords :\n    @LT.lt.{0} Nat instLTNat raw\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),\n  @LT.lt.{0} Nat instLTNat\n    (ShielddSecurity.TransferScalarSerializationRange01.normalize\n      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus\n      (ShielddSecurity.TransferScalarSerializationRange01.reduceRounds\n        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus\n        ShielddSecurity.TransferScalarSerializationRange01.radix64 raw\n        (@List.map.{0, 0} (Fin ShielddSecurity.TransferScalarSerializationRange01.radix64) Nat\n          (@Fin.val ShielddSecurity.TransferScalarSerializationRange01.radix64) digits)))\n    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus",
+      "full_type_sha256": "b660a4c0cdb2b37e3e58b2b57b26e52ccad654263d6eed574ffd98d179181c0e",
+      "name": "ShielddSecurity.TransferScalarSerializationRange01.four_u64_rounds_reduce_into_actual_nullifier_field"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.packWords : List.{0} UInt64 \u2192 Nat",
+      "full_type_sha256": "c7db1981e2ecd1e476b454775ed8686d7c46e5f733d8074bb2ef80784041c42e",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.packWords"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.mac128 : (a b c carry : UInt64) \u2192\n  BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))",
+      "full_type_sha256": "e3cee6776a8b51a2d8608debd296528a6e79cb4549fd904f32d76fabad7596fc",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.mac128"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.split128 : (ret :\n    BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))) \u2192\n  Prod.{0, 0} UInt64 UInt64",
+      "full_type_sha256": "184f29f96581bf5ce99aecb59543c30c19061f15220ae3c3481c51249709b512",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.split128"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.scalarReduction : (raw multipliers : List.{0} UInt64) \u2192 Nat",
+      "full_type_sha256": "a1c1f5d77b689025182bf1ef9dcf27943ce2bdc379111d2c267a721e1d8c5779",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.scalarReduction"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.packed_u64_vector_is_below_radix_power : \u2200 (words : List.{0} UInt64),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)\n    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n      ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))",
+      "full_type_sha256": "a8a042f9a16f7036bcc21d322a31bb1d406c1c79ae459ef4df6a8cae52e1f4a8",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.packed_u64_vector_is_below_radix_power"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.multiply_accumulate_of_four_words_fits_double_width : \u2200\n  (radix a b c carry : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)\n  (ha : @LT.lt.{0} Nat instLTNat a radix) (hb : @LT.lt.{0} Nat instLTNat b radix)\n  (hc : @LT.lt.{0} Nat instLTNat c radix) (hd : @LT.lt.{0} Nat instLTNat carry radix),\n  @LT.lt.{0} Nat instLTNat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) a\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) b c))\n      carry)\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix radix)",
+      "full_type_sha256": "a41c95a7ad10368e95b8530c4d05baf2651f98bcbbd458e2714992df4df96324",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.multiply_accumulate_of_four_words_fits_double_width"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_preserves_full_integer : \u2200 (a b c carry : UInt64),\n  @Eq.{1} Nat\n    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))\n      (ShielddSecurity.TransferScalarWordPrimitives01.mac128 a b c carry))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat b) (UInt64.toNat c)))\n      (UInt64.toNat carry))",
+      "full_type_sha256": "dbb020e060b85a1f3a3430ca55242cadf07a2f226815282d376e38fba2003d1c",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_preserves_full_integer"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.split_double_word_preserves_full_integer : \u2200\n  (ret : BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarWordPrimitives01.split128 ret)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (UInt64.toNat (@Prod.snd.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarWordPrimitives01.split128 ret)))))\n    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))) ret)",
+      "full_type_sha256": "4cc393e769dab19033bf2f0a542dbd37bfb5cddd58cd634c50a7da04275cc6c6",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.split_double_word_preserves_full_integer"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_low_word_and_carry_conserve_value : \u2200\n  (a b c carry : UInt64),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (UInt64.toNat\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferScalarWordPrimitives01.split128\n            (ShielddSecurity.TransferScalarWordPrimitives01.mac128 a b c carry))))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        ShielddSecurity.TransferScalarSerializationRange01.radix64\n        (UInt64.toNat\n          (@Prod.snd.{0, 0} UInt64 UInt64\n            (ShielddSecurity.TransferScalarWordPrimitives01.split128\n              (ShielddSecurity.TransferScalarWordPrimitives01.mac128 a b c carry))))))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat b) (UInt64.toNat c)))\n      (UInt64.toNat carry))",
+      "full_type_sha256": "6b0a54ac668083b8e57eb4708a70c1c8069e8bc76875b5d70b7f555867239941",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.widened_u64_mac_low_word_and_carry_conserve_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferScalarWordPrimitives01.four_actual_u64_inputs_and_multipliers_reduce_into_canonical_field : \u2200\n  (raw multipliers : List.{0} UInt64)\n  (fourRaw : @Eq.{1} Nat (@List.length.{0} UInt64 raw) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))\n  (fourMultipliers :\n    @Eq.{1} Nat (@List.length.{0} UInt64 multipliers) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),\n  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWordPrimitives01.scalarReduction raw multipliers)\n    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus",
+      "full_type_sha256": "6ba2a1f22adbada4391218702baf00b47b66d7220e5ec5c8300ef72f76fe41cf",
+      "name": "ShielddSecurity.TransferScalarWordPrimitives01.four_actual_u64_inputs_and_multipliers_reduce_into_canonical_field"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_packed_prefix_division_removes_the_entire_lower_tail : \u2200\n  (base quotient tail : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) base)\n  (bounded : @LT.lt.{0} Nat instLTNat tail base),\n  @Eq.{1} Nat\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base quotient) tail)\n      base)\n    quotient",
+      "full_type_sha256": "725464a9ce1515d9e545a1735c2a538edfb8bb9bf13573d1d4e96ca362dc1ce9",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_packed_prefix_division_removes_the_entire_lower_tail"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_two_limb_window_division_is_exact_without_a_tail_premise : \u2200\n  (radix scale divisor high low : Nat)\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) divisor)\n  (factorization : @Eq.{1} Nat radix (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale divisor)),\n  @Eq.{1} Nat\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix high) low)\n      divisor)\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale high)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) low divisor))",
+      "full_type_sha256": "0700d7375e8a0c8d22ed61879b40cdeafe0f62c15205752f638a4ce376d26a2d",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_two_limb_window_division_is_exact_without_a_tail_premise"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_whole_input_window_division_removes_all_lower_limbs : \u2200\n  (base radix scale divisor high low tail : Nat)\n  (basePositive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) base)\n  (divisorPositive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) divisor)\n  (tailBound : @LT.lt.{0} Nat instLTNat tail base)\n  (factorization : @Eq.{1} Nat radix (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale divisor)),\n  @Eq.{1} Nat\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix high) low))\n        tail)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base divisor))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale high)\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) low divisor))",
+      "full_type_sha256": "fcc530069b76fd3d2aa6ece4c8e91290c85dd9ddf0abfe28b3908082ab951843",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_whole_input_window_division_removes_all_lower_limbs"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_disjoint_window_fragments_have_exact_or_sum : \u2200\n  (shift high fragment : Nat)\n  (bounded :\n    @LT.lt.{0} Nat instLTNat fragment\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)),\n  @Eq.{1} Nat\n    (@HOr.hOr.{0, 0, 0} Nat Nat Nat (@instHOrOfOrOp.{0} Nat Nat.instOrOp)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        high)\n      fragment)\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)\n        high)\n      fragment)",
+      "full_type_sha256": "6fb57d706bcddf294453e3097d37f1fdae5013a1a9ee2988762a46cc3512aeac",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_disjoint_window_fragments_have_exact_or_sum"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount : (count : Nat) \u2192 UInt64",
+      "full_type_sha256": "93c7bbc84001476d84ced5330d23779706e033e542fe2fe25b67b439e4c3b1f0",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask : (count : Nat) \u2192 UInt64",
+      "full_type_sha256": "e82d6c190fe98b9fb2caec2156b901264bf56ef28cbeb2696cde44c542ca75a9",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.bounded_window_shift_count_has_its_entire_unsigned_word_value : \u2200\n  (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),\n  @Eq.{1} Nat (UInt64.toNat (UInt64.ofNat count)) count",
+      "full_type_sha256": "1ae4bd7a4dede9c5aba217a10817b6c4812615636762d41c6d3f6e6bcea39bb0",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.bounded_window_shift_count_has_its_entire_unsigned_word_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_shift_count_has_the_exact_unsigned_residue : \u2200\n  (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count))\n    (@ite.{1} Nat (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616))) count))",
+      "full_type_sha256": "1c91c56206dc83354a26d7809ea05a1b7250a53d82091e7597e42bc0f5cbde24",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_shift_count_has_the_exact_unsigned_residue"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_count_has_the_exact_lsrv_shift_distance : \u2200\n  (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count))\n      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n    (@ite.{1} Nat (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))",
+      "full_type_sha256": "e2acddacb961214a6444890c1bc5629d01a9e57a3951f610ab81d073b59232f7",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_count_has_the_exact_lsrv_shift_distance"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_exactly_zero_or_all_ones : \u2200\n  (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask count))\n    (@ite.{1} Nat (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551615) (instOfNatNat (nat_lit 18446744073709551615))))",
+      "full_type_sha256": "ed5843b4f08600e0f79fe6c045d76cbfe2995ab4dac6b763be74af0029c03b92",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_exactly_zero_or_all_ones"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_the_exact_unsigned_word_constant : \u2200\n  (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),\n  @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask count)\n    (@ite.{1} UInt64 (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))\n      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1)))))",
+      "full_type_sha256": "e0608321cc0608c510b8cca855633d8c2d7df02b3895abc977574acd79071678",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_the_exact_unsigned_word_constant"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_lsrv_of_the_low_limb_has_the_exact_nat_quotient : \u2200\n  (count : Nat) (low : UInt64)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) count),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64\n        (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) low\n        (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count)))\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count)))",
+      "full_type_sha256": "b13eb80243dd2c179235cd6873c12b071332217525fe893c5fef1f76a5a3d0ab",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_lsrv_of_the_low_limb_has_the_exact_nat_quotient"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord : (high low : UInt64) \u2192\n  (count : Nat) \u2192 UInt64",
+      "full_type_sha256": "b2c1751b6f7f7fc03b0a73192d6d165db9ac746f783dbc761fc7e0053f2f35f4",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_window_left_shift_has_no_overflow_under_the_selected_limb_bound : \u2200\n  (high : UInt64) (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n  (highBound :\n    @LT.lt.{0} Nat instLTNat (UInt64.toNat high)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (@HShiftLeft.hShiftLeft.{0, 0, 0} UInt64 UInt64 UInt64 (@instHShiftLeftOfShiftLeft.{0} UInt64 instShiftLeftUInt64)\n        high (UInt64.ofNat count)))\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)\n      (UInt64.toNat high))",
+      "full_type_sha256": "c5cf9b4639444a657eb7fe2fda48ed803a92e08152ad02b9963188dbc466ca2e",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_window_left_shift_has_no_overflow_under_the_selected_limb_bound"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_masked_window_low_shift_has_the_exact_quotient_including_zero_count : \u2200\n  (low : UInt64) (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (@HAnd.hAnd.{0, 0, 0} UInt64 UInt64 UInt64 (@instHAndOfAndOp.{0} UInt64 instAndOpUInt64)\n        (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64\n          (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) low\n          (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count))\n        (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask count)))\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count)))",
+      "full_type_sha256": "a72181e56f8bdcabd77c45f2f4a754218fa1801e30431fcd431c8c6f630ea268",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_masked_window_low_shift_has_the_exact_quotient_including_zero_count"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_has_its_entire_exact_nat_value : \u2200\n  (high low : UInt64) (count : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n  (highBound :\n    @LT.lt.{0} Nat instLTNat (UInt64.toNat high)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))),\n  @Eq.{1} Nat\n    (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord high low count))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)\n        (UInt64.toNat high))\n      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))))",
+      "full_type_sha256": "ef5d060f5a1d63d5ef932a52793b5f3a01999da6a7eb18e637e70ed6f9387ed6",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_has_its_entire_exact_nat_value"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_matches_the_whole_input_quotient_from_an_explicit_prefix : \u2200\n  (high low : UInt64) (count base tail input : Nat)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n  (highBound :\n    @LT.lt.{0} Nat instLTNat (UInt64.toNat high)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count)))\n  (basePositive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) base)\n  (tailBound : @LT.lt.{0} Nat instLTNat tail base)\n  (representation :\n    @Eq.{1} Nat input\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base\n          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n              (UInt64.toNat high))\n            (UInt64.toNat low)))\n        tail)),\n  @Eq.{1} Nat\n    (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord high low count))\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) input\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))))",
+      "full_type_sha256": "e931783bad8a63ce0dec17e4f68b9da60ae1f97612797ad5ab5fb00d01c74d65",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_matches_the_whole_input_quotient_from_an_explicit_prefix"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow : Type",
+      "full_type_sha256": "5d7bc707b6f655195e973d30c71d27701cda7b473d7aae6bf0f40421d2385c53",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow : (highA highB lowA lowB : UInt64) \u2192\n  ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow",
+      "full_type_sha256": "34f7d9e85dc05ef799a1e9c6d2eb2ad285a8c7dd1e1d9d45244c5d15c162e30a",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_high_bounds_and_a_bounded_count : \u2200\n  (highA highB lowA lowB : UInt64),\n  have w : ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow :=\n    ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow highA highB lowA lowB;\n  And\n    (@LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)\n      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))\n    (And\n      (@LT.lt.{0} Nat instLTNat\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))))\n      (@LT.lt.{0} Nat instLTNat\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w))\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))))",
+      "full_type_sha256": "5fb65408a01a33434211bfbffb512d3655e5e43e3d8bff2301d8021d427e68d6",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_high_bounds_and_a_bounded_count"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_entire_aligned_word_values : \u2200\n  (highA highB lowA lowB : UInt64),\n  have w : ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow :=\n    ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow highA highB lowA lowB;\n  And\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w) lowA\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))\n          (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w)))\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat lowA)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n              (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))))))\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w) lowB\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))\n          (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w)))\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat lowB)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n              (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w))))))",
+      "full_type_sha256": "029f16673057b057a7ee44f884413aad0e7a7d6fce07a685cf8eec935f35bba5",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowClz01.original_common_clz_window_derives_both_entire_aligned_word_values"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowClz01.original_zero_clz_fallback_returns_both_original_low_word_values : \u2200\n  (highA highB lowA lowB : UInt64)\n  (zero :\n    @Eq.{1} Nat\n      (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n        (@BitVec.clz (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))\n          (UInt64.toBitVec\n            (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64) highA highB))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),\n  have w : ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow :=\n    ShielddSecurity.TransferBlstArmInverseWindowClz01.sourceCommonWindow highA highB lowA lowB;\n  And\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highA w) lowA\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))\n      (UInt64.toNat lowA))\n    (@Eq.{1} Nat\n      (UInt64.toNat\n        (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.highB w) lowB\n          (ShielddSecurity.TransferBlstArmInverseWindowClz01.SourceCommonWindow.count w)))\n      (UInt64.toNat lowB))",
+      "full_type_sha256": "52482dffca8f4e264f2a9503ef8b55b6d4fc7f4d60217b33db7c1f1fc2418eef",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowClz01.original_zero_clz_fallback_returns_both_original_low_word_values"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords : Type",
+      "full_type_sha256": "59d15ec35b8c65025b213ce87646f14bcd0fbaa56991e484c2dfc2faf2d7d995",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters : Type",
+      "full_type_sha256": "d78aa54e9e56256f820b3a91060a267270684355510d05f465767becb182c4a3",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceFirstWindowChoice : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters",
+      "full_type_sha256": "1500f0d3f0d3318d72ac91ab438fa73aab6944b23d141f248001ddebcd1c31a1",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceFirstWindowChoice"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters",
+      "full_type_sha256": "ed108f2539946e80ef1d07652f13604a447ab0f4543044d981098f93da3ed700",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords : (a :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  Nat",
+      "full_type_sha256": "4b894e77d90b91c0ade2b57d967bce58b8a4792916c665e3134a24e604aac539",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceFourWordAlignedValues : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  Prod.{0, 0} Nat Nat",
+      "full_type_sha256": "29cd611e3127e92400c804bda0829b6ef62ab128ac4c0162232898e91b733e92",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceFourWordAlignedValues"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.original_two_staged_choices_select_the_joint_highest_upper_window : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),\n  @Eq.{1} ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters\n    (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b)\n    (@ite.{1} ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters\n      (@Ne.{1} UInt64\n        (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 a)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 b))\n        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n      (@instDecidableNot\n        (@Eq.{1} UInt64\n          (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 a)\n            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 b))\n          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n        (instDecidableEqUInt64\n          (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 a)\n            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 b))\n          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.mk\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 a)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 b)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 b)\n        (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))\n      (@ite.{1} ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters\n        (@Ne.{1} UInt64\n          (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)\n            (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 b))\n          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n        (@instDecidableNot\n          (@Eq.{1} UInt64\n            (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n              (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)\n              (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 b))\n            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n          (instDecidableEqUInt64\n            (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n              (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)\n              (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 b))\n            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.mk\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 b)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 a)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 b)\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.mk\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 a)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 b)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a)\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b)\n          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))",
+      "full_type_sha256": "9a44ee9238f7ceb112994571da3eb173909105c7dadb0abd0a234111e26c88e7",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.original_two_staged_choices_select_the_joint_highest_upper_window"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.original_all_zero_upper_words_reduce_the_entire_packed_input_to_its_low_word : \u2200\n  (a : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (upper1 :\n    @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 a)\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n  (upper2 :\n    @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n  (upper3 :\n    @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 a)\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),\n  @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n    (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))",
+      "full_type_sha256": "71491744dda17cb483bf9ac88a11c2f48a998195388edb2ba4bbe73008a0e810",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.original_all_zero_upper_words_reduce_the_entire_packed_input_to_its_low_word"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.original_joint_zero_upper_windows_derive_both_entire_input_values_at_fallback : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (topZero :\n    @Eq.{1} UInt64\n      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 a)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w3 b))\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n  (middleZero :\n    @Eq.{1} UInt64\n      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 a)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w2 b))\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))\n  (lowerZero :\n    @Eq.{1} UInt64\n      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 a)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w1 b))\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),\n  @Eq.{1} (Prod.{0, 0} Nat Nat) (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceFourWordAlignedValues a b)\n    (@Prod.mk.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))",
+      "full_type_sha256": "9aacc6ebfd9ea6a5d0a155c7d499fd7d7292e8207f1fc84231a20fd6ba3f622c",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowSelect01.original_joint_zero_upper_windows_derive_both_entire_input_values_at_fallback"
+    }
+  ],
+  "external_file_identities_verified": 7678,
+  "external_modules_verified": 1294,
+  "full_transfer": "OPEN",
+  "independent_baseline_matches": 50,
+  "legacy_owned_objects_reused": false,
+  "manifest": {
+    "bytes": 7840,
+    "sha256": "c0585d03fe8973ce9b3bd17a9e5ecae5d8279cf1360a6a86cd39910299dcd012"
+  },
+  "modules": {
+    "TransferBlstArmInverseWindowAlign01": {
+      "audits": 5,
+      "objects": [
+        {
+          "bytes": 124200,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferBlstArmInverseWindowAlign01.olean",
+          "sha256": "8a41fd14cb013bdc1eb4a440b09a412da495accee3449548f33516f318286c4f"
+        }
+      ],
+      "peak_rss_bytes": 571580416,
+      "report": {
+        "bytes": 7031,
+        "sha256": "dc05b470a21a3b6470703b310b8e3de53e1fc214caaa342f8ea740812932aa01"
+      },
+      "seconds": 8.56131070000265,
+      "source": {
+        "bytes": 5179,
+        "sha256": "e9c6c1a58ee545443eccd5b018fdcd6e6029c4312d4dfba614ccf889952f0156"
+      }
+    },
+    "TransferBlstArmInverseWindowArithmetic01": {
+      "audits": 4,
+      "objects": [
+        {
+          "bytes": 32032,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferBlstArmInverseWindowArithmetic01.olean",
+          "sha256": "017dffe8f14df8011cb846548c7d7ce4a99152f5cbdd58613ea4b73491bf62c6"
+        }
+      ],
+      "peak_rss_bytes": 545054720,
+      "report": {
+        "bytes": 4514,
+        "sha256": "eaa7f5d5279423a6077a8411c46d559619b0dca5b1f54076f3768b19a48031e6"
+      },
+      "seconds": 8.941154500003904,
+      "source": {
+        "bytes": 3033,
+        "sha256": "b63cc40dfbaac0595ff6443a71fbbb6bfaf501635db915f342f51ffdb34fcf67"
+      }
+    },
+    "TransferBlstArmInverseWindowClz01": {
+      "audits": 5,
+      "objects": [
+        {
+          "bytes": 103536,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferBlstArmInverseWindowClz01.olean",
+          "sha256": "30c1a712f21350851f55b88521d114063b938bec4c505da79ad515b56f72922b"
+        }
+      ],
+      "peak_rss_bytes": 574140416,
+      "report": {
+        "bytes": 7154,
+        "sha256": "083b7075bb103c6120ff785e0e6bcd235b38ad03c1f3b2ec92acdadbaa362932"
+      },
+      "seconds": 8.150815799999691,
+      "source": {
+        "bytes": 4354,
+        "sha256": "d6d514c9068300a2c1a97de86f0b356fa1251f2d84671e53c6c357be22d7f254"
+      }
+    },
+    "TransferBlstArmInverseWindowSelect01": {
+      "audits": 9,
+      "objects": [
+        {
+          "bytes": 176672,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferBlstArmInverseWindowSelect01.olean",
+          "sha256": "866c7589622d48fda460d720b3a85bc86921695c7a2bf1dbd8cf80d77b5e24e1"
+        }
+      ],
+      "peak_rss_bytes": 573763584,
+      "report": {
+        "bytes": 9183,
+        "sha256": "75b050b3ddf7f1f733ed9512599325aef8bc6c103612ca869d54b41f05819faa"
+      },
+      "seconds": 8.209051000005275,
+      "source": {
+        "bytes": 5364,
+        "sha256": "0e0880f578a16dae684c2663a6ca9701ee76470d08971b205518657669b48864"
+      }
+    },
+    "TransferBlstArmInverseWindowShift01": {
+      "audits": 8,
+      "objects": [
+        {
+          "bytes": 286320,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferBlstArmInverseWindowShift01.olean",
+          "sha256": "204998a6bb958e35b856b9651b28604516271547d3d666ce3b8e7a207e7b4bfb"
+        }
+      ],
+      "peak_rss_bytes": 445468672,
+      "report": {
+        "bytes": 5948,
+        "sha256": "f41e941b4531648f48ac6693d5add59131c141a7ffafc18ba69d1ce2aec0ca50"
+      },
+      "seconds": 4.697810899997421,
+      "source": {
+        "bytes": 5544,
+        "sha256": "c9dcbe4b64981619e48fe1163971c00109874df0d0ad51fd7e26991848a305e6"
+      }
+    },
+    "TransferNullifierModulus01": {
+      "audits": 1,
+      "objects": [
+        {
+          "bytes": 5864,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferNullifierModulus01.olean",
+          "sha256": "13359992485165e427ad59233f9b045267a4ab800b2371204b401de11ba50a19"
+        }
+      ],
+      "peak_rss_bytes": 237076480,
+      "report": {
+        "bytes": 162,
+        "sha256": "e02f5ce3820032714f5bb4f5c47c61b964b58c81265bd8f17fd767d6299b98c7"
+      },
+      "seconds": 2.632630699998117,
+      "source": {
+        "bytes": 413,
+        "sha256": "fa18939b3c36c3f9722069eff40490626fa7b8ba1735b44cd4a4d1c1beeb92f5"
+      }
+    },
+    "TransferScalarSerializationRange01": {
+      "audits": 8,
+      "objects": [
+        {
+          "bytes": 106664,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferScalarSerializationRange01.olean",
+          "sha256": "d3e78ff0cd6189cddd8eaf535fa03a47e801be3caeacc81471d8112476fede5a"
+        }
+      ],
+      "peak_rss_bytes": 254529536,
+      "report": {
+        "bytes": 6158,
+        "sha256": "ceef755d1ad36cc9dac74d148d37a347efa8cc6f5a8c9ae6caf721440818cdbf"
+      },
+      "seconds": 3.3689424000040162,
+      "source": {
+        "bytes": 5347,
+        "sha256": "02130f468d52a729b1c68f83b8121677800744b602c07d56ca283860665648da"
+      }
+    },
+    "TransferScalarWordPrimitives01": {
+      "audits": 10,
+      "objects": [
+        {
+          "bytes": 104120,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-packing-owner-replay-20261014-05\\project\\ShielddSecurity\\TransferScalarWordPrimitives01.olean",
+          "sha256": "25d6e28fc45e4728fb559af4c2f3f8f071b8c6a99360398e5ffaddd8f8cd9bab"
+        }
+      ],
+      "peak_rss_bytes": 266936320,
+      "report": {
+        "bytes": 5788,
+        "sha256": "c5db6eef4ff21240a2e2ddd2d600b8ef6d7e0f1789544e05f226cc989a9f0678"
+      },
+      "seconds": 2.8943864999964717,
+      "source": {
+        "bytes": 6385,
+        "sha256": "17fa0e7be85dbb7512b39c9bfbc00d401da439ba9652b12345de34c72c5d1bda"
+      }
+    }
+  },
+  "native_credit": 0,
+  "new_cumulative_credit": 0,
+  "refresh": {
+    "bytes": 10063,
+    "sha256": "d132bb3af2fb0c3ff1d0ffb01e8f096127ca701adb0b5ab589732ba7141c0ed1"
+  },
+  "reports": 50,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Independent receipt and source reconciliation for eight freshly rebuilt replacement-owner modules. Exact existing types and axiom sets; no cumulative audit, native execution, or complete Transfer credit. All affected downstream importers require fresh compilation against this boundary.",
+  "seconds": 47.456102500007546,
+  "source_contracts_unchanged": true,
+  "status": "passed",
+  "transport_commit": "d6995a7d9a7c68e84760199e9c5a1c840070af82"
+}
