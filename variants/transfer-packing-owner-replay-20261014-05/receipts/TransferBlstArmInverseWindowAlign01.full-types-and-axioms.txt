@@ -1,0 +1,98 @@
+ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord : (high low : UInt64) →
+  (count : Nat) → UInt64
+'ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_window_left_shift_has_no_overflow_under_the_selected_limb_bound : ∀
+  (high : UInt64) (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+  (highBound :
+    @LT.lt.{0} Nat instLTNat (UInt64.toNat high)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HShiftLeft.hShiftLeft.{0, 0, 0} UInt64 UInt64 UInt64 (@instHShiftLeftOfShiftLeft.{0} UInt64 instShiftLeftUInt64)
+        high (UInt64.ofNat count)))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+      (UInt64.toNat high))
+'ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_window_left_shift_has_no_overflow_under_the_selected_limb_bound' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_masked_window_low_shift_has_the_exact_quotient_including_zero_count : ∀
+  (low : UInt64) (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HAnd.hAnd.{0, 0, 0} UInt64 UInt64 UInt64 (@instHAndOfAndOp.{0} UInt64 instAndOpUInt64)
+        (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+          (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) low
+          (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count))
+        (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask count)))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count)))
+'ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_masked_window_low_shift_has_the_exact_quotient_including_zero_count' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_has_its_entire_exact_nat_value : ∀
+  (high low : UInt64) (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+  (highBound :
+    @LT.lt.{0} Nat instLTNat (UInt64.toNat high)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))),
+  @Eq.{1} Nat
+    (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord high low count))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+        (UInt64.toNat high))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))))
+'ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_has_its_entire_exact_nat_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_matches_the_whole_input_quotient_from_an_explicit_prefix : ∀
+  (high low : UInt64) (count base tail input : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+  (highBound :
+    @LT.lt.{0} Nat instLTNat (UInt64.toNat high)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count)))
+  (basePositive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) base)
+  (tailBound : @LT.lt.{0} Nat instLTNat tail base)
+  (representation :
+    @Eq.{1} Nat input
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+              (UInt64.toNat high))
+            (UInt64.toNat low)))
+        tail)),
+  @Eq.{1} Nat
+    (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowAlign01.sourceAlignedWindowWord high low count))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) input
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))))
+'ShielddSecurity.TransferBlstArmInverseWindowAlign01.original_aligned_window_word_matches_the_whole_input_quotient_from_an_explicit_prefix' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

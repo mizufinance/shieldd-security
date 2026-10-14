@@ -1,0 +1,73 @@
+ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount : (count : Nat) → UInt64
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask : (count : Nat) → UInt64
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWindowShift01.bounded_window_shift_count_has_its_entire_unsigned_word_value : ∀
+  (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat (UInt64.toNat (UInt64.ofNat count)) count
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.bounded_window_shift_count_has_its_entire_unsigned_word_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_shift_count_has_the_exact_unsigned_residue : ∀
+  (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count))
+    (@ite.{1} Nat (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616))) count))
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_shift_count_has_the_exact_unsigned_residue' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_count_has_the_exact_lsrv_shift_distance : ∀
+  (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count))
+      (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+    (@ite.{1} Nat (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count))
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_negated_count_has_the_exact_lsrv_shift_distance' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_exactly_zero_or_all_ones : ∀
+  (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask count))
+    (@ite.{1} Nat (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551615) (instOfNatNat (nat_lit 18446744073709551615))))
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_exactly_zero_or_all_ones' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_the_exact_unsigned_word_constant : ∀
+  (count : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowLowMask count)
+    (@ite.{1} UInt64 (@Eq.{1} Nat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (instDecidableEqNat count (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1)))))
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_asr6_mask_is_the_exact_unsigned_word_constant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_lsrv_of_the_low_limb_has_the_exact_nat_quotient : ∀
+  (count : Nat) (low : UInt64)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) count),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+        (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) low
+        (ShielddSecurity.TransferBlstArmInverseWindowShift01.sourceWindowNegativeCount count)))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) count)))
+'ShielddSecurity.TransferBlstArmInverseWindowShift01.original_window_lsrv_of_the_low_limb_has_the_exact_nat_quotient' depends on axioms: [propext,
+ Quot.sound]

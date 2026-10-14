@@ -1,0 +1,87 @@
+ShielddSecurity.TransferScalarSerializationRange01.radix64 : Nat
+'ShielddSecurity.TransferScalarSerializationRange01.radix64' does not depend on any axioms
+ShielddSecurity.TransferScalarSerializationRange01.reduceRounds : (modulus radix accumulator : Nat) → List.{0} Nat → Nat
+'ShielddSecurity.TransferScalarSerializationRange01.reduceRounds' does not depend on any axioms
+ShielddSecurity.TransferScalarSerializationRange01.normalize : (modulus accumulator : Nat) → Nat
+'ShielddSecurity.TransferScalarSerializationRange01.normalize' does not depend on any axioms
+ShielddSecurity.TransferScalarSerializationRange01.one_round_preserves_symbolic_range : ∀
+  (modulus radix accumulator multiplier rounds : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)
+  (word : @LT.lt.{0} Nat instLTNat multiplier radix)
+  (initial :
+    @LT.lt.{0} Nat instLTNat accumulator
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rounds
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))),
+  @LT.lt.{0} Nat instLTNat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) accumulator
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) multiplier modulus))
+      radix)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix rounds))
+'ShielddSecurity.TransferScalarSerializationRange01.one_round_preserves_symbolic_range' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSerializationRange01.all_rounds_finish_at_most_modulus : ∀ (modulus radix : Nat)
+  (digits : List.{0} Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)
+  (words :
+    ∀ (digit : Nat),
+      @Membership.mem.{0, 0} Nat (List.{0} Nat) (@List.instMembership.{0} Nat) digits digit →
+        @LT.lt.{0} Nat instLTNat digit radix)
+  (accumulator : Nat)
+  (initial :
+    @LT.lt.{0} Nat instLTNat accumulator
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix
+          (@List.length.{0} Nat digits)))),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarSerializationRange01.reduceRounds modulus radix accumulator digits)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferScalarSerializationRange01.all_rounds_finish_at_most_modulus' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSerializationRange01.final_subtraction_is_canonical : ∀ (modulus accumulator : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) modulus)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat accumulator
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) modulus
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarSerializationRange01.normalize modulus accumulator) modulus
+'ShielddSecurity.TransferScalarSerializationRange01.final_subtraction_is_canonical' depends on axioms: [propext]
+ShielddSecurity.TransferScalarSerializationRange01.finite_word_vector_reduction_is_canonical : ∀ (modulus radix : Nat)
+  (positiveModulus : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) modulus)
+  (positiveRadix : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) radix)
+  (digits : List.{0} (Fin radix)) (accumulator : Nat)
+  (rawBound :
+    @LT.lt.{0} Nat instLTNat accumulator
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat)) radix
+        (@List.length.{0} (Fin radix) digits))),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize modulus
+      (ShielddSecurity.TransferScalarSerializationRange01.reduceRounds modulus radix accumulator
+        (@List.map.{0, 0} (Fin radix) Nat (@Fin.val radix) digits)))
+    modulus
+'ShielddSecurity.TransferScalarSerializationRange01.finite_word_vector_reduction_is_canonical' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarSerializationRange01.four_u64_rounds_reduce_into_actual_nullifier_field : ∀
+  (digits : List.{0} (Fin ShielddSecurity.TransferScalarSerializationRange01.radix64))
+  (four :
+    @Eq.{1} Nat (@List.length.{0} (Fin ShielddSecurity.TransferScalarSerializationRange01.radix64) digits)
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (raw : Nat)
+  (fourWords :
+    @LT.lt.{0} Nat instLTNat raw
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarSerializationRange01.normalize
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (ShielddSecurity.TransferScalarSerializationRange01.reduceRounds
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 raw
+        (@List.map.{0, 0} (Fin ShielddSecurity.TransferScalarSerializationRange01.radix64) Nat
+          (@Fin.val ShielddSecurity.TransferScalarSerializationRange01.radix64) digits)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarSerializationRange01.four_u64_rounds_reduce_into_actual_nullifier_field' depends on axioms: [propext,
+ Quot.sound]
