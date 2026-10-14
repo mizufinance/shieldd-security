@@ -1,0 +1,158 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit : (word : UInt64) \u2192 Nat",
+      "full_type_sha256": "e23dfaa51db691c29ec8ed3ba32545e4cb1450a4e6bacbc4fba60e2b295736f0",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_the_exact_unsigned_half_radix_quotient : \u2200\n  (word : UInt64),\n  @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit word)\n    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat word)\n      (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808))))",
+      "full_type_sha256": "3de6bbec047c3b95f6bf2a6ca948d0fa421bd681342642e7ab142c8f6938bd95",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_the_exact_unsigned_half_radix_quotient"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_binary_and_is_one_exactly_at_the_sign_threshold : \u2200\n  (word : UInt64),\n  And\n    (@LE.le.{0} Nat instLENat (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit word)\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n    (Iff\n      (@Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit word)\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n      (@LE.le.{0} Nat instLENat\n        (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))\n        (UInt64.toNat word)))",
+      "full_type_sha256": "d4257040556c76a9612669ddd1a083e33b044af4c6c7921318dea1b667f95e04",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignBit01.original_factor_top_bit_is_binary_and_is_one_exactly_at_the_sign_threshold"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignBit01.original_coded_signed_factor_top_bit_is_one_exactly_when_the_factor_is_negative : \u2200\n  (value : Int)\n  (lower :\n    @LE.le.{0} Int Int.instLEInt\n      (@Neg.neg.{0} Int Int.instNegInt\n        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))\n      value)\n  (upper :\n    @LT.lt.{0} Int Int.instLTInt value\n      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),\n  Iff\n    (@Eq.{1} Nat\n      (ShielddSecurity.TransferBlstArmInverseSignBit01.sourceFactorTopBit\n        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode value))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n    (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))",
+      "full_type_sha256": "3945c9119f85d78e5861ff83307df73ef99f03030d0e62080974c8527c87d8ab",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignBit01.original_coded_signed_factor_top_bit_is_one_exactly_when_the_factor_is_negative"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask : (word : UInt64) \u2192 UInt64",
+      "full_type_sha256": "ae9d015d074b35cf82a88dd73d670b4ecadacde120b97a67fd81655449c75966",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignMask01.original_factor_arithmetic_shift_by_63_is_the_exact_zero_or_all_ones_mask : \u2200\n  (word : UInt64),\n  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask word))\n    (@ite.{1} Nat\n      (@LE.le.{0} Nat instLENat\n        (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))\n        (UInt64.toNat word))\n      (Nat.decLe (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))\n        (UInt64.toNat word))\n      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551615) (instOfNatNat (nat_lit 18446744073709551615)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))",
+      "full_type_sha256": "30b30dabff74bc4da99a9cc75e7320f1fc845691874999aa7d37c49a1d809b33",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignMask01.original_factor_arithmetic_shift_by_63_is_the_exact_zero_or_all_ones_mask"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignMask01.original_coded_factor_arithmetic_shift_mask_matches_the_integer_sign : \u2200\n  (value : Int)\n  (lower :\n    @LE.le.{0} Int Int.instLEInt\n      (@Neg.neg.{0} Int Int.instNegInt\n        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))\n      value)\n  (upper :\n    @LT.lt.{0} Int Int.instLTInt value\n      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),\n  @Eq.{1} Nat\n    (UInt64.toNat\n      (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask\n        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode value)))\n    (@ite.{1} Nat (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))\n      (Int.decLt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551615) (instOfNatNat (nat_lit 18446744073709551615)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))",
+      "full_type_sha256": "cf89954ead207e892ec0fca7a503e7e0e60a5a1ed5e7f4186ca637d9784e4ce2",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignMask01.original_coded_factor_arithmetic_shift_mask_matches_the_integer_sign"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseSignMask01.original_factor_arithmetic_shift_mask_is_the_exact_word_constant : \u2200\n  (word : UInt64),\n  @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask word)\n    (@ite.{1} UInt64\n      (@LE.le.{0} Nat instLENat\n        (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))\n        (UInt64.toNat word))\n      (Nat.decLe (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))\n        (UInt64.toNat word))\n      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))\n      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))",
+      "full_type_sha256": "a849599bfcc946ef96de88b65164bf55d0dca9bc78e41d49d1b540c66de0eb82",
+      "name": "ShielddSecurity.TransferBlstArmInverseSignMask01.original_factor_arithmetic_shift_mask_is_the_exact_word_constant"
+    }
+  ],
+  "dependency_sources_verified": 307,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 169082,
+    "sha256": "0625f6d8116bb0e45d32190fa20cbdec423cca1e648b6e60f6a1297ded5939ae"
+  },
+  "modules": {
+    "TransferBlstArmInverseSignBit01": {
+      "objects": [
+        {
+          "bytes": 104424,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-sign-bit-20261013-02\\project\\ShielddSecurity\\TransferBlstArmInverseSignBit01.olean",
+          "sha256": "5bcc3d798d6dc34496070ff15856c72ca337dd2a592f5abf130c323acedf74cf"
+        }
+      ],
+      "peak_rss_bytes": 1416450048,
+      "plan_identity": {
+        "bytes": 5202850,
+        "sha256": "c208cf0e8e72627944e38cf909599a6ce9e5e3d40bd6c8c18bedd26c010606e8"
+      },
+      "report": {
+        "bytes": 2664,
+        "path": "receipts/TransferBlstArmInverseSignBit01.full-types-and-axioms.txt",
+        "sha256": "8b9f72ef6834a67b4272e206c3bf31e602f69c1fda2195f8142edc8ff84f77d0"
+      },
+      "reports": 4,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact UInt64 bit63 logical shift and signed64 integer negativity. Fresh02 removes redundant steps after rw had closed the goal; failed01 retained with zero credit. Source arithmetic only; ISA and full Transfer remain open.",
+      "seconds": 18.69915979995858,
+      "source": {
+        "bytes": 2587,
+        "sha256": "eaefefed4ea2bcc6345a0ae39f8ec423d58f72712cfe02205be27ac6ae8d88a3"
+      },
+      "source_closure_bound": 267
+    },
+    "TransferBlstArmInverseSignMask01": {
+      "objects": [
+        {
+          "bytes": 103328,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-sign-mask-20261013-02\\project\\ShielddSecurity\\TransferBlstArmInverseSignMask01.olean",
+          "sha256": "a3c45285257e18b60c89730954b21f26c06fa329c49de7f681d4f57e631973da"
+        }
+      ],
+      "peak_rss_bytes": 1394434048,
+      "plan_identity": {
+        "bytes": 5282405,
+        "sha256": "d7710a5aca41ef25dc7cd8502a7121ec47827baf8dbd3689e42fdfd54fcfbb3d"
+      },
+      "report": {
+        "bytes": 3324,
+        "path": "receipts/TransferBlstArmInverseSignMask01.full-types-and-axioms.txt",
+        "sha256": "85346adc0490ffa4e9c94613990bac224cc34f6ec650df55e8ef7bcee44c22eb"
+      },
+      "reports": 4,
+      "runner_identity": {
+        "bytes": 24574,
+        "sha256": "7237060ba9e0d0b98e93cfe5aceb86a4d7390e2af2471b43e39cf3750ebc642b"
+      },
+      "scope": "Exact UInt64/BitVec ASR63 zero/all-ones factor mask and signed64 integer sign correspondence. Fresh02 uses dependent-safe simp for ite predicate; failed01 retained zero credit. Source arithmetic only; native execution and approximate progress remain open.",
+      "seconds": 20.1093573999824,
+      "source": {
+        "bytes": 3635,
+        "sha256": "4873c9fd6822a54b4d41a2974b5412775f283d86f443c4bc4b2d3a6c0324fe35"
+      },
+      "source_closure_bound": 268
+    }
+  },
+  "native_credit": 0,
+  "refresh": {
+    "bytes": 5552,
+    "sha256": "0458ca2d256b64640777b78c01f85877b2a940137902f9ee2a510af3ef5a7dfe"
+  },
+  "reports": 8,
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Exact UInt64 bit63 extraction and factor sign correspondence, plus arithmetic-right-shift63 sign-mask identity under the stated factor bounds. Approximate high-window progress, complete inverse core, remaining word-operation correspondence, compiled ISA/ABI execution and all full Transfer endpoints remain OPEN.",
+  "status": "passed"
+}
