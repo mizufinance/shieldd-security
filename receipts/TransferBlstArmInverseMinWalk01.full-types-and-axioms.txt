@@ -1,0 +1,34 @@
+ShielddSecurity.TransferBlstArmInverseMinWalk01.two_component_bounds_derive_the_exact_minimum_order : ∀ (a b c d : Nat)
+  (left : @LE.le.{0} Nat instLENat a c) (right : @LE.le.{0} Nat instLENat b d),
+  @LE.le.{0} Nat instLENat (@Min.min.{0} Nat instMinNat a b) (@Min.min.{0} Nat instMinNat c d)
+'ShielddSecurity.TransferBlstArmInverseMinWalk01.two_component_bounds_derive_the_exact_minimum_order' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseMinWalk01.every_original_factor_step_does_not_increase_its_natural_minimum : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @LE.le.{0} Nat instLENat
+    (@Min.min.{0} Nat instMinNat
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)))
+    (@Min.min.{0} Nat instMinNat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+'ShielddSecurity.TransferBlstArmInverseMinWalk01.every_original_factor_step_does_not_increase_its_natural_minimum' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseMinWalk01.every_symbolic_factor_walk_preserves_its_initial_natural_minimum_bound : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @LE.le.{0} Nat instLENat
+    (@Min.min.{0} Nat instMinNat
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)))
+    (@Min.min.{0} Nat instMinNat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+'ShielddSecurity.TransferBlstArmInverseMinWalk01.every_symbolic_factor_walk_preserves_its_initial_natural_minimum_bound' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseMinWalk01.symbolic_original_factor_walk_composes_at_any_prefix : ∀
+  (before after : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @Eq.{1} ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) before after) s)
+    (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk after
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk before s))
+'ShielddSecurity.TransferBlstArmInverseMinWalk01.symbolic_original_factor_walk_composes_at_any_prefix' depends on axioms: [propext]
