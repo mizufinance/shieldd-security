@@ -102,7 +102,7 @@ for record in review['packets']:
   reports.append(dict(name=declaration,full_type=full,**actual));left=left[:m.start()]+left[m.end():]
  assert not left.strip();modules[name]=dict(source=ident(source),audits=len(checks),seconds=result['seconds'],peak_rss_bytes=result['peak_rss_bytes'],report=ident(raw),objects=result['objects']);owned[name]=modules[name]
  packets.append(dict(packet=record['packet'],manifest=record['manifest'],external_modules=len(external['modules']),external_file_identities=len(external['immutable_files']),owned_imports=len(floor['selected'])))
-assert len(modules)==12 and len(reports)==51
+assert len(modules)==16 and len(reports)==63
 pending=out.with_name(out.name+'.pending');assert not pending.exists();pending.mkdir()
 for name,b in sources.items():p=pending/'source/ShielddSecurity'/(name+'.lean');p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
 evidence=dict(status='passed',runtime_sha=review['runtime_sha'],transport_commit=review['transport_commit'],modules=modules,reports=len(reports),complete_types_and_axioms=reports,independent_baseline_matches=len(reports),packets=packets,legacy_owned_objects_reused=False,source_contracts_unchanged=True,seconds=seconds,scope=review['scope'],baseline_review=ident((root/'baseline-review.json').read_bytes()),refresh=ident(Path(__file__).read_bytes()),full_transfer='OPEN',native_credit=0,new_cumulative_credit=0,certification=False)
