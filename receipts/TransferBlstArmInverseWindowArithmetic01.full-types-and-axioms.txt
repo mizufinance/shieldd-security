@@ -1,0 +1,63 @@
+ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_packed_prefix_division_removes_the_entire_lower_tail : ∀
+  (base quotient tail : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) base)
+  (bounded : @LT.lt.{0} Nat instLTNat tail base),
+  @Eq.{1} Nat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base quotient) tail)
+      base)
+    quotient
+'ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_packed_prefix_division_removes_the_entire_lower_tail' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_two_limb_window_division_is_exact_without_a_tail_premise : ∀
+  (radix scale divisor high low : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) divisor)
+  (factorization : @Eq.{1} Nat radix (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale divisor)),
+  @Eq.{1} Nat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix high) low)
+      divisor)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale high)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) low divisor))
+'ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_two_limb_window_division_is_exact_without_a_tail_premise' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_whole_input_window_division_removes_all_lower_limbs : ∀
+  (base radix scale divisor high low tail : Nat)
+  (basePositive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) base)
+  (divisorPositive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) divisor)
+  (tailBound : @LT.lt.{0} Nat instLTNat tail base)
+  (factorization : @Eq.{1} Nat radix (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale divisor)),
+  @Eq.{1} Nat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix high) low))
+        tail)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) base divisor))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale high)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) low divisor))
+'ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_whole_input_window_division_removes_all_lower_limbs' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_disjoint_window_fragments_have_exact_or_sum : ∀
+  (shift high fragment : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat fragment
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)),
+  @Eq.{1} Nat
+    (@HOr.hOr.{0, 0, 0} Nat Nat Nat (@instHOrOfOrOp.{0} Nat Nat.instOrOp)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+        high)
+      fragment)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+        high)
+      fragment)
+'ShielddSecurity.TransferBlstArmInverseWindowArithmetic01.symbolic_disjoint_window_fragments_have_exact_or_sum' depends on axioms: [propext,
+ Quot.sound]
