@@ -1,0 +1,60 @@
+ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows : Type
+'ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows
+'ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceComposeRows : (previous next :
+    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) →
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows
+'ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceComposeRows' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks : (inputA inputB scale valueA valueB : Int) →
+  (rows : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) → Prop
+'ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseRowCompose01.the_identity_rows_track_both_original_inputs_at_scale_one : ∀
+  (inputA inputB : Int),
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB
+    (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1))) inputA inputB
+    ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows
+'ShielddSecurity.TransferBlstArmInverseRowCompose01.the_identity_rows_track_both_original_inputs_at_scale_one' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowCompose01.one_next_exact_row_composes_both_previous_exact_input_rows : ∀
+  (inputA inputB valueA valueB result scale radix oldF0 oldG0 oldF1 oldG1 nextF nextG : Int)
+  (left :
+    @Eq.{1} Int (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale valueA)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldF0 inputA)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldG0 inputB)))
+  (right :
+    @Eq.{1} Int (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale valueB)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldF1 inputA)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldG1 inputB)))
+  (next :
+    @Eq.{1} Int (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) radix result)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF valueA)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG valueB))),
+  @Eq.{1} Int
+    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale radix) result)
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF oldF0)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG oldF1))
+        inputA)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF oldG0)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG oldG1))
+        inputB))
+'ShielddSecurity.TransferBlstArmInverseRowCompose01.one_next_exact_row_composes_both_previous_exact_input_rows' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowCompose01.two_exact_linear_row_steps_compose_at_the_product_of_their_scales : ∀
+  (inputA inputB valueA valueB resultA resultB scale radix : Int)
+  (previous next : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows)
+  (old :
+    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB scale valueA valueB previous)
+  (step :
+    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks valueA valueB radix resultA resultB next),
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB
+    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale radix) resultA resultB
+    (ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceComposeRows previous next)
+'ShielddSecurity.TransferBlstArmInverseRowCompose01.two_exact_linear_row_steps_compose_at_the_product_of_their_scales' depends on axioms: [propext]
