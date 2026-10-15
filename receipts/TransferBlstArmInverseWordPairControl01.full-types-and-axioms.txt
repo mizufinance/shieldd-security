@@ -1,0 +1,64 @@
+ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep : (a b : Nat) → Prod.{0, 0} Nat Nat
+'ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceWordPairControlStep : (a b : UInt64) →
+  Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceWordPairControlStep' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPairControl01.no_borrow_source_word_subtraction_has_the_exact_entire_natural_difference : ∀
+  (left right : UInt64) (noBorrow : @LE.le.{0} Nat instLENat (UInt64.toNat right) (UInt64.toNat left)),
+  @Eq.{1} Nat (UInt64.toNat (@HSub.hSub.{0, 0, 0} UInt64 UInt64 UInt64 (@instHSub.{0} UInt64 instSubUInt64) left right))
+    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (UInt64.toNat left) (UInt64.toNat right))
+'ShielddSecurity.TransferBlstArmInverseWordPairControl01.no_borrow_source_word_subtraction_has_the_exact_entire_natural_difference' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPairControl01.source_lsr_by_one_has_the_exact_entire_natural_half : ∀
+  (word : UInt64),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+        (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) word
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1)))))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat word)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'ShielddSecurity.TransferBlstArmInverseWordPairControl01.source_lsr_by_one_has_the_exact_entire_natural_half' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPairControl01.original_word_mask_subtract_borrow_select_and_shift_derive_the_entire_natural_pair_step : ∀
+  (a b : UInt64),
+  @Eq.{1} (Prod.{0, 0} Nat Nat)
+    (@Prod.mk.{0, 0} Nat Nat
+      (UInt64.toNat
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceWordPairControlStep a b)))
+      (UInt64.toNat
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceWordPairControlStep a b))))
+    (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep (UInt64.toNat a)
+      (UInt64.toNat b))
+'ShielddSecurity.TransferBlstArmInverseWordPairControl01.original_word_mask_subtract_borrow_select_and_shift_derive_the_entire_natural_pair_step' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPairControl01.the_natural_pair_control_step_is_exactly_the_data_part_of_the_original_factor_step : ∀
+  (state : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @Eq.{1} (Prod.{0, 0} Nat Nat)
+    (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a state)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b state))
+    (@Prod.mk.{0, 0} Nat Nat
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep state))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep state)))
+'ShielddSecurity.TransferBlstArmInverseWordPairControl01.the_natural_pair_control_step_is_exactly_the_data_part_of_the_original_factor_step' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordPairControl01.every_natural_pair_control_step_never_increases_the_entire_input_maximum : ∀
+  (a b : Nat),
+  And
+    (@LE.le.{0} Nat instLENat
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep a b))
+      (@Max.max.{0} Nat Nat.instMax a b))
+    (@LE.le.{0} Nat instLENat
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep a b))
+      (@Max.max.{0} Nat Nat.instMax a b))
+'ShielddSecurity.TransferBlstArmInverseWordPairControl01.every_natural_pair_control_step_never_increases_the_entire_input_maximum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
