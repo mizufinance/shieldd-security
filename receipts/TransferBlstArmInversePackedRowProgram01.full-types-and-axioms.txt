@@ -1,0 +1,106 @@
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourceWordFactorProduct : (words : List.{0} UInt64) →
+  (factor : UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourceWordFactorProduct' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.the_word_factor_program_at_an_exact_code_is_the_entire_signed_factor_program : ∀
+  (words : List.{0} UInt64) (factor : Int),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourceWordFactorProduct words
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor))
+    (ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.sourceSignedMagnitudeProductWords words factor)
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.the_word_factor_program_at_an_exact_code_is_the_entire_signed_factor_program' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourceWordFactorRowSum : (left right : List.{0} UInt64) →
+  (factors : Prod.{0, 0} UInt64 UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourceWordFactorRowSum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.exact_factor_row_codes_derive_the_entire_two_product_word_sum_program : ∀
+  (left right : List.{0} UInt64) (row : Prod.{0, 0} Int Int),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourceWordFactorRowSum left right
+      (ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceFactorRowCodes row))
+    (ShielddSecurity.TransferBlstArmInverseSignedProductSum01.sourceSignedProductSum left right
+      (@Prod.fst.{0, 0} Int Int row) (@Prod.snd.{0, 0} Int Int row))
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.exact_factor_row_codes_derive_the_entire_two_product_word_sum_program' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedRowWordSum : (second : Bool) →
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedRowWordSum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_factor_words_feed_the_entire_original_signed_row_word_sum : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedRowWordSum second a b)
+    (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalRowWordSum second a b)
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_factor_words_feed_the_entire_original_signed_row_word_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedRowMagnitudeWords : (second : Bool) →
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedRowMagnitudeWords' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_factor_word_program_derives_the_entire_qualified_source_row_magnitude_program : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedRowMagnitudeWords second a b)
+    (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowMagnitudeWords second a b)
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_factor_word_program_derives_the_entire_qualified_source_row_magnitude_program' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_factor_products_carries_extr_and_sign_correction_derive_the_entire_original_quotient_magnitude : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedRowMagnitudeWords second a b)))
+    (Int.natAbs
+      (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_factor_products_carries_extr_and_sign_correction_derive_the_entire_original_quotient_magnitude' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.two_symbolic_output_functions_equal_at_every_row_derive_the_entire_pair : ∀
+  (left right : Bool → List.{0} UInt64)
+  (rows : ∀ (second : Bool), @Eq.{1} (List.{0} UInt64) (left second) (right second)),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) (List.{0} UInt64))
+    (@Prod.mk.{0, 0} (List.{0} UInt64) (List.{0} UInt64) (left Bool.false) (left Bool.true))
+    (@Prod.mk.{0, 0} (List.{0} UInt64) (List.{0} UInt64) (right Bool.false) (right Bool.true))
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.two_symbolic_output_functions_equal_at_every_row_derive_the_entire_pair' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedMagnitudeWordBatch : (input :
+    Prod.{0, 0} Nat Nat) →
+  Prod.{0, 0} (List.{0} UInt64) (List.{0} UInt64)
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedMagnitudeWordBatch' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_register_word_programs_derive_both_entire_source_word_batch_outputs : ∀
+  (input : Prod.{0, 0} Nat Nat),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) (List.{0} UInt64))
+    (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedMagnitudeWordBatch input)
+    (ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.sourceMagnitudeWordBatch input)
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_register_word_programs_derive_both_entire_source_word_batch_outputs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_register_products_carries_shifts_and_signs_derive_both_entire_magnitude_batch_values : ∀
+  (input : Prod.{0, 0} Nat Nat)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} (Prod.{0, 0} Nat Nat)
+    (@Prod.mk.{0, 0} Nat Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (List.{0} UInt64)
+          (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedMagnitudeWordBatch input)))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.snd.{0, 0} (List.{0} UInt64) (List.{0} UInt64)
+          (ShielddSecurity.TransferBlstArmInversePackedRowProgram01.sourcePackedMagnitudeWordBatch input))))
+    (ShielddSecurity.TransferBlstArmInverseMagnitudeBatch01.sourceMagnitudeBatch input)
+'ShielddSecurity.TransferBlstArmInversePackedRowProgram01.original_packed_register_products_carries_shifts_and_signs_derive_both_entire_magnitude_batch_values' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
