@@ -1,0 +1,153 @@
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.wordModulusNonzero : @NeZero.{0} Nat
+  (@MulZeroClass.toZero.{0} Nat Nat.instMulZeroClass)
+  (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.wordModulusNonzero' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.every_entire_signed_word_decode_codes_back_to_the_original_word : ∀
+  (word : UInt64),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning word))
+    word
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.every_entire_signed_word_decode_codes_back_to_the_original_word' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.an_entire_signed_word_decode_equality_derives_the_exact_integer_word_code : ∀
+  (word : UInt64) (value : Int)
+  (decoded : @Eq.{1} Int (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning word) value),
+  @Eq.{1} UInt64 word (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode value)
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.an_entire_signed_word_decode_equality_derives_the_exact_integer_word_code' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.sourcePackedRegisterWord : (word :
+    ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord) →
+  UInt64
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.sourcePackedRegisterWord' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.the_entire_source_packed_register_is_preserved_by_its_uint64_conversion : ∀
+  (word : ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInversePackedFactorWords01.sourcePackedRegisterWord word))
+    (@ZMod.val (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616))) word)
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.the_entire_source_packed_register_is_preserved_by_its_uint64_conversion' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.sourcePackedFactorRegisterWords : (packed :
+    ShielddSecurity.TransferBlstArmInversePackedWalk01.PackedState) →
+  Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.sourcePackedFactorRegisterWords' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.exact_biased_slot_decoders_derive_all_four_complete_factor_word_codes : ∀
+  (factors : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (packed : ShielddSecurity.TransferBlstArmInversePackedWalk01.PackedState)
+  (decoded :
+    And
+      (@Eq.{1} Int
+        (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeLow
+          (@Nat.cast.{0} Int instNatCastInt
+            (@ZMod.val
+              (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))
+              (@Prod.fst.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                (@Prod.snd.{0, 0} Nat
+                  (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                    ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+                  (@Prod.snd.{0, 0} Nat
+                    (Prod.{0, 0} Nat
+                      (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                        ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+                    packed))))))
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 factors))
+      (And
+        (@Eq.{1} Int
+          (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeHigh
+            (@Nat.cast.{0} Int instNatCastInt
+              (@ZMod.val
+                (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))
+                (@Prod.fst.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                  ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                  (@Prod.snd.{0, 0} Nat
+                    (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                      ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+                    (@Prod.snd.{0, 0} Nat
+                      (Prod.{0, 0} Nat
+                        (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                          ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+                      packed))))))
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 factors))
+        (And
+          (@Eq.{1} Int
+            (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeLow
+              (@Nat.cast.{0} Int instNatCastInt
+                (@ZMod.val
+                  (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))
+                  (@Prod.snd.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                    ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                    (@Prod.snd.{0, 0} Nat
+                      (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                        ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+                      (@Prod.snd.{0, 0} Nat
+                        (Prod.{0, 0} Nat
+                          (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                            ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+                        packed))))))
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 factors))
+          (@Eq.{1} Int
+            (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeHigh
+              (@Nat.cast.{0} Int instNatCastInt
+                (@ZMod.val
+                  (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))
+                  (@Prod.snd.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                    ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                    (@Prod.snd.{0, 0} Nat
+                      (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                        ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+                      (@Prod.snd.{0, 0} Nat
+                        (Prod.{0, 0} Nat
+                          (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+                            ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+                        packed))))))
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 factors))))),
+  @Eq.{1} (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)))
+    (ShielddSecurity.TransferBlstArmInversePackedFactorWords01.sourcePackedFactorRegisterWords packed)
+    (@Prod.mk.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 factors))
+      (@Prod.mk.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 factors))
+        (@Prod.mk.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 factors))
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 factors)))))
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.exact_biased_slot_decoders_derive_all_four_complete_factor_word_codes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedFactorWords01.original_modulo64_packed_walk_and_ubfx_bias_subtraction_derive_all_four_entire_factor_codes : ∀
+  (a b : Nat),
+  @Eq.{1} (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)))
+    (ShielddSecurity.TransferBlstArmInversePackedFactorWords01.sourcePackedFactorRegisterWords
+      (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedWalk
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+        (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedInitial a b)))
+    (@Prod.mk.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b))))
+      (@Prod.mk.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+              (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b))))
+        (@Prod.mk.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+                (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b))))
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+                (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+                (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial a b)))))))
+'ShielddSecurity.TransferBlstArmInversePackedFactorWords01.original_modulo64_packed_walk_and_ubfx_bias_subtraction_derive_all_four_entire_factor_codes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
