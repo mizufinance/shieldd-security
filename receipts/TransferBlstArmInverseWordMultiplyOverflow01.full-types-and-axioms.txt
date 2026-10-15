@@ -1,0 +1,36 @@
+ShielddSecurity.TransferBlstArmInverseWordMultiplyOverflow01.every_entire_unsigned_word_product_fits_the_derived_extra_word_capacity : ∀
+  (words : List.{0} UInt64) (multiplier : UInt64),
+  @LT.lt.{0} Nat instLTNat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words) (UInt64.toNat multiplier))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyOverflow01.every_entire_unsigned_word_product_fits_the_derived_extra_word_capacity' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordMultiplyOverflow01.an_exact_bounded_unsigned_carry_equation_forces_a_clear_flag_and_the_entire_value : ∀
+  (output capacity product : Nat) (carry : Bool)
+  (conserved :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) output
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) capacity (Bool.toNat carry)))
+      product)
+  (bounded : @LT.lt.{0} Nat instLTNat product capacity),
+  And (@Eq.{1} Bool carry Bool.false) (@Eq.{1} Nat output product)
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyOverflow01.an_exact_bounded_unsigned_carry_equation_forces_a_clear_flag_and_the_entire_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordMultiplyOverflow01.original_entire_unsigned_word_product_has_no_final_overflow_and_the_exact_full_value : ∀
+  (words : List.{0} UInt64) (multiplier : UInt64),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseWordMultiplyCarry01.sourceUnsignedWordMultiply words multiplier))
+      Bool.false)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseWordMultiplyCarry01.sourceUnsignedWordMultiply words multiplier)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words) (UInt64.toNat multiplier)))
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyOverflow01.original_entire_unsigned_word_product_has_no_final_overflow_and_the_exact_full_value' depends on axioms: [propext,
+ Quot.sound]
