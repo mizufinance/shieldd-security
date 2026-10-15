@@ -1,0 +1,97 @@
+ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.generic_selected_row_division_is_the_exact_selected_full_quotient : ∀
+  (second : Bool) (f0 g0 f1 g1 inputA inputB divisor : Int),
+  @Eq.{1} Int
+    (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) inputA
+          (@Prod.fst.{0, 0} Int Int
+            (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceSelectFactorRow second f0 g0 f1 g1)))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) inputB
+          (@Prod.snd.{0, 0} Int Int
+            (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceSelectFactorRow second f0 g0 f1 g1))))
+      divisor)
+    (@ite.{1} Int (@Eq.{1} Bool second Bool.true) (instDecidableEqBool second Bool.true)
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) f1 inputA)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) g1 inputB))
+        divisor)
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) f0 inputA)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) g0 inputB))
+        divisor))
+'ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.generic_selected_row_division_is_the_exact_selected_full_quotient' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.either_bounded_integer_choice_retains_the_entire_magnitude_bound : ∀
+  (second : Bool) (first last : Int) (capacity : Nat)
+  (firstSmall : @LT.lt.{0} Nat instLTNat (Int.natAbs first) capacity)
+  (lastSmall : @LT.lt.{0} Nat instLTNat (Int.natAbs last) capacity),
+  @LT.lt.{0} Nat instLTNat
+    (Int.natAbs (@ite.{1} Int (@Eq.{1} Bool second Bool.true) (instDecidableEqBool second Bool.true) last first))
+    capacity
+'ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.either_bounded_integer_choice_retains_the_entire_magnitude_bound' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient : (count : Nat) →
+  (second : Bool) → (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Int
+'ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.the_original_selected_row_quotient_is_the_original_full_input_quotient : ∀
+  (count : Nat) (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} Int (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient count second a b)
+    (have actual : Prod.{0, 0} Int Int :=
+      ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+          (@Prod.fst.{0, 0} UInt64 UInt64
+            (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+        (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+          (@Prod.snd.{0, 0} UInt64 UInt64
+            (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+    @ite.{1} Int (@Eq.{1} Bool second Bool.true) (instDecidableEqBool second Bool.true)
+      (@Prod.snd.{0, 0} Int Int actual) (@Prod.fst.{0, 0} Int Int actual))
+'ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.the_original_selected_row_quotient_is_the_original_full_input_quotient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.original_batch_range_derives_the_entire_source_selected_quotient_magnitude_bound : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @LT.lt.{0} Nat instLTNat
+    (Int.natAbs
+      (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+'ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.original_batch_range_derives_the_entire_source_selected_quotient_magnitude_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowMagnitudeWords : (second : Bool) →
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowMagnitudeWords' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.original_source_signed_products_carry_extr_asr_and_absolute_correction_derive_the_entire_quotient_magnitude : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowMagnitudeWords second a b)))
+    (Int.natAbs
+      (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+'ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.original_source_signed_products_carry_extr_asr_and_absolute_correction_derive_the_entire_quotient_magnitude' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
