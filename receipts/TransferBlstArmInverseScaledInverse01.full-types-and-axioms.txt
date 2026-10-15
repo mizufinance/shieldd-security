@@ -1,0 +1,128 @@
+ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Int
+'ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledModulusCoefficient : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Int
+'ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledModulusCoefficient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseScaledInverse01.an_exact_integer_bezout_row_derives_the_scaled_inverse_residue : ∀
+  (input modulus coefficient other scale : Int)
+  (row :
+    @Eq.{1} Int
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) coefficient input)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) other modulus))
+      scale),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) coefficient input) modulus)
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) scale modulus)
+'ShielddSecurity.TransferBlstArmInverseScaledInverse01.an_exact_integer_bezout_row_derives_the_scaled_inverse_residue' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseScaledInverse01.every_sufficient_valid_unit_source_schedule_produces_the_exact_scaled_bezout_identity : ∀
+  (count remaining : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (budget :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        remaining))
+  (unit :
+    @Eq.{1} Nat (Nat.gcd (@Prod.fst.{0, 0} Nat Nat input) (@Prod.snd.{0, 0} Nat Nat input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Int
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows.f1
+          (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceFinalLinearRows count remaining input))
+        (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input)))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows.g1
+          (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceFinalLinearRows count remaining input))
+        (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))))
+    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        remaining))
+'ShielddSecurity.TransferBlstArmInverseScaledInverse01.every_sufficient_valid_unit_source_schedule_produces_the_exact_scaled_bezout_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_exact_two512_bezout_identity : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (unit :
+    @Eq.{1} Nat
+      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Int
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b)
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledModulusCoefficient a b)
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))))
+    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512))))
+'ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_exact_two512_bezout_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_actual_source_scaled_inverse_residue : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (unit :
+    @Eq.{1} Nat
+      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b)
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512))))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))
+'ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_actual_source_scaled_inverse_residue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
