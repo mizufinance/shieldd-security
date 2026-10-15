@@ -1,0 +1,130 @@
+ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState : Type
+'ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourcePackedWordCode : (state :
+    ShielddSecurity.TransferBlstArmInversePackedWalk01.PackedState) →
+  ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+'ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourcePackedWordCode' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourceWordPackedStep : (words :
+    ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState) →
+  ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+'ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourceWordPackedStep' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPackedStep01.the_entire_source_word_pair_step_is_the_exact_code_of_its_natural_data_step : ∀
+  (a b : UInt64),
+  @Eq.{1} (Prod.{0, 0} UInt64 UInt64)
+    (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceWordPairControlStep a b)
+    (@Prod.mk.{0, 0} UInt64 UInt64
+      (UInt64.ofNat
+        (@Prod.fst.{0, 0} Nat Nat
+          (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep (UInt64.toNat a)
+            (UInt64.toNat b))))
+      (UInt64.ofNat
+        (@Prod.snd.{0, 0} Nat Nat
+          (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep (UInt64.toNat a)
+            (UInt64.toNat b)))))
+'ShielddSecurity.TransferBlstArmInverseWordPackedStep01.the_entire_source_word_pair_step_is_the_exact_code_of_its_natural_data_step' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPackedStep01.source_natural_pair_data_is_the_entire_data_part_of_the_modulo64_packed_step : ∀
+  (state : ShielddSecurity.TransferBlstArmInversePackedWalk01.PackedState),
+  @Eq.{1} (Prod.{0, 0} Nat Nat)
+    (ShielddSecurity.TransferBlstArmInverseWordPairControl01.sourceNaturalPairControlStep
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} Nat
+          (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+            ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+        state)
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+          ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+        (@Prod.snd.{0, 0} Nat
+          (Prod.{0, 0} Nat
+            (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+              ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+          state)))
+    (@Prod.mk.{0, 0} Nat Nat
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} Nat
+          (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+            ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+        (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedStep state))
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+          ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+        (@Prod.snd.{0, 0} Nat
+          (Prod.{0, 0} Nat
+            (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+              ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+          (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedStep state))))
+'ShielddSecurity.TransferBlstArmInverseWordPackedStep01.source_natural_pair_data_is_the_entire_data_part_of_the_modulo64_packed_step' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPackedStep01.the_source_modulo64_packed_step_preserves_every_entire_natural_data_capacity : ∀
+  (state : ShielddSecurity.TransferBlstArmInversePackedWalk01.PackedState) (capacity : Nat)
+  (left :
+    @LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} Nat
+          (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+            ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+        state)
+      capacity)
+  (right :
+    @LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+          ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+        (@Prod.snd.{0, 0} Nat
+          (Prod.{0, 0} Nat
+            (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+              ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+          state))
+      capacity),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} Nat
+          (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+            ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+        (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedStep state))
+      capacity)
+    (@LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+          ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+        (@Prod.snd.{0, 0} Nat
+          (Prod.{0, 0} Nat
+            (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+              ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+          (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedStep state)))
+      capacity)
+'ShielddSecurity.TransferBlstArmInverseWordPackedStep01.the_source_modulo64_packed_step_preserves_every_entire_natural_data_capacity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordPackedStep01.original_uint64_packed_word_step_is_the_entire_code_of_the_original_modulo64_packed_step : ∀
+  (state : ShielddSecurity.TransferBlstArmInversePackedWalk01.PackedState)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} Nat
+          (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+            ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+        state)
+      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat
+        (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+          ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord)
+        (@Prod.snd.{0, 0} Nat
+          (Prod.{0, 0} Nat
+            (Prod.{0, 0} ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord
+              ShielddSecurity.TransferBlstArmInversePackedWalk01.FactorWord))
+          state))
+      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))),
+  @Eq.{1} ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+    (ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourceWordPackedStep
+      (ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourcePackedWordCode state))
+    (ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourcePackedWordCode
+      (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedStep state))
+'ShielddSecurity.TransferBlstArmInverseWordPackedStep01.original_uint64_packed_word_step_is_the_entire_code_of_the_original_modulo64_packed_step' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
