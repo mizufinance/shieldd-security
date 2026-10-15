@@ -1,0 +1,67 @@
+ShielddSecurity.TransferBlstArmInverseRowSignMask01.full_source_signed_decode_derives_the_exact_retained_top_quotient_sign_mask : ∀
+  (words : List.{0} UInt64) (count shift : Nat) (value : Int)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt64 words)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (decoded :
+    @Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              ShielddSecurity.TransferScalarSerializationRange01.radix64 count)
+            (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+      value),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+      (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words)))
+    (@ite.{1} UInt64
+      (@LT.lt.{0} Int Int.instLTInt
+        (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt
+        (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseRowSignMask01.full_source_signed_decode_derives_the_exact_retained_top_quotient_sign_mask' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseRowSignMask01.original_row_word_sum_retained_top_asr_derives_the_exact_original_quotient_sign_mask : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+      (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalRowWordSum second a b)))))
+    (@ite.{1} UInt64
+      (@LT.lt.{0} Int Int.instLTInt
+        (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b)
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt
+        (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b)
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseRowSignMask01.original_row_word_sum_retained_top_asr_derives_the_exact_original_quotient_sign_mask' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
