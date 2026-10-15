@@ -1,0 +1,69 @@
+ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.sourceCountedWordPackedRun : Nat →
+  Prod.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState →
+    Prod.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+'ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.sourceCountedWordPackedRun' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.the_code_of_every_positive_bounded_source_counter_is_nonzero : ∀
+  (count : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) count)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat count
+      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))),
+  @Ne.{1} UInt64 (UInt64.ofNat count) (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.the_code_of_every_positive_bounded_source_counter_is_nonzero' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.one_source_word_decrement_of_a_successor_counter_is_the_entire_predecessor_code : ∀
+  (count : Nat),
+  @Eq.{1} UInt64
+    (@HSub.hSub.{0, 0, 0} UInt64 UInt64 UInt64 (@instHSub.{0} UInt64 instSubUInt64)
+      (UInt64.ofNat
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+    (UInt64.ofNat count)
+'ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.one_source_word_decrement_of_a_successor_counter_is_the_entire_predecessor_code' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.every_sufficiently_fueled_bounded_word_counter_executes_exactly_its_entire_initial_count : ∀
+  (count fuel : Nat) (words : ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState)
+  (enough : @LE.le.{0} Nat instLENat count fuel)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat count
+      (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))),
+  @Eq.{1} (Prod.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState)
+    (ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.sourceCountedWordPackedRun fuel
+      (@Prod.mk.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+        (UInt64.ofNat count) words))
+    (@Prod.mk.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInverseWordPackedWalk01.sourceWordPackedWalk count words))
+'ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.every_sufficiently_fueled_bounded_word_counter_executes_exactly_its_entire_initial_count' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.original31_source_counter_and_zero_test_derive_exactly31_entire_packed_word_steps : ∀
+  (words : ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState),
+  @Eq.{1} (Prod.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState)
+    (ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.sourceCountedWordPackedRun
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+      (@Prod.mk.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 31) (@UInt64.instOfNat (nat_lit 31))) words))
+    (@Prod.mk.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInverseWordPackedWalk01.sourceWordPackedWalk
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) words))
+'ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.original31_source_counter_and_zero_test_derive_exactly31_entire_packed_word_steps' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.original31_counted_word_loop_with_original_constants_produces_the_entire_original_packed_state_code : ∀
+  (a b : UInt64),
+  @Eq.{1} (Prod.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState)
+    (ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.sourceCountedWordPackedRun
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+      (@Prod.mk.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 31) (@UInt64.instOfNat (nat_lit 31)))
+        (ShielddSecurity.TransferBlstArmInverseWordPackedWalk01.sourceWordPackedInitial a b)))
+    (@Prod.mk.{0, 0} UInt64 ShielddSecurity.TransferBlstArmInverseWordPackedStep01.WordPackedState
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInverseWordPackedStep01.sourcePackedWordCode
+        (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedWalk
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+          (ShielddSecurity.TransferBlstArmInversePackedWalk01.sourcePackedInitial (UInt64.toNat a) (UInt64.toNat b)))))
+'ShielddSecurity.TransferBlstArmInverseWordLoopCounter01.original31_counted_word_loop_with_original_constants_produces_the_entire_original_packed_state_code' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
