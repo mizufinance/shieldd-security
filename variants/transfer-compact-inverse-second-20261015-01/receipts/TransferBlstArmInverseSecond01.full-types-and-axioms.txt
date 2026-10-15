@@ -1,0 +1,142 @@
+ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondHigh : (s :
+    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondHigh' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondWordCorrection : (s :
+    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) →
+  ShielddSecurity.TransferBlstArmInverseFirst01.WideState
+'ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondWordCorrection' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSecond01.sourceSignedSecond : (value : Int) → Int
+'ShielddSecurity.TransferBlstArmInverseSecond01.sourceSignedSecond' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSecond01.original_second_high_vector_retains_the_actual_addition_words : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),
+  @Eq.{1} (List.{0} UInt64)
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondHigh s))
+    (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+      (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw
+        (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int
+          (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+            (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int) s))
+        (ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandVector
+          (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int
+            (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+              (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int) s)))))
+'ShielddSecurity.TransferBlstArmInverseSecond01.original_second_high_vector_retains_the_actual_addition_words' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSecond01.original_second_high_addition_conserves_the_entire_carry_equation : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),
+  @Eq.{1} Int
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+        (ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondWordCorrection s))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix
+        (@Nat.cast.{0} Int instNatCastInt
+          (Bool.toNat
+            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+              (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw
+                (@Prod.fst.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int
+                  (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                    (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int)
+                    s))
+                (ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandVector
+                  (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                    Int
+                    (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                      (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                        Int)
+                      s)))))))))
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw s))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              (ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandVector
+                (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int
+                  (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                    (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int)
+                    s))))))))
+'ShielddSecurity.TransferBlstArmInverseSecond01.original_second_high_addition_conserves_the_entire_carry_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSecond01.middle_signed_range_derives_the_actual_extra_top_range : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState)
+  (lower :
+    @LT.lt.{0} Int Int.instLTInt
+      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))
+  (upper :
+    @LE.le.{0} Int Int.instLEInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix),
+  And
+    (@LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+      (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int) s)))
+    (@LE.le.{0} Int Int.instLEInt
+      (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int) s))
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseSecond01.middle_signed_range_derives_the_actual_extra_top_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSecond01.original_second_word_adjustment_is_the_qualified_second_integer_adjustment : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState)
+  (lower :
+    @LT.lt.{0} Int Int.instLTInt
+      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))
+  (upper :
+    @LE.le.{0} Int Int.instLEInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+      (ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondWordCorrection s))
+    (ShielddSecurity.TransferBlstArmInverseSecond01.sourceSignedSecond
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))
+'ShielddSecurity.TransferBlstArmInverseSecond01.original_second_word_adjustment_is_the_qualified_second_integer_adjustment' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSecond01.first_original_word_adjustment_derives_the_required_middle_signed_range : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))
+  (upper :
+    @LE.le.{0} Int Int.instLEInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix),
+  And
+    (@LT.lt.{0} Int Int.instLTInt
+      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+        (ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection s)))
+    (@LE.le.{0} Int Int.instLEInt
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+        (ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection s))
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+'ShielddSecurity.TransferBlstArmInverseSecond01.first_original_word_adjustment_derives_the_required_middle_signed_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSecond01.original_complete_two_word_adjustments_are_the_qualified_integer_signed_correction : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))
+  (upper :
+    @LE.le.{0} Int Int.instLEInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+      (ShielddSecurity.TransferBlstArmInverseSecond01.sourceSecondWordCorrection
+        (ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection s)))
+    (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))
+'ShielddSecurity.TransferBlstArmInverseSecond01.original_complete_two_word_adjustments_are_the_qualified_integer_signed_correction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
