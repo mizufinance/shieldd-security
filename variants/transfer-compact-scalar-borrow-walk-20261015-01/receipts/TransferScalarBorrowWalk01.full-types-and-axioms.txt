@@ -1,0 +1,70 @@
+ShielddSecurity.TransferScalarBorrowWalk01.nextBorrow : (a b : UInt64) → (borrow : Bool) → Bool
+'ShielddSecurity.TransferScalarBorrowWalk01.nextBorrow' does not depend on any axioms
+ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk : (borrow : Bool) →
+  List.{0} (Prod.{0, 0} UInt64 UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk' depends on axioms: [propext]
+ShielddSecurity.TransferScalarBorrowWalk01.computed_next_borrow_encodes_actual_source_mask : ∀ (a b : UInt64)
+  (borrow : Bool),
+  @Eq.{1} UInt64 (@Prod.snd.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarSbbPrimitive01.sbb64 a b borrow))
+    (ShielddSecurity.TransferScalarSbbPrimitive01.borrowMask
+      (ShielddSecurity.TransferScalarBorrowWalk01.nextBorrow a b borrow))
+'ShielddSecurity.TransferScalarBorrowWalk01.computed_next_borrow_encodes_actual_source_mask' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarBorrowWalk01.computed_next_borrow_preserves_primitive_subtraction_equation : ∀
+  (a b : UInt64) (borrow : Bool),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarSbbPrimitive01.sbb64 a b borrow)))
+        (UInt64.toNat b))
+      (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit
+          (ShielddSecurity.TransferScalarBorrowWalk01.nextBorrow a b borrow))))
+'ShielddSecurity.TransferScalarBorrowWalk01.computed_next_borrow_preserves_primitive_subtraction_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarBorrowWalk01.borrow_walk_retains_limb_count : ∀ (borrow : Bool)
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool (ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk borrow pairs)))
+    (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs)
+'ShielddSecurity.TransferScalarBorrowWalk01.borrow_walk_retains_limb_count' depends on axioms: [propext]
+ShielddSecurity.TransferScalarBorrowWalk01.borrow_walk_conserves_full_subtraction_equation : ∀ (borrow : Bool)
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk borrow pairs)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs)))
+      (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit borrow))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs))
+        (ShielddSecurity.TransferScalarSbbPrimitive01.borrowBit
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk borrow pairs)))))
+'ShielddSecurity.TransferScalarBorrowWalk01.borrow_walk_conserves_full_subtraction_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarBorrowWalk01.final_borrow_is_exact_input_underflow : ∀
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  Iff
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool (ShielddSecurity.TransferScalarBorrowWalk01.borrowWalk Bool.false pairs))
+      Bool.true)
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs)))
+'ShielddSecurity.TransferScalarBorrowWalk01.final_borrow_is_exact_input_underflow' depends on axioms: [propext,
+ Quot.sound]
