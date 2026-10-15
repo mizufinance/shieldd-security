@@ -1,0 +1,127 @@
+ShielddSecurity.TransferScalarWideWalk01.wideRound : (state : Prod.{0, 0} (List.{0} UInt64) UInt64) →
+  Prod.{0, 0} (List.{0} UInt64) UInt64
+'ShielddSecurity.TransferScalarWideWalk01.wideRound' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWideWalk01.wideRounds : Nat →
+  Prod.{0, 0} (List.{0} UInt64) UInt64 → Prod.{0, 0} (List.{0} UInt64) UInt64
+'ShielddSecurity.TransferScalarWideWalk01.wideRounds' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWideWalk01.finite_words_split_at_actual_upper_limb : ∀ (words : List.{0} UInt64)
+  (enough :
+    @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+      (@List.length.{0} UInt64 words)),
+  @Eq.{1} (List.{0} UInt64) words
+    (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+      (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+      (@List.take.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)
+      (@List.cons.{0} UInt64
+        (@List.headD.{0} UInt64
+          (@List.drop.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) words)
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+        (@List.drop.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5))) words)))
+'ShielddSecurity.TransferScalarWideWalk01.finite_words_split_at_actual_upper_limb' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideWalk01.wide_round_derives_width_and_exact_integer_equation : ∀
+  (state : Prod.{0, 0} (List.{0} UInt64) UInt64)
+  (enough :
+    @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+      (@List.length.{0} UInt64 (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 state))),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 (ShielddSecurity.TransferScalarWideWalk01.wideRound state)))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@List.length.{0} UInt64 (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 state))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    (@Eq.{1} Nat
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarWideRound01.wideValue
+          (ShielddSecurity.TransferScalarWideWalk01.wideRound state)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWideRound01.wideValue state)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (UInt64.toNat
+            (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+              (@List.headD.{0} UInt64
+                (@List.take.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+                  (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 state))
+                (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+              ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+'ShielddSecurity.TransferScalarWideWalk01.wide_round_derives_width_and_exact_integer_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideWalk01.symbolic_wide_walk_derives_final_width_and_modular_value : ∀ (rounds : Nat)
+  (state : Prod.{0, 0} (List.{0} UInt64) UInt64)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt64 (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 state))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) rounds)),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 (ShielddSecurity.TransferScalarWideWalk01.wideRounds rounds state)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+    (@Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 rounds)
+          (ShielddSecurity.TransferScalarWideRound01.wideValue
+            (ShielddSecurity.TransferScalarWideWalk01.wideRounds rounds state)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferScalarWideRound01.wideValue state)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarWideWalk01.symbolic_wide_walk_derives_final_width_and_modular_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideWalk01.finite_multiplier_round_reduces_symbolic_range : ∀ (rounds current next : Nat)
+  (multiplier : UInt64)
+  (equation :
+    @Eq.{1} Nat
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 next)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) current
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+  (bound :
+    @LT.lt.{0} Nat instLTNat current
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) rounds
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))),
+  @LT.lt.{0} Nat instLTNat next
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 rounds)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+'ShielddSecurity.TransferScalarWideWalk01.finite_multiplier_round_reduces_symbolic_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideWalk01.symbolic_wide_walk_derives_final_value_below_twice_modulus : ∀ (rounds : Nat)
+  (state : Prod.{0, 0} (List.{0} UInt64) UInt64)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt64 (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64 state))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) rounds))
+  (bound :
+    @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarWideRound01.wideValue state)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 rounds)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarWideRound01.wideValue
+      (ShielddSecurity.TransferScalarWideWalk01.wideRounds rounds state))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarWideWalk01.symbolic_wide_walk_derives_final_value_below_twice_modulus' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
