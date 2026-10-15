@@ -1,0 +1,61 @@
+ShielddSecurity.TransferBlstArmCancellation01.sourceBlstR0 : UInt64
+'ShielddSecurity.TransferBlstArmCancellation01.sourceBlstR0' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow : UInt64
+'ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier : (word : UInt64) → UInt64
+'ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCancellation01.exact_locked_r0_and_modulus_low_limb_are_the_qualified_parameters : And
+  (@Eq.{1} UInt64 ShielddSecurity.TransferBlstArmCancellation01.sourceBlstR0
+    ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord)
+  (@Eq.{1} UInt64 ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow
+    (@List.headD.{0} UInt64 ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+'ShielddSecurity.TransferBlstArmCancellation01.exact_locked_r0_and_modulus_low_limb_are_the_qualified_parameters' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCancellation01.actual_arm_wrapped_multiplier_has_the_qualified_low_word_value : ∀
+  (word : UInt64),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word))
+    (UInt64.toNat
+      (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64) word
+        ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+'ShielddSecurity.TransferBlstArmCancellation01.actual_arm_wrapped_multiplier_has_the_qualified_low_word_value' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCancellation01.actual_arm_low_word_sum_has_zero_remainder_from_the_locked_multiplier : ∀
+  (word : UInt64),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word)
+        (UInt64.toNat
+          (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)
+            ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow)))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmCancellation01.actual_arm_low_word_sum_has_zero_remainder_from_the_locked_multiplier' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCancellation01.actual_arm_skipped_low_addition_has_only_the_derived_zero_or_radix_sum : ∀
+  (word : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word)
+      (UInt64.toNat
+        (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+          (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)
+          ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow)))
+    (@ite.{1} Nat (@Eq.{1} UInt64 word (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+      (instDecidableEqUInt64 word (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferBlstArmCancellation01.actual_arm_skipped_low_addition_has_only_the_derived_zero_or_radix_sum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry : (word : UInt64) → Bool
+'ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCancellation01.actual_arm_subs_one_flag_predicate_is_the_derived_montgomery_low_add_carry : ∀
+  (word : UInt64),
+  @Eq.{1} Nat (Bool.toNat (ShielddSecurity.TransferBlstArmCancellation01.sourceArmSubsOneCarry word))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word)
+        (UInt64.toNat
+          (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+            (ShielddSecurity.TransferBlstArmCancellation01.sourceArmMultiplier word)
+            ShielddSecurity.TransferBlstArmCancellation01.sourceBlstPLow)))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferBlstArmCancellation01.actual_arm_subs_one_flag_predicate_is_the_derived_montgomery_low_add_carry' depends on axioms: [propext,
+ Quot.sound]
