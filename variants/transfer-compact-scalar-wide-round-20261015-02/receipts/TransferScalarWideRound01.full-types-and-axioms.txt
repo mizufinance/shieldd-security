@@ -1,0 +1,82 @@
+ShielddSecurity.TransferScalarWideRound01.wideValue : (state : Prod.{0, 0} (List.{0} UInt64) UInt64) → Nat
+'ShielddSecurity.TransferScalarWideRound01.wideValue' does not depend on any axioms
+ShielddSecurity.TransferScalarWideRound01.wideRoundParts : (low : List.{0} UInt64) →
+  (upper : UInt64) → (tail : List.{0} UInt64) → (pending : UInt64) → Prod.{0, 0} (List.{0} UInt64) UInt64
+'ShielddSecurity.TransferScalarWideRound01.wideRoundParts' depends on axioms: [propext]
+ShielddSecurity.TransferScalarWideRound01.actual_mac_low_word_is_zero : ∀ (low : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 low) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@List.headD.{0} UInt64
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+          (ShielddSecurity.TransferScalarCarrySchedule01.macLoop
+            (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+              (@List.headD.{0} UInt64 low (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+              ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord)
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+            (@List.zip.{0, 0} UInt64 UInt64 low ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords)))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferScalarWideRound01.actual_mac_low_word_is_zero' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarWideRound01.four_low_words_and_mac_carry_have_exact_shifted_equation : ∀
+  (low : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 low) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferScalarCarrySchedule01.dropLowAndAppendCarry
+          (ShielddSecurity.TransferScalarCarrySchedule01.macLoop
+            (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+              (@List.headD.{0} UInt64 low (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+              ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord)
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+            (@List.zip.{0, 0} UInt64 UInt64 low ShielddSecurity.TransferScalarFourRoundWrapper01.modulusWords)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords low)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (UInt64.toNat
+          (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+            (@List.headD.{0} UInt64 low (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+            ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarWideRound01.four_low_words_and_mac_carry_have_exact_shifted_equation' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideRound01.wide_round_preserves_remaining_word_count : ∀ (low : List.{0} UInt64)
+  (upper pending : UInt64) (tail : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 low) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferScalarWideRound01.wideRoundParts low upper tail pending)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) (@List.length.{0} UInt64 tail))
+'ShielddSecurity.TransferScalarWideRound01.wide_round_preserves_remaining_word_count' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarWideRound01.wide_round_derives_exact_integer_equation_with_deferred_carry : ∀
+  (low : List.{0} UInt64) (upper pending : UInt64) (tail : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 low) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (ShielddSecurity.TransferScalarWideRound01.wideValue
+        (ShielddSecurity.TransferScalarWideRound01.wideRoundParts low upper tail pending)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+            (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low
+            (@List.cons.{0} UInt64 upper tail)))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (UInt64.toNat pending)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (UInt64.toNat
+          (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64)
+            (@List.headD.{0} UInt64 low (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+            ShielddSecurity.TransferScalarFourRoundWrapper01.inverseWord))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarWideRound01.wide_round_derives_exact_integer_equation_with_deferred_carry' depends on axioms: [propext,
+ Quot.sound]
