@@ -1,0 +1,121 @@
+ShielddSecurity.TransferBlstArmInverseFirst01.WideState : Type
+'ShielddSecurity.TransferBlstArmInverseFirst01.WideState' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseFirst01.symbolic_word_append_has_the_entire_radix_weighted_value : ∀
+  (low high : List.{0} UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords low)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords high)))
+'ShielddSecurity.TransferBlstArmInverseFirst01.symbolic_word_append_has_the_entire_radix_weighted_value' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw : (s :
+    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) →
+  Nat
+'ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning : (s :
+    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) →
+  Int
+'ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix : Int
+'ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.original_two_four_word_halves_derive_the_unsigned_wide_range : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),
+  And
+    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw s)))
+    (@LT.lt.{0} Int Int.instLTInt
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw s))
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+'ShielddSecurity.TransferBlstArmInverseFirst01.original_two_four_word_halves_derive_the_unsigned_wide_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFirst01.original_extra_top_sign_is_the_entire_signed_wide_value_sign : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),
+  Iff
+    (@LT.lt.{0} Int Int.instLTInt
+      (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int
+        (@Prod.snd.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (Prod.{0, 0} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) Int) s))
+      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+    (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)
+      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseFirst01.original_extra_top_sign_is_the_entire_signed_wide_value_sign' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh : (high :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.original_high_add_vector_retains_every_source_addition_word : ∀
+  (high : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (List.{0} UInt64)
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh high))
+    (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+      (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw high
+        ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))
+'ShielddSecurity.TransferBlstArmInverseFirst01.original_high_add_vector_retains_every_source_addition_word' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.original_high_addition_threads_its_actual_four_word_carry : ∀
+  (high : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Int
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            (ShielddSecurity.TransferBlstArmInverseFirst01.sourceAddedHigh high))))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix
+        (@Nat.cast.{0} Int instNatCastInt
+          (Bool.toNat
+            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+              (ShielddSecurity.TransferBlstArmAdd01.sourceArmAddRaw high
+                ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))))))
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) high)))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+            ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))))
+'ShielddSecurity.TransferBlstArmInverseFirst01.original_high_addition_threads_its_actual_four_word_carry' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFirst01.original_wide_radix_is_the_square_of_the_four_word_radix : @Eq.{1} Int
+  ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix
+  (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+    ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix
+    ShielddSecurity.TransferBlstArmInverseFirst01.sourceFourRadix)
+'ShielddSecurity.TransferBlstArmInverseFirst01.original_wide_radix_is_the_square_of_the_four_word_radix' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstAddedState : (s :
+    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) →
+  ShielddSecurity.TransferBlstArmInverseFirst01.WideState
+'ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstAddedState' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.original_first_high_word_addition_derives_the_entire_signed_integer_adjustment : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstAddedState s))
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)
+'ShielddSecurity.TransferBlstArmInverseFirst01.original_first_high_word_addition_derives_the_entire_signed_integer_adjustment' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection : (s :
+    ShielddSecurity.TransferBlstArmInverseFirst01.WideState) →
+  ShielddSecurity.TransferBlstArmInverseFirst01.WideState
+'ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseFirst01.original_first_signed_word_correction_is_the_qualified_signed_integer_correction : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFirst01.WideState),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceFirstWordCorrection s))
+    (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedFirst
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning s))
+'ShielddSecurity.TransferBlstArmInverseFirst01.original_first_signed_word_correction_is_the_qualified_signed_integer_correction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
