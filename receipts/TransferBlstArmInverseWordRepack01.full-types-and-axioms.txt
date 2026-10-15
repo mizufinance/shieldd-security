@@ -1,0 +1,57 @@
+ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat : Nat → Nat → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat : (input : Nat) →
+  ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords
+'ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordRepack01.symbolic_natural_word_repacking_and_the_final_quotient_conserve_the_entire_input : ∀
+  (count input : Nat),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat count input))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 count)
+        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) input
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 count))))
+    input
+'ShielddSecurity.TransferBlstArmInverseWordRepack01.symbolic_natural_word_repacking_and_the_final_quotient_conserve_the_entire_input' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordRepack01.natural_word_repacking_below_capacity_reconstructs_the_exact_input : ∀
+  (count input : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat input
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 count)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat count input))
+    input
+'ShielddSecurity.TransferBlstArmInverseWordRepack01.natural_word_repacking_below_capacity_reconstructs_the_exact_input' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordRepack01.original_four_word_repacking_reconstructs_every_input_below_two256 : ∀
+  (input : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat input
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords
+      (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat input))
+    input
+'ShielddSecurity.TransferBlstArmInverseWordRepack01.original_four_word_repacking_reconstructs_every_input_below_two256' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordRepack01.an_odd_natural_input_has_an_odd_original_repacked_low_word : ∀
+  (input : Nat)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) input
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (UInt64.toNat
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0
+          (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat input)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInverseWordRepack01.an_odd_natural_input_has_an_odd_original_repacked_low_word' depends on axioms: [propext]
