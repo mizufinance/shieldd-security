@@ -1,0 +1,59 @@
+ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar : Type
+'ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar' does not depend on any axioms
+ShielddSecurity.TransferCanonicalWordEquality01.packed_word_cons_division_recovers_exact_tail : ∀ (word : UInt64)
+  (rest : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 word rest))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords rest)
+'ShielddSecurity.TransferCanonicalWordEquality01.packed_word_cons_division_recovers_exact_tail' depends on axioms: [propext]
+ShielddSecurity.TransferCanonicalWordEquality01.equal_width_packed_u64_lists_are_equal : ∀
+  (left right : List.{0} UInt64) (width : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right))
+  (packed :
+    @Eq.{1} Nat (ShielddSecurity.TransferScalarWordPrimitives01.packWords left)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords right)),
+  @Eq.{1} (List.{0} UInt64) left right
+'ShielddSecurity.TransferCanonicalWordEquality01.equal_width_packed_u64_lists_are_equal' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordEquality01.packed_fixed_word_vectors_equal_iff_raw_vectors_equal : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  Iff
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) left))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) right)))
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) left right)
+'ShielddSecurity.TransferCanonicalWordEquality01.packed_fixed_word_vectors_equal_iff_raw_vectors_equal' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordEquality01.canonical_internal_math_values_equal_iff_raw_words_equal : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left))
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue
+        (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right)))
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))
+'ShielddSecurity.TransferCanonicalWordEquality01.canonical_internal_math_values_equal_iff_raw_words_equal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferCanonicalWordEquality01.canonical_internal_source_bytes_equal_iff_raw_words_equal : ∀
+  (left right : ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar),
+  Iff
+    (@Eq.{1} (List.{0} UInt8)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)))
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))))
+    (@Eq.{1} (Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words left)
+      (ShielddSecurity.TransferCanonicalWordEquality01.CanonicalScalar.words right))
+'ShielddSecurity.TransferCanonicalWordEquality01.canonical_internal_source_bytes_equal_iff_raw_words_equal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
