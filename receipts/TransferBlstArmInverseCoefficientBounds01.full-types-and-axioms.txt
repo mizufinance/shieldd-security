@@ -1,0 +1,93 @@
+ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_sign_corrected_prefix_row_sum_is_at_most_its_radix_power : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat),
+  ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+    (ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixLinearRows count input)
+'ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_sign_corrected_prefix_row_sum_is_at_most_its_radix_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.symbolic_coefficient_accumulation_multiplies_the_bound_by_the_step_power : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (rows : Prod.{0, 0} Nat Nat → ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) (bound : Nat)
+  (produces :
+    ∀ (input : Prod.{0, 0} Nat Nat),
+      ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound bound (rows input))
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (accumulated : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) (oldBound : Nat)
+  (old : ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound oldBound accumulated),
+  ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid)) bound count)
+      oldBound)
+    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows step rows count input accumulated)
+'ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.symbolic_coefficient_accumulation_multiplies_the_bound_by_the_step_power' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_magnitude_schedule_row_sum_is_at_most_its_exact_radix_power : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat),
+  ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count))
+    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceMagnitudeScheduleRows count input)
+'ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_magnitude_schedule_row_sum_is_at_most_its_exact_radix_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_exact_tail_row_sum_is_at_most_its_radix_power : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat),
+  ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+    (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceExactTailLinearRows count input)
+'ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_exact_tail_row_sum_is_at_most_its_radix_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_full_source_schedule_row_sum_is_at_most_its_total_radix_power : ∀
+  (count remaining : Nat) (input : Prod.{0, 0} Nat Nat),
+  ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        remaining))
+    (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceFinalLinearRows count remaining input)
+'ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.every_original_full_source_schedule_row_sum_is_at_most_its_total_radix_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.both_original_final_row_coefficients_have_magnitude_at_most_the_total_radix_power : ∀
+  (count remaining : Nat) (input : Prod.{0, 0} Nat Nat),
+  And
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows.f1
+          (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceFinalLinearRows count remaining input)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+          remaining)))
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows.g1
+          (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceFinalLinearRows count remaining input)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+          remaining)))
+'ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.both_original_final_row_coefficients_have_magnitude_at_most_the_total_radix_power' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.both_produced_original_source_inverse_coefficients_have_magnitude_at_most_two512 : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  And
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))))
+    (@LE.le.{0} Nat instLENat
+      (Int.natAbs (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledModulusCoefficient a b))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))))
+'ShielddSecurity.TransferBlstArmInverseCoefficientBounds01.both_produced_original_source_inverse_coefficients_have_magnitude_at_most_two512' depends on axioms: [propext,
+ Quot.sound]
