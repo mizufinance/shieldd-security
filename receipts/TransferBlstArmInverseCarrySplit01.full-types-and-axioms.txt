@@ -1,0 +1,106 @@
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_symbolic_source_carry_chain_can_pause_and_resume_with_its_actual_flag : ∀
+  (low high : List.{0} (Prod.{0, 0} UInt64 UInt64)) (carry : Bool),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) (List.{0} (Prod.{0, 0} UInt64 UInt64))
+        (List.{0} (Prod.{0, 0} UInt64 UInt64))
+        (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} UInt64 UInt64))
+          (@List.instAppend.{0} (Prod.{0, 0} UInt64 UInt64)))
+        low high))
+    (have first : Prod.{0, 0} (List.{0} UInt64) Bool :=
+      ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry low;
+    have last : Prod.{0, 0} (List.{0} UInt64) Bool :=
+      ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain (@Prod.snd.{0, 0} (List.{0} UInt64) Bool first)
+        high;
+    @Prod.mk.{0, 0} (List.{0} UInt64) Bool
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool first) (@Prod.fst.{0, 0} (List.{0} UInt64) Bool last))
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool last))
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_symbolic_source_carry_chain_can_pause_and_resume_with_its_actual_flag' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_symbolic_word_split_conserves_both_entire_packed_values : ∀
+  (low high : List.{0} UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords low)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords high)))
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_symbolic_word_split_conserves_both_entire_packed_values' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.the_entire_low_word_block_is_the_exact_full_value_residue_at_its_boundary : ∀
+  (low high : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+          (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low)))
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords low)
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.the_entire_low_word_block_is_the_exact_full_value_residue_at_its_boundary' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.the_entire_high_word_block_is_the_exact_full_value_quotient_at_its_boundary : ∀
+  (low high : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+          (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low)))
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords high)
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.the_entire_high_word_block_is_the_exact_full_value_quotient_at_its_boundary' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_source_captured_low_block_and_resumed_high_block_retain_the_complete_original_word_count : ∀
+  (low high : List.{0} (Prod.{0, 0} UInt64 UInt64)) (carry : Bool),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry low))
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain
+            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+              (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry low))
+            high))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) low)
+      (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) high))
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_source_captured_low_block_and_resumed_high_block_retain_the_complete_original_word_count' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.sourceMaskOperandPairs : (words : List.{0} UInt64) →
+  (mask : UInt64) → List.{0} (Prod.{0, 0} UInt64 UInt64)
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.sourceMaskOperandPairs' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.the_original_masked_zero_operand_list_is_exactly_the_symbolic_pair_map : ∀
+  (words : List.{0} UInt64) (mask : UInt64),
+  @Eq.{1} (List.{0} (Prod.{0, 0} UInt64 UInt64))
+    (ShielddSecurity.TransferBlstArmInverseCarrySplit01.sourceMaskOperandPairs words mask)
+    (@List.zip.{0, 0} UInt64 UInt64
+      (@List.map.{0, 0} UInt64 UInt64
+        (fun (word : UInt64) =>
+          @HXor.hXor.{0, 0, 0} UInt64 UInt64 UInt64 (@instHXorOfXorOp.{0} UInt64 instXorOpUInt64) word mask)
+        words)
+      (@List.replicate.{0} UInt64 (@List.length.{0} UInt64 words)
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.the_original_masked_zero_operand_list_is_exactly_the_symbolic_pair_map' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_original_mask_preparation_can_pause_and_resume_with_its_actual_captured_carry : ∀
+  (low high : List.{0} UInt64) (mask : UInt64),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high)
+      mask)
+    (have first : Prod.{0, 0} (List.{0} UInt64) Bool :=
+      ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords low mask;
+    have last : Prod.{0, 0} (List.{0} UInt64) Bool :=
+      ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain (@Prod.snd.{0, 0} (List.{0} UInt64) Bool first)
+        (ShielddSecurity.TransferBlstArmInverseCarrySplit01.sourceMaskOperandPairs high mask);
+    @Prod.mk.{0, 0} (List.{0} UInt64) Bool
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool first) (@Prod.fst.{0, 0} (List.{0} UInt64) Bool last))
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool last))
+'ShielddSecurity.TransferBlstArmInverseCarrySplit01.every_original_mask_preparation_can_pause_and_resume_with_its_actual_captured_carry' depends on axioms: [propext,
+ Quot.sound]
