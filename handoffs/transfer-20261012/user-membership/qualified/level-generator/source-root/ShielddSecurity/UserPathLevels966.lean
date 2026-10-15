@@ -1,0 +1,38 @@
+import ShielddSecurity.UserPathLevel966SL00
+import ShielddSecurity.UserPathLevel966SL01
+import ShielddSecurity.UserPathLevel966SL02
+import ShielddSecurity.UserPathLevel966SL03
+import ShielddSecurity.UserPathLevel966SL04
+import ShielddSecurity.UserPathLevel966SL05
+import ShielddSecurity.UserPathLevel966SL06
+import ShielddSecurity.UserPathLevel966SL07
+import ShielddSecurity.UserPathLevel966SL08
+import ShielddSecurity.UserPathLevel966SL09
+import ShielddSecurity.UserPathLevel966SL10
+import ShielddSecurity.UserPathLevel966SL11
+import ShielddSecurity.UserPathLevel966SL12
+import ShielddSecurity.UserPathLevel966SL13
+import ShielddSecurity.UserPathLevel966SL14
+import ShielddSecurity.UserPathLevel966SL15
+import ShielddSecurity.UserPathLevel966RL00
+import ShielddSecurity.UserPathLevel966RL01
+import ShielddSecurity.UserPathLevel966RL02
+import ShielddSecurity.UserPathLevel966RL03
+import ShielddSecurity.UserPathLevel966RL04
+import ShielddSecurity.UserPathLevel966RL05
+import ShielddSecurity.UserPathLevel966RL06
+import ShielddSecurity.UserPathLevel966RL07
+import ShielddSecurity.UserPathLevel966RL08
+import ShielddSecurity.UserPathLevel966RL09
+import ShielddSecurity.UserPathLevel966RL10
+import ShielddSecurity.UserPathLevel966RL11
+import ShielddSecurity.UserPathLevel966RL12
+import ShielddSecurity.UserPathLevel966RL13
+import ShielddSecurity.UserPathLevel966RL14
+import ShielddSecurity.UserPathLevel966RL15
+namespace ShielddSecurity.UserPathLevels966
+def levelCount : Nat := 32
+end ShielddSecurity.UserPathLevels966
+set_option pp.all true in
+#check @ShielddSecurity.UserPathLevels966.levelCount
+#print axioms ShielddSecurity.UserPathLevels966.levelCount
