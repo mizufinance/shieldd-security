@@ -1,0 +1,63 @@
+ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.sourceCoefficientFourWordVector : (input : Nat) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.sourceCoefficientFourWordVector' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.four_coefficient_encoding_words_pack_to_the_original_four_word_repacking : ∀
+  (input : Nat),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.sourceCoefficientFourWordVector input)))
+    (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords
+      (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat input))
+'ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.four_coefficient_encoding_words_pack_to_the_original_four_word_repacking' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.sourceCoefficientWideState : (value : Int) →
+  ShielddSecurity.TransferBlstArmInverseFirst01.WideState
+'ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.sourceCoefficientWideState' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_has_a_nonnegative_strictly_bounded_unsigned_raw_part : ∀
+  (value : Int),
+  And
+    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix))
+    (@LT.lt.{0} Int Int.instLTInt
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+'ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_has_a_nonnegative_strictly_bounded_unsigned_raw_part' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_unsigned_raw_part_fits_the_two_original_four_word_halves : ∀
+  (value : Int),
+  @LT.lt.{0} Nat instLTNat
+    (Int.toNat
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+'ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_unsigned_raw_part_fits_the_two_original_four_word_halves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_encoding_has_the_entire_original_unsigned_raw_value : ∀
+  (value : Int),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw
+      (ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.sourceCoefficientWideState value))
+    (Int.toNat
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix))
+'ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_encoding_has_the_entire_original_unsigned_raw_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_encoding_has_the_entire_original_signed_wide_meaning : ∀
+  (value : Int),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+      (ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.sourceCoefficientWideState value))
+    value
+'ShielddSecurity.TransferBlstArmInverseCoefficientEncoding01.every_integer_coefficient_encoding_has_the_entire_original_signed_wide_meaning' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
