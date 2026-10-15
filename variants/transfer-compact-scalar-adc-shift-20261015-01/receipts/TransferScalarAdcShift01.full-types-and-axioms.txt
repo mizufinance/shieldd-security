@@ -1,0 +1,46 @@
+ShielddSecurity.TransferScalarAdcShift01.sourceSplit128 : (ret :
+    BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))) →
+  Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferScalarAdcShift01.sourceSplit128' depends on axioms: [propext]
+ShielddSecurity.TransferScalarAdcShift01.adc128 : (a b carry : UInt64) →
+  BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+'ShielddSecurity.TransferScalarAdcShift01.adc128' does not depend on any axioms
+ShielddSecurity.TransferScalarAdcShift01.adc64 : (a b carry : UInt64) → Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferScalarAdcShift01.adc64' depends on axioms: [propext]
+ShielddSecurity.TransferScalarAdcShift01.fixed_high_shift_and_cast_equals_radix_quotient_pair : ∀
+  (ret : BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))),
+  @Eq.{1} (Prod.{0, 0} UInt64 UInt64) (ShielddSecurity.TransferScalarAdcShift01.sourceSplit128 ret)
+    (ShielddSecurity.TransferScalarWordPrimitives01.split128 ret)
+'ShielddSecurity.TransferScalarAdcShift01.fixed_high_shift_and_cast_equals_radix_quotient_pair' depends on axioms: [propext]
+ShielddSecurity.TransferScalarAdcShift01.widened_adc_is_unit_multiplier_mac : ∀ (a b carry : UInt64),
+  @Eq.{1} (BitVec (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128))))
+    (ShielddSecurity.TransferScalarAdcShift01.adc128 a b carry)
+    (ShielddSecurity.TransferScalarWordPrimitives01.mac128 a
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))) b carry)
+'ShielddSecurity.TransferScalarAdcShift01.widened_adc_is_unit_multiplier_mac' depends on axioms: [propext]
+ShielddSecurity.TransferScalarAdcShift01.widened_adc_preserves_full_integer_sum : ∀ (a b carry : UInt64),
+  @Eq.{1} Nat
+    (@BitVec.toNat (@OfNat.ofNat.{0} Nat (nat_lit 128) (instOfNatNat (nat_lit 128)))
+      (ShielddSecurity.TransferScalarAdcShift01.adc128 a b carry))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a) (UInt64.toNat b))
+      (UInt64.toNat carry))
+'ShielddSecurity.TransferScalarAdcShift01.widened_adc_preserves_full_integer_sum' depends on axioms: [propext]
+ShielddSecurity.TransferScalarAdcShift01.widened_adc_low_word_and_carry_conserve_sum : ∀ (a b carry : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarAdcShift01.adc64 a b carry)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (UInt64.toNat (@Prod.snd.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferScalarAdcShift01.adc64 a b carry)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a) (UInt64.toNat b))
+      (UInt64.toNat carry))
+'ShielddSecurity.TransferScalarAdcShift01.widened_adc_low_word_and_carry_conserve_sum' depends on axioms: [propext]
+ShielddSecurity.TransferScalarAdcShift01.zero_upper_limb_adc_retains_carry_without_overflow : ∀ (carry : UInt64),
+  @Eq.{1} (Prod.{0, 0} UInt64 UInt64)
+    (ShielddSecurity.TransferScalarAdcShift01.adc64
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) carry)
+    (@Prod.mk.{0, 0} UInt64 UInt64 carry (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferScalarAdcShift01.zero_upper_limb_adc_retains_carry_without_overflow' depends on axioms: [propext]
