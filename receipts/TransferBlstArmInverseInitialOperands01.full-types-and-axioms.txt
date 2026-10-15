@@ -1,0 +1,89 @@
+ShielddSecurity.TransferBlstArmInverseInitialOperands01.a_high_word_at_least_two63_retains_that_lower_bound_after_low31_replacement : ∀
+  (high low : UInt64)
+  (large :
+    @LE.le.{0} Nat instLENat
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63))))
+      (UInt64.toNat high)),
+  @LE.le.{0} Nat instLENat
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63))))
+    (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low)
+'ShielddSecurity.TransferBlstArmInverseInitialOperands01.a_high_word_at_least_two63_retains_that_lower_bound_after_low31_replacement' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseInitialOperands01.a_full_input_below_the_scaled_low31_budget_has_a_small_initial_approximation : ∀
+  (input shift : Nat) (high low : UInt64)
+  (producer :
+    @Eq.{1} Nat (UInt64.toNat high)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) input
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+  (small :
+    @LT.lt.{0} Nat instLTNat input
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2147483648) (instOfNatNat (nat_lit 2147483648))))),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+'ShielddSecurity.TransferBlstArmInverseInitialOperands01.a_full_input_below_the_scaled_low31_budget_has_a_small_initial_approximation' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseInitialOperands01.original_nonzero_upper_window_derives_a_large_initial_approximation_sum : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (nonzero :
+    @Ne.{1} UInt64
+      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highA
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highB
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),
+  @LE.le.{0} Nat instLENat
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b)))
+'ShielddSecurity.TransferBlstArmInverseInitialOperands01.original_nonzero_upper_window_derives_a_large_initial_approximation_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseInitialOperands01.equal_high_and_low_word_values_make_low31_replacement_exact : ∀
+  (high low : UInt64) (equal : @Eq.{1} Nat (UInt64.toNat high) (UInt64.toNat low)),
+  @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 high low) (UInt64.toNat low)
+'ShielddSecurity.TransferBlstArmInverseInitialOperands01.equal_high_and_low_word_values_make_low31_replacement_exact' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseInitialOperands01.original_zero_upper_window_returns_both_full_initial_approximations : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (zero :
+    @Eq.{1} UInt64
+      (@HOr.hOr.{0, 0, 0} UInt64 UInt64 UInt64 (@instHOrOfOrOp.{0} UInt64 instOrOpUInt64)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highA
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceWindowRegisters.highB
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourceSecondWindowChoice a b)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))),
+  And
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+'ShielddSecurity.TransferBlstArmInverseInitialOperands01.original_zero_upper_window_returns_both_full_initial_approximations' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
