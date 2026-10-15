@@ -1,0 +1,130 @@
+ShielddSecurity.TransferBlstArmInverseTopWordSign01.every_source_extraction_chain_retains_the_original_unshifted_final_word : ∀
+  (shift : Nat) (low : List.{0} UInt64) (top : UInt64),
+  @Eq.{1} UInt64
+    (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+      (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift
+        (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+          (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low
+          (@List.cons.{0} UInt64 top (@List.nil.{0} UInt64)))))
+    top
+'ShielddSecurity.TransferBlstArmInverseTopWordSign01.every_source_extraction_chain_retains_the_original_unshifted_final_word' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopWordSign01.a_bounded_low_part_derives_the_entire_unsigned_top_threshold : ∀
+  (low capacity top half : Nat) (bounded : @LT.lt.{0} Nat instLTNat low capacity),
+  Iff
+    (@LE.le.{0} Nat instLENat (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) capacity half)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) low
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) capacity top)))
+    (@LE.le.{0} Nat instLENat half top)
+'ShielddSecurity.TransferBlstArmInverseTopWordSign01.a_bounded_low_part_derives_the_entire_unsigned_top_threshold' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopWordSign01.an_unsigned_full_range_decodes_to_a_negative_integer_exactly_at_its_half_threshold : ∀
+  (half unsigned : Int)
+  (nonnegative : @LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) unsigned)
+  (bounded :
+    @LT.lt.{0} Int Int.instLTInt unsigned
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half)),
+  Iff
+    (@LT.lt.{0} Int Int.instLTInt
+      (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode half unsigned)
+      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+    (@LE.le.{0} Int Int.instLEInt half unsigned)
+'ShielddSecurity.TransferBlstArmInverseTopWordSign01.an_unsigned_full_range_decodes_to_a_negative_integer_exactly_at_its_half_threshold' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopWordSign01.the_entire_appended_word_value_derives_the_exact_top_word_sign_threshold : ∀
+  (low : List.{0} UInt64) (top : UInt64),
+  Iff
+    (@LE.le.{0} Int Int.instLEInt
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low))
+          (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+            (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low
+            (@List.cons.{0} UInt64 top (@List.nil.{0} UInt64))))))
+    (@LE.le.{0} Nat instLENat
+      (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))
+      (UInt64.toNat top))
+'ShielddSecurity.TransferBlstArmInverseTopWordSign01.the_entire_appended_word_value_derives_the_exact_top_word_sign_threshold' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopWordSign01.original_retained_top_word_asr63_is_the_exact_sign_mask_of_the_entire_signed_input : ∀
+  (shift : Nat) (low : List.{0} UInt64) (top : UInt64),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+      (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift
+          (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+            (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low
+            (@List.cons.{0} UInt64 top (@List.nil.{0} UInt64))))))
+    (@ite.{1} UInt64
+      (@LT.lt.{0} Int Int.instLTInt
+        (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low))
+              (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+                (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low
+                (@List.cons.{0} UInt64 top (@List.nil.{0} UInt64))))))
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt
+        (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 low))
+              (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+                (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low
+                (@List.cons.{0} UInt64 top (@List.nil.{0} UInt64))))))
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseTopWordSign01.original_retained_top_word_asr63_is_the_exact_sign_mask_of_the_entire_signed_input' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopWordSign01.every_nonempty_source_word_input_derives_its_entire_retained_top_sign_mask : ∀
+  (shift : Nat) (words : List.{0} UInt64) (nonempty : @Ne.{1} (List.{0} UInt64) words (@List.nil.{0} UInt64)),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+      (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words)))
+    (@ite.{1} UInt64
+      (@LT.lt.{0} Int Int.instLTInt
+        (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                ShielddSecurity.TransferScalarSerializationRange01.radix64
+                (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (@List.length.{0} UInt64 words)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+              (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+          (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt
+        (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+                ShielddSecurity.TransferScalarSerializationRange01.radix64
+                (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (@List.length.{0} UInt64 words)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+              (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+          (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseTopWordSign01.every_nonempty_source_word_input_derives_its_entire_retained_top_sign_mask' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
