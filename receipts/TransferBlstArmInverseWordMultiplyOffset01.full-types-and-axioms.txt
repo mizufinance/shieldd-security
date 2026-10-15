@@ -1,0 +1,70 @@
+ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.sourceOffsetWordMultiply : (words : List.{0} UInt64) →
+  (multiplier topOffset : UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.sourceOffsetWordMultiply' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.original_top_offset_product_retains_exactly_one_extra_word : ∀
+  (words : List.{0} UInt64) (multiplier topOffset : UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.sourceOffsetWordMultiply words multiplier
+          topOffset)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.original_top_offset_product_retains_exactly_one_extra_word' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.original_top_offset_product_conserves_the_entire_value_and_arithmetic_carry : ∀
+  (words : List.{0} UInt64) (multiplier topOffset : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.sourceOffsetWordMultiply words multiplier
+            topOffset)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (Bool.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.sourceOffsetWordMultiply words multiplier
+              topOffset)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words) (UInt64.toNat multiplier))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+        (UInt64.toNat topOffset)))
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.original_top_offset_product_conserves_the_entire_value_and_arithmetic_carry' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.original_top_offset_product_retains_the_entire_integer_residue_at_its_output_width : ∀
+  (words : List.{0} UInt64) (multiplier topOffset : UInt64),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.sourceOffsetWordMultiply words multiplier
+              topOffset))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+          (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat multiplier)))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words)))
+          (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat topOffset))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyOffset01.original_top_offset_product_retains_the_entire_integer_residue_at_its_output_width' depends on axioms: [propext,
+ Quot.sound]
