@@ -1,0 +1,93 @@
+ShielddSecurity.TransferBlstArmInverseApproxOrderBudget01.opposing_orders_and_positive_scaled_errors_bound_the_approximation_gap : ∀
+  (x y : Int) (p q scale budget : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) scale)
+  (leftError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt p))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale budget))
+  (rightError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) y
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt q))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale budget))
+  (actualOrder : @LE.le.{0} Int Int.instLEInt y x) (approximateOrder : @LE.le.{0} Nat instLENat p q),
+  @LE.le.{0} Nat instLENat
+    (Int.natAbs
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Nat.cast.{0} Int instNatCastInt p)
+        (@Nat.cast.{0} Int instNatCastInt q)))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) budget)
+'ShielddSecurity.TransferBlstArmInverseApproxOrderBudget01.opposing_orders_and_positive_scaled_errors_bound_the_approximation_gap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseApproxOrderBudget01.either_opposing_order_case_bounds_the_approximation_gap : ∀
+  (x y : Int) (p q scale budget : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) scale)
+  (leftError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) x
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt p))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale budget))
+  (rightError :
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) y
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) (@Nat.cast.{0} Int instNatCastInt scale)
+            (@Nat.cast.{0} Int instNatCastInt q))))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) scale budget))
+  (opposing :
+    Or (And (@LE.le.{0} Int Int.instLEInt y x) (@LE.le.{0} Nat instLENat p q))
+      (And (@LE.le.{0} Int Int.instLEInt x y) (@LE.le.{0} Nat instLENat q p))),
+  @LE.le.{0} Nat instLENat
+    (Int.natAbs
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Nat.cast.{0} Int instNatCastInt p)
+        (@Nat.cast.{0} Int instNatCastInt q)))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) budget)
+'ShielddSecurity.TransferBlstArmInverseApproxOrderBudget01.either_opposing_order_case_bounds_the_approximation_gap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseApproxOrderBudget01.original_first_control_mismatch_derives_the_approximation_gap_at_most_two_to32 : ∀
+  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have windows : Prod.{0, 0} UInt64 UInt64 :=
+    ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b;
+  have approximate : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.fst.{0, 0} UInt64 UInt64 windows)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31 (@Prod.snd.{0, 0} UInt64 UInt64 windows)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b));
+  have actual : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b);
+  ShielddSecurity.TransferBlstArmInverseFirstMismatch01.sourceFirstControlMismatch count approximate actual →
+    @LE.le.{0} Nat instLENat
+      (Int.natAbs
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count approximate)))
+          (@Nat.cast.{0} Int instNatCastInt
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count approximate)))))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32))))
+'ShielddSecurity.TransferBlstArmInverseApproxOrderBudget01.original_first_control_mismatch_derives_the_approximation_gap_at_most_two_to32' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
