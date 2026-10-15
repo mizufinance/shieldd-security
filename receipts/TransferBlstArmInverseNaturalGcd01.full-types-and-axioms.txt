@@ -1,0 +1,77 @@
+ShielddSecurity.TransferBlstArmInverseNaturalGcd01.the_original_natural_factor_step_is_the_signed_step_on_its_nonnegative_values : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @Eq.{1} (Prod.{0, 0} Int Int)
+    (@Prod.mk.{0, 0} Int Int
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+          (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))))
+    (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)))
+'ShielddSecurity.TransferBlstArmInverseNaturalGcd01.the_original_natural_factor_step_is_the_signed_step_on_its_nonnegative_values' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalGcd01.every_original_natural_factor_step_with_odd_second_input_preserves_gcd : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (Nat.gcd
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)))
+    (Nat.gcd (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+'ShielddSecurity.TransferBlstArmInverseNaturalGcd01.every_original_natural_factor_step_with_odd_second_input_preserves_gcd' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalGcd01.every_original_natural_factor_walk_with_odd_second_input_preserves_the_entire_gcd : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (Nat.gcd
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)))
+    (Nat.gcd (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+'ShielddSecurity.TransferBlstArmInverseNaturalGcd01.every_original_natural_factor_walk_with_odd_second_input_preserves_the_entire_gcd' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalGcd01.an_exact_natural_tail_with_unit_initial_gcd_and_zero_first_output_has_second_output_one : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (unit :
+    @Eq.{1} Nat
+      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (terminal :
+    @Eq.{1} Nat
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInverseNaturalGcd01.an_exact_natural_tail_with_unit_initial_gcd_and_zero_first_output_has_second_output_one' depends on axioms: [propext,
+ Quot.sound]
