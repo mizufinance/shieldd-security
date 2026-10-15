@@ -1,0 +1,67 @@
+ShielddSecurity.TransferBlstArmInverseNaturalTermination01.a_positive_natural_value_has_positive_exact_bitlength : ∀
+  (value : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) value),
+  @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+    (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength value)
+'ShielddSecurity.TransferBlstArmInverseNaturalTermination01.a_positive_natural_value_has_positive_exact_bitlength' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalTermination01.an_odd_second_input_and_enough_exact_steps_force_a_zero_first_output : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (enough :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)))
+      count),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseNaturalTermination01.an_odd_second_input_and_enough_exact_steps_force_a_zero_first_output' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalTermination01.original_full_four_word_inputs_have_total_exact_bitlength_at_most512 : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))
+    (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))
+'ShielddSecurity.TransferBlstArmInverseNaturalTermination01.original_full_four_word_inputs_have_total_exact_bitlength_at_most512' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalTermination01.original_full_four_word_exact_natural_walk_reaches_zero_by512 : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+        (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseNaturalTermination01.original_full_four_word_exact_natural_walk_reaches_zero_by512' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalTermination01.the_original_fifteen_batch_and_final47_step_budget_is_exactly512 : @Eq.{1}
+  Nat
+  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 15) (instOfNatNat (nat_lit 15)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47))))
+  (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))
+'ShielddSecurity.TransferBlstArmInverseNaturalTermination01.the_original_fifteen_batch_and_final47_step_budget_is_exactly512' does not depend on any axioms
