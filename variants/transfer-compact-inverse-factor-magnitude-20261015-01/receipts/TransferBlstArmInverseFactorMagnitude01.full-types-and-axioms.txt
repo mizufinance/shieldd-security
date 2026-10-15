@@ -1,0 +1,44 @@
+ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord : (word : UInt64) → UInt64
+'ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.original_factor_xor_and_subtract_is_exact_unsigned_magnitude : ∀
+  (word : UInt64),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord word))
+    (@ite.{1} Nat
+      (@LE.le.{0} Nat instLENat
+        (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))
+        (UInt64.toNat word))
+      (Nat.decLe (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))
+        (UInt64.toNat word))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 18446744073709551616) (instOfNatNat (nat_lit 18446744073709551616)))
+        (UInt64.toNat word))
+      (UInt64.toNat word))
+'ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.original_factor_xor_and_subtract_is_exact_unsigned_magnitude' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.original_factor_magnitude_word_is_the_entire_signed_word_absolute_value : ∀
+  (word : UInt64),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord word))
+    (Int.natAbs (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning word))
+'ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.original_factor_magnitude_word_is_the_entire_signed_word_absolute_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.original_coded_signed_factor_asr_xor_subtract_recovers_integer_magnitude : ∀
+  (value : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      value)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt value
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode value)))
+    (Int.natAbs value)
+'ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.original_coded_signed_factor_asr_xor_subtract_recovers_integer_magnitude' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
