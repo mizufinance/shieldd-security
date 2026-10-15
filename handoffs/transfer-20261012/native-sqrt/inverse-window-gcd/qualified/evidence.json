@@ -1,0 +1,164 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_valid_original_window_prefix_step_preserves_the_full_signed_gcd : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LT.lt.{0} Nat instLTNat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have approxA : Nat :=\n    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n      (@Prod.fst.{0, 0} UInt64 UInt64\n        (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a);\n  have approxB : Nat :=\n    ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n      (@Prod.snd.{0, 0} UInt64 UInt64\n        (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b);\n  have before : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count approxA approxB\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  have after : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count\n        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n      approxA approxB\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  @Eq.{1} Nat (Int.gcd (@Prod.fst.{0, 0} Int Int after) (@Prod.snd.{0, 0} Int Int after))\n    (Int.gcd (@Prod.fst.{0, 0} Int Int before) (@Prod.snd.{0, 0} Int Int before))",
+      "full_type_sha256": "1107b3f27a1279a9ffffbffb3e45537afcf838b628343b021c2baf4839e5d324",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_valid_original_window_prefix_step_preserves_the_full_signed_gcd"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_original_window_prefix_through31_preserves_the_entire_input_gcd : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.snd.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  @Eq.{1} Nat (Int.gcd (@Prod.fst.{0, 0} Int Int actual) (@Prod.snd.{0, 0} Int Int actual))\n    (Int.gcd\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))",
+      "full_type_sha256": "8ffd4042e414d2262475a913b285627b662203e54b7a0ab548da7b09ede11053",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_original_window_prefix_through31_preserves_the_entire_input_gcd"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_original_bounded_window_prefix_preserves_the_gcd_of_the_full_output_magnitudes : \u2200\n  (count : Nat) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients count\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.snd.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  @Eq.{1} Nat (Nat.gcd (Int.natAbs (@Prod.fst.{0, 0} Int Int actual)) (Int.natAbs (@Prod.snd.{0, 0} Int Int actual)))\n    (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))",
+      "full_type_sha256": "a7aaf15e727ee7544bb74181bdddd8d79f0a48f9c864a72c146647f8197974d7",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_original_bounded_window_prefix_preserves_the_gcd_of_the_full_output_magnitudes"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_original31_step_window_batch_preserves_the_gcd_of_the_full_output_magnitudes : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  have actual : Prod.{0, 0} Int Int :=\n    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients\n      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.fst.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))\n      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31\n        (@Prod.snd.{0, 0} UInt64 UInt64\n          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));\n  @Eq.{1} Nat (Nat.gcd (Int.natAbs (@Prod.fst.{0, 0} Int Int actual)) (Int.natAbs (@Prod.snd.{0, 0} Int Int actual)))\n    (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))",
+      "full_type_sha256": "92175fbb31f8b8fa4d3c18157bed65ffc8adafea7cf95ac521cbef527f726023",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_original31_step_window_batch_preserves_the_gcd_of_the_full_output_magnitudes"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_valid_source_magnitude_batch_preserves_the_entire_input_gcd : \u2200\n  (input : Prod.{0, 0} Nat Nat)\n  (leftBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (rightBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (odd :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} Nat\n    (Nat.gcd\n      (@Prod.fst.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseMagnitudeBatch01.sourceMagnitudeBatch input))\n      (@Prod.snd.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseMagnitudeBatch01.sourceMagnitudeBatch input)))\n    (Nat.gcd (@Prod.fst.{0, 0} Nat Nat input) (@Prod.snd.{0, 0} Nat Nat input))",
+      "full_type_sha256": "22ed6f05bb6436062f3717512ef13b0ab96605776b2036314cbbad131e4b1b89",
+      "name": "ShielddSecurity.TransferBlstArmInverseWindowGcd01.every_valid_source_magnitude_batch_preserves_the_entire_input_gcd"
+    }
+  ],
+  "dependency_sources_verified": 367,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 120414,
+    "sha256": "0d5e3ec22623797c9a3c7a221c3254618ec7d26cb4eca2bcf4df7ad688b68daa"
+  },
+  "modules": {
+    "TransferBlstArmInverseWindowGcd01": {
+      "objects": [
+        {
+          "bytes": 111720,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-window-gcd-20261014-03\\project\\ShielddSecurity\\TransferBlstArmInverseWindowGcd01.olean",
+          "sha256": "c34fe4e5073331a72fcad87639ff31d23669f217109942f0e1d01b3089bd4793"
+        }
+      ],
+      "peak_rss_bytes": 1059262464,
+      "plan_identity": {
+        "bytes": 764812,
+        "sha256": "1061ad8ad6dcbad3c3a3d24b9c787aefe4db08bc0ff72b9ed1a9fdcf17804390"
+      },
+      "report": {
+        "bytes": 10430,
+        "path": "receipts/TransferBlstArmInverseWindowGcd01.full-types-and-axioms.txt",
+        "sha256": "8b7bc6d122f6e25620cb25899f62d8db7e2ec60d24cb93f0fe603fb42c84c995"
+      },
+      "reports": 5,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Original-window entire GCD preservation via symbolic signed prefix induction and arbitrary-count magnitude conversion, specialized31. Exact repacked magnitude batch retains GCD; no literal31 conversion walk or native completion credit.",
+      "seconds": 14.100039500001003,
+      "source": {
+        "bytes": 8269,
+        "sha256": "60e03ca84807bd10482bd6fee489e19e228dd765173476f9335adb063ec8d87b"
+      },
+      "source_closure_bound": 61
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 5,
+  "object_provenance_inputs": {
+    "bytes": 6605,
+    "sha256": "e6f63be67cdcba2b936084627c755236c92e6d2732183e19b682a7d4396e951d"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseWindowGcd01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 953458,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-window-gcd-20261014-03-owned-floor\\composition-review.json",
+        "sha256": "d6f1eb88ceb1feb9951e62585cfaf5a264a1d305fe1e34bba62cfeb4f4ee73ac"
+      },
+      "owned_imports": 63
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "bb70f622e32b41e6eca3e10aaa77ca175f14fb7856b100a3b74b69dfa88be7f4"
+  },
+  "reports": 5,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 4333,
+    "sha256": "881b650207b031ff360deb26875d880e5dccada2231df277c005bac1f9815b74"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Original low31 input lifts derive each signed prefix parity, symbolic induction preserves the entire signed GCD through31, and exact word repacking transfers the result to bounded natural magnitude batches. Whole-schedule termination/unit composition and native instruction correspondence remain OPEN. Native credit zero; full Transfer remains OPEN.",
+  "status": "passed"
+}
