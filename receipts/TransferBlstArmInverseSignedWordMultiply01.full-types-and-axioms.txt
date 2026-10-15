@@ -1,0 +1,130 @@
+ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.exact_sign_preparation_and_top_offset_reconstruct_the_entire_signed_product_residue : ∀
+  (negative : Prop) [inst : Decidable negative] (radix wordRadix input factor magnitude prepared operand : Int)
+  (factorValue : @Eq.{1} Int factor (@ite.{1} Int negative inst (@Neg.neg.{0} Int Int.instNegInt magnitude) magnitude))
+  (preparedValue :
+    @Eq.{1} Int prepared
+      (@ite.{1} Int negative inst (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) radix input) input))
+  (operandValue :
+    @Eq.{1} Int operand
+      (@ite.{1} Int negative inst (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) wordRadix magnitude)
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) prepared magnitude)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) radix operand))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) radix wordRadix))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) input factor)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) radix wordRadix))
+'ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.exact_sign_preparation_and_top_offset_reconstruct_the_entire_signed_product_residue' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.sourceSignedMagnitudeProductWords : (words :
+    List.{0} UInt64) →
+  (factor : Int) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.sourceSignedMagnitudeProductWords' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.every_source_signed_magnitude_product_retains_exactly_one_extra_word : ∀
+  (words : List.{0} UInt64) (factor : Int),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.sourceSignedMagnitudeProductWords words factor)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.every_source_signed_magnitude_product_retains_exactly_one_extra_word' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.every_coded_signed_factor_is_its_entire_word_magnitude_with_the_original_sign : ∀
+  (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  @Eq.{1} Int factor
+    (@ite.{1} Int (@LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@Nat.cast.{0} Int instNatCastInt
+          (UInt64.toNat
+            (ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord
+              (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor)))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (UInt64.toNat
+          (ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord
+            (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor)))))
+'ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.every_coded_signed_factor_is_its_entire_word_magnitude_with_the_original_sign' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.every_coded_factor_prepares_the_entire_integer_input_or_radix_complement : ∀
+  (words : List.{0} UInt64) (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+  (negativeNonzero :
+    @LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)),
+  @Eq.{1} Int
+    (@Nat.cast.{0} Int instNatCastInt
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words
+            (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+              (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor))))))
+    (@ite.{1} Int (@LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words)))
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+'ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.every_coded_factor_prepares_the_entire_integer_input_or_radix_complement' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.original_coded_factor_word_preparation_and_partial_products_derive_the_entire_signed_product_residue : ∀
+  (words : List.{0} UInt64) (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+  (negativeNonzero :
+    @LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.sourceSignedMagnitudeProductWords words
+              factor))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)) factor)
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+'ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.original_coded_factor_word_preparation_and_partial_products_derive_the_entire_signed_product_residue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
