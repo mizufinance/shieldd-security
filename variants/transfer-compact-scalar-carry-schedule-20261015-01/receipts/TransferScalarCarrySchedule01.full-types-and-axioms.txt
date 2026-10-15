@@ -1,0 +1,90 @@
+ShielddSecurity.TransferScalarCarrySchedule01.macLoop : (multiplier carry : UInt64) →
+  List.{0} (Prod.{0, 0} UInt64 UInt64) → Prod.{0, 0} (List.{0} UInt64) UInt64
+'ShielddSecurity.TransferScalarCarrySchedule01.macLoop' does not depend on any axioms
+ShielddSecurity.TransferScalarCarrySchedule01.dropLowAndAppendCarry : (output : Prod.{0, 0} (List.{0} UInt64) UInt64) →
+  List.{0} UInt64
+'ShielddSecurity.TransferScalarCarrySchedule01.dropLowAndAppendCarry' does not depend on any axioms
+ShielddSecurity.TransferScalarCarrySchedule01.packing_append_preserves_positional_value : ∀
+  (left right : List.{0} UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) left right))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords left)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords right)))
+'ShielddSecurity.TransferScalarCarrySchedule01.packing_append_preserves_positional_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarCarrySchedule01.carry_walk_retains_limb_count : ∀ (multiplier carry : UInt64)
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier carry pairs)))
+    (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs)
+'ShielddSecurity.TransferScalarCarrySchedule01.carry_walk_retains_limb_count' does not depend on any axioms
+ShielddSecurity.TransferScalarCarrySchedule01.carry_walk_conserves_full_integer : ∀ (multiplier carry : UInt64)
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+          (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier carry pairs)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs))
+        (UInt64.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+            (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier carry pairs)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs))))
+      (UInt64.toNat carry))
+'ShielddSecurity.TransferScalarCarrySchedule01.carry_walk_conserves_full_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarCarrySchedule01.dropping_low_limb_and_appending_carry_is_radix_quotient : ∀
+  (low carry : UInt64) (rest : List.{0} UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) rest
+        (@List.cons.{0} UInt64 carry (@List.nil.{0} UInt64))))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 low rest))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 rest)
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (UInt64.toNat carry)))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferScalarCarrySchedule01.dropping_low_limb_and_appending_carry_is_radix_quotient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarCarrySchedule01.nonempty_mac_walk_drops_to_exact_quotient : ∀ (multiplier carry : UInt64)
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64))
+  (nonempty : @Ne.{1} (List.{0} (Prod.{0, 0} UInt64 UInt64)) pairs (@List.nil.{0} (Prod.{0, 0} UInt64 UInt64))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (ShielddSecurity.TransferScalarCarrySchedule01.dropLowAndAppendCarry
+        (ShielddSecurity.TransferScalarCarrySchedule01.macLoop multiplier carry pairs)))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier)
+            (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+              (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs))))
+        (UInt64.toNat carry))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferScalarCarrySchedule01.nonempty_mac_walk_drops_to_exact_quotient' depends on axioms: [propext,
+ Quot.sound]
