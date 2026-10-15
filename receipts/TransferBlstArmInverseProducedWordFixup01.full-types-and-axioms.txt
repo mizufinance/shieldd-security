@@ -1,0 +1,86 @@
+ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCoefficientState : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  ShielddSecurity.TransferBlstArmInverseFirst01.WideState
+'ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCoefficientState' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCorrectedCoefficientState : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  ShielddSecurity.TransferBlstArmInverseFirst01.WideState
+'ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCorrectedCoefficientState' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.produced_coefficient_state_encoding_has_the_entire_derived_source_coefficient : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+      (ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCoefficientState a b))
+    (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b)
+'ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.produced_coefficient_state_encoding_has_the_entire_derived_source_coefficient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_produced_coefficient_derive_the_entire_normalized_integer : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideMeaning
+      (ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCorrectedCoefficientState a b))
+    (ShielddSecurity.TransferBlstArmInverseTopFixup01.sourceNormalizedInverseCoefficient a b)
+'ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_produced_coefficient_derive_the_entire_normalized_integer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_produced_coefficient_store_the_entire_unsigned_normalized_integer : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} Int
+    (@Nat.cast.{0} Int instNatCastInt
+      (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw
+        (ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCorrectedCoefficientState a b)))
+    (ShielddSecurity.TransferBlstArmInverseTopFixup01.sourceNormalizedInverseCoefficient a b)
+'ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_produced_coefficient_store_the_entire_unsigned_normalized_integer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_produced_coefficient_derive_the_full_unsigned_output_range : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  And
+    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw
+          (ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCorrectedCoefficientState a b))))
+    (@LT.lt.{0} Int Int.instLTInt
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw
+          (ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCorrectedCoefficientState a b)))
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+'ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_produced_coefficient_derive_the_full_unsigned_output_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_unit_scalar_coefficient_derive_the_stored_scaled_inverse_residue : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (modulus :
+    @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (unit :
+    @Eq.{1} Nat
+      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseFirst01.sourceWideRaw
+            (ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.sourceProducedCorrectedCoefficientState a b)))
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)))
+      (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512))))
+      (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferBlstArmInverseProducedWordFixup01.original_word_adjustments_of_the_encoded_unit_scalar_coefficient_derive_the_stored_scaled_inverse_residue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
