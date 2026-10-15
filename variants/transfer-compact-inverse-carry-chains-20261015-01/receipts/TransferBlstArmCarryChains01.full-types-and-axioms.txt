@@ -1,0 +1,62 @@
+ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry : (a b : UInt64) → (carry : Bool) → Prod.{0, 0} UInt64 Bool
+'ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCarryChains01.actual_two_operand_add_with_carry_fits_less_than_two_radices : ∀
+  (a b : UInt64) (carry : Bool),
+  @LT.lt.{0} Nat instLTNat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a) (UInt64.toNat b))
+      (Bool.toNat carry))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferBlstArmCarryChains01.actual_two_operand_add_with_carry_fits_less_than_two_radices' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCarryChains01.actual_add_carry_arithmetic_conserves_the_full_integer : ∀ (a b : UInt64)
+  (carry : Bool),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat
+        (@Prod.fst.{0, 0} UInt64 Bool (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry a b carry)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (Bool.toNat
+          (@Prod.snd.{0, 0} UInt64 Bool (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry a b carry)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat a) (UInt64.toNat b))
+      (Bool.toNat carry))
+'ShielddSecurity.TransferBlstArmCarryChains01.actual_add_carry_arithmetic_conserves_the_full_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain : (carry : Bool) →
+  List.{0} (Prod.{0, 0} UInt64 UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCarryChains01.actual_add_chain_retains_the_source_limb_count : ∀ (carry : Bool)
+  (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry pairs)))
+    (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs)
+'ShielddSecurity.TransferBlstArmCarryChains01.actual_add_chain_retains_the_source_limb_count' does not depend on any axioms
+ShielddSecurity.TransferBlstArmCarryChains01.symbolic_actual_add_chain_conserves_the_limb_integer_and_final_flag : ∀
+  (carry : Bool) (pairs : List.{0} (Prod.{0, 0} UInt64 UInt64)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry pairs)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@List.length.{0} (Prod.{0, 0} UInt64 UInt64) pairs))
+        (Bool.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain carry pairs)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.fst.{0, 0} UInt64 UInt64) pairs))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@List.map.{0, 0} (Prod.{0, 0} UInt64 UInt64) UInt64 (@Prod.snd.{0, 0} UInt64 UInt64) pairs)))
+      (Bool.toNat carry))
+'ShielddSecurity.TransferBlstArmCarryChains01.symbolic_actual_add_chain_conserves_the_limb_integer_and_final_flag' depends on axioms: [propext,
+ Quot.sound]
