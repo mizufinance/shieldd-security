@@ -1,0 +1,65 @@
+ShielddSecurity.TransferBlstArmInverseShiftAbsolute01.the_entire_signed_radix_decoder_preserves_its_input_residue : ∀
+  (half unsigned : Int),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode half unsigned)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) unsigned
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))
+'ShielddSecurity.TransferBlstArmInverseShiftAbsolute01.the_entire_signed_radix_decoder_preserves_its_input_residue' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseShiftAbsolute01.positive_integer_division_preserves_the_exact_negativity_test : ∀
+  (value divisor : Int)
+  (positive : @LT.lt.{0} Int Int.instLTInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) divisor),
+  Iff
+    (@LT.lt.{0} Int Int.instLTInt (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value divisor)
+      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+    (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseShiftAbsolute01.positive_integer_division_preserves_the_exact_negativity_test' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseShiftAbsolute01.source_extr_top_asr_and_word_absolute_correction_derive_the_entire_quotient_magnitude : ∀
+  (words : List.{0} UInt64) (count shift : Nat) (value : Int)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt64 words)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) shift)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+  (decoded :
+    @Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              ShielddSecurity.TransferScalarSerializationRange01.radix64 count)
+            (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+      value)
+  (magnitudeSmall :
+    @LT.lt.{0} Nat instLTNat
+      (Int.natAbs
+        (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value
+          (@Nat.cast.{0} Int instNatCastInt
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 count)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+            (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words))
+          (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+            (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+              (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words))))))
+    (Int.natAbs
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))))
+'ShielddSecurity.TransferBlstArmInverseShiftAbsolute01.source_extr_top_asr_and_word_absolute_correction_derive_the_entire_quotient_magnitude' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
