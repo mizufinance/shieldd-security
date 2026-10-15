@@ -1,0 +1,76 @@
+ShielddSecurity.TransferBlstArmInverseBatchRange01.original_four_word_packing_is_strictly_below_two256 : ∀
+  (input : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords input)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))
+'ShielddSecurity.TransferBlstArmInverseBatchRange01.original_four_word_packing_is_strictly_below_two256' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseBatchRange01.initialized_zero_prefix_full_quotients_are_the_original_inputs : ∀
+  (approxA approxB : Nat) (inputA inputB : Int),
+  @Eq.{1} (Prod.{0, 0} Int Int)
+    (ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) approxA approxB inputA inputB)
+    (@Prod.mk.{0, 0} Int Int inputA inputB)
+'ShielddSecurity.TransferBlstArmInverseBatchRange01.initialized_zero_prefix_full_quotients_are_the_original_inputs' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseBatchRange01.every_original31_step_full_output_maximum_is_at_most_the_initial_maximum : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have final : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+  @LE.le.{0} Nat instLENat
+    (@Max.max.{0} Nat Nat.instMax (Int.natAbs (@Prod.fst.{0, 0} Int Int final))
+      (Int.natAbs (@Prod.snd.{0, 0} Int Int final)))
+    (@Max.max.{0} Nat Nat.instMax (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+      (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+'ShielddSecurity.TransferBlstArmInverseBatchRange01.every_original31_step_full_output_maximum_is_at_most_the_initial_maximum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBatchRange01.every_original31_step_full_output_magnitude_fits_four_words : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have final : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+  And
+    (@LT.lt.{0} Nat instLTNat (Int.natAbs (@Prod.fst.{0, 0} Int Int final))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+    (@LT.lt.{0} Nat instLTNat (Int.natAbs (@Prod.snd.{0, 0} Int Int final))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+'ShielddSecurity.TransferBlstArmInverseBatchRange01.every_original31_step_full_output_magnitude_fits_four_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
