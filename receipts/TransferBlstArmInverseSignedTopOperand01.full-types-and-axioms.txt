@@ -1,0 +1,60 @@
+ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.sourceFactorProductTopOffset : (factorWord : UInt64) → UInt64
+'ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.sourceFactorProductTopOffset' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.every_actual_negated_word_plus_the_original_has_the_complete_zero_or_one_radix_sum : ∀
+  (word : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat (@Neg.neg.{0} UInt64 instNegUInt64 word)) (UInt64.toNat word))
+    (@ite.{1} Nat (@Eq.{1} Nat (UInt64.toNat word) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (instDecidableEqNat (UInt64.toNat word) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.every_actual_negated_word_plus_the_original_has_the_complete_zero_or_one_radix_sum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.every_original_coded_factor_derives_its_exact_and_neg_top_offset_word : ∀
+  (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.sourceFactorProductTopOffset
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor))
+    (@ite.{1} UInt64 (@LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@Neg.neg.{0} UInt64 instNegUInt64
+        (ShielddSecurity.TransferBlstArmInverseFactorMagnitude01.sourceFactorMagnitudeWord
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor)))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.every_original_coded_factor_derives_its_exact_and_neg_top_offset_word' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.every_original_coded_factor_derives_the_entire_integer_top_offset_operand : ∀
+  (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  @Eq.{1} Int
+    (@Nat.cast.{0} Int instNatCastInt
+      (UInt64.toNat
+        (ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.sourceFactorProductTopOffset
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor))))
+    (@ite.{1} Int (@LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+        (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferScalarSerializationRange01.radix64)
+        (@Nat.cast.{0} Int instNatCastInt (Int.natAbs factor)))
+      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseSignedTopOperand01.every_original_coded_factor_derives_the_entire_integer_top_offset_operand' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
