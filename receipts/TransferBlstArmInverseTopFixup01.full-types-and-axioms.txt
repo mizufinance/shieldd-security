@@ -1,0 +1,80 @@
+ShielddSecurity.TransferBlstArmInverseTopFixup01.original_unsigned_wide_radix_is_exactly_two512 : @Eq.{1} Int
+  ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix
+  (@Nat.cast.{0} Int instNatCastInt
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512)))))
+'ShielddSecurity.TransferBlstArmInverseTopFixup01.original_unsigned_wide_radix_is_exactly_two512' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseTopFixup01.every_original_produced_inverse_coefficient_satisfies_both_signed_wide_bounds : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  And
+    (@LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+      (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b))
+    (@LE.le.{0} Int Int.instLEInt
+      (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+'ShielddSecurity.TransferBlstArmInverseTopFixup01.every_original_produced_inverse_coefficient_satisfies_both_signed_wide_bounds' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopFixup01.sourceNormalizedInverseCoefficient : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Int
+'ShielddSecurity.TransferBlstArmInverseTopFixup01.sourceNormalizedInverseCoefficient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopFixup01.every_original_produced_inverse_coefficient_normalizes_to_the_full_unsigned_wide_range : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  And
+    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInverseTopFixup01.sourceNormalizedInverseCoefficient a b))
+    (@LT.lt.{0} Int Int.instLTInt
+      (ShielddSecurity.TransferBlstArmInverseTopFixup01.sourceNormalizedInverseCoefficient a b)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+'ShielddSecurity.TransferBlstArmInverseTopFixup01.every_original_produced_inverse_coefficient_normalizes_to_the_full_unsigned_wide_range' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseTopFixup01.original_rx2_correction_shift_has_zero_entire_integer_scalar_modulus_residue : @Eq.{1}
+  Int
+  (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+    ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift
+    (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+  (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseTopFixup01.original_rx2_correction_shift_has_zero_entire_integer_scalar_modulus_residue' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseTopFixup01.original_rx2_signed_adjustments_preserve_the_entire_integer_scalar_modulus_residue : ∀
+  (value : Int),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection value)
+      (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+      (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferBlstArmInverseTopFixup01.original_rx2_signed_adjustments_preserve_the_entire_integer_scalar_modulus_residue' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseTopFixup01.original_unit_scalar_inputs_produce_a_normalized_scaled_inverse_residue : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (modulus :
+    @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (unit :
+    @Eq.{1} Nat
+      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseTopFixup01.sourceNormalizedInverseCoefficient a b)
+        (@Nat.cast.{0} Int instNatCastInt
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)))
+      (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512))))
+      (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferBlstArmInverseTopFixup01.original_unit_scalar_inputs_produce_a_normalized_scaled_inverse_residue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
