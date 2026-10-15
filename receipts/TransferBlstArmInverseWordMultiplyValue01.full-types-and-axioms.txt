@@ -1,0 +1,19 @@
+ShielddSecurity.TransferBlstArmInverseWordMultiplyValue01.original_shifted_partial_product_carry_chain_conserves_the_entire_unsigned_product : ∀
+  (words : List.{0} UInt64) (multiplier : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseWordMultiplyCarry01.sourceUnsignedWordMultiply words multiplier)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 words)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (Bool.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseWordMultiplyCarry01.sourceUnsignedWordMultiply words multiplier)))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words) (UInt64.toNat multiplier))
+'ShielddSecurity.TransferBlstArmInverseWordMultiplyValue01.original_shifted_partial_product_carry_chain_conserves_the_entire_unsigned_product' depends on axioms: [propext,
+ Quot.sound]
