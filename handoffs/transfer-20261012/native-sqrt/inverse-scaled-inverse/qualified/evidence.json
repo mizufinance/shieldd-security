@@ -1,0 +1,175 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  Int",
+      "full_type_sha256": "7ac2aafd557d42c93ec904d918481eba15c6762e2ca6b2ce5c0203f930e25c0f",
+      "name": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledModulusCoefficient : (a b :\n    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) \u2192\n  Int",
+      "full_type_sha256": "48735424e04962d6cfd8c034f3c4613ea42aebfee3b03a37fbfaf1bba068e16d",
+      "name": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledModulusCoefficient"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.an_exact_integer_bezout_row_derives_the_scaled_inverse_residue : \u2200\n  (input modulus coefficient other scale : Int)\n  (row :\n    @Eq.{1} Int\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) coefficient input)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) other modulus))\n      scale),\n  @Eq.{1} Int\n    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) coefficient input) modulus)\n    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) scale modulus)",
+      "full_type_sha256": "cbd0f1c761c899f9b667d015bd83e65a9f5a82be2de320241282ca987da4a30d",
+      "name": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.an_exact_integer_bezout_row_derives_the_scaled_inverse_residue"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.every_sufficient_valid_unit_source_schedule_produces_the_exact_scaled_bezout_identity : \u2200\n  (count remaining : Nat) (input : Prod.{0, 0} Nat Nat)\n  (leftBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (rightBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (odd :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n  (budget :\n    @LE.le.{0} Nat instLENat\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))\n        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input)))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)\n        remaining))\n  (unit :\n    @Eq.{1} Nat (Nat.gcd (@Prod.fst.{0, 0} Nat Nat input) (@Prod.snd.{0, 0} Nat Nat input))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} Int\n    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows.f1\n          (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceFinalLinearRows count remaining input))\n        (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input)))\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows.g1\n          (ShielddSecurity.TransferBlstArmInverseFullRows01.sourceFinalLinearRows count remaining input))\n        (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))))\n    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)\n        remaining))",
+      "full_type_sha256": "b8488ad80ed9ac14d594489a9beebdc914624aa873ed07d47cd2d1e91e72d38c",
+      "name": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.every_sufficient_valid_unit_source_schedule_produces_the_exact_scaled_bezout_identity"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_exact_two512_bezout_identity : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n  (unit :\n    @Eq.{1} Nat\n      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} Int\n    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b)\n        (@Nat.cast.{0} Int instNatCastInt\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)))\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledModulusCoefficient a b)\n        (@Nat.cast.{0} Int instNatCastInt\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))))\n    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512))))",
+      "full_type_sha256": "b45e1a33cc14405f9b07b9a7a465b5ef1fadc25d1325be89dfb211a35cfa8c81",
+      "name": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_exact_two512_bezout_identity"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_actual_source_scaled_inverse_residue : \u2200\n  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)\n  (oddB :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n  (unit :\n    @Eq.{1} Nat\n      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} Int\n    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (ShielddSecurity.TransferBlstArmInverseScaledInverse01.sourceScaledInverseCoefficient a b)\n        (@Nat.cast.{0} Int instNatCastInt\n          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))\n    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 512) (instOfNatNat (nat_lit 512))))\n      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))",
+      "full_type_sha256": "d976b937bbe386a94fdca12b0740f2726b5ff93d62dcfe8654b7a0f719ef5508",
+      "name": "ShielddSecurity.TransferBlstArmInverseScaledInverse01.original_four_word_unit_inputs_produce_the_actual_source_scaled_inverse_residue"
+    }
+  ],
+  "dependency_sources_verified": 378,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 123883,
+    "sha256": "9b5db597d7b4e1375356d9a67b0ef58dade502a0c8d2e382e606f61990bababd"
+  },
+  "modules": {
+    "TransferBlstArmInverseScaledInverse01": {
+      "objects": [
+        {
+          "bytes": 48792,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-scaled-inverse-20261014-04\\project\\ShielddSecurity\\TransferBlstArmInverseScaledInverse01.olean",
+          "sha256": "ddbc245886f92015090335f8c4e3b7cbce158239a73bbdb213325d721566e842"
+        }
+      ],
+      "peak_rss_bytes": 1059811328,
+      "plan_identity": {
+        "bytes": 1042256,
+        "sha256": "3b49ba2c991f69b6a24b1fe4c6daca7ab46da479bbc6bd32a7bc56e1deba72a2"
+      },
+      "report": {
+        "bytes": 8697,
+        "path": "receipts/TransferBlstArmInverseScaledInverse01.full-types-and-axioms.txt",
+        "sha256": "f9b6272d7c147c9394fc34e2f971447c0ca62bd2cc14f8607423f0cff66bdacd"
+      },
+      "reports": 6,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Symbolic original schedule/tail full rows and unit endpoint derive exact Bezout2^512 and the produced coefficient scaled inverse residue. Explicit terminal Nat-to-Int cast normalization; fixed finite limits. Runtime unit origin, native coefficient storage/sign and Montgomery bridges remain open.",
+      "seconds": 13.945566399997915,
+      "source": {
+        "bytes": 5420,
+        "sha256": "9723b6654c10782727e694154c89ad5790b81e97be8b966ebac61e5b23c06709"
+      },
+      "source_closure_bound": 72
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 6,
+  "object_provenance_inputs": {
+    "bytes": 9019,
+    "sha256": "dc0ed682ccacd5b1d3113f38e812431e7bac82234c86dd5229a2d172d2d8d668"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseScaledInverse01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 1288134,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-scaled-inverse-20261014-04-owned-floor\\composition-review.json",
+        "sha256": "d926d6935e17c6f146281ea2eeb28154517d092838cc8e7bd3d3f8b0efe5c74a"
+      },
+      "owned_imports": 74
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "bdc4c696a93c8afe0bb1b033bcbd76b05516e781c0dd333a7424989ba28482d7"
+  },
+  "reports": 6,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 4267,
+    "sha256": "e4275b8e438f3cb0c04a7717478de2bf7a0c3ebd9e628c006e0bee6add1fc07b"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "The actual produced coefficient under explicit GCD1 gives the exact 2^512 Bezout relation and residue. Runtime unit and canonical input origins, stored coefficients, sign handling, and Montgomery correspondence remain OPEN. Native credit zero; full Transfer remains OPEN.",
+  "status": "passed"
+}
