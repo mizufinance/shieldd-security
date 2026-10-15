@@ -1,0 +1,70 @@
+ShielddSecurity.TransferBlstArmInverseNaturalProgress01.halving_a_positive_natural_value_decreases_its_exact_bitlength : ∀
+  (value reduced : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) value)
+  (bound :
+    @LE.le.{0} Nat instLENat reduced
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) value
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength reduced)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength value)
+'ShielddSecurity.TransferBlstArmInverseNaturalProgress01.halving_a_positive_natural_value_decreases_its_exact_bitlength' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalProgress01.every_nonterminal_original_natural_factor_step_decreases_pair_bitlength : ∀
+  (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (positive :
+    @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s)))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+            (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorStep s))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s))
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s)))
+'ShielddSecurity.TransferBlstArmInverseNaturalProgress01.every_nonterminal_original_natural_factor_step_decreases_pair_bitlength' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseNaturalProgress01.a_zero_first_natural_component_stays_zero_for_every_factor_walk : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors)
+  (zero :
+    @Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s)
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseNaturalProgress01.a_zero_first_natural_component_stays_zero_for_every_factor_walk' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseNaturalProgress01.every_original_natural_factor_walk_reaches_zero_or_decreases_by_its_length : ∀
+  (count : Nat) (s : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  Or
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s)))
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b
+              (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk count s))))
+        count)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a s))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b s))))
+'ShielddSecurity.TransferBlstArmInverseNaturalProgress01.every_original_natural_factor_walk_reaches_zero_or_decreases_by_its_length' depends on axioms: [propext,
+ Quot.sound]
