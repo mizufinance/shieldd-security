@@ -1,0 +1,41 @@
+ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordLow : (word multiplier : UInt64) → UInt64
+'ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordLow' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordHigh : (word multiplier : UInt64) → UInt64
+'ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordHigh' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordMultiply01.every_full_two_word_product_is_strictly_below_the_double_radix : ∀
+  (word multiplier : UInt64),
+  @LT.lt.{0} Nat instLTNat
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat word) (UInt64.toNat multiplier))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      ShielddSecurity.TransferScalarSerializationRange01.radix64)
+'ShielddSecurity.TransferBlstArmInverseWordMultiply01.every_full_two_word_product_is_strictly_below_the_double_radix' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordMultiply01.original_low_and_high_word_products_conserve_the_entire_unsigned_product : ∀
+  (word multiplier : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordLow word multiplier))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordHigh word multiplier))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat word) (UInt64.toNat multiplier))
+'ShielddSecurity.TransferBlstArmInverseWordMultiply01.original_low_and_high_word_products_conserve_the_entire_unsigned_product' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordMultiply01.symbolic_low_and_high_partial_product_lists_conserve_the_entire_packed_product : ∀
+  (words : List.{0} UInt64) (multiplier : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@List.map.{0, 0} UInt64 UInt64
+          (fun (word : UInt64) =>
+            ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordLow word multiplier)
+          words))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@List.map.{0, 0} UInt64 UInt64
+            (fun (word : UInt64) =>
+              ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordHigh word multiplier)
+            words))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words) (UInt64.toNat multiplier))
+'ShielddSecurity.TransferBlstArmInverseWordMultiply01.symbolic_low_and_high_partial_product_lists_conserve_the_entire_packed_product' depends on axioms: [propext]
