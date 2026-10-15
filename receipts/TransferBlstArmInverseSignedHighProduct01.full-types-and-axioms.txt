@@ -1,0 +1,64 @@
+ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_standard_integer_word_conversion_of_every_natural_is_its_entire_natural_word_code : ∀
+  (value : Nat), @Eq.{1} UInt64 (UInt64.ofInt (@Nat.cast.{0} Int instNatCastInt value)) (UInt64.ofNat value)
+'ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_standard_integer_word_conversion_of_every_natural_is_its_entire_natural_word_code' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_source_unsigned_high_product_is_the_entire_integer_quotient_word_code : ∀
+  (word multiplier : UInt64),
+  @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordHigh word multiplier)
+    (UInt64.ofInt
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat word))
+          (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat multiplier)))
+        (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferScalarSerializationRange01.radix64)))
+'ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_source_unsigned_high_product_is_the_entire_integer_quotient_word_code' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.sourceSignedUnsignedHighWord : (word multiplier : UInt64) →
+  UInt64
+'ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.sourceSignedUnsignedHighWord' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_source_unsigned_high_product_and_input_sign_correction_derive_the_entire_signed_quotient_code : ∀
+  (word multiplier : UInt64),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.sourceSignedUnsignedHighWord word multiplier)
+    (UInt64.ofInt
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning word)
+          (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat multiplier)))
+        (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferScalarSerializationRange01.radix64)))
+'ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_source_unsigned_high_product_and_input_sign_correction_derive_the_entire_signed_quotient_code' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.every_signed_word_times_unsigned_word_quotient_fits_the_entire_signed_word_range : ∀
+  (word multiplier : UInt64),
+  And
+    (@LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning word)
+          (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat multiplier)))
+        (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferScalarSerializationRange01.radix64)))
+    (@LT.lt.{0} Int Int.instLTInt
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning word)
+          (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat multiplier)))
+        (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferScalarSerializationRange01.radix64))
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+'ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.every_signed_word_times_unsigned_word_quotient_fits_the_entire_signed_word_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_source_corrected_high_product_decodes_to_the_entire_signed_integer_quotient : ∀
+  (word multiplier : UInt64),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+      (ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.sourceSignedUnsignedHighWord word multiplier))
+    (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning word)
+        (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat multiplier)))
+      (@Nat.cast.{0} Int instNatCastInt ShielddSecurity.TransferScalarSerializationRange01.radix64))
+'ShielddSecurity.TransferBlstArmInverseSignedHighProduct01.the_source_corrected_high_product_decodes_to_the_entire_signed_integer_quotient' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
