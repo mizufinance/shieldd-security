@@ -1,0 +1,61 @@
+ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength : (value : Nat) → Nat
+'ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.a_strict_upper_power_bounds_the_exact_natural_bitlength : ∀
+  (value width : Nat)
+  (upper :
+    @LT.lt.{0} Nat instLTNat value
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) width)),
+  @LE.le.{0} Nat instLENat (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength value) width
+'ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.a_strict_upper_power_bounds_the_exact_natural_bitlength' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.every_natural_value_is_strictly_below_its_exact_bitlength_power : ∀
+  (value : Nat),
+  @LT.lt.{0} Nat instLTNat value
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength value))
+'ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.every_natural_value_is_strictly_below_its_exact_bitlength_power' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.a_positive_lower_power_bounds_the_exact_natural_bitlength : ∀
+  (value exponent : Nat)
+  (lower :
+    @LE.le.{0} Nat instLENat
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) exponent)
+      value),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) exponent
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength value)
+'ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.a_positive_lower_power_bounds_the_exact_natural_bitlength' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.a_value_at_most_a_power_has_bitlength_at_most_exponent_plus_one : ∀
+  (value exponent : Nat)
+  (upper :
+    @LE.le.{0} Nat instLENat value
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) exponent)),
+  @LE.le.{0} Nat instLENat (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength value)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) exponent
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.a_value_at_most_a_power_has_bitlength_at_most_exponent_plus_one' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.the_exact_bitlength_is_monotone : ∀ (left right : Nat)
+  (order : @LE.le.{0} Nat instLENat left right),
+  @LE.le.{0} Nat instLENat (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength left)
+    (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength right)
+'ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.the_exact_bitlength_is_monotone' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.the_sum_of_exact_pair_bitlengths_equals_the_sum_for_the_minimum_and_maximum : ∀
+  (left right : Nat),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength left)
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength right))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+        (@Min.min.{0} Nat instMinNat left right))
+      (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+        (@Max.max.{0} Nat Nat.instMax left right)))
+'ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.the_sum_of_exact_pair_bitlengths_equals_the_sum_for_the_minimum_and_maximum' depends on axioms: [propext,
+ Quot.sound]
