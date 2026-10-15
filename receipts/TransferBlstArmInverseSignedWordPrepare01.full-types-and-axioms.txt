@@ -1,0 +1,106 @@
+ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords : (words : List.{0} UInt64) →
+  (mask : UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.every_source_mask_preparation_retains_the_entire_input_word_count : ∀
+  (words : List.{0} UInt64) (mask : UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words mask)))
+    (@List.length.{0} UInt64 words)
+'ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.every_source_mask_preparation_retains_the_entire_input_word_count' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_all_ones_mask_preparation_is_exactly_the_qualified_word_negation : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1)))))
+    (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words)
+'ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_all_ones_mask_preparation_is_exactly_the_qualified_word_negation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_zero_mask_preparation_is_exactly_the_zero_operand_carry_program : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+    (ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarryChain Bool.false
+      (@List.zip.{0, 0} UInt64 UInt64 words
+        (@List.replicate.{0} UInt64 (@List.length.{0} UInt64 words)
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+'ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_zero_mask_preparation_is_exactly_the_zero_operand_carry_program' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_zero_mask_preparation_has_clear_carry_and_the_entire_original_value : ∀
+  (words : List.{0} UInt64),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+      Bool.false)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words
+            (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+'ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_zero_mask_preparation_has_clear_carry_and_the_entire_original_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_coded_factor_derives_its_entire_source_preparation_mask : ∀
+  (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor))
+    (@ite.{1} UInt64 (@LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+      (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))
+'ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.the_original_coded_factor_derives_its_entire_source_preparation_mask' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.every_original_coded_factor_prepares_the_exact_unsigned_input_or_radix_complement : ∀
+  (words : List.{0} UInt64) (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+  (negativeNonzero :
+    @LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words
+          (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+            (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor))))
+      Bool.false)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words
+            (ShielddSecurity.TransferBlstArmInverseSignMask01.sourceFactorSignMask
+              (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor)))))
+      (@ite.{1} Nat (@LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (Int.decLt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+'ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.every_original_coded_factor_prepares_the_exact_unsigned_input_or_radix_complement' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
