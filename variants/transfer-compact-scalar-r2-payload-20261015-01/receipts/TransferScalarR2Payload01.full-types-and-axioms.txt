@@ -1,0 +1,101 @@
+ShielddSecurity.TransferScalarR2Payload01.sourceR2 : Vector.{0} UInt64
+  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarR2Payload01.sourceR2' does not depend on any axioms
+ShielddSecurity.TransferScalarR2Payload01.pinned_R2_words_have_exact_value_range_and_inverse_relation : And
+  (@Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        ShielddSecurity.TransferScalarR2Payload01.sourceR2))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+  (And
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          ShielddSecurity.TransferScalarR2Payload01.sourceR2))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              ShielddSecurity.TransferScalarR2Payload01.sourceR2)))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))
+'ShielddSecurity.TransferScalarR2Payload01.pinned_R2_words_have_exact_value_range_and_inverse_relation' does not depend on any axioms
+ShielddSecurity.TransferScalarR2Payload01.sourceDecoderPayload : (raw :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferScalarR2Payload01.sourceDecoderPayload' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarR2Payload01.decoder_payload_words_are_actual_modeled_multiplication_output : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} (List.{0} UInt64)
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (ShielddSecurity.TransferScalarR2Payload01.sourceDecoderPayload raw))
+    (ShielddSecurity.TransferScalarWideReduction01.sourceMulMontgomery raw
+      ShielddSecurity.TransferScalarR2Payload01.sourceR2)
+'ShielddSecurity.TransferScalarR2Payload01.decoder_payload_words_are_actual_modeled_multiplication_output' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarR2Payload01.decoder_payload_has_derived_canonical_raw_montgomery_value : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferScalarR2Payload01.sourceDecoderPayload raw)))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (ShielddSecurity.TransferScalarR2Payload01.sourceDecoderPayload raw)))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+'ShielddSecurity.TransferScalarR2Payload01.decoder_payload_has_derived_canonical_raw_montgomery_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarR2Payload01.actual_modeled_decoder_payload_serializer_returns_raw_modulus_value : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+      (ShielddSecurity.TransferScalarR2Payload01.sourceDecoderPayload raw))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarR2Payload01.actual_modeled_decoder_payload_serializer_returns_raw_modulus_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarR2Payload01.accepted_canonical_raw_payload_serializes_to_exact_input_value : ∀
+  (raw : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+  (canonical :
+    @LT.lt.{0} Nat instLTNat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey
+      (ShielddSecurity.TransferScalarR2Payload01.sourceDecoderPayload raw))
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) raw))
+'ShielddSecurity.TransferScalarR2Payload01.accepted_canonical_raw_payload_serializes_to_exact_input_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
