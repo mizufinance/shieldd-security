@@ -1,0 +1,37 @@
+ShielddSecurity.TransferScalarByteEquality01.typed_little_endian_head_is_exact_numeric_remainder : ∀ (byte : UInt8)
+  (rest : List.{0} UInt8),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE (@List.cons.{0} UInt8 byte rest))
+      (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))
+    (UInt8.toNat byte)
+'ShielddSecurity.TransferScalarByteEquality01.typed_little_endian_head_is_exact_numeric_remainder' depends on axioms: [propext]
+ShielddSecurity.TransferScalarByteEquality01.typed_little_endian_tail_is_exact_numeric_quotient : ∀ (byte : UInt8)
+  (rest : List.{0} UInt8),
+  @Eq.{1} Nat
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE (@List.cons.{0} UInt8 byte rest))
+      (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE rest)
+'ShielddSecurity.TransferScalarByteEquality01.typed_little_endian_tail_is_exact_numeric_quotient' depends on axioms: [propext]
+ShielddSecurity.TransferScalarByteEquality01.typed_little_endian_decoder_is_injective_at_equal_width : ∀
+  (left right : List.{0} UInt8) (width : @Eq.{1} Nat (@List.length.{0} UInt8 left) (@List.length.{0} UInt8 right))
+  (value :
+    @Eq.{1} Nat (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE left)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE right)),
+  @Eq.{1} (List.{0} UInt8) left right
+'ShielddSecurity.TransferScalarByteEquality01.typed_little_endian_decoder_is_injective_at_equal_width' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarByteEquality01.source_scalar_typed_byte_keys_equal_iff_mathematical_montgomery_values_equal : ∀
+  (left right : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  Iff
+    (@Eq.{1} (List.{0} UInt8)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) left))
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) right)))
+    (@Eq.{1} Nat (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue left)
+      (ShielddSecurity.TransferScalarMontgomeryValue01.montgomeryValue right))
+'ShielddSecurity.TransferScalarByteEquality01.source_scalar_typed_byte_keys_equal_iff_mathematical_montgomery_values_equal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
