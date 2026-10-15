@@ -1,0 +1,54 @@
+ShielddSecurity.TransferBlstArmInverseExtrWord01.sourceExtractWord : (high low : UInt64) → (shift : Nat) → UInt64
+'ShielddSecurity.TransferBlstArmInverseExtrWord01.sourceExtractWord' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseExtrWord01.original_extr_left_fragment_retains_the_exact_high_word_remainder : ∀
+  (high : UInt64) (shift : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) shift)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HShiftLeft.hShiftLeft.{0, 0, 0} UInt64 UInt64 UInt64 (@instHShiftLeftOfShiftLeft.{0} UInt64 instShiftLeftUInt64)
+        high
+        (UInt64.ofNat
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) shift))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) shift))
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat high)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+'ShielddSecurity.TransferBlstArmInverseExtrWord01.original_extr_left_fragment_retains_the_exact_high_word_remainder' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseExtrWord01.original_extr_right_fragment_is_the_entire_low_word_quotient : ∀
+  (low : UInt64) (shift : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (@HShiftRight.hShiftRight.{0, 0, 0} UInt64 UInt64 UInt64
+        (@instHShiftRightOfShiftRight.{0} UInt64 instShiftRightUInt64) low (UInt64.ofNat shift)))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))
+'ShielddSecurity.TransferBlstArmInverseExtrWord01.original_extr_right_fragment_is_the_entire_low_word_quotient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseExtrWord01.original_extr_word_derives_both_entire_nonoverlapping_window_fragments : ∀
+  (high low : UInt64) (shift : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) shift)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseExtrWord01.sourceExtractWord high low shift))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) shift))
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (UInt64.toNat high)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) (UInt64.toNat low)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+'ShielddSecurity.TransferBlstArmInverseExtrWord01.original_extr_word_derives_both_entire_nonoverlapping_window_fragments' depends on axioms: [propext,
+ Quot.sound]
