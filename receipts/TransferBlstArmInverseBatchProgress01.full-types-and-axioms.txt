@@ -1,0 +1,38 @@
+ShielddSecurity.TransferBlstArmInverseBatchProgress01.every_original_four_word31_step_batch_reaches_zero_or_decreases_pair_bitlength_by31 : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have final : Prod.{0, 0} Int Int :=
+    ShielddSecurity.TransferBlstArmInverseErrorRows01.sourceActualFactorQuotients
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 a))
+      (ShielddSecurity.TransferBlstArmInverseApproxBits01.sourceApproxLow31
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseWindowInput01.sourceFourWordWindowWords a b))
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b));
+  Or (@Eq.{1} Int (@Prod.fst.{0, 0} Int Int final) (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+    (@LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (Int.natAbs (@Prod.fst.{0, 0} Int Int final)))
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (Int.natAbs (@Prod.snd.{0, 0} Int Int final))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))))
+'ShielddSecurity.TransferBlstArmInverseBatchProgress01.every_original_four_word31_step_batch_reaches_zero_or_decreases_pair_bitlength_by31' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
