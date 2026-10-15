@@ -1,0 +1,163 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat : Nat \u2192 Nat \u2192 List.{0} UInt64",
+      "full_type_sha256": "a97c8fb928a41c70af79cd047967614a0a2b603bd31c8794776e3f19b9d7de4b",
+      "name": "ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat : (input : Nat) \u2192\n  ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords",
+      "full_type_sha256": "6097cfb631bc5a8a2d1e728c600e88ce83dc6bfa255cdd9839b930dc9d79f03a",
+      "name": "ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWordRepack01.symbolic_natural_word_repacking_and_the_final_quotient_conserve_the_entire_input : \u2200\n  (count input : Nat),\n  @Eq.{1} Nat\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n        (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat count input))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n          ShielddSecurity.TransferScalarSerializationRange01.radix64 count)\n        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) input\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            ShielddSecurity.TransferScalarSerializationRange01.radix64 count))))\n    input",
+      "full_type_sha256": "0361f512a46edadcf09d8cb72c840cd865336ab574c696cc70cc74d536850474",
+      "name": "ShielddSecurity.TransferBlstArmInverseWordRepack01.symbolic_natural_word_repacking_and_the_final_quotient_conserve_the_entire_input"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWordRepack01.natural_word_repacking_below_capacity_reconstructs_the_exact_input : \u2200\n  (count input : Nat)\n  (bounded :\n    @LT.lt.{0} Nat instLTNat input\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        ShielddSecurity.TransferScalarSerializationRange01.radix64 count)),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferScalarWordPrimitives01.packWords\n      (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceWordsOfNat count input))\n    input",
+      "full_type_sha256": "c9531aeebf5bc1dff784b83d9b44c23f3d8ce3ad35ad550d77a68961ad6c05e2",
+      "name": "ShielddSecurity.TransferBlstArmInverseWordRepack01.natural_word_repacking_below_capacity_reconstructs_the_exact_input"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWordRepack01.original_four_word_repacking_reconstructs_every_input_below_two256 : \u2200\n  (input : Nat)\n  (bounded :\n    @LT.lt.{0} Nat instLTNat input\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))))),\n  @Eq.{1} Nat\n    (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords\n      (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat input))\n    input",
+      "full_type_sha256": "29cc85410acd9cf07c08af4d297950da0e7f63d983388a393ce2993a544e9e59",
+      "name": "ShielddSecurity.TransferBlstArmInverseWordRepack01.original_four_word_repacking_reconstructs_every_input_below_two256"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseWordRepack01.an_odd_natural_input_has_an_odd_original_repacked_low_word : \u2200\n  (input : Nat)\n  (odd :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) input\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  @Eq.{1} Nat\n    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)\n      (UInt64.toNat\n        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0\n          (ShielddSecurity.TransferBlstArmInverseWordRepack01.sourceFourWordsOfNat input)))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))",
+      "full_type_sha256": "382cf6f9c26d83cc03bae8fdb450082764e96e72186416105dfb6097e0ffa119",
+      "name": "ShielddSecurity.TransferBlstArmInverseWordRepack01.an_odd_natural_input_has_an_odd_original_repacked_low_word"
+    }
+  ],
+  "dependency_sources_verified": 362,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 118816,
+    "sha256": "b3fe73a805ed1d1990782ba1e65d07e7cdaf7bb78df7c5b199e6498508d3fb10"
+  },
+  "modules": {
+    "TransferBlstArmInverseWordRepack01": {
+      "objects": [
+        {
+          "bytes": 91528,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-word-repack-20261014-04\\project\\ShielddSecurity\\TransferBlstArmInverseWordRepack01.olean",
+          "sha256": "e17041f808a68e7aab3877578863ce62a5711b126bc3a68a9cb5324a545e7862"
+        }
+      ],
+      "peak_rss_bytes": 1064947712,
+      "plan_identity": {
+        "bytes": 650491,
+        "sha256": "d235e47811a53178cbde4d5b9f3e05d91d8fd0d9385168e0f5f010918135c8fa"
+      },
+      "report": {
+        "bytes": 3977,
+        "path": "receipts/TransferBlstArmInverseWordRepack01.full-types-and-axioms.txt",
+        "sha256": "ca0d273cd4a4f9737ba55d8f878e1965c201892eb7e99c601d46aa12a0bc5326"
+      },
+      "reports": 6,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Exact symbolic UInt64 repacking conservation by pure radix and quotient rewrites; below-capacity four-word reconstruction and odd low-word preservation. Normalize both quotient denominators; native stores and batch iteration remain open.",
+      "seconds": 13.936750000008033,
+      "source": {
+        "bytes": 4502,
+        "sha256": "245c0ab48002723c2932203002c0896e9e414fa47d0a8d7437ac26a43950db5e"
+      },
+      "source_closure_bound": 56
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 6,
+  "object_provenance_inputs": {
+    "bytes": 5510,
+    "sha256": "d802c7a17c1592c6f4e0ce5e5d5239642806de705df93d078ff13bf57e553522"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseWordRepack01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 816037,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-word-repack-20261014-04-owned-floor\\composition-review.json",
+        "sha256": "5deecfc0b9826db3d2f0cced93b953b704ab18d0dde63dc44f0796156fa66644"
+      },
+      "owned_imports": 58
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "98d2ad8d86434339c3b1bbaf23151963e5d3c57a62da8b31c97bbfcbb79c4802"
+  },
+  "reports": 6,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 4303,
+    "sha256": "730a6e99e5f00fdb18d00aa3a7278747f32a1f2313e18afad1be476bd0ce8c50"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "A symbolic radix recurrence proves exact conservation of arbitrary natural inputs, and bounded inputs reconstruct from UInt64 words. Four-word values below two256 and low-word oddness follow. Native loads, stores, aliasing, and full inverse execution remain OPEN. Native credit zero; full Transfer remains OPEN.",
+  "status": "passed"
+}
