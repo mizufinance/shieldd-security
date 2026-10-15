@@ -1,0 +1,41 @@
+ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.sourceShiftedProductCarry : (lows highs : List.{0} UInt64) →
+  (topOffset : UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.sourceShiftedProductCarry' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.equal_length_shifted_partial_lists_derive_the_extra_output_word_count : ∀
+  (lows highs : List.{0} UInt64) (topOffset : UInt64)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 lows) (@List.length.{0} UInt64 highs)),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.sourceShiftedProductCarry lows highs topOffset)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 lows)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.equal_length_shifted_partial_lists_derive_the_extra_output_word_count' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.equal_length_shifted_partial_lists_derive_the_entire_value_and_final_arithmetic_carry : ∀
+  (lows highs : List.{0} UInt64) (topOffset : UInt64)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 lows) (@List.length.{0} UInt64 highs)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.sourceShiftedProductCarry lows highs topOffset)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@List.length.{0} UInt64 lows)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (Bool.toNat
+          (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.sourceShiftedProductCarry lows highs topOffset)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords lows)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 lows))
+          (UInt64.toNat topOffset)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords highs)))
+'ShielddSecurity.TransferBlstArmInverseShiftedWordAdd01.equal_length_shifted_partial_lists_derive_the_entire_value_and_final_arithmetic_carry' depends on axioms: [propext,
+ Quot.sound]
