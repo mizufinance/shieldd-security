@@ -1,0 +1,136 @@
+ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair : (f g : Int) → Int
+'ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePack01.sourceBiasPair : Int
+'ShielddSecurity.TransferBlstArmInversePack01.sourceBiasPair' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeLow : (word : Int) → Int
+'ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeLow' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeHigh : (word : Int) → Int
+'ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeHigh' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePack01.original_packed_factor_initialization_is_the_biased_identity_matrix : And
+  (@Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+    (@OfNat.ofNat.{0} Int (nat_lit 9223372034707292160) (@instOfNat (nat_lit 9223372034707292160))))
+  (And
+    (@Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+        (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372039002259455) (@instOfNat (nat_lit 9223372039002259455))))
+    (@Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+        (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      ShielddSecurity.TransferBlstArmInversePack01.sourceBiasPair))
+'ShielddSecurity.TransferBlstArmInversePack01.original_packed_factor_initialization_is_the_biased_identity_matrix' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePack01.original_packed_subtract_and_bias_derives_row_subtraction : ∀
+  (f g h k : Int),
+  @Eq.{1} Int
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+        (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g)
+        (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair h k))
+      ShielddSecurity.TransferBlstArmInversePack01.sourceBiasPair)
+    (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) f h)
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) g k))
+'ShielddSecurity.TransferBlstArmInversePack01.original_packed_subtract_and_bias_derives_row_subtraction' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePack01.original_packed_double_and_bias_derives_row_doubling : ∀ (f g : Int),
+  @Eq.{1} Int
+    (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+        (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g))
+      ShielddSecurity.TransferBlstArmInversePack01.sourceBiasPair)
+    (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) f)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) g))
+'ShielddSecurity.TransferBlstArmInversePack01.original_packed_double_and_bias_derives_row_doubling' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePack01.bounded_original_biased_slots_derive_the_full_unsigned_word_range : ∀
+  (f g : Int)
+  (lowNonnegative :
+    @LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) f
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647)))))
+  (lowBounded :
+    @LT.lt.{0} Int Int.instLTInt
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) f
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647))))
+      (@OfNat.ofNat.{0} Int (nat_lit 4294967296) (@instOfNat (nat_lit 4294967296))))
+  (highNonnegative :
+    @LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) g
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647)))))
+  (highBounded :
+    @LT.lt.{0} Int Int.instLTInt
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) g
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647))))
+      (@OfNat.ofNat.{0} Int (nat_lit 4294967296) (@instOfNat (nat_lit 4294967296)))),
+  And
+    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g))
+    (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g)
+      (@OfNat.ofNat.{0} Int (nat_lit 18446744073709551616) (@instOfNat (nat_lit 18446744073709551616))))
+'ShielddSecurity.TransferBlstArmInversePack01.bounded_original_biased_slots_derive_the_full_unsigned_word_range' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePack01.original_biased_slot_extraction_and_bias_removal_recovers_both_coefficients : ∀
+  (f g : Int)
+  (lowNonnegative :
+    @LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) f
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647)))))
+  (lowBounded :
+    @LT.lt.{0} Int Int.instLTInt
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) f
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647))))
+      (@OfNat.ofNat.{0} Int (nat_lit 4294967296) (@instOfNat (nat_lit 4294967296)))),
+  And
+    (@Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeLow
+        (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g))
+      f)
+    (@Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeHigh
+        (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g))
+      g)
+'ShielddSecurity.TransferBlstArmInversePack01.original_biased_slot_extraction_and_bias_removal_recovers_both_coefficients' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePack01.original_packed_subtract_sequence_has_the_derived_row_residue : ∀
+  (f g h k : Int),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+          (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g)
+          (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair h k))
+        ShielddSecurity.TransferBlstArmInversePack01.sourceBiasPair)
+      (@OfNat.ofNat.{0} Int (nat_lit 18446744073709551616) (@instOfNat (nat_lit 18446744073709551616))))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) f h)
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) g k))
+      (@OfNat.ofNat.{0} Int (nat_lit 18446744073709551616) (@instOfNat (nat_lit 18446744073709551616))))
+'ShielddSecurity.TransferBlstArmInversePack01.original_packed_subtract_sequence_has_the_derived_row_residue' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePack01.original_packed_double_sequence_has_the_derived_row_residue : ∀
+  (f g : Int),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+          (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair f g))
+        ShielddSecurity.TransferBlstArmInversePack01.sourceBiasPair)
+      (@OfNat.ofNat.{0} Int (nat_lit 18446744073709551616) (@instOfNat (nat_lit 18446744073709551616))))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (ShielddSecurity.TransferBlstArmInversePack01.sourceBiasedPair
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) f)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) g))
+      (@OfNat.ofNat.{0} Int (nat_lit 18446744073709551616) (@instOfNat (nat_lit 18446744073709551616))))
+'ShielddSecurity.TransferBlstArmInversePack01.original_packed_double_sequence_has_the_derived_row_residue' depends on axioms: [propext]
