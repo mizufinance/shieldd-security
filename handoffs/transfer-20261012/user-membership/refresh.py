@@ -1,0 +1,106 @@
+"""Regenerate exact user membership captures and atomically qualify the cumulative construction."""
+from pathlib import Path
+import argparse,hashlib,json,os,re,subprocess,sys
+root=Path(__file__).resolve().parent
+ap=argparse.ArgumentParser();ap.add_argument('--batch',type=Path,action='append',required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--runtime',type=Path,required=True);a=ap.parse_args();assert not a.output.exists();pending=a.output.with_name(a.output.name+'.pending');assert not pending.exists();pending.mkdir()
+config=json.loads((root/'config.json').read_text());verified={}
+def pin(p):
+ p=Path(p);return dict(path=str(p),bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest())
+def checked(identity):
+ p=Path(identity['path']);stamp=(p.stat().st_size,p.stat().st_mtime_ns)
+ if identity['path'] in verified and verified[identity['path']]==(stamp,identity):return
+ assert pin(p)==identity,identity['path'];verified[identity['path']]=(stamp,identity)
+def signature(source,imports,children):
+ return hashlib.sha256(json.dumps([source['sha256'],[(n,children.get(n.removeprefix('ShielddSecurity.'))) for n in imports]],separators=(',',':')).encode()).hexdigest()
+def validate_guard_profile(plan,completion):
+ heap=plan['limits']['elliptic_point_closure_heap_MiB'];assert heap in (3072,3584)
+ assert plan['limits']==dict(threads=1,default_heap_MiB=2048,elliptic_point_closure_heap_MiB=heap,rss_bytes=4*1024**3,module_seconds=240,heartbeats=900000,recDepth=8192,free_memory_percent=15,free_disk_bytes=2*1024**3)
+ fingerprint=config['guard15_sha256'] if heap==3072 else config['guard16_sha256']
+ assert any(v['sha256']==fingerprint for p,v in plan['files'].items() if Path(p).name=='run_selected.py')
+ assert any(v['sha256']==fingerprint for v in completion['final_files'].values())
+
+assert hashlib.sha256((root/'selected_replay15.py').read_bytes()).hexdigest()==config['guard15_sha256']
+assert hashlib.sha256((root/'selected_replay16.py').read_bytes()).hexdigest()==config['guard16_sha256']
+assert subprocess.check_output(['git','-C',str(a.runtime),'rev-parse','HEAD'],text=True).strip()==config['runtime_sha']
+assert not subprocess.check_output(['git','-C',str(a.runtime),'status','--porcelain'])
+for name,identity in config['runtime_sources'].items():
+ actual=pin(a.runtime/name);assert actual['bytes']==identity['bytes'] and actual['sha256']==identity['sha256']
+prior=json.loads((root.parent/'volume-path/qualified/evidence.json').read_text());assert prior['status']=='passed' and prior['runtime_sha']==config['runtime_sha'] and prior['conditional_assertion_coverage']['union']==22648
+generation={}
+for folder,settings in config['generators'].items():
+ dest=pending/folder
+ command=[sys.executable,'-B','-I','-S',str(root/folder/'generate.py')]+(['--output',str(dest)] if settings['named_output'] else [str(dest)])
+ if settings.get('repository'):command+=['--repository',str(root.parents[2])]
+ subprocess.run(command,check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ for source in (dest/'source-root/ShielddSecurity').glob('*.lean'):
+  assert source.stem not in generation
+  generation[source.stem]=pin(source)
+required_sources={p.stem:p for p in (root/'source/ShielddSecurity').glob('*.lean')}
+required_sources.update({n:Path(v['path']) for n,v in generation.items()})
+final_signatures={}
+modules={};reports=[];reports_by_module={};module_dependencies={};roots=[];plans=[]
+current_replacements=json.loads((root/'source-replacements.json').read_text())
+current_constructor_selected=None
+retired_modules={f'UserPathHashTail955C{ci}B{bi}B{j:02d}'for ci in range(21,55)for bi in range(2)for j in range(14)if j not in (0,7)}
+for batch in a.batch:
+ completion=json.loads((batch/'completion.json').read_text());assert completion['status']=='passed';roots.append(completion['root']);checked(completion['dependency_manifest']);plan=json.loads(Path(completion['dependency_manifest']['path']).read_text());assert plan['runtime_sha']==config['runtime_sha'] and plan['mathlib']==config['mathlib'];validate_guard_profile(plan,completion)
+ # Both exact guard profiles retain the same physical and time limits.
+ for identity in completion['final_files'].values():checked(identity)
+ checked(plan['source_replacements']);replacements=json.loads(Path(plan['source_replacements']['path']).read_text())
+ assert replacements==current_replacements
+ for name,change in replacements['replacements'].items():
+  if name in plan['selected']:assert plan['selected'][name]['source']['sha256']==change['replacement']['sha256']
+ for name in set(prior['modules'])&set(plan['selected']):
+  assert prior['modules'][name]['source_signature']==plan['selected'][name]['source_signature'],(name,'changed inherited dependency')
+ if plan['root']=='UserPathConstruction970':current_constructor_selected=set(plan['selected'])
+ memo={}
+ def calculate(name):
+  if name in memo:return memo[name]
+  row=plan['selected'][name];children={}
+  for child in row['imports']:
+   if child.startswith('ShielddSecurity.'):
+    n=child.removeprefix('ShielddSecurity.');children[n]=calculate(n)
+  value=signature(row['source'],row['imports'],children);assert value==row['source_signature'];memo[name]=value;return value
+ for name,row in plan['selected'].items():
+  calculate(name)
+  if row['replacement_affected'] and not row['replay']:assert row['previous_source_signature']==row['source_signature']
+ if plan['root'] in config['mandatory_roots']:
+  for name in required_sources.keys() & plan['selected'].keys():
+   value=plan['selected'][name]['source_signature']
+   final_signatures[name]=value
+ assert [e['module'] for e in completion['completed']]==plan['order']
+ for item in completion['completed']:
+  assert item['status']=='passed';checked(item['receipt']);receipt=json.loads(Path(item['receipt']['path']).read_text());name=receipt['module'];assert receipt['status']=='passed' and receipt['exit']==0 and receipt['stop'] is None and receipt['audit_error'] is None
+  assert receipt['dependency_manifest']==completion['dependency_manifest'];assert receipt['source']==plan['selected'][name]['source'];checked(receipt['source']);checked(receipt['stdout']);checked(receipt['stderr']);assert not Path(receipt['stderr']['path']).read_bytes().strip()
+  source=Path(receipt['source']['path']).read_text();expected=re.findall(r'(?m)^#check @([A-Za-z0-9_.]+)\s*$',source);assert len(receipt['audits'])==len(expected) and all(r['name']==n or r['name'].endswith('.'+n) for r,n in zip(receipt['audits'],expected))
+  for report in receipt['audits']:
+   assert set(report['axioms'])<={'propext','Quot.sound','Classical.choice'};assert hashlib.sha256(report['full_type'].encode()).hexdigest()==report['full_type_sha256']
+  assert receipt['seconds']<=240 and receipt['peak_group_rss_bytes']<=4*1024**3
+  assert all(s['free_memory_percent']>=15 and s['free_disk_bytes']>=2*1024**3 for s in receipt['samples'])
+  for identity in receipt['objects'].values():checked(identity)
+  # Keep the latest fully verified replay; earlier affected receipts remain provenance.
+  if name in modules:assert modules[name]['source_sha256']==receipt['source']['sha256'] and modules[name]['source_signature']==plan['selected'][name]['source_signature'],name
+  modules[name]=dict(source_sha256=receipt['source']['sha256'],source_signature=plan['selected'][name]['source_signature'],receipt_sha256=item['receipt']['sha256'],object_sha256=receipt['objects']['.olean']['sha256'],reports=len(receipt['audits']),seconds=receipt['seconds'],peak_group_rss_bytes=receipt['peak_group_rss_bytes'])
+  reports_by_module[name]=receipt['audits']
+  module_dependencies[name]={child.removeprefix('ShielddSecurity.'):plan['selected'][child.removeprefix('ShielddSecurity.')]['source_signature'] for child in plan['selected'][name]['imports'] if child.startswith('ShielddSecurity.') and child.removeprefix('ShielddSecurity.') in required_sources}
+
+ plans.append(dict(root=plan['root'],dependency_manifest_sha256=completion['dependency_manifest']['sha256'],selected=len(plan['selected']),replayed=len(plan['order']),invalidated=len(plan['invalidated_modules'])))
+assert current_constructor_selected is not None and not retired_modules & current_constructor_selected
+for name in retired_modules:
+ modules.pop(name,None);reports_by_module.pop(name,None);module_dependencies.pop(name,None);final_signatures.pop(name,None)
+assert set(config['mandatory_roots'])<=set(modules)
+reports=[report for name in sorted(reports_by_module) for report in reports_by_module[name]]
+for name,deps in module_dependencies.items():
+ for child,value in deps.items():assert modules[child]['source_signature']==value,(name,child,'stale dependency')
+assert set(required_sources) <= set(modules) and set(required_sources) <= set(final_signatures)
+for name,source in required_sources.items():
+ assert hashlib.sha256(source.read_bytes()).hexdigest()==modules[name]['source_sha256'],name
+ assert final_signatures[name]==modules[name]['source_signature'],name
+for theorem in ['UserPathWitness961.sender_siblings', 'UserPathWitness961.receiver_siblings', 'UserPathComposition967.sender', 'UserPathComposition967.receiver', 'UserPathJoin969.generic_rows', 'UserPathJoin969.rows', 'UserPathConstruction970.legal_completed']:
+ assert any(r['name']=='ShielddSecurity.'+theorem for r in reports),theorem
+coverage=json.loads((root/'coverage-base.json').read_text());previous=set(coverage['known_positions']);assert coverage['runtime_sha']==config['runtime_sha'] and len(previous)==22648
+positions={1524,1779}
+assert len(positions)==2 and not positions & previous and len(positions|previous)==22650
+assert any(r['name']=='ShielddSecurity.UserPathConstruction970.legal_completed' and 'UserPathConstruction970.Earlier' in r['full_type'] and 'UserPathConstruction970.Rows' in r['full_type'] and 'MapAssetDomain743.crypto c' in r['full_type'] and 'MapAssetDomain743.withAsset c' in r['full_type'] for r in reports)
+evidence=dict(status='passed',runtime_sha=config['runtime_sha'],mathlib=config['mathlib'],scope=config['scope'],batches=plans,modules=modules,full_types_and_axioms=reports,reports=len(reports),certification=False,native_credit=0,circuit_soundness='OPEN',total_legal_input_construction='OPEN',computed_public64_binding='OPEN',native_consequence='OPEN',refresh_sha256=pin(Path(__file__))['sha256'],guard_sha256=config['guard16_sha256'],accepted_guard_profiles={3072:config['guard15_sha256'],3584:config['guard16_sha256']},generation={n:{k:v for k,v in value.items() if k!='path'} for n,value in generation.items()},prior_evidence_sha256=pin(root.parent/'volume-path/qualified/evidence.json')['sha256'],conditional_assertion_coverage=dict(previous_union=len(previous),positions=sorted(positions),new_positions=sorted(positions),union=len(positions|previous),remaining=22816-len(positions|previous),total=22816))
+(pending/'evidence.json').write_text(json.dumps(evidence,indent=2,sort_keys=True)+'\n');os.replace(pending,a.output);print(json.dumps(dict(status='passed',modules=len(modules),reports=len(reports))))
