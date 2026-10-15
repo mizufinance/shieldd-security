@@ -1,0 +1,35 @@
+ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.sourceMagnitudeWordBatch : (input : Prod.{0, 0} Nat Nat) →
+  Prod.{0, 0} (List.{0} UInt64) (List.{0} UInt64)
+'ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.sourceMagnitudeWordBatch' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.both_symbolic_row_equalities_derive_the_entire_output_pair : ∀
+  (output : Bool → Nat) (actual : Prod.{0, 0} Int Int)
+  (rows :
+    ∀ (second : Bool),
+      @Eq.{1} Nat (output second)
+        (Int.natAbs
+          (@ite.{1} Int (@Eq.{1} Bool second Bool.true) (instDecidableEqBool second Bool.true)
+            (@Prod.snd.{0, 0} Int Int actual) (@Prod.fst.{0, 0} Int Int actual)))),
+  @Eq.{1} (Prod.{0, 0} Nat Nat) (@Prod.mk.{0, 0} Nat Nat (output Bool.false) (output Bool.true))
+    (@Prod.mk.{0, 0} Nat Nat (Int.natAbs (@Prod.fst.{0, 0} Int Int actual))
+      (Int.natAbs (@Prod.snd.{0, 0} Int Int actual)))
+'ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.both_symbolic_row_equalities_derive_the_entire_output_pair' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.original_repacked_signed_word_operations_derive_both_complete_magnitude_batch_outputs : ∀
+  (input : Prod.{0, 0} Nat Nat)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} (Prod.{0, 0} Nat Nat)
+    (@Prod.mk.{0, 0} Nat Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (List.{0} UInt64)
+          (ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.sourceMagnitudeWordBatch input)))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.snd.{0, 0} (List.{0} UInt64) (List.{0} UInt64)
+          (ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.sourceMagnitudeWordBatch input))))
+    (ShielddSecurity.TransferBlstArmInverseMagnitudeBatch01.sourceMagnitudeBatch input)
+'ShielddSecurity.TransferBlstArmInverseWordMagnitudeBatch01.original_repacked_signed_word_operations_derive_both_complete_magnitude_batch_outputs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
