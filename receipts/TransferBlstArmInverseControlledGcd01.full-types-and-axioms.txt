@@ -1,0 +1,73 @@
+ShielddSecurity.TransferBlstArmInverseControlledGcd01.every_signed_odd_value_is_coprime_to_two : ∀ (value : Int)
+  (odd :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1)))),
+  @Eq.{1} Nat (Int.gcd (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) value)
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInverseControlledGcd01.every_signed_odd_value_is_coprime_to_two' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseControlledGcd01.exactly_halving_an_even_signed_value_preserves_gcd_with_an_odd_second_value : ∀
+  (left right : Int)
+  (even :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) left
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+  (odd :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) right
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (Int.gcd
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) left
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      right)
+    (Int.gcd left right)
+'ShielddSecurity.TransferBlstArmInverseControlledGcd01.exactly_halving_an_even_signed_value_preserves_gcd_with_an_odd_second_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseControlledGcd01.the_half_difference_of_two_signed_odd_values_preserves_the_entire_gcd : ∀
+  (left right : Int)
+  (leftOdd :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) left
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+  (rightOdd :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) right
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (Int.gcd
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv)
+        (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) left right)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      right)
+    (Int.gcd left right)
+'ShielddSecurity.TransferBlstArmInverseControlledGcd01.the_half_difference_of_two_signed_odd_values_preserves_the_entire_gcd' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseControlledGcd01.matched_parity_and_odd_second_value_make_the_original_signed_control_step_preserve_gcd : ∀
+  (left right : Int) (p q : Nat)
+  (odd :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) right
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1))))
+  (matched :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) left
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) (@Nat.cast.{0} Int instNatCastInt p)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))))),
+  @Eq.{1} Nat
+    (Int.gcd
+      (@Prod.fst.{0, 0} Int Int
+        (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q left right))
+      (@Prod.snd.{0, 0} Int Int
+        (ShielddSecurity.TransferBlstArmInverseSignedStep01.sourceSignedControlStep p q left right)))
+    (Int.gcd left right)
+'ShielddSecurity.TransferBlstArmInverseControlledGcd01.matched_parity_and_odd_second_value_make_the_original_signed_control_step_preserve_gcd' depends on axioms: [propext,
+ Quot.sound]
