@@ -1,0 +1,69 @@
+ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.sourcePartialRowBoundary : (left right : List.{0} UInt64) →
+  (first second : UInt64) → Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+'ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.sourcePartialRowBoundary' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.both_source_partial_products_have_equal_width_whenever_their_inputs_do : ∀
+  (left right : List.{0} UInt64) (first second : UInt64)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right)),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64)
+        (ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply left first
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) Bool.false)))
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64)
+        (ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply right second
+          (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) Bool.false)))
+'ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.both_source_partial_products_have_equal_width_whenever_their_inputs_do' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.the_source_partial_row_boundary_retains_the_entire_low_input_width : ∀
+  (left right : List.{0} UInt64) (first second : UInt64)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right)),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+        (ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.sourcePartialRowBoundary left right first second)))
+    (@List.length.{0} UInt64 left)
+'ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.the_source_partial_row_boundary_retains_the_entire_low_input_width' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.both_partial_products_and_the_actual_captured_row_boundary_conserve_the_entire_unsigned_linear_combination : ∀
+  (left right : List.{0} UInt64) (first second : UInt64)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right)),
+  have output : Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)) :=
+    ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.sourcePartialRowBoundary left right first second;
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)) output))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (UInt64.toNat
+              (@Prod.fst.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)
+                (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)) output)))
+            (UInt64.toNat
+              (@Prod.fst.{0, 0} UInt64 UInt64
+                (@Prod.snd.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)
+                  (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)) output)))))
+          (UInt64.toNat
+            (@Prod.snd.{0, 0} UInt64 UInt64
+              (@Prod.snd.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)
+                (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)) output)))))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords left) (UInt64.toNat first))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords right) (UInt64.toNat second)))
+'ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.both_partial_products_and_the_actual_captured_row_boundary_conserve_the_entire_unsigned_linear_combination' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.the_actual_captured_carry_word_at_every_source_partial_row_boundary_is_at_most_three : ∀
+  (left right : List.{0} UInt64) (first second : UInt64),
+  @LE.le.{0} Nat instLENat
+    (UInt64.toNat
+      (@Prod.snd.{0, 0} UInt64 UInt64
+        (@Prod.snd.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)
+          (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+            (ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.sourcePartialRowBoundary left right first
+              second)))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+'ShielddSecurity.TransferBlstArmInversePartialRowBoundary01.the_actual_captured_carry_word_at_every_source_partial_row_boundary_is_at_most_three' depends on axioms: [propext,
+ Quot.sound]
