@@ -1,0 +1,34 @@
+ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.sourceExternalFactorSignCorrection : (word mask : UInt64) →
+  UInt64
+'ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.sourceExternalFactorSignCorrection' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.the_source_signed_word_code_is_the_entire_standard_integer_word_conversion : ∀
+  (value : Int),
+  @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode value) (UInt64.ofInt value)
+'ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.the_source_signed_word_code_is_the_entire_standard_integer_word_conversion' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.an_external_zero_or_all_ones_mask_derives_the_entire_word_identity_or_negation : ∀
+  (negative : Prop) [inst : Decidable negative] (word : UInt64),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.sourceExternalFactorSignCorrection word
+      (@ite.{1} UInt64 negative inst
+        (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+    (@ite.{1} UInt64 negative inst (@Neg.neg.{0} UInt64 instNegUInt64 word) word)
+'ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.an_external_zero_or_all_ones_mask_derives_the_entire_word_identity_or_negation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.the_external_row_result_sign_correction_derives_the_complete_corrected_integer_factor_code : ∀
+  (factor value : Int),
+  @Eq.{1} UInt64
+    (ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.sourceExternalFactorSignCorrection
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode factor)
+      (@ite.{1} UInt64 (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (Int.decLt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+    (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) factor))
+'ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.the_external_row_result_sign_correction_derives_the_complete_corrected_integer_factor_code' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
