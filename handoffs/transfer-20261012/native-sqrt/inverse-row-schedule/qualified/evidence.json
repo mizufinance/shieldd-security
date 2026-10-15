@@ -1,0 +1,160 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows : (step :\n    Prod.{0, 0} Nat Nat \u2192 Prod.{0, 0} Nat Nat) \u2192\n  (rows : Prod.{0, 0} Nat Nat \u2192 ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) \u2192\n    Nat \u2192\n      Prod.{0, 0} Nat Nat \u2192\n        ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows \u2192\n          ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows",
+      "full_type_sha256": "0ae49a5f47b2afb9a8c8c02564a6252b9a194a184592b677f76f8d0802bd7c09",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceMagnitudeScheduleRows : (count : Nat) \u2192\n  (input : Prod.{0, 0} Nat Nat) \u2192 ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows",
+      "full_type_sha256": "ca25e0bc72c4331965c299f74c240a40827c777c106b53945ab88f8bb3c41a84",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceMagnitudeScheduleRows"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_accumulated_rows_track_the_entire_final_pair_at_the_product_scale : \u2200\n  (step : Prod.{0, 0} Nat Nat \u2192 Prod.{0, 0} Nat Nat)\n  (rows : Prod.{0, 0} Nat Nat \u2192 ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows)\n  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (radix : Int)\n  (produces :\n    \u2200 (input : Prod.{0, 0} Nat Nat),\n      @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) \u2192\n        @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)\n            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n              (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) \u2192\n          @Eq.{1} Nat\n              (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) \u2192\n            ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input)) radix\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat (step input)))\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat (step input))) (rows input))\n  (count : Nat) (input : Prod.{0, 0} Nat Nat)\n  (accumulated : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) (scale inputA inputB : Int)\n  (leftBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (rightBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (odd :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))\n  (old :\n    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB scale\n      (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))\n      (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input)) accumulated),\n  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB\n    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale\n      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid)) radix count))\n    (@Nat.cast.{0} Int instNatCastInt\n      (@Prod.fst.{0, 0} Nat Nat\n        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))\n    (@Nat.cast.{0} Int instNatCastInt\n      (@Prod.snd.{0, 0} Nat Nat\n        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))\n    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows step rows count input accumulated)",
+      "full_type_sha256": "54ede72073c1f53964a2ae5f5c4c060eb5cc0dbb4c6903092bb2b507b602f4a8",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_accumulated_rows_track_the_entire_final_pair_at_the_product_scale"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_produced_rows_initialized_at_identity_track_the_full_pair : \u2200\n  (step : Prod.{0, 0} Nat Nat \u2192 Prod.{0, 0} Nat Nat)\n  (rows : Prod.{0, 0} Nat Nat \u2192 ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows)\n  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (radix : Int)\n  (produces :\n    \u2200 (input : Prod.{0, 0} Nat Nat),\n      @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)\n          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n            (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) \u2192\n        @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)\n            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n              (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) \u2192\n          @Eq.{1} Nat\n              (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)\n                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) \u2192\n            ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input)) radix\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat (step input)))\n              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat (step input))) (rows input))\n  (count : Nat) (input : Prod.{0, 0} Nat Nat)\n  (leftBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (rightBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (odd :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks\n    (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))\n    (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))\n    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid)) radix count)\n    (@Nat.cast.{0} Int instNatCastInt\n      (@Prod.fst.{0, 0} Nat Nat\n        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))\n    (@Nat.cast.{0} Int instNatCastInt\n      (@Prod.snd.{0, 0} Nat Nat\n        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))\n    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows step rows count input\n      ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows)",
+      "full_type_sha256": "95da10368666cdb2844f6ec07c3bd268ff3a7a7034ae7e7dd237e8d2d67671db",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_produced_rows_initialized_at_identity_track_the_full_pair"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.original_source_magnitude_schedule_rows_track_both_full_outputs_at_the_exact_radix_power : \u2200\n  (count : Nat) (input : Prod.{0, 0} Nat Nat)\n  (leftBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (rightBound :\n    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)\n      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))\n  (odd :\n    @Eq.{1} Nat\n      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)\n        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))\n      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),\n  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks\n    (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))\n    (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))\n    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))\n      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count))\n    (@Nat.cast.{0} Int instNatCastInt\n      (@Prod.fst.{0, 0} Nat Nat\n        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))\n    (@Nat.cast.{0} Int instNatCastInt\n      (@Prod.snd.{0, 0} Nat Nat\n        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))\n    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceMagnitudeScheduleRows count input)",
+      "full_type_sha256": "e3bbf38830601a5b305c1bd28d2675362e6d1f2116759d7af952c026b59977fd",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowSchedule01.original_source_magnitude_schedule_rows_track_both_full_outputs_at_the_exact_radix_power"
+    }
+  ],
+  "dependency_sources_verified": 376,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 123105,
+    "sha256": "12fde8d5e1764dbc3e50dc6d330e4617517e6303bc8cc54db30ff13193326c43"
+  },
+  "modules": {
+    "TransferBlstArmInverseRowSchedule01": {
+      "objects": [
+        {
+          "bytes": 146448,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-row-schedule-20261014-02\\project\\ShielddSecurity\\TransferBlstArmInverseRowSchedule01.olean",
+          "sha256": "cabff04b5f1b46ef05c211c3dac2f2b355a4fb826ad352b4ead784f9339fb28f"
+        }
+      ],
+      "peak_rss_bytes": 1062977536,
+      "plan_identity": {
+        "bytes": 989324,
+        "sha256": "2fe313c8304bd93937271981cd11789a889d406732df42c5ef590b2f282a04f3"
+      },
+      "report": {
+        "bytes": 11127,
+        "path": "receipts/TransferBlstArmInverseRowSchedule01.full-types-and-axioms.txt",
+        "sha256": "ab1340f449644013ed4600e64674739a151eb984630f32b089672b037a39fa5b"
+      },
+      "reports": 5,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Abstract symbolic accumulation of exact produced rows tracks the entire pair at product scales; source instantiation uses original sign-corrected batch rows and exact scale2^(31*count). Native extended coefficient storage, final-tail composition and inverse result remain open.",
+      "seconds": 14.09427400000277,
+      "source": {
+        "bytes": 6358,
+        "sha256": "7d754b1d4db414013a04417f95ba4f0d1d31995d55c0ab03f6432f9e7c8c49f9"
+      },
+      "source_closure_bound": 70
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 5,
+  "object_provenance_inputs": {
+    "bytes": 8584,
+    "sha256": "50c0e07d902f8a6efdacc42771c813d13ee42a184e858730708fb6f3ac5c3cc6"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseRowSchedule01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 1225042,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-row-schedule-20261014-02-owned-floor\\composition-review.json",
+        "sha256": "c365bc3f57968c31edbbb43743fe16f25a3e816834edd12ed9b673d464649018"
+      },
+      "owned_imports": 72
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "d305cda417eac98aa2cd1b9fd736eecdab7e66e3d4ccf714e8489a3d6600421e"
+  },
+  "reports": 5,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 4134,
+    "sha256": "e4ec5ae1af0d0f01bf83c04e32e9bd7e5a848377805e4e074ab043efe6ec27f9"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Symbolic source row accumulation preserves input bounds and oddness and has scale 2^(31*count). Native credit zero; full Transfer remains OPEN.",
+  "status": "passed"
+}
