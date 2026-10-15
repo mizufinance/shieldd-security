@@ -1,0 +1,153 @@
+ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows : (step :
+    Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat) →
+  (rows : Prod.{0, 0} Nat Nat → ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) →
+    Nat →
+      Prod.{0, 0} Nat Nat →
+        ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows →
+          ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows
+'ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceMagnitudeScheduleRows : (count : Nat) →
+  (input : Prod.{0, 0} Nat Nat) → ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows
+'ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceMagnitudeScheduleRows' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_accumulated_rows_track_the_entire_final_pair_at_the_product_scale : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (rows : Prod.{0, 0} Nat Nat → ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (radix : Int)
+  (produces :
+    ∀ (input : Prod.{0, 0} Nat Nat),
+      @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) →
+        @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) →
+          @Eq.{1} Nat
+              (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) →
+            ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input)) radix
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat (step input)))
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat (step input))) (rows input))
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (accumulated : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) (scale inputA inputB : Int)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (old :
+    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB scale
+      (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))
+      (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input)) accumulated),
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB
+    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale
+      (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid)) radix count))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))
+    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows step rows count input accumulated)
+'ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_accumulated_rows_track_the_entire_final_pair_at_the_product_scale' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_produced_rows_initialized_at_identity_track_the_full_pair : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (rows : Prod.{0, 0} Nat Nat → ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (radix : Int)
+  (produces :
+    ∀ (input : Prod.{0, 0} Nat Nat),
+      @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) →
+        @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) →
+          @Eq.{1} Nat
+              (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) →
+            ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input)) radix
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat (step input)))
+              (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat (step input))) (rows input))
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))
+    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid)) radix count)
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))
+    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceAccumulateRows step rows count input
+      ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows)
+'ShielddSecurity.TransferBlstArmInverseRowSchedule01.symbolic_produced_rows_initialized_at_identity_track_the_full_pair' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowSchedule01.original_source_magnitude_schedule_rows_track_both_full_outputs_at_the_exact_radix_power : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))
+    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))
+    (ShielddSecurity.TransferBlstArmInverseRowSchedule01.sourceMagnitudeScheduleRows count input)
+'ShielddSecurity.TransferBlstArmInverseRowSchedule01.original_source_magnitude_schedule_rows_track_both_full_outputs_at_the_exact_radix_power' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
