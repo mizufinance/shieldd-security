@@ -1,0 +1,87 @@
+ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.equal_entire_residues_derive_an_exact_integer_period_difference : ∀
+  (unsigned value capacity : Int)
+  (residue :
+    @Eq.{1} Int (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) unsigned capacity)
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value capacity)),
+  @Exists.{1} Int fun (multiple : Int) =>
+    @Eq.{1} Int unsigned
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd) value
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) capacity multiple))
+'ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.equal_entire_residues_derive_an_exact_integer_period_difference' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.a_factored_entire_capacity_derives_the_exact_signed_quotient_residue : ∀
+  (unsigned value divisor outputCapacity extra : Int)
+  (nonzero : @Ne.{1} Int divisor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+  (residue :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) unsigned
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) divisor
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) outputCapacity extra)))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) divisor
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) outputCapacity extra)))),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) unsigned divisor) outputCapacity)
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value divisor) outputCapacity)
+'ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.a_factored_entire_capacity_derives_the_exact_signed_quotient_residue' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.every_subword_shift_factors_the_full_extra_word_capacity_at_the_retained_width : ∀
+  (count shift : Nat)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 count)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))) shift))))
+'ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.every_subword_shift_factors_the_full_extra_word_capacity_at_the_retained_width' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.the_entire_source_extraction_chain_derives_the_signed_integer_quotient_residue : ∀
+  (words : List.{0} UInt64) (count shift : Nat) (value : Int)
+  (width :
+    @Eq.{1} Nat (@List.length.{0} UInt64 words)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) shift)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64))))
+  (residue :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))),
+  @Eq.{1} Int
+    (@Nat.cast.{0} Int instNatCastInt
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+          (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words))))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HDiv.hDiv.{0, 0, 0} Int Int Int (@instHDiv.{0} Int Int.instDiv) value
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift)))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 count)))
+'ShielddSecurity.TransferBlstArmInverseSignedExtrQuotient01.the_entire_source_extraction_chain_derives_the_signed_integer_quotient_residue' depends on axioms: [propext,
+ Quot.sound]
