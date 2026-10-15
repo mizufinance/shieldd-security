@@ -1,0 +1,45 @@
+ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceDebiasedFactorSlot : (slot : Nat) → UInt64
+'ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceDebiasedFactorSlot' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_unsigned32_slot_word_subtraction_is_the_exact_signed_factor_code : ∀
+  (slot : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat slot (@OfNat.ofNat.{0} Nat (nat_lit 4294967296) (instOfNatNat (nat_lit 4294967296)))),
+  @Eq.{1} UInt64 (ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceDebiasedFactorSlot slot)
+    (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+      (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Nat.cast.{0} Int instNatCastInt slot)
+        (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647)))))
+'ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_unsigned32_slot_word_subtraction_is_the_exact_signed_factor_code' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_unsigned32_slot_word_subtraction_decodes_the_entire_integer_factor : ∀
+  (slot : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat slot (@OfNat.ofNat.{0} Nat (nat_lit 4294967296) (instOfNatNat (nat_lit 4294967296)))),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+      (ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceDebiasedFactorSlot slot))
+    (@HSub.hSub.{0, 0, 0} Int Int Int (@instHSub.{0} Int Int.instSub) (@Nat.cast.{0} Int instNatCastInt slot)
+      (@OfNat.ofNat.{0} Int (nat_lit 2147483647) (@instOfNat (nat_lit 2147483647))))
+'ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_unsigned32_slot_word_subtraction_decodes_the_entire_integer_factor' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceLowFactorWord : (word : UInt64) → UInt64
+'ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceLowFactorWord' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceHighFactorWord : (word : UInt64) → UInt64
+'ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceHighFactorWord' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_low32_extraction_and_word_subtraction_recovers_the_integer_slot_decoder : ∀
+  (word : UInt64),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+      (ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceLowFactorWord word))
+    (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeLow
+      (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat word)))
+'ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_low32_extraction_and_word_subtraction_recovers_the_integer_slot_decoder' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_high32_extraction_and_word_subtraction_recovers_the_integer_slot_decoder : ∀
+  (word : UInt64),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+      (ShielddSecurity.TransferBlstArmInverseDebiasWord01.sourceHighFactorWord word))
+    (ShielddSecurity.TransferBlstArmInversePack01.sourceDecodeHigh
+      (@Nat.cast.{0} Int instNatCastInt (UInt64.toNat word)))
+'ShielddSecurity.TransferBlstArmInverseDebiasWord01.original_high32_extraction_and_word_subtraction_recovers_the_integer_slot_decoder' depends on axioms: [propext,
+ Quot.sound]
