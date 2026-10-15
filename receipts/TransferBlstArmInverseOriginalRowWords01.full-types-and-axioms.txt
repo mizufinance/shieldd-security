@@ -1,0 +1,77 @@
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceSelectFactorRow : (second : Bool) →
+  (f0 g0 f1 g1 : Int) → Prod.{0, 0} Int Int
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceSelectFactorRow' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.SourceRowContract : (bound inputA inputB : Nat) →
+  (row : Prod.{0, 0} Int Int) → Prop
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.SourceRowContract' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.generic_row_selection_preserves_both_norms_and_negative_first_input_origin : ∀
+  (second : Bool) (f0 g0 f1 g1 : Int) (bound inputA inputB : Nat)
+  (first :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f0) (Int.natAbs g0)) bound)
+  (last :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f1) (Int.natAbs g1)) bound)
+  (nonzeroA :
+    Or (@LT.lt.{0} Int Int.instLTInt f0 (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (@LT.lt.{0} Int Int.instLTInt f1 (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) inputA)
+  (nonzeroB : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) inputB),
+  ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.SourceRowContract bound inputA inputB
+    (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceSelectFactorRow second f0 g0 f1 g1)
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.generic_row_selection_preserves_both_norms_and_negative_first_input_origin' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.an_abstract_factor_state_supplies_selected_row_norm_and_nonzero_contract : ∀
+  (second : Bool) (state : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors) (bound inputA inputB : Nat)
+  (norms : ShielddSecurity.TransferBlstArmInverseNorm01.RowBounds bound state)
+  (nonzeroA :
+    Or
+        (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 state)
+          (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 state)
+          (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) inputA)
+  (nonzeroB : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) inputB),
+  ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.SourceRowContract bound inputA inputB
+    (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceSelectFactorRow second
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 state)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 state)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 state)
+      (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 state))
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.an_abstract_factor_state_supplies_selected_row_norm_and_nonzero_contract' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.an_odd_second_low_word_requires_a_nonzero_entire_second_input : ∀
+  (b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+    (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.an_odd_second_low_word_requires_a_nonzero_entire_second_input' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow : (count : Nat) →
+  (second : Bool) → (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Prod.{0, 0} Int Int
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalRowWordSum : (second : Bool) →
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalRowWordSum' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.original_window_factor_rows_derive_all_source_product_bounds_and_nonzero_origins : ∀
+  (count : Nat) (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.SourceRowContract
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) count)
+    (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+    (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)
+    (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow count second a b)
+'ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.original_window_factor_rows_derive_all_source_product_bounds_and_nonzero_origins' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
