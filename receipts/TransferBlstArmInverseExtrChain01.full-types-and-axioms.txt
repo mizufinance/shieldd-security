@@ -1,0 +1,104 @@
+ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain : (shift : Nat) →
+  List.{0} UInt64 → Prod.{0, 0} (List.{0} UInt64) UInt64
+'ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseExtrChain01.every_original_adjacent_extraction_chain_retains_exactly_the_lower_word_count : ∀
+  (shift : Nat) (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words)))
+    (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (@List.length.{0} UInt64 words)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseExtrChain01.every_original_adjacent_extraction_chain_retains_exactly_the_lower_word_count' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseExtrChain01.an_original_adjacent_extraction_and_the_remaining_quotient_conserve_the_entire_input_quotient : ∀
+  (low high : UInt64) (rest : List.{0} UInt64) (shift : Nat)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) shift)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseExtrWord01.sourceExtractWord high low shift))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords (@List.cons.{0} UInt64 high rest))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@List.cons.{0} UInt64 low (@List.cons.{0} UInt64 high rest)))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))
+'ShielddSecurity.TransferBlstArmInverseExtrChain01.an_original_adjacent_extraction_and_the_remaining_quotient_conserve_the_entire_input_quotient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseExtrChain01.a_symbolic_radix_lift_composes_one_extracted_word_with_the_remaining_quotient : ∀
+  (radix count head output top tailQuotient inputQuotient : Nat)
+  (remaining :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) output
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid)) radix
+            count)
+          top))
+      tailQuotient)
+  (step :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) head
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix tailQuotient))
+      inputQuotient),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) head
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) radix output))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid)) radix
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        top))
+    inputQuotient
+'ShielddSecurity.TransferBlstArmInverseExtrChain01.a_symbolic_radix_lift_composes_one_extracted_word_with_the_remaining_quotient' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseExtrChain01.the_entire_original_extraction_chain_and_retained_high_word_conserve_the_full_input_quotient : ∀
+  (shift : Nat) (words : List.{0} UInt64)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) shift)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+          (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64
+          (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (@List.length.{0} UInt64 words)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+          (UInt64.toNat
+            (@Prod.snd.{0, 0} (List.{0} UInt64) UInt64
+              (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words)))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))))
+    (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))
+'ShielddSecurity.TransferBlstArmInverseExtrChain01.the_entire_original_extraction_chain_and_retained_high_word_conserve_the_full_input_quotient' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseExtrChain01.the_entire_original_extraction_chain_has_the_exact_low_word_quotient_residue : ∀
+  (shift : Nat) (words : List.{0} UInt64)
+  (positive : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) shift)
+  (bounded : @LT.lt.{0} Nat instLTNat shift (@OfNat.ofNat.{0} Nat (nat_lit 64) (instOfNatNat (nat_lit 64)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Prod.fst.{0, 0} (List.{0} UInt64) UInt64
+        (ShielddSecurity.TransferBlstArmInverseExtrChain01.sourceExtractChain shift words)))
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) shift))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) (@List.length.{0} UInt64 words)
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+'ShielddSecurity.TransferBlstArmInverseExtrChain01.the_entire_original_extraction_chain_has_the_exact_low_word_quotient_residue' depends on axioms: [propext,
+ Quot.sound]
