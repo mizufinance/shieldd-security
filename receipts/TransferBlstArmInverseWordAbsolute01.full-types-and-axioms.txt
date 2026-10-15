@@ -1,0 +1,47 @@
+ShielddSecurity.TransferBlstArmInverseWordAbsolute01.an_exact_signed_residue_and_full_magnitude_bound_derive_the_entire_unsigned_representation : ∀
+  (unsigned capacity : Nat) (value : Int) (unsignedSmall : @LT.lt.{0} Nat instLTNat unsigned capacity)
+  (magnitudeSmall : @LT.lt.{0} Nat instLTNat (Int.natAbs value) capacity)
+  (residue :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) (@Nat.cast.{0} Int instNatCastInt unsigned)
+        (@Nat.cast.{0} Int instNatCastInt capacity))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        (@Nat.cast.{0} Int instNatCastInt capacity))),
+  @Eq.{1} Nat unsigned
+    (@ite.{1} Nat (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat) capacity (Int.natAbs value)) (Int.natAbs value))
+'ShielddSecurity.TransferBlstArmInverseWordAbsolute01.an_exact_signed_residue_and_full_magnitude_bound_derive_the_entire_unsigned_representation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordAbsolute01.exact_signed_quotient_words_and_sign_mask_derive_the_entire_natural_magnitude : ∀
+  (words : List.{0} UInt64) (value : Int) (mask : UInt64)
+  (magnitudeSmall :
+    @LT.lt.{0} Nat instLTNat (Int.natAbs value)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words)))
+  (residue :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words)))))
+  (maskOrigin :
+    @Eq.{1} UInt64 mask
+      (@ite.{1} UInt64 (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (Int.decLt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseSignedWordPrepare01.sourceMaskPreparedWords words mask)))
+    (Int.natAbs value)
+'ShielddSecurity.TransferBlstArmInverseWordAbsolute01.exact_signed_quotient_words_and_sign_mask_derive_the_entire_natural_magnitude' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
