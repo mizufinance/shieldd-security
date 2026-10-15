@@ -1,0 +1,95 @@
+ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceComplementWords : (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceComplementWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry : (words : List.{0} UInt64) →
+  Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordNegation01.any_number_of_zero_words_has_zero_entire_packed_value : ∀
+  (count : Nat),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@List.replicate.{0} UInt64 count (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.any_number_of_zero_words_has_zero_entire_packed_value' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseWordNegation01.the_entire_word_complement_plus_the_original_plus_one_equals_the_full_radix_power : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceComplementWords words))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.the_entire_word_complement_plus_the_original_plus_one_equals_the_full_radix_power' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordNegation01.original_complement_add_one_retains_the_source_word_count : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words)))
+    (@List.length.{0} UInt64 words)
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.original_complement_add_one_retains_the_source_word_count' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordNegation01.original_complement_add_one_conserves_the_entire_word_value_and_last_arithmetic_carry : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words)))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+          (Bool.toNat
+            (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+              (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words)))))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.original_complement_add_one_conserves_the_entire_word_value_and_last_arithmetic_carry' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordNegation01.a_nonzero_entire_input_derives_zero_negation_carry_and_the_exact_radix_complement : ∀
+  (words : List.{0} UInt64)
+  (nonzero :
+    @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)),
+  And
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words))
+      Bool.false)
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words)))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)))
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.a_nonzero_entire_input_derives_zero_negation_carry_and_the_exact_radix_complement' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseWordNegation01.a_zero_entire_input_derives_zero_negated_words_and_a_set_arithmetic_carry : ∀
+  (words : List.{0} UInt64)
+  (zero :
+    @Eq.{1} Nat (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))),
+  And
+    (@Eq.{1} Nat
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+          (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@Eq.{1} Bool
+      (@Prod.snd.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseWordNegation01.sourceNegatedWordsAndCarry words))
+      Bool.true)
+'ShielddSecurity.TransferBlstArmInverseWordNegation01.a_zero_entire_input_derives_zero_negated_words_and_a_set_arithmetic_carry' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
