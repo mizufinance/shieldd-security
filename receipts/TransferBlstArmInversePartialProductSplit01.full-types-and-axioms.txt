@@ -1,0 +1,159 @@
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialProductPairs : (multiplier : UInt64) →
+  UInt64 → List.{0} UInt64 → Prod.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialProductPairs' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_product_pair_list_plus_its_final_high_word_is_the_entire_original_shifted_list : ∀
+  (words : List.{0} UInt64) (multiplier previousHigh : UInt64),
+  have pairs : Prod.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 :=
+    ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialProductPairs multiplier previousHigh words;
+  @Eq.{1} (List.{0} (Prod.{0, 0} UInt64 UInt64))
+    (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) (List.{0} (Prod.{0, 0} UInt64 UInt64))
+      (List.{0} (Prod.{0, 0} UInt64 UInt64))
+      (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} UInt64 UInt64))
+        (@List.instAppend.{0} (Prod.{0, 0} UInt64 UInt64)))
+      (@Prod.fst.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 pairs)
+      (@List.cons.{0} (Prod.{0, 0} UInt64 UInt64)
+        (@Prod.mk.{0, 0} UInt64 UInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+          (@Prod.snd.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 pairs))
+        (@List.nil.{0} (Prod.{0, 0} UInt64 UInt64))))
+    (@List.zip.{0, 0} UInt64 UInt64
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+        (@List.map.{0, 0} UInt64 UInt64
+          (fun (word : UInt64) =>
+            ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordLow word multiplier)
+          words)
+        (@List.cons.{0} UInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+          (@List.nil.{0} UInt64)))
+      (@List.cons.{0} UInt64 previousHigh
+        (@List.map.{0, 0} UInt64 UInt64
+          (fun (word : UInt64) =>
+            ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordHigh word multiplier)
+          words)))
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_product_pair_list_plus_its_final_high_word_is_the_entire_original_shifted_list' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_product_pair_producer_can_pause_and_resume_with_its_actual_high_product : ∀
+  (low high : List.{0} UInt64) (multiplier previousHigh : UInt64),
+  @Eq.{1} (Prod.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64)
+    (ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialProductPairs multiplier previousHigh
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high))
+    (have first : Prod.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 :=
+      ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialProductPairs multiplier previousHigh low;
+    have last : Prod.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 :=
+      ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialProductPairs multiplier
+        (@Prod.snd.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 first) high;
+    @Prod.mk.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) (List.{0} (Prod.{0, 0} UInt64 UInt64))
+        (List.{0} (Prod.{0, 0} UInt64 UInt64))
+        (@instHAppendOfAppend.{0} (List.{0} (Prod.{0, 0} UInt64 UInt64))
+          (@List.instAppend.{0} (Prod.{0, 0} UInt64 UInt64)))
+        (@Prod.fst.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 first)
+        (@Prod.fst.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 last))
+      (@Prod.snd.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64 last))
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_product_pair_producer_can_pause_and_resume_with_its_actual_high_product' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply : (words : List.{0} UInt64) →
+  (multiplier previousHigh : UInt64) → (carry : Bool) → Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64)
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_word_product_can_resume_with_both_its_actual_high_word_and_captured_carry : ∀
+  (low high : List.{0} UInt64) (multiplier previousHigh : UInt64) (carry : Bool),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64))
+    (ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64)) low high)
+      multiplier previousHigh carry)
+    (have first : Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) :=
+      ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply low multiplier previousHigh
+        carry;
+    have last : Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) :=
+      ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply high multiplier
+        (@Prod.snd.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) first))
+        (@Prod.fst.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) first));
+    @Prod.mk.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64)
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) first)
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) last))
+      (@Prod.mk.{0, 0} Bool UInt64
+        (@Prod.fst.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) last))
+        (@Prod.snd.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) last))))
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_word_product_can_resume_with_both_its_actual_high_word_and_captured_carry' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.the_original_entire_unsigned_product_is_the_partial_product_followed_by_its_actual_final_adc : ∀
+  (words : List.{0} UInt64) (multiplier : UInt64),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) Bool)
+    (ShielddSecurity.TransferBlstArmInverseWordMultiplyCarry01.sourceUnsignedWordMultiply words multiplier)
+    (have first : Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) :=
+      ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply words multiplier
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))) Bool.false;
+    have last : Prod.{0, 0} UInt64 Bool :=
+      ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0)))
+        (@Prod.snd.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) first))
+        (@Prod.fst.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) first));
+    @Prod.mk.{0, 0} (List.{0} UInt64) Bool
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt64) (List.{0} UInt64) (List.{0} UInt64)
+        (@instHAppendOfAppend.{0} (List.{0} UInt64) (@List.instAppend.{0} UInt64))
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) first)
+        (@List.cons.{0} UInt64 (@Prod.fst.{0, 0} UInt64 Bool last) (@List.nil.{0} UInt64)))
+      (@Prod.snd.{0, 0} UInt64 Bool last))
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.the_original_entire_unsigned_product_is_the_partial_product_followed_by_its_actual_final_adc' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.one_source_partial_product_word_consumes_the_actual_previous_high_and_carry : ∀
+  (word : UInt64) (rest : List.{0} UInt64) (multiplier previousHigh : UInt64) (carry : Bool),
+  @Eq.{1} (Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64))
+    (ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply
+      (@List.cons.{0} UInt64 word rest) multiplier previousHigh carry)
+    (have step : Prod.{0, 0} UInt64 Bool :=
+      ShielddSecurity.TransferBlstArmCarryChains01.sourceAddCarry
+        (ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordLow word multiplier) previousHigh carry;
+    have after : Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) :=
+      ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply rest multiplier
+        (ShielddSecurity.TransferBlstArmInverseWordMultiply01.sourceMultiplyWordHigh word multiplier)
+        (@Prod.snd.{0, 0} UInt64 Bool step);
+    @Prod.mk.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64)
+      (@List.cons.{0} UInt64 (@Prod.fst.{0, 0} UInt64 Bool step)
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) after))
+      (@Prod.mk.{0, 0} Bool UInt64
+        (@Prod.fst.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) after))
+        (@Prod.snd.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) after))))
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.one_source_partial_product_word_consumes_the_actual_previous_high_and_carry' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_symbolic_partial_product_pair_list_retains_the_entire_input_word_count : ∀
+  (words : List.{0} UInt64) (multiplier previousHigh : UInt64),
+  @Eq.{1} Nat
+    (@List.length.{0} (Prod.{0, 0} UInt64 UInt64)
+      (@Prod.fst.{0, 0} (List.{0} (Prod.{0, 0} UInt64 UInt64)) UInt64
+        (ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialProductPairs multiplier previousHigh
+          words)))
+    (@List.length.{0} UInt64 words)
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_symbolic_partial_product_pair_list_retains_the_entire_input_word_count' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_word_product_retains_the_entire_input_word_count : ∀
+  (words : List.{0} UInt64) (multiplier previousHigh : UInt64) (carry : Bool),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64)
+        (ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply words multiplier
+          previousHigh carry)))
+    (@List.length.{0} UInt64 words)
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_word_product_retains_the_entire_input_word_count' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_word_product_conserves_the_full_integer_with_both_captured_boundary_values : ∀
+  (words : List.{0} UInt64) (multiplier previousHigh : UInt64) (carry : Bool),
+  have output : Prod.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) :=
+    ShielddSecurity.TransferBlstArmInversePartialProductSplit01.sourcePartialWordMultiply words multiplier previousHigh
+      carry;
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Prod.fst.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) output))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (UInt64.toNat
+            (@Prod.snd.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) output)))
+          (Bool.toNat
+            (@Prod.fst.{0, 0} Bool UInt64 (@Prod.snd.{0, 0} (List.{0} UInt64) (Prod.{0, 0} Bool UInt64) output))))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords words) (UInt64.toNat multiplier))
+        (UInt64.toNat previousHigh))
+      (Bool.toNat carry))
+'ShielddSecurity.TransferBlstArmInversePartialProductSplit01.every_partial_word_product_conserves_the_full_integer_with_both_captured_boundary_values' depends on axioms: [propext,
+ Quot.sound]
