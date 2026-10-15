@@ -1,0 +1,228 @@
+ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract : (step :
+    Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat) →
+  Prop
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule : (step :
+    Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat) →
+  Nat → Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePairSchedule01.plain_size_decreases_compose : ∀ (initial next final count : Nat)
+  (first :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) next
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+      initial)
+  (suffix :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) final
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count))
+      next),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) final
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    initial
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.plain_size_decreases_compose' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.plain_size_decrease_leaves_the_tail_budget : ∀
+  (initial final count tail : Nat)
+  (progress :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) final
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count))
+      initial)
+  (budget :
+    @LE.le.{0} Nat instLENat initial
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        tail)),
+  @LE.le.{0} Nat instLENat final tail
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.plain_size_decrease_leaves_the_tail_budget' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_retains_odd_second_value : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (count : Nat)
+  (input : Prod.{0, 0} Nat Nat)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_retains_odd_second_value' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_retains_capacity : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (count : Nat)
+  (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+    (@LT.lt.{0} Nat instLTNat
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_retains_capacity' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_retains_zero_first_value : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (count : Nat)
+  (input : Prod.{0, 0} Nat Nat)
+  (zero : @Eq.{1} Nat (@Prod.fst.{0, 0} Nat Nat input) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))),
+  @Eq.{1} Nat
+    (@Prod.fst.{0, 0} Nat Nat
+      (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_retains_zero_first_value' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_reaches_zero_or_decreases_size_by31_per_step : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (count : Nat)
+  (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  Or
+    (@Eq.{1} Nat
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (@Prod.fst.{0, 0} Nat Nat
+              (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (@Prod.snd.{0, 0} Nat Nat
+              (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input))))
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_reaches_zero_or_decreases_size_by31_per_step' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_reaches_zero_or_leaves_the_tail_size_budget : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (count tail : Nat)
+  (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (budget :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        tail)),
+  Or
+    (@Eq.{1} Nat
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (@Prod.fst.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (@Prod.snd.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))))
+      tail)
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_reaches_zero_or_leaves_the_tail_size_budget' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_and_a_sufficient_exact_natural_tail_reach_zero : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step) (count tail : Nat)
+  (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (budget :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        tail)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk tail
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+          (@Prod.fst.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+          (@Prod.snd.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolic_schedule_and_a_sufficient_exact_natural_tail_reach_zero' depends on axioms: [propext,
+ Quot.sound]
