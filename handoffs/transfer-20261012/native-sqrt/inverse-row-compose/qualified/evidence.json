@@ -1,0 +1,167 @@
+{
+  "certification": false,
+  "complete_types_and_axioms": [
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows : Type",
+      "full_type_sha256": "aa90c39b44e49cd724da14fddc03688b4817ea6e214477a714dcff2c59d0f257",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows",
+      "full_type_sha256": "c0fbf9a0d4b0221f9ea2f98ebaa549f3b3c74cbbc28be540e086265216c4c133",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceComposeRows : (previous next :\n    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) \u2192\n  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows",
+      "full_type_sha256": "0c9eaf163f051f581166090767f9e4515e8d6759d09c2f45df19b61f356e3adc",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceComposeRows"
+    },
+    {
+      "axioms": [],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks : (inputA inputB scale valueA valueB : Int) \u2192\n  (rows : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) \u2192 Prop",
+      "full_type_sha256": "1a20492530820f5499da256832155e0cb55471cb9440c03de8478e7c0efefb10",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowCompose01.the_identity_rows_track_both_original_inputs_at_scale_one : \u2200\n  (inputA inputB : Int),\n  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB\n    (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1))) inputA inputB\n    ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows",
+      "full_type_sha256": "1261f8cd266a03a7285b1f0ca3cd1aad2711412f22fe17d78fa727ba2e78299e",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowCompose01.the_identity_rows_track_both_original_inputs_at_scale_one"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowCompose01.one_next_exact_row_composes_both_previous_exact_input_rows : \u2200\n  (inputA inputB valueA valueB result scale radix oldF0 oldG0 oldF1 oldG1 nextF nextG : Int)\n  (left :\n    @Eq.{1} Int (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale valueA)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldF0 inputA)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldG0 inputB)))\n  (right :\n    @Eq.{1} Int (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale valueB)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldF1 inputA)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) oldG1 inputB)))\n  (next :\n    @Eq.{1} Int (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) radix result)\n      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF valueA)\n        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG valueB))),\n  @Eq.{1} Int\n    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale radix) result)\n    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF oldF0)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG oldF1))\n        inputA)\n      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)\n        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF oldG0)\n          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG oldG1))\n        inputB))",
+      "full_type_sha256": "4ae156b05fc6d3c8256238f71b460684b684ed2eb857f2eb2da936e454e963fe",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowCompose01.one_next_exact_row_composes_both_previous_exact_input_rows"
+    },
+    {
+      "axioms": [
+        "propext"
+      ],
+      "full_type": "ShielddSecurity.TransferBlstArmInverseRowCompose01.two_exact_linear_row_steps_compose_at_the_product_of_their_scales : \u2200\n  (inputA inputB valueA valueB resultA resultB scale radix : Int)\n  (previous next : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows)\n  (old :\n    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB scale valueA valueB previous)\n  (step :\n    ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks valueA valueB radix resultA resultB next),\n  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks inputA inputB\n    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) scale radix) resultA resultB\n    (ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceComposeRows previous next)",
+      "full_type_sha256": "bec8d82107e01e5094d8780e12c326f3cbf6c098b2b85444f729339e46e2f454",
+      "name": "ShielddSecurity.TransferBlstArmInverseRowCompose01.two_exact_linear_row_steps_compose_at_the_product_of_their_scales"
+    }
+  ],
+  "dependency_sources_verified": 374,
+  "full_transfer": "OPEN",
+  "manifest": {
+    "bytes": 122479,
+    "sha256": "aa989c50bf3c382fe3fcbb4ff23173f9a20bbc8284d1a0eb1fc34344573e3ac3"
+  },
+  "modules": {
+    "TransferBlstArmInverseRowCompose01": {
+      "objects": [
+        {
+          "bytes": 132384,
+          "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-row-compose-20261014-02\\project\\ShielddSecurity\\TransferBlstArmInverseRowCompose01.olean",
+          "sha256": "c09e57733d44bc977f748658b214cb7cff117b569ad2f4e4cbda729b05d41ed1"
+        }
+      ],
+      "peak_rss_bytes": 1066115072,
+      "plan_identity": {
+        "bytes": 937606,
+        "sha256": "86daa2786377e602a487b7523ee2d1a8a21ae99baba71e0a3acf8918b0f5ff68"
+      },
+      "report": {
+        "bytes": 4882,
+        "path": "receipts/TransferBlstArmInverseRowCompose01.full-types-and-axioms.txt",
+        "sha256": "2271408ed8236cf0525194e022ffc5a1353a2b06fba7e63c18cead78c8329b5d"
+      },
+      "reports": 7,
+      "runner_identity": {
+        "bytes": 24776,
+        "sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c"
+      },
+      "scope": "Exact linear coefficient-row identity, matrix composition and scale-product tracking from two established full row equations. Small generic algebra for source inverse coefficient accumulation; row production and native operations remain separate.",
+      "seconds": 14.0810846999957,
+      "source": {
+        "bytes": 3905,
+        "sha256": "3c059a949735d17712b610719895b213f7179a6b99e18edb2a328fd0340fa75b"
+      },
+      "source_closure_bound": 68
+    }
+  },
+  "native_credit": 0,
+  "new_source_model_audits": 7,
+  "object_provenance_inputs": {
+    "bytes": 8146,
+    "sha256": "623643263b6f97e5812830cd04ef27294695cb4a760746d531084b2e22fd397c"
+  },
+  "object_provenance_reviews": {
+    "TransferBlstArmInverseRowCompose01": {
+      "external_files": 16111,
+      "external_identity": {
+        "bytes": 9353014,
+        "sha256": "eb9a4865825e5ad649cbe00c16b9442edc7ab5a4b4d73bc80b759ac76b1d8808"
+      },
+      "original_composition": {
+        "bytes": 1163238,
+        "path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\transfer-blst-arm-inverse-row-compose-20261014-02-owned-floor\\composition-review.json",
+        "sha256": "2c8948326633556204ebdd29799819dccc9c1dcc931d761606a70e5fd12cf936"
+      },
+      "owned_imports": 70
+    }
+  },
+  "refresh": {
+    "bytes": 10375,
+    "sha256": "52ada423a98dc496948547c2788a96f325c9a113e72a49763b174603eeab48cc"
+  },
+  "reports": 7,
+  "resource_profile": {
+    "certification": false,
+    "containment_check": {
+      "dynamic_limit_updated": true,
+      "lean_started": false,
+      "limits_of_check": "Tiny Python processes only; no stress allocation. Account for headless conhost helpers in owned commit, preserving two primary processes.",
+      "nested_jobs": true,
+      "owned_processes_stopped": true,
+      "peak_private_mib": 13,
+      "proof_credit": 0,
+      "status": "passed"
+    },
+    "controller_diagnostics": "Bounded1MiB capture, stored locally, never a successful proof receipt",
+    "heap_mib": 8192,
+    "inner_job_memory_and_rss_mib": 12288,
+    "max_heartbeats": 300000,
+    "max_rec_depth": 4096,
+    "measured_commit_headroom_mib": 4822,
+    "measured_free_ram_mib": 4388,
+    "measured_visible_ram_mib": 16322,
+    "memory_poll_seconds": 0.25,
+    "native_credit": 0,
+    "old_plans_runners_and_executing_runs_modified": false,
+    "outer_admission_extra_reserve_mib": 0,
+    "outer_effective_limit": "min(maximum, current_owned_commit + min(freeRAM-1536MiB, commitHeadroom-1024MiB))",
+    "outer_pressure_stop_commit_headroom_mib": 1024,
+    "outer_pressure_stop_free_ram_mib": 1536,
+    "outer_supervisor_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\supervise-native-verifier-expanded8-r02-20261014.py",
+    "outer_supervisor_sha256": "48bef472d962d86137ff9d34f93cc13f49a1b21c5a1175be9782707fa8d3af86",
+    "outer_whole_group_private_commit_max_mib": 10240,
+    "per_lean_wall_seconds": 240,
+    "profile": "expanded8192",
+    "proof_credit": 0,
+    "runner_path": "C:\\src\\shieldd-formal\\.work\\diagnostics\\native-expanded8-memory-runner-20261014.py",
+    "runner_sha256": "32e3856ab841004a8485435e423cac3ae407d84da227b44750ca7ce803ceda9c",
+    "stable_admission_seconds": 60,
+    "status": "HUMAN_AUTHORIZED_FRESH_PLAN_PROFILE",
+    "threads": 1,
+    "user_instruction": "you are allowed to use way more memory; the earlier4GiB value is not a ceiling; keep the machine responsive",
+    "whole_lean_seconds": 600,
+    "whole_lifecycle_wall_seconds": 1800
+  },
+  "runtime_binding_review": {
+    "bytes": 4169,
+    "sha256": "57b16eff9aabe4fbab4127f9f8041af3b1d308faf47099cad0f3056ab50f9a34"
+  },
+  "runtime_sha": "844389ee069e1fb2e576708842d0b389b4d9a44a",
+  "scope": "Generic matrix row composition at product scale. Production of source rows and finite-word correspondence remain separate obligations. Native credit zero; full Transfer remains OPEN.",
+  "status": "passed"
+}
