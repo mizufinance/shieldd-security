@@ -1,0 +1,69 @@
+ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixMagnitudes : (count : Nat) →
+  (input : Prod.{0, 0} Nat Nat) → Prod.{0, 0} Nat Nat
+'ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixMagnitudes' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixLinearRows : (count : Nat) →
+  (input : Prod.{0, 0} Nat Nat) → ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows
+'ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixLinearRows' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedRows01.original_repacked_prefix_produces_rows_tracking_both_entire_magnitudes : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (bounded : @LE.le.{0} Nat instLENat count (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))
+    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) count)
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixMagnitudes count input)))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixMagnitudes count input)))
+    (ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixLinearRows count input)
+'ShielddSecurity.TransferBlstArmInverseProducedRows01.original_repacked_prefix_produces_rows_tracking_both_entire_magnitudes' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseProducedRows01.original_magnitude_batch_produces_its_exact_full_sign_corrected_rows : ∀
+  (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearTracks
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.fst.{0, 0} Nat Nat input))
+    (@Nat.cast.{0} Int instNatCastInt (@Prod.snd.{0, 0} Nat Nat input))
+    (@HPow.hPow.{0, 0, 0} Int Nat Int (@instHPow.{0, 0} Int Nat (@Monoid.toPow.{0} Int Int.instMonoid))
+      (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.fst.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseMagnitudeBatch01.sourceMagnitudeBatch input)))
+    (@Nat.cast.{0} Int instNatCastInt
+      (@Prod.snd.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseMagnitudeBatch01.sourceMagnitudeBatch input)))
+    (ShielddSecurity.TransferBlstArmInverseProducedRows01.sourcePrefixLinearRows
+      (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) input)
+'ShielddSecurity.TransferBlstArmInverseProducedRows01.original_magnitude_batch_produces_its_exact_full_sign_corrected_rows' depends on axioms: [propext,
+ Quot.sound]
