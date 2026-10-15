@@ -1,0 +1,83 @@
+ShielddSecurity.TransferBlstArmInverseRowSumDecode01.every_factor_in_a_31_step_bounded_row_fits_the_entire_signed64_range : ∀
+  (f g : Int)
+  (row :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f) (Int.natAbs g))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))),
+  And
+    (And
+      (@LE.le.{0} Int Int.instLEInt
+        (@Neg.neg.{0} Int Int.instNegInt
+          (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+        f)
+      (@LT.lt.{0} Int Int.instLTInt f
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))))
+    (And
+      (@LE.le.{0} Int Int.instLEInt
+        (@Neg.neg.{0} Int Int.instNegInt
+          (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+        g)
+      (@LT.lt.{0} Int Int.instLTInt g
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))))
+'ShielddSecurity.TransferBlstArmInverseRowSumDecode01.every_factor_in_a_31_step_bounded_row_fits_the_entire_signed64_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseRowSumDecode01.every_equal_width_unsigned_input_and_31_step_row_sum_fits_the_full_signed_output : ∀
+  (left right : List.{0} UInt64) (f g : Int)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right))
+  (row :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f) (Int.natAbs g))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))),
+  @LT.lt.{0} Nat instLTNat
+    (Int.natAbs
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords left)) f)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords right)) g)))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))
+      (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808))))
+'ShielddSecurity.TransferBlstArmInverseRowSumDecode01.every_equal_width_unsigned_input_and_31_step_row_sum_fits_the_full_signed_output' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowSumDecode01.original_two_signed_products_and_carry_sum_derive_the_entire_31_step_row_integer : ∀
+  (left right : List.{0} UInt64) (f g : Int)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right))
+  (row :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f) (Int.natAbs g))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31)))))
+  (leftNonzero :
+    @LT.lt.{0} Int Int.instLTInt f (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords left))
+  (rightNonzero :
+    @LT.lt.{0} Int Int.instLTInt g (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords right)),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))
+          (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseSignedProductSum01.sourceSignedProductSum left right f g)))))
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords left)) f)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords right)) g))
+'ShielddSecurity.TransferBlstArmInverseRowSumDecode01.original_two_signed_products_and_carry_sum_derive_the_entire_31_step_row_integer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
