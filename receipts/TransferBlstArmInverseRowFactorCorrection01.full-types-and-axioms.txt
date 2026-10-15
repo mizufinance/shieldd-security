@@ -1,0 +1,132 @@
+ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.an_exact_external_row_mask_derives_both_complete_corrected_factor_codes : ∀
+  (f g value : Int) (mask : UInt64)
+  (origin :
+    @Eq.{1} UInt64 mask
+      (@ite.{1} UInt64 (@LT.lt.{0} Int Int.instLTInt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (Int.decLt value (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+        (@Neg.neg.{0} UInt64 instNegUInt64 (@OfNat.ofNat.{0} UInt64 (nat_lit 1) (@UInt64.instOfNat (nat_lit 1))))
+        (@OfNat.ofNat.{0} UInt64 (nat_lit 0) (@UInt64.instOfNat (nat_lit 0))))),
+  @Eq.{1} (Prod.{0, 0} UInt64 UInt64)
+    (@Prod.mk.{0, 0} UInt64 UInt64
+      (ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.sourceExternalFactorSignCorrection
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode f) mask)
+      (ShielddSecurity.TransferBlstArmInverseFactorSignCorrection01.sourceExternalFactorSignCorrection
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode g) mask))
+    (@Prod.mk.{0, 0} UInt64 UInt64
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) f))
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) g)))
+'ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.an_exact_external_row_mask_derives_both_complete_corrected_factor_codes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.the_source_row_result_sign_preserves_each_entire_factor_magnitude : ∀
+  (value factor : Int),
+  @Eq.{1} Nat
+    (Int.natAbs
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) factor))
+    (Int.natAbs factor)
+'ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.the_source_row_result_sign_preserves_each_entire_factor_magnitude' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.a_31_step_bounded_row_derives_signed64_bounds_for_both_sign_corrected_factors : ∀
+  (f g value : Int)
+  (row :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f) (Int.natAbs g))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))))),
+  And
+    (And
+      (@LE.le.{0} Int Int.instLEInt
+        (@Neg.neg.{0} Int Int.instNegInt
+          (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) f))
+      (@LT.lt.{0} Int Int.instLTInt
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) f)
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))))
+    (And
+      (@LE.le.{0} Int Int.instLEInt
+        (@Neg.neg.{0} Int Int.instNegInt
+          (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) g))
+      (@LT.lt.{0} Int Int.instLTInt
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) g)
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))))
+'ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.a_31_step_bounded_row_derives_signed64_bounds_for_both_sign_corrected_factors' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.sourceOriginalCorrectedFactorWords : (second : Bool) →
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.sourceOriginalCorrectedFactorWords' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.original_word_sum_top_asr_and_factor_eor_sub_derive_both_complete_corrected_factor_codes : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} (Prod.{0, 0} UInt64 UInt64)
+    (ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.sourceOriginalCorrectedFactorWords second a b)
+    (@Prod.mk.{0, 0} UInt64 UInt64
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign
+            (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+              (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+          (@Prod.fst.{0, 0} Int Int
+            (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow
+              (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))))
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign
+            (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+              (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+          (@Prod.snd.{0, 0} Int Int
+            (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow
+              (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b)))))
+'ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.original_word_sum_top_asr_and_factor_eor_sub_derive_both_complete_corrected_factor_codes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.original_word_sum_top_asr_and_factor_eor_sub_derive_both_entire_signed_coefficients : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  And
+    (@Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.sourceOriginalCorrectedFactorWords second a b)))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign
+          (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+        (@Prod.fst.{0, 0} Int Int
+          (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow
+            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))))
+    (@Eq.{1} Int
+      (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+        (@Prod.snd.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.sourceOriginalCorrectedFactorWords second a b)))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign
+          (ShielddSecurity.TransferBlstArmInverseOriginalRowMagnitude01.sourceOriginalRowQuotient
+            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+        (@Prod.snd.{0, 0} Int Int
+          (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow
+            (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))))
+'ShielddSecurity.TransferBlstArmInverseRowFactorCorrection01.original_word_sum_top_asr_and_factor_eor_sub_derive_both_entire_signed_coefficients' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
