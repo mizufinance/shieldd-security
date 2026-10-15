@@ -1,0 +1,149 @@
+ShielddSecurity.TransferBlstArmInverseScheduleUnit01.an_abstract_valid_pair_schedule_with_gcd_preserving_steps_preserves_the_initial_gcd : ∀
+  (step : Prod.{0, 0} Nat Nat → Prod.{0, 0} Nat Nat)
+  (contract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract step)
+  (keepsGcd :
+    ∀ (input : Prod.{0, 0} Nat Nat),
+      @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) →
+        @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))) →
+          @Eq.{1} Nat
+              (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) →
+            @Eq.{1} Nat (Nat.gcd (@Prod.fst.{0, 0} Nat Nat (step input)) (@Prod.snd.{0, 0} Nat Nat (step input)))
+              (Nat.gcd (@Prod.fst.{0, 0} Nat Nat input) (@Prod.snd.{0, 0} Nat Nat input)))
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (Nat.gcd
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input))
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInversePairSchedule01.symbolicPairSchedule step count input)))
+    (Nat.gcd (@Prod.fst.{0, 0} Nat Nat input) (@Prod.snd.{0, 0} Nat Nat input))
+'ShielddSecurity.TransferBlstArmInverseScheduleUnit01.an_abstract_valid_pair_schedule_with_gcd_preserving_steps_preserves_the_initial_gcd' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseScheduleUnit01.every_valid_symbolic_magnitude_batch_schedule_preserves_the_entire_initial_gcd : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (Nat.gcd
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))
+    (Nat.gcd (@Prod.fst.{0, 0} Nat Nat input) (@Prod.snd.{0, 0} Nat Nat input))
+'ShielddSecurity.TransferBlstArmInverseScheduleUnit01.every_valid_symbolic_magnitude_batch_schedule_preserves_the_entire_initial_gcd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseScheduleUnit01.every_sufficient_valid_source_schedule_with_unit_initial_gcd_finishes_at_zero_one : ∀
+  (count remaining : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (budget :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        remaining))
+  (unit :
+    @Eq.{1} Nat (Nat.gcd (@Prod.fst.{0, 0} Nat Nat input) (@Prod.snd.{0, 0} Nat Nat input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have final : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk remaining
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+        (@Prod.fst.{0, 0} Nat Nat
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+        (@Prod.snd.{0, 0} Nat Nat
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)));
+  And
+    (@Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a final)
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b final)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseScheduleUnit01.every_sufficient_valid_source_schedule_with_unit_initial_gcd_finishes_at_zero_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseScheduleUnit01.original_full_four_word_unit_inputs_finish_the_fifteen_batch_and_exact47_tail_at_zero_one : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (unit :
+    @Eq.{1} Nat
+      (Nat.gcd (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+        (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  have final : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors :=
+    ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+      (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+        (@Prod.fst.{0, 0} Nat Nat
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches
+            (@OfNat.ofNat.{0} Nat (nat_lit 15) (instOfNatNat (nat_lit 15)))
+            (@Prod.mk.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+              (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))))
+        (@Prod.snd.{0, 0} Nat Nat
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches
+            (@OfNat.ofNat.{0} Nat (nat_lit 15) (instOfNatNat (nat_lit 15)))
+            (@Prod.mk.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+              (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))));
+  And
+    (@Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a final)
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@Eq.{1} Nat (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.b final)
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'ShielddSecurity.TransferBlstArmInverseScheduleUnit01.original_full_four_word_unit_inputs_finish_the_fifteen_batch_and_exact47_tail_at_zero_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
