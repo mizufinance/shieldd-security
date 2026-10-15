@@ -1,0 +1,33 @@
+ShielddSecurity.TransferScalarFieldValues01.canonical_montgomery_word_contract_derives_exact_field_product : ∀
+  (left right output : Nat)
+  (canonical : @LT.lt.{0} Nat instLTNat output ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (relation :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          output)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) left right)
+        ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse output)
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse left)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            ShielddSecurity.TransferScalarMontgomeryValue01.radixInverse right)
+          ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))
+      ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferScalarFieldValues01.canonical_montgomery_word_contract_derives_exact_field_product' depends on axioms: [propext,
+ Quot.sound]
