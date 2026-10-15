@@ -1,0 +1,56 @@
+ShielddSecurity.TransferBlstArmInverseMask01.sourceTopCode : (top : Int) → UInt64
+'ShielddSecurity.TransferBlstArmInverseMask01.sourceTopCode' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseMask01.sourceExcessMask : (top : Int) → UInt64
+'ShielddSecurity.TransferBlstArmInverseMask01.sourceExcessMask' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMask01.sourceNegationMask : (top : Int) → UInt64
+'ShielddSecurity.TransferBlstArmInverseMask01.sourceNegationMask' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseMask01.sourceSelectedWords : (top : Int) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmInverseMask01.sourceSelectedWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandCarry : (top : Int) → Bool
+'ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandCarry' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandWords : (top : Int) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandWords' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMask01.original_second_correction_operand_retains_four_words : ∀ (top : Int),
+  @Eq.{1} Nat (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandWords top))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmInverseMask01.original_second_correction_operand_retains_four_words' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandVector : (top : Int) →
+  Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandVector' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMask01.original_second_correction_vector_retains_the_actual_operand_words : ∀
+  (top : Int),
+  @Eq.{1} (List.{0} UInt64)
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      (ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandVector top))
+    (ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandWords top)
+'ShielddSecurity.TransferBlstArmInverseMask01.original_second_correction_vector_retains_the_actual_operand_words' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMask01.original_second_correction_masks_derive_the_actual_selected_operand_value : ∀
+  (top : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1)))) top)
+  (upper : @LE.le.{0} Int Int.instLEInt top (@OfNat.ofNat.{0} Int (nat_lit 1) (@instOfNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+      (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (ShielddSecurity.TransferBlstArmInverseMask01.sourceOperandVector top)))
+    (@ite.{1} Nat (@LT.lt.{0} Int Int.instLTInt top (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (Int.decLt top (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))
+      (@ite.{1} Nat (@LT.lt.{0} Int Int.instLTInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) top)
+        (Int.decLt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) top)
+        (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64
+            (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+          (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+            (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+              ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+'ShielddSecurity.TransferBlstArmInverseMask01.original_second_correction_masks_derive_the_actual_selected_operand_value' depends on axioms: [propext,
+ Quot.sound]
