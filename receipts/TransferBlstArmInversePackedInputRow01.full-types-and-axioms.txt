@@ -1,0 +1,47 @@
+ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceSelectFactorWordRow : (second : Bool) →
+  (words : Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))) → Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceSelectFactorWordRow' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceFactorRowCodes : (row : Prod.{0, 0} Int Int) →
+  Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceFactorRowCodes' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePackedInputRow01.encoding_four_coefficients_and_selecting_a_row_preserves_both_entire_integer_codes : ∀
+  (second : Bool) (state : ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors),
+  @Eq.{1} (Prod.{0, 0} UInt64 UInt64)
+    (ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceSelectFactorWordRow second
+      (@Prod.mk.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+          (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 state))
+        (@Prod.mk.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64)
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+            (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 state))
+          (@Prod.mk.{0, 0} UInt64 UInt64
+            (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 state))
+            (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordCode
+              (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 state))))))
+    (ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceFactorRowCodes
+      (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceSelectFactorRow second
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f0 state)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g0 state)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.f1 state)
+        (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.g1 state)))
+'ShielddSecurity.TransferBlstArmInversePackedInputRow01.encoding_four_coefficients_and_selecting_a_row_preserves_both_entire_integer_codes' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceInputPackedFactorRegisters : (a b :
+    ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) →
+  Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 (Prod.{0, 0} UInt64 UInt64))
+'ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceInputPackedFactorRegisters' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceOriginalInputFactorWords : (second : Bool) →
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords) → Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceOriginalInputFactorWords' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInversePackedInputRow01.original_input_window_packed_registers_and_slot_decoders_produce_both_entire_factor_row_codes : ∀
+  (second : Bool) (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords),
+  @Eq.{1} (Prod.{0, 0} UInt64 UInt64)
+    (ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceOriginalInputFactorWords second a b)
+    (ShielddSecurity.TransferBlstArmInversePackedInputRow01.sourceFactorRowCodes
+      (ShielddSecurity.TransferBlstArmInverseOriginalRowWords01.sourceOriginalFactorRow
+        (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) second a b))
+'ShielddSecurity.TransferBlstArmInversePackedInputRow01.original_input_window_packed_registers_and_slot_decoders_produce_both_entire_factor_row_codes' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
