@@ -1,0 +1,51 @@
+ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit : (multiplier operand : UInt64) → Prod.{0, 0} UInt64 UInt64
+'ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit' does not depend on any axioms
+ShielddSecurity.TransferBlstArmProducts01.actual_product_low_and_high_words_conserve_the_full_integer : ∀
+  (multiplier operand : UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (UInt64.toNat
+        (@Prod.fst.{0, 0} UInt64 UInt64
+          (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier operand)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (UInt64.toNat
+          (@Prod.snd.{0, 0} UInt64 UInt64
+            (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier operand)))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier) (UInt64.toNat operand))
+'ShielddSecurity.TransferBlstArmProducts01.actual_product_low_and_high_words_conserve_the_full_integer' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmProducts01.actual_product_low_word_is_the_source_wrapped_mul : ∀
+  (multiplier operand : UInt64),
+  @Eq.{1} UInt64
+    (@Prod.fst.{0, 0} UInt64 UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductSplit multiplier operand))
+    (@HMul.hMul.{0, 0, 0} UInt64 UInt64 UInt64 (@instHMul.{0} UInt64 instMulUInt64) multiplier operand)
+'ShielddSecurity.TransferBlstArmProducts01.actual_product_low_word_is_the_source_wrapped_mul' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords : (multiplier : UInt64) →
+  (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords' does not depend on any axioms
+ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords : (multiplier : UInt64) →
+  (words : List.{0} UInt64) → List.{0} UInt64
+'ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords' does not depend on any axioms
+ShielddSecurity.TransferBlstArmProducts01.source_product_vectors_retain_the_source_modulus_limb_count : ∀
+  (multiplier : UInt64) (words : List.{0} UInt64),
+  And
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier words))
+      (@List.length.{0} UInt64 words))
+    (@Eq.{1} Nat
+      (@List.length.{0} UInt64 (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords multiplier words))
+      (@List.length.{0} UInt64 words))
+'ShielddSecurity.TransferBlstArmProducts01.source_product_vectors_retain_the_source_modulus_limb_count' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmProducts01.symbolic_packed_low_and_high_product_vectors_conserve_the_full_product : ∀
+  (multiplier : UInt64) (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+        (ShielddSecurity.TransferBlstArmProducts01.sourceProductLowWords multiplier words))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        ShielddSecurity.TransferScalarSerializationRange01.radix64
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (ShielddSecurity.TransferBlstArmProducts01.sourceProductHighWords multiplier words))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) (UInt64.toNat multiplier)
+      (ShielddSecurity.TransferScalarWordPrimitives01.packWords words))
+'ShielddSecurity.TransferBlstArmProducts01.symbolic_packed_low_and_high_product_vectors_conserve_the_full_product' depends on axioms: [propext]
