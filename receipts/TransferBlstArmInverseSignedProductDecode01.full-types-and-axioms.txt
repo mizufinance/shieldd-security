@@ -1,0 +1,104 @@
+ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode : (half unsigned : Int) → Int
+'ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.exact_residue_and_both_entire_ranges_derive_the_full_signed_integer : ∀
+  (half unsigned value : Int)
+  (unsignedNonnegative :
+    @LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) unsigned)
+  (unsignedSmall :
+    @LT.lt.{0} Int Int.instLTInt unsigned
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))
+  (signedLower : @LE.le.{0} Int Int.instLEInt (@Neg.neg.{0} Int Int.instNegInt half) value)
+  (signedUpper : @LT.lt.{0} Int Int.instLTInt value half)
+  (residue :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) unsigned
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) value
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))),
+  @Eq.{1} Int (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode half unsigned) value
+'ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.exact_residue_and_both_entire_ranges_derive_the_full_signed_integer' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.every_signed64_factor_has_magnitude_at_most_the_unsigned_half_word : ∀
+  (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  @LE.le.{0} Nat instLENat (Int.natAbs factor)
+    (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))
+'ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.every_signed64_factor_has_magnitude_at_most_the_unsigned_half_word' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.every_unsigned_word_input_times_signed64_factor_fits_strictly_inside_the_full_signed_output_range : ∀
+  (words : List.{0} UInt64) (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808)))),
+  @LT.lt.{0} Nat instLTNat
+    (Int.natAbs
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)) factor))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+      (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808))))
+'ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.every_unsigned_word_input_times_signed64_factor_fits_strictly_inside_the_full_signed_output_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.the_extra_output_word_capacity_is_exactly_twice_the_entire_signed_half_capacity : ∀
+  (count : Nat),
+  @Eq.{1} Nat
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) count
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 count)
+        (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+'ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.the_extra_output_word_capacity_is_exactly_twice_the_entire_signed_half_capacity' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.original_coded_factor_partial_products_derive_the_entire_signed_integer_product : ∀
+  (words : List.{0} UInt64) (factor : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt
+        (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+      factor)
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt factor
+      (@OfNat.ofNat.{0} Int (nat_lit 9223372036854775808) (@instOfNat (nat_lit 9223372036854775808))))
+  (negativeNonzero :
+    @LT.lt.{0} Int Int.instLTInt factor (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))) →
+      @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 words))
+          (@OfNat.ofNat.{0} Nat (nat_lit 9223372036854775808) (instOfNatNat (nat_lit 9223372036854775808)))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseSignedWordMultiply01.sourceSignedMagnitudeProductWords words
+              factor)))))
+    (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+      (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)) factor)
+'ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.original_coded_factor_partial_products_derive_the_entire_signed_integer_product' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
