@@ -1,0 +1,56 @@
+ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCaptureCarryWord : (word : UInt64) → (carry : Bool) → UInt64
+'ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCaptureCarryWord' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCapturedCarry01.every_bounded_source_adc_capture_has_the_entire_word_plus_actual_flag_value : ∀
+  (word : UInt64) (carry : Bool)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word) (Bool.toNat carry))
+      ShielddSecurity.TransferScalarSerializationRange01.radix64),
+  @Eq.{1} Nat (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCaptureCarryWord word carry))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (UInt64.toNat word) (Bool.toNat carry))
+'ShielddSecurity.TransferBlstArmInverseCapturedCarry01.every_bounded_source_adc_capture_has_the_entire_word_plus_actual_flag_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCapturedProductCarryWord : (first second row : Bool) →
+  UInt64
+'ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCapturedProductCarryWord' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseCapturedCarry01.the_three_original_carry_captures_derive_the_entire_sum_of_their_actual_flags : ∀
+  (first second row : Bool),
+  @Eq.{1} Nat
+    (UInt64.toNat
+      (ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCapturedProductCarryWord first second row))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Bool.toNat first) (Bool.toNat second))
+      (Bool.toNat row))
+'ShielddSecurity.TransferBlstArmInverseCapturedCarry01.the_three_original_carry_captures_derive_the_entire_sum_of_their_actual_flags' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCapturedCarry01.the_entire_accumulated_product_and_row_carry_word_is_at_most_three : ∀
+  (first second row : Bool),
+  @LE.le.{0} Nat instLENat
+    (UInt64.toNat
+      (ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCapturedProductCarryWord first second row))
+    (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+'ShielddSecurity.TransferBlstArmInverseCapturedCarry01.the_entire_accumulated_product_and_row_carry_word_is_at_most_three' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCapturedCarry01.two_full_partial_products_and_the_low_row_sum_derive_the_entire_combined_high_boundary : ∀
+  (capacity lowFirst lowSecond highFirst highSecond lowRow : Nat) (first second row : Bool)
+  (lowAddition :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) lowRow
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) capacity (Bool.toNat row)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) lowFirst lowSecond)),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) lowFirst
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) capacity
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) highFirst (Bool.toNat first))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) lowSecond
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) capacity
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) highSecond (Bool.toNat second)))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) lowRow
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) capacity
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) highFirst highSecond)
+          (UInt64.toNat
+            (ShielddSecurity.TransferBlstArmInverseCapturedCarry01.sourceCapturedProductCarryWord first second row)))))
+'ShielddSecurity.TransferBlstArmInverseCapturedCarry01.two_full_partial_products_and_the_low_row_sum_derive_the_entire_combined_high_boundary' depends on axioms: [propext,
+ Quot.sound]
