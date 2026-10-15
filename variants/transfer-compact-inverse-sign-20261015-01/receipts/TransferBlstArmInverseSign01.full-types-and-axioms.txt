@@ -1,0 +1,77 @@
+ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2 : Vector.{0} UInt64
+  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseSign01.original_rx2_words_are_exactly_twice_the_scalar_modulus : @Eq.{1} Nat
+  (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+    (@Vector.toList.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceRx2))
+  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+'ShielddSecurity.TransferBlstArmInverseSign01.original_rx2_words_are_exactly_twice_the_scalar_modulus' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix : Int
+'ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift : Int
+'ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_is_between_half_and_whole_wide_radix : And
+  (@LT.lt.{0} Int Int.instLTInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+    ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)
+  (And
+    (@LT.lt.{0} Int Int.instLTInt ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+    (@LT.lt.{0} Int Int.instLTInt ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2)))
+        ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)))
+'ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_is_between_half_and_whole_wide_radix' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedFirst : (value : Int) → Int
+'ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedFirst' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection : (value : Int) → Int
+'ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_derive_unsigned_wide_range : ∀
+  (value : Int)
+  (lower :
+    @LE.le.{0} Int Int.instLEInt
+      (@Neg.neg.{0} Int Int.instNegInt ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix) value)
+  (upper : @LE.le.{0} Int Int.instLEInt value ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix),
+  And
+    (@LE.le.{0} Int Int.instLEInt (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))
+      (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection value))
+    (@LT.lt.{0} Int Int.instLTInt (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection value)
+      ShielddSecurity.TransferBlstArmInverseSign01.sourceWideRadix)
+'ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_derive_unsigned_wide_range' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_has_zero_scalar_field_residue : @Eq.{1}
+  (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+  (@Int.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@AddGroupWithOne.toIntCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+    ShielddSecurity.TransferBlstArmInverseSign01.sourceCorrectionShift)
+  (@OfNat.ofNat.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus) (nat_lit 0)
+    (@Zero.toOfNat0.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@MulZeroClass.toZero.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@instMulZeroClassOfSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@CommSemiring.toSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (@CommRing.toCommSemiring.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+              (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)))))))
+'ShielddSecurity.TransferBlstArmInverseSign01.original_correction_shift_has_zero_scalar_field_residue' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_retain_the_original_coefficient_field_residue : ∀
+  (value : Int),
+  @Eq.{1} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+    (@Int.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@AddGroupWithOne.toIntCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+      (ShielddSecurity.TransferBlstArmInverseSign01.sourceSignedCorrection value))
+    (@Int.cast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+      (@AddGroupWithOne.toIntCast.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+        (@Ring.toAddGroupWithOne.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+          (@CommRing.toRing.{0} (ZMod ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus)
+            (ZMod.commRing ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus))))
+      value)
+'ShielddSecurity.TransferBlstArmInverseSign01.original_two_signed_adjustments_retain_the_original_coefficient_field_residue' depends on axioms: [propext,
+ Quot.sound]
