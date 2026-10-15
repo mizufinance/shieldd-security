@@ -1,0 +1,177 @@
+ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.sourceCoefficientRowWords : (left right :
+    List.{0} UInt64) →
+  (factors : Prod.{0, 0} UInt64 UInt64) → Prod.{0, 0} (List.{0} UInt64) Bool
+'ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.sourceCoefficientRowWords' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.every_equal_width_source_coefficient_row_retains_the_entire_original_word_count : ∀
+  (left right : List.{0} UInt64) (factors : Prod.{0, 0} UInt64 UInt64)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right)),
+  @Eq.{1} Nat
+    (@List.length.{0} UInt64
+      (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+        (ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.sourceCoefficientRowWords left right factors)))
+    (@List.length.{0} UInt64 left)
+'ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.every_equal_width_source_coefficient_row_retains_the_entire_original_word_count' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.every_equal_width_source_coefficient_row_derives_the_complete_signed_linear_combination_residue : ∀
+  (left right : List.{0} UInt64) (factors : Prod.{0, 0} UInt64 UInt64)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right)),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.sourceCoefficientRowWords left right
+              factors))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords left))
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.fst.{0, 0} UInt64 UInt64 factors)))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords right))
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.snd.{0, 0} UInt64 UInt64 factors))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))))
+'ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.every_equal_width_source_coefficient_row_derives_the_complete_signed_linear_combination_residue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.equal_entire_input_residues_preserve_every_signed_linear_combination_residue : ∀
+  (capacity left right a b f g : Int)
+  (leftInput :
+    @Eq.{1} Int (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) left capacity)
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) a capacity))
+  (rightInput :
+    @Eq.{1} Int (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) right capacity)
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) b capacity)),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) left f)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) right g))
+      capacity)
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) a f)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) b g))
+      capacity)
+'ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.equal_entire_input_residues_preserve_every_signed_linear_combination_residue' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.source_coefficient_words_with_exact_input_residues_derive_the_entire_integer_row_residue : ∀
+  (left right : List.{0} UInt64) (factors : Prod.{0, 0} UInt64 UInt64) (a b : Int)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right))
+  (leftInput :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords left))
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) a
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left)))))
+  (rightInput :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords right))
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) b
+        (@Nat.cast.{0} Int instNatCastInt
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))))),
+  @Eq.{1} Int
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.sourceCoefficientRowWords left right
+              factors))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))))
+    (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) a
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.fst.{0, 0} UInt64 UInt64 factors)))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) b
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.snd.{0, 0} UInt64 UInt64 factors))))
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left))))
+'ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.source_coefficient_words_with_exact_input_residues_derive_the_entire_integer_row_residue' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.bounded_entire_integer_rows_are_recovered_from_the_source_coefficient_word_program : ∀
+  (left right : List.{0} UInt64) (factors : Prod.{0, 0} UInt64 UInt64) (a b half : Int)
+  (same : @Eq.{1} Nat (@List.length.{0} UInt64 left) (@List.length.{0} UInt64 right))
+  (capacity :
+    @Eq.{1} Int
+      (@Nat.cast.{0} Int instNatCastInt
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          ShielddSecurity.TransferScalarSerializationRange01.radix64 (@List.length.{0} UInt64 left)))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+        (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))
+  (leftInput :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords left))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) a
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half)))
+  (rightInput :
+    @Eq.{1} Int
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod)
+        (@Nat.cast.{0} Int instNatCastInt (ShielddSecurity.TransferScalarWordPrimitives01.packWords right))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half))
+      (@HMod.hMod.{0, 0, 0} Int Int Int (@instHMod.{0} Int Int.instMod) b
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (@OfNat.ofNat.{0} Int (nat_lit 2) (@instOfNat (nat_lit 2))) half)))
+  (lower :
+    @LE.le.{0} Int Int.instLEInt (@Neg.neg.{0} Int Int.instNegInt half)
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) a
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.fst.{0, 0} UInt64 UInt64 factors)))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) b
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.snd.{0, 0} UInt64 UInt64 factors)))))
+  (upper :
+    @LT.lt.{0} Int Int.instLTInt
+      (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) a
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.fst.{0, 0} UInt64 UInt64 factors)))
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) b
+          (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+            (@Prod.snd.{0, 0} UInt64 UInt64 factors))))
+      half),
+  @Eq.{1} Int
+    (ShielddSecurity.TransferBlstArmInverseSignedProductDecode01.sourceSignedRadixDecode half
+      (@Nat.cast.{0} Int instNatCastInt
+        (ShielddSecurity.TransferScalarWordPrimitives01.packWords
+          (@Prod.fst.{0, 0} (List.{0} UInt64) Bool
+            (ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.sourceCoefficientRowWords left right
+              factors)))))
+    (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) a
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+          (@Prod.fst.{0, 0} UInt64 UInt64 factors)))
+      (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) b
+        (ShielddSecurity.TransferBlstArmInverseSignedWord01.sourceSignedWordMeaning
+          (@Prod.snd.{0, 0} UInt64 UInt64 factors))))
+'ShielddSecurity.TransferBlstArmInverseCoefficientRowResidue01.bounded_entire_integer_rows_are_recovered_from_the_source_coefficient_word_program' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
