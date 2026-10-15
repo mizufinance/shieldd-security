@@ -1,0 +1,87 @@
+ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE : Nat → Nat → List.{0} UInt8
+'ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE' does not depend on any axioms
+ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE : List.{0} UInt8 → Nat
+'ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE' does not depend on any axioms
+ShielddSecurity.TransferScalarLittleEndianBytes01.wordBytes : (word : UInt64) → List.{0} UInt8
+'ShielddSecurity.TransferScalarLittleEndianBytes01.wordBytes' does not depend on any axioms
+ShielddSecurity.TransferScalarLittleEndianBytes01.wordsBytes : List.{0} UInt64 → List.{0} UInt8
+'ShielddSecurity.TransferScalarLittleEndianBytes01.wordsBytes' does not depend on any axioms
+ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes : (words : List.{0} UInt64) → List.{0} UInt8
+'ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey : (words :
+    Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))) →
+  Nat
+'ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey' depends on axioms: [propext, Quot.sound]
+ShielddSecurity.TransferScalarLittleEndianBytes01.typed_little_endian_encoding_has_exact_width : ∀ (width value : Nat),
+  @Eq.{1} Nat (@List.length.{0} UInt8 (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE width value)) width
+'ShielddSecurity.TransferScalarLittleEndianBytes01.typed_little_endian_encoding_has_exact_width' does not depend on any axioms
+ShielddSecurity.TransferScalarLittleEndianBytes01.little_endian_append_preserves_positional_value : ∀
+  (left right : List.{0} UInt8),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (@HAppend.hAppend.{0, 0, 0} (List.{0} UInt8) (List.{0} UInt8) (List.{0} UInt8)
+        (@instHAppendOfAppend.{0} (List.{0} UInt8) (@List.instAppend.{0} UInt8)) left right))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE left)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+          (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) (@List.length.{0} UInt8 left))
+        (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE right)))
+'ShielddSecurity.TransferScalarLittleEndianBytes01.little_endian_append_preserves_positional_value' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarLittleEndianBytes01.typed_little_endian_encoding_reconstructs_bounded_integer : ∀
+  (width value : Nat)
+  (bounded :
+    @LT.lt.{0} Nat instLTNat value
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@instPowNat.{0} Nat instNatPowNat))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256))) width)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.encodeLE width value))
+    value
+'ShielddSecurity.TransferScalarLittleEndianBytes01.typed_little_endian_encoding_reconstructs_bounded_integer' depends on axioms: [propext]
+ShielddSecurity.TransferScalarLittleEndianBytes01.word_bytes_reconstruct_actual_finite_u64 : ∀ (word : UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.wordBytes word))
+    (UInt64.toNat word)
+'ShielddSecurity.TransferScalarLittleEndianBytes01.word_bytes_reconstruct_actual_finite_u64' depends on axioms: [propext]
+ShielddSecurity.TransferScalarLittleEndianBytes01.serialized_word_vector_has_eight_bytes_per_word : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat (@List.length.{0} UInt8 (ShielddSecurity.TransferScalarLittleEndianBytes01.wordsBytes words))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+      (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) (@List.length.{0} UInt64 words))
+'ShielddSecurity.TransferScalarLittleEndianBytes01.serialized_word_vector_has_eight_bytes_per_word' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarLittleEndianBytes01.serialized_word_vector_reconstructs_actual_packed_words : ∀
+  (words : List.{0} UInt64),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.wordsBytes words))
+    (ShielddSecurity.TransferScalarWordPrimitives01.packWords words)
+'ShielddSecurity.TransferScalarLittleEndianBytes01.serialized_word_vector_reconstructs_actual_packed_words' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarLittleEndianBytes01.source_scalar_serialization_has_exact_32_byte_width : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @Eq.{1} Nat (@List.length.{0} UInt8 (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes words))
+    (@OfNat.ofNat.{0} Nat (nat_lit 32) (instOfNatNat (nat_lit 32)))
+'ShielddSecurity.TransferScalarLittleEndianBytes01.source_scalar_serialization_has_exact_32_byte_width' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferScalarLittleEndianBytes01.source_scalar_serialization_reconstructs_canonical_field_value : ∀
+  (words : List.{0} UInt64)
+  (four : @Eq.{1} Nat (@List.length.{0} UInt64 words) (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @LT.lt.{0} Nat instLTNat
+    (ShielddSecurity.TransferScalarLittleEndianBytes01.decodeLE
+      (ShielddSecurity.TransferScalarLittleEndianBytes01.serializerBytes words))
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarLittleEndianBytes01.source_scalar_serialization_reconstructs_canonical_field_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferScalarLittleEndianBytes01.fixed_four_word_source_scalar_projection_is_canonical : ∀
+  (words : Vector.{0} UInt64 (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))),
+  @LT.lt.{0} Nat instLTNat (ShielddSecurity.TransferScalarLittleEndianBytes01.scalarKey words)
+    ShielddSecurity.TransferBoundedNativeCodec01.nullifierModulus
+'ShielddSecurity.TransferScalarLittleEndianBytes01.fixed_four_word_source_scalar_projection_is_canonical' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
