@@ -1,0 +1,55 @@
+ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound : (bound : Nat) →
+  (rows : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) → Prop
+'ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseRowNorm01.source_magnitude_sign_has_exact_natural_magnitude_one : ∀ (value : Int),
+  @Eq.{1} Nat (Int.natAbs (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value))
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInverseRowNorm01.source_magnitude_sign_has_exact_natural_magnitude_one' does not depend on any axioms
+ShielddSecurity.TransferBlstArmInverseRowNorm01.simultaneous_source_row_sign_correction_preserves_its_entire_row_sum : ∀
+  (value f g : Int),
+  @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (Int.natAbs
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) f))
+      (Int.natAbs
+        (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul)
+          (ShielddSecurity.TransferBlstArmInverseMagnitudeRows01.sourceMagnitudeSign value) g)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs f) (Int.natAbs g))
+'ShielddSecurity.TransferBlstArmInverseRowNorm01.simultaneous_source_row_sign_correction_preserves_its_entire_row_sum' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowNorm01.two_bounded_rows_and_a_bounded_combining_row_derive_the_product_row_sum_bound : ∀
+  (oldF0 oldG0 oldF1 oldG1 nextF nextG : Int) (oldBound nextBound : Nat)
+  (left :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs oldF0) (Int.natAbs oldG0)) oldBound)
+  (right :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs oldF1) (Int.natAbs oldG1)) oldBound)
+  (next :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (Int.natAbs nextF) (Int.natAbs nextG))
+      nextBound),
+  @LE.le.{0} Nat instLENat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (Int.natAbs
+        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF oldF0)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG oldF1)))
+      (Int.natAbs
+        (@HAdd.hAdd.{0, 0, 0} Int Int Int (@instHAdd.{0} Int Int.instAdd)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextF oldG0)
+          (@HMul.hMul.{0, 0, 0} Int Int Int (@instHMul.{0} Int Int.instMul) nextG oldG1))))
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) oldBound nextBound)
+'ShielddSecurity.TransferBlstArmInverseRowNorm01.two_bounded_rows_and_a_bounded_combining_row_derive_the_product_row_sum_bound' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowNorm01.exact_coefficient_row_composition_derives_the_product_of_both_row_sum_bounds : ∀
+  (previous next : ShielddSecurity.TransferBlstArmInverseRowCompose01.SourceLinearRows) (oldBound nextBound : Nat)
+  (old : ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound oldBound previous)
+  (step : ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound nextBound next),
+  ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) oldBound nextBound)
+    (ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceComposeRows previous next)
+'ShielddSecurity.TransferBlstArmInverseRowNorm01.exact_coefficient_row_composition_derives_the_product_of_both_row_sum_bounds' depends on axioms: [propext]
+ShielddSecurity.TransferBlstArmInverseRowNorm01.original_identity_coefficient_rows_have_both_row_sums_at_most_one : ShielddSecurity.TransferBlstArmInverseRowNorm01.SourceLinearRowsBound
+  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+  ShielddSecurity.TransferBlstArmInverseRowCompose01.sourceIdentityRows
+'ShielddSecurity.TransferBlstArmInverseRowNorm01.original_identity_coefficient_rows_have_both_row_sums_at_most_one' does not depend on any axioms
