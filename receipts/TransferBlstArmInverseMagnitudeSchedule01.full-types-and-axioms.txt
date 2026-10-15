@@ -1,0 +1,215 @@
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.originalSourceMagnitudeStepContract : ShielddSecurity.TransferBlstArmInversePairSchedule01.PairStepContract
+  ShielddSecurity.TransferBlstArmInverseMagnitudeBatch01.sourceMagnitudeBatch
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.originalSourceMagnitudeStepContract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches : (count : Nat) →
+  (input : Prod.{0, 0} Nat Nat) → Prod.{0, 0} Nat Nat
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches' depends on axioms: [propext,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_symbolic_source_batch_schedule_keeps_its_second_input_odd : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_symbolic_source_batch_schedule_keeps_its_second_input_odd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_valid_symbolic_source_batch_schedule_keeps_both_values_within_four_words : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  And
+    (@LT.lt.{0} Nat instLTNat
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+    (@LT.lt.{0} Nat instLTNat
+      (@Prod.snd.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_valid_symbolic_source_batch_schedule_keeps_both_values_within_four_words' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_symbolic_source_batch_schedule_keeps_a_zero_first_input_zero : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (zero : @Eq.{1} Nat (@Prod.fst.{0, 0} Nat Nat input) (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))),
+  @Eq.{1} Nat
+    (@Prod.fst.{0, 0} Nat Nat
+      (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_symbolic_source_batch_schedule_keeps_a_zero_first_input_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_valid_symbolic_source_batch_schedule_reaches_zero_or_decreases_size_by31_per_batch : ∀
+  (count : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  Or
+    (@Eq.{1} Nat
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (@Prod.fst.{0, 0} Nat Nat
+              (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))
+          (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+            (@Prod.snd.{0, 0} Nat Nat
+              (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input))))
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_valid_symbolic_source_batch_schedule_reaches_zero_or_decreases_size_by31_per_batch' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.a_valid_source_batch_schedule_reaches_zero_or_leaves_only_its_exact_tail_size_budget : ∀
+  (count remaining : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (budget :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        remaining)),
+  Or
+    (@Eq.{1} Nat
+      (@Prod.fst.{0, 0} Nat Nat
+        (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+      (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+    (@LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (@Prod.fst.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength
+          (@Prod.snd.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))))
+      remaining)
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.a_valid_source_batch_schedule_reaches_zero_or_leaves_only_its_exact_tail_size_budget' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_valid_source_batch_schedule_and_sufficient_exact_tail_reach_zero : ∀
+  (count remaining : Nat) (input : Prod.{0, 0} Nat Nat)
+  (leftBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.fst.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (rightBound :
+    @LT.lt.{0} Nat instLTNat (@Prod.snd.{0, 0} Nat Nat input)
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 256) (instOfNatNat (nat_lit 256)))))
+  (odd :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) (@Prod.snd.{0, 0} Nat Nat input)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (budget :
+    @LE.le.{0} Nat instLENat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.fst.{0, 0} Nat Nat input))
+        (ShielddSecurity.TransferBlstArmInverseBitlengthBudget01.sourceNatBitlength (@Prod.snd.{0, 0} Nat Nat input)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 31) (instOfNatNat (nat_lit 31))) count)
+        remaining)),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk remaining
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+          (@Prod.fst.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input))
+          (@Prod.snd.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches count input)))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.every_valid_source_batch_schedule_and_sufficient_exact_tail_reach_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.original_full_four_word_fifteen_batch_and_exact47_tail_source_schedule_reaches_zero : ∀
+  (a b : ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords)
+  (oddB :
+    @Eq.{1} Nat
+      (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod)
+        (UInt64.toNat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.SourceFourWords.w0 b))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Nat
+    (ShielddSecurity.TransferBlstArmInverseFactors01.SourceFactors.a
+      (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorWalk
+        (@OfNat.ofNat.{0} Nat (nat_lit 47) (instOfNatNat (nat_lit 47)))
+        (ShielddSecurity.TransferBlstArmInverseFactors01.sourceFactorInitial
+          (@Prod.fst.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches
+              (@OfNat.ofNat.{0} Nat (nat_lit 15) (instOfNatNat (nat_lit 15)))
+              (@Prod.mk.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+                (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b))))
+          (@Prod.snd.{0, 0} Nat Nat
+            (ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.sourceMagnitudeBatches
+              (@OfNat.ofNat.{0} Nat (nat_lit 15) (instOfNatNat (nat_lit 15)))
+              (@Prod.mk.{0, 0} Nat Nat (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords a)
+                (ShielddSecurity.TransferBlstArmInverseWindowSelect01.sourcePackedFourWords b)))))))
+    (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))
+'ShielddSecurity.TransferBlstArmInverseMagnitudeSchedule01.original_full_four_word_fifteen_batch_and_exact47_tail_source_schedule_reaches_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
